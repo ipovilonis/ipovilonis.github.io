@@ -11,7 +11,7 @@
 
 
 
-<title>About This Website</title>
+<title>colorimetry</title>
 
 <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -245,7 +245,7 @@ $(document).ready(function () {
   <a href="index.html">Home</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="about.html">Variables</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -259,12 +259,572 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About This Website</h1>
+<h1 class="title toc-ignore">colorimetry</h1>
 
 </div>
 
 
-<p>More about this website.</p>
+<p>Colorimetría cuantificada en 4 estados de maurez: Inmaduro (I), Medio Maduro (MM), Maduro (M), Sobre Maduro (SM).</p>
+<p>En 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y Gualeguaychú.</p>
+<p>Escala CieLab: L: luminosidad +a: rojo -a: verde +b: amarillo -b: azul</p>
+<p>colorímetro digital 3NH NH300</p>
+<div id="estadística-descriptiva" class="section level1">
+<h1>Estadística descriptiva</h1>
+<div id="l" class="section level2">
+<h2>L</h2>
+<p><img src="about_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a" class="section level2">
+<h2>a</h2>
+<p><img src="about_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="b" class="section level2">
+<h2>b</h2>
+<p><img src="about_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con promedio.</p>
+<p><img src="about_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="about_files/figure-html/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /><img src="about_files/figure-html/unnamed-chunk-5-3.png" width="672" style="display: block; margin: auto;" /> Tabla de color promedio por madurez.</p>
+<pre><code>##   madurez       Lc        ac       bc
+## 1       I 49.42974 -3.428042 32.43526
+## 2      MM 56.98465  4.479208 43.99984
+## 3       M 60.77104 13.187747 52.28874
+## 4      SM 53.63335 17.423670 44.42711</code></pre>
+<p>Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con línea de mayor frecuencia. <img src="about_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /><img src="about_files/figure-html/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /><img src="about_files/figure-html/unnamed-chunk-7-3.png" width="672" style="display: block; margin: auto;" /> Tabla de color más frecuente por madurez.</p>
+<pre><code>##   mad      Lfc       afc      bfc
+## 1   I 49.88773 -8.821792 38.20100
+## 2  MM 57.29858  1.356885 48.71289
+## 3   M 63.01838 10.579560 52.20948
+## 4  SM 50.07214 19.193400 38.95771</code></pre>
+<div id="paleta-de-colores." class="section level3">
+<h3>Paleta de colores.</h3>
+<p><img src="C:/Users/um/Desktop/Rwd/coloresmadREF.png" /> IP: inmaduro promedio, IF: inmaduro con mayor frecuencia, MMP: medio maduro promedio, MMF: medio maduro con mayor frecuencia, MP: maduro promedio, MF: maduro con mayor frecuencia, SMP: sobre maduro promedio, SMF: sobre maduro con mayor frecuencia.</p>
+</div>
+</div>
+</div>
+<div id="estadística-inferencial-estados-de-madurez." class="section level1">
+<h1>Estadística inferencial: estados de madurez.</h1>
+<div id="l-1" class="section level2">
+<h2>L</h2>
+<pre><code>## Denom. DF: 1022 
+##             numDF  F-value p-value
+## (Intercept)     1 74047.04  &lt;.0001
+## MAD             3   149.80  &lt;.0001</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a-1" class="section level2">
+<h2>a</h2>
+<pre><code>## Denom. DF: 1022 
+##             numDF  F-value p-value
+## (Intercept)     1 50723.88  &lt;.0001
+## MAD             3   684.81  &lt;.0001</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="b-1" class="section level2">
+<h2>b</h2>
+<pre><code>## Denom. DF: 1022 
+##             numDF  F-value p-value
+## (Intercept)     1 18278.94  &lt;.0001
+## MAD             3   222.33  &lt;.0001</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="conclusión" class="section level1">
+<h1>Conclusión</h1>
+<p>Se encontraron diferencias significativas para todos los estados de madurez en las 3 escalas L, a y b. Sólo en la escala b no se diferencia MM de SM.</p>
+</div>
+<div id="estadística-inferencial-poblaciones." class="section level1">
+<h1>Estadística inferencial: poblaciones.</h1>
+<div id="l-2" class="section level2">
+<h2>L</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: L ~ 1 + (1 | REG/ACC/id)
+##    Data: data
+## 
+## REML criterion at convergence: 6668.3
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.87068 -0.47702  0.03217  0.51644  2.16809 
+## 
+## Random effects:
+##  Groups       Name        Variance Std.Dev.
+##  id:(ACC:REG) (Intercept) 29.15    5.399   
+##  ACC:REG      (Intercept) 14.23    3.772   
+##  REG          (Intercept) 10.68    3.268   
+##  Residual                 17.14    4.140   
+## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)    53.76       1.98   27.15</code></pre>
+<pre><code>## [[1]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## [[2]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-12-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## [[3]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-12-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a-2" class="section level2">
+<h2>a</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: a ~ 1 + (1 | REG/ACC/id)
+##    Data: data
+## 
+## REML criterion at convergence: 6799.7
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.86950 -0.41349 -0.00893  0.45624  2.90675 
+## 
+## Random effects:
+##  Groups       Name        Variance Std.Dev.
+##  id:(ACC:REG) (Intercept) 50.60    7.113   
+##  ACC:REG      (Intercept) 32.96    5.741   
+##  REG          (Intercept) 19.33    4.397   
+##  Residual                 14.05    3.748   
+## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)    5.253      2.687   1.955</code></pre>
+<pre><code>## [[1]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## [[2]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-13-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## [[3]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-13-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="b-2" class="section level2">
+<h2>b</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: b ~ 1 + (1 | REG/ACC/id)
+##    Data: data
+## 
+## REML criterion at convergence: 7609
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.9114 -0.4641  0.0154  0.5155  3.5198 
+## 
+## Random effects:
+##  Groups       Name        Variance Std.Dev.
+##  id:(ACC:REG) (Intercept) 60.95    7.807   
+##  ACC:REG      (Intercept) 39.28    6.268   
+##  REG          (Intercept) 14.65    3.828   
+##  Residual                 47.25    6.874   
+## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)   40.648      2.417   16.82</code></pre>
+<pre><code>## [[1]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## [[2]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-14-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## [[3]]</code></pre>
+<p><img src="about_files/figure-html/unnamed-chunk-14-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="significación" class="section level1">
+<h1>Significación</h1>
+<pre><code>## Data: data
+## Models:
+## L2: L ~ 1 + (1 | REG)
+## L: L ~ 1 + (1 | REG/ACC/id)
+##    npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
+## L2    3 7134.8 7149.6 -3564.4   7128.8                         
+## L     5 6681.3 6706.0 -3335.7   6671.3 457.51  2  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##    df      AIC
+## L   5 6678.331
+## L2  3 7131.846</code></pre>
+<pre><code>## Data: data
+## Models:
+## a2: a ~ 1 + (1 | REG)
+## a: a ~ 1 + (1 | REG/ACC/id)
+##    npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
+## a2    3 7601.8 7616.6 -3797.9   7595.8                         
+## a     5 6813.3 6837.9 -3401.6   6803.3 792.53  2  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##    df      AIC
+## a   5 6809.680
+## a2  3 7598.356</code></pre>
+<pre><code>## Data: data
+## Models:
+## b2: a ~ 1 + (1 | REG)
+## b: b ~ 1 + (1 | REG/ACC/id)
+##    npar    AIC    BIC  logLik deviance Chisq Df Pr(&gt;Chisq)
+## b2    3 7601.8 7616.6 -3797.9   7595.8                    
+## b     5 7622.4 7647.1 -3806.2   7612.4     0  2          1</code></pre>
+<pre><code>##    df      AIC
+## b   5 7618.999
+## b2  3 7598.356</code></pre>
+</div>
+<div id="coeficientes-de-correlación-intra-clase-cci" class="section level1">
+<h1>Coeficientes de correlación intra clase (CCI)</h1>
+<p><em>Varianza residual sobre la varianza total</em></p>
+<div id="l-3" class="section level2">
+<h2>L</h2>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+L
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+53.76
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+49.88 – 57.64
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
+Random Effects
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+σ<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+17.14
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>id:(ACC:REG)</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+29.15
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>ACC:REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+14.23
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+10.68
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+ICC
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.76
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>id</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+513
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>ACC</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+51
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+3
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+1026
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.000 / 0.759
+</td>
+</tr>
+</table>
+</div>
+<div id="a-3" class="section level2">
+<h2>a</h2>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+a
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+5.25
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.01 – 10.52
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.051
+</td>
+</tr>
+<tr>
+<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
+Random Effects
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+σ<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+14.05
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>id:(ACC:REG)</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+50.60
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>ACC:REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+32.96
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+19.33
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+ICC
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.88
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>id</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+513
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>ACC</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+51
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+3
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+1026
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.000 / 0.880
+</td>
+</tr>
+</table>
+</div>
+<div id="b-3" class="section level2">
+<h2>b</h2>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+b
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+40.65
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+35.91 – 45.38
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
+Random Effects
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+σ<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+47.25
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>id:(ACC:REG)</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+60.95
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>ACC:REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+39.28
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+14.65
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+ICC
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.71
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>id</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+513
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>ACC</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+51
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+3
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+1026
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.000 / 0.709
+</td>
+</tr>
+</table>
+</div>
+</div>
 
 
 
