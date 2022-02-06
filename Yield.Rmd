@@ -1,0 +1,92 @@
+---
+title: "Yield"
+---
+
+```{r setup, include=FALSE, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read.delim("rendmor.txt")
+attach(data)
+names(data)
+str(data)
+data$YEAR<-as.factor(YEAR)
+data$ACC<-as.factor(ACC)
+data$WEEK<-as.factor(WEEK)
+data$WEEK<-factor(data$WEEK,levels=c("1", "2","3"))
+data$DATE<-as.Date(DATE, format="%m/%d/%y")
+data$N<-as.numeric(N)
+attach(data)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE) 
+library(ggplot2)
+f1<-ggplot(data=data, aes(x=WEEK, y=P, color=WEEK)) +
+  geom_boxplot(size=.5)+
+  scale_color_manual(values=c("yellow", "green2","orange"))+
+  geom_point(size=3, shape=20) +
+  labs(y="PESO", x="FECHA DE COSECHA")+
+  theme(panel.grid.major.x = element_blank())+
+  facet_grid(YEAR~.)+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.10, 0.90))+
+  geom_hline(aes(yintercept=0), color="darkgrey")+
+  geom_hline(aes(yintercept=300), color="grey")+
+  geom_hline(aes(yintercept=600), color="grey")+
+  geom_hline(aes(yintercept=900), color="grey")+
+  geom_hline(aes(yintercept=1200), color="darkgrey")
+f1
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE) 
+f2<-ggplot(data=data, aes(x=ACC, y=P, color=YEAR)) +
+  geom_boxplot(size=.5)+
+  scale_color_manual(values=c("yellow", "green2","orange"))+
+  labs(y="PESO", x="FECHA DE COSECHA POR ACCESIÓN POR AÑO")+
+  theme(panel.grid.major.x = element_blank())+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.10, 0.90))+
+  geom_hline(aes(yintercept=0), color="darkgrey")+
+  geom_hline(aes(yintercept=300), color="grey")+
+  geom_hline(aes(yintercept=600), color="grey")+
+  geom_hline(aes(yintercept=900), color="grey")+
+  geom_hline(aes(yintercept=1200), color="darkgrey")
+f2
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE) 
+f3<-ggplot(data=data, aes(x=ACC, y=P, color=ACC)) +
+  geom_boxplot(size=.5)+
+  labs(y="PESO", x="FECHA DE COSECHA POR ACCESIÓN")+
+  theme(panel.grid.major.x = element_blank())+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  geom_hline(aes(yintercept=0), color="darkgrey")+
+  geom_hline(aes(yintercept=300), color="grey")+
+  geom_hline(aes(yintercept=600), color="grey")+
+  geom_hline(aes(yintercept=900), color="grey")+
+  geom_hline(aes(yintercept=1200), color="darkgrey")
+f3
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE) 
+f4<-ggplot(data=data, aes(x=YEAR, y=P, color=YEAR)) +
+  geom_boxplot(size=.5)+
+  scale_color_manual(values=c("yellow", "green2","orange"))+
+  labs(y="PESO POR PLANTA PROMEDIO", x="AÑO DE COSECHA")
+f4
+
+```

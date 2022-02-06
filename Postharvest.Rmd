@@ -1,0 +1,891 @@
+---
+title: "Postharvest"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+
+# PESO ----
+
+## Estadística descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+data<-read.delim("PosCord.txt")
+data$DIA<-as.factor(data$DIA)
+data$TEMP<-as.factor(data$TEMP)
+data$ID<-as.factor(data$ID)
+```
+
+### Boxplot con outliers
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Se quitan outliers
+g_caja<-boxplot(data$PESO, col="green3", frame.plot=F)
+data<-data[!(data$PESO %in% g_caja$out),]
+attach(data)
+
+```
+
+### Boxplot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+P1<-ggplot(data=data, aes(x=DIA, y=PESO, color=TEMP))+
+  geom_hline(aes(yintercept=0), color="darkgrey")+
+  geom_hline(aes(yintercept=5), color="grey")+
+  geom_hline(aes(yintercept=10), color="grey")+
+  geom_hline(aes(yintercept=15), color="grey")+
+  geom_hline(aes(yintercept=20), color="grey")+
+  geom_hline(aes(yintercept=25), color="grey")+
+  geom_hline(aes(yintercept=30), color="darkgrey")+
+  geom_boxplot()+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="Peso (g)", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.90))+
+  theme(panel.grid.major.x = element_blank())
+P1
+```
+
+### Con desvío estandar
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(Rmisc)
+estad <- summarySE(data, measurevar="PESO", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+P3<- ggplot(estad, aes(x=DIA, y=PESO, color=TEMP, group=TEMP)) +
+  stat_summary(fun = "mean", size = 2, geom = "point") +
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  geom_errorbar(aes(ymin=PESO-sd, ymax=PESO+sd), width=.1, position=position_dodge(.9)) +  
+  ylab("Peso (g)")+
+  geom_hline(aes(yintercept=0), color="darkgrey")+
+  geom_hline(aes(yintercept=5), color="grey")+
+  geom_hline(aes(yintercept=10), color="grey")+
+  geom_hline(aes(yintercept=15), color="grey")+
+  geom_hline(aes(yintercept=20), color="darkgrey")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.25))+
+  theme(panel.grid.major.x = element_blank())
+P3
+```
+
+### Gráfico de perfiles
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+P2 <- ggplot(data = data, aes(x = DIA, y = PESO, colour=TEMP, group=TEMP))+
+  geom_smooth(se = TRUE)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="Peso (g)", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.90))+
+  theme(panel.grid.major.x = element_blank())
+P2
+
+P2b <- ggplot(data = data, aes(x = TEMP, y = PESO, colour=DIA, group=DIA))+
+  geom_smooth(se = F)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1","green3","gold3","darkred"))+
+  labs(y="Peso (g)", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.80))+
+  theme(panel.grid.major.x = element_blank())
+P2b
+```
+
+### Comportamiento por fruto
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+P4<- ggplot(data = data, aes(x = DIA, y = PESO, group = ID))+
+  theme_classic()+
+  geom_line(aes(colour=ID)) + facet_grid (. ~ data$TEMP)+
+  labs(y="Peso (g)")+theme(legend.position = "none")
+P4
+```
+
+## Estadística inferencial PESO
+
+### Correlación en el tiempo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data4<-read.delim("PesoSpread.txt")
+attach(data4)
+data4$TEMP<-as.factor(TEMP)
+data4$ID<-as.factor(ID)
+attach(data4)
+tiempos <-data4[3:7]
+library(ggplot2)
+library(GGally)
+ggpairs(tiempos)
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
+```
+
+### Seleccion de modelos por AIC
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(nlme)
+#Modelo 1: Simetr?a compuesta. cada individuo con id unico
+m1<-gls(PESO ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 2: Simetr?a compuesta. varianzas distintas
+m2<-gls(PESO ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 3: AR1, varianzas iguales
+m3<-gls(PESO ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 4: AR1, varianzas distintas
+m4<-gls(PESO ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 5: matriz desestructurada
+m5<-gls(PESO ~TEMP*DIA,  correlation = corSymm(form = ~ 1 | ID), data,na.action = na.omit)
+library(nlme)
+#0tra opcion equivalente a m1 que incorpora al individuo como factor aleatorio para inducir la estructura
+m6<-lme(PESO ~TEMP*DIA,  random = ~1|ID,data,na.action = na.omit)
+
+AIC(m1,m2,m3,m4,m5,m6)
+
+```
+El modelo m5 es el mejor en términos de AIC
+
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+e<-resid(m5)
+pre<-predict(m5) 
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+hist(e)
+```
+
+### Covarianza marginal
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+getVarCov(m5)
+```
+
+### Anova tipo III
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+car::Anova(m5, type=3)
+```
+Hay interacción Tiempo * Temperatura.
+Se hacen comparaciones de interacción y se analízan los efectos simples.
+
+### Comparaciones de interacción
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(emmeans)
+lsm_int<-emmeans(m5, ~ TEMP:DIA, mode = "df.error")
+contrast(lsm_int, method = "pairwise")
+
+```
+Las diferencias significativas están dadas por los días.
+
+### Plot SE del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Graficamos, usando SE del modelo
+comp<-emmeans(m5, pairwise ~ TEMP*DIA, mode = "df.error") 
+compa<-data.frame(comp$emmeans)
+ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
+  geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+
+  labs(y="PESO (g)")+
+  geom_hline(aes(yintercept=12.5), color="grey")+
+  geom_hline(aes(yintercept=13), color="grey")+
+  geom_hline(aes(yintercept=13.5), color="grey")+
+  geom_hline(aes(yintercept=14), color="grey")+
+  geom_hline(aes(yintercept=14.5), color="grey")+
+  geom_hline(aes(yintercept=15), color="darkgrey")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.80))+
+  theme(panel.grid.major.x = element_blank())
+  
+```
+
+### Efectos simples
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Como la interaccion fue signif, se comparan TEMP para cada DIA
+efsimplePESO<-emmeans(m5, pairwise ~ TEMP | DIA, mode = "df.error")
+efsimplePESO$contrasts
+plot(efsimplePESO, comparisons = TRUE)
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# library(multcomp)
+# posthoc<-lsmeans(m5, ~TEMP*DIA, adjust="tukey", mode = "df.error")
+# cld(posthoc,alpha=.05,Letters=letters)
+```
+
+### Conclusión PESO
+NO se encontraron diferencias significativas entre temperaturas.
+
+# COLOR (L) ----
+
+## Estadística descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read.delim("PosCord.txt")
+data$DIA<-as.factor(data$DIA)
+data$TEMP<-as.factor(data$TEMP)
+data$ID<-as.factor(data$ID)
+data$FECHA<-as.Date(data$FECHA, format="%d/%m/%y")
+attach(data)
+
+```
+
+### Boxplot con outliers
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Se quitan outliers
+g_caja<-boxplot(data$L, col="green3", frame.plot=F)
+data<-data[!(data$L %in% g_caja$out),]
+attach(data)
+
+```
+
+### Boxplot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+L1<-ggplot(data=data, aes(x=DIA, y=L, color=TEMP))+
+  geom_hline(aes(yintercept=62), color="grey")+
+  geom_hline(aes(yintercept=67), color="grey")+
+  geom_hline(aes(yintercept=72), color="darkgrey")+
+  geom_boxplot()+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="L", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.90))+
+  theme(panel.grid.major.x = element_blank())
+L1
+```
+
+### Con desvío estandar
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(Rmisc)
+estad <- summarySE(data, measurevar="L", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+L3<- ggplot(estad, aes(x=DIA, y=L, color=TEMP, group=TEMP)) +
+  stat_summary(fun = "mean", size = 2, geom = "point") +
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  geom_errorbar(aes(ymin=L-sd, ymax=L+sd), width=.1, position=position_dodge(.9))+
+  ylab("L")+
+  geom_hline(aes(yintercept=62), color="grey")+
+  geom_hline(aes(yintercept=67), color="grey")+
+  geom_hline(aes(yintercept=72), color="darkgrey")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.10, 0.80))+
+  theme(panel.grid.major.x = element_blank())
+L3
+```
+
+### Gráfico de perfiles
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+L2 <- ggplot(data = data, aes(x = DIA, y = L, colour=TEMP, group=TEMP))+
+  geom_smooth(se = TRUE)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="L", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.90))+
+  theme(panel.grid.major.x = element_blank())
+L2
+
+L2b <- ggplot(data = data, aes(x = TEMP, y = L, colour=DIA, group=DIA))+
+  geom_smooth(se = F)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1","green3","gold3","darkred"))+
+  labs(y="L", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.80))+
+  theme(panel.grid.major.x = element_blank())
+L2b
+```
+
+### Comportamiento por fruto
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+L4<- ggplot(data = data, aes(x = DIA, y = L, group = ID))+
+  theme_classic()+
+  geom_line(aes(colour=ID)) + facet_grid (. ~ data$TEMP)+
+  labs(y="L (g)")+theme(legend.position = "none")
+L4
+```
+
+## Estadística inferencial L
+
+### Correlación en el tiempo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data4<-read.delim("LSpread.txt")
+data4$TEMP<-as.factor(data4$TEMP)
+data4$ID<-as.factor(data4$ID)
+attach(data4)
+tiempos <-data4[3:7]
+library(ggplot2)
+library(GGally)
+ggpairs(tiempos)
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
+```
+
+### Seleccion de modelos por AIC
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(nlme)
+#Modelo 1: Simetr?a compuesta. cada individuo con id unico
+m1<-gls(L ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 2: Simetr?a compuesta. varianzas distintas
+m2<-gls(L ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 3: AR1, varianzas iguales
+m3<-gls(L ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 4: AR1, varianzas distintas
+m4<-gls(L ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 5: matriz desestructurada
+m5<-gls(L ~TEMP*DIA,  correlation = corSymm(form = ~ 1 | ID), data,na.action = na.omit)
+library(nlme)
+#0tra opcion equivalente a m1 que incorpora al individuo como factor aleatorio para inducir la estructura
+m6<-lme(L ~TEMP*DIA,  random = ~1|ID,data,na.action = na.omit)
+
+AIC(m1,m2,m3,m4,m5,m6)
+
+```
+El modelo m5 es el mejor en términos de AIC
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(m5)
+pre<-predict(m5) 
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+hist(e)
+```
+
+### Covarianza marginal
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+getVarCov(m5)
+```
+
+### Anova tipo III
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+car::Anova(m5, type=3)
+```
+Hay interacción Tiempo * Temperatura.
+Se hacen comparaciones de interacción y se analízan los efectos simples.
+
+### Comparaciones de interacción
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(emmeans)
+lsm_int<-emmeans(m5, ~ TEMP:DIA, mode = "df.error")
+contrast(lsm_int, method = "pairwise")
+
+```
+
+### Plot SE del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Graficamos, usando SE del modelo
+comp<-emmeans(m5, pairwise ~ TEMP*DIA, mode = "df.error") 
+compa<-data.frame(comp$emmeans)
+ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
+  geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+
+  labs(y="L (g)")+
+  geom_hline(aes(yintercept=62), color="grey")+
+  geom_hline(aes(yintercept=67), color="grey")+
+  geom_hline(aes(yintercept=72), color="darkgrey")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.20))+
+  theme(panel.grid.major.x = element_blank())
+  
+```
+
+### Efectos simples
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Como la interaccion fue signif, se comparan TEMP para cada DIA
+efsimpleL<-emmeans(m5, pairwise ~ TEMP | DIA, mode = "df.error")
+efsimpleL$contrasts
+plot(efsimpleL, comparisons = TRUE)
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(multcomp)
+posthoc<-lsmeans(m5, ~TEMP*DIA, adjust="tukey", mode = "df.error")
+cld(posthoc,alpha=.05,Letters=letters)
+```
+
+### Conclusión L
+Sólo a los 10 días hubo diferencias significativas entre temperaturas.
+
+# COLOR (a) ----
+
+## Estadística descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read.delim("PosCord.txt")
+data$DIA<-as.factor(data$DIA)
+data$TEMP<-as.factor(data$TEMP)
+data$ID<-as.factor(data$ID)
+data$FECHA<-as.Date(data$FECHA, format="%d/%m/%y")
+attach(data)
+
+```
+
+### Boxplot con outliers
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Se quitan outliers
+g_caja<-boxplot(data$a, col="green3", frame.plot=F)
+data<-data[!(data$a %in% g_caja$out),]
+attach(data)
+
+```
+No se detectan outliers
+
+### Boxplot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+a1<-ggplot(data=data, aes(x=DIA, y=a, color=TEMP))+
+  geom_hline(aes(yintercept=-25), color="grey")+
+  geom_hline(aes(yintercept=0), color="grey")+
+  geom_hline(aes(yintercept=25), color="darkgrey")+
+  geom_boxplot()+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="a (g)", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.10, 0.80))+
+  theme(panel.grid.major.x = element_blank())
+a1
+```
+
+### Con desvío estandar
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(Rmisc)
+estad <- summarySE(data, measurevar="a", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+a3<- ggplot(estad, aes(x=DIA, y=a, color=TEMP, group=TEMP)) +
+  stat_summary(fun = "mean", size = 2, geom = "point") +
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  geom_errorbar(aes(ymin=a-sd, ymax=a+sd), width=.1, position=position_dodge(.9))+
+  ylab("a")+
+  geom_hline(aes(yintercept=-25), color="grey")+
+  geom_hline(aes(yintercept=0), color="grey")+
+  geom_hline(aes(yintercept=25), color="darkgrey")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.25))+
+  theme(panel.grid.major.x = element_blank())
+a3
+```
+
+### Gráfico de perfiles
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+a2 <- ggplot(data = data, aes(x = DIA, y = a, colour=TEMP, group=TEMP))+
+  geom_smooth(se = TRUE)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="a", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.20))+
+  theme(panel.grid.major.x = element_blank())
+a2
+
+a2b <- ggplot(data = data, aes(x = TEMP, y = a, colour=DIA, group=DIA))+
+  geom_smooth(se = F)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1","green3","gold3","darkred"))+
+  labs(y="a", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.80))+
+  theme(panel.grid.major.x = element_blank())
+a2b
+```
+
+### Comportamiento por fruto
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+a4<- ggplot(data = data, aes(x = DIA, y = a, group = ID))+
+  theme_classic()+
+  geom_line(aes(colour=ID)) + facet_grid (. ~ data$TEMP)+
+  labs(y="a")+theme(legend.position = "none")
+a4
+```
+
+## Estadística inferencial a
+
+### Correlación en el tiempo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data4<-read.delim("aSpread.txt")
+data4$TEMP<-as.factor(data4$TEMP)
+data4$ID<-as.factor(data4$ID)
+attach(data4)
+tiempos <-data4[3:7]
+library(ggplot2)
+library(GGally)
+ggpairs(tiempos)
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
+```
+
+### Seleccion de modelos por AIC
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(nlme)
+#Modelo 1: Simetr?a compuesta. cada individuo con id unico
+m1<-gls(a ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 2: Simetr?a compuesta. varianzas distintas
+m2<-gls(a ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 3: AR1, varianzas iguales
+m3<-gls(a ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 4: AR1, varianzas distintas
+m4<-gls(a ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 5: matriz desestructurada
+m5<-gls(a ~TEMP*DIA,  correlation = corSymm(form = ~ 1 | ID), data,na.action = na.omit)
+library(nlme)
+#0tra opcion equivalente a m1 que incorpora al individuo como factor aleatorio para inducir la estructura
+m6<-lme(a ~TEMP*DIA,  random = ~1|ID,data,na.action = na.omit)
+AIC(m1,m2,m3,m4,m5)
+
+```
+El modelo m5 es el mejor en términos de AIC
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(m5)
+pre<-predict(m5) 
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+hist(e)
+```
+
+### Covarianza marginal
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+getVarCov(m5)
+```
+
+### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(m5)
+```
+Hay interacción Tiempo * Temperatura.
+Se hacen comparaciones de interacción y se analízan los efectos simples.
+
+### Comparaciones de interacción
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(emmeans)
+lsm_int<-emmeans(m5, ~ TEMP:DIA, mode = "df.error")
+contrast(lsm_int, method = "pairwise", by = "DIA")
+
+```
+
+### Plot SE del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+comp<-emmeans(m5, pairwise ~ TEMP*DIA, mode = "df.error") 
+compa<-data.frame(comp$emmeans)
+ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
+  geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+ labs(y="PESO (g)")
+```
+
+### Efectos simples
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Como la interaccion fue signif, se comparan TEMP para cada DIA
+efsimplea<-emmeans(m5, pairwise ~ TEMP | DIA, mode = "df.error")
+efsimplea$contrasts
+plot(efsimplea, comparisons = TRUE)
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(multcomp)
+posthoc<-lsmeans(m5, ~TEMP*DIA, adjust="tukey", mode = "df.error")
+cld(posthoc,alpha=.05,Letters=letters)
+```
+
+### Conclusión a
+A partir de los 7 días hubo diferencias significativas entre temperaturas.
+
+# COLOR (b) ----
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#b
+ggplot(data=data, aes(x=DIA, y=b, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="b", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+```
+
+### Boxplot con outliers
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+g_caja<-boxplot(data$a, col="green3", frame.plot=F)
+
+```
+No se detectan outliers
+
+### Boxplot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+b1<-ggplot(data=data, aes(x=DIA, y=b, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="b", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+b1
+```
+
+### Con desvío estandar
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(Rmisc)
+estad <- summarySE(data, measurevar="b", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+b3<- ggplot(estad, aes(x=DIA, y=b, color=TEMP, group=TEMP)) +
+  geom_hline(aes(yintercept=50), color="grey")+
+  geom_hline(aes(yintercept=60), color="grey")+
+  geom_hline(aes(yintercept=70), color="grey")+
+  stat_summary(fun = "mean", size = 2, geom = "point") +
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  geom_errorbar(aes(ymin=b-sd, ymax=b+sd), width=.1, position=position_dodge(.9)) +  
+  ylab("b")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.20))+
+  theme(panel.grid.major.x = element_blank())
+b3
+```
+
+### Gráfico de perfiles
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+b2 <- ggplot(data = data, aes(x = DIA, y = b, colour=TEMP, group=TEMP))+
+  geom_smooth(se = TRUE)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="b", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.25))+
+  theme(panel.grid.major.x = element_blank())
+b2
+b2b <- ggplot(data = data, aes(x = TEMP, y = b, colour=DIA, group=DIA))+
+  geom_smooth(se = F)+
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1","green3","gold3","darkred"))+
+  labs(y="b", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.90, 0.80))+
+  theme(panel.grid.major.x = element_blank())
+b2b
+```
+
+### Comportamiento por fruto
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+b4<- ggplot(data = data, aes(x = DIA, y = b, group = ID))+
+  theme_classic()+
+  geom_line(aes(colour=ID)) + facet_grid (. ~ data$TEMP)+
+  labs(y="b")+theme(legend.position = "none")
+b4
+```
+
+## Estadística inferencial b
+
+### Correlación en el tiempo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data4<-read.delim("bSpread.txt")
+data4$TEMP<-as.factor(data4$TEMP)
+data4$ID<-as.factor(data4$ID)
+attach(data4)
+tiempos <-data4[3:7]
+library(ggplot2)
+library(GGally)
+ggpairs(tiempos)
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
+```
+
+### Seleccion de modelos por AIC
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(nlme)
+#Modelo 1: Simetr?a compuesta. cada individuo con id unico
+m1<-gls(b ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 2: Simetr?a compuesta. varianzas distintas
+m2<-gls(b ~TEMP*DIA,  correlation = corCompSymm(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 3: AR1, varianzas iguales
+m3<-gls(b ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit)
+#Modelo 4: AR1, varianzas distintas
+m4<-gls(b ~TEMP*DIA,  correlation = corAR1(form = ~ 1 | ID), data,na.action = na.omit, weights=varIdent(form= ~ 1|DIA ))
+#Modelo 5: matriz desestructurada
+m5<-gls(b ~TEMP*DIA,  correlation = corSymm(form = ~ 1 | ID), data,na.action = na.omit)
+library(nlme)
+#0tra opcion equivalente a m1 que incorpora al individuo como factor aleatorio para inducir la estructura
+m6<-lme(b ~TEMP*DIA,  random = ~1|ID,data,na.action = na.omit)
+AIC(m1,m2,m3,m4,m5)
+
+```
+El modelo m5 es el mejor en términos de AIC
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(m5)
+pre<-predict(m5) 
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+hist(e)
+```
+
+### Covarianza marginal
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+getVarCov(m5)
+```
+
+### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(m5)
+```
+Hay interacción Tiempo * Temperatura.
+Se hacen comparaciones de interacción y se analízan los efectos simples.
+
+### Comparaciones de interacción
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(emmeans)
+lsm_int<-emmeans(m5, ~ TEMP:DIA, mode = "df.error")
+contrast(lsm_int, method = "pairwise", by = "DIA")
+
+```
+
+### Plot SE del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+comp<-emmeans(m5, pairwise ~ TEMP*DIA, mode = "df.error") 
+compa<-data.frame(comp$emmeans)
+ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
+  geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+ labs(y="PESO (g)")
+```
+
+### Efectos simples
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Como la interaccion fue signif, se comparan TEMP para cada DIA
+efsimplea<-emmeans(m5, pairwise ~ TEMP | DIA, mode = "df.error")
+efsimplea$contrasts
+plot(efsimplea, comparisons = TRUE)
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(multcomp)
+posthoc<-lsmeans(m5, ~TEMP*DIA, adjust="tukey", mode = "df.error")
+cld(posthoc,alpha=.05,Letters=letters)
+```
+
+### Conclusión b
+A los 7 y 10 días hubo diferencias significativas entre temperaturas.
+
+### Tabla resumen
+```{r,fig.align='center',echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("pesocolor.png")
+ grid.raster(img)
+```
+
+# Pérdidas de frutos
+
+## Estadística descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+P2 <- ggplot(data = data, aes(x = DIA, y = E, colour=TEMP, group=TEMP))+
+  geom_jitter(se = FALSE, width = 0.1)+
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE)  +
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="Ausencia o presencia de de frutos", x="Días de Cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.10, 0.20))+
+  theme(panel.grid.major.x = element_blank())
+P2
+
+P3 <- ggplot(data = data, aes(x = TEMP, y = E, colour=DIA, group=DIA))+
+  geom_jitter(se = FALSE, width = 0.2)+
+  theme_classic()+
+  scale_color_manual(values=c("green3", "cyan4","yellow2","orange","chocolate3"))+
+  labs(y="Ausencia o presencia de de frutos", x="Temperatura °C")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.95, 0.5))+
+  theme(panel.grid.major.x = element_blank())
+P3
+
+```

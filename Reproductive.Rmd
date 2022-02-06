@@ -1,0 +1,146 @@
+---
+title: "Reproductive"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+# Conteo de polen ---
+
+# Diámetro polen ---
+
+#**PSF** Peso seco de la flor ---
+
+# N° óvulos ---
+
+## Metodología
+Se muestrearon 10 fores por genotipo de *Hexachlamys edulis* en 3 poblaciones de Entre Ríos: Concordia, PN el Palmar y Gualeguaychú.
+Se procedío al corte del ovario infero en lupa y se contaron los óvulos presentes en total en cada flor.
+
+## Estadística descriptiva
+
+```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+setwd("C:/Users/um/Desktop/EstR")
+data<-read.delim("co.txt")
+data$A<-as.factor(data$A)
+data$ACC<-as.factor(data$ACC)
+data$REG<-as.factor(data$REG)
+data$O<-as.numeric(data$O)
+data$REG<-factor(data$REG,levels=c("Concordia", "Palmar","Gualeguaychu"))
+attach(data)
+
+```
+Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y 2021
+```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+ggplot(data=data, aes(x=A, y=O, form=A, colour=REG))+
+  geom_jitter(width=0.2)+ geom_boxplot(width=0.05) +
+  facet_grid(.~REG)+
+  labs(x="Población", y="Número de óvulos", fill='A')+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.position = "none")
+
+```
+N° óvulos entre individuos de Concordia en ambos años.
+```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+concordia<-subset(data[1:146,])
+concordia$A<-as.factor(concordia$A)
+concordia$ACC<-as.factor(concordia$ACC)
+concordia$REG<-as.factor(concordia$REG)
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1")
+library(ggplot2)
+g2<-ggplot(data=concordia, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
+  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
+  scale_color_manual(values = colorescon) +
+  facet_grid(.~A) + theme(legend.position = "none")
+g2
+```
+N° óvulos entre individuos del Palmar en ambos años.
+```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+palmar<-subset(data[147:446,])
+palmar$A<-as.factor(palmar$A)
+palmar$ACC<-as.factor(palmar$ACC)
+palmar$REG<-as.factor(palmar$REG)
+colorespalmar<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4")
+library(ggplot2)
+g3<-ggplot(palmar, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
+  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
+  scale_color_manual(values = colorespalmar) +
+  facet_grid(.~A) + theme(legend.position = "none")
+g3
+```
+N° óvulos entre individuos de Gualeguaychú en ambos años.
+```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+guale<-subset(data[447:686,])
+guale$A<-as.factor(guale$A)
+guale$ACC<-as.factor(guale$ACC)
+guale$REG<-as.factor(guale$REG)
+coloresguale<-c("palegreen1","palegreen2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","aquamarine2","aquamarine","springgreen3","springgreen2","springgreen1")
+library(ggplot2)
+g4<-ggplot(guale, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
+  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
+  scale_color_manual(values = coloresguale) +
+  facet_grid(.~A) + theme(legend.position = "none")
+g4
+```
+
+## Estadística inferencial
+
+Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.
+
+Diseño anidado: Población(Genotipo)
+Análisis univariado de la variable N° de óvulos.
+Distribución de probabilidades: Poisson.
+Análisis de componentes de varianza.
+factores aleatorios: Población y Genotipo
+factores fijos: año
+
+
+```{r echo=FALSE, warning=FALSE}
+library(lme4)
+m1 <- glmer(O ~  1 + (1|REG/ACC), data =data, family = poisson)
+m2 <- glmer(O ~  A + (1|REG/ACC), data=data, family = poisson)
+#Supuestos
+e1 <- resid(m2, type = "pearson")
+n  <- nrow(data)
+k  <- length(fixef(m2)) + 1 #parametros estimados; se suma varianza(colmenas)
+dispersion <- sum(e1^2) / (n - k)
+#df.residual(m2)
+library(lattice)
+#dotplot(ranef(m2, condVar = TRUE))
+
+library(emmeans)
+Comp2<-emmeans(m2, pairwise ~ A, type = "response") 
+confint(Comp2)
+plot(Comp2)
+
+#summary(m2)
+# RA<-0.13101
+# A<-0.04313
+# ICCRA<-RA/(RA+A)
+# ICCA<-A/(RA+A)
+library(sjstats)
+icc(m2)
+1-0.089
+```
+
+Conclusiones:
+
+Se observan diferencias significativas entre años p = 0.000243 ***
+El año 2021 tuvo 4.97 óvulos en promedio mientras que el 2019 tuvo 4,37
+
+Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)
+
+# N° semillas ---
+
+# **S/O** ratio semillas óvulos ---
+
+# **Fr/Fl** ratio flores frutos ---
+
+# **F** ratio frutos óvulos ---

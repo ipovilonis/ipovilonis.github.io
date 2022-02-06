@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Postharvest</title>
+
+<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Eugenia myrcianthes Nied.</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Variables
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-submenu">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fruit</a>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-submenu">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Physics</a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="Morphological.html">Morphological</a>
+            </li>
+            <li>
+              <a href="ColorimetríaER2021.html">Colorimetry</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="Chemical.html">Chemical</a>
+        </li>
+      </ul>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Reproductive.html">Reproductive</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">Genetics</li>
+  </ul>
+</li>
+<li>
+  <a href="Polinization.html">Polinization</a>
+</li>
+<li>
+  <a href="Postharvest.html">Postharvest</a>
+</li>
+<li>
+  <a href="Yield.html">Yield</a>
+</li>
+<li>
+  <a href="publications.html">Publishing Articles</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Postharvest</h1>
+
+</div>
+
+
+<div id="peso--" class="section level1">
+<h1>PESO —-</h1>
+<div id="estadística-descriptiva" class="section level2">
+<h2>Estadística descriptiva</h2>
+<div id="boxplot-con-outliers" class="section level3">
+<h3>Boxplot con outliers</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="con-desvío-estandar" class="section level3">
+<h3>Con desvío estandar</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-perfiles" class="section level3">
+<h3>Gráfico de perfiles</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="comportamiento-por-fruto" class="section level3">
+<h3>Comportamiento por fruto</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estadística-inferencial-peso" class="section level2">
+<h2>Estadística inferencial PESO</h2>
+<div id="correlación-en-el-tiempo" class="section level3">
+<h3>Correlación en el tiempo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="seleccion-de-modelos-por-aic" class="section level3">
+<h3>Seleccion de modelos por AIC</h3>
+<pre><code>##    df        AIC
+## m1 12  134.14676
+## m2 16   95.37375
+## m3 12 -144.43088
+## m4 16 -172.28266
+## m5 21 -280.12657
+## m6 12  134.14676</code></pre>
+<p>El modelo m5 es el mejor en términos de AIC</p>
+</div>
+<div id="supuestos" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="covarianza-marginal" class="section level3">
+<h3>Covarianza marginal</h3>
+<pre><code>## Marginal variance covariance matrix
+##        [,1]   [,2]   [,3]   [,4]   [,5]
+## [1,] 6.8379 6.8326 6.8276 6.8154 6.7964
+## [2,] 6.8326 6.8379 6.8362 6.8303 6.8169
+## [3,] 6.8276 6.8362 6.8379 6.8345 6.8241
+## [4,] 6.8154 6.8303 6.8345 6.8379 6.8325
+## [5,] 6.7964 6.8169 6.8241 6.8325 6.8379
+##   Standard Deviations: 2.6149 2.6149 2.6149 2.6149 2.6149</code></pre>
+</div>
+<div id="anova-tipo-iii" class="section level3">
+<h3>Anova tipo III</h3>
+<pre><code>## Analysis of Deviance Table (Type III tests)
+## 
+## Response: PESO
+##             Df    Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 1411.154     &lt;2e-16 ***
+## TEMP         1    0.619     0.4314    
+## DIA          4  725.442     &lt;2e-16 ***
+## TEMP:DIA     4  178.099     &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Hay interacción Tiempo * Temperatura. Se hacen comparaciones de interacción y se analízan los efectos simples.</p>
+</div>
+<div id="comparaciones-de-interacción" class="section level3">
+<h3>Comparaciones de interacción</h3>
+<pre><code>##  contrast    estimate      SE  df t.ratio p.value
+##  5 0 - 9 0     0.4227 0.53732 402  0.787  0.9987 
+##  5 0 - 5 3     0.2452 0.01459 402 16.806  &lt;.0001 
+##  5 0 - 9 3     0.7606 0.53732 402  1.415  0.9220 
+##  5 0 - 5 7     0.4374 0.02036 402 21.483  &lt;.0001 
+##  5 0 - 9 7     0.8552 0.53732 402  1.592  0.8518 
+##  5 0 - 5 10    0.7052 0.03005 402 23.463  &lt;.0001 
+##  5 0 - 9 10    1.1235 0.53737 402  2.091  0.5352 
+##  5 0 - 5 14    0.9795 0.04104 402 23.868  &lt;.0001 
+##  5 0 - 9 14    1.3460 0.53760 402  2.504  0.2695 
+##  9 0 - 5 3    -0.1775 0.53732 402 -0.330  1.0000 
+##  9 0 - 9 3     0.3378 0.01538 402 21.963  &lt;.0001 
+##  9 0 - 5 7     0.0147 0.53732 402  0.027  1.0000 
+##  9 0 - 9 7     0.4324 0.02146 402 20.148  &lt;.0001 
+##  9 0 - 5 10    0.2824 0.53732 402  0.526  1.0000 
+##  9 0 - 9 10    0.7008 0.03259 402 21.501  &lt;.0001 
+##  9 0 - 5 14    0.5567 0.53734 402  1.036  0.9899 
+##  9 0 - 9 14    0.9233 0.04629 402 19.948  &lt;.0001 
+##  5 3 - 9 3     0.5153 0.53732 402  0.959  0.9942 
+##  5 3 - 5 7     0.1922 0.00835 402 23.024  &lt;.0001 
+##  5 3 - 9 7     0.6099 0.53732 402  1.135  0.9808 
+##  5 3 - 5 10    0.4599 0.01751 402 26.262  &lt;.0001 
+##  5 3 - 9 10    0.8783 0.53737 402  1.634  0.8306 
+##  5 3 - 5 14    0.7342 0.02935 402 25.012  &lt;.0001 
+##  5 3 - 9 14    1.1008 0.53760 402  2.048  0.5658 
+##  9 3 - 5 7    -0.3232 0.53732 402 -0.601  0.9999 
+##  9 3 - 9 7     0.0946 0.00880 402 10.753  &lt;.0001 
+##  9 3 - 5 10   -0.0554 0.53732 402 -0.103  1.0000 
+##  9 3 - 9 10    0.3629 0.01999 402 18.160  &lt;.0001 
+##  9 3 - 5 14    0.2189 0.53734 402  0.407  1.0000 
+##  9 3 - 9 14    0.5855 0.03505 402 16.702  &lt;.0001 
+##  5 7 - 9 7     0.4178 0.53732 402  0.777  0.9989 
+##  5 7 - 5 10    0.2678 0.01172 402 22.852  &lt;.0001 
+##  5 7 - 9 10    0.6861 0.53737 402  1.277  0.9583 
+##  5 7 - 5 14    0.5421 0.02402 402 22.570  &lt;.0001 
+##  5 7 - 9 14    0.9086 0.53760 402  1.690  0.8006 
+##  9 7 - 5 10   -0.1500 0.53732 402 -0.279  1.0000 
+##  9 7 - 9 10    0.2683 0.01453 402 18.465  &lt;.0001 
+##  9 7 - 5 14    0.1243 0.53734 402  0.231  1.0000 
+##  9 7 - 9 14    0.4909 0.03020 402 16.252  &lt;.0001 
+##  5 10 - 9 10   0.4183 0.53737 402  0.778  0.9988 
+##  5 10 - 5 14   0.2743 0.01545 402 17.753  &lt;.0001 
+##  5 10 - 9 14   0.6409 0.53760 402  1.192  0.9733 
+##  9 10 - 5 14  -0.1440 0.53739 402 -0.268  1.0000 
+##  9 10 - 9 14   0.2225 0.02056 402 10.822  &lt;.0001 
+##  5 14 - 9 14   0.3666 0.53762 402  0.682  0.9996 
+## 
+## Degrees-of-freedom method: df.error 
+## P value adjustment: tukey method for comparing a family of 10 estimates</code></pre>
+<p>Las diferencias significativas están dadas por los días.</p>
+</div>
+<div id="plot-se-del-modelo" class="section level3">
+<h3>Plot SE del modelo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="efectos-simples" class="section level3">
+<h3>Efectos simples</h3>
+<pre><code>## DIA = 0:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.423 0.537 402 0.787   0.4319 
+## 
+## DIA = 3:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.515 0.537 402 0.959   0.3381 
+## 
+## DIA = 7:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.418 0.537 402 0.777   0.4373 
+## 
+## DIA = 10:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.418 0.537 402 0.778   0.4367 
+## 
+## DIA = 14:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.367 0.538 402 0.682   0.4957 
+## 
+## Degrees-of-freedom method: df.error</code></pre>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusión-peso" class="section level3">
+<h3>Conclusión PESO</h3>
+<p>NO se encontraron diferencias significativas entre temperaturas.</p>
+</div>
+</div>
+</div>
+<div id="color-l--" class="section level1">
+<h1>COLOR (L) —-</h1>
+<div id="estadística-descriptiva-1" class="section level2">
+<h2>Estadística descriptiva</h2>
+<div id="boxplot-con-outliers-1" class="section level3">
+<h3>Boxplot con outliers</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot-1" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="con-desvío-estandar-1" class="section level3">
+<h3>Con desvío estandar</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-perfiles-1" class="section level3">
+<h3>Gráfico de perfiles</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="comportamiento-por-fruto-1" class="section level3">
+<h3>Comportamiento por fruto</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estadística-inferencial-l" class="section level2">
+<h2>Estadística inferencial L</h2>
+<div id="correlación-en-el-tiempo-1" class="section level3">
+<h3>Correlación en el tiempo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="seleccion-de-modelos-por-aic-1" class="section level3">
+<h3>Seleccion de modelos por AIC</h3>
+<pre><code>##    df      AIC
+## m1 12 2510.282
+## m2 16 2514.870
+## m3 12 2511.893
+## m4 16 2512.300
+## m5 21 2474.974
+## m6 12 2510.282</code></pre>
+<p>El modelo m5 es el mejor en términos de AIC</p>
+</div>
+<div id="supuestos-1" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="covarianza-marginal-1" class="section level3">
+<h3>Covarianza marginal</h3>
+<pre><code>## Marginal variance covariance matrix
+##         [,1]    [,2]    [,3]    [,4]    [,5]
+## [1,] 21.3650 14.9480  1.7303  8.8909  8.1131
+## [2,] 14.9480 21.3650  2.5003  8.8632  6.4293
+## [3,]  1.7303  2.5003 21.3650  7.4134  4.3699
+## [4,]  8.8909  8.8632  7.4134 21.3650 11.9690
+## [5,]  8.1131  6.4293  4.3699 11.9690 21.3650
+##   Standard Deviations: 4.6222 4.6222 4.6222 4.6222 4.6222</code></pre>
+</div>
+<div id="anova-tipo-iii-1" class="section level3">
+<h3>Anova tipo III</h3>
+<pre><code>## Analysis of Deviance Table (Type III tests)
+## 
+## Response: L
+##             Df     Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 9140.9844  &lt; 2.2e-16 ***
+## TEMP         1    0.2096   0.647072    
+## DIA          4   90.3347  &lt; 2.2e-16 ***
+## TEMP:DIA     4   17.0244   0.001912 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Hay interacción Tiempo * Temperatura. Se hacen comparaciones de interacción y se analízan los efectos simples.</p>
+</div>
+<div id="comparaciones-de-interacción-1" class="section level3">
+<h3>Comparaciones de interacción</h3>
+<pre><code>##  contrast    estimate    SE  df t.ratio p.value
+##  5 0 - 9 0     0.4252 0.929 415   0.458 1.0000 
+##  5 0 - 5 3     1.0956 0.510 415   2.148 0.4949 
+##  5 0 - 9 3    -0.0665 0.925 415  -0.072 1.0000 
+##  5 0 - 5 7    -6.6121 0.877 415  -7.541 &lt;.0001 
+##  5 0 - 9 7    -8.0839 0.921 415  -8.781 &lt;.0001 
+##  5 0 - 5 10   -3.9249 0.717 415  -5.476 &lt;.0001 
+##  5 0 - 9 10   -7.8403 1.059 415  -7.403 &lt;.0001 
+##  5 0 - 5 14   -3.9143 0.760 415  -5.150 &lt;.0001 
+##  5 0 - 9 14   -5.1220 1.117 415  -4.587 0.0003 
+##  9 0 - 5 3     0.6704 0.925 415   0.725 0.9993 
+##  9 0 - 9 3    -0.4917 0.516 415  -0.953 0.9945 
+##  9 0 - 5 7    -7.0373 0.925 415  -7.607 &lt;.0001 
+##  9 0 - 9 7    -8.5091 0.878 415  -9.696 &lt;.0001 
+##  9 0 - 5 10   -4.3501 0.934 415  -4.656 0.0002 
+##  9 0 - 9 10   -8.2654 0.885 415  -9.336 &lt;.0001 
+##  9 0 - 5 14   -4.3395 0.953 415  -4.554 0.0003 
+##  9 0 - 9 14   -5.5471 0.969 415  -5.723 &lt;.0001 
+##  5 3 - 9 3    -1.1621 0.921 415  -1.262 0.9614 
+##  5 3 - 5 7    -7.7078 0.852 415  -9.045 &lt;.0001 
+##  5 3 - 9 7    -9.1795 0.917 415 -10.015 &lt;.0001 
+##  5 3 - 5 10   -5.0205 0.713 415  -7.041 &lt;.0001 
+##  5 3 - 9 10   -8.9359 1.056 415  -8.465 &lt;.0001 
+##  5 3 - 5 14   -5.0099 0.797 415  -6.284 &lt;.0001 
+##  5 3 - 9 14   -6.2176 1.113 415  -5.585 &lt;.0001 
+##  9 3 - 5 7    -6.5457 0.921 415  -7.104 &lt;.0001 
+##  9 3 - 9 7    -8.0174 0.853 415  -9.401 &lt;.0001 
+##  9 3 - 5 10   -3.8584 0.931 415  -4.146 0.0017 
+##  9 3 - 9 10   -7.7738 0.882 415  -8.814 &lt;.0001 
+##  9 3 - 5 14   -3.8478 0.949 415  -4.053 0.0024 
+##  9 3 - 9 14   -5.0555 1.001 415  -5.053 &lt;.0001 
+##  5 7 - 9 7    -1.4717 0.917 415  -1.605 0.8453 
+##  5 7 - 5 10    2.6872 0.750 415   3.585 0.0137 
+##  5 7 - 9 10   -1.2281 1.056 415  -1.163 0.9774 
+##  5 7 - 5 14    2.6978 0.844 415   3.196 0.0479 
+##  5 7 - 9 14    1.4902 1.114 415   1.338 0.9442 
+##  9 7 - 5 10    4.1590 0.926 415   4.491 0.0004 
+##  9 7 - 9 10    0.2436 0.895 415   0.272 1.0000 
+##  9 7 - 5 14    4.1696 0.945 415   4.412 0.0005 
+##  9 7 - 9 14    2.9619 1.029 415   2.879 0.1149 
+##  5 10 - 9 10  -3.9154 1.064 415  -3.680 0.0098 
+##  5 10 - 5 14   0.0106 0.655 415   0.016 1.0000 
+##  5 10 - 9 14  -1.1971 1.121 415  -1.068 0.9875 
+##  9 10 - 5 14   3.9259 1.080 415   3.634 0.0116 
+##  9 10 - 9 14   2.7183 0.891 415   3.050 0.0728 
+##  5 14 - 9 14  -1.2076 1.137 415  -1.062 0.9879 
+## 
+## Degrees-of-freedom method: df.error 
+## P value adjustment: tukey method for comparing a family of 10 estimates</code></pre>
+</div>
+<div id="plot-se-del-modelo-1" class="section level3">
+<h3>Plot SE del modelo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="efectos-simples-1" class="section level3">
+<h3>Efectos simples</h3>
+<pre><code>## DIA = 0:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.425 0.929 415  0.458  0.6473 
+## 
+## DIA = 3:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -1.162 0.921 415 -1.262  0.2077 
+## 
+## DIA = 7:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -1.472 0.917 415 -1.605  0.1093 
+## 
+## DIA = 10:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -3.915 1.064 415 -3.680  0.0003 
+## 
+## DIA = 14:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -1.208 1.137 415 -1.062  0.2887 
+## 
+## Degrees-of-freedom method: df.error</code></pre>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>##  TEMP DIA lsmean    SE  df lower.CL upper.CL .group
+##  5    3     61.4 0.648 415     59.6     63.2  a    
+##  9    0     62.1 0.659 415     60.2     64.0  a    
+##  5    0     62.5 0.654 415     60.7     64.4  a    
+##  9    3     62.6 0.654 415     60.7     64.4  a    
+##  5    14    66.4 0.688 415     64.5     68.4   b   
+##  5    10    66.4 0.662 415     64.6     68.3   b   
+##  9    14    67.6 0.905 415     65.1     70.2   bc  
+##  5    7     69.1 0.649 415     67.3     71.0    c  
+##  9    10    70.4 0.833 415     68.0     72.7    c  
+##  9    7     70.6 0.648 415     68.8     72.4    c  
+## 
+## Degrees-of-freedom method: df.error 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 10 estimates 
+## P value adjustment: tukey method for comparing a family of 10 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="conclusión-l" class="section level3">
+<h3>Conclusión L</h3>
+<p>Sólo a los 10 días hubo diferencias significativas entre temperaturas.</p>
+</div>
+</div>
+</div>
+<div id="color-a--" class="section level1">
+<h1>COLOR (a) —-</h1>
+<div id="estadística-descriptiva-2" class="section level2">
+<h2>Estadística descriptiva</h2>
+<div id="boxplot-con-outliers-2" class="section level3">
+<h3>Boxplot con outliers</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /> No se detectan outliers</p>
+</div>
+<div id="boxplot-2" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="con-desvío-estandar-2" class="section level3">
+<h3>Con desvío estandar</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-perfiles-2" class="section level3">
+<h3>Gráfico de perfiles</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-37-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="comportamiento-por-fruto-2" class="section level3">
+<h3>Comportamiento por fruto</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estadística-inferencial-a" class="section level2">
+<h2>Estadística inferencial a</h2>
+<div id="correlación-en-el-tiempo-2" class="section level3">
+<h3>Correlación en el tiempo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-39-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-40-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="seleccion-de-modelos-por-aic-2" class="section level3">
+<h3>Seleccion de modelos por AIC</h3>
+<pre><code>##    df      AIC
+## m1 12 2372.186
+## m2 16 2358.446
+## m3 12 2390.281
+## m4 16 2370.496
+## m5 21 2249.605</code></pre>
+<p>El modelo m5 es el mejor en términos de AIC</p>
+</div>
+<div id="supuestos-2" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-42-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-42-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-42-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="covarianza-marginal-2" class="section level3">
+<h3>Covarianza marginal</h3>
+<pre><code>## Marginal variance covariance matrix
+##         [,1]     [,2]     [,3]    [,4]     [,5]
+## [1,] 14.3240 12.22400  2.22070  4.3091  4.40050
+## [2,] 12.2240 14.32400  0.90675  7.1619  6.85190
+## [3,]  2.2207  0.90675 14.32400 -1.6500 -0.68112
+## [4,]  4.3091  7.16190 -1.65000 14.3240  8.84850
+## [5,]  4.4005  6.85190 -0.68112  8.8485 14.32400
+##   Standard Deviations: 3.7847 3.7847 3.7847 3.7847 3.7847</code></pre>
+</div>
+<div id="anova" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Denom. DF: 430 
+##             numDF  F-value p-value
+## (Intercept)     1 205.2165  &lt;.0001
+## TEMP            1  40.3839  &lt;.0001
+## DIA             4 356.3173  &lt;.0001
+## TEMP:DIA        4  26.7291  &lt;.0001</code></pre>
+<p>Hay interacción Tiempo * Temperatura. Se hacen comparaciones de interacción y se analízan los efectos simples.</p>
+</div>
+<div id="comparaciones-de-interacción-2" class="section level3">
+<h3>Comparaciones de interacción</h3>
+<pre><code>## DIA = 0:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.824 0.757 419  1.089  0.2768 
+## 
+## DIA = 3:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -0.804 0.757 419 -1.062  0.2889 
+## 
+## DIA = 7:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -4.618 0.757 419 -6.101  &lt;.0001 
+## 
+## DIA = 10:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -7.762 0.872 419 -8.901  &lt;.0001 
+## 
+## DIA = 14:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -8.780 0.914 419 -9.607  &lt;.0001 
+## 
+## Degrees-of-freedom method: df.error</code></pre>
+</div>
+<div id="plot-se-del-modelo-2" class="section level3">
+<h3>Plot SE del modelo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="efectos-simples-2" class="section level3">
+<h3>Efectos simples</h3>
+<pre><code>## DIA = 0:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9       0.824 0.757 419  1.089  0.2768 
+## 
+## DIA = 3:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -0.804 0.757 419 -1.062  0.2889 
+## 
+## DIA = 7:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -4.618 0.757 419 -6.101  &lt;.0001 
+## 
+## DIA = 10:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -7.762 0.872 419 -8.901  &lt;.0001 
+## 
+## DIA = 14:
+##  contrast estimate    SE  df t.ratio p.value
+##  5 - 9      -8.780 0.914 419 -9.607  &lt;.0001 
+## 
+## Degrees-of-freedom method: df.error</code></pre>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-47-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>##  TEMP DIA   lsmean    SE  df lower.CL upper.CL .group 
+##  9    0   -13.7390 0.535 419   -15.25   -12.23  a     
+##  5    0   -12.9148 0.535 419   -14.42   -11.41  a     
+##  5    3    -9.7724 0.535 419   -11.28    -8.27   b    
+##  9    3    -8.9686 0.535 419   -10.47    -7.46   b    
+##  5    7    -4.5618 0.535 419    -6.07    -3.06    c   
+##  5    10   -2.6556 0.542 419    -4.18    -1.13    c   
+##  9    7     0.0562 0.535 419    -1.45     1.56     d  
+##  5    14    0.4440 0.560 419    -1.13     2.02     d  
+##  9    10    5.1061 0.683 419     3.18     7.03      e 
+##  9    14    9.2244 0.722 419     7.19    11.26       f
+## 
+## Degrees-of-freedom method: df.error 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 10 estimates 
+## P value adjustment: tukey method for comparing a family of 10 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="conclusión-a" class="section level3">
+<h3>Conclusión a</h3>
+<p>A partir de los 7 días hubo diferencias significativas entre temperaturas.</p>
+</div>
+</div>
+</div>
+<div id="color-b--" class="section level1">
+<h1>COLOR (b) —-</h1>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="boxplot-con-outliers-3" class="section level3">
+<h3>Boxplot con outliers</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /> No se detectan outliers</p>
+</div>
+<div id="boxplot-3" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="con-desvío-estandar-3" class="section level3">
+<h3>Con desvío estandar</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráfico-de-perfiles-3" class="section level3">
+<h3>Gráfico de perfiles</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-53-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="comportamiento-por-fruto-3" class="section level3">
+<h3>Comportamiento por fruto</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="estadística-inferencial-b" class="section level2">
+<h2>Estadística inferencial b</h2>
+<div id="correlación-en-el-tiempo-3" class="section level3">
+<h3>Correlación en el tiempo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-55-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-56-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="seleccion-de-modelos-por-aic-3" class="section level3">
+<h3>Seleccion de modelos por AIC</h3>
+<pre><code>##    df      AIC
+## m1 12 2736.972
+## m2 16 2739.459
+## m3 12 2748.094
+## m4 16 2749.252
+## m5 21 2697.303</code></pre>
+<p>El modelo m5 es el mejor en términos de AIC</p>
+</div>
+<div id="supuestos-3" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-58-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-58-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-58-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="covarianza-marginal-3" class="section level3">
+<h3>Covarianza marginal</h3>
+<pre><code>## Marginal variance covariance matrix
+##        [,1]     [,2]     [,3]     [,4]    [,5]
+## [1,] 32.404 21.01400 -1.10200 13.18500 13.2830
+## [2,] 21.014 32.40400  0.73093 13.61100  9.5937
+## [3,] -1.102  0.73093 32.40400  0.23777  2.6330
+## [4,] 13.185 13.61100  0.23777 32.40400 17.6790
+## [5,] 13.283  9.59370  2.63300 17.67900 32.4040
+##   Standard Deviations: 5.6925 5.6925 5.6925 5.6925 5.6925</code></pre>
+</div>
+<div id="anova-1" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Denom. DF: 430 
+##             numDF   F-value p-value
+## (Intercept)     1 26669.023  &lt;.0001
+## TEMP            1     4.034  0.0452
+## DIA             4    77.566  &lt;.0001
+## TEMP:DIA        4    10.130  &lt;.0001</code></pre>
+<p>Hay interacción Tiempo * Temperatura. Se hacen comparaciones de interacción y se analízan los efectos simples.</p>
+</div>
+<div id="comparaciones-de-interacción-3" class="section level3">
+<h3>Comparaciones de interacción</h3>
+<pre><code>## DIA = 0:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9       0.654 1.14 430  0.575  0.5659 
+## 
+## DIA = 3:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9       1.958 1.14 430  1.720  0.0862 
+## 
+## DIA = 7:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9      -4.131 1.14 430 -3.629  0.0003 
+## 
+## DIA = 10:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9      -6.336 1.34 430 -4.737  &lt;.0001 
+## 
+## DIA = 14:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9      -2.597 1.40 430 -1.853  0.0645 
+## 
+## Degrees-of-freedom method: df.error</code></pre>
+</div>
+<div id="plot-se-del-modelo-3" class="section level3">
+<h3>Plot SE del modelo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="efectos-simples-3" class="section level3">
+<h3>Efectos simples</h3>
+<pre><code>## DIA = 0:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9       0.654 1.14 430  0.575  0.5659 
+## 
+## DIA = 3:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9       1.958 1.14 430  1.720  0.0862 
+## 
+## DIA = 7:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9      -4.131 1.14 430 -3.629  0.0003 
+## 
+## DIA = 10:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9      -6.336 1.34 430 -4.737  &lt;.0001 
+## 
+## DIA = 14:
+##  contrast estimate   SE  df t.ratio p.value
+##  5 - 9      -2.597 1.40 430 -1.853  0.0645 
+## 
+## Degrees-of-freedom method: df.error</code></pre>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-63-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>##  TEMP DIA lsmean    SE  df lower.CL upper.CL .group
+##  9    0     51.0 0.805 430     48.8     53.3  a    
+##  5    0     51.7 0.805 430     49.4     54.0  a    
+##  9    3     53.2 0.805 430     50.9     55.4  ab   
+##  5    3     55.1 0.805 430     52.9     57.4   b   
+##  5    10    58.6 0.817 430     56.3     60.9    c  
+##  5    14    60.1 0.848 430     57.7     62.5    c  
+##  5    7     60.7 0.805 430     58.5     63.0    c  
+##  9    14    62.7 1.116 430     59.5     65.8    cd 
+##  9    7     64.9 0.805 430     62.6     67.1     d 
+##  9    10    65.0 1.059 430     62.0     68.0     d 
+## 
+## Degrees-of-freedom method: df.error 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 10 estimates 
+## P value adjustment: tukey method for comparing a family of 10 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="conclusión-b" class="section level3">
+<h3>Conclusión b</h3>
+<p>A los 7 y 10 días hubo diferencias significativas entre temperaturas.</p>
+</div>
+<div id="tabla-resumen" class="section level3">
+<h3>Tabla resumen</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="pérdidas-de-frutos" class="section level1">
+<h1>Pérdidas de frutos</h1>
+<div id="estadística-descriptiva-3" class="section level2">
+<h2>Estadística descriptiva</h2>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-66-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

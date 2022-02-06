@@ -11,7 +11,7 @@
 
 
 
-<title>Publications</title>
+<title>Reproductive</title>
 
 <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -218,6 +221,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -225,6 +297,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -305,16 +387,74 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Publications</h1>
+<h1 class="title toc-ignore">Reproductive</h1>
 
 </div>
 
 
-<p><a href="https://oaj.fupress.net/index.php/ahs/index" class="uri">https://oaj.fupress.net/index.php/ahs/index</a></p>
-<p><a href="https://doi.org/10.1016/j.heliyon.2021.e08323" class="uri">https://doi.org/10.1016/j.heliyon.2021.e08323</a></p>
+<div id="conteo-de-polen" class="section level1">
+<h1>Conteo de polen —</h1>
+</div>
+<div id="diámetro-polen" class="section level1">
+<h1>Diámetro polen —</h1>
+<p>#<strong>PSF</strong> Peso seco de la flor —</p>
+</div>
+<div id="n-óvulos" class="section level1">
+<h1>N° óvulos —</h1>
+<div id="metodología" class="section level2">
+<h2>Metodología</h2>
+<p>Se muestrearon 10 fores por genotipo de <em>Hexachlamys edulis</em> en 3 poblaciones de Entre Ríos: Concordia, PN el Palmar y Gualeguaychú. Se procedío al corte del ovario infero en lupa y se contaron los óvulos presentes en total en cada flor.</p>
+</div>
+<div id="estadística-descriptiva" class="section level2">
+<h2>Estadística descriptiva</h2>
+<p>Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y 2021 <img src="Reproductive_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /> N° óvulos entre individuos de Concordia en ambos años. <img src="Reproductive_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /> N° óvulos entre individuos del Palmar en ambos años. <img src="Reproductive_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /> N° óvulos entre individuos de Gualeguaychú en ambos años. <img src="Reproductive_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="estadística-inferencial" class="section level2">
+<h2>Estadística inferencial</h2>
+<p>Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.</p>
+<p>Diseño anidado: Población(Genotipo) Análisis univariado de la variable N° de óvulos. Distribución de probabilidades: Poisson. Análisis de componentes de varianza. factores aleatorios: Población y Genotipo factores fijos: año</p>
+<pre><code>## $emmeans
+##  A    rate    SE  df asymp.LCL asymp.UCL
+##  2019 4.37 0.182 Inf      4.03      4.74
+##  2021 4.97 0.212 Inf      4.57      5.40
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale 
+## 
+## $contrasts
+##  contrast    ratio     SE  df asymp.LCL asymp.UCL
+##  2019 / 2021 0.879 0.0312 Inf      0.82     0.942
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale</code></pre>
+<p><img src="Reproductive_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<pre><code>## # Intraclass Correlation Coefficient
+## 
+##      Adjusted ICC: 0.089
+##   Conditional ICC: 0.087</code></pre>
+<pre><code>## [1] 0.911</code></pre>
+<p>Conclusiones:</p>
+<p>Se observan diferencias significativas entre años p = 0.000243 *** El año 2021 tuvo 4.97 óvulos en promedio mientras que el 2019 tuvo 4,37</p>
+<p>Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)</p>
+</div>
+</div>
+<div id="n-semillas" class="section level1">
+<h1>N° semillas —</h1>
+</div>
+<div id="so-ratio-semillas-óvulos" class="section level1">
+<h1><strong>S/O</strong> ratio semillas óvulos —</h1>
+</div>
+<div id="frfl-ratio-flores-frutos" class="section level1">
+<h1><strong>Fr/Fl</strong> ratio flores frutos —</h1>
+</div>
+<div id="f-ratio-frutos-óvulos" class="section level1">
+<h1><strong>F</strong> ratio frutos óvulos —</h1>
+</div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -347,6 +487,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
