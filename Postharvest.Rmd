@@ -10,7 +10,7 @@ output:
 ---
 
 
-# PESO ----
+# PESO
 
 ## Estadística descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
@@ -236,7 +236,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ### Conclusión PESO
 NO se encontraron diferencias significativas entre temperaturas.
 
-# COLOR (L) ----
+# COLOR (L)
 
 ## Estadística descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
@@ -453,7 +453,7 @@ cld(posthoc,alpha=.05,Letters=letters)
 ### Conclusión L
 Sólo a los 10 días hubo diferencias significativas entre temperaturas.
 
-# COLOR (a) ----
+# COLOR (a)
 
 ## Estadística descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
@@ -659,7 +659,7 @@ cld(posthoc,alpha=.05,Letters=letters)
 ### Conclusión a
 A partir de los 7 días hubo diferencias significativas entre temperaturas.
 
-# COLOR (b) ----
+# COLOR (b)
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -888,4 +888,438 @@ P3 <- ggplot(data = data, aes(x = TEMP, y = E, colour=DIA, group=DIA))+
   theme(panel.grid.major.x = element_blank())
 P3
 
+```
+
+# ACIDEZ
+
+## pH
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datac<-read.delim("datac.txt")
+datac$DIA<-as.factor(datac$DIA)
+datac$TEMP<-as.factor(datac$TEMP)
+attach(datac)
+
+#pH
+library(ggplot2)
+p1<-ggplot(data=datac, aes(x=DIA, y=pH, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="pH", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+p1
+```
+
+### Modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+data<-datac[4:15,]
+data$DIA<-factor(data$DIA,levels=c("7", "14"))
+data$TEMP<-factor(data$TEMP,levels=c("5", "9"))
+attach(data)
+m1<-aov(pH~DIA*TEMP, data)
+m1
+
+```
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(m1) # residuos de pearson
+pre<-predict(m1) #predichos
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+shapiro.test(e)
+car::leveneTest(m1)
+```
+
+### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(m1)
+
+```
+No se encontraron diferencias significativas.
+
+## Sólidos solubles
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#SS
+library(ggplot2)
+s1<-ggplot(data=datac, aes(x=DIA, y=SS, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Sólidos Solubles", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+s1
+```
+
+### Modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+m1<-aov(SS~DIA*TEMP, data)
+m1
+
+```
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(m1) # residuos de pearson
+pre<-predict(m1) #predichos
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+shapiro.test(e)
+car::leveneTest(m1)
+```
+
+### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(m1)
+
+```
+No se encontraron diferencias significativas.
+
+## Acidez total
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Ac
+library(ggplot2)
+a1<-ggplot(data=datac, aes(x=DIA, y=Ac, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Acidez total", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+a1
+```
+
+### Modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+m1<-aov(Ac~DIA*TEMP, data)
+m1
+```
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(m1) # residuos de pearson
+pre<-predict(m1) #predichos
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+shapiro.test(e)
+car::leveneTest(m1)
+```
+
+### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(m1)
+```
+No se encontraron diferencias significativas.
+
+### Tabla resumen
+```{r,fig.align='center',echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("acidez.png")
+ grid.raster(img)
+```
+
+# COMPRESIÓN
+
+## Fuerza (N)
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+dataco<-read.delim("Compre.txt")
+dataco$DIA<-as.factor(dataco$DIA)
+dataco$TEMP<-as.factor(dataco$TEMP)
+attach(dataco)
+
+```
+
+### Boxplot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+f1<-ggplot(data=dataco, aes(x=DIA, y=FU, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Force (N)", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+f1
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+data<-dataco[19:108,]
+data$DIA<-factor(data$DIA,levels=c("7", "14"))
+data$TEMP<-factor(data$TEMP,levels=c("5", "9"))
+attach(data)
+
+```
+
+### Boxplot con outliers
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+g_caja<-boxplot(data$FU, col="green3", frame.plot=F)
+data<-data[!(data$FU %in% g_caja$out),]
+attach(data)
+```
+
+### Modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+m2<-gls(FU~DIA*TEMP, data, weights=varIdent(form= ~ 1|DIA*TEMP ))
+m2
+```
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+r5<-residuals(m2,type="p")
+pred5<-fitted(m2)
+plot(pred5, r5, xlab="Predichos", ylab="Residuos estandarizados",main="Gr?fico de dispersi?n de RE vs PRED" )
+abline(0,0)
+boxplot(r5~TEMP*DIA,xlab="TEMP*DIA", ylab="Residuos estandarizados")
+qqnorm(r5)
+qqline(r5)
+hist(r5)
+shapiro.test(r5)
+
+```
+
+### Anova tipo III
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+car::Anova(m2, type="III")
+
+```
+No hay interacción. El factor DIA es significativo.
+
+### Efectos principales
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(emmeans)
+Comp2<-emmeans(m2, pairwise ~ DIA)
+plot(Comp2, comparisons = TRUE)
+confint(Comp2$contrasts) #IC para la dif de medias
+```
+
+## Gradiente (N/mm)
+
+### Boxplot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+g1<-ggplot(data=dataco, aes(x=DIA, y=GR, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Gradient (N/mm)", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+g1
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+data<-dataco[19:108,]
+data$DIA<-factor(data$DIA,levels=c("7", "14"))
+data$TEMP<-factor(data$TEMP,levels=c("5", "9"))
+attach(data)
+
+```
+
+### Boxplot con outliers
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+g_caja<-boxplot(data$GR, col="green3", frame.plot=F)
+data<-data[!(data$GR %in% g_caja$out),]
+attach(data)
+```
+
+### Modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+m2<-gls(GR~DIA*TEMP, data, weights=varIdent(form= ~ 1|DIA*TEMP ))
+m2
+```
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+r5<-residuals(m2,type="p")
+pred5<-fitted(m2)
+plot(pred5, r5, xlab="Predichos", ylab="Residuos estandarizados",main="Gráfico de dispersión de RE vs PRED" )
+abline(0,0)
+boxplot(r5~TEMP*DIA,xlab="TEMP*DIA", ylab="Residuos estandarizados")
+qqnorm(e)
+qqline(e)
+hist(r5)
+shapiro.test(r5)
+```
+
+### Anova tipo III
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+car::Anova(m2, type="III")
+```
+No hay interacción. El factor DIA es significativo.
+
+### Efectos principales
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(emmeans)
+Comp2<-emmeans(m2, pairwise ~ DIA)
+plot(Comp2, comparisons = TRUE)
+confint(Comp2$contrasts) #IC para la dif de medias
+```
+
+## Distance F max (mm)
+
+### Boxplot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+d1<-ggplot(data=dataco, aes(x=DIA, y=DI, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Distance F max (mm)", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+d1
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+data<-dataco[19:108,]
+data$DIA<-factor(data$DIA,levels=c("7", "14"))
+data$TEMP<-factor(data$TEMP,levels=c("5", "9"))
+attach(data)
+
+```
+### Boxplot con outliers
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+g_caja<-boxplot(data$DI, col="green3", frame.plot=F)
+data<-data[!(data$DI %in% g_caja$out),]
+attach(data)
+```
+
+### Modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+m1<-aov(DI~DIA*TEMP, data)
+m1
+```
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+e<-resid(m1) # residuos de pearson
+pre<-predict(m1) #predichos
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+boxplot(e~TEMP*DIA,xlab="TEMP*DIA", ylab="Residuos estandarizados")
+hist(e)
+shapiro.test(e)
+car::leveneTest(m1)
+```
+
+### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(m1)
+```
+Interacción significativa.
+
+### Comparaciones de interacción
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#comparaciones de interacción
+library(emmeans)
+lsm_int<-emmeans(m1, ~ TEMP:DIA, mode = "df.error")
+contrast(lsm_int, method = "pairwise", by = "DIA")
+```
+
+### Gráfico con SE del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+comp<-emmeans(m1, pairwise ~ TEMP*DIA, mode = "df.error") 
+compa<-data.frame(comp$emmeans)
+ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
+  geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+ labs(y="Distance F max (mm)")
+```
+
+### Efectos simples
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#EFectos simples
+efsimplea<-emmeans(m1, pairwise ~ TEMP | DIA)
+efsimplea$contrasts
+plot(efsimplea, comparisons = TRUE)
+```
+
+## Tabla resumen
+```{r,fig.align='center', echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("compre.png")
+ grid.raster(img)
+```
+
+# PUNCIÓN
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+datap<-read.delim("Puncion.txt")
+attach(datap)
+datap$DIA<-as.factor(DIA)
+datap$TEMP<-as.factor(TEMP)
+attach(datap)
+
+library(ggplot2)
+f1<-ggplot(data=datap, aes(x=DIA, y=FU, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Force (N)", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+f1
+g1<-ggplot(data=datap, aes(x=DIA, y=GR, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Gradient (N/mm)", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+g1
+d1<-ggplot(data=datap, aes(x=DIA, y=DI, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="Distance F max (mm)", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+d1
+p1<-ggplot(data=datap, aes(x=DIA, y=PI, color=TEMP, width=1)) +
+  geom_boxplot()+
+  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="N° Picos", x="Días de Cosecha")+
+  theme(panel.grid.major.x = element_blank())
+p1
 ```

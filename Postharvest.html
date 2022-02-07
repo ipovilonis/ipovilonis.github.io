@@ -16,7 +16,7 @@
 <script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -35,6 +35,7 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="favicon.ico"/>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -377,7 +378,12 @@ div.tocify {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/ipovilonis/ipovilonis.github.io">
+    <span class="https://github.githubassets.com/images/modules/logos_page/GitHub https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"></span>
+     
+  </a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -392,8 +398,8 @@ div.tocify {
 </div>
 
 
-<div id="peso--" class="section level1">
-<h1>PESO —-</h1>
+<div id="peso" class="section level1">
+<h1>PESO</h1>
 <div id="estadística-descriptiva" class="section level2">
 <h2>Estadística descriptiva</h2>
 <div id="boxplot-con-outliers" class="section level3">
@@ -552,8 +558,8 @@ div.tocify {
 </div>
 </div>
 </div>
-<div id="color-l--" class="section level1">
-<h1>COLOR (L) —-</h1>
+<div id="color-l" class="section level1">
+<h1>COLOR (L)</h1>
 <div id="estadística-descriptiva-1" class="section level2">
 <h2>Estadística descriptiva</h2>
 <div id="boxplot-con-outliers-1" class="section level3">
@@ -728,8 +734,8 @@ div.tocify {
 </div>
 </div>
 </div>
-<div id="color-a--" class="section level1">
-<h1>COLOR (a) —-</h1>
+<div id="color-a" class="section level1">
+<h1>COLOR (a)</h1>
 <div id="estadística-descriptiva-2" class="section level2">
 <h2>Estadística descriptiva</h2>
 <div id="boxplot-con-outliers-2" class="section level3">
@@ -871,8 +877,8 @@ div.tocify {
 </div>
 </div>
 </div>
-<div id="color-b--" class="section level1">
-<h1>COLOR (b) —-</h1>
+<div id="color-b" class="section level1">
+<h1>COLOR (b)</h1>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-49-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div id="boxplot-con-outliers-3" class="section level3">
 <h3>Boxplot con outliers</h3>
@@ -1022,6 +1028,358 @@ div.tocify {
 <h2>Estadística descriptiva</h2>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-66-2.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+</div>
+<div id="acidez" class="section level1">
+<h1>ACIDEZ</h1>
+<div id="ph" class="section level2">
+<h2>pH</h2>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-67-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="modelo" class="section level3">
+<h3>Modelo</h3>
+<pre><code>## Call:
+##    aov(formula = pH ~ DIA * TEMP, data = data)
+## 
+## Terms:
+##                        DIA       TEMP   DIA:TEMP  Residuals
+## Sum of Squares  0.01203333 0.00333333 0.00053333 0.04086667
+## Deg. of Freedom          1          1          1          8
+## 
+## Residual standard error: 0.07147261
+## Estimated effects may be unbalanced</code></pre>
+</div>
+<div id="supuestos-4" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-69-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.89695, p-value = 0.1449</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  0.8158 0.5204
+##        8</code></pre>
+</div>
+<div id="anova-2" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: pH
+##           Df   Sum Sq   Mean Sq F value Pr(&gt;F)
+## DIA        1 0.012033 0.0120333  2.3556 0.1634
+## TEMP       1 0.003333 0.0033333  0.6525 0.4426
+## DIA:TEMP   1 0.000533 0.0005333  0.1044 0.7549
+## Residuals  8 0.040867 0.0051083</code></pre>
+<p>No se encontraron diferencias significativas.</p>
+</div>
+</div>
+<div id="sólidos-solubles" class="section level2">
+<h2>Sólidos solubles</h2>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="modelo-1" class="section level3">
+<h3>Modelo</h3>
+<pre><code>## Call:
+##    aov(formula = SS ~ DIA * TEMP, data = data)
+## 
+## Terms:
+##                       DIA      TEMP  DIA:TEMP Residuals
+## Sum of Squares  0.0075000 1.5408333 0.3008333 3.1333333
+## Deg. of Freedom         1         1         1         8
+## 
+## Residual standard error: 0.6258328
+## Estimated effects may be unbalanced</code></pre>
+</div>
+<div id="supuestos-5" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-73-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-73-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.93185, p-value = 0.4001</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3   0.202 0.8921
+##        8</code></pre>
+</div>
+<div id="anova-3" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: SS
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## DIA        1 0.00750 0.00750  0.0191 0.89336  
+## TEMP       1 1.54083 1.54083  3.9340 0.08261 .
+## DIA:TEMP   1 0.30083 0.30083  0.7681 0.40636  
+## Residuals  8 3.13333 0.39167                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>No se encontraron diferencias significativas.</p>
+</div>
+</div>
+<div id="acidez-total" class="section level2">
+<h2>Acidez total</h2>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div id="modelo-2" class="section level3">
+<h3>Modelo</h3>
+<pre><code>## Call:
+##    aov(formula = Ac ~ DIA * TEMP, data = data)
+## 
+## Terms:
+##                       DIA      TEMP  DIA:TEMP Residuals
+## Sum of Squares  0.5191680 0.0003413 0.0167253 1.0895360
+## Deg. of Freedom         1         1         1         8
+## 
+## Residual standard error: 0.369042
+## Estimated effects may be unbalanced</code></pre>
+</div>
+<div id="supuestos-6" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-77-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.98217, p-value = 0.9908</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  0.4232 0.7416
+##        8</code></pre>
+</div>
+<div id="anova-4" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Ac
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## DIA        1 0.51917 0.51917  3.8120 0.08666 .
+## TEMP       1 0.00034 0.00034  0.0025 0.96130  
+## DIA:TEMP   1 0.01673 0.01673  0.1228 0.73506  
+## Residuals  8 1.08954 0.13619                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>No se encontraron diferencias significativas.</p>
+</div>
+<div id="tabla-resumen-1" class="section level3">
+<h3>Tabla resumen</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-79-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+</div>
+<div id="compresión" class="section level1">
+<h1>COMPRESIÓN</h1>
+<div id="fuerza-n" class="section level2">
+<h2>Fuerza (N)</h2>
+<div id="boxplot-4" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot-con-outliers-4" class="section level3">
+<h3>Boxplot con outliers</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-83-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelo-3" class="section level3">
+<h3>Modelo</h3>
+<pre><code>## Generalized least squares fit by REML
+##   Model: FU ~ DIA * TEMP 
+##   Data: data 
+##   Log-restricted-likelihood: -146.3235
+## 
+## Coefficients:
+## (Intercept)       DIA14       TEMP9 DIA14:TEMP9 
+##  5.53750000 -1.55923913 -0.29013158 -0.05955786 
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | DIA * TEMP 
+##  Parameter estimates:
+##      14*5      14*9       7*9       7*5 
+## 1.0000000 0.3277117 1.1647692 1.1738285 
+## Degrees of freedom: 87 total; 83 residual
+## Residual standard error: 1.586006</code></pre>
+</div>
+<div id="supuestos-7" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-85-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-85-3.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-85-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  r5
+## W = 0.96876, p-value = 0.03355</code></pre>
+</div>
+<div id="anova-tipo-iii-2" class="section level3">
+<h3>Anova tipo III</h3>
+<pre><code>## Analysis of Deviance Table (Type III tests)
+## 
+## Response: FU
+##             Df    Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 212.3341  &lt; 2.2e-16 ***
+## DIA          1   9.5801   0.001967 ** 
+## TEMP         1   0.2598   0.610269    
+## DIA:TEMP     1   0.0079   0.928958    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>No hay interacción. El factor DIA es significativo.</p>
+</div>
+<div id="efectos-principales" class="section level3">
+<h3>Efectos principales</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-87-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>##  contrast estimate    SE   df lower.CL upper.CL
+##  7 - 14       1.59 0.334 61.3    0.921     2.26
+## 
+## Results are averaged over the levels of: TEMP 
+## Degrees-of-freedom method: satterthwaite 
+## Confidence level used: 0.95</code></pre>
+</div>
+</div>
+<div id="gradiente-nmm" class="section level2">
+<h2>Gradiente (N/mm)</h2>
+<div id="boxplot-5" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-88-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot-con-outliers-5" class="section level3">
+<h3>Boxplot con outliers</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelo-4" class="section level3">
+<h3>Modelo</h3>
+<pre><code>## Generalized least squares fit by REML
+##   Model: GR ~ DIA * TEMP 
+##   Data: data 
+##   Log-restricted-likelihood: -48.01665
+## 
+## Coefficients:
+##   (Intercept)         DIA14         TEMP9   DIA14:TEMP9 
+##  1.7227272727 -0.3357707510 -0.0005050505 -0.1864514712 
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | DIA * TEMP 
+##  Parameter estimates:
+##     14*5     14*9      7*9      7*5 
+## 1.000000 0.291187 1.020717 1.001489 
+## Degrees of freedom: 84 total; 80 residual
+## Residual standard error: 0.5537511</code></pre>
+</div>
+<div id="supuestos-8" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-92-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-92-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-92-3.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-92-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  r5
+## W = 0.97835, p-value = 0.1689</code></pre>
+</div>
+<div id="anova-tipo-iii-3" class="section level3">
+<h3>Anova tipo III</h3>
+<pre><code>## Analysis of Deviance Table (Type III tests)
+## 
+## Response: GR
+##             Df    Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 212.2923    &lt; 2e-16 ***
+## DIA          1   4.1279    0.04218 *  
+## TEMP         1   0.0000    0.99774    
+## DIA:TEMP     1   0.7509    0.38620    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>No hay interacción. El factor DIA es significativo.</p>
+</div>
+<div id="efectos-principales-1" class="section level3">
+<h3>Efectos principales</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>##  contrast estimate    SE   df lower.CL upper.CL
+##  7 - 14      0.429 0.108 59.7    0.214    0.644
+## 
+## Results are averaged over the levels of: TEMP 
+## Degrees-of-freedom method: satterthwaite 
+## Confidence level used: 0.95</code></pre>
+</div>
+</div>
+<div id="distance-f-max-mm" class="section level2">
+<h2>Distance F max (mm)</h2>
+<div id="boxplot-6" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-95-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot-con-outliers-6" class="section level3">
+<h3>Boxplot con outliers</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-97-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelo-5" class="section level3">
+<h3>Modelo</h3>
+<pre><code>## Call:
+##    aov(formula = DI ~ DIA * TEMP, data = data)
+## 
+## Terms:
+##                      DIA     TEMP DIA:TEMP Residuals
+## Sum of Squares  0.025568 0.027604 0.356437  5.819368
+## Deg. of Freedom        1        1        1        84
+## 
+## Residual standard error: 0.2632075
+## Estimated effects may be unbalanced</code></pre>
+</div>
+<div id="supuestos-9" class="section level3">
+<h3>Supuestos</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-99-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-99-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-99-3.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-99-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9922, p-value = 0.8858</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  1.0942 0.3562
+##       84</code></pre>
+</div>
+<div id="anova-5" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: DI
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## DIA        1 0.0256 0.02557  0.3691 0.54515  
+## TEMP       1 0.0276 0.02760  0.3985 0.52960  
+## DIA:TEMP   1 0.3564 0.35644  5.1450 0.02588 *
+## Residuals 84 5.8194 0.06928                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Interacción significativa.</p>
+</div>
+<div id="comparaciones-de-interacción-4" class="section level3">
+<h3>Comparaciones de interacción</h3>
+<pre><code>## DIA = 7:
+##  contrast estimate     SE df t.ratio p.value
+##  5 - 9      0.0925 0.0797 84  1.161  0.2490 
+## 
+## DIA = 14:
+##  contrast estimate     SE df t.ratio p.value
+##  5 - 9     -0.1627 0.0794 84 -2.048  0.0436</code></pre>
+</div>
+<div id="gráfico-con-se-del-modelo" class="section level3">
+<h3>Gráfico con SE del modelo</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-102-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="efectos-simples-4" class="section level3">
+<h3>Efectos simples</h3>
+<pre><code>## DIA = 7:
+##  contrast estimate     SE df t.ratio p.value
+##  5 - 9      0.0925 0.0797 84  1.161  0.2490 
+## 
+## DIA = 14:
+##  contrast estimate     SE df t.ratio p.value
+##  5 - 9     -0.1627 0.0794 84 -2.048  0.0436</code></pre>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-103-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="tabla-resumen-2" class="section level2">
+<h2>Tabla resumen</h2>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-104-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="punción" class="section level1">
+<h1>PUNCIÓN</h1>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-105-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-105-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-105-3.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-105-4.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 
 

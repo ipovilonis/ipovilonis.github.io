@@ -2,6 +2,9 @@ name: "Visualización Web de Datos"
 output_dir: "."
 navbar:
   title: "Eugenia myrcianthes Nied."
+  right:
+    - href: https://github.com/ipovilonis/ipovilonis.github.io
+      icon: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
   left:
     - text: "Home"
       href: index.html
@@ -34,5 +37,7 @@ navbar:
       href: about.html
 output:
   html_document:
-    theme: cosmo
+    includes:
+      in_header: header.html
+    theme: darkly
     highlight: textmate
