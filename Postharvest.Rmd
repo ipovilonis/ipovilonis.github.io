@@ -11,9 +11,28 @@ output:
 
 This essay shows the postharvest behavior of the fruits at temperatures of 5 and 9 °C for different physical and chemical variables.
 
-# PESO
+# Introducción
 
-## Estadística descriptiva
+Las pérdidas de frutas y hortalizas entre los momentos de cosecha y su potencial consumo son considerables. Puntualmente, las frutas frescas son tejidos vivos que adquieren vida independiente una vez cosechados. Minimizar éstas pérdidas depende de factores biológicos como la especie o variedad, el órgano vegetal, patologías asociadas, momento de cosecha, contenido relativo de humedad y en el caso puntual de los frutos si son climatéricos o no, entre muchos otros. La disminución o letargo de procesos fisiológicos, físicos y patológicos son fundamentales para lograr una mayor vida útil. El conocimiento de la producción de etileno y dióxido de carbono mediante la respiración en poscosecha es fundamental para determinar si los frutos presentan un comportamiento climatérico o no. Mediante la respiración, utilizan sus reservas metabólicas acumuladas durante la fase de crecimiento y maduración y pueden dar continuidad a los procesos de síntesis necesarios para su sobrevivencia. Sin embargo, la pérdida de estas reservas alimenticias también significa el aceleramiento de la senescencia y la disminución de la vida útil del producto.
+A su vez, factores ambientales tales como la temperatura, humedad o radiación combinados con los factores mencionados determinan el mejor o peor estado de conservación. Así, la disminución de la temperatura del producto y la reducción del tiempo en el cual se alcanza la temperatura óptima de almacenamiento juegan un papel esencial, pues son los factores que más influyen en la disminución de estos procesos que afectan las reacciones y composición química, así como la integridad física.
+
+El fruto de *H. edulis* tendría un gran potencial como alimento funcional por su perfil composicional y destacado valor nutritivo  muy favorable para la salud, Sin embargo, existen escasos antecedentes en cuanto al comportamiento en poscosecha de los frutos y formas de almacenamiento, conocimientos imprescindibles al momento de pensar en el uso de estos frutos sea como productos frescos como en productos elaborados.
+
+A partir de la aplicación de tecnologías postcosecha es posible describir, comprender y ejecutar tratamientos que eviten pérdidas mayores y preserven la calidad del perfil nutricional y los aspectos sensoriales deseados para ser aceptados por los consumidores.
+
+# Objetivos
+1. Evaluar las características físicas de los frutos en diferentes tiempos y condiciones de almacenamiento.
+
+2. Evaluar las características químicas de los frutos en diferentes tiempos y condiciones de
+almacenamiento: sólidos solubles-acidez titulable, etileno.
+
+3. Definir el método de conservación más adecuado para estos frutos y su caracterización como alimento funcional.
+
+# Análisis completo del ensayo:
+
+## PESO
+
+### Estadística descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -24,7 +43,7 @@ data$TEMP<-as.factor(data$TEMP)
 data$ID<-as.factor(data$ID)
 ```
 
-### Boxplot con outliers
+#### Boxplot con outliers
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Se quitan outliers
@@ -34,7 +53,7 @@ attach(data)
 
 ```
 
-### Boxplot
+#### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
@@ -56,7 +75,7 @@ P1<-ggplot(data=data, aes(x=DIA, y=PESO, color=TEMP))+
 P1
 ```
 
-### Con desvío estandar
+#### Con desvío estandar
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
@@ -78,7 +97,7 @@ P3<- ggplot(estad, aes(x=DIA, y=PESO, color=TEMP, group=TEMP)) +
 P3
 ```
 
-### Gráfico de perfiles
+#### Gráfico de perfiles
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 P2 <- ggplot(data = data, aes(x = DIA, y = PESO, colour=TEMP, group=TEMP))+
@@ -102,7 +121,7 @@ P2b <- ggplot(data = data, aes(x = TEMP, y = PESO, colour=DIA, group=DIA))+
 P2b
 ```
 
-### Comportamiento por fruto
+#### Comportamiento por fruto
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -113,9 +132,9 @@ P4<- ggplot(data = data, aes(x = DIA, y = PESO, group = ID))+
 P4
 ```
 
-## Estadística inferencial PESO
+### Estadística inferencial PESO
 
-### Correlación en el tiempo
+#### Correlación en el tiempo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -136,7 +155,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
 ```
 
-### Seleccion de modelos por AIC
+#### Seleccion de modelos por AIC
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(nlme)
@@ -160,7 +179,7 @@ AIC(m1,m2,m3,m4,m5,m6)
 El modelo m5 es el mejor en términos de AIC
 
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 e<-resid(m5)
@@ -172,13 +191,13 @@ qqline(e)
 hist(e)
 ```
 
-### Covarianza marginal
+#### Covarianza marginal
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 getVarCov(m5)
 ```
 
-### Anova tipo III
+#### Anova tipo III
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 car::Anova(m5, type=3)
@@ -186,7 +205,7 @@ car::Anova(m5, type=3)
 Hay interacción Tiempo * Temperatura.
 Se hacen comparaciones de interacción y se analízan los efectos simples.
 
-### Comparaciones de interacción
+#### Comparaciones de interacción
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
@@ -196,7 +215,7 @@ contrast(lsm_int, method = "pairwise")
 ```
 Las diferencias significativas están dadas por los días.
 
-### Plot SE del modelo
+#### Plot SE del modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Graficamos, usando SE del modelo
@@ -218,7 +237,7 @@ ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
   
 ```
 
-### Efectos simples
+#### Efectos simples
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Como la interaccion fue signif, se comparan TEMP para cada DIA
@@ -234,12 +253,12 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # cld(posthoc,alpha=.05,Letters=letters)
 ```
 
-### Conclusión PESO
+#### Conclusión PESO
 NO se encontraron diferencias significativas entre temperaturas.
 
-# COLOR (L)
+## COLOR (L)
 
-## Estadística descriptiva
+### Estadística descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -252,7 +271,7 @@ attach(data)
 
 ```
 
-### Boxplot con outliers
+#### Boxplot con outliers
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Se quitan outliers
@@ -262,7 +281,7 @@ attach(data)
 
 ```
 
-### Boxplot
+#### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
@@ -280,7 +299,7 @@ L1<-ggplot(data=data, aes(x=DIA, y=L, color=TEMP))+
 L1
 ```
 
-### Con desvío estandar
+#### Con desvío estandar
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
@@ -300,7 +319,7 @@ L3<- ggplot(estad, aes(x=DIA, y=L, color=TEMP, group=TEMP)) +
 L3
 ```
 
-### Gráfico de perfiles
+#### Gráfico de perfiles
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 L2 <- ggplot(data = data, aes(x = DIA, y = L, colour=TEMP, group=TEMP))+
@@ -324,7 +343,7 @@ L2b <- ggplot(data = data, aes(x = TEMP, y = L, colour=DIA, group=DIA))+
 L2b
 ```
 
-### Comportamiento por fruto
+#### Comportamiento por fruto
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -335,9 +354,9 @@ L4<- ggplot(data = data, aes(x = DIA, y = L, group = ID))+
 L4
 ```
 
-## Estadística inferencial L
+### Estadística inferencial L
 
-### Correlación en el tiempo
+#### Correlación en el tiempo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -357,7 +376,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
 ```
 
-### Seleccion de modelos por AIC
+#### Seleccion de modelos por AIC
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(nlme)
@@ -380,7 +399,7 @@ AIC(m1,m2,m3,m4,m5,m6)
 ```
 El modelo m5 es el mejor en términos de AIC
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -393,13 +412,13 @@ qqline(e)
 hist(e)
 ```
 
-### Covarianza marginal
+#### Covarianza marginal
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 getVarCov(m5)
 ```
 
-### Anova tipo III
+#### Anova tipo III
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 car::Anova(m5, type=3)
@@ -407,7 +426,7 @@ car::Anova(m5, type=3)
 Hay interacción Tiempo * Temperatura.
 Se hacen comparaciones de interacción y se analízan los efectos simples.
 
-### Comparaciones de interacción
+#### Comparaciones de interacción
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
@@ -416,7 +435,7 @@ contrast(lsm_int, method = "pairwise")
 
 ```
 
-### Plot SE del modelo
+#### Plot SE del modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Graficamos, usando SE del modelo
@@ -435,7 +454,7 @@ ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
   
 ```
 
-### Efectos simples
+#### Efectos simples
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Como la interaccion fue signif, se comparan TEMP para cada DIA
@@ -451,12 +470,12 @@ posthoc<-lsmeans(m5, ~TEMP*DIA, adjust="tukey", mode = "df.error")
 # cld(posthoc,alpha=.05,Letters=letters)
 ```
 
-### Conclusión L
+#### Conclusión L
 Sólo a los 10 días hubo diferencias significativas entre temperaturas.
 
-# COLOR (a)
+## COLOR (a)
 
-## Estadística descriptiva
+### Estadística descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -469,7 +488,7 @@ attach(data)
 
 ```
 
-### Boxplot con outliers
+#### Boxplot con outliers
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Se quitan outliers
@@ -480,7 +499,7 @@ attach(data)
 ```
 No se detectan outliers
 
-### Boxplot
+#### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
@@ -498,7 +517,7 @@ a1<-ggplot(data=data, aes(x=DIA, y=a, color=TEMP))+
 a1
 ```
 
-### Con desvío estandar
+#### Con desvío estandar
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
@@ -518,7 +537,7 @@ a3<- ggplot(estad, aes(x=DIA, y=a, color=TEMP, group=TEMP)) +
 a3
 ```
 
-### Gráfico de perfiles
+#### Gráfico de perfiles
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 a2 <- ggplot(data = data, aes(x = DIA, y = a, colour=TEMP, group=TEMP))+
@@ -542,7 +561,7 @@ a2b <- ggplot(data = data, aes(x = TEMP, y = a, colour=DIA, group=DIA))+
 a2b
 ```
 
-### Comportamiento por fruto
+#### Comportamiento por fruto
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 a4<- ggplot(data = data, aes(x = DIA, y = a, group = ID))+
@@ -552,9 +571,9 @@ a4<- ggplot(data = data, aes(x = DIA, y = a, group = ID))+
 a4
 ```
 
-## Estadística inferencial a
+### Estadística inferencial a
 
-### Correlación en el tiempo
+#### Correlación en el tiempo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -574,7 +593,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
 ```
 
-### Seleccion de modelos por AIC
+#### Seleccion de modelos por AIC
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(nlme)
@@ -596,7 +615,7 @@ AIC(m1,m2,m3,m4,m5)
 ```
 El modelo m5 es el mejor en términos de AIC
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -609,13 +628,13 @@ qqline(e)
 hist(e)
 ```
 
-### Covarianza marginal
+#### Covarianza marginal
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 getVarCov(m5)
 ```
 
-### Anova
+#### Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(m5)
@@ -623,7 +642,7 @@ anova(m5)
 Hay interacción Tiempo * Temperatura.
 Se hacen comparaciones de interacción y se analízan los efectos simples.
 
-### Comparaciones de interacción
+#### Comparaciones de interacción
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
@@ -632,7 +651,7 @@ contrast(lsm_int, method = "pairwise", by = "DIA")
 
 ```
 
-### Plot SE del modelo
+#### Plot SE del modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 comp<-emmeans(m5, pairwise ~ TEMP*DIA, mode = "df.error") 
@@ -641,7 +660,7 @@ ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
   geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+ labs(y="PESO (g)")
 ```
 
-### Efectos simples
+#### Efectos simples
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Como la interaccion fue signif, se comparan TEMP para cada DIA
@@ -657,10 +676,10 @@ posthoc<-lsmeans(m5, ~TEMP*DIA, adjust="tukey", mode = "df.error")
 # cld(posthoc,alpha=.05,Letters=letters)
 ```
 
-### Conclusión a
+#### Conclusión a
 A partir de los 7 días hubo diferencias significativas entre temperaturas.
 
-# COLOR (b)
+## COLOR (b)
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -672,7 +691,7 @@ ggplot(data=data, aes(x=DIA, y=b, color=TEMP, width=1)) +
   theme(panel.grid.major.x = element_blank())
 ```
 
-### Boxplot con outliers
+#### Boxplot con outliers
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 g_caja<-boxplot(data$a, col="green3", frame.plot=F)
@@ -680,7 +699,7 @@ g_caja<-boxplot(data$a, col="green3", frame.plot=F)
 ```
 No se detectan outliers
 
-### Boxplot
+#### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
@@ -692,7 +711,7 @@ b1<-ggplot(data=data, aes(x=DIA, y=b, color=TEMP, width=1)) +
 b1
 ```
 
-### Con desvío estandar
+#### Con desvío estandar
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
@@ -712,7 +731,7 @@ b3<- ggplot(estad, aes(x=DIA, y=b, color=TEMP, group=TEMP)) +
 b3
 ```
 
-### Gráfico de perfiles
+#### Gráfico de perfiles
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 b2 <- ggplot(data = data, aes(x = DIA, y = b, colour=TEMP, group=TEMP))+
@@ -735,7 +754,7 @@ b2b <- ggplot(data = data, aes(x = TEMP, y = b, colour=DIA, group=DIA))+
 b2b
 ```
 
-### Comportamiento por fruto
+#### Comportamiento por fruto
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 b4<- ggplot(data = data, aes(x = DIA, y = b, group = ID))+
@@ -745,9 +764,9 @@ b4<- ggplot(data = data, aes(x = DIA, y = b, group = ID))+
 b4
 ```
 
-## Estadística inferencial b
+### Estadística inferencial b
 
-### Correlación en el tiempo
+#### Correlación en el tiempo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -767,7 +786,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 4)
 ```
 
-### Seleccion de modelos por AIC
+#### Seleccion de modelos por AIC
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(nlme)
@@ -789,7 +808,7 @@ AIC(m1,m2,m3,m4,m5)
 ```
 El modelo m5 es el mejor en términos de AIC
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -802,13 +821,13 @@ qqline(e)
 hist(e)
 ```
 
-### Covarianza marginal
+#### Covarianza marginal
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 getVarCov(m5)
 ```
 
-### Anova
+#### Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(m5)
@@ -816,7 +835,7 @@ anova(m5)
 Hay interacción Tiempo * Temperatura.
 Se hacen comparaciones de interacción y se analízan los efectos simples.
 
-### Comparaciones de interacción
+#### Comparaciones de interacción
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
@@ -825,7 +844,7 @@ contrast(lsm_int, method = "pairwise", by = "DIA")
 
 ```
 
-### Plot SE del modelo
+#### Plot SE del modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 comp<-emmeans(m5, pairwise ~ TEMP*DIA, mode = "df.error") 
@@ -834,7 +853,7 @@ ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
   geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+ labs(y="PESO (g)")
 ```
 
-### Efectos simples
+#### Efectos simples
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Como la interaccion fue signif, se comparan TEMP para cada DIA
@@ -850,10 +869,10 @@ posthoc<-lsmeans(m5, ~TEMP*DIA, adjust="tukey", mode = "df.error")
 # cld(posthoc,alpha=.05,Letters=letters)
 ```
 
-### Conclusión b
+#### Conclusión b
 A los 7 y 10 días hubo diferencias significativas entre temperaturas.
 
-### Tabla resumen
+#### Tabla resumen
 ```{r,fig.align='center',echo=FALSE}
 library(png)
 library(grid)
@@ -861,9 +880,9 @@ img <- readPNG("pesocolor.png")
  grid.raster(img)
 ```
 
-# Pérdidas de frutos
+## Pérdidas de frutos
 
-## Estadística descriptiva
+### Estadística descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -891,9 +910,9 @@ P3
 
 ```
 
-# ACIDEZ
+## ACIDEZ
 
-## pH
+### pH
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -912,7 +931,7 @@ p1<-ggplot(data=datac, aes(x=DIA, y=pH, color=TEMP, width=1)) +
 p1
 ```
 
-### Modelo
+#### Modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 data<-datac[4:15,]
@@ -924,7 +943,7 @@ m1
 
 ```
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -938,7 +957,7 @@ shapiro.test(e)
 car::leveneTest(m1)
 ```
 
-### Anova
+#### Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(m1)
@@ -946,7 +965,7 @@ anova(m1)
 ```
 No se encontraron diferencias significativas.
 
-## Sólidos solubles
+### Sólidos solubles
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -960,7 +979,7 @@ s1<-ggplot(data=datac, aes(x=DIA, y=SS, color=TEMP, width=1)) +
 s1
 ```
 
-### Modelo
+#### Modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -969,7 +988,7 @@ m1
 
 ```
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -983,7 +1002,7 @@ shapiro.test(e)
 car::leveneTest(m1)
 ```
 
-### Anova
+#### Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(m1)
@@ -991,7 +1010,7 @@ anova(m1)
 ```
 No se encontraron diferencias significativas.
 
-## Acidez total
+### Acidez total
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1005,7 +1024,7 @@ a1<-ggplot(data=datac, aes(x=DIA, y=Ac, color=TEMP, width=1)) +
 a1
 ```
 
-### Modelo
+#### Modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1013,7 +1032,7 @@ m1<-aov(Ac~DIA*TEMP, data)
 m1
 ```
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1027,14 +1046,14 @@ shapiro.test(e)
 car::leveneTest(m1)
 ```
 
-### Anova
+#### Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(m1)
 ```
 No se encontraron diferencias significativas.
 
-### Tabla resumen
+#### Tabla resumen
 ```{r,fig.align='center',echo=FALSE}
 library(png)
 library(grid)
@@ -1044,7 +1063,7 @@ img <- readPNG("acidez.png")
 
 # COMPRESIÓN
 
-## Fuerza (N)
+### Fuerza (N)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 dataco<-read.delim("Compre.txt")
@@ -1054,7 +1073,7 @@ attach(dataco)
 
 ```
 
-### Boxplot
+#### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1077,7 +1096,7 @@ attach(data)
 
 ```
 
-### Boxplot con outliers
+#### Boxplot con outliers
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 g_caja<-boxplot(data$FU, col="green3", frame.plot=F)
@@ -1085,7 +1104,7 @@ data<-data[!(data$FU %in% g_caja$out),]
 attach(data)
 ```
 
-### Modelo
+#### Modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1094,7 +1113,7 @@ m2<-gls(FU~DIA*TEMP, data, weights=varIdent(form= ~ 1|DIA*TEMP ))
 m2
 ```
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 r5<-residuals(m2,type="p")
@@ -1109,7 +1128,7 @@ shapiro.test(r5)
 
 ```
 
-### Anova tipo III
+#### Anova tipo III
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 car::Anova(m2, type="III")
@@ -1117,7 +1136,7 @@ car::Anova(m2, type="III")
 ```
 No hay interacción. El factor DIA es significativo.
 
-### Efectos principales
+#### Efectos principales
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
@@ -1126,9 +1145,13 @@ plot(Comp2, comparisons = TRUE)
 confint(Comp2$contrasts) #IC para la dif de medias
 ```
 
-## Gradiente (N/mm)
+#### Conclusión Fuerza
 
-### Boxplot
+Sólo se encontró diferencia en el efecto principal para el factor tiempo.
+
+### Gradiente (N/mm)
+
+#### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 g1<-ggplot(data=dataco, aes(x=DIA, y=GR, color=TEMP, width=1)) +
@@ -1148,7 +1171,7 @@ attach(data)
 
 ```
 
-### Boxplot con outliers
+#### Boxplot con outliers
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1157,14 +1180,14 @@ data<-data[!(data$GR %in% g_caja$out),]
 attach(data)
 ```
 
-### Modelo
+#### Modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 m2<-gls(GR~DIA*TEMP, data, weights=varIdent(form= ~ 1|DIA*TEMP ))
 m2
 ```
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 r5<-residuals(m2,type="p")
@@ -1178,14 +1201,14 @@ hist(r5)
 shapiro.test(r5)
 ```
 
-### Anova tipo III
+#### Anova tipo III
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 car::Anova(m2, type="III")
 ```
 No hay interacción. El factor DIA es significativo.
 
-### Efectos principales
+#### Efectos principales
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
@@ -1194,9 +1217,13 @@ plot(Comp2, comparisons = TRUE)
 confint(Comp2$contrasts) #IC para la dif de medias
 ```
 
-## Distance F max (mm)
+#### Conclusión Gradiente
 
-### Boxplot
+Sólo se encontró diferencia en el efecto principal para el factor tiempo.
+
+### Distance F max (mm)
+
+#### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 d1<-ggplot(data=dataco, aes(x=DIA, y=DI, color=TEMP, width=1)) +
@@ -1215,7 +1242,7 @@ data$TEMP<-factor(data$TEMP,levels=c("5", "9"))
 attach(data)
 
 ```
-### Boxplot con outliers
+#### Boxplot con outliers
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 g_caja<-boxplot(data$DI, col="green3", frame.plot=F)
@@ -1223,14 +1250,14 @@ data<-data[!(data$DI %in% g_caja$out),]
 attach(data)
 ```
 
-### Modelo
+#### Modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 m1<-aov(DI~DIA*TEMP, data)
 m1
 ```
 
-### Supuestos
+#### Supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 e<-resid(m1) # residuos de pearson
@@ -1245,14 +1272,14 @@ shapiro.test(e)
 car::leveneTest(m1)
 ```
 
-### Anova
+#### Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(m1)
 ```
 Interacción significativa.
 
-### Comparaciones de interacción
+#### Comparaciones de interacción
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1262,7 +1289,7 @@ lsm_int<-emmeans(m1, ~ TEMP:DIA, mode = "df.error")
 contrast(lsm_int, method = "pairwise", by = "DIA")
 ```
 
-### Gráfico con SE del modelo
+#### Gráfico con SE del modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1272,7 +1299,7 @@ ggplot(compa, aes(x=DIA, y=emmean, colour=TEMP))+geom_point()+
   geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE), width=.2)+ labs(y="Distance F max (mm)")
 ```
 
-### Efectos simples
+#### Efectos simples
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #EFectos simples
@@ -1281,7 +1308,11 @@ efsimplea$contrasts
 plot(efsimplea, comparisons = TRUE)
 ```
 
-## Tabla resumen
+#### Conclusión Distance F max
+
+A los 14 días se encontraron diferencias significativas entre temperaturas.
+
+### Tabla resumen
 ```{r,fig.align='center', echo=FALSE}
 library(png)
 library(grid)
@@ -1289,7 +1320,7 @@ img <- readPNG("compre.png")
  grid.raster(img)
 ```
 
-# PUNCIÓN
+## PUNCIÓN
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 datap<-read.delim("Puncion.txt")

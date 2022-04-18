@@ -23,7 +23,10 @@ Se procedío al corte del ovario infero en lupa y se contaron los óvulos presen
 
 ## Estadística descriptiva
 
-```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
 setwd("C:/Users/um/Desktop/EstR")
 data<-read.delim("co.txt")
 data$A<-as.factor(data$A)
@@ -35,7 +38,10 @@ attach(data)
 
 ```
 Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y 2021
-```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
 ggplot(data=data, aes(x=A, y=O, form=A, colour=REG))+
@@ -48,7 +54,10 @@ ggplot(data=data, aes(x=A, y=O, form=A, colour=REG))+
 
 ```
 N° óvulos entre individuos de Concordia en ambos años.
-```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
 concordia<-subset(data[1:146,])
 concordia$A<-as.factor(concordia$A)
 concordia$ACC<-as.factor(concordia$ACC)
@@ -62,7 +71,9 @@ g2<-ggplot(data=concordia, aes(x=ACC, y=O, form=ACC, colour=ACC)) +
 g2
 ```
 N° óvulos entre individuos del Palmar en ambos años.
-```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 palmar<-subset(data[147:446,])
 palmar$A<-as.factor(palmar$A)
 palmar$ACC<-as.factor(palmar$ACC)
@@ -76,7 +87,9 @@ g3<-ggplot(palmar, aes(x=ACC, y=O, form=ACC, colour=ACC)) +
 g3
 ```
 N° óvulos entre individuos de Gualeguaychú en ambos años.
-```{r echo=FALSE, fig.align='center', fig.asp=0.4, warning=FALSE}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 guale<-subset(data[447:686,])
 guale$A<-as.factor(guale$A)
 guale$ACC<-as.factor(guale$ACC)
