@@ -16,7 +16,7 @@ data$WEEK<-as.factor(WEEK)
 data$WEEK<-factor(data$WEEK,levels=c("1", "2","3"))
 data$DATE<-as.Date(DATE, format="%m/%d/%y")
 data$N<-as.numeric(N)
-attach(data)
+detach(data)  
 
 ```
 
