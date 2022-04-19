@@ -2,32 +2,28 @@
 title: "Yield"
 ---
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=30, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data<-read.delim("rendmor.txt")
-attach(data)
-# names(data)
-# str(data)
-# data[is.na(data)] <-  0
-data$YEAR<-as.factor(YEAR)
-data$ACC<-as.factor(ACC)
-data$WEEK<-as.factor(WEEK)
-data$WEEK<-factor(data$WEEK,levels=c("1", "2","3"))
-data$DATE<-as.Date(DATE, format="%m/%d/%y")
-data$N<-as.numeric(N)
-detach(data)  
+
+data$YEAR<-as.factor(data$YEAR)
+data$ACC<-as.factor(data$ACC)
+data$WEEK<-as.factor(data$WEEK)
+data$WEEK<-factor(data$WEEK,levels=c("1","2","3"))
+data$DATE<-as.Date(data$DATE, format="%m/%d/%y")
+data$N<-as.numeric(data$N)
 
 ```
 
 # Boxplots de Pesos (g) de frutos cosechados en el monte para cada semana y cada temporada.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=30, fig.height=15}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=11}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-f1<-ggplot(data=data, aes(x=WEEK, y=P, color=WEEK)) +
+f1<-ggplot(data=data, aes(x=WEEK, y=P, fill=YEAR)) +
   geom_boxplot(size=.5)+
-  scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  scale_fill_manual(values=c("cyan4", "coral1","green3"))+
   geom_point(size=3, shape=20) +
   labs(y="PESO (g)", x="SEMANA DE COSECHA")+
   theme(panel.grid.major.x = element_blank())+
@@ -46,12 +42,12 @@ f1
 ```
 
 # Boxplots de Pesos (g) de frutos cosechados, con comparación de temporadas en cada accesión.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-f2<-ggplot(data=data, aes(x=ACC, y=P, color=YEAR)) +
+f2<-ggplot(data=data, aes(x=ACC, y=P, fill=YEAR)) +
   geom_boxplot(size=.5)+
-  scale_color_manual(values=c("yellow2", "green3","orange3"))+
+  scale_fill_manual(values=c("cyan4", "coral1","green3"))+
   labs(y="PESO (g)", x="ACCESIÓN")+
   theme(panel.grid.major.x = element_blank())+
   theme_classic()+
@@ -68,7 +64,7 @@ f2
 ```
 
 # Rendimiento total promedio de cada accesión por temporada.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 f3<-ggplot(data=data, aes(x=ACC, y=P, color=ACC)) +
@@ -89,12 +85,14 @@ f3
 ```
 
 # Rendimiento promedio del monte en cada temporada.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=30, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-f4<-ggplot(data=data, aes(x=YEAR, y=P, color=YEAR)) +
-  geom_boxplot(size=.5)+
-  scale_color_manual(values=c("yellow2", "green3","orange3"))+
+f4<-ggplot(data=data, aes(x=YEAR, y=P, fill=YEAR)) +
+  geom_boxplot(size=.3)+
+  geom_point(size=3, shape=20) +
+  # scale_color_manual(values=c("cyan4", "coral1","green3"))+
+  scale_fill_manual(values=c("cyan4", "coral1","green3"))+
   labs(y="PESO POR PLANTA PROMEDIO", x="AÑO DE COSECHA")+
   theme_classic()+
   theme(text = element_text(size=20))+
