@@ -49,7 +49,11 @@ ggplot(data=data, aes(x=A, y=O, form=A, colour=REG))+
   labs(x="Población", y="Número de óvulos", fill='A')+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_color_manual(values = colores) +
-  theme(legend.position = "none")
+  theme(legend.position = "none")+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme_classic()
 
 ```
 N° óvulos entre individuos de Concordia en ambos años.
@@ -66,7 +70,11 @@ library(ggplot2)
 g2<-ggplot(data=concordia, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
   geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
   scale_color_manual(values = colorescon) +
-  facet_grid(.~A) + theme(legend.position = "none")
+  facet_grid(.~A) + theme(legend.position = "none")+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme_classic()
 g2
 ```
 N° óvulos entre individuos del Palmar en ambos años.
@@ -82,7 +90,12 @@ library(ggplot2)
 g3<-ggplot(palmar, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
   geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
   scale_color_manual(values = colorespalmar) +
-  facet_grid(.~A) + theme(legend.position = "none")
+  facet_grid(.~A) + theme(legend.position = "none")+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme_classic()
 g3
 ```
 N° óvulos entre individuos de Gualeguaychú en ambos años.
@@ -98,7 +111,11 @@ library(ggplot2)
 g4<-ggplot(guale, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
   geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
   scale_color_manual(values = coloresguale) +
-  facet_grid(.~A) + theme(legend.position = "none")
+  facet_grid(.~A) + theme(legend.position = "none")+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme_classic()
 g4
 ```
 
@@ -127,6 +144,8 @@ dispersion <- sum(e1^2) / (n - k)
 library(lattice)
 #dotplot(ranef(m2, condVar = TRUE))
 
+anova(m2)
+
 library(emmeans)
 Comp2<-emmeans(m2, pairwise ~ A, type = "response") 
 confint(Comp2)
@@ -145,7 +164,7 @@ icc(m2)
 Conclusiones:
 
 Se observan diferencias significativas entre años p = 0.000243 ***
-El año 2021 tuvo 4.97 óvulos en promedio mientras que el 2019 tuvo 4,37
+El año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo 4,37
 
 Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)
 

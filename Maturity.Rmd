@@ -25,7 +25,7 @@ data$MADUREZ<-factor(data$MADUREZ,levels=c("Inmaduro", "Medio Maduro", "Maduro",
 
 ```
 
-### Tabla resumen
+### Tabla descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -53,8 +53,7 @@ ggplot(estad, aes(x=MADUREZ, y=PFF, color=MADUREZ)) +
 
 ```
 
-
-
+### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -147,10 +146,9 @@ plot(Comp2, comparisons = TRUE)
 
 ```
 
-
 ## Peso seco de fruto (PSF)
 
-### Tabla resumen
+### Tabla descriptiva
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -179,6 +177,7 @@ ggplot(estad, aes(x=MADUREZ, y=PSF, color=MADUREZ)) +
 
 ```
 
+### Boxplot
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -217,7 +216,6 @@ vs
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # MODELOS
 M0s<- lm(PSF ~ MADUREZ ,data)
-
 library(nlme)
 M1s <- gls(PSF ~ MADUREZ, weights=varIdent(form=~1|MADUREZ), data = data)
 M1si <- gls(1/PSF ~ MADUREZ, weights=varIdent(form=~1|MADUREZ), data = data)
@@ -227,7 +225,7 @@ M1si <- gls(1/PSF ~ MADUREZ, weights=varIdent(form=~1|MADUREZ), data = data)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-AIC(M1s, M1si)
+AIC(M0s, M1s, M1si)
 
 ```
 
@@ -273,9 +271,152 @@ plot(Comp2, comparisons = TRUE)
 
 ```
 
+## Humedad
+
+## Diámetro
+
+## Peso seco semilla
+
+## Tabla resumen
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+library(png)
+library(grid)
+img <- readPNG("varfis.png")
+ grid.raster(img)
+```
+
+ANOVA for the fresh fruit weight (FFW). dry fruit weight (DFW). dry fruit weight as percentage of fresh fruit weight (DFW%). maximum equatorial fruit diameter (MAEFD). minimum equatorial fruit diameter (MIEFD). polar fruit diameter (PFD). seed number (SN). dry seed weight (DSW) and dry seed weight/dry fruit weight ratio (DSW/DFW) considering the fruit ripening of H. edulis "ubajay" harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.
+
+## Colorimetría
+
 # Variables químicas
 
 The objective of this second part is to study the organic acids, carbohydrates and cations in the different stages of maturity.
+
+## Carotenoides
+
+## Clorofilas
+
+## Fenoles
+
+## Actividad anti oxidante (DPPH)
+
+### Tabla descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+Datos0 <- read.delim("AA_r0.txt")
+Datos0$Muestra<-factor(Datos0$Muestra)
+Datos0$Conc<-factor(Datos0$Conc)
+Datos0$Trata<-factor(Datos0$Trata,levels=c("I","MM", "M","SM"))
+
+library(psych)
+describeBy(Datos0$In,Datos0$Trata)
+
+```
+
+### Boxplot de capacidad anti oxidante para distintos grados de madurez
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("palegreen4","green2","orange2","burlywood2")
+box <- ggplot(Datos0, aes(x=Datos0$Trata, y=Datos0$In, fill=Trata)) +
+  geom_boxplot(aes())+
+  theme_classic()+
+  geom_jitter(alpha=0.6, size=6,aes(color=Conc), position = position_jitter(width = .05))+
+  scale_fill_manual(values = colores)+
+  scale_color_manual(values = c("cyan4", "coral1","green3","yellow3"))+
+  theme(legend.position="bottom", legend.text=element_text(size = 10),
+        legend.title = element_text(size=16, face="bold")) +
+  ylab("% Inh")+xlab("Maturity")
+box
+
+```
+
+### Modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+maoo<-lmer(In~Trata + (1|Conc), data=Datos0)
+maoo
+
+```
+
+### Supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(maoo) # residuos de pearson
+pre<-predict(maoo) #predichos
+par(mfrow = c(1, 2))
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de Residuos vs Predichos",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+shapiro.test(e)
+
+```
+
+### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(maoo)
+
+```
+
+### Comparaciones a posteriori
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp2<-emmeans(maoo, pairwise ~ Trata) #Tukey por default  
+Comp2
+plot(Comp2, comparisons = TRUE)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+### Evolución de la Avtividad anti oxidante en la maduración
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=10}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read.delim("tablaAAO.txt")
+data$T<-as.factor(data$T)
+data$T<-factor(data$T,levels=c("Unripe", "Medium ripe","Ripe", "Overripe"))
+colores<-c("palegreen4","green2","orange","burlywood2")
+Taao<-ggplot(data=data, aes(Conc, inh,color=T)) +
+  geom_point(shape=T, lwd=5, show.legend = FALSE) +
+  (scale_color_manual(values = colores)) +
+  geom_smooth(method="loess", lwd=1.2) + labs(y="inh %", x="Concentration mg fruit/Ml") +
+  geom_errorbar(aes(ymin=inh-DS, ymax=inh+DS), width=.9, position=position_dodge(.01))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.85, 0.25),
+        legend.background = element_rect(fill = "white"))+
+  theme(text = element_text(size=20))+
+  theme(legend.position = "bottom")+
+  theme_classic()
+Taao
+
+```
+
+## Tabla resumen
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+library(png)
+library(grid)
+img <- readPNG("varqui.png")
+ grid.raster(img)
+```
+
+ANOVA for the soluble solids (SS). pH (pH). titulable total acidity (TTA) and soluble solids/ titulable total acidity (SS/TTA). total polyphenols (TP). DPPH radical scavenging activity (DPPH) considering the fruit ripening stages of H. edulis "ubajay" harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.
 
 ## Acidos orgánicos
 
@@ -307,11 +448,12 @@ g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CON, fill=MAD, width=1)) +
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="mg/g fruta seca", x="Madurez")+
   theme(panel.grid.major.x = element_blank())+
-  theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
-  theme_classic()
+  theme_classic()+
+  geom_point(aes(colour=REP))+
+  scale_colour_manual(values = c("cyan4", "coral1","green3"))
 g2
 
 ```

@@ -3,7 +3,7 @@ title: "Polinization"
 ---
 
 Eficiencia de polinización por tratamiento
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 data<-read.delim("poliniza.txt")
@@ -12,31 +12,35 @@ data$Tratamiento<-as.factor(data$Tratamiento)
 data$Ef<-as.numeric(data$Ef)
 data$Tratamiento<-factor(data$Tratamiento,levels=c("Libre", "Auto","Auto *", "Cruzado =","Cruzado *"))
 library(ggplot2)
-color=c("gold","darkblue","darkgreen","pink","ligthblue")
+# color=c("coral4","coral","chocolate","chocolate4","tan3","chocolate1")
 G<-ggplot(data=data, aes(x=Tratamiento, y=Ef, fill=Tratamiento)) +
-  geom_bar(stat="identity", position="stack", width=0.8) +
+  geom_bar(stat="identity", position="stack", width=0.1) +
   labs(y="Eficiencia (%)", x="Tipo de polinización")+
-  scale_color_manual(values = color)+
-  theme(legend.position = "none")
+  scale_fill_manual(values = c("coral4","coral","chocolate","chocolate4","tan3"))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme_classic()
 G
 ```
-Libre
+* Libre
 
 Rama sin polinización inducida y sin capucha
 
-Auto
+* Auto
 
 Rama con 1 flor encapuchada
 
-Auto *
+* Auto *
 
 Rama con más de 1 flor encapuchada
 
-Cruzado =
+* Cruzado =
 
 Rama con flores emasculadas y polinizadas con flores de la misma planta
 
-Cruzado *
+* Cruzado *
 
 Rama con flores emasculadas y polinizadas con flores de otra planta
 
