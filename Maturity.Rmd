@@ -393,17 +393,18 @@ data<-read.delim("tablaAAO.txt")
 data$T<-as.factor(data$T)
 data$T<-factor(data$T,levels=c("Unripe", "Medium ripe","Ripe", "Overripe"))
 colores<-c("palegreen4","green2","orange","burlywood2")
-Taao<-ggplot(data=data, aes(Conc, inh,color=T)) +
-  geom_point(shape=T, lwd=5, show.legend = FALSE) +
+Taao<-ggplot(data=data, aes(Conc, inh, color=data$T)) +
+  geom_point(lwd=5, show.legend = FALSE, shape=data$T) +
   (scale_color_manual(values = colores)) +
   geom_smooth(method="loess", lwd=1.2) + labs(y="inh %", x="Concentration mg fruit/Ml") +
   geom_errorbar(aes(ymin=inh-DS, ymax=inh+DS), width=.9, position=position_dodge(.01))+
+  theme_classic()+
   theme(legend.title=element_blank())+
   theme(legend.position = c(0.85, 0.25),
         legend.background = element_rect(fill = "white"))+
   theme(text = element_text(size=20))+
-  theme(legend.position = "bottom")+
-  theme_classic()
+  theme(legend.position = "bottom")
+
 Taao
 
 ```
