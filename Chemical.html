@@ -238,7 +238,7 @@ $(document).ready(function () {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html">Eugenia myrcianthes Nied.</a>
+      <a class="navbar-brand" href="index.html">Hexachlamys edulis</a>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
@@ -247,7 +247,7 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Variables
+    Variability
      
     <span class="caret"></span>
   </a>
@@ -345,15 +345,245 @@ $(document).ready(function () {
 </div>
 
 
-<div id="referencias" class="section level1">
-<h1>Referencias</h1>
+<div class="figure">
+<img src="https://github.com/ipovilonis/ipovilonis.github.io/blob/main/chemistry.JPG" alt="" />
+<p class="caption">Extracts</p>
+</div>
+<div id="fenoles" class="section level1">
+<h1>Fenoles</h1>
+<div id="metodología" class="section level2">
+<h2>Metodología</h2>
+<p>Se muestrearon 10 frutos por genotipo de <em>Hexachlamys edulis</em> en 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y Gualeguaychú. La cuantificación de compuestos fenólicos se realizó según la metodología de Makkar <em>et al</em>., (1993). Se pesaron 5 gramos de fruta fresca, se homogeneizó la muestra y se diluyó en solución extractante metanol 80%. Luego de 24hs la solución fue transferida a tubos conicos para su centrifugado durante 5 minutos a 2500rpm. El tubo queda separado por dos fases marcadas, una líquida y otra sólida en el fondo del tubo. Luego las muestras son transferidas a tubos de ensayo y el volumen llevado a 500 μl con agua desionizada. Se adicionan 250 μl de reactivo Folin-Ciocalteu (1N) y 1,25 ml de solución acuosa de carbonato de sodio decahidratado al 20%. Luego de 40 minutos en oscuridad la absorbancia es medida por espectrofotometría a 725 nm. El contenido de fenoles totales es expresado como mg ácido tánico/100g de peso fresco.</p>
+</div>
+<div id="estadística-descriptiva" class="section level2">
+<h2>Estadística descriptiva</h2>
+<div id="boxplot-y-dispersión-de-concentración-de-fenoles-de-las-tres-poblaciones-para-2019-y-2021" class="section level3">
+<h3>Boxplot y dispersión de concentración de fenoles de las tres poblaciones para 2019 y 2021</h3>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="individuos-de-concordia-en-ambos-años." class="section level3">
+<h3>Individuos de Concordia en ambos años.</h3>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="individuos-del-palmar-en-ambos-años." class="section level3">
+<h3>Individuos del Palmar en ambos años.</h3>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /> ### Individuos de Gualeguaychú en ambos años. <img src="Chemical_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>##   ANIO   N      FEN       sd       se       ci
+## 1 2019 151 670.8721 613.7548 49.94666 98.68987
+## 2 2021 174 611.5777 462.5762 35.06781 69.21584</code></pre>
+</div>
+</div>
+<div id="estadística-inferencial" class="section level2">
+<h2>Estadística inferencial</h2>
+<p>Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.</p>
 <ul>
-<li>Fenoles</li>
+<li>Diseño anidado: Población(Genotipo).</li>
+<li>Análisis univariado de la variable concentración de fenoles.</li>
+<li>Distribución de probabilidades: Normal.</li>
+<li>Análisis de componentes de varianza.</li>
+<li>factores aleatorios: Población y Genotipo</li>
+<li>factores fijos: año</li>
+</ul>
+<div id="resumen-del-modelo" class="section level3">
+<h3>Resumen del modelo</h3>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+## Formula: log(FEN) ~ ANIO + (1 | REG/ACC)
+##    Data: data
+## 
+## REML criterion at convergence: 386.8
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.49997 -0.57208 -0.02232  0.57032  2.91253 
+## 
+## Random effects:
+##  Groups   Name        Variance Std.Dev.
+##  ACC:REG  (Intercept) 0.13862  0.3723  
+##  REG      (Intercept) 0.01395  0.1181  
+##  Residual             0.15411  0.3926  
+## Number of obs: 299, groups:  ACC:REG, 50; REG, 3
+## 
+## Fixed effects:
+##              Estimate Std. Error        df t value Pr(&gt;|t|)    
+## (Intercept)   6.09909    0.09415   2.51630  64.778 4.03e-05 ***
+## ANIO2021      0.09655    0.05107 271.34137   1.891   0.0597 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Correlation of Fixed Effects:
+##          (Intr)
+## ANIO2021 -0.305</code></pre>
+</div>
+<div id="supuestos-del-modelo" class="section level3">
+<h3>Supuestos del modelo</h3>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-11-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>Test de normalidad para muestras biológicas (frutos)</p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9949, p-value = 0.4251</code></pre>
+<p>Test de normalidad para genotipos</p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  alfai
+## W = 0.96649, p-value = 0.166</code></pre>
+</div>
+<div id="conclusiones" class="section level3">
+<h3>Conclusiones</h3>
+<pre><code>## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer) to predict FEN with ANIO (formula: log(FEN) ~ ANIO). The model included ACC and REG as random effects (formula: list(~1 | ACC:REG, ~1 | REG)). The model&#39;s total explanatory power is substantial (conditional R2 = 0.50) and the part related to the fixed effects alone (marginal R2) is of 7.50e-03. The model&#39;s intercept, corresponding to ANIO = 2019, is at 6.10 (95% CI [5.91, 6.28], t(294) = 64.78, p &lt; .001). Within this model:
+## 
+##   - The effect of ANIO [2021] is statistically non-significant and positive (beta = 0.10, 95% CI [-3.95e-03, 0.20], t(294) = 1.89, p = 0.060; Std. beta = 0.06, 95% CI [-6.76e-03, 0.14])
+## 
+## Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95% Confidence Intervals (CIs) and p-values were computed using</code></pre>
+<p>El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas significativas entre años.</p>
+</div>
+<div id="icc-del-modelo" class="section level3">
+<h3>ICC del modelo</h3>
+<pre><code>## # Intraclass Correlation Coefficient
+## 
+##      Adjusted ICC: 0.497
+##   Conditional ICC: 0.494</code></pre>
+<pre><code>## [1] 0.5025108</code></pre>
+<pre><code>## [1] 0.4520021</code></pre>
+<pre><code>## [1] 0.04548715</code></pre>
+<p>—-&gt; 50,3% entre muestras de una misma accesión. —-&gt; 45,2% entre accesiones de una misma región. —-&gt; 4,5% entre regiones.</p>
+<p>ICC del modelo = 49,7%</p>
+</div>
+</div>
+<div id="b" class="section level2">
+<h2>b</h2>
+<table style="border-collapse:collapse; border:none;">
+<tr>
+<th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; ">
+ 
+</th>
+<th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; ">
+log(FEN)
+</th>
+</tr>
+<tr>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; ">
+Predictors
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+Estimates
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+CI
+</td>
+<td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  ">
+p
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+(Intercept)
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+6.10
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+5.91 – 6.28
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+<strong>&lt;0.001</strong>
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; ">
+ANIO [2021]
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.10
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+-0.00 – 0.20
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
+0.060
+</td>
+</tr>
+<tr>
+<td colspan="4" style="font-weight:bold; text-align:left; padding-top:.8em;">
+Random Effects
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+σ<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.15
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>ACC:REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.14
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+τ<sub>00</sub> <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.01
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+ICC
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.50
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>ACC</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+50
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+N <sub>REG</sub>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+3
+</td>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
+Observations
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
+299
+</td>
+</tr>
+<tr>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
+Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
+</td>
+<td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
+0.007 / 0.501
+</td>
+</tr>
+</table>
+<p>La mayor parte de la variación es explicada entre muestras de una misma accesión.</p>
+</div>
+</div>
+<div id="próximas-variables-variables" class="section level1">
+<h1>Próximas variables variables</h1>
+<ul>
 <li>Actividad anti Oxidante</li>
 <li>Carotenoides</li>
 <li>Clorofilas</li>
 <li>pH</li>
-<li>Sólidos solubles (° Brix)</li>
+<li>Sólidos solubles (°Brix)</li>
 <li>Acidez total titulable (ATT)</li>
 </ul>
 </div>

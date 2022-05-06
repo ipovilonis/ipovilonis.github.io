@@ -2,12 +2,256 @@
 title: "Chemical"
 ---
 
-# Referencias
+![Extracts](https://github.com/ipovilonis/ipovilonis.github.io/blob/main/chemistry.JPG)
 
-* Fenoles
+# Fenoles
+
+## Metodología
+Se muestrearon 10 frutos por genotipo de *Hexachlamys edulis* en 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y Gualeguaychú.
+La cuantificación de compuestos fenólicos se realizó según la metodología de Makkar *et al*., (1993). Se pesaron 5 gramos de fruta fresca, se homogeneizó la muestra y se diluyó en solución extractante metanol 80%. Luego de 24hs la solución fue transferida a tubos conicos para su centrifugado durante 5 minutos a 2500rpm. El tubo queda separado por dos fases marcadas, una líquida y otra sólida en el fondo del tubo.
+Luego las muestras son transferidas a tubos de ensayo y el volumen llevado a 500 μl con agua desionizada. Se adicionan 250 μl de reactivo Folin-Ciocalteu (1N) y 1,25 ml de solución acuosa de carbonato de sodio decahidratado al 20%.
+Luego de 40 minutos en oscuridad la absorbancia es medida por espectrofotometría a 725 nm. El contenido de fenoles totales es expresado como mg ácido tánico/100g de peso fresco.
+
+## Estadística descriptiva
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read.delim("fenvar.txt")
+data$ANIO<-as.factor(data$ANIO)
+data$ACC<-as.factor(data$ACC)
+data$REG<-as.factor(data$REG)
+data$REG<-factor(data$REG,levels=c("Concordia", "Palmar","Gualeguaychu"))
+
+```
+
+### Boxplot y dispersión de concentración de fenoles de las tres poblaciones para 2019 y 2021
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gfen<-ggplot(data=data, aes(x=ANIO, y=FEN, form=ANIO, colour=REG))+
+  geom_jitter(width=0.15)+
+  geom_boxplot(width=0.05) +
+  facet_grid(.~REG)+
+  labs(x="Población", y="Fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = colores) +
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme_classic()+
+  theme(legend.position='none')
+gfen
+```
+
+### Individuos de Concordia en ambos años.
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+concordia<-subset(data, REG == "Concordia")
+concordia$ANIO<-as.factor(concordia$ANIO)
+concordia$ACC<-as.factor(concordia$ACC)
+concordia$REG<-as.factor(concordia$REG)
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2")
+library(ggplot2)
+g2<-ggplot(data=concordia, aes(x=ACC, y=FEN, form=ACC, colour=ACC)) +  
+  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
+  scale_color_manual(values = colorescon) +
+  facet_grid(.~ANIO) +
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme_classic()+
+  theme(legend.position='none')
+g2
+```
+
+### Individuos del Palmar en ambos años.
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+palmar<-subset(data, REG == "Palmar")
+palmar$ANIO<-as.factor(palmar$ANIO)
+palmar$ACC<-as.factor(palmar$ACC)
+palmar$REG<-as.factor(palmar$REG)
+colorespalmar<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4", "wheat3","khaki","wheat")
+library(ggplot2)
+g3<-ggplot(palmar, aes(x=ACC, y=FEN, form=ACC, colour=ACC)) +  
+  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
+  scale_color_manual(values = colorespalmar) +
+  facet_grid(.~ANIO) +
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme_classic()+
+  theme(legend.position='none')
+g3
+```
+### Individuos de Gualeguaychú en ambos años.
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+guale<-subset(data, REG == "Gualeguaychu")
+guale$ANIO<-as.factor(guale$ANIO)
+guale$ACC<-as.factor(guale$ACC)
+guale$REG<-as.factor(guale$REG)
+coloresguale<-c("palegreen1","palegreen2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","seagreen","aquamarine2","seagreen3","aquamarine","springgreen3","springgreen2","springgreen1","forestgreen")
+library(ggplot2)
+g4<-ggplot(guale, aes(x=ACC, y=FEN, form=ACC, colour=ACC)) +  
+  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
+  scale_color_manual(values = coloresguale) +
+  facet_grid(.~ANIO) +
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme_classic()+
+  theme(legend.position='none')
+g4
+```
+
+### Tabla descriptiva
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estF <- summarySE(data, measurevar="FEN", groupvars=c("ANIO"))
+estF
+```
+
+## Estadística inferencial
+
+Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.
+
+* Diseño anidado: Población(Genotipo).
+* Análisis univariado de la variable concentración de fenoles.
+* Distribución de probabilidades: Normal.
+* Análisis de componentes de varianza.
+* factores aleatorios: Población y Genotipo
+* factores fijos: año
+
+```{r, echo=FALSE, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Se quitan outliers
+g_caja<-boxplot(data$FEN, col="green3", frame.plot=F)
+data<-data[!(data$FEN %in% g_caja$out),]
+
+```
+
+### Resumen del modelo
+```{r echo=FALSE, warning=FALSE}
+library(lme4)
+library(lmerTest) #Test de Wald
+library(nlme)
+mFEN<- lmer(log(FEN) ~ ANIO + (1|REG/ACC), data)
+# library(nlme)
+# mFEN<- gls(FEN ~ ANIO, correlation=corCompSymm(form = ~ 1  | REG/ACC/REP), data = data)
+summary(mFEN)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+# library(nlme)
+# ctrl <- lmeControl(opt='optim');
+# modidentFEN <- lme(logb(FEN) ~ ANIO, random= ~1 | REG/ACC, weights=varIdent(form=~1|ACC),control = ctrl, data = data)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+```
+
+### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+e<-resid(mFEN) # residuos de pearson
+pre<-predict(mFEN) #predichos
+alfai<-ranef(mFEN)$ACC$'(Intercept)'
+par(mfrow = c(1, 3))
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+qqnorm(alfai, cex.main=.8)
+qqline(alfai)
+par(mfrow = c(1, 1))
+```
+
+Test de normalidad para muestras biológicas (frutos)
+```{r echo=FALSE, warning=FALSE}
+shapiro.test(e)
+```
+Test de normalidad para genotipos
+```{r echo=FALSE, warning=FALSE}
+shapiro.test(alfai)
+```
+
+```{r echo=FALSE, warning=FALSE}
+# ### Significacion parte fija
+# library(lme4)
+# mF0<- lmer(log(FEN) ~ 1 + (1|REG/ACC), data)
+# round(anova(mF0,mFEN),2)
+```
+
+```{r echo=FALSE, warning=FALSE}
+# Significancia parte aleatoria
+# confint(mFEN, level = 0.95, method = c("profile"))
+```
+
+### Conclusiones
+
+```{r echo=FALSE, warning=FALSE}
+report::report(mFEN)
+```
+
+El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas significativas entre años.
+
+### ICC del modelo
+```{r echo=FALSE, warning=FALSE}
+library(sjstats)
+icc(mFEN)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+#Calculo manual ICC
+
+ACCp<-0.13862
+REGp<-0.01395 
+FRUp<-0.15411
+
+ICCf<-FRUp/(FRUp+ACCp+REGp)
+ICCa<-ACCp/(FRUp+ACCp+REGp)
+ICCr<-REGp/(FRUp+ACCp+REGp)
+
+ICCf #0.6422508 ----> 50,3% entre muestras de una misma accesión.
+ICCa #0.2988115 ----> 45,2% entre accesiones de una misma región.
+ICCr #0.05893767 ----> 4,5% entre regiones.
+
+#ICC modelo
+# ICCr+ICCa #49.8%
+
+
+```
+
+----> 50,3% entre muestras de una misma accesión.
+----> 45,2% entre accesiones de una misma región.
+----> 4,5% entre regiones.
+
+ICC del modelo = 49,7%
+
+## b
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+sjPlot::tab_model(mFEN)
+```
+
+La mayor parte de la variación es explicada entre muestras de una misma accesión.
+
+# Próximas variables variables
+
 * Actividad anti Oxidante
 * Carotenoides
 * Clorofilas
 * pH
-* Sólidos solubles (° Brix)
+* Sólidos solubles (°Brix)
 * Acidez total titulable (ATT)

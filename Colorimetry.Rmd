@@ -228,7 +228,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 a2<- lme4::lmer(a ~ 1 + (1|REG/ACC/id), data)
 summary(a2)
-library(sjPlot)
+# library(sjPlot)
 sjPlot::plot_model(a2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
@@ -238,7 +238,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 b2<- lme4::lmer(b ~ 1 + (1|REG/ACC/id), data)
 summary(b2)
-library(sjPlot)
+# library(sjPlot)
 sjPlot::plot_model(b2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
