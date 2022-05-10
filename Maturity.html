@@ -634,19 +634,15 @@ A caption
 ## group: I
 ##    vars  n  mean   sd median trimmed  mad   min   max range  skew kurtosis   se
 ## X1    1 12 94.66 6.71  96.78   96.31 1.75 74.17 98.61 24.44 -2.32     4.27 1.94
-## ------------------------------------------------------------ 
+## -------------------------------------------------------------------------- 
 ## group: MM
-##    vars  n  mean    sd median trimmed   mad   min   max range skew kurtosis
-## X1    1 12 61.99 24.92  59.17   61.63 30.23 30.61 96.91  66.3 0.25    -1.65
-##      se
-## X1 7.19
-## ------------------------------------------------------------ 
+##    vars  n  mean    sd median trimmed   mad   min   max range skew kurtosis   se
+## X1    1 12 61.99 24.92  59.17   61.63 30.23 30.61 96.91  66.3 0.25    -1.65 7.19
+## -------------------------------------------------------------------------- 
 ## group: M
-##    vars  n  mean    sd median trimmed   mad   min   max range  skew kurtosis
-## X1    1 12 80.07 17.77  85.85   81.54 14.26 49.75 95.71 45.96 -0.55    -1.46
-##      se
-## X1 5.13
-## ------------------------------------------------------------ 
+##    vars  n  mean    sd median trimmed   mad   min   max range  skew kurtosis   se
+## X1    1 12 80.07 17.77  85.85   81.54 14.26 49.75 95.71 45.96 -0.55    -1.46 5.13
+## -------------------------------------------------------------------------- 
 ## group: SM
 ##    vars  n  mean    sd median trimmed  mad min   max range skew kurtosis   se
 ## X1    1 12 22.29 30.04   9.02   19.05 9.54   0 77.05 77.05 0.97    -1.01 8.67</code></pre>
@@ -657,7 +653,7 @@ A caption
 </div>
 <div id="modelo" class="section level3">
 <h3>Modelo</h3>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+<pre><code>## Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
 ## Formula: In ~ Trata + (1 | Conc)
 ##    Data: Datos0
 ## REML criterion at convergence: 375.4531
@@ -726,6 +722,7 @@ A caption
 </div>
 <div id="acidos-orgánicos" class="section level2">
 <h2>Acidos orgánicos</h2>
+<p>Se ajustaron modelos lineales mixtos (estimaciones por máxima verosimilitud restringida REML) para predecir las concentraciones (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las repeticiones (REP) fueron incluidas como efectos aleatorios.</p>
 <div id="concentración-de-ácidos-orgánicos-a-distintos-estados-de-madurez" class="section level3">
 <h3>Concentración de ácidos orgánicos a distintos estados de madurez</h3>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -901,8 +898,14 @@ A caption
 </div>
 <div id="carbohidratos" class="section level2">
 <h2>Carbohidratos</h2>
+<div id="concentración-de-sacáridos-a-distintos-estados-de-madurez" class="section level3">
+<h3>Concentración de sacáridos a distintos estados de madurez</h3>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="evolución-del-perfíl-de-sacáridos-en-la-maduración" class="section level3">
+<h3>Evolución del perfíl de sacáridos en la maduración</h3>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 <div id="sacarosa" class="section level3">
 <h3>Sacarosa</h3>
 <div id="modelo-y-supuestos-3" class="section level4">
@@ -961,14 +964,7 @@ A caption
 </div>
 <div id="conclusiones-3" class="section level4">
 <h4>Conclusiones</h4>
-<pre><code>## We fitted a linear mixed model (estimated using REML and nlminb optimizer) to predict CON with MAD (formula: CON ~ MAD). The model included REP as random effect (formula: ~1 | REP). The model&#39;s total explanatory power is substantial (conditional R2 = 0.81) and the part related to the fixed effects alone (marginal R2) is of 0.81. The model&#39;s intercept, corresponding to MAD = I, is at 21.21 (95% CI [11.11, 31.30], t(18) = 4.41, p &lt; .001). Within this model:
-## 
-##   - The effect of MAD [MM] is statistically significant and positive (beta = 56.58, 95% CI [42.31, 70.85], t(18) = 8.33, p &lt; .001; Std. beta = 2.10, 95% CI [1.57, 2.63])
-##   - The effect of MAD [M] is statistically significant and positive (beta = 61.33, 95% CI [47.06, 75.60], t(18) = 9.03, p &lt; .001; Std. beta = 2.27, 95% CI [1.74, 2.80])
-##   - The effect of MAD [SM] is statistically significant and positive (beta = 38.18, 95% CI [23.91, 52.45], t(18) = 5.62, p &lt; .001; Std. beta = 1.42, 95% CI [0.89, 1.94])
-## 
-## Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95% Confidence Intervals (CIs) and p-values were computed using</code></pre>
-<p>Se ajustaron modelos lineales mixtos (estimaciones por REML) para predecir las concentraciones (CON) de ácidos, sacáridos y cationes minerales en función del estado de madurez (MAD). Las repeticiones (REP) fueron incluidas como efectos aleatorios.</p>
+<p>Se encontraron diferencias significativas entre estados de madurez. Los frutos maduros tendrían mayor concentración de sacarosa, no se diferenciaron de los frutos medios maduros.</p>
 </div>
 </div>
 <div id="glucosa" class="section level3">
@@ -995,7 +991,7 @@ A caption
 ##  1.00000 39.26662 35.85854 40.70737 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-51-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1031,7 +1027,11 @@ A caption
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-53-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-4" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez. Los frutos sobre maduros tendrían mayor concentración de glucosa.</p>
 </div>
 </div>
 <div id="fructosa" class="section level3">
@@ -1058,7 +1058,7 @@ A caption
 ## 1.00000000 1.66708036 0.09984155 0.17046318 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-54-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-53-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1096,17 +1096,22 @@ A caption
 ## Note: contrasts are still on the sqrt scale 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-56-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-55-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-5" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez. Los frutos sobre maduros tendrían mayor concentración de fructosa.</p>
 </div>
 </div>
 </div>
 <div id="cationes" class="section level2">
 <h2>Cationes</h2>
+<p>Se ajustaron modelos lineales (estimaciones por mínimos cuarados ordinarios OLS) para predecir las concentraciones (CON) de cationes minerales en función del estado de madurez (MAD).</p>
 <div id="magnesio" class="section level3">
 <h3>Magnesio</h3>
 <div id="concentración-de-magnesio-a-distintos-estados-de-madurez." class="section level4">
 <h4>Concentración de magnesio a distintos estados de madurez.</h4>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-58-1.png" width="960" style="display: block; margin: auto;" /> * Rozycki <em>et al</em>., 1997 <a href="https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290" class="uri">https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290</a></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-57-1.png" width="960" style="display: block; margin: auto;" /> * Rozycki <em>et al</em>., 1997 <a href="https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290" class="uri">https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290</a></p>
 </div>
 <div id="modelo-y-supuestos-6" class="section level4">
 <h4>Modelo y supuestos</h4>
@@ -1117,7 +1122,7 @@ A caption
 ## Coefficients:
 ## (Intercept)        MADMM         MADM        MADSM  
 ##     0.05700     -0.01453     -0.01157     -0.02610</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-59-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-59-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-59-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-58-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-58-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-58-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1139,7 +1144,7 @@ A caption
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
-<div id="conclusiones-4" class="section level4">
+<div id="conclusiones-6" class="section level4">
 <h4>Conclusiones</h4>
 <p>No hay diferencias significativas en la concentración de magnesio a diferentes estados de madurez. Se observa tendencia decreciente durante la madurez.</p>
 </div>
@@ -1148,7 +1153,7 @@ A caption
 <h3>Potasio</h3>
 <div id="concentración-de-potasio-a-distintos-estados-de-madurez." class="section level4">
 <h4>Concentración de potasio a distintos estados de madurez.</h4>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-61-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-60-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>*UNLu: <a href="http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf" class="uri">http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf</a></p>
 </div>
 <div id="modelo-y-supuestos-7" class="section level4">
@@ -1160,7 +1165,7 @@ A caption
 ## Coefficients:
 ## (Intercept)        MADMM         MADM        MADSM  
 ##      3.5336      -1.0169      -0.9758      -1.3502</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-62-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-62-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-62-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-61-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-61-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-61-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1180,7 +1185,7 @@ A caption
 ## MAD        3 3.0465 1.01551  1.9798 0.1957
 ## Residuals  8 4.1034 0.51292</code></pre>
 </div>
-<div id="conclusiones-5" class="section level4">
+<div id="conclusiones-7" class="section level4">
 <h4>Conclusiones</h4>
 <p>No hay diferencias significativas en la concentración de magnesio a diferentes estados de madurez. Se observa tendencia decreciente durante la madurez.</p>
 </div>
@@ -1189,7 +1194,7 @@ A caption
 <h3>Manganeso</h3>
 <div id="concentración-de-manganeso-a-distintos-estados-de-madurez." class="section level4">
 <h4>Concentración de manganeso a distintos estados de madurez.</h4>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-64-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-63-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="modelo-y-supuestos-8" class="section level4">
 <h4>Modelo y supuestos</h4>
@@ -1210,7 +1215,7 @@ A caption
 ## 1.00000000 0.06280756 
 ## Degrees of freedom: 5 total; 3 residual
 ## Residual standard error: 0.0009192376</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-65-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-65-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-65-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-64-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-64-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-64-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1224,11 +1229,16 @@ A caption
 ## (Intercept)     1 260.77065  0.0005
 ## MAD             1   6.16985  0.0890</code></pre>
 </div>
-<div id="conclusiones-6" class="section level4">
+<div id="conclusiones-8" class="section level4">
 <h4>Conclusiones</h4>
 <p>No hay diferencias significativas en la concentración de mangneso a diferentes estados de madurez. Se observó que sólo en estados medio maduro y maduro aparece en muy bajas concentraciones.</p>
 </div>
 </div>
+</div>
+<div id="tabla-resumen-2" class="section level2">
+<h2>Tabla resumen</h2>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>ANOVA for malic acid (MAL), quinic acid (QUI), succinic (SUC), saccharose (SAC), glucose (GLU), fructose (FRU), magnesium (Mg), potasium (K) and manganesium (Mn) expressed in dry weigth and considering the fruit ripening of H. edulis “ubajay” harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.</p>
 </div>
 </div>
 
