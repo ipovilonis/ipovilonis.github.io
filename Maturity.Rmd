@@ -927,6 +927,9 @@ Se encontraron diferencias significativas entre estados de madurez. Los frutos s
 
 ## Cationes
 
+Aproximadamente 1 gr de cada  muestra fue calcinado en mufla a 500 ºC por 5 horas.
+La ceniza fue levantada con 5 mL de HCl 20 %, completado a volumen (50mL) con agua destilada. Filtrada y  cuantificada por espectrometría de Absorción Atómica  en un equipo Perkin Elmer  AAAnalyst 200.
+
 Se ajustaron modelos lineales (estimaciones por mínimos cuarados ordinarios OLS) para predecir las concentraciones (CON) de cationes minerales en función del estado de madurez (MAD).
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -952,7 +955,7 @@ library(ggplot2)
 gmg<-ggplot(mg, aes(x=MAD, y=CON, fill=MAD))+
   geom_boxplot()+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="Concentración de Mg (mg/g)", x="Madurez")+
+  labs(y="Concentración de Mg (mg/g) de peso fresco de fruto", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -963,12 +966,15 @@ gmg<-ggplot(mg, aes(x=MAD, y=CON, fill=MAD))+
   scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   geom_hline(yintercept = 0)+
   geom_point(aes(x=3, y=0.1115), colour="red", size=2, shape=18) + #Rozycki 1997
-  annotate("text", x = c(3), y = c(0.109), label = c("Rozycki et al., 1997"))+
+  annotate("text", x = c(3), y = c(0.139), label = c("Rozycki et al., 1997"))+
+  geom_point(aes(x=3, y=0.11), colour="green", size=2, shape=8) + #Kinupp
+  annotate("text", x = c(3), y = c(0.109), label = c("Kinupp-Barros, 2008"))+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))
 gmg
 
 ```
-* Rozycki *et al*., 1997 https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290
+* Kinupp-Barros, 2008. https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&format=pdf
+* Rozycki *et al*., 1997. https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290
 
 #### Modelo y supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -1009,7 +1015,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 gk<-ggplot(k, aes(x=MAD, y=CON, fill=MAD))+
   geom_boxplot()+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="Concentración de K (mg/g)", x="Madurez")+
+  labs(y="Concentración de K (mg/g) de peso fresco de fruto", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -1072,7 +1078,7 @@ gmn<-ggplot(mn, aes(x=MAD, y=CON, fill=MAD))+
   geom_boxplot()+
   geom_point()+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="Concentración de Mn (mg/g)", x="Madurez")+
+  labs(y="Concentración de Mn (mg/g) de peso fresco de fruto", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+

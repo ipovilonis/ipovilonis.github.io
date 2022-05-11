@@ -1359,3 +1359,27 @@ p1<-ggplot(data=datap, aes(x=DIA, y=PI, color=TEMP, width=1)) +
   theme(panel.grid.major.x = element_blank())
 p1
 ```
+
+# Respiration
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+resp<-read.delim("respiracion.txt")
+resp$MAD<-as.factor(resp$MAD)
+resp$MAD<-factor(resp$MAD, levels = c("MM", "M"))
+resp$REP<-as.factor(resp$REP)
+resp$TIME<-as.POSIXct(resp$TIME,format="%H:%M:%S")
+
+
+plot(resp$TIME, resp$CO2)
+library(ggplot2)
+gr1<-ggplot(data=resp, aes(x=TIME, y=CO2, color=MAD))+
+  scale_color_manual(values=c("green3","orange3"))+
+  geom_point(size=5)+
+  geom_smooth(method="gam", se = FALSE, linetype="dashed")+
+  theme_classic()+
+  theme(legend.position = "bottom")
+gr1
+
+```
+
