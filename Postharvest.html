@@ -1397,7 +1397,50 @@ A caption
 </div>
 <div id="respiration" class="section level1">
 <h1>Respiration</h1>
-<p><img src="Postharvest_files/figure-html/unnamed-chunk-106-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="co2-emission-for-two-stages-of-maturity-in-time.-shapes-indicate-different-repetitions." class="section level3">
+<h3>CO<sub>2</sub> emission for two stages of maturity in time. Shapes indicate different repetitions.</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-107-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="correlation-between-the-concentration-of-co2-and-o2-for-mature-and-immature-fruits." class="section level3">
+<h3>Correlation between the concentration of CO<sub>2</sub> and O<sub>2</sub> for mature and immature fruits.</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-109-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="model" class="section level3">
+<h3>Model</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: resp 
+##   Log-restricted-likelihood: -166.9857
+##   Fixed: CO2 ~ MAD * TIME 
+##   (Intercept)          MADM          TIME     MADM:TIME 
+##  3.337132e+06 -4.590669e+06 -2.019552e-03  2.778224e-03 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    2.548174 13.57317
+## 
+## Number of Observations: 40
+## Number of Groups: 4</code></pre>
+</div>
+<div id="assumptions" class="section level3">
+<h3>Assumptions</h3>
+<p><img src="Postharvest_files/figure-html/unnamed-chunk-112-1.png" width="960" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-112-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.97049, p-value = 0.3728</code></pre>
+<p>Assumptions are ok.</p>
+</div>
+<div id="anova-6" class="section level3">
+<h3>Anova</h3>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    34 810.2930  &lt;.0001
+## MAD             1     2   3.9632  0.1848
+## TIME            1    34   0.5805  0.4514
+## MAD:TIME        1    34   2.8113  0.1028</code></pre>
+<p>There is no interaction or significant differences.</p>
+</div>
 </div>
 
 
