@@ -29,6 +29,9 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -219,6 +222,75 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
 
 </head>
 
@@ -226,6 +298,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -359,12 +441,6 @@ $(document).ready(function () {
 <li><p>Evaluate the chemical characteristics of the fruits at different times and storage conditions: soluble solids-titratable acidity, ethylene.</p></li>
 <li><p>Define the most appropriate preservation method for these fruits and their characterization as functional food.</p></li>
 </ol>
-<div class="figure">
-<img src="IMG_pos.jpg" alt="A caption" width="100%" />
-<p class="caption">
-A caption
-</p>
-</div>
 </div>
 <div id="complete-analysis-of-the-essay" class="section level1">
 <h1>Complete analysis of the essay:</h1>
@@ -1192,9 +1268,9 @@ A caption
 <h4>Principal effects</h4>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>##  contrast estimate     SE   df lower.CL upper.CL
-##  0 - 7       0.579 0.0805 67.7    0.387    0.772
-##  0 - 14      0.938 0.0728 54.9    0.763    1.114
-##  7 - 14      0.359 0.0755 66.9    0.178    0.540
+##  0 - 7       0.579 0.0805 67.1    0.387    0.772
+##  0 - 14      0.938 0.0728 53.8    0.763    1.114
+##  7 - 14      0.359 0.0755 66.8    0.178    0.540
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Degrees-of-freedom method: appx-satterthwaite 
@@ -1282,6 +1358,12 @@ A caption
 </div>
 <div id="respiration" class="section level1">
 <h1>Respiration</h1>
+<div class="figure">
+<img src="IMG_pos.jpg" alt="A caption" width="100%" />
+<p class="caption">
+A caption
+</p>
+</div>
 <div id="boxplot-for-co2-emission-for-two-stages-of-maturity-in-time." class="section level3">
 <h3>Boxplot for CO<sub>2</sub> emission for two stages of maturity in time.</h3>
 </div>
@@ -1337,6 +1419,8 @@ A caption
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -1369,6 +1453,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
