@@ -1,12 +1,12 @@
 ---
 title: "Postharvest"
 output:
- html_document:
-   toc: true
-   toc_depth: 5
-   toc_float:
-     collapsed: false
-     smooth_scroll: true
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: no
+      smooth_scroll: yes
 ---
 
 This essay shows the postharvest behavior of the fruits at temperatures of 5 and 9 °C for different physical and chemical variables.
@@ -27,10 +27,6 @@ From the application of postharvest technologies it is possible to describe, und
 2. Evaluate the chemical characteristics of the fruits at different times and storage conditions: soluble solids-titratable acidity, ethylene.
 
 3. Define the most appropriate preservation method for these fruits and their characterization as functional food.
-
-```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
-knitr::include_graphics("IMG_pos.jpg")
-```
 
 # Complete analysis of the essay:
 
@@ -1261,7 +1257,7 @@ plot(efsimpleb, comparisons = TRUE)+
 #### Conclusion *b
 At 7 and 10 days there were significant differences between temperatures.
 
-#### Summary table
+### Summary table
 ```{r,fig.align='center',echo=FALSE}
 library(png)
 library(grid)
@@ -1631,7 +1627,7 @@ anova(m1ac)
 ```
 No significant differences were found.
 
-#### Summary table
+### Summary table
 ```{r,fig.align='center',echo=FALSE}
 library(png)
 library(grid)
@@ -1852,13 +1848,13 @@ AIC(m1GR,m2GR,m3GR,m4GR)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-resp_ajuste <- as.data.frame(cbind(
+GR_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(m2GR),
   "predichos" = predict(m2GR)))
-resp_ajuste$GR <- data$GR
+GR_ajuste$GR <- data$GR
 
 library(ggplot2)
-HVGR<-ggplot(resp_ajuste) +
+HVGR<-ggplot(GR_ajuste) +
   aes(predichos, residuos) +
   geom_hline(yintercept = 0, colour="white", size=2) +
   geom_point(colour="white")+
@@ -1873,7 +1869,7 @@ HVGR<-ggplot(resp_ajuste) +
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
 HVGR
 
-QQGR<-ggplot(resp_ajuste) +
+QQGR<-ggplot(GR_ajuste) +
   aes(sample = residuos) +
   geom_qq(shape = 1, colour="white") +
   geom_qq_line(colour="white")+
@@ -1973,14 +1969,14 @@ m2DI
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-resp_ajuste <- as.data.frame(cbind(
+DI_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(m2DI),
   "predichos" = predict(m2DI)))
 
-resp_ajuste$DI <- data$DI
+DI_ajuste$DI <- data$DI
 
 library(ggplot2)
-HVDI<-ggplot(resp_ajuste) +
+HVDI<-ggplot(DI_ajuste) +
   aes(predichos, residuos) +
   geom_hline(yintercept = 0, colour="white", size=2) +
   geom_point(colour="white")+
@@ -1995,7 +1991,7 @@ HVDI<-ggplot(resp_ajuste) +
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
 HVDI
 
-QQDI<-ggplot(resp_ajuste) +
+QQDI<-ggplot(DI_ajuste) +
   aes(sample = residuos) +
   geom_qq(shape = 1, colour="white") +
   geom_qq_line(colour="white")+
@@ -2128,6 +2124,10 @@ resp$TIME<-as.POSIXct(resp$TIME,format="%H:%M:%S")
 
 ```
 
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("IMG_pos.jpg")
+```
+
 ### Boxplot for CO<sub>2</sub> emission for two stages of maturity in time.
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -2170,8 +2170,6 @@ gr1<-ggplot(data=resp, aes(x=TIME, y=CO2, color=MAD, shape=REP))+
 gr1
 
 ```
-
-
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -2293,4 +2291,20 @@ There is no interaction or significant differences.
 
 ### Conclusion for respiration
 
-There is no convincing evidence in this essay to affirm that the fruit of the ubajay is climacteric. 
+There is no convincing evidence in this essay to affirm that the fruit of the ubajay is climacteric.
+
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mresp2 <- lme(CO2 ~ MAD, random = ~ 1|REP,
+             # weights=varIdent(form=~1|MAD),
+             control = ctrl,
+             data = resp)
+mresp2
+anova(mresp2)
+
+```
