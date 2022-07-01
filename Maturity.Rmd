@@ -359,7 +359,7 @@ pre<-predict(maoo) #predichos
 par(mfrow = c(1, 2))
 plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de Residuos vs Predichos",cex.main=.8 )
 abline(0,0)
-qqnorm(e, cex.main=.8)
+qqnorm(e)
 qqline(e)
 shapiro.test(e)
 
@@ -427,38 +427,38 @@ img <- readPNG("varqui.png")
 
 ANOVA for the soluble solids (SS). pH (pH). titulable total acidity (TTA) and soluble solids/ titulable total acidity (SS/TTA). total polyphenols (TP). DPPH radical scavenging activity (DPPH) considering the fruit ripening stages of H. edulis "ubajay" harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.
 
-## Acidos orgánicos
 
-Se ajustaron modelos lineales mixtos (estimaciones por máxima verosimilitud restringida REML) para predecir las concentraciones (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las repeticiones (REP) fueron incluidas como efectos aleatorios.
+## Acidos orgánicos en peso fresco
 
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 datap<-read.delim("CHac.txt")
 datap$CAR <- factor(datap$CAR,
                    levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico"),
+                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru"),
                    labels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "Tartárico","Málico","Quínico" ,"Succínico"))
+                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru"))
 datap$REP<-as.factor(datap$REP)
-datap$CON<-as.numeric(datap$CON)
+datap$CONF<-as.numeric(datap$CONF)
 datap$MAD<-factor(datap$MAD,levels=c("I", "MM", "M", "SM"))
 
 data2<-datap[-c(73:168),]
-data3<-datap[-c(1:96),]
+data3<-datap[-c(1:72,169:192),]
 
 ```
 
-### Concentración de ácidos orgánicos a distintos estados de madurez
+#### Concentración del perfíl de ácidos orgánicos a distintos estados de madurez
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CON, fill=MAD, width=1)) +
+g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
   geom_boxplot()+
   facet_grid(CAR~.)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g fruta seca", x="Madurez")+
+  labs(y="mg/g fruta fresca", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -469,6 +469,16 @@ g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CON, fill=MAD, width=1)) +
   scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   theme(legend.position = "none")
 g2
+
+```
+
+### Tabla descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadac <- summarySE(data3, measurevar="CONF", groupvars=c("CAR", "MAD"))
+estadac
 
 ```
 
@@ -483,55 +493,186 @@ dataM<-subset(data5, MAD == "M")
 dataSSM<-subset(data5, MAD == "SM")
 
 
-SI<-ggplot(dataSI, aes(x = "CAT", y = CON, fill = CAR)) +
+SI<-ggplot(dataSI, aes(x = "CAR", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "INMADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[AO]") + ylab("mg/g fruta fresca")
 
-SMM<-ggplot(dataSMM, aes(x = "CAT", y = CON, fill = CAR)) +
+SMM<-ggplot(dataSMM, aes(x = "CAR", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "MEDIO MADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[AO]") + ylab("mg/g fruta fresca")
 
-SM<-ggplot(dataM, aes(x = "CAT", y = CON, fill = CAR)) +
+SM<-ggplot(dataM, aes(x = "CAR", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "MADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[AO]") + ylab("mg/g fruta fresca")
 
-SSM<-ggplot(dataSSM, aes(x = "CAT", y = CON, fill = CAR)) +
+SSM<-ggplot(dataSSM, aes(x = "CAR", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "SOBRE MADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[AO]") + ylab("mg/g fruta fresca")
 
 library(gridExtra)
 grid.arrange(SI, SMM, SM, SSM, ncol = 2)
 
 ```
 
-### Ácido málico
+
+### Acidos orgánicos Totales
 
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-mal<-subset(datap, CAR == "Málico")
+dataSACT<-read.delim("SACT.txt")
+dataSACT$CAR <- as.factor(dataSACT$CAR)
+dataSACT$REP<-as.factor(dataSACT$REP)
+dataSACT$TOTALS<-as.numeric(dataSACT$TOTALS)
+dataSACT$TOTALF<-as.numeric(dataSACT$TOTALF)
+dataSACT$MAD<-factor(dataSACT$MAD,levels=c("I", "MM", "M", "SM"))
+
+dataST<-dataSACT[-c(25:60),]
+dataAT<-dataSACT[-c(1:24,49:60),]
+dataCT<-dataSACT[-c(1:48),]
+
+```
+
+#### Concentración de ácidos orgánicos totales a distintos estados de madurez.
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gAT<-ggplot2::ggplot(dataAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
+  geom_boxplot(width = 0.50)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Totales (mg/g fruta fresca)", x="Madurez")+
+  # facet_grid(CAR~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+  theme(legend.position = "none")
+gAT
+
+```
+
+#### Tabla descriptiva totales
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadSACT <- summarySE(dataSACT, measurevar="TOTALF", groupvars=c("MAD", "CAR"))
+estadSACT
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mAT1 <- lme(TOTALF~ MAD, random = ~ 1|REP,
+             control = ctrl, data = dataAT)
+
+mAT1
+
+AT_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mAT1),
+  "predichos" = predict(mAT1)))
+
+AT_ajuste$AT <- dataAT$TOTALF
+
+library(ggplot2)
+HVAT<-ggplot(AT_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVAT
+
+QQAT<-ggplot(AT_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQAT
+
+e<-resid(mAT1) # residuos de pearson
+# pre<-predict(mAT1) #predichos
+# alfai<-ranef(mAT1)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mAT1)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompAT<-emmeans(mAT1, pairwise ~ MAD) #Tukey  
+CompAT
+plot(CompAT, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez")
+
+```
+
+#### Conclusiones
+
+Existen diferencias significativas entre estados de madurez para los ácidos totales detectados en este trabajo.
+
+### Ácido Tartárico
+
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tar<-subset(datap, CAR == "Tartárico")
 
 # Se quitan outliers
-g_caja<-boxplot(mal$CON, col="green3", frame.plot=T)
-mal<-mal[!(mal$CON %in% g_caja$out),]
-g_caja<-boxplot(mal$CON, col="green3", frame.plot=T)
-mal<-mal[!(mal$CON %in% g_caja$out),]
+# g_caja<-boxplot(tar$CONF, col="green3", frame.plot=T)
+# tar<-tar[!(tar$CONF %in% g_caja$out),]
+# g_caja<-boxplot(tar$CONF, col="green3", frame.plot=T)
+# tar<-tar[!(tar$CONF %in% g_caja$out),]
 
 ```
 
@@ -541,20 +682,146 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
 ctrl <- lmeControl(opt='optim');
-mmal2 <- lme(CON~ MAD, random = ~ 1|REP,
+mtar2 <- lme(CONF~ MAD, random = ~ 1|REP,
+             control = ctrl, data = tar)
+mtar2
+
+tar_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mtar2),
+  "predichos" = predict(mtar2)))
+
+tar_ajuste$CONF <- tar$CONF
+
+library(ggplot2)
+HVtar<-ggplot(tar_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVtar
+
+QQtar<-ggplot(tar_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQtar
+
+e<-resid(mtar2) # residuos de pearson
+pre<-predict(mtar2) #predichos
+alfai<-ranef(mtar2)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mtar2)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Comptar<-emmeans(mtar2, pairwise ~ MAD) #Tukey  
+Comptar
+plot(Comptar, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Existen diferencias significativas entre estados de madurez. El estado sobre maduro es el único que presenta ácido tartárico detectable.
+
+
+### Ácido málico
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mal<-subset(datap, CAR == "Málico")
+# mal<-mal[-c(2),]
+# Se quitan outliers
+# g_caja<-boxplot(mal$CONF, col="green3", frame.plot=T)
+# mal<-mal[!(mal$CONF %in% g_caja$out),]
+# g_caja<-boxplot(mal$CONF, col="green3", frame.plot=T)
+# mal<-mal[!(mal$CONF %in% g_caja$out),]
+
+```
+
+#### Modelo y supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mmal2 <- lme(CONF~ MAD, random = ~ 1|REP,
              weights=varIdent(form=~1|MAD),
              control = ctrl, data = mal)
 mmal2
+
+mal_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mmal2),
+  "predichos" = predict(mmal2)))
+
+mal_ajuste$CONF <- mal$CONF
+
+library(ggplot2)
+HVmal<-ggplot(mal_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVmal
+
+QQmal<-ggplot(mal_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmal
+
 e<-resid(mmal2) # residuos de pearson
 pre<-predict(mmal2) #predichos
 alfai<-ranef(mmal2)$REP$'(Intercept)'
-par(mfrow = c(1, 2))
-plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de RE vs PRED",cex.main=.8 )
-abline(0,0)
-qqnorm(e, cex.main=.8)
-qqline(e)
-par(mfrow = c(1, 1))
-# plot(mmal2) #RP vs PRED
 shapiro.test(e)
 
 ```
@@ -576,7 +843,7 @@ library(multcompView)
 Compmal<-emmeans(mmal2, pairwise ~ MAD) #Tukey  
 Compmal
 plot(Compmal, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración", y ="Madurez" )
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
 
 ```
 
@@ -591,10 +858,10 @@ Existen diferencias significativas entre estados de madurez. En el estado maduro
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 qui<-subset(datap, CAR == "Quínico")
-qui2<-qui[5:24,]
+# qui2<-qui[5:24,]
 # Se quitan outliers
-g_caja<-boxplot(qui2$CON, col="green3", frame.plot=F)
-qui<-qui2[!(qui2$CON %in% g_caja$out),]
+# g_caja<-boxplot(qui2$CONF, col="green3", frame.plot=F)
+# qui<-qui2[!(qui2$CONF %in% g_caja$out),]
 
 ```
 
@@ -602,8 +869,7 @@ qui<-qui2[!(qui2$CON %in% g_caja$out),]
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ctrl <- lmeControl(opt='optim');
-mqui2<- lme(CON~MAD, random = ~ 1|REP,
-                  weights=varIdent(form=~1|MAD),
+mqui2<- lme(CONF~MAD, random = ~ 1|REP,
                   control = ctrl, data = qui)
 mqui2
 
@@ -612,19 +878,49 @@ mqui2
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+qui_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mqui2),
+  "predichos" = predict(mqui2)))
+
+qui_ajuste$CONF <- qui$CONF
+
+library(ggplot2)
+HVqui<-ggplot(qui_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVqui
+
+QQqui<-ggplot(qui_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQqui
+
 e<-resid(mqui2) # residuos de pearson
 pre<-predict(mqui2) #predichos
 alfai<-ranef(mqui2)$REP$'(Intercept)'
-par(mfrow = c(1, 2))
-plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de RE vs PRED",cex.main=.8 )
-abline(0,0)
-qqnorm(e, cex.main=.8)
-qqline(e)
-par(mfrow = c(1, 1))
-# plot(mqui2) #RP vs PRED
 shapiro.test(e)
 library(car)
-leveneTest(CON~MAD, qui)
+leveneTest(CONF~MAD, qui)
 
 ```
 
@@ -636,9 +932,22 @@ anova(mqui2)
 
 ```
 
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Compqui<-emmeans(mqui2, pairwise ~ MAD) #Tukey  
+Compqui
+plot(Compqui, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+
+```
+
 #### Conclusiones
 
-No se encontraron diferencias entre estados de madurez.
+Se observa un marcado aumento de ácido quínico con la maduración hasta frutos maduros. Luego en frutos sobre maduros Frutos medio maduros presentan gran variabiliad.
 
 ### Ácido succinico
 
@@ -648,21 +957,52 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 suc<-subset(datap, CAR == "Succínico")
 
-msuc2<-lme(CON~MAD, random = ~ 1|REP,
+ctrl <- lmeControl(opt='optim');
+msuc2<-lme(CONF~MAD, random = ~ 1|REP,
            control = ctrl, data = suc)
+
+suc_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(msuc2),
+  "predichos" = predict(msuc2)))
+
+suc_ajuste$CONF <- suc$CONF
+
+library(ggplot2)
+HVsuc<-ggplot(suc_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVsuc
+
+QQsuc<-ggplot(suc_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQsuc
 
 e<-resid(msuc2) # residuos de pearson
 pre<-predict(msuc2) #predichos
 alfai<-ranef(msuc2)$REP$'(Intercept)'
-par(mfrow = c(1, 2))
-plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de RE vs PRED",cex.main=.8 )
-abline(0,0)
-qqnorm(e, cex.main=.8)
-qqline(e)
-par(mfrow = c(1, 1))
-# plot(msuc2) #RP vs PRED
 shapiro.test(e)
-leveneTest(CON~MAD, suc)
+leveneTest(CONF~MAD, suc)
 
 ```
 
@@ -683,7 +1023,7 @@ library(multcompView)
 Compsuc<-emmeans(msuc2, pairwise ~ MAD) #Tukey  
 Compsuc
 plot(Compsuc, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración", y ="Madurez" )
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
 
 ```
 
@@ -691,17 +1031,587 @@ plot(Compsuc, comparisons = TRUE) + theme_classic() +
 
 Se encontraron diferencias entre estados de madurez, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
 
-## Carbohidratos
+## Acidos orgánicos en peso seco
 
-### Concentración de sacáridos a distintos estados de madurez
+#### Concentración del perfíl de ácidos orgánicos a distintos estados de madurez
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-g1<-ggplot(data2, aes(x=MAD, y=CON, fill=MAD, width=1)) +
- geom_boxplot()+
+library(ggplot2)
+g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
+  geom_boxplot()+
   facet_grid(CAR~.)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="mg/g fruta seca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+  theme(legend.position = "none")
+g2
+
+```
+
+#### Tabla descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadacs <- summarySE(data3, measurevar="CONS", groupvars=c("MAD", "CAR"))
+estadacs
+
+```
+
+#### Evolución del perfíl de ácidos orgánicos en la maduración
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data5<-data3
+dataSI<-subset(data5, MAD == "I")
+dataSMM<-subset(data5, MAD == "MM")
+dataM<-subset(data5, MAD == "M")
+dataSSM<-subset(data5, MAD == "SM")
+
+
+SI<-ggplot(dataSI, aes(x = "CAT", y = CONS, fill = CAR)) +
+  geom_col(width = 1) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
+  coord_polar("y", start = pi / 3) +
+  labs(title = "INMADUROS")+
+  theme(legend.title = element_blank())+
+  xlab("") + ylab("mg/g fruta seca")
+
+SMM<-ggplot(dataSMM, aes(x = "CAT", y = CONS, fill = CAR)) +
+  geom_col(width = 1) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
+  coord_polar("y", start = pi / 3) +
+  labs(title = "MEDIO MADUROS")+
+  theme(legend.title = element_blank())+
+  xlab("") + ylab("mg/g fruta seca")
+
+SM<-ggplot(dataM, aes(x = "CAT", y = CONS, fill = CAR)) +
+  geom_col(width = 1) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
+  coord_polar("y", start = pi / 3) +
+  labs(title = "MADUROS")+
+  theme(legend.title = element_blank())+
+  xlab("") + ylab("mg/g fruta seca")
+
+SSM<-ggplot(dataSSM, aes(x = "CAT", y = CONS, fill = CAR)) +
+  geom_col(width = 1) +
+  scale_fill_manual(values = c("red","coral","coral3","burlywood2")) +
+  coord_polar("y", start = pi / 3) +
+  labs(title = "SOBRE MADUROS")+
+  theme(legend.title = element_blank())+
+  xlab("") + ylab("mg/g fruta seca")
+
+library(gridExtra)
+grid.arrange(SI, SMM, SM, SSM, ncol = 2)
+
+```
+
+
+### Ácidos orgánicos totales
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gAT<-ggplot2::ggplot(dataSACT, aes(x=MAD, y=TOTALS, fill=MAD)) +
+  geom_boxplot(width = 0.50)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Totales (mg/g fruta fresca)", x="Madurez")+
+  # facet_grid(CAR~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+  theme(legend.position = "none")
+gAT
+
+```
+
+#### Tabla descriptiva totales
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadSACTS <- summarySE(dataSACT, measurevar="TOTALS", groupvars=c("CAR", "MAD"))
+estadSACTS
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mAT1s <- lme(TOTALS~ MAD, random = ~ 1|REP,
+             control = ctrl, data = dataAT)
+
+mAT1s
+
+ATs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mAT1s),
+  "predichos" = predict(mAT1s)))
+
+ATs_ajuste$AT <- dataAT$TOTALS
+
+library(ggplot2)
+HVATs<-ggplot(ATs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVATs
+
+QQATs<-ggplot(ATs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQATs
+
+e<-resid(mAT1s) # residuos de pearson
+pre<-predict(mAT1s) #predichos
+alfai<-ranef(mAT1s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mAT1s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompATs<-emmeans(mAT1s, pairwise ~ MAD) #Tukey  
+CompATs
+plot(CompATs, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+La menor concentración de ácidos totales en frutos inmaduros es significativa.
+
+### Ácido tartárico
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tar<-subset(datap, CAR == "Tartárico")
+
+# # Se quitan outliers
+# g_caja<-boxplot(tar$CONS, col="green3", frame.plot=T)
+# tar<-tar[!(tar$CONS %in% g_caja$out),]
+# g_caja<-boxplot(tar$CONS, col="green3", frame.plot=T)
+# tar<-tar[!(tar$CONS %in% g_caja$out),]
+
+```
+
+#### Modelo y supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mtar2s <- lme(CONS ~ MAD, random = ~ 1|REP,
+             control = ctrl, data = tar)
+mtar2s
+
+
+tars_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mtar2s),
+  "predichos" = predict(mtar2s)))
+
+tars_ajuste$CONS <- tar$CONS
+
+library(ggplot2)
+HVtars<-ggplot(tars_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVtars
+
+QQtars<-ggplot(tars_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQtars
+
+e<-resid(mtar2s) # residuos de pearson
+pre<-predict(mtar2s) #predichos
+alfai<-ranef(mtar2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mtar2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Comptars<-emmeans(mtar2s, pairwise ~ MAD) #Tukey  
+Comptars
+plot(Comptars, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Existen diferencias significativas entre estados de madurez. Sólo el estado sobre maduro presentó ácido málico detectable.
+
+### Ácido málico
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mal<-subset(datap, CAR == "Málico")
+
+# Se quitan outliers
+# g_caja<-boxplot(mal$CONS, col="green3", frame.plot=T)
+# mal<-mal[!(mal$CONS %in% g_caja$out),]
+# g_caja<-boxplot(mal$CONS, col="green3", frame.plot=T)
+# mal<-mal[!(mal$CONS %in% g_caja$out),]
+
+```
+
+#### Modelo y supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mmal2s <- lme(CONS~ MAD, random = ~ 1|REP,
+             weights=varIdent(form=~1|MAD),
+             control = ctrl, data = mal)
+mmal2s
+
+mals_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mmal2s),
+  "predichos" = predict(mmal2s)))
+
+mals_ajuste$CONS <- mal$CONS
+
+library(ggplot2)
+HVmals<-ggplot(mals_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVmals
+
+QQmals<-ggplot(mals_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmals
+
+e<-resid(mmal2s) # residuos de pearson
+pre<-predict(mmal2s) #predichos
+alfai<-ranef(mmal2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mmal2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Compmals<-emmeans(mmal2s, pairwise ~ MAD) #Tukey  
+Compmals
+plot(Compmals, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Existen diferencias significativas entre estados de madurez. En el estado maduro se presentó el pico de concentración de ácido málico.
+
+### Ácido quínico
+
+#### Modelo y supuestos
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+qui<-subset(datap, CAR == "Quínico")
+# qui2<-qui[5:24,]
+# Se quitan outliers
+# g_caja<-boxplot(qui2$CONS, col="green3", frame.plot=F)
+# qui<-qui2[!(qui2$CONS %in% g_caja$out),]
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ctrl <- lmeControl(opt='optim');
+mqui2s<- lme(CONS~MAD, random = ~ 1|REP,
+                  weights=varIdent(form=~1|MAD),
+                  control = ctrl, data = qui)
+mqui2s
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+quis_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mqui2s),
+  "predichos" = predict(mqui2s)))
+
+quis_ajuste$CONS <- qui$CONS
+
+library(ggplot2)
+HVquis<-ggplot(quis_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVquis
+
+QQquis<-ggplot(quis_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQquis
+
+e<-resid(mqui2s) # residuos de pearson
+pre<-predict(mqui2s) #predichos
+alfai<-ranef(mqui2s)$REP$'(Intercept)'
+shapiro.test(e)
+# library(car)
+# leveneTest(CONS~MAD, qui)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mqui2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Compquis<-emmeans(mqui2s, pairwise ~ MAD) #Tukey  
+Compquis
+plot(Compquis, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+El estado inmaduro se diferenció significativamente por sus bajas concentraciones de quínico. Luego durante la maduración el ácido se mantiene constante.
+
+### Ácido succinico
+
+#### Modelo y supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+suc<-subset(datap, CAR == "Succínico")
+ctrl <- lmeControl(opt='optim');
+msuc2s<-lme(CONS~MAD, random = ~ 1|REP,
+           control = ctrl, data = suc)
+
+msuc2s
+
+sucs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(msuc2s),
+  "predichos" = predict(msuc2s)))
+
+sucs_ajuste$CONS <- suc$CONS
+
+library(ggplot2)
+HVsucs<-ggplot(sucs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVsucs
+
+QQsucs<-ggplot(sucs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQsucs
+
+e<-resid(msuc2s) # residuos de pearson
+pre<-predict(msuc2s) #predichos
+alfai<-ranef(msuc2s)$REP$'(Intercept)'
+shapiro.test(e)
+leveneTest(CONS~MAD, suc)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=7}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(msuc2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Compsucs<-emmeans(msuc2s, pairwise ~ MAD) #Tukey  
+Compsucs
+plot(Compsucs, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Se encontraron diferencias significativas entre estados de madurez, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
+
+
+
+## Carbohidratos en peso fresco
+
+#### Concentración de sacáridos a distintos estados de madurez
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+g1<-ggplot(data2, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
+ geom_boxplot()+
+  facet_grid(CAR~.)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g fruta fresca", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -715,48 +1625,59 @@ g1
 
 ```
 
-### Evolución del perfíl de sacáridos en la maduración
+#### Tabla descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadcar <- summarySE(data2, measurevar="CONS", groupvars=c("CAR", "MAD"))
+estadcar
+
+```
+
+#### Evolución del perfíl de sacáridos en la maduración
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data4<-data2
+data4<-data4[-c(73:96),]
 dataSI<-subset(data4, MAD == "I")
 dataSMM<-subset(data4, MAD == "MM")
 dataM<-subset(data4, MAD == "M")
 dataSSM<-subset(data4, MAD == "SM")
 
 
-SI<-ggplot(dataSI, aes(x = "CAT", y = CON, fill = CAR)) +
+SI<-ggplot(dataSI, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "INMADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[TS]") + ylab("mg/g fruta seca")
 
-SMM<-ggplot(dataSMM, aes(x = "CAT", y = CON, fill = CAR)) +
+SMM<-ggplot(dataSMM, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "MEDIO MADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[TS]") + ylab("mg/g fruta seca")
 
-SM<-ggplot(dataM, aes(x = "CAT", y = CON, fill = CAR)) +
+SM<-ggplot(dataM, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "MADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[TS]") + ylab("mg/g fruta seca")
 
-SSM<-ggplot(dataSSM, aes(x = "CAT", y = CON, fill = CAR)) +
+SSM<-ggplot(dataSSM, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "SOBRE MADUROS")+
   theme(legend.title = element_blank())+
-  xlab("") + ylab("mg/g fruta seca")
+  xlab("[TS]") + ylab("mg/g fruta seca")
 
 library(gridExtra)
 grid.arrange(SI, SMM, SM, SSM, ncol = 2)
@@ -768,30 +1689,163 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 sac<-subset(datap, CAR == "Sacarosa")
 glu<-subset(datap, CAR == "Glucosa")
 fru<-subset(datap, CAR == "Fructosa")
+glufru<-subset(datap, CAR == "glufru")
 
 ```
 
-### Sacarosa
+### Carbohidratos Totales
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gST<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
+  geom_boxplot(width = 0.50)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Totales (mg/g fruta fresca)", x="Madurez")+
+  # facet_grid(CAR~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+  theme(legend.position = "none")
+gST
+
+```
 
 #### Modelo y supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mST1 <- lme(TOTALF~ MAD, random = ~ 1|REP,
+             control = ctrl, data = dataST)
+
+mST1
+
+
+ST_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mST1),
+  "predichos" = predict(mST1)))
+
+ST_ajuste$CONF <- dataST$TOTALF
+
+library(ggplot2)
+HVST<-ggplot(ST_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVST
+
+QQST<-ggplot(ST_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQST
+
+e<-resid(mST1) # residuos de pearson
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mST1)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompmST1<-emmeans(mST1, pairwise ~ MAD) #Tukey  
+CompmST1
+plot(CompmST1, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+La concentración de azúcares totales es significativamente superior durante la fructificación en frutos inmaduros, luego decae y durante la maduración aumentan nuevamente. Los frutos sobre maduros se diferenciaron singnificativamente de los maduro y medio maduros en su contenido de azúcares totales.
+
+### Sacarosa
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 library(lme4)
-msac2<-lme(CON~MAD, random = ~ 1|REP,
+ctrl <- lmeControl(opt='optim');
+msac2<-lme(CONF~MAD, random = ~ 1|REP,
            control = ctrl, data = sac)
 msac2
+
+sac_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(msac2),
+  "predichos" = predict(msac2)))
+
+sac_ajuste$CONF <- sac$CONF
+
+library(ggplot2)
+HVsac<-ggplot(sac_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVsac
+
+QQsac<-ggplot(sac_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQsac
+
 e<-resid(msac2) # residuos de pearson
 pre<-predict(msac2) #predichos
 alfai<-ranef(msac2)$REP$'(Intercept)'
-par(mfrow = c(1, 2))
-plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",
-     main="Gráfico de dispersión de RE vs PRED",cex.main=.8 )
-abline(0,0)
-qqnorm(e, cex.main=.8)
-qqline(e)
-par(mfrow = c(1, 1))
-# plot(msac2) #RP vs PRED
 shapiro.test(e)
 
 ```
@@ -819,30 +1873,60 @@ plot(Compsac, comparisons = TRUE) + theme_classic() +
 ```
 
 #### Conclusiones
-Se encontraron diferencias significativas entre estados de madurez. Los frutos maduros tendrían mayor concentración de sacarosa, no se diferenciaron de los frutos medios maduros.
+
+Los frutos inmaduros tuvieron una concentración de sacarosa significativamente menor.
 
 ### Glucosa
 
-#### Modelo y supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(nlme)
+library(lme4)
 ctrl <- lmeControl(opt='optim');
-mglu2 <- lme(CON ~ MAD, random = ~ 1|REP,
-             weights=varIdent(form=~1|MAD),
-             control = ctrl,data = glu)
-mglu2 
+mglu2<-lme(CONF~MAD, random = ~ 1|REP,
+           control = ctrl, data = glu)
+mglu2
+
+glu_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mglu2),
+  "predichos" = predict(mglu2)))
+
+glu_ajuste$CONF <- glu$CONF
+
+library(ggplot2)
+HVglu<-ggplot(glu_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVglu
+
+QQglu<-ggplot(glu_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQglu
+
 e<-resid(mglu2) # residuos de pearson
 pre<-predict(mglu2) #predichos
 alfai<-ranef(mglu2)$REP$'(Intercept)'
-par(mfrow = c(1, 2))
-plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de RE vs PRED",cex.main=.8 )
-abline(0,0)
-qqnorm(e, cex.main=.8)
-qqline(e)
-par(mfrow = c(1, 1))
-# plot(mglu2) #RP vs PRED
 shapiro.test(e)
 
 ```
@@ -870,30 +1954,58 @@ plot(Compglu, comparisons = TRUE) + theme_classic() +
 ```
 
 #### Conclusiones
-Se encontraron diferencias significativas entre estados de madurez. Los frutos sobre maduros tendrían mayor concentración de glucosa.
 
 ### Fructosa
 
-#### Modelo y supuestos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(nlme)
+
+library(lme4)
 ctrl <- lmeControl(opt='optim');
-mfru2 <- lme(sqrt(CON) ~ MAD, random = ~ 1|REP,
-             weights=varIdent(form=~1|MAD),
-             control = ctrl, data = fru)
+mfru2<-lme(CONF~MAD, random = ~ 1|REP,
+           control = ctrl, data = fru)
 mfru2
+
+fru_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mfru2),
+  "predichos" = predict(mfru2)))
+
+fru_ajuste$CONF <- fru$CONF
+
+library(ggplot2)
+HVfru<-ggplot(fru_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVfru
+
+QQfru<-ggplot(fru_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQfru
+
 e<-resid(mfru2) # residuos de pearson
 pre<-predict(mfru2) #predichos
 alfai<-ranef(mfru2)$REP$'(Intercept)'
-par(mfrow = c(1, 2))
-plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",
-     main="Gráfico de dispersión de RE vs PRED",cex.main=.8 )
-abline(0,0)
-qqnorm(e, cex.main=.8)
-qqline(e)
-par(mfrow = c(1, 1))
-# plot(mfru2) #RP vs PRED
 shapiro.test(e)
 
 ```
@@ -917,15 +2029,444 @@ Compfru<-emmeans(mfru2, pairwise ~ MAD) #Tukey
 Compfru
 plot(Compfru, comparisons = TRUE) + theme_classic() + 
   labs(x = "Concentración", y ="Madurez" )
-# confint(Comp1) #IC para la dif de medias
-# pairs(Comp1)
+
+```
+
+#### Conclusiones
+
+
+## Carbohidratos en peso seco
+
+### Carbohidratos Totales
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gSTs<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
+  geom_boxplot(width = 0.50)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Totales (mg/g fruta fresca)", x="Madurez")+
+  # facet_grid(CAR~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+  theme(legend.position = "none")
+gSTs
+
+```
+
+#### Modelo y supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mST1s <- lme(TOTALS~ MAD, random = ~ 1|REP,
+             control = ctrl, data = dataST)
+
+mST1s
+
+
+STs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mST1),
+  "predichos" = predict(mST1)))
+
+STs_ajuste$ST <- dataST$TOTALS
+
+library(ggplot2)
+HVSTs<-ggplot(STs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVSTs
+
+QQSTs<-ggplot(STs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQSTs
+
+e<-resid(mST1s) # residuos de pearson
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mST1s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompmST1s<-emmeans(mST1s, pairwise ~ MAD) #Tukey  
+CompmST1s
+plot(CompmST1s, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+
+### Sacarosa
+
+#### Modelo y supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+msac2s<-lme(CONS~MAD, random = ~ 1|REP,
+           control = ctrl, data = sac)
+msac2s
+
+sacs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(msac2s),
+  "predichos" = predict(msac2s)))
+
+sacs_ajuste$CONS <- sac$CONS
+
+library(ggplot2)
+HVsacs<-ggplot(sacs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVsacs
+
+QQsacs<-ggplot(sacs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQsacs
+
+e<-resid(msac2) # residuos de pearson
+pre<-predict(msac2) #predichos
+alfai<-ranef(msac2)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(car)
+anova(msac2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+emm_options(opt.digits = FALSE)
+Compsacs<-emmeans(msac2s, pairwise ~ MAD) #Tukey  
+Compsacs
+plot(Compsacs, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+Se encontraron diferencias significativas entre estados de madurez. Los frutos maduros tendrían mayor concentración de sacarosa, no se diferenciaron de los frutos medios maduros.
+
+### Glucosa
+
+#### Modelo y supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mglu2s <- lme(CONS ~ MAD, random = ~ 1|REP,
+             weights=varIdent(form=~1|MAD),
+             control = ctrl,data = glu)
+mglu2s
+
+glus_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mglu2s),
+  "predichos" = predict(mglu2s)))
+
+glus_ajuste$CONS <- glu$CONS
+
+library(ggplot2)
+HVglus<-ggplot(glus_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVglus
+
+QQglus<-ggplot(glus_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQglus
+
+
+e<-resid(mglu2s) # residuos de pearson
+pre<-predict(mglu2s) #predichos
+alfai<-ranef(mglu2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(car)
+anova(mglu2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Compglus<-emmeans(mglu2s, pairwise ~ MAD) #Tukey  
+Compglus
+plot(Compglus, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+Se encontraron diferencias significativas entre estados de madurez.
+
+### Fructosa
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mfru2s<-lme(CONS~MAD, random = ~ 1|REP,
+           control = ctrl, data = fru)
+mfru2s
+
+frus_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mfru2s),
+  "predichos" = predict(mfru2s)))
+
+frus_ajuste$CONS <- fru$CONS
+
+library(ggplot2)
+HVfrus<-ggplot(frus_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVfrus
+
+QQfrus<-ggplot(frus_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQfrus
+
+e<-resid(mfru2s) # residuos de pearson
+pre<-predict(mfru2s) #predichos
+alfai<-ranef(mfru2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(car)
+anova(mfru2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Compfrus<-emmeans(mfru2s, pairwise ~ MAD) #Tukey  
+Compfrus
+plot(Compfrus, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
 
 ```
 
 #### Conclusiones
 Se encontraron diferencias significativas entre estados de madurez. Los frutos sobre maduros tendrían mayor concentración de fructosa.
 
-## Cationes
+### Glucosa/Fructosa
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mglufru2s<-lme(CONS~MAD, random = ~ 1|REP,
+              weights=varIdent(form=~1|MAD),
+              control = ctrl, data = glufru)
+mglufru2s
+
+glufrus_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mglufru2s),
+  "predichos" = predict(mglufru2s)))
+
+glufrus_ajuste$CONS <- glufru$CONS
+
+library(ggplot2)
+HVglufrus<-ggplot(glufrus_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVglufrus
+
+QQglufrus<-ggplot(glufrus_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQglufrus
+
+e<-resid(mglufru2s) # residuos de pearson
+pre<-predict(mglufru2s) #predichos
+alfai<-ranef(mglufru2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(car)
+anova(mglufru2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+Compglufrus<-emmeans(mglufru2s, pairwise ~ MAD) #Tukey  
+Compglufrus
+plot(Compglufrus, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+La relación glucosa/fructosa es significativamente mayor en frutos sobre maduros.
+
+## Cationes en peso fresco
 
 Aproximadamente 1 gr de cada  muestra fue calcinado en mufla a 500 ºC por 5 horas.
 La ceniza fue levantada con 5 mL de HCl 20 %, completado a volumen (50mL) con agua destilada. Filtrada y  cuantificada por espectrometría de Absorción Atómica  en un equipo Perkin Elmer  AAAnalyst 200.
@@ -936,12 +2477,28 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 data<-read.delim("cationes.txt")
 data$MAD<-as.factor(data$MAD)
-data$CAT<-as.factor(data$CAT)
+data$CAR<-as.factor(data$CAR)
 data$MAD<-factor(data$MAD,levels=c("I", "MM", "M", "SM"))
 data[is.na(data)] <-  0
 mg<-data[1:12,]
 k<-data[13:24,]
 mn<-data[25:36,]
+```
+
+### Tablas descriptivas
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadcatmg <- summarySE(mg, measurevar="CONS", groupvars=c("MAD"))
+estadcatmg
+
+estadcatk <- summarySE(k, measurevar="CONS", groupvars=c("MAD"))
+estadcatk
+
+estadcatmn <- summarySE(mn, measurevar="CONS", groupvars=c("MAD"))
+estadcatmn
+
 ```
 
 ### Magnesio
@@ -952,7 +2509,7 @@ mn<-data[25:36,]
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-gmg<-ggplot(mg, aes(x=MAD, y=CON, fill=MAD))+
+gmg<-ggplot(mg, aes(x=MAD, y=CONS, fill=MAD))+
   geom_boxplot()+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="Concentración de Mg (mg/g) de peso fresco de fruto", x="Madurez")+
@@ -980,7 +2537,7 @@ gmg
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-mmg<-lm(CON~MAD, data=mg)
+mmg<-lm(CONS~MAD, data=mg)
 mmg
 r2<-residuals(mmg) #guardamos los residuos de Pearson = estandarizados
 pred2<-fitted(mmg)
@@ -1012,7 +2569,7 @@ No hay diferencias significativas en la concentración de magnesio a diferentes 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-gk<-ggplot(k, aes(x=MAD, y=CON, fill=MAD))+
+gk<-ggplot(k, aes(x=MAD, y=CONS, fill=MAD))+
   geom_boxplot()+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="Concentración de K (mg/g) de peso fresco de fruto", x="Madurez")+
@@ -1039,7 +2596,7 @@ gk
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-mk<-lm(CON~MAD, data=k)
+mk<-lm(CONS~MAD, data=k)
 mk
 r2<-residuals(mk) #guardamos los residuos de Pearson = estandarizados
 pred2<-fitted(mk)
@@ -1072,7 +2629,7 @@ No hay diferencias significativas en la concentración de magnesio a diferentes 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 mn<-mn[-6,]
-gmn<-ggplot(mn, aes(x=MAD, y=CON, fill=MAD))+
+gmn<-ggplot(mn, aes(x=MAD, y=CONS, fill=MAD))+
   geom_hline(yintercept=0, col="darkgray")+
   ylim(0,0.005)+
   geom_boxplot()+
@@ -1101,7 +2658,7 @@ gmn
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 mnd<-mn[-c(1:3,9:11),]
 library("nlme")
-mmn2<-gls(CON~MAD,weights=varIdent(form=~1|MAD), data=mnd)
+mmn2<-gls(CONS~MAD,weights=varIdent(form=~1|MAD), data=mnd)
 mmn2
 r2<-residuals(mmn2) #guardamos los residuos de Pearson = estandarizados
 pred2<-fitted(mmn2)
@@ -1124,29 +2681,57 @@ anova(mmn2)
 
 No hay diferencias significativas en la concentración de mangneso a diferentes estados de madurez. Se observó que sólo en estados medio maduro y maduro aparece en muy bajas concentraciones.
 
-## Tabla resumen
+
+## Cationes en peso seco
+
+
+## Tablas resumen
+
+### Acids
 ```{r,fig.align='center',echo=FALSE}
 setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(png)
 library(grid)
-img <- readPNG("tablaArCatCar.png")
+img <- readPNG("acidos.png")
 grid.raster(img)
 ```
 
-ANOVA for malic acid (MAL), quinic acid (QUI), succinic (SUC), saccharose (SAC), glucose (GLU), fructose (FRU), magnesium (Mg), potasium (K) and manganesium (Mn) expressed in dry weigth and considering the fruit ripening of H. edulis "ubajay" harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018. 
+### Sugars
+```{r,fig.align='center',echo=FALSE}
+setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(png)
+library(grid)
+img <- readPNG("azucares.png")
+grid.raster(img)
+```
+
+### Cations
+```{r,fig.align='center',echo=FALSE}
+setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+# library(png)
+# library(grid)
+# img <- readPNG("azucares.png")
+# grid.raster(img)
+```
+coming soon
+
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lattice)
 library(Rmisc)
-estmal <- summarySE(mal, measurevar="CON", groupvars=c("MAD"))
-estqui <- summarySE(qui, measurevar="CON", groupvars=c("MAD"))
-estsuc <- summarySE(suc, measurevar="CON", groupvars=c("MAD"))
-estsac <- summarySE(sac, measurevar="CON", groupvars=c("MAD"))
-estglu <- summarySE(glu, measurevar="CON", groupvars=c("MAD"))
-estfru <- summarySE(fru, measurevar="CON", groupvars=c("MAD"))
-estmg <- summarySE(mg, measurevar="CON", groupvars=c("MAD"))
-estk <- summarySE(k, measurevar="CON", groupvars=c("MAD"))
-estmn <- summarySE(mn, measurevar="CON", groupvars=c("MAD"))
+estmal <- summarySE(mal, measurevar="CONS", groupvars=c("MAD"))
+estqui <- summarySE(qui, measurevar="CONS", groupvars=c("MAD"))
+estsuc <- summarySE(suc, measurevar="CONS", groupvars=c("MAD"))
+estsac <- summarySE(sac, measurevar="CONS", groupvars=c("MAD"))
+estglu <- summarySE(glu, measurevar="CONS", groupvars=c("MAD"))
+estfru <- summarySE(fru, measurevar="CONS", groupvars=c("MAD"))
+estmg <- summarySE(mg, measurevar="CONS", groupvars=c("MAD"))
+estk <- summarySE(k, measurevar="CONS", groupvars=c("MAD"))
+estmn <- summarySE(mn, measurevar="CONS", groupvars=c("MAD"))
 ```
+
+
+
+Nota: *Se ajustaron modelos lineales mixtos (estimaciones por máxima verosimilitud restringida REML) para predecir las concentraciones (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las repeticiones (REP) fueron incluidas como efectos aleatorios.*

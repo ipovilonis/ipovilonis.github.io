@@ -13,8 +13,8 @@
 
 <title>Companion species</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -233,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -245,18 +249,21 @@ $(document).ready(function () {
         <li>
   <a href="index.html">Home</a>
 </li>
+<li>
+  <a href="genotypes.html">Genotypes</a>
+</li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Variability
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fruit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fruit</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-submenu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Physics</a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Physics</a>
           <ul class="dropdown-menu" role="menu">
             <li>
               <a href="Morphological.html">Morphological</a>
@@ -279,7 +286,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Essays
      
     <span class="caret"></span>
@@ -347,30 +354,95 @@ $(document).ready(function () {
 
 <div id="introducción" class="section level1">
 <h1>Introducción</h1>
-<p>Las superficies de bosques nativos han disminuido en las últimas décadas en la Argentina por el avance de la frontera agrícola y ganadera (Viglizzo y Jobbágy, 2010). Sin embargo, aún se conservan áreas con menor efecto antrópico como ocurre en la selva en galería del río Uruguay en la provincia de Entre Ríos. Estas áreas son fuentes de biodiversidad de especies subtropicales por el fenómeno de intrusión de vegetación por el cual especies de la Provincia Paranaense se desplazan hacia el sur por los ríos Uruguay y Paraná y se adaptan al microclima ribereño que toma un aspecto selvático (Bertucci et al., 2008). Esta adaptación da origen a una gran variabilidad fenotípica con potenciales servicios ecosistémicos para la humanidad. Este es el caso de Hexachlamys edulis (O. Berg) Kausel &amp; D. Legrand, “ubajay”, especie que ha sido observada en áreas cercanas a cursos de agua y selvas o bosques en galería de los ríos Paraná y Uruguay (Proença, 2006). Esta especie se destaca por su fruto comestible y su potencial como recurso forestal no maderable de importancia para la salud y la nutrición (Vignale y Bisio, 2005). En el marco de un estudio de variabilidad fenotípica del ubajay se genera la necesidad de conocer el estado de conservación entre los sitios de muestreo. Para esto, la riqueza y abundancia de las diversas especies registradas es un importante indicador de la biodiversidad y del avance antrópico junto con la cuantificación de especies nativas y exóticas. No obstante, cabe aclarar que se entiende por riqueza a la cantidad de especies diferentes por superficie o punto de muestreo, mientras que la abundancia es el número de individuos por superficie o punto de muestreo (Rodríguez et al., 2005).</p>
+<p>Las superficies de bosques nativos han disminuido en las últimas
+décadas en la Argentina por el avance de la frontera agrícola y ganadera
+(Viglizzo y Jobbágy, 2010). Sin embargo, aún se conservan áreas con
+menor efecto antrópico como ocurre en la selva en galería del río
+Uruguay en la provincia de Entre Ríos. Estas áreas son fuentes de
+biodiversidad de especies subtropicales por el fenómeno de intrusión de
+vegetación por el cual especies de la Provincia Paranaense se desplazan
+hacia el sur por los ríos Uruguay y Paraná y se adaptan al microclima
+ribereño que toma un aspecto selvático (Bertucci et al., 2008). Esta
+adaptación da origen a una gran variabilidad fenotípica con potenciales
+servicios ecosistémicos para la humanidad. Este es el caso de
+Hexachlamys edulis (O. Berg) Kausel &amp; D. Legrand, “ubajay”, especie
+que ha sido observada en áreas cercanas a cursos de agua y selvas o
+bosques en galería de los ríos Paraná y Uruguay (Proença, 2006). Esta
+especie se destaca por su fruto comestible y su potencial como recurso
+forestal no maderable de importancia para la salud y la nutrición
+(Vignale y Bisio, 2005). En el marco de un estudio de variabilidad
+fenotípica del ubajay se genera la necesidad de conocer el estado de
+conservación entre los sitios de muestreo. Para esto, la riqueza y
+abundancia de las diversas especies registradas es un importante
+indicador de la biodiversidad y del avance antrópico junto con la
+cuantificación de especies nativas y exóticas. No obstante, cabe aclarar
+que se entiende por riqueza a la cantidad de especies diferentes por
+superficie o punto de muestreo, mientras que la abundancia es el número
+de individuos por superficie o punto de muestreo (Rodríguez et al.,
+2005).</p>
 </div>
 <div id="objetivos" class="section level1">
 <h1>Objetivos</h1>
-<p>El presente trabajo tuvo como objetivos: * Evaluar los cambios en la riqueza y abundancia de especies vegetales acompañantes de árboles de ubajay en tres poblaciones de la selva en galería del río Uruguay en la provincia de Entre Ríos * Explorar la relación entre nativas y exóticas. * Conocer las principales familias presentes, tanto exóticas como nativas. * Detectar alguna posible asociación entre el ubajay y otras especies. * Relacionar las poblaciones y las accesiones según su similitud en la vegetación acompañante.</p>
+<p>El presente trabajo tuvo como objetivos: * Evaluar los cambios en la
+riqueza y abundancia de especies vegetales acompañantes de árboles de
+ubajay en tres poblaciones de la selva en galería del río Uruguay en la
+provincia de Entre Ríos * Explorar la relación entre nativas y exóticas.
+* Conocer las principales familias presentes, tanto exóticas como
+nativas. * Detectar alguna posible asociación entre el ubajay y otras
+especies. * Relacionar las poblaciones y las accesiones según su
+similitud en la vegetación acompañante.</p>
 </div>
 <div id="materiales-y-métodos" class="section level1">
 <h1>Materiales y métodos</h1>
-<p>Se seleccionaron 40 ejemplares de ubajay crecidos en forma espontánea en 3 poblaciones de la selva en galería del río Uruguay, dentro de la provincia de Entre Ríos. La distribución de estos árboles seleccionados fue: 12 ejemplares en Concordia, 15 ejemplares en el Parque Nacional El Palmar y 13 en la reserva privada El Potrero de San Lorenzo en Gualeguaychú. Para el registro y recuento de las especies acompañantes se determinó un radio de 3 metros desde el fuste de cada árbol seleccionado (28,3 m² cada censo), donde se clasificó taxonómicamente y se registró el número de todas las especies leñosas y semileñosas presentes. Como análisis preliminares se midieron la riqueza absoluta (R) que es el número de especies en cada unidad experimental y la abundancia absoluta (A) que representa el número de individuos en cada unidad experimental. La riqueza de familias (Rf) es la cantidad de familias presentes en cada unidad experimental y se diferenciaron entre nativas y exóticas para la comparación entre los diversos sitios de estudio. Se generó un indicador antrópico (I) que señala la relación de especies nativas y exóticas, donde 1 implica una vegetación completamente nativa y 0 completamente exótica.</p>
+<p>Se seleccionaron 40 ejemplares de ubajay crecidos en forma espontánea
+en 3 poblaciones de la selva en galería del río Uruguay, dentro de la
+provincia de Entre Ríos. La distribución de estos árboles seleccionados
+fue: 12 ejemplares en Concordia, 15 ejemplares en el Parque Nacional El
+Palmar y 13 en la reserva privada El Potrero de San Lorenzo en
+Gualeguaychú. Para el registro y recuento de las especies acompañantes
+se determinó un radio de 3 metros desde el fuste de cada árbol
+seleccionado (28,3 m² cada censo), donde se clasificó taxonómicamente y
+se registró el número de todas las especies leñosas y semileñosas
+presentes. Como análisis preliminares se midieron la riqueza absoluta
+(R) que es el número de especies en cada unidad experimental y la
+abundancia absoluta (A) que representa el número de individuos en cada
+unidad experimental. La riqueza de familias (Rf) es la cantidad de
+familias presentes en cada unidad experimental y se diferenciaron entre
+nativas y exóticas para la comparación entre los diversos sitios de
+estudio. Se generó un indicador antrópico (I) que señala la relación de
+especies nativas y exóticas, donde 1 implica una vegetación
+completamente nativa y 0 completamente exótica.</p>
 <p>I = (n° nativas)/(n° nativas + n° exóticas)</p>
-<p>Los resultados se analizaron mediante ANOVA y posteriormente las medias se separaron por test de Tukey (p&lt;0,05).</p>
-<p>Por otra parte, para la comparación de la heterogeneidad de la vegetación acompañante se utilizaron métodos de clasificación y ordenamiento a partir de una matríz de similitudes.</p>
+<p>Los resultados se analizaron mediante ANOVA y posteriormente las
+medias se separaron por test de Tukey (p&lt;0,05).</p>
+<p>Por otra parte, para la comparación de la heterogeneidad de la
+vegetación acompañante se utilizaron métodos de clasificación y
+ordenamiento a partir de una matríz de similitudes.</p>
 </div>
 <div id="resultados" class="section level1">
 <h1>Resultados</h1>
-<p>Se catalogó la flora total de las áreas de estudio, se encontraron 39 familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
+<p>Se catalogó la flora total de las áreas de estudio, se encontraron 39
+familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 </div>
 <div id="bibliografía" class="section level1">
 <h1>Bibliografía</h1>
-<p>BERTUCCI, A.; HARETCHE, F.; OLIVARO, C.; VÁZQUEZ, A. 2008. Prospección química del bosque en galería de río Uruguay. Revista Brasileira de Farmacognosia 18(1):21-25</p>
-<p>PROENÇA, C.E.B. 2006. Proposal to Conserve the Name Myrcianthes edulis against Psidium amygdalinum (Myrtaceae). Taxon 55(2):536-537</p>
-<p>RODRÍGUEZ, N.; RUÍZ, R.; ARMENTERAS PASCUAL, D.; MENDOZA CIFUENTES, H.; UMAÑA, A.M.; ARANGO, N.; BAPTISTE, E.M.P. 2005. Corredor nororiental de robles: indicadores de estado de la biodiversidad, factores antrópicos asociados y áreas prioritarias de conservación. Instituto de Investigación de Recursos Biológicos Alexander von Humboldt. Serie: Indicadores de Seguimiento y Evaluación de la Política de Biodiversidad. 88 p.</p>
-<p>VIGLIZZO, E.F.; JOBBÁGY, E. 2010. Expansión de la Frontera Agropecuaria en Argentina y su Impacto Ecológico-Ambiental. Ediciones INTA. P: 9-16</p>
-<p>VIGNALE, B.; BISIO, L. 2005. Selección de frutales nativos en Uruguay. Agrociencia 9(1-2):41- 51</p>
+<p>BERTUCCI, A.; HARETCHE, F.; OLIVARO, C.; VÁZQUEZ, A. 2008.
+Prospección química del bosque en galería de río Uruguay. Revista
+Brasileira de Farmacognosia 18(1):21-25</p>
+<p>PROENÇA, C.E.B. 2006. Proposal to Conserve the Name Myrcianthes
+edulis against Psidium amygdalinum (Myrtaceae). Taxon 55(2):536-537</p>
+<p>RODRÍGUEZ, N.; RUÍZ, R.; ARMENTERAS PASCUAL, D.; MENDOZA CIFUENTES,
+H.; UMAÑA, A.M.; ARANGO, N.; BAPTISTE, E.M.P. 2005. Corredor nororiental
+de robles: indicadores de estado de la biodiversidad, factores
+antrópicos asociados y áreas prioritarias de conservación. Instituto de
+Investigación de Recursos Biológicos Alexander von Humboldt. Serie:
+Indicadores de Seguimiento y Evaluación de la Política de Biodiversidad.
+88 p.</p>
+<p>VIGLIZZO, E.F.; JOBBÁGY, E. 2010. Expansión de la Frontera
+Agropecuaria en Argentina y su Impacto Ecológico-Ambiental. Ediciones
+INTA. P: 9-16</p>
+<p>VIGNALE, B.; BISIO, L. 2005. Selección de frutales nativos en
+Uruguay. Agrociencia 9(1-2):41- 51</p>
 </div>
 
 

@@ -13,8 +13,8 @@
 
 <title>Chemical</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -233,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -245,18 +249,21 @@ $(document).ready(function () {
         <li>
   <a href="index.html">Home</a>
 </li>
+<li>
+  <a href="genotypes.html">Genotypes</a>
+</li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Variability
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fruit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fruit</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-submenu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Physics</a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Physics</a>
           <ul class="dropdown-menu" role="menu">
             <li>
               <a href="Morphological.html">Morphological</a>
@@ -279,7 +286,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Essays
      
     <span class="caret"></span>
@@ -355,12 +362,29 @@ A caption
 <h1>Fenoles</h1>
 <div id="metodología" class="section level2">
 <h2>Metodología</h2>
-<p>Se muestrearon 10 frutos por genotipo de <em>Hexachlamys edulis</em> en 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y Gualeguaychú. La cuantificación de compuestos fenólicos se realizó según la metodología de Makkar <em>et al</em>., (1993). Se pesaron 5 gramos de fruta fresca, se homogeneizó la muestra y se diluyó en solución extractante metanol 80%. Luego de 24hs la solución fue transferida a tubos conicos para su centrifugado durante 5 minutos a 2500rpm. El tubo queda separado por dos fases marcadas, una líquida y otra sólida en el fondo del tubo. Luego las muestras son transferidas a tubos de ensayo y el volumen llevado a 500 μl con agua desionizada. Se adicionan 250 μl de reactivo Folin-Ciocalteu (1N) y 1,25 ml de solución acuosa de carbonato de sodio decahidratado al 20%. Luego de 40 minutos en oscuridad la absorbancia es medida por espectrofotometría a 725 nm. El contenido de fenoles totales es expresado como mg ácido tánico/100g de peso fresco.</p>
+<p>Se muestrearon 10 frutos por genotipo de <em>Hexachlamys edulis</em>
+en 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y Gualeguaychú.
+La cuantificación de compuestos fenólicos se realizó según la
+metodología de Makkar <em>et al</em>., (1993). Se pesaron 5 gramos de
+fruta fresca, se homogeneizó la muestra y se diluyó en solución
+extractante metanol 80%. Luego de 24hs la solución fue transferida a
+tubos conicos para su centrifugado durante 5 minutos a 2500rpm. El tubo
+queda separado por dos fases marcadas, una líquida y otra sólida en el
+fondo del tubo. Luego las muestras son transferidas a tubos de ensayo y
+el volumen llevado a 500 μl con agua desionizada. Se adicionan 250 μl de
+reactivo Folin-Ciocalteu (1N) y 1,25 ml de solución acuosa de carbonato
+de sodio decahidratado al 20%. Luego de 40 minutos en oscuridad la
+absorbancia es medida por espectrofotometría a 725 nm. El contenido de
+fenoles totales es expresado como mg ácido tánico/100g de peso
+fresco.</p>
 </div>
 <div id="estadística-descriptiva" class="section level2">
 <h2>Estadística descriptiva</h2>
-<div id="boxplot-y-dispersión-de-concentración-de-fenoles-de-las-tres-poblaciones-para-2019-y-2021" class="section level3">
-<h3>Boxplot y dispersión de concentración de fenoles de las tres poblaciones para 2019 y 2021</h3>
+<div
+id="boxplot-y-dispersión-de-concentración-de-fenoles-de-las-tres-poblaciones-para-2019-y-2021"
+class="section level3">
+<h3>Boxplot y dispersión de concentración de fenoles de las tres
+poblaciones para 2019 y 2021</h3>
 <p><img src="Chemical_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="individuos-de-concordia-en-ambos-años." class="section level3">
@@ -369,18 +393,21 @@ A caption
 </div>
 <div id="individuos-del-palmar-en-ambos-años." class="section level3">
 <h3>Individuos del Palmar en ambos años.</h3>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /> ### Individuos de Gualeguaychú en ambos años. <img src="Chemical_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" />
+### Individuos de Gualeguaychú en ambos años.
+<img src="Chemical_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tabla-descriptiva" class="section level3">
 <h3>Tabla descriptiva</h3>
-<pre><code>##   ANIO   N      FEN       sd       se       ci
-## 1 2019 151 670.8721 613.7548 49.94666 98.68987
-## 2 2021 174 611.5777 462.5762 35.06781 69.21584</code></pre>
+<pre><code>##   ANIO   N     FEN      sd      se      ci
+## 1 2019 151 670.872 613.755 49.9467 98.6899
+## 2 2021 174 611.578 462.576 35.0678 69.2158</code></pre>
 </div>
 </div>
 <div id="estadística-inferencial" class="section level2">
 <h2>Estadística inferencial</h2>
-<p>Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.</p>
+<p>Comparación interpoblacional e intrapoblacional para los años 2019 y
+2021.</p>
 <ul>
 <li>Diseño anidado: Población(Genotipo).</li>
 <li>Análisis univariado de la variable concentración de fenoles.</li>
@@ -398,20 +425,20 @@ A caption
 ## REML criterion at convergence: 386.8
 ## 
 ## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -2.49997 -0.57208 -0.02232  0.57032  2.91253 
+##     Min      1Q  Median      3Q     Max 
+## -2.5000 -0.5721 -0.0223  0.5703  2.9125 
 ## 
 ## Random effects:
 ##  Groups   Name        Variance Std.Dev.
-##  ACC:REG  (Intercept) 0.13862  0.3723  
-##  REG      (Intercept) 0.01395  0.1181  
-##  Residual             0.15411  0.3926  
+##  ACC:REG  (Intercept) 0.1386   0.372   
+##  REG      (Intercept) 0.0139   0.118   
+##  Residual             0.1541   0.393   
 ## Number of obs: 299, groups:  ACC:REG, 50; REG, 3
 ## 
 ## Fixed effects:
-##              Estimate Std. Error        df t value Pr(&gt;|t|)    
-## (Intercept)   6.09909    0.09415   2.51630  64.778 4.03e-05 ***
-## ANIO2021      0.09655    0.05107 271.34137   1.891   0.0597 .  
+##             Estimate Std. Error       df t value Pr(&gt;|t|)    
+## (Intercept)   6.0991     0.0942   2.5163   64.78    4e-05 ***
+## ANIO2021      0.0965     0.0511 271.3414    1.89     0.06 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -427,13 +454,13 @@ A caption
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9949, p-value = 0.4251</code></pre>
+## W = 0.9949, p-value = 0.425</code></pre>
 <p>Test de normalidad para genotipos</p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  alfai
-## W = 0.96649, p-value = 0.166</code></pre>
+## W = 0.9665, p-value = 0.166</code></pre>
 </div>
 <div id="conclusiones" class="section level3">
 <h3>Conclusiones</h3>
@@ -442,7 +469,8 @@ A caption
 ##   - The effect of ANIO [2021] is statistically non-significant and positive (beta = 0.10, 95% CI [-3.95e-03, 0.20], t(294) = 1.89, p = 0.060; Std. beta = 0.06, 95% CI [-6.76e-03, 0.14])
 ## 
 ## Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95% Confidence Intervals (CIs) and p-values were computed using</code></pre>
-<p>El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas significativas entre años.</p>
+<p>El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas
+significativas entre años.</p>
 </div>
 <div id="icc-del-modelo" class="section level3">
 <h3>ICC del modelo</h3>
@@ -450,10 +478,11 @@ A caption
 ## 
 ##      Adjusted ICC: 0.497
 ##   Conditional ICC: 0.494</code></pre>
-<pre><code>## [1] 0.5025108</code></pre>
-<pre><code>## [1] 0.4520021</code></pre>
-<pre><code>## [1] 0.04548715</code></pre>
-<p>—-&gt; 50,3% entre muestras de una misma accesión. —-&gt; 45,2% entre accesiones de una misma región. —-&gt; 4,5% entre regiones.</p>
+<pre><code>## [1] 0.502511</code></pre>
+<pre><code>## [1] 0.452002</code></pre>
+<pre><code>## [1] 0.0454872</code></pre>
+<p>—-&gt; 50,3% entre muestras de una misma accesión. —-&gt; 45,2% entre
+accesiones de una misma región. —-&gt; 4,5% entre regiones.</p>
 <p>ICC del modelo = 49,7%</p>
 <table style="border-collapse:collapse; border:none;">
 <tr>
@@ -571,7 +600,8 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </td>
 </tr>
 </table>
-<p>La mayor parte de la variación es explicada entre muestras de una misma accesión.</p>
+<p>La mayor parte de la variación es explicada entre muestras de una
+misma accesión.</p>
 </div>
 </div>
 </div>

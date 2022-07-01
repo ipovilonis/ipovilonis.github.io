@@ -13,8 +13,8 @@
 
 <title>Colorimetry</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -61,6 +61,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -81,6 +82,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -233,7 +237,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -245,18 +249,21 @@ $(document).ready(function () {
         <li>
   <a href="index.html">Home</a>
 </li>
+<li>
+  <a href="genotypes.html">Genotypes</a>
+</li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Variability
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fruit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fruit</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-submenu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Physics</a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Physics</a>
           <ul class="dropdown-menu" role="menu">
             <li>
               <a href="Morphological.html">Morphological</a>
@@ -279,7 +286,7 @@ $(document).ready(function () {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Essays
      
     <span class="caret"></span>
@@ -345,9 +352,12 @@ $(document).ready(function () {
 </div>
 
 
-<p>Colorimetría cuantificada en 4 estados de maurez: Inmaduro (I), Medio Maduro (MM), Maduro (M), Sobre Maduro (SM).</p>
-<p>En 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y Gualeguaychú.</p>
-<p>Escala CieLab: L: luminosidad +a: rojo -a: verde +b: amarillo -b: azul</p>
+<p>Colorimetría cuantificada en 4 estados de maurez: Inmaduro (I), Medio
+Maduro (MM), Maduro (M), Sobre Maduro (SM).</p>
+<p>En 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y
+Gualeguaychú.</p>
+<p>Escala CieLab: L: luminosidad +a: rojo -a: verde +b: amarillo -b:
+azul</p>
 <p>colorímetro digital 3NH NH300</p>
 <div id="estadística-descriptiva" class="section level1">
 <h1>Estadística descriptiva</h1>
@@ -362,41 +372,52 @@ $(document).ready(function () {
 <div id="b" class="section level2">
 <h2>b</h2>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con promedio.</p>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-5-3.png" width="960" style="display: block; margin: auto;" /> Tabla de color promedio por madurez.</p>
-<pre><code>##   madurez       Lc        ac       bc
-## 1       I 49.42974 -3.428042 32.43526
-## 2      MM 56.98465  4.479208 43.99984
-## 3       M 60.77104 13.187747 52.28874
-## 4      SM 53.63335 17.423670 44.42711</code></pre>
-<p>Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con línea de mayor frecuencia. <img src="Colorimetry_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-7-2.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-7-3.png" width="960" style="display: block; margin: auto;" /> Tabla de color más frecuente por madurez.</p>
-<pre><code>##   mad      Lfc       afc      bfc
-## 1   I 49.88773 -8.821792 38.20100
-## 2  MM 57.29858  1.356885 48.71289
-## 3   M 63.01838 10.579560 52.20948
-## 4  SM 50.07214 19.193400 38.95771</code></pre>
+<p>Densidad (frecuencia) de valores encontrados para los 4 estados de
+madurez con promedio.</p>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-5-3.png" width="960" style="display: block; margin: auto;" />
+Tabla de color promedio por madurez.</p>
+<pre><code>##   madurez      Lc       ac      bc
+## 1       I 49.4297 -3.42804 32.4353
+## 2      MM 56.9847  4.47921 43.9998
+## 3       M 60.7710 13.18775 52.2887
+## 4      SM 53.6334 17.42367 44.4271</code></pre>
+<p>Densidad (frecuencia) de valores encontrados para los 4 estados de
+madurez con línea de mayor frecuencia.
+<img src="Colorimetry_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-7-2.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-7-3.png" width="960" style="display: block; margin: auto;" />
+Tabla de color más frecuente por madurez.</p>
+<pre><code>##   mad     Lfc      afc     bfc
+## 1   I 49.8877 -8.82179 38.2010
+## 2  MM 57.2986  1.35688 48.7129
+## 3   M 63.0184 10.57956 52.2095
+## 4  SM 50.0721 19.19340 38.9577</code></pre>
 <div id="paleta-de-colores." class="section level3">
 <h3>Paleta de colores.</h3>
-<p><img src="C:/Users/um/Documents/ipovilonis/Doc/6%20-%20Producción/web/ipovilonis.github.io/coloresmadREF.TIF" /> IP: inmaduro promedio, IF: inmaduro con mayor frecuencia, MMP: medio maduro promedio, MMF: medio maduro con mayor frecuencia, MP: maduro promedio, MF: maduro con mayor frecuencia, SMP: sobre maduro promedio, SMF: sobre maduro con mayor frecuencia.</p>
+<p><img
+src="C:/Users/um/Documents/ipovilonis/Doc/6%20-%20Producción/web/ipovilonis.github.io/coloresmadREF.TIF" />
+IP: inmaduro promedio, IF: inmaduro con mayor frecuencia, MMP: medio
+maduro promedio, MMF: medio maduro con mayor frecuencia, MP: maduro
+promedio, MF: maduro con mayor frecuencia, SMP: sobre maduro promedio,
+SMF: sobre maduro con mayor frecuencia.</p>
 </div>
 </div>
 </div>
-<div id="estadística-inferencial-estados-de-madurez." class="section level1">
+<div id="estadística-inferencial-estados-de-madurez."
+class="section level1">
 <h1>Estadística inferencial: estados de madurez.</h1>
 <div id="l-1" class="section level2">
 <h2>L</h2>
 <pre><code>## Denom. DF: 1022 
-##             numDF  F-value p-value
-## (Intercept)     1 74047.04  &lt;.0001
-## MAD             3   149.80  &lt;.0001</code></pre>
+##             numDF F-value p-value
+## (Intercept)     1 74047.0  &lt;.0001
+## MAD             3   149.8  &lt;.0001</code></pre>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="a-1" class="section level2">
 <h2>a</h2>
 <pre><code>## Denom. DF: 1022 
-##             numDF  F-value p-value
-## (Intercept)     1 50723.88  &lt;.0001
-## MAD             3   684.81  &lt;.0001</code></pre>
+##             numDF F-value p-value
+## (Intercept)     1 50723.9  &lt;.0001
+## MAD             3   684.8  &lt;.0001</code></pre>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="b-1" class="section level2">
@@ -410,7 +431,9 @@ $(document).ready(function () {
 </div>
 <div id="conclusión" class="section level1">
 <h1>Conclusión</h1>
-<p>Se encontraron diferencias significativas para todos los estados de madurez en las 3 escalas L, a y b. Sólo en la escala b no se diferencia MM de SM.</p>
+<p>Se encontraron diferencias significativas para todos los estados de
+madurez en las 3 escalas L, a y b. Sólo en la escala b no se diferencia
+MM de SM.</p>
 </div>
 <div id="estadística-inferencial-poblaciones." class="section level1">
 <h1>Estadística inferencial: poblaciones.</h1>
@@ -423,20 +446,20 @@ $(document).ready(function () {
 ## REML criterion at convergence: 6668.3
 ## 
 ## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -2.87068 -0.47702  0.03217  0.51644  2.16809 
+##     Min      1Q  Median      3Q     Max 
+## -2.8707 -0.4770  0.0322  0.5164  2.1681 
 ## 
 ## Random effects:
 ##  Groups       Name        Variance Std.Dev.
-##  id:(ACC:REG) (Intercept) 29.15    5.399   
-##  ACC:REG      (Intercept) 14.23    3.772   
-##  REG          (Intercept) 10.68    3.268   
-##  Residual                 17.14    4.140   
+##  id:(ACC:REG) (Intercept) 29.1     5.40    
+##  ACC:REG      (Intercept) 14.2     3.77    
+##  REG          (Intercept) 10.7     3.27    
+##  Residual                 17.1     4.14    
 ## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)    53.76       1.98   27.15</code></pre>
+## (Intercept)    53.76       1.98    27.1</code></pre>
 <pre><code>## [[1]]</code></pre>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
@@ -455,20 +478,20 @@ $(document).ready(function () {
 ## REML criterion at convergence: 6799.7
 ## 
 ## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -2.86950 -0.41349 -0.00893  0.45624  2.90675 
+##     Min      1Q  Median      3Q     Max 
+## -2.8695 -0.4135 -0.0089  0.4562  2.9068 
 ## 
 ## Random effects:
 ##  Groups       Name        Variance Std.Dev.
-##  id:(ACC:REG) (Intercept) 50.60    7.113   
-##  ACC:REG      (Intercept) 32.96    5.741   
-##  REG          (Intercept) 19.33    4.397   
-##  Residual                 14.05    3.748   
+##  id:(ACC:REG) (Intercept) 50.6     7.11    
+##  ACC:REG      (Intercept) 33.0     5.74    
+##  REG          (Intercept) 19.3     4.40    
+##  Residual                 14.0     3.75    
 ## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)    5.253      2.687   1.955</code></pre>
+## (Intercept)     5.25       2.69    1.96</code></pre>
 <pre><code>## [[1]]</code></pre>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
@@ -487,20 +510,20 @@ $(document).ready(function () {
 ## REML criterion at convergence: 7609
 ## 
 ## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -3.9114 -0.4641  0.0154  0.5155  3.5198 
+##    Min     1Q Median     3Q    Max 
+## -3.911 -0.464  0.015  0.516  3.520 
 ## 
 ## Random effects:
 ##  Groups       Name        Variance Std.Dev.
-##  id:(ACC:REG) (Intercept) 60.95    7.807   
-##  ACC:REG      (Intercept) 39.28    6.268   
-##  REG          (Intercept) 14.65    3.828   
-##  Residual                 47.25    6.874   
+##  id:(ACC:REG) (Intercept) 61.0     7.81    
+##  ACC:REG      (Intercept) 39.3     6.27    
+##  REG          (Intercept) 14.7     3.83    
+##  Residual                 47.2     6.87    
 ## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)   40.648      2.417   16.82</code></pre>
+## (Intercept)    40.65       2.42    16.8</code></pre>
 <pre><code>## [[1]]</code></pre>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
@@ -517,38 +540,39 @@ $(document).ready(function () {
 ## Models:
 ## L23: L ~ 1 + (1 | REG)
 ## L2: L ~ 1 + (1 | REG/ACC/id)
-##     npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
-## L23    3 7134.8 7149.6 -3564.4   7128.8                         
-## L2     5 6681.3 6706.0 -3335.7   6671.3 457.51  2  &lt; 2.2e-16 ***
+##     npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)    
+## L23    3 7135 7150  -3564     7129                        
+## L2     5 6681 6706  -3336     6671 457.5  2     &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>##     df      AIC
-## L2   5 6678.331
-## L23  3 7131.846</code></pre>
+<pre><code>##     df     AIC
+## L2   5 6678.33
+## L23  3 7131.85</code></pre>
 <pre><code>## Data: data
 ## Models:
 ## a23: a ~ 1 + (1 | REG)
 ## a2: a ~ 1 + (1 | REG/ACC/id)
-##     npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
-## a23    3 7601.8 7616.6 -3797.9   7595.8                         
-## a2     5 6813.3 6837.9 -3401.6   6803.3 792.53  2  &lt; 2.2e-16 ***
+##     npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)    
+## a23    3 7602 7617  -3798     7596                        
+## a2     5 6813 6838  -3402     6803 792.5  2     &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>##     df      AIC
-## a2   5 6809.680
-## a23  3 7598.356</code></pre>
+<pre><code>##     df     AIC
+## a2   5 6809.68
+## a23  3 7598.36</code></pre>
 <pre><code>## Data: data
 ## Models:
 ## b23: a ~ 1 + (1 | REG)
 ## b2: b ~ 1 + (1 | REG/ACC/id)
-##     npar    AIC    BIC  logLik deviance Chisq Df Pr(&gt;Chisq)
-## b23    3 7601.8 7616.6 -3797.9   7595.8                    
-## b2     5 7622.4 7647.1 -3806.2   7612.4     0  2          1</code></pre>
-<pre><code>##     df      AIC
-## b2   5 7618.999
-## b23  3 7598.356</code></pre>
+##     npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)
+## b23    3 7602 7617  -3798     7596                    
+## b2     5 7622 7647  -3806     7612     0  2          1</code></pre>
+<pre><code>##     df     AIC
+## b2   5 7619.00
+## b23  3 7598.36</code></pre>
 </div>
-<div id="coeficientes-de-correlación-intra-clase-cci" class="section level1">
+<div id="coeficientes-de-correlación-intra-clase-cci"
+class="section level1">
 <h1>Coeficientes de correlación intra clase (CCI)</h1>
 <p><em>Varianza residual sobre la varianza total</em></p>
 <div id="l-3" class="section level2">

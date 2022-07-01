@@ -13,8 +13,8 @@
 
 <title>Reproductive</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -315,7 +319,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -327,18 +331,21 @@ div.tocify {
         <li>
   <a href="index.html">Home</a>
 </li>
+<li>
+  <a href="genotypes.html">Genotypes</a>
+</li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Variability
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fruit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fruit</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-submenu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Physics</a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Physics</a>
           <ul class="dropdown-menu" role="menu">
             <li>
               <a href="Morphological.html">Morphological</a>
@@ -361,7 +368,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Essays
      
     <span class="caret"></span>
@@ -431,30 +438,45 @@ div.tocify {
 <h1>N° óvulos</h1>
 <div id="metodología" class="section level2">
 <h2>Metodología</h2>
-<p>Se muestrearon 10 fores por genotipo de <em>Hexachlamys edulis</em> en 3 poblaciones de Entre Ríos: Concordia, PN el Palmar y Gualeguaychú. Se procedío al corte del ovario infero en lupa y se contaron los óvulos presentes en total en cada flor.</p>
+<p>Se muestrearon 10 fores por genotipo de <em>Hexachlamys edulis</em>
+en 3 poblaciones de Entre Ríos: Concordia, PN el Palmar y Gualeguaychú.
+Se procedío al corte del ovario infero en lupa y se contaron los óvulos
+presentes en total en cada flor.</p>
 </div>
 <div id="estadística-descriptiva" class="section level2">
 <h2>Estadística descriptiva</h2>
-<p>Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y 2021 <img src="Reproductive_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /> N° óvulos entre individuos de Concordia en ambos años. <img src="Reproductive_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /> N° óvulos entre individuos del Palmar en ambos años. <img src="Reproductive_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /> N° óvulos entre individuos de Gualeguaychú en ambos años. <img src="Reproductive_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y
+2021
+<img src="Reproductive_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" />
+N° óvulos entre individuos de Concordia en ambos años.
+<img src="Reproductive_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" />
+N° óvulos entre individuos del Palmar en ambos años.
+<img src="Reproductive_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" />
+N° óvulos entre individuos de Gualeguaychú en ambos años.
+<img src="Reproductive_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="estadística-inferencial" class="section level2">
 <h2>Estadística inferencial</h2>
-<p>Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.</p>
-<p>Diseño anidado: Población(Genotipo) Análisis univariado de la variable N° de óvulos. Distribución de probabilidades: Poisson. Análisis de componentes de varianza. factores aleatorios: Población y Genotipo factores fijos: año</p>
+<p>Comparación interpoblacional e intrapoblacional para los años 2019 y
+2021.</p>
+<p>Diseño anidado: Población(Genotipo) Análisis univariado de la
+variable N° de óvulos. Distribución de probabilidades: Poisson. Análisis
+de componentes de varianza. factores aleatorios: Población y Genotipo
+factores fijos: año</p>
 <pre><code>## Analysis of Variance Table
 ##   npar Sum Sq Mean Sq F value
-## A    1 13.187  13.187  13.187</code></pre>
+## A    1  13.19   13.19   13.19</code></pre>
 <pre><code>## $emmeans
-##  A    rate    SE  df asymp.LCL asymp.UCL
-##  2019 4.37 0.182 Inf      4.03      4.74
-##  2021 4.97 0.212 Inf      4.57      5.40
+##  A       rate       SE  df asymp.LCL asymp.UCL
+##  2019 4.36778 0.181838 Inf   4.02553   4.73912
+##  2021 4.96939 0.211683 Inf   4.57135   5.40209
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast    ratio     SE  df asymp.LCL asymp.UCL
-##  2019 / 2021 0.879 0.0312 Inf      0.82     0.942
+##  contrast       ratio        SE  df asymp.LCL asymp.UCL
+##  2019 / 2021 0.878936 0.0312288 Inf  0.819811  0.942325
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale</code></pre>
@@ -465,8 +487,11 @@ div.tocify {
 ##   Conditional ICC: 0.087</code></pre>
 <pre><code>## [1] 0.911</code></pre>
 <p>Conclusiones:</p>
-<p>Se observan diferencias significativas entre años p = 0.000243 *** El año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo 4,37</p>
-<p>Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)</p>
+<p>Se observan diferencias significativas entre años p = 0.000243 *** El
+año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo
+4,37</p>
+<p>Un 91,1% de la variabilidad está explicada por flores dentro de un
+mismo genotipo (ICC=8,9%)</p>
 </div>
 </div>
 <div id="próximas-variables" class="section level1">
@@ -520,6 +545,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')

@@ -1,0 +1,46 @@
+---
+title: "Genotypes"
+output: html_document
+runtime: shiny
+---
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+dataCAR<-read.delim("CAR.txt")
+dataCAR$ACC<-as.factor(dataCAR$ACC)
+dataCAR$REG<-factor(dataCAR$REG,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+library(ggplot2)
+```
+
+## Cast
+
+```{r, echo=FALSE}
+
+library(shiny)
+
+shinyApp(
+  fluidPage(
+    titlePanel("Genotypes"),
+    sidebarLayout(
+      sidebarPanel(
+        selectInput(
+          inputId = "ACC",
+          "Select Genotype:",
+          choices = levels(dataCAR$ACC),
+          selected = levels(dataCAR$ACC)[1])),
+      tableOutput(outputId ="ACC")
+      
+    )
+    
+  ),
+  
+  function(input, output) {
+   output$summary <- renderPrint({
+    (dataCAR)
+  })
+  }
+)
+
+```

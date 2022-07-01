@@ -13,8 +13,8 @@
 
 <title>Maturity</title>
 
-<script src="site_libs/header-attrs-2.8/header-attrs.js"></script>
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -64,6 +64,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -84,6 +85,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -315,7 +319,7 @@ div.tocify {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -327,18 +331,21 @@ div.tocify {
         <li>
   <a href="index.html">Home</a>
 </li>
+<li>
+  <a href="genotypes.html">Genotypes</a>
+</li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Variability
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Fruit</a>
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fruit</a>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-submenu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Physics</a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Physics</a>
           <ul class="dropdown-menu" role="menu">
             <li>
               <a href="Morphological.html">Morphological</a>
@@ -361,7 +368,7 @@ div.tocify {
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Essays
      
     <span class="caret"></span>
@@ -427,7 +434,15 @@ div.tocify {
 </div>
 
 
-<p>The aim of this work was to study the evolution of fruit size and weight together with the soluble solid and total titratable acidity contents with the patterns of accumulation of chlorophylls, carotenoids, phenols and antioxidant activity during ripening of <em>Hexachlamys edulis</em> fruits, to understand the optimal time and conditions needed to obtain maximum nutraceutical characteristics. Fruits were harvested from H. edulis plants growing at the experimental field of the University of Morón (Moreno, Buenos Aires, 34°35’4.98" SL, 58°48’52.09" WL, 14 m.a.s.l.).</p>
+<p>The aim of this work was to study the evolution of fruit size and
+weight together with the soluble solid and total titratable acidity
+contents with the patterns of accumulation of chlorophylls, carotenoids,
+phenols and antioxidant activity during ripening of <em>Hexachlamys
+edulis</em> fruits, to understand the optimal time and conditions needed
+to obtain maximum nutraceutical characteristics. Fruits were harvested
+from H. edulis plants growing at the experimental field of the
+University of Morón (Moreno, Buenos Aires, 34°35’4.98” SL, 58°48’52.09”
+WL, 14 m.a.s.l.).</p>
 <div class="figure">
 <img src="IMG_mat.jpg" alt="A caption" width="100%" />
 <p class="caption">
@@ -440,11 +455,11 @@ A caption
 <h2>Peso fresco del fruto (PFF)</h2>
 <div id="tabla-descriptiva" class="section level3">
 <h3>Tabla descriptiva</h3>
-<pre><code>##        MADUREZ  N      PFF        sd       se        ci
-## 1     Inmaduro 10 19.46590  8.371828 2.647404  5.988845
-## 2 Medio Maduro 10 40.12070  7.611044 2.406823  5.444613
-## 3       Maduro 10 39.55260 17.661441 5.585038 12.634234
-## 4  SobreMaduro  7 38.50057 10.492754 3.965888  9.704179</code></pre>
+<pre><code>##        MADUREZ  N     PFF       sd      se       ci
+## 1     Inmaduro 10 19.4659  8.37183 2.64740  5.98884
+## 2 Medio Maduro 10 40.1207  7.61104 2.40682  5.44461
+## 3       Maduro 10 39.5526 17.66144 5.58504 12.63423
+## 4  SobreMaduro  7 38.5006 10.49275 3.96589  9.70418</code></pre>
 </div>
 <div id="gráfico-con-desvío-estándar" class="section level3">
 <h3>Gráfico con desvío estándar</h3>
@@ -467,9 +482,9 @@ A caption
 </div>
 <div id="eleccción-de-modelos-por-aic" class="section level3">
 <h3>Eleccción de modelos por AIC</h3>
-<pre><code>##    df      AIC
-## M0  5 293.6096
-## M1  8 273.1772</code></pre>
+<pre><code>##    df     AIC
+## M0  5 293.610
+## M1  8 273.177</code></pre>
 <p>Se elije el modelo M1</p>
 </div>
 <div id="verificación-de-supuestos" class="section level3">
@@ -479,38 +494,38 @@ A caption
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.93662, p-value = 0.03605</code></pre>
+## W = 0.9366, p-value = 0.0361</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
 ##       Df F value Pr(&gt;F)
-## group  3  2.0968 0.1195
+## group  3   2.097   0.12
 ##       33</code></pre>
 </div>
 <div id="anova" class="section level3">
 <h3>Anova</h3>
 <pre><code>## Denom. DF: 33 
-##             numDF  F-value p-value
-## (Intercept)     1 438.1966  &lt;.0001
-## MADUREZ         3  12.7130  &lt;.0001</code></pre>
+##             numDF F-value p-value
+## (Intercept)     1 438.197  &lt;.0001
+## MADUREZ         3  12.713  &lt;.0001</code></pre>
 </div>
 <div id="comparaciones-a-posteriori" class="section level3">
 <h3>Comparaciones a posteriori</h3>
 <pre><code>## $emmeans
-##  MADUREZ      emmean   SE df lower.CL upper.CL
-##  Inmaduro       19.5 3.74 33     11.9     27.1
-##  Medio Maduro   40.1 3.74 33     32.5     47.7
-##  Maduro         39.6 3.74 33     31.9     47.2
-##  SobreMaduro    38.5 4.47 33     29.4     47.6
+##  MADUREZ       emmean      SE df lower.CL upper.CL
+##  Inmaduro     19.4659 3.74168 33  11.8534  27.0784
+##  Medio Maduro 40.1207 3.74168 33  32.5082  47.7332
+##  Maduro       39.5526 3.74168 33  31.9401  47.1651
+##  SobreMaduro  38.5006 4.47217 33  29.4019  47.5993
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                   estimate   SE df t.ratio p.value
-##  Inmaduro - Medio Maduro     -20.655 5.29 33 -3.903  0.0024 
-##  Inmaduro - Maduro           -20.087 5.29 33 -3.796  0.0032 
-##  Inmaduro - SobreMaduro      -19.035 5.83 33 -3.264  0.0130 
-##  Medio Maduro - Maduro         0.568 5.29 33  0.107  0.9995 
-##  Medio Maduro - SobreMaduro    1.620 5.83 33  0.278  0.9924 
-##  Maduro - SobreMaduro          1.052 5.83 33  0.180  0.9979 
+##  contrast                    estimate      SE df t.ratio p.value
+##  Inmaduro - Medio Maduro    -20.65480 5.29154 33 -3.903  0.0024 
+##  Inmaduro - Maduro          -20.08670 5.29154 33 -3.796  0.0032 
+##  Inmaduro - SobreMaduro     -19.03467 5.83099 33 -3.264  0.0130 
+##  Medio Maduro - Maduro        0.56810 5.29154 33  0.107  0.9995 
+##  Medio Maduro - SobreMaduro   1.62013 5.83099 33  0.278  0.9924 
+##  Maduro - SobreMaduro         1.05203 5.83099 33  0.180  0.9979 
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -520,11 +535,11 @@ A caption
 <h2>Peso seco de fruto (PSF)</h2>
 <div id="tabla-descriptiva-1" class="section level3">
 <h3>Tabla descriptiva</h3>
-<pre><code>##        MADUREZ  N      PSF       sd        se       ci
-## 1     Inmaduro 10 4.140500 2.194326 0.6939069 1.569727
-## 2 Medio Maduro 10 6.622500 2.345851 0.7418231 1.678120
-## 3       Maduro 10 4.997900 2.840011 0.8980904 2.031622
-## 4  SobreMaduro  7 6.506857 2.377224 0.8985063 2.198566</code></pre>
+<pre><code>##        MADUREZ  N     PSF      sd       se      ci
+## 1     Inmaduro 10 4.14050 2.19433 0.693907 1.56973
+## 2 Medio Maduro 10 6.62250 2.34585 0.741823 1.67812
+## 3       Maduro 10 4.99790 2.84001 0.898090 2.03162
+## 4  SobreMaduro  7 6.50686 2.37722 0.898506 2.19857</code></pre>
 </div>
 <div id="gráfico-con-desvío-estándar-1" class="section level3">
 <h3>Gráfico con desvío estándar</h3>
@@ -545,10 +560,10 @@ A caption
 <li>M1s: M0 + modelado de la varinza por varIdent</li>
 <li>M1si: M1 con variable respuesta inversa (1/Y)</li>
 </ul>
-<pre><code>##      df       AIC
-## M0s   5 177.31681
-## M1s   8 177.17677
-## M1si  8 -52.63631</code></pre>
+<pre><code>##      df      AIC
+## M0s   5 177.3168
+## M1s   8 177.1768
+## M1si  8 -52.6363</code></pre>
 <p>Se elije el modelo M1si</p>
 </div>
 <div id="verificación-de-supuestos-1" class="section level3">
@@ -558,38 +573,38 @@ A caption
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.97956, p-value = 0.7162</code></pre>
+## W = 0.9796, p-value = 0.716</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
 ##       Df F value Pr(&gt;F)
-## group  3  0.1788   0.91
+## group  3   0.179   0.91
 ##       33</code></pre>
 </div>
 <div id="anova-1" class="section level3">
 <h3>Anova</h3>
 <pre><code>## Denom. DF: 33 
-##             numDF  F-value p-value
-## (Intercept)     1 329.0795  &lt;.0001
-## MADUREZ         3   5.1402   0.005</code></pre>
+##             numDF F-value p-value
+## (Intercept)     1  329.08  &lt;.0001
+## MADUREZ         3    5.14   0.005</code></pre>
 </div>
 <div id="comparaciones-a-posteriori-1" class="section level3">
 <h3>Comparaciones a posteriori</h3>
 <pre><code>## $emmeans
-##  MADUREZ      emmean   SE df lower.CL upper.CL
-##  Inmaduro       19.5 3.74 33     11.9     27.1
-##  Medio Maduro   40.1 3.74 33     32.5     47.7
-##  Maduro         39.6 3.74 33     31.9     47.2
-##  SobreMaduro    38.5 4.47 33     29.4     47.6
+##  MADUREZ       emmean      SE df lower.CL upper.CL
+##  Inmaduro     19.4659 3.74168 33  11.8534  27.0784
+##  Medio Maduro 40.1207 3.74168 33  32.5082  47.7332
+##  Maduro       39.5526 3.74168 33  31.9401  47.1651
+##  SobreMaduro  38.5006 4.47217 33  29.4019  47.5993
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                   estimate   SE df t.ratio p.value
-##  Inmaduro - Medio Maduro     -20.655 5.29 33 -3.903  0.0024 
-##  Inmaduro - Maduro           -20.087 5.29 33 -3.796  0.0032 
-##  Inmaduro - SobreMaduro      -19.035 5.83 33 -3.264  0.0130 
-##  Medio Maduro - Maduro         0.568 5.29 33  0.107  0.9995 
-##  Medio Maduro - SobreMaduro    1.620 5.83 33  0.278  0.9924 
-##  Maduro - SobreMaduro          1.052 5.83 33  0.180  0.9979 
+##  contrast                    estimate      SE df t.ratio p.value
+##  Inmaduro - Medio Maduro    -20.65480 5.29154 33 -3.903  0.0024 
+##  Inmaduro - Maduro          -20.08670 5.29154 33 -3.796  0.0032 
+##  Inmaduro - SobreMaduro     -19.03467 5.83099 33 -3.264  0.0130 
+##  Medio Maduro - Maduro        0.56810 5.29154 33  0.107  0.9995 
+##  Medio Maduro - SobreMaduro   1.62013 5.83099 33  0.278  0.9924 
+##  Maduro - SobreMaduro         1.05203 5.83099 33  0.180  0.9979 
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -607,7 +622,14 @@ A caption
 <div id="tabla-resumen" class="section level2">
 <h2>Tabla resumen</h2>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>ANOVA for the fresh fruit weight (FFW). dry fruit weight (DFW). dry fruit weight as percentage of fresh fruit weight (DFW%). maximum equatorial fruit diameter (MAEFD). minimum equatorial fruit diameter (MIEFD). polar fruit diameter (PFD). seed number (SN). dry seed weight (DSW) and dry seed weight/dry fruit weight ratio (DSW/DFW) considering the fruit ripening of H. edulis “ubajay” harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.</p>
+<p>ANOVA for the fresh fruit weight (FFW). dry fruit weight (DFW). dry
+fruit weight as percentage of fresh fruit weight (DFW%). maximum
+equatorial fruit diameter (MAEFD). minimum equatorial fruit diameter
+(MIEFD). polar fruit diameter (PFD). seed number (SN). dry seed weight
+(DSW) and dry seed weight/dry fruit weight ratio (DSW/DFW) considering
+the fruit ripening of H. edulis “ubajay” harvested from the plants
+growing in the experimental field of the University of Morón in Moreno
+(Buenos Aires) during December 2018.</p>
 </div>
 <div id="colorimetría" class="section level2">
 <h2>Colorimetría</h2>
@@ -615,7 +637,8 @@ A caption
 </div>
 <div id="variables-químicas" class="section level1">
 <h1>Variables químicas</h1>
-<p>The objective of this second part is to study the organic acids, carbohydrates and cations in the different stages of maturity.</p>
+<p>The objective of this second part is to study the organic acids,
+carbohydrates and cations in the different stages of maturity.</p>
 <div id="carotenoides" class="section level2">
 <h2>Carotenoides</h2>
 </div>
@@ -634,21 +657,24 @@ A caption
 ## group: I
 ##    vars  n  mean   sd median trimmed  mad   min   max range  skew kurtosis   se
 ## X1    1 12 94.66 6.71  96.78   96.31 1.75 74.17 98.61 24.44 -2.32     4.27 1.94
-## -------------------------------------------------------------------------- 
+## --------------------------------------------------------------------------------- 
 ## group: MM
 ##    vars  n  mean    sd median trimmed   mad   min   max range skew kurtosis   se
 ## X1    1 12 61.99 24.92  59.17   61.63 30.23 30.61 96.91  66.3 0.25    -1.65 7.19
-## -------------------------------------------------------------------------- 
+## --------------------------------------------------------------------------------- 
 ## group: M
 ##    vars  n  mean    sd median trimmed   mad   min   max range  skew kurtosis   se
 ## X1    1 12 80.07 17.77  85.85   81.54 14.26 49.75 95.71 45.96 -0.55    -1.46 5.13
-## -------------------------------------------------------------------------- 
+## --------------------------------------------------------------------------------- 
 ## group: SM
 ##    vars  n  mean    sd median trimmed  mad min   max range skew kurtosis   se
 ## X1    1 12 22.29 30.04   9.02   19.05 9.54   0 77.05 77.05 0.97    -1.01 8.67</code></pre>
 </div>
-<div id="boxplot-de-capacidad-anti-oxidante-para-distintos-grados-de-madurez" class="section level3">
-<h3>Boxplot de capacidad anti oxidante para distintos grados de madurez</h3>
+<div
+id="boxplot-de-capacidad-anti-oxidante-para-distintos-grados-de-madurez"
+class="section level3">
+<h3>Boxplot de capacidad anti oxidante para distintos grados de
+madurez</h3>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="modelo" class="section level3">
@@ -656,15 +682,15 @@ A caption
 <pre><code>## Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
 ## Formula: In ~ Trata + (1 | Conc)
 ##    Data: Datos0
-## REML criterion at convergence: 375.4531
+## REML criterion at convergence: 375.453
 ## Random effects:
 ##  Groups   Name        Std.Dev.
-##  Conc     (Intercept) 18.47   
-##  Residual             13.86   
+##  Conc     (Intercept) 18.5    
+##  Residual             13.9    
 ## Number of obs: 48, groups:  Conc, 4
 ## Fixed Effects:
 ## (Intercept)      TrataMM       TrataM      TrataSM  
-##       94.66       -32.67       -14.59       -72.37</code></pre>
+##        94.7        -32.7        -14.6        -72.4</code></pre>
 </div>
 <div id="supuestos" class="section level3">
 <h3>Supuestos</h3>
@@ -673,44 +699,45 @@ A caption
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.98371, p-value = 0.7371</code></pre>
+## W = 0.9837, p-value = 0.737</code></pre>
 </div>
 <div id="anova-2" class="section level3">
 <h3>Anova</h3>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: In
-##        Chisq Df Pr(&gt;Chisq)    
-## Trata 183.72  3  &lt; 2.2e-16 ***
+##       Chisq Df Pr(&gt;Chisq)    
+## Trata 183.7  3     &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="comparaciones-a-posteriori-2" class="section level3">
 <h3>Comparaciones a posteriori</h3>
 <pre><code>## $emmeans
-##  Trata emmean   SE   df lower.CL upper.CL
-##  I       94.7 10.1 3.86    66.30    123.0
-##  MM      62.0 10.1 3.86    33.63     90.3
-##  M       80.1 10.1 3.86    51.71    108.4
-##  SM      22.3 10.1 3.86    -6.07     50.7
+##  Trata  emmean      SE   df lower.CL upper.CL
+##  I     94.6600 10.0642 3.86  66.2994 123.0206
+##  MM    61.9892 10.0642 3.86  33.6286  90.3498
+##  M     80.0725 10.0642 3.86  51.7119 108.4331
+##  SM    22.2942 10.0642 3.86  -6.0664  50.6548
 ## 
 ## Degrees-of-freedom method: kenward-roger 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM       32.7 5.66 41  5.775  &lt;.0001 
-##  I - M        14.6 5.66 41  2.579  0.0628 
-##  I - SM       72.4 5.66 41 12.793  &lt;.0001 
-##  MM - M      -18.1 5.66 41 -3.197  0.0137 
-##  MM - SM      39.7 5.66 41  7.017  &lt;.0001 
-##  M - SM       57.8 5.66 41 10.214  &lt;.0001 
+##  contrast estimate      SE df t.ratio p.value
+##  I - MM    32.6708 5.65688 41  5.775  &lt;.0001 
+##  I - M     14.5875 5.65688 41  2.579  0.0628 
+##  I - SM    72.3658 5.65688 41 12.793  &lt;.0001 
+##  MM - M   -18.0833 5.65688 41 -3.197  0.0137 
+##  MM - SM   39.6950 5.65688 41  7.017  &lt;.0001 
+##  M - SM    57.7783 5.65688 41 10.214  &lt;.0001 
 ## 
 ## Degrees-of-freedom method: kenward-roger 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="evolución-de-la-avtividad-anti-oxidante-en-la-maduración" class="section level3">
+<div id="evolución-de-la-avtividad-anti-oxidante-en-la-maduración"
+class="section level3">
 <h3>Evolución de la Avtividad anti oxidante en la maduración</h3>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-28-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
@@ -718,528 +745,1526 @@ A caption
 <div id="tabla-resumen-1" class="section level2">
 <h2>Tabla resumen</h2>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>ANOVA for the soluble solids (SS). pH (pH). titulable total acidity (TTA) and soluble solids/ titulable total acidity (SS/TTA). total polyphenols (TP). DPPH radical scavenging activity (DPPH) considering the fruit ripening stages of H. edulis “ubajay” harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.</p>
+<p>ANOVA for the soluble solids (SS). pH (pH). titulable total acidity
+(TTA) and soluble solids/ titulable total acidity (SS/TTA). total
+polyphenols (TP). DPPH radical scavenging activity (DPPH) considering
+the fruit ripening stages of H. edulis “ubajay” harvested from the
+plants growing in the experimental field of the University of Morón in
+Moreno (Buenos Aires) during December 2018.</p>
 </div>
-<div id="acidos-orgánicos" class="section level2">
-<h2>Acidos orgánicos</h2>
-<p>Se ajustaron modelos lineales mixtos (estimaciones por máxima verosimilitud restringida REML) para predecir las concentraciones (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las repeticiones (REP) fueron incluidas como efectos aleatorios.</p>
-<div id="concentración-de-ácidos-orgánicos-a-distintos-estados-de-madurez" class="section level3">
-<h3>Concentración de ácidos orgánicos a distintos estados de madurez</h3>
+<div id="acidos-orgánicos-en-peso-fresco" class="section level2">
+<h2>Acidos orgánicos en peso fresco</h2>
+<div
+id="concentración-del-perfíl-de-ácidos-orgánicos-a-distintos-estados-de-madurez"
+class="section level4">
+<h4>Concentración del perfíl de ácidos orgánicos a distintos estados de
+madurez</h4>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración" class="section level3">
-<h3>Evolución del perfíl de ácidos orgánicos en la maduración</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="tabla-descriptiva-3" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>##          CAR MAD N       CONF        sd        se        ci
+## 1  Tartárico   I 6  0.0000000 0.0000000 0.0000000 0.0000000
+## 2  Tartárico  MM 6  0.0000000 0.0000000 0.0000000 0.0000000
+## 3  Tartárico   M 6  0.0000000 0.0000000 0.0000000 0.0000000
+## 4  Tartárico  SM 6  0.1152562 0.0564589 0.0230492 0.0592499
+## 5     Málico   I 6  7.3874887 2.3903972 0.9758756 2.5085680
+## 6     Málico  MM 6 10.9755462 0.7328273 0.2991755 0.7690551
+## 7     Málico   M 6 11.7595387 0.3620525 0.1478073 0.3799508
+## 8     Málico  SM 6 10.5368668 0.8561249 0.3495115 0.8984480
+## 9    Quínico   I 6  0.0665693 0.1031288 0.0421021 0.1082270
+## 10   Quínico  MM 6  3.0760242 0.4524811 0.1847246 0.4748497
+## 11   Quínico   M 6  2.5455362 0.3395038 0.1386018 0.3562873
+## 12   Quínico  SM 6  2.8491493 0.4983371 0.2034453 0.5229727
+## 13 Succínico   I 6 19.1837748 2.0849133 0.8511623 2.1879823
+## 14 Succínico  MM 6 11.2524155 0.7742892 0.3161022 0.8125667
+## 15 Succínico   M 6 11.1127248 0.2554297 0.1042787 0.2680570
+## 16 Succínico  SM 6 14.3175103 0.9775555 0.3990853 1.0258815</code></pre>
 </div>
-<div id="ácido-málico" class="section level3">
-<h3>Ácido málico</h3>
-<div id="modelo-y-supuestos" class="section level4">
-<h4>Modelo y supuestos</h4>
+<div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración"
+class="section level3">
+<h3>Evolución del perfíl de ácidos orgánicos en la maduración</h3>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-33-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="acidos-orgánicos-totales" class="section level3">
+<h3>Acidos orgánicos Totales</h3>
+<div
+id="concentración-de-ácidos-orgánicos-totales-a-distintos-estados-de-madurez."
+class="section level4">
+<h4>Concentración de ácidos orgánicos totales a distintos estados de
+madurez.</h4>
+</div>
+<div id="tabla-descriptiva-totales" class="section level4">
+<h4>Tabla descriptiva totales</h4>
+<pre><code>##    MAD     CAR N   TOTALF       sd       se       ci
+## 1    I   ACIDS 6 26.63783 1.990422 0.812586 2.088820
+## 2    I CATIONS 3  3.59063 1.325521 0.765290 3.292776
+## 3    I  SUGARS 6 45.62985 4.811537 1.964302 5.049399
+## 4   MM   ACIDS 6 25.30399 1.788299 0.730070 1.876705
+## 5   MM CATIONS 3  2.56067 0.313537 0.181021 0.778869
+## 6   MM  SUGARS 6 36.76822 5.141036 2.098819 5.395187
+## 7    M   ACIDS 6 25.41780 0.434147 0.177240 0.455610
+## 8    M CATIONS 3  2.60383 0.308998 0.178400 0.767593
+## 9    M  SUGARS 6 39.15925 2.599418 1.061208 2.727922
+## 10  SM   ACIDS 6 27.81878 1.061813 0.433483 1.114304
+## 11  SM CATIONS 3  2.21437 0.394508 0.227769 0.980013
+## 12  SM  SUGARS 6 53.11964 1.842285 0.752110 1.933360</code></pre>
 <pre><code>## Linear mixed-effects model fit by REML
-##   Data: mal 
-##   Log-restricted-likelihood: -13.4038
-##   Fixed: CON ~ MAD 
+##   Data: dataAT 
+##   Log-restricted-likelihood: -39.0997
+##   Fixed: TOTALF ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##    69.57472    20.61361    35.57194    15.21861 
+##    26.63783    -1.33385    -1.22003     1.18095 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:    3.442304 1.052468
+## StdDev:    0.544428  1.37177
 ## 
-## Variance function:
-##  Structure: Different standard deviations per stratum
-##  Formula: ~1 | MAD 
-##  Parameter estimates:
-##            M           MM           SM            I 
-## 1.000000e+00 6.548053e+00 3.630882e+00 1.042869e-14 
-## Number of Observations: 20
+## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-37-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.96348, p-value = 0.6154</code></pre>
+## W = 0.9777, p-value = 0.849</code></pre>
 </div>
 <div id="anova-3" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    14 2076.7351  &lt;.0001
-## MAD             3    14  839.4718  &lt;.0001</code></pre>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 3901.70  &lt;.0001
+## MAD             3    18    4.45  0.0165</code></pre>
 </div>
 <div id="test-de-tukey" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I     69.6 2.07  2     60.7     78.5
-##  MM    90.2 3.44  2     75.4    105.0
-##  M    105.1 2.03  2     96.4    113.9
-##  SM    84.8 2.53  2     73.9     95.7
+##  MAD  emmean       SE df lower.CL upper.CL
+##  I   26.6378 0.642202  2  23.8747  29.4010
+##  MM  25.3040 0.642202  2  22.5408  28.0672
+##  M   25.4178 0.642202  2  22.6546  28.1810
+##  SM  27.8188 0.642202  2  25.0556  30.5820
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate    SE df t.ratio p.value
-##  I - MM     -20.61 2.870 14  -7.182 &lt;.0001 
-##  I - M      -35.57 0.712 14 -49.966 &lt;.0001 
-##  I - SM     -15.22 1.660 14  -9.167 &lt;.0001 
-##  MM - M     -14.96 2.846 14  -5.256 0.0006 
-##  MM - SM      5.39 3.217 14   1.677 0.3710 
-##  M - SM      20.35 1.618 14  12.578 &lt;.0001 
+##  contrast  estimate       SE df t.ratio p.value
+##  I - MM    1.333847 0.791989 18  1.684  0.3602 
+##  I - M     1.220033 0.791989 18  1.540  0.4354 
+##  I - SM   -1.180950 0.791989 18 -1.491  0.4629 
+##  MM - M   -0.113814 0.791989 18 -0.144  0.9989 
+##  MM - SM  -2.514797 0.791989 18 -3.175  0.0246 
+##  M - SM   -2.400983 0.791989 18 -3.032  0.0331 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones" class="section level4">
 <h4>Conclusiones</h4>
-<p>Existen diferencias significativas entre estados de madurez. En el estado maduro se presentó el pico de concentración de ácido málico.</p>
+<p>Existen diferencias significativas entre estados de madurez para los
+ácidos totales detectados en este trabajo.</p>
 </div>
 </div>
-<div id="ácido-quínico" class="section level3">
-<h3>Ácido quínico</h3>
-<div id="modelo-y-supuestos-1" class="section level4">
+<div id="ácido-tartárico" class="section level3">
+<h3>Ácido Tartárico</h3>
+<div id="modelo-y-supuestos" class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
-##   Data: qui 
-##   Log-restricted-likelihood: -38.87277
-##   Fixed: CON ~ MAD 
-## (Intercept)        MADM       MADSM 
-##   25.315000   -2.626667   -2.396667 
+##   Data: tar 
+##   Log-restricted-likelihood: 39.7876
+##   Fixed: CONF ~ MAD 
+##  (Intercept)        MADMM         MADM        MADSM 
+##  1.05832e-17 -1.11680e-17 -1.38778e-17  1.15256e-01 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept)  Residual
-## StdDev:    2.272881 0.7607257
+## StdDev:   0.0108045 0.0265232
 ## 
-## Variance function:
-##  Structure: Different standard deviations per stratum
-##  Formula: ~1 | MAD 
-##  Parameter estimates:
-##        M       MM       SM 
-## 1.000000 4.643839 5.273859 
-## Number of Observations: 18
+## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-41-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.95506, p-value = 0.5097</code></pre>
-<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value Pr(&gt;F)
-## group  2    2.19 0.1464
-##       15</code></pre>
+## W = 0.7269, p-value = 2.33e-05</code></pre>
 </div>
 <div id="anova-4" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    13 287.24268  &lt;.0001
-## MAD             2    13   1.58735  0.2417</code></pre>
-</div>
-<div id="conclusiones-1" class="section level4">
-<h4>Conclusiones</h4>
-<p>No se encontraron diferencias entre estados de madurez.</p>
-</div>
-</div>
-<div id="ácido-succinico" class="section level3">
-<h3>Ácido succinico</h3>
-<div id="modelo-y-supuestos-2" class="section level4">
-<h4>Modelo y supuestos</h4>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.96753, p-value = 0.6064</code></pre>
-<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value Pr(&gt;F)
-## group  3  1.4809   0.25
-##       20</code></pre>
-</div>
-<div id="anova-5" class="section level4">
-<h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 2870.5218  &lt;.0001
-## MAD             3    18   12.3975   1e-04</code></pre>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 12.1694  0.0026
+## MAD             3    18 28.3249  &lt;.0001</code></pre>
 </div>
 <div id="test-de-tukey-1" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I    112.3 3.32  2     98.1      127
-##  MM    92.5 3.32  2     78.2      107
-##  M     99.4 3.32  2     85.2      114
-##  SM   115.7 3.32  2    101.4      130
+##  MAD   emmean        SE df   lower.CL  upper.CL
+##  I   0.000000 0.0124964  2 -0.0537675 0.0537675
+##  MM  0.000000 0.0124964  2 -0.0537675 0.0537675
+##  M   0.000000 0.0124964  2 -0.0537675 0.0537675
+##  SM  0.115256 0.0124964  2  0.0614886 0.1690237
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM      19.85 4.37 18  4.544  0.0013 
-##  I - M       12.89 4.37 18  2.952  0.0389 
-##  I - SM      -3.32 4.37 18 -0.760  0.8711 
-##  MM - M      -6.96 4.37 18 -1.592  0.4076 
-##  MM - SM    -23.17 4.37 18 -5.304  0.0003 
-##  M - SM     -16.22 4.37 18 -3.712  0.0079 
+##  contrast  estimate        SE df t.ratio p.value
+##  I - MM    0.000000 0.0153132 18  0.000  1.0000 
+##  I - M     0.000000 0.0153132 18  0.000  1.0000 
+##  I - SM   -0.115256 0.0153132 18 -7.527  &lt;.0001 
+##  MM - M    0.000000 0.0153132 18  0.000  1.0000 
+##  MM - SM  -0.115256 0.0153132 18 -7.527  &lt;.0001 
+##  M - SM   -0.115256 0.0153132 18 -7.527  &lt;.0001 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-43-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="conclusiones-2" class="section level4">
+<div id="conclusiones-1" class="section level4">
 <h4>Conclusiones</h4>
-<p>Se encontraron diferencias entre estados de madurez, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.</p>
+<p>Existen diferencias significativas entre estados de madurez. El
+estado sobre maduro es el único que presenta ácido tartárico
+detectable.</p>
 </div>
 </div>
-</div>
-<div id="carbohidratos" class="section level2">
-<h2>Carbohidratos</h2>
-<div id="concentración-de-sacáridos-a-distintos-estados-de-madurez" class="section level3">
-<h3>Concentración de sacáridos a distintos estados de madurez</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="evolución-del-perfíl-de-sacáridos-en-la-maduración" class="section level3">
-<h3>Evolución del perfíl de sacáridos en la maduración</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="sacarosa" class="section level3">
-<h3>Sacarosa</h3>
-<div id="modelo-y-supuestos-3" class="section level4">
+<div id="ácido-málico" class="section level3">
+<h3>Ácido málico</h3>
+<div id="modelo-y-supuestos-1" class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
-##   Data: sac 
-##   Log-restricted-likelihood: -81.26522
-##   Fixed: CON ~ MAD 
+##   Data: mal 
+##   Log-restricted-likelihood: -26.5821
+##   Fixed: CONF ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##    21.20667    56.58167    61.33167    38.18167 
+##     7.38749     3.58806     4.37205     3.14938 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:   0.2138294 11.76366
+## StdDev:    0.365217  2.68012
 ## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##         I         M        MM        SM 
+## 1.0000000 0.0552669 0.2702106 0.2600801 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-45-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.90638, p-value = 0.02945</code></pre>
+## W = 0.8897, p-value = 0.0131</code></pre>
 </div>
-<div id="anova-6" class="section level4">
+<div id="anova-5" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    18 627.4974  &lt;.0001
-## MAD             3    18  33.6671  &lt;.0001</code></pre>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 2846.52  &lt;.0001
+## MAD             3    18   12.96   1e-04</code></pre>
 </div>
 <div id="test-de-tukey-2" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean  SE df lower.CL upper.CL
-##  I     21.2 4.8  2    0.536     41.9
-##  MM    77.8 4.8  2   57.118     98.5
-##  M     82.5 4.8  2   61.868    103.2
-##  SM    59.4 4.8  2   38.718     80.1
+##  MAD   emmean       SE df lower.CL upper.CL
+##  I    7.38749 1.114288  2  2.59309  12.1819
+##  MM  10.97555 0.363141  2  9.41308  12.5380
+##  M   11.75954 0.219358  2 10.81572  12.7034
+##  SM  10.53687 0.354175  2  9.01297  12.0608
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM     -56.58 6.79 18 -8.331  &lt;.0001 
-##  I - M      -61.33 6.79 18 -9.030  &lt;.0001 
-##  I - SM     -38.18 6.79 18 -5.622  0.0001 
-##  MM - M      -4.75 6.79 18 -0.699  0.8960 
-##  MM - SM     18.40 6.79 18  2.709  0.0630 
-##  M - SM      23.15 6.79 18  3.409  0.0151 
+##  contrast estimate       SE df t.ratio p.value
+##  I - MM   -3.58806 1.133396 18 -3.166  0.0251 
+##  I - M    -4.37205 1.095826 18 -3.990  0.0043 
+##  I - SM   -3.14938 1.130556 18 -2.786  0.0542 
+##  MM - M   -0.78399 0.301773 18 -2.598  0.0780 
+##  MM - SM   0.43868 0.410353 18  1.069  0.7121 
+##  M - SM    1.22267 0.290922 18  4.203  0.0027 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-49-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-2" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez. En el
+estado maduro se presentó el pico de concentración de ácido málico.</p>
+</div>
+</div>
+<div id="ácido-quínico" class="section level3">
+<h3>Ácido quínico</h3>
+<div id="modelo-y-supuestos-2" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: qui 
+##   Log-restricted-likelihood: -11.8098
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   0.0665693   3.0094548   2.4789668   2.7825800 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    0.180572 0.344467
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-50-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9324, p-value = 0.11</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)  
+## group  3   3.056  0.052 .
+##       20                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="anova-6" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 288.0789  &lt;.0001
+## MAD             3    18  98.4766  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-3" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean       SE df lower.CL upper.CL
+##  I   0.066569 0.175057  2 -0.68664  0.81978
+##  MM  3.076024 0.175057  2  2.32281  3.82923
+##  M   2.545536 0.175057  2  1.79233  3.29875
+##  SM  2.849149 0.175057  2  2.09594  3.60236
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate       SE df t.ratio p.value
+##  I - MM   -3.009455 0.198878 18 -15.132 &lt;.0001 
+##  I - M    -2.478967 0.198878 18 -12.465 &lt;.0001 
+##  I - SM   -2.782580 0.198878 18 -13.991 &lt;.0001 
+##  MM - M    0.530488 0.198878 18   2.667 0.0683 
+##  MM - SM   0.226875 0.198878 18   1.141 0.6700 
+##  M - SM   -0.303613 0.198878 18  -1.527 0.4431 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-3" class="section level4">
 <h4>Conclusiones</h4>
-<p>Se encontraron diferencias significativas entre estados de madurez. Los frutos maduros tendrían mayor concentración de sacarosa, no se diferenciaron de los frutos medios maduros.</p>
+<p>Se observa un marcado aumento de ácido quínico con la maduración
+hasta frutos maduros. Luego en frutos sobre maduros Frutos medio maduros
+presentan gran variabiliad.</p>
+</div>
+</div>
+<div id="ácido-succinico" class="section level3">
+<h3>Ácido succinico</h3>
+<div id="modelo-y-supuestos-3" class="section level4">
+<h4>Modelo y supuestos</h4>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-53-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-53-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.8254, p-value = 0.00079</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3    1.89  0.164
+##       20</code></pre>
+</div>
+<div id="anova-7" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 667.583  &lt;.0001
+## MAD             3    18  97.574  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-4" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean      SE df lower.CL upper.CL
+##  I   19.1838 0.63403  2 16.45576  21.9118
+##  MM  11.2524 0.63403  2  8.52440  13.9804
+##  M   11.1127 0.63403  2  8.38471  13.8407
+##  SM  14.3175 0.63403  2 11.58950  17.0455
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate       SE df t.ratio p.value
+##  I - MM    7.93136 0.541102 18 14.658  &lt;.0001 
+##  I - M     8.07105 0.541102 18 14.916  &lt;.0001 
+##  I - SM    4.86626 0.541102 18  8.993  &lt;.0001 
+##  MM - M    0.13969 0.541102 18  0.258  0.9938 
+##  MM - SM  -3.06509 0.541102 18 -5.665  0.0001 
+##  M - SM   -3.20479 0.541102 18 -5.923  0.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-55-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-4" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias entre estados de madurez, los frutos
+inmaduros y sobre maduros presentaron las mayores concentraciones de
+ácido succínico.</p>
+</div>
+</div>
+</div>
+<div id="acidos-orgánicos-en-peso-seco" class="section level2">
+<h2>Acidos orgánicos en peso seco</h2>
+<div
+id="concentración-del-perfíl-de-ácidos-orgánicos-a-distintos-estados-de-madurez-1"
+class="section level4">
+<h4>Concentración del perfíl de ácidos orgánicos a distintos estados de
+madurez</h4>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-56-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-4" class="section level4">
+<h4>Tabla descriptiva</h4>
+<pre><code>##    MAD       CAR N       CONS        sd       se        ci
+## 1    I Tartárico 6   0.000000  0.000000 0.000000  0.000000
+## 2    I    Málico 6  44.902134 19.152385 7.818928 20.099195
+## 3    I   Quínico 6   0.440663  0.682673 0.278700  0.716421
+## 4    I Succínico 6 112.333486  6.534527 2.667709  6.857565
+## 5   MM Tartárico 6   0.000000  0.000000 0.000000  0.000000
+## 6   MM    Málico 6  90.189532  4.022015 1.641981  4.220846
+## 7   MM   Quínico 6  25.317606  3.814001 1.557060  4.002549
+## 8   MM Succínico 6  92.481592  4.780509 1.951635  5.016837
+## 9    M Tartárico 6   0.000000  0.000000 0.000000  0.000000
+## 10   M    Málico 6 105.147490  3.363575 1.373174  3.529856
+## 11   M   Quínico 6  22.688808  2.242622 0.915546  2.353487
+## 12   M Succínico 6  99.437240  4.824014 1.969395  5.062492
+## 13  SM Tartárico 6   0.941136  0.483067 0.197211  0.506948
+## 14  SM    Málico 6  84.794599  5.368033 2.191490  5.633405
+## 15  SM   Quínico 6  22.920424  3.756805 1.533709  3.942525
+## 16  SM Succínico 6 115.655151 12.418793 5.069951 13.032724</code></pre>
+</div>
+<div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración-1"
+class="section level4">
+<h4>Evolución del perfíl de ácidos orgánicos en la maduración</h4>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-58-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ácidos-orgánicos-totales" class="section level3">
+<h3>Ácidos orgánicos totales</h3>
+<div id="tabla-descriptiva-totales-1" class="section level4">
+<h4>Tabla descriptiva totales</h4>
+<pre><code>##        CAR MAD N   TOTALS       sd       se       ci
+## 1    ACIDS   I 6 157.6763 24.41480  9.96730 25.62176
+## 2    ACIDS  MM 6 207.9887 11.65696  4.75893 12.23323
+## 3    ACIDS   M 6 227.2735  4.28463  1.74919  4.49644
+## 4    ACIDS  SM 6 224.3113 13.98741  5.71033 14.67888
+## 5  CATIONS   I 3  20.9718  7.74195  4.46982 19.23207
+## 6  CATIONS  MM 3  21.0534  2.57785  1.48832  6.40374
+## 7  CATIONS   M 3  23.2705  2.76151  1.59436  6.85998
+## 8  CATIONS  SM 3  17.8264  3.17592  1.83362  7.88942
+## 9   SUGARS   I 6 266.8808  8.48194  3.46274  8.90125
+## 10  SUGARS  MM 6 301.6804 34.61672 14.13222 36.32802
+## 11  SUGARS   M 6 350.6258 31.18239 12.73016 32.72391
+## 12  SUGARS  SM 6 428.3681 26.75278 10.92178 28.07532</code></pre>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataAT 
+##   Log-restricted-likelihood: -86.6219
+##   Fixed: TOTALS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    157.6763     50.3124     69.5973     66.6350 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    0.118751  15.3783
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-61-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-61-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9559, p-value = 0.361</code></pre>
+</div>
+<div id="anova-8" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 4234.26  &lt;.0001
+## MAD             3    18   26.35  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-5" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean      SE df lower.CL upper.CL
+##  I   157.676 6.27854  2  130.662  184.691
+##  MM  207.989 6.27854  2  180.974  235.003
+##  M   227.274 6.27854  2  200.259  254.288
+##  SM  224.311 6.27854  2  197.297  251.326
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate      SE df t.ratio p.value
+##  I - MM   -50.3124 8.87867 18 -5.667  0.0001 
+##  I - M    -69.5973 8.87867 18 -7.839  &lt;.0001 
+##  I - SM   -66.6350 8.87867 18 -7.505  &lt;.0001 
+##  MM - M   -19.2848 8.87867 18 -2.172  0.1689 
+##  MM - SM  -16.3226 8.87867 18 -1.838  0.2886 
+##  M - SM     2.9622 8.87867 18  0.334  0.9868 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-63-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-5" class="section level4">
+<h4>Conclusiones</h4>
+<p>La menor concentración de ácidos totales en frutos inmaduros es
+significativa.</p>
+</div>
+</div>
+<div id="ácido-tartárico-1" class="section level3">
+<h3>Ácido tartárico</h3>
+<div id="modelo-y-supuestos-4" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: tar 
+##   Log-restricted-likelihood: -3.09689
+##   Fixed: CONS ~ MAD 
+##  (Intercept)        MADMM         MADM        MADSM 
+##  2.39233e-17  1.53290e-17 -1.11022e-16  9.41136e-01 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:   0.0956302 0.225881
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-65-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-65-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.7504, p-value = 5.04e-05</code></pre>
+</div>
+<div id="anova-9" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 10.6987  0.0042
+## MAD             3    18 26.0396  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-6" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean       SE df  lower.CL upper.CL
+##  I   0.000000 0.107481  2 -0.462452 0.462452
+##  MM  0.000000 0.107481  2 -0.462452 0.462452
+##  M   0.000000 0.107481  2 -0.462452 0.462452
+##  SM  0.941136 0.107481  2  0.478683 1.403588
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate       SE df t.ratio p.value
+##  I - MM    0.000000 0.130413 18  0.000  1.0000 
+##  I - M     0.000000 0.130413 18  0.000  1.0000 
+##  I - SM   -0.941136 0.130413 18 -7.217  &lt;.0001 
+##  MM - M    0.000000 0.130413 18  0.000  1.0000 
+##  MM - SM  -0.941136 0.130413 18 -7.217  &lt;.0001 
+##  M - SM   -0.941136 0.130413 18 -7.217  &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-67-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-6" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez. Sólo el
+estado sobre maduro presentó ácido málico detectable.</p>
+</div>
+</div>
+<div id="ácido-málico-1" class="section level3">
+<h3>Ácido málico</h3>
+<div id="modelo-y-supuestos-5" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: mal 
+##   Log-restricted-likelihood: -66.5285
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##     44.9021     45.2874     60.2454     39.8925 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:     3.18441  19.9144
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##         I         M        MM        SM 
+## 1.0000000 0.0829966 0.2681539 0.1785083 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-69-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-69-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.872, p-value = 0.00577</code></pre>
+</div>
+<div id="anova-10" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 2706.366  &lt;.0001
+## MAD             3    18   77.887  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-7" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean      SE df lower.CL upper.CL
+##  I    44.9021 8.33530  2   9.0382  80.7660
+##  MM   90.1895 2.85183  2  77.9191 102.4600
+##  M   105.1475 1.95843  2  96.7210 113.5739
+##  SM   84.7946 2.34230  2  74.7165  94.8727
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate      SE df t.ratio p.value
+##  I - MM   -45.2874 8.41724 18 -5.380  0.0002 
+##  I - M    -60.2454 8.15797 18 -7.385  &lt;.0001 
+##  I - SM   -39.8925 8.25853 18 -4.830  0.0007 
+##  MM - M   -14.9580 2.28213 18 -6.554  &lt;.0001 
+##  MM - SM    5.3949 2.61897 18  2.060  0.2038 
+##  M - SM    20.3529 1.60047 18 12.717  &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-71-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-7" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez. En el
+estado maduro se presentó el pico de concentración de ácido málico.</p>
+</div>
+</div>
+<div id="ácido-quínico-1" class="section level3">
+<h3>Ácido quínico</h3>
+<div id="modelo-y-supuestos-6" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: qui 
+##   Log-restricted-likelihood: 58.1549
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    0.374678   24.876943   22.248145   22.479761 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)    Residual
+## StdDev:    0.671027 1.17941e-16
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##           I           M          MM          SM 
+## 1.00000e+00 2.22332e+16 3.72326e+16 3.66668e+16 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-74-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-74-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9458, p-value = 0.219</code></pre>
+</div>
+<div id="anova-11" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18   2.4281  0.1366
+## MAD             3    18 262.2050  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-8" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean       SE df lower.CL upper.CL
+##  I    0.37468 0.240451  2  -0.6599   1.4093
+##  MM  25.25162 1.808771  2  17.4691  33.0341
+##  M   22.62282 1.097180  2  17.9020  27.3436
+##  SM  22.85444 1.781776  2  15.1881  30.5208
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM   -24.87694 1.79272 18 -13.877 &lt;.0001 
+##  I - M    -22.24814 1.07051 18 -20.783 &lt;.0001 
+##  I - SM   -22.47976 1.76548 18 -12.733 &lt;.0001 
+##  MM - M     2.62880 2.08802 18   1.259 0.5992 
+##  MM - SM    2.39718 2.51610 18   0.953 0.7772 
+##  M - SM    -0.23162 2.06468 18  -0.112 0.9995 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-76-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-8" class="section level4">
+<h4>Conclusiones</h4>
+<p>El estado inmaduro se diferenció significativamente por sus bajas
+concentraciones de quínico. Luego durante la maduración el ácido se
+mantiene constante.</p>
+</div>
+</div>
+<div id="ácido-succinico-1" class="section level3">
+<h3>Ácido succinico</h3>
+<div id="modelo-y-supuestos-7" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: suc 
+##   Log-restricted-likelihood: -72.9163
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   112.33349   -19.85189   -12.89625     3.32166 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:     2.08906  7.56778
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-77-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-77-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9675, p-value = 0.606</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3   1.482   0.25
+##       20</code></pre>
+</div>
+<div id="anova-12" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 2869.053  &lt;.0001
+## MAD             3    18   12.396   1e-04</code></pre>
+</div>
+<div id="test-de-tukey-9" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean      SE df lower.CL upper.CL
+##  I   112.3335 3.31662  2  98.0632  126.604
+##  MM   92.4816 3.31662  2  78.2113  106.752
+##  M    99.4372 3.31662  2  85.1670  113.707
+##  SM  115.6552 3.31662  2 101.3849  129.925
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM    19.85189 4.36926 18  4.544  0.0013 
+##  I - M     12.89625 4.36926 18  2.952  0.0389 
+##  I - SM    -3.32166 4.36926 18 -0.760  0.8711 
+##  MM - M    -6.95565 4.36926 18 -1.592  0.4076 
+##  MM - SM  -23.17356 4.36926 18 -5.304  0.0003 
+##  M - SM   -16.21791 4.36926 18 -3.712  0.0079 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-79-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-9" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez,
+los frutos inmaduros y sobre maduros presentaron las mayores
+concentraciones de ácido succínico.</p>
+</div>
+</div>
+</div>
+<div id="carbohidratos-en-peso-fresco" class="section level2">
+<h2>Carbohidratos en peso fresco</h2>
+<div id="concentración-de-sacáridos-a-distintos-estados-de-madurez"
+class="section level4">
+<h4>Concentración de sacáridos a distintos estados de madurez</h4>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-80-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-5" class="section level4">
+<h4>Tabla descriptiva</h4>
+<pre><code>##         CAR MAD N       CONS         sd         se         ci
+## 1  Sacarosa   I 6  21.206392 12.2672066 5.00806611 12.8736438
+## 2  Sacarosa  MM 6  77.789616 12.5892480 5.13953896 13.2116055
+## 3  Sacarosa   M 6  82.538055  6.4810924 2.64589490  6.8014894
+## 4  Sacarosa  SM 6  59.386510 14.2341239 5.81105673 14.9377969
+## 5   Glucosa   I 6  95.590941  3.7892811 1.54696753  3.9766066
+## 6   Glucosa  MM 6  89.489633 10.6817943 4.36082426 11.2098556
+## 7   Glucosa   M 6 105.002794 12.1387771 4.95563499 12.7388653
+## 8   Glucosa  SM 6 163.129795 12.4888708 5.09856017 13.1062662
+## 9  Fructosa   I 6 150.083458 10.9119332 4.45477806 11.4513716
+## 10 Fructosa  MM 6 134.401106 12.3754741 5.05226614 12.9872636
+## 11 Fructosa   M 6 163.084907 15.8120028 6.45522312 16.5936793
+## 12 Fructosa  SM 6 205.851778 16.9081336 6.90271663 17.7439980
+## 13   glufru   I 6   0.639000  0.0398919 0.01628581  0.0418640
+## 14   glufru  MM 6   0.664516  0.0179780 0.00733949  0.0188668
+## 15   glufru   M 6   0.642984  0.0144738 0.00590891  0.0151893
+## 16   glufru  SM 6   0.792872  0.0152007 0.00620565  0.0159521</code></pre>
+</div>
+<div id="evolución-del-perfíl-de-sacáridos-en-la-maduración"
+class="section level4">
+<h4>Evolución del perfíl de sacáridos en la maduración</h4>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-82-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="carbohidratos-totales" class="section level3">
+<h3>Carbohidratos Totales</h3>
+<div id="modelo-y-supuestos-8" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataST 
+##   Log-restricted-likelihood: -57.2191
+##   Fixed: TOTALF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    45.62985    -8.86163    -6.47059     7.48980 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:     2.31882   3.2606
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-85-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-85-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9346, p-value = 0.124</code></pre>
+</div>
+<div id="anova-13" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 853.133  &lt;.0001
+## MAD             3    18  30.310  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-10" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean      SE df lower.CL upper.CL
+##  I   45.6298 1.88792  2  37.5068  53.7529
+##  MM  36.7682 1.88792  2  28.6452  44.8913
+##  M   39.1593 1.88792  2  31.0362  47.2823
+##  SM  53.1196 1.88792  2  44.9966  61.2427
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM     8.86163 1.88251 18  4.707  0.0009 
+##  I - M      6.47059 1.88251 18  3.437  0.0142 
+##  I - SM    -7.48980 1.88251 18 -3.979  0.0045 
+##  MM - M    -2.39103 1.88251 18 -1.270  0.5925 
+##  MM - SM  -16.35142 1.88251 18 -8.686  &lt;.0001 
+##  M - SM   -13.96039 1.88251 18 -7.416  &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-87-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-10" class="section level4">
+<h4>Conclusiones</h4>
+<p>La concentración de azúcares totales es significativamente superior
+durante la fructificación en frutos inmaduros, luego decae y durante la
+maduración aumentan nuevamente. Los frutos sobre maduros se
+diferenciaron singnificativamente de los maduro y medio maduros en su
+contenido de azúcares totales.</p>
+</div>
+</div>
+<div id="sacarosa" class="section level3">
+<h3>Sacarosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: sac 
+##   Log-restricted-likelihood: -40.8702
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##     3.43431     6.04335     5.78155     3.96741 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:   0.0175442  1.56103
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-88-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-88-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.8933, p-value = 0.0155</code></pre>
+<div id="anova-14" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 536.220  &lt;.0001
+## MAD             3    18  19.156  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-11" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean       SE df lower.CL upper.CL
+##  I   3.43431 0.637369  2  0.69193  6.17669
+##  MM  9.47766 0.637369  2  6.73528 12.22003
+##  M   9.21586 0.637369  2  6.47348 11.95824
+##  SM  7.40172 0.637369  2  4.65934 10.14410
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate       SE df t.ratio p.value
+##  I - MM   -6.04335 0.901262 18 -6.705  &lt;.0001 
+##  I - M    -5.78155 0.901262 18 -6.415  &lt;.0001 
+##  I - SM   -3.96741 0.901262 18 -4.402  0.0018 
+##  MM - M    0.26180 0.901262 18  0.290  0.9912 
+##  MM - SM   2.07594 0.901262 18  2.303  0.1344 
+##  M - SM    1.81414 0.901262 18  2.013  0.2200 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-90-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-11" class="section level4">
+<h4>Conclusiones</h4>
+<p>Los frutos inmaduros tuvieron una concentración de sacarosa
+significativamente menor.</p>
 </div>
 </div>
 <div id="glucosa" class="section level3">
 <h3>Glucosa</h3>
-<div id="modelo-y-supuestos-4" class="section level4">
-<h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: glu 
-##   Log-restricted-likelihood: -72.29835
-##   Fixed: CON ~ MAD 
+##   Log-restricted-likelihood: -37.1727
+##   Fixed: CONF ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##   95.588333   -6.098333    9.415000   67.541667 
+##    16.35872    -5.44642    -4.63421     3.85620 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
-##         (Intercept)  Residual
-## StdDev:    4.195899 0.3676143
+##         (Intercept) Residual
+## StdDev:    0.859438   1.1957
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-91-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-91-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9727, p-value = 0.734</code></pre>
+<div id="anova-15" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 716.580  &lt;.0001
+## MAD             3    18  78.791  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-12" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean       SE df lower.CL upper.CL
+##  I   16.3587 0.696057  2 13.36383  19.3536
+##  MM  10.9123 0.696057  2  7.91741  13.9072
+##  M   11.7245 0.696057  2  8.72961  14.7194
+##  SM  20.2149 0.696057  2 17.22002  23.2098
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate       SE df t.ratio p.value
+##  I - MM    5.44642 0.690339 18   7.889 &lt;.0001 
+##  I - M     4.63421 0.690339 18   6.713 &lt;.0001 
+##  I - SM   -3.85620 0.690339 18  -5.586 0.0001 
+##  MM - M   -0.81220 0.690339 18  -1.177 0.6487 
+##  MM - SM  -9.30261 0.690339 18 -13.475 &lt;.0001 
+##  M - SM   -8.49041 0.690339 18 -12.299 &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-93-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-12" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+<div id="fructosa" class="section level3">
+<h3>Fructosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: fru 
+##   Log-restricted-likelihood: -49.3795
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   25.836818   -9.458555   -7.617928   -0.333807 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:     1.64201  2.19417
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-94-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-94-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9443, p-value = 0.203</code></pre>
+<div id="anova-16" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 419.868  &lt;.0001
+## MAD             3    18  29.839  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-13" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean      SE df lower.CL upper.CL
+##  I   25.8368 1.30427  2  20.2250  31.4487
+##  MM  16.3783 1.30427  2  10.7664  21.9901
+##  M   18.2189 1.30427  2  12.6070  23.8307
+##  SM  25.5030 1.30427  2  19.8912  31.1149
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate      SE df t.ratio p.value
+##  I - MM    9.45855 1.26681 18  7.466  &lt;.0001 
+##  I - M     7.61793 1.26681 18  6.013  0.0001 
+##  I - SM    0.33381 1.26681 18  0.264  0.9934 
+##  MM - M   -1.84063 1.26681 18 -1.453  0.4846 
+##  MM - SM  -9.12475 1.26681 18 -7.203  &lt;.0001 
+##  M - SM   -7.28412 1.26681 18 -5.750  0.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-96-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-13" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+</div>
+<div id="carbohidratos-en-peso-seco" class="section level2">
+<h2>Carbohidratos en peso seco</h2>
+<div id="carbohidratos-totales-1" class="section level3">
+<h3>Carbohidratos Totales</h3>
+<div id="modelo-y-supuestos-9" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataST 
+##   Log-restricted-likelihood: -98.0221
+##   Fixed: TOTALS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    266.8808     34.7996     83.7450    161.4873 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:       2.425  27.1096
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-98-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-98-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.8594, p-value = 0.00329</code></pre>
+</div>
+<div id="anova-17" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 3483.29  &lt;.0001
+## MAD             3    18   40.00  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-14" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean      SE df lower.CL upper.CL
+##  I   266.881 11.1557  2  218.882  314.880
+##  MM  301.680 11.1557  2  253.681  349.679
+##  M   350.626 11.1557  2  302.627  398.625
+##  SM  428.368 11.1557  2  380.369  476.367
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM    -34.7996 15.6518 18  -2.223 0.1546 
+##  I - M     -83.7450 15.6518 18  -5.351 0.0002 
+##  I - SM   -161.4873 15.6518 18 -10.318 &lt;.0001 
+##  MM - M    -48.9454 15.6518 18  -3.127 0.0272 
+##  MM - SM  -126.6877 15.6518 18  -8.094 &lt;.0001 
+##  M - SM    -77.7423 15.6518 18  -4.967 0.0005 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-100-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-14" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+<div id="sacarosa-1" class="section level3">
+<h3>Sacarosa</h3>
+<div id="modelo-y-supuestos-10" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: sac 
+##   Log-restricted-likelihood: -81.2639
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##     21.2064     56.5832     61.3317     38.1801 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    0.213967  11.7629
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-101-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-101-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.8933, p-value = 0.0155</code></pre>
+</div>
+<div id="anova-18" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 627.571  &lt;.0001
+## MAD             3    18  33.672  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-15" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean      SE df lower.CL upper.CL
+##  I   21.2064 4.80377  2   0.5374  41.8753
+##  MM  77.7896 4.80377  2  57.1207  98.4586
+##  M   82.5381 4.80377  2  61.8691 103.2070
+##  SM  59.3865 4.80377  2  38.7176  80.0555
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate      SE df t.ratio p.value
+##  I - MM   -56.5832 6.79131 18 -8.332  &lt;.0001 
+##  I - M    -61.3317 6.79131 18 -9.031  &lt;.0001 
+##  I - SM   -38.1801 6.79131 18 -5.622  0.0001 
+##  MM - M    -4.7484 6.79131 18 -0.699  0.8960 
+##  MM - SM   18.4031 6.79131 18  2.710  0.0629 
+##  M - SM    23.1515 6.79131 18  3.409  0.0151 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-103-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-15" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez.
+Los frutos maduros tendrían mayor concentración de sacarosa, no se
+diferenciaron de los frutos medios maduros.</p>
+</div>
+</div>
+<div id="glucosa-1" class="section level3">
+<h3>Glucosa</h3>
+<div id="modelo-y-supuestos-11" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: glu 
+##   Log-restricted-likelihood: -72.2957
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    95.59094    -6.10131     9.41185    67.53885 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:     4.19343 0.367737
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##       I       M      MM      SM 
+##  1.0000 39.2499 35.8360 40.6895 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-104-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-104-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.8886, p-value = 0.0125</code></pre>
+</div>
+<div id="anova-19" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18  1554.3  &lt;.0001
+## MAD             3    18    42.0  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-16" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean      SE df lower.CL upper.CL
+##  I    95.5909 2.42573  2  85.1539  106.028
+##  MM   89.4896 5.89966  2  64.1054  114.874
+##  M   105.0028 6.37050  2  77.5927  132.413
+##  SM  163.1298 6.57093  2 134.8573  191.402
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate      SE df t.ratio p.value
+##  I - MM     6.1013 5.38209 18   1.134 0.6742 
+##  I - M     -9.4119 5.89442 18  -1.597 0.4051 
+##  I - SM   -67.5389 6.11049 18 -11.053 &lt;.0001 
+##  MM - M   -15.5132 7.97910 18  -1.944 0.2454 
+##  MM - SM  -73.6402 8.14002 18  -9.047 &lt;.0001 
+##  M - SM   -58.1270 8.48748 18  -6.849 &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-106-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-16" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de
+madurez.</p>
+</div>
+</div>
+<div id="fructosa-1" class="section level3">
+<h3>Fructosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: fru 
+##   Log-restricted-likelihood: -84.2941
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    150.0835    -15.6824     13.0014     55.7683 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:     6.56144  12.9455
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-107-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-107-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9091, p-value = 0.0338</code></pre>
+<div id="anova-20" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 1250.84  &lt;.0001
+## MAD             3    18   33.66  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-17" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD  emmean      SE df lower.CL upper.CL
+##  I   150.083 6.50245  2  122.106  178.061
+##  MM  134.401 6.50245  2  106.423  162.379
+##  M   163.085 6.50245  2  135.107  191.063
+##  SM  205.852 6.50245  2  177.874  233.829
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate      SE df t.ratio p.value
+##  I - MM    15.6824 7.47409 18  2.098  0.1913 
+##  I - M    -13.0014 7.47409 18 -1.740  0.3333 
+##  I - SM   -55.7683 7.47409 18 -7.462  &lt;.0001 
+##  MM - M   -28.6838 7.47409 18 -3.838  0.0060 
+##  MM - SM  -71.4507 7.47409 18 -9.560  &lt;.0001 
+##  M - SM   -42.7669 7.47409 18 -5.722  0.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-109-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-17" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez.
+Los frutos sobre maduros tendrían mayor concentración de fructosa.</p>
+</div>
+</div>
+<div id="glucosafructosa" class="section level3">
+<h3>Glucosa/Fructosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: glufru 
+##   Log-restricted-likelihood: 46.3472
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##  0.63900000  0.02551617  0.00398433  0.15387250 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev: 0.000184972 0.039883
 ## 
 ## Variance function:
 ##  Structure: Different standard deviations per stratum
 ##  Formula: ~1 | MAD 
 ##  Parameter estimates:
 ##        I        M       MM       SM 
-##  1.00000 39.26662 35.85854 40.70737 
+## 1.000000 0.362739 0.450880 0.381274 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-110-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-110-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.88861, p-value = 0.01244</code></pre>
-</div>
-<div id="anova-7" class="section level4">
+## W = 0.9666, p-value = 0.583</code></pre>
+<div id="anova-21" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 1552.3962  &lt;.0001
-## MAD             3    18   41.9947  &lt;.0001</code></pre>
+<pre><code>##             numDF denDF F-value p-value
+## (Intercept)     1    18 37510.3  &lt;.0001
+## MAD             3    18   118.1  &lt;.0001</code></pre>
 </div>
-<div id="test-de-tukey-3" class="section level4">
+<div id="test-de-tukey-18" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I     95.6 2.43  2     85.1      106
-##  MM    89.5 5.90  2     64.1      115
-##  M    105.0 6.37  2     77.6      132
-##  SM   163.1 6.57  2    134.9      191
+##  MAD   emmean         SE df lower.CL upper.CL
+##  I   0.639000 0.01628253  2 0.568942 0.709058
+##  MM  0.664516 0.00734209  2 0.632926 0.696107
+##  M   0.642984 0.00590715  2 0.617568 0.668401
+##  SM  0.792873 0.00620889  2 0.766158 0.819587
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM       6.10 5.38 18   1.133 0.6748 
-##  I - M       -9.41 5.89 18  -1.597 0.4049 
-##  I - SM     -67.54 6.11 18 -11.052 &lt;.0001 
-##  MM - M     -15.51 7.98 18  -1.944 0.2455 
-##  MM - SM    -73.64 8.14 18  -9.045 &lt;.0001 
-##  M - SM     -58.13 8.49 18  -6.848 &lt;.0001 
+##  contrast   estimate         SE df t.ratio p.value
+##  I - MM   -0.0255162 0.01786069 18  -1.429 0.4986 
+##  I - M    -0.0039843 0.01732029 18  -0.230 0.9956 
+##  I - SM   -0.1538725 0.01742551 18  -8.830 &lt;.0001 
+##  MM - M    0.0215318 0.00942220 18   2.285 0.1387 
+##  MM - SM  -0.1283563 0.00961425 18 -13.351 &lt;.0001 
+##  M - SM   -0.1498882 0.00856866 18 -17.493 &lt;.0001 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-112-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="conclusiones-4" class="section level4">
+<div id="conclusiones-18" class="section level4">
 <h4>Conclusiones</h4>
-<p>Se encontraron diferencias significativas entre estados de madurez. Los frutos sobre maduros tendrían mayor concentración de glucosa.</p>
-</div>
-</div>
-<div id="fructosa" class="section level3">
-<h3>Fructosa</h3>
-<div id="modelo-y-supuestos-5" class="section level4">
-<h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: fru 
-##   Log-restricted-likelihood: -8.242518
-##   Fixed: sqrt(CON) ~ MAD 
-## (Intercept)       MADMM        MADM       MADSM 
-##  12.2439332  -0.6606621   0.5143754   2.0936776 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept)  Residual
-## StdDev:   0.5959693 0.5585726
-## 
-## Variance function:
-##  Structure: Different standard deviations per stratum
-##  Formula: ~1 | MAD 
-##  Parameter estimates:
-##          I          M         MM         SM 
-## 1.00000000 1.66708036 0.09984155 0.17046318 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-53-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.88462, p-value = 0.01031</code></pre>
-</div>
-<div id="anova-8" class="section level4">
-<h4>Anova</h4>
-<pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    18 1271.212  &lt;.0001
-## MAD             3    18 1246.620  &lt;.0001</code></pre>
-</div>
-<div id="test-de-tukey-4" class="section level4">
-<h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean    SE df lower.CL upper.CL
-##  I     12.2 0.413  2     10.5     14.0
-##  MM    11.6 0.345  2     10.1     13.1
-##  M     12.8 0.513  2     10.6     15.0
-##  SM    14.3 0.346  2     12.8     15.8
-## 
-## Degrees-of-freedom method: containment 
-## Results are given on the sqrt (not the response) scale. 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate    SE df t.ratio p.value
-##  I - MM      0.661 0.229 18   2.883 0.0447 
-##  I - M      -0.514 0.443 18  -1.160 0.6584 
-##  I - SM     -2.094 0.231 18  -9.051 &lt;.0001 
-##  MM - M     -1.175 0.381 18  -3.085 0.0296 
-##  MM - SM    -2.754 0.045 18 -61.142 &lt;.0001 
-##  M - SM     -1.579 0.382 18  -4.133 0.0032 
-## 
-## Note: contrasts are still on the sqrt scale 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-55-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="conclusiones-5" class="section level4">
-<h4>Conclusiones</h4>
-<p>Se encontraron diferencias significativas entre estados de madurez. Los frutos sobre maduros tendrían mayor concentración de fructosa.</p>
+<p>La relación glucosa/fructosa es significativamente mayor en frutos
+sobre maduros.</p>
 </div>
 </div>
 </div>
-<div id="cationes" class="section level2">
-<h2>Cationes</h2>
-<p>Aproximadamente 1 gr de cada muestra fue calcinado en mufla a 500 ºC por 5 horas. La ceniza fue levantada con 5 mL de HCl 20 %, completado a volumen (50mL) con agua destilada. Filtrada y cuantificada por espectrometría de Absorción Atómica en un equipo Perkin Elmer AAAnalyst 200.</p>
-<p>Se ajustaron modelos lineales (estimaciones por mínimos cuarados ordinarios OLS) para predecir las concentraciones (CON) de cationes minerales en función del estado de madurez (MAD).</p>
+<div id="cationes-en-peso-fresco" class="section level2">
+<h2>Cationes en peso fresco</h2>
+<p>Aproximadamente 1 gr de cada muestra fue calcinado en mufla a 500 ºC
+por 5 horas. La ceniza fue levantada con 5 mL de HCl 20 %, completado a
+volumen (50mL) con agua destilada. Filtrada y cuantificada por
+espectrometría de Absorción Atómica en un equipo Perkin Elmer AAAnalyst
+200.</p>
+<p>Se ajustaron modelos lineales (estimaciones por mínimos cuarados
+ordinarios OLS) para predecir las concentraciones (CON) de cationes
+minerales en función del estado de madurez (MAD).</p>
+<div id="tablas-descriptivas" class="section level3">
+<h3>Tablas descriptivas</h3>
+</div>
 <div id="magnesio" class="section level3">
 <h3>Magnesio</h3>
-<div id="concentración-de-magnesio-a-distintos-estados-de-madurez." class="section level4">
+<div id="concentración-de-magnesio-a-distintos-estados-de-madurez."
+class="section level4">
 <h4>Concentración de magnesio a distintos estados de madurez.</h4>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-57-1.png" width="960" style="display: block; margin: auto;" /> * Kinupp-Barros, 2008. <a href="https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&amp;format=pdf" class="uri">https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&amp;format=pdf</a> * Rozycki <em>et al</em>., 1997. <a href="https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290" class="uri">https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290</a></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-115-1.png" width="960" style="display: block; margin: auto;" />
+* Kinupp-Barros, 2008. <a
+href="https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&amp;format=pdf"
+class="uri">https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&amp;format=pdf</a>
+* Rozycki <em>et al</em>., 1997. <a
+href="https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290"
+class="uri">https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290</a></p>
 </div>
-<div id="modelo-y-supuestos-6" class="section level4">
+<div id="modelo-y-supuestos-12" class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## 
 ## Call:
-## lm(formula = CON ~ MAD, data = mg)
+## lm(formula = CONS ~ MAD, data = mg)
 ## 
 ## Coefficients:
 ## (Intercept)        MADMM         MADM        MADSM  
-##     0.05700     -0.01453     -0.01157     -0.02610</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-58-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-58-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-58-3.png" width="960" style="display: block; margin: auto;" /></p>
+##      0.3329       0.0162       0.0731      -0.0842</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-116-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-116-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-116-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  r2
-## W = 0.91386, p-value = 0.239</code></pre>
+## W = 0.9687, p-value = 0.896</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
 ##       Df F value Pr(&gt;F)
-## group  3  1.7688 0.2307
+## group  3   1.117  0.398
 ##        8</code></pre>
 </div>
-<div id="anova-9" class="section level4">
+<div id="anova-22" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Analysis of Variance Table
 ## 
-## Response: CON
-##           Df     Sum Sq    Mean Sq F value  Pr(&gt;F)  
-## MAD        3 0.00103502 0.00034501  3.3668 0.07539 .
-## Residuals  8 0.00081977 0.00010247                  
+## Response: CONS
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)  
+## MAD        3 0.03806 0.012687   3.154 0.0862 .
+## Residuals  8 0.03218 0.004023                 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
-<div id="conclusiones-6" class="section level4">
+<div id="conclusiones-19" class="section level4">
 <h4>Conclusiones</h4>
-<p>No hay diferencias significativas en la concentración de magnesio a diferentes estados de madurez. Se observa tendencia decreciente durante la madurez.</p>
+<p>No hay diferencias significativas en la concentración de magnesio a
+diferentes estados de madurez. Se observa tendencia decreciente durante
+la madurez.</p>
 </div>
 </div>
 <div id="potasio" class="section level3">
 <h3>Potasio</h3>
-<div id="concentración-de-potasio-a-distintos-estados-de-madurez." class="section level4">
+<div id="concentración-de-potasio-a-distintos-estados-de-madurez."
+class="section level4">
 <h4>Concentración de potasio a distintos estados de madurez.</h4>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-60-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>*UNLu: <a href="http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf" class="uri">http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf</a></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-118-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>*UNLu: <a
+href="http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf"
+class="uri">http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf</a></p>
 </div>
-<div id="modelo-y-supuestos-7" class="section level4">
+<div id="modelo-y-supuestos-13" class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## 
 ## Call:
-## lm(formula = CON ~ MAD, data = k)
+## lm(formula = CONS ~ MAD, data = k)
 ## 
 ## Coefficients:
 ## (Intercept)        MADMM         MADM        MADSM  
-##      3.5336      -1.0169      -0.9758      -1.3502</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-61-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-61-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-61-3.png" width="960" style="display: block; margin: auto;" /></p>
+##     20.6388       0.0536       2.2208      -3.0612</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-119-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-119-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-119-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  r2
-## W = 0.92236, p-value = 0.3061</code></pre>
+## W = 0.9416, p-value = 0.519</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
 ##       Df F value Pr(&gt;F)
-## group  3  0.8071 0.5245
+## group  3   0.502  0.691
 ##        8</code></pre>
 </div>
-<div id="anova-10" class="section level4">
+<div id="anova-23" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Analysis of Variance Table
 ## 
-## Response: CON
+## Response: CONS
 ##           Df Sum Sq Mean Sq F value Pr(&gt;F)
-## MAD        3 3.0465 1.01551  1.9798 0.1957
-## Residuals  8 4.1034 0.51292</code></pre>
+## MAD        3  42.45   14.15   0.689  0.584
+## Residuals  8 164.33   20.54</code></pre>
 </div>
-<div id="conclusiones-7" class="section level4">
+<div id="conclusiones-20" class="section level4">
 <h4>Conclusiones</h4>
-<p>No hay diferencias significativas en la concentración de magnesio a diferentes estados de madurez. Se observa tendencia decreciente durante la madurez.</p>
+<p>No hay diferencias significativas en la concentración de magnesio a
+diferentes estados de madurez. Se observa tendencia decreciente durante
+la madurez.</p>
 </div>
 </div>
 <div id="manganeso" class="section level3">
 <h3>Manganeso</h3>
-<div id="concentración-de-manganeso-a-distintos-estados-de-madurez." class="section level4">
+<div id="concentración-de-manganeso-a-distintos-estados-de-madurez."
+class="section level4">
 <h4>Concentración de manganeso a distintos estados de madurez.</h4>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-63-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-121-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="modelo-y-supuestos-8" class="section level4">
+<div id="modelo-y-supuestos-14" class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## Generalized least squares fit by REML
-##   Model: CON ~ MAD 
+##   Model: CONS ~ MAD 
 ##   Data: mnd 
-##   Log-restricted-likelihood: 21.35856
+##   Log-restricted-likelihood: 14.873
 ## 
 ## Coefficients:
-##  (Intercept)         MADM 
-##  0.002150000 -0.001616667 
+## (Intercept)        MADM 
+##   0.0176770  -0.0129103 
 ## 
 ## Variance function:
 ##  Structure: Different standard deviations per stratum
 ##  Formula: ~1 | MAD 
 ##  Parameter estimates:
-##         MM          M 
-## 1.00000000 0.06280756 
+##        MM         M 
+## 1.0000000 0.0682196 
 ## Degrees of freedom: 5 total; 3 residual
-## Residual standard error: 0.0009192376</code></pre>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-64-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-64-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-64-3.png" width="960" style="display: block; margin: auto;" /></p>
+## Residual standard error: 0.00755756</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-122-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-122-2.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-122-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  r2
-## W = 0.92623, p-value = 0.5709</code></pre>
+## W = 0.9293, p-value = 0.591</code></pre>
 </div>
-<div id="anova-11" class="section level4">
+<div id="anova-24" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Denom. DF: 3 
-##             numDF   F-value p-value
-## (Intercept)     1 260.77065  0.0005
-## MAD             1   6.16985  0.0890</code></pre>
+##             numDF  F-value p-value
+## (Intercept)     1 261.5536  0.0005
+## MAD             1   5.8183  0.0948</code></pre>
 </div>
-<div id="conclusiones-8" class="section level4">
+<div id="conclusiones-21" class="section level4">
 <h4>Conclusiones</h4>
-<p>No hay diferencias significativas en la concentración de mangneso a diferentes estados de madurez. Se observó que sólo en estados medio maduro y maduro aparece en muy bajas concentraciones.</p>
+<p>No hay diferencias significativas en la concentración de mangneso a
+diferentes estados de madurez. Se observó que sólo en estados medio
+maduro y maduro aparece en muy bajas concentraciones.</p>
 </div>
 </div>
 </div>
-<div id="tabla-resumen-2" class="section level2">
-<h2>Tabla resumen</h2>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-66-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>ANOVA for malic acid (MAL), quinic acid (QUI), succinic (SUC), saccharose (SAC), glucose (GLU), fructose (FRU), magnesium (Mg), potasium (K) and manganesium (Mn) expressed in dry weigth and considering the fruit ripening of H. edulis “ubajay” harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.</p>
+<div id="cationes-en-peso-seco" class="section level2">
+<h2>Cationes en peso seco</h2>
+</div>
+<div id="tablas-resumen" class="section level2">
+<h2>Tablas resumen</h2>
+<div id="acids" class="section level3">
+<h3>Acids</h3>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-124-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sugars" class="section level3">
+<h3>Sugars</h3>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-125-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cations" class="section level3">
+<h3>Cations</h3>
+<p>coming soon</p>
+<p>Nota: <em>Se ajustaron modelos lineales mixtos (estimaciones por
+máxima verosimilitud restringida REML) para predecir las concentraciones
+(CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las
+repeticiones (REP) fueron incluidas como efectos aleatorios.</em></p>
+</div>
 </div>
 </div>
 
@@ -1281,6 +2306,9 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
 
     // move toc-ignore selectors from section div to header
     $('div.section.toc-ignore')
