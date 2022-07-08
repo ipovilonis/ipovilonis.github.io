@@ -510,22 +510,22 @@ A caption
 <div id="comparaciones-a-posteriori" class="section level3">
 <h3>Comparaciones a posteriori</h3>
 <pre><code>## $emmeans
-##  MADUREZ      emmean   SE df lower.CL upper.CL
-##  Inmaduro       19.5 3.74 33     11.9     27.1
-##  Medio Maduro   40.1 3.74 33     32.5     47.7
-##  Maduro         39.6 3.74 33     31.9     47.2
-##  SobreMaduro    38.5 4.47 33     29.4     47.6
+##  MADUREZ        emmean       SE df lower.CL upper.CL
+##  Inmaduro     19.46590 3.741684 33 11.85339 27.07841
+##  Medio Maduro 40.12070 3.741684 33 32.50819 47.73321
+##  Maduro       39.55260 3.741684 33 31.94009 47.16511
+##  SobreMaduro  38.50057 4.472168 33 29.40188 47.59926
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                   estimate   SE df t.ratio p.value
-##  Inmaduro - Medio Maduro     -20.655 5.29 33 -3.903  0.0024 
-##  Inmaduro - Maduro           -20.087 5.29 33 -3.796  0.0032 
-##  Inmaduro - SobreMaduro      -19.035 5.83 33 -3.264  0.0130 
-##  Medio Maduro - Maduro         0.568 5.29 33  0.107  0.9995 
-##  Medio Maduro - SobreMaduro    1.620 5.83 33  0.278  0.9924 
-##  Maduro - SobreMaduro          1.052 5.83 33  0.180  0.9979 
+##  contrast                     estimate       SE df t.ratio p.value
+##  Inmaduro - Medio Maduro    -20.654800 5.291540 33 -3.903  0.0024 
+##  Inmaduro - Maduro          -20.086700 5.291540 33 -3.796  0.0032 
+##  Inmaduro - SobreMaduro     -19.034671 5.830993 33 -3.264  0.0130 
+##  Medio Maduro - Maduro        0.568100 5.291540 33  0.107  0.9995 
+##  Medio Maduro - SobreMaduro   1.620129 5.830993 33  0.278  0.9924 
+##  Maduro - SobreMaduro         1.052029 5.830993 33  0.180  0.9979 
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -589,23 +589,23 @@ A caption
 <div id="comparaciones-a-posteriori-1" class="section level3">
 <h3>Comparaciones a posteriori</h3>
 <pre><code>## $emmeans
-##  MADUREZ      emmean     SE   df lower.CL upper.CL
-##  Inmaduro      0.293 0.0369 9.01    0.209    0.376
-##  Medio Maduro  0.163 0.0126 9.00    0.135    0.192
-##  Maduro        0.248 0.0332 9.00    0.173    0.323
-##  SobreMaduro   0.171 0.0223 6.00    0.116    0.225
+##  MADUREZ         emmean         SE   df  lower.CL  upper.CL
+##  Inmaduro     0.2929017 0.03689419 9.01 0.2094590 0.3763445
+##  Medio Maduro 0.1633323 0.01264351 9.00 0.1347306 0.1919339
+##  Maduro       0.2481463 0.03324467 9.00 0.1729439 0.3233487
+##  SobreMaduro  0.1709383 0.02227764 6.00 0.1164276 0.2254490
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                   estimate     SE    df t.ratio p.value
-##  Inmaduro - Medio Maduro     0.12957 0.0390 11.10  3.322  0.0294 
-##  Inmaduro - Maduro           0.04476 0.0497 17.81  0.901  0.8043 
-##  Inmaduro - SobreMaduro      0.12196 0.0431 13.98  2.830  0.0576 
-##  Medio Maduro - Maduro      -0.08481 0.0356 11.55 -2.385  0.1352 
-##  Medio Maduro - SobreMaduro -0.00761 0.0256  9.81 -0.297  0.9903 
-##  Maduro - SobreMaduro        0.07721 0.0400 14.52  1.929  0.2590 
+##  contrast                      estimate         SE    df t.ratio p.value
+##  Inmaduro - Medio Maduro     0.12956949 0.03900051 11.10  3.322  0.0294 
+##  Inmaduro - Maduro           0.04475544 0.04966275 17.81  0.901  0.8043 
+##  Inmaduro - SobreMaduro      0.12196345 0.04309843 13.98  2.830  0.0576 
+##  Medio Maduro - Maduro      -0.08481405 0.03556777 11.55 -2.385  0.1352 
+##  Medio Maduro - SobreMaduro -0.00760604 0.02561546  9.81 -0.297  0.9903 
+##  Maduro - SobreMaduro        0.07720801 0.04001876 14.52  1.929  0.2590 
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1594,23 +1594,27 @@ class="section level3">
 <p><img src="Maturity_files/figure-html/unnamed-chunk-89-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div id="tabla-descriptiva-6" class="section level4">
 <h4>Tabla descriptiva</h4>
-<pre><code>##         CAR MAD N        CONS          sd          se          ci
-## 1  Sacarosa   I 6  21.2063923 12.26720656 5.008066106 12.87364376
-## 2  Sacarosa  MM 6  77.7896157 12.58924796 5.139538960 13.21160549
-## 3  Sacarosa   M 6  82.5380555  6.48109241 2.645894896  6.80148936
-## 4  Sacarosa  SM 6  59.3865102 14.23412386 5.811056731 14.93779688
-## 5   Glucosa   I 6  95.5909412  3.78928109 1.546967528  3.97660663
-## 6   Glucosa  MM 6  89.4896332 10.68179429 4.360824260 11.20985563
-## 7   Glucosa   M 6 105.0027938 12.13877707 4.955634988 12.73886528
-## 8   Glucosa  SM 6 163.1297948 12.48887083 5.098560167 13.10626615
-## 9  Fructosa   I 6 150.0834582 10.91193317 4.454778061 11.45137157
-## 10 Fructosa  MM 6 134.4011058 12.37547410 5.052266145 12.98726358
-## 11 Fructosa   M 6 163.0849068 15.81200282 6.455223118 16.59367929
-## 12 Fructosa  SM 6 205.8517782 16.90813358 6.902716631 17.74399799
-## 13   glufru   I 6   0.6390000  0.03989191 0.016285806  0.04186400
-## 14   glufru  MM 6   0.6645162  0.01797801 0.007339493  0.01886677
-## 15   glufru   M 6   0.6429843  0.01447382 0.005908914  0.01518935
-## 16   glufru  SM 6   0.7928725  0.01520067 0.006205646  0.01595212</code></pre>
+<pre><code>##         CAR MAD N        CONS          sd           se          ci
+## 1  Sacarosa   I 6  21.2063923 12.26720656  5.008066106 12.87364376
+## 2  Sacarosa  MM 6  77.7896157 12.58924796  5.139538960 13.21160549
+## 3  Sacarosa   M 6  82.5380555  6.48109241  2.645894896  6.80148936
+## 4  Sacarosa  SM 6  59.3865102 14.23412386  5.811056731 14.93779688
+## 5   Glucosa   I 6  95.5909412  3.78928109  1.546967528  3.97660663
+## 6   Glucosa  MM 6  89.4896332 10.68179429  4.360824260 11.20985563
+## 7   Glucosa   M 6 105.0027938 12.13877707  4.955634988 12.73886528
+## 8   Glucosa  SM 6 163.1297948 12.48887083  5.098560167 13.10626615
+## 9  Fructosa   I 6 150.0834582 10.91193317  4.454778061 11.45137157
+## 10 Fructosa  MM 6 134.4011058 12.37547410  5.052266145 12.98726358
+## 11 Fructosa   M 6 163.0849068 15.81200282  6.455223118 16.59367929
+## 12 Fructosa  SM 6 205.8517782 16.90813358  6.902716631 17.74399799
+## 13   glufru   I 6   0.6390000  0.03989191  0.016285806  0.04186400
+## 14   glufru  MM 6   0.6645162  0.01797801  0.007339493  0.01886677
+## 15   glufru   M 6   0.6429843  0.01447382  0.005908914  0.01518935
+## 16   glufru  SM 6   0.7928725  0.01520067  0.006205646  0.01595212
+## 17      ATT   I 3 177.9200000  5.07984252  2.932848445 12.61902837
+## 18      ATT  MM 3 160.6400000  2.78969532  1.610631346  6.92998736
+## 19      ATT   M 3 182.8266667 20.39063837 11.772540555 50.65315375
+## 20      ATT  SM 3 138.4533333  8.35275603  4.822465944 20.74939626</code></pre>
 </div>
 <div id="evolución-del-perfíl-de-sacáridos-en-la-maduración"
 class="section level4">
@@ -2963,6 +2967,93 @@ madurez</h3>
 máxima verosimilitud restringida REML) para predecir las concentraciones
 (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las
 repeticiones (REP) fueron incluidas como efectos aleatorios.</em></p>
+</div>
+</div>
+<div id="correlaciones-ácidos-orgánicos-y-acidez-total-titulable-att."
+class="section level2">
+<h2>Correlaciones ácidos orgánicos y acidez total titulable ATT.</h2>
+<div id="tabla-de-ácidos" class="section level3">
+<h3>Tabla de ácidos</h3>
+<pre><code>##          CAR MAD N        CONS         sd         se         ci
+## 1  Tartárico   I 6   0.0000000  0.0000000  0.0000000  0.0000000
+## 2  Tartárico  MM 6   0.0000000  0.0000000  0.0000000  0.0000000
+## 3  Tartárico   M 6   0.0000000  0.0000000  0.0000000  0.0000000
+## 4  Tartárico  SM 6   0.9411357  0.4830675  0.1972115  0.5069482
+## 5     Málico   I 6  44.9021340 19.1523848  7.8189284 20.0991952
+## 6     Málico  MM 6  90.1895317  4.0220151  1.6419808  4.2208460
+## 7     Málico   M 6 105.1474897  3.3635752  1.3731738  3.5298556
+## 8     Málico  SM 6  84.7945992  5.3680332  2.1914904  5.6334054
+## 9    Quínico   I 6   0.4406633  0.6826727  0.2787000  0.7164211
+## 10   Quínico  MM 6  25.3176063  3.8140014  1.5570595  4.0025490
+## 11   Quínico   M 6  22.6888082  2.2426216  0.9155464  2.3534871
+## 12   Quínico  SM 6  22.9204245  3.7568053  1.5337093  3.9425254
+## 13 Succínico   I 6 112.3334865  6.5345266  2.6677093  6.8575651
+## 14 Succínico  MM 6  92.4815923  4.7805090  1.9516346  5.0168366
+## 15 Succínico   M 6  99.4372398  4.8240139  1.9693954  5.0624921
+## 16 Succínico  SM 6 115.6551513 12.4187931  5.0699510 13.0327241
+## 17       ATT   I 3 177.9200000  5.0798425  2.9328484 12.6190284
+## 18       ATT  MM 3 160.6400000  2.7896953  1.6106313  6.9299874
+## 19       ATT   M 3 182.8266667 20.3906384 11.7725406 50.6531538
+## 20       ATT  SM 3 138.4533333  8.3527560  4.8224659 20.7493963
+## 21     ACIDS   I 6 157.6762838 24.4147956  9.9672986 25.6217567
+## 22     ACIDS  MM 6 207.9887302 11.6569573  4.7589329 12.2332265
+## 23     ACIDS   M 6 227.2735378  4.2846256  1.7491911  4.4964388
+## 24     ACIDS  SM 6 224.3113107 13.9874058  5.7103345 14.6788822</code></pre>
+</div>
+<div id="comparación-del-perfil-de-ácidos-y-de-att"
+class="section level3">
+<h3>Comparación del perfil de ácidos y de ATT</h3>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-178-1.png" width="960" style="display: block; margin: auto;" />
+<em>The bars indicate standard deviation.</em></p>
+</div>
+<div id="correlaciones" class="section level3">
+<h3>Correlaciones</h3>
+<p>Análisis de varianza
+<img src="Maturity_files/figure-html/unnamed-chunk-180-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="anova-para-cada-ácido-orgánico-y-totales-sobre-la-att"
+class="section level4">
+<h4>Anova para cada ácido orgánico y totales sobre la ATT</h4>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value  Pr(&gt;F)   
+## Tartárico  1 0.23843 0.238432  10.684 0.00845 **
+## Residuals 10 0.22317 0.022317                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## Málico     1 0.02418 0.024176  0.5527 0.4743
+## Residuals 10 0.43742 0.043742</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## Quínico    1 0.04313 0.043135  1.0308 0.3339
+## Residuals 10 0.41847 0.041847</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## Succínico  1 0.07252 0.072524   1.864 0.2021
+## Residuals 10 0.38908 0.038908</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## ACIDS      1 0.07252 0.072524   1.864 0.2021
+## Residuals 10 0.38908 0.038908</code></pre>
+</div>
+<div id="conclusión" class="section level4">
+<h4>Conclusión</h4>
+<p>Sólo la correlación con Ac. tartárico es significativa, sin embargo
+se encuentra en pequeñas trazas sólo en el fruto sobremaduro. Se
+concluye que la ATT no se correlaciona con los ácidos orgánicos
+estudiados por separado ni tampoco en su conjunto (totales). El perfíl
+de ácidos es relativamente constante.</p>
+</div>
 </div>
 </div>
 </div>

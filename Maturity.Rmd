@@ -559,15 +559,15 @@ setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.githu
 datap<-read.delim("CHac.txt")
 datap$CAR <- factor(datap$CAR,
                    levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru"),
+                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru", "ATT"),
                    labels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru"))
+                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru", "ATT"))
 datap$REP<-as.factor(datap$REP)
 datap$CONF<-as.numeric(datap$CONF)
 datap$MAD<-factor(datap$MAD,levels=c("I", "MM", "M", "SM"))
 
 data2<-datap[-c(73:168),]
-data3<-datap[-c(1:72,169:192),]
+data3<-datap[-c(1:72,169:204),]
 
 ```
 
@@ -588,7 +588,6 @@ g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   theme(legend.position = "none")
 g2
 
@@ -686,7 +685,6 @@ gAT<-ggplot2::ggplot(dataAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   theme(legend.position = "none")
 gAT
 
@@ -1171,7 +1169,6 @@ g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   theme(legend.position = "none")
 g2
 
@@ -1740,8 +1737,7 @@ g1<-ggplot(data2, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
-  geom_point(aes(colour=REP))+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))
+  geom_point(aes(colour=REP))
 g1
 
 ```
@@ -1770,7 +1766,7 @@ dataSSM<-subset(data4, MAD == "SM")
 
 SI<-ggplot(dataSI, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "INMADUROS")+
   theme(legend.title = element_blank())+
@@ -1778,7 +1774,7 @@ SI<-ggplot(dataSI, aes(x = "CAT", y = CONS, fill = CAR)) +
 
 SMM<-ggplot(dataSMM, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "MEDIO MADUROS")+
   theme(legend.title = element_blank())+
@@ -1786,7 +1782,7 @@ SMM<-ggplot(dataSMM, aes(x = "CAT", y = CONS, fill = CAR)) +
 
 SM<-ggplot(dataM, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "MADUROS")+
   theme(legend.title = element_blank())+
@@ -1794,7 +1790,7 @@ SM<-ggplot(dataM, aes(x = "CAT", y = CONS, fill = CAR)) +
 
 SSM<-ggplot(dataSSM, aes(x = "CAT", y = CONS, fill = CAR)) +
   geom_col(width = 1) +
-  scale_fill_manual(values = c("coral","coral3","burlywood2")) +
+  scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
   labs(title = "SOBRE MADUROS")+
   theme(legend.title = element_blank())+
@@ -1831,7 +1827,6 @@ gST<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   theme(legend.position = "none")
 gST
 
@@ -2652,7 +2647,6 @@ gCT<-ggplot2::ggplot(dataCT, aes(x=MAD, y=TOTALF, fill=MAD)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   theme(legend.position = "none")
 gCT
 
@@ -2744,7 +2738,6 @@ gmg<-ggplot(mg, aes(x=MAD, y=CONF, fill=MAD))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   geom_hline(yintercept = 0)+
   geom_point(aes(x=3, y=0.1115), colour="red", size=2, shape=18) + #Rozycki 1997
   annotate("text", x = c(3), y = c(0.139), label = c("Rozycki et al., 1997"))+
@@ -2838,7 +2831,6 @@ gk<-ggplot(k, aes(x=MAD, y=CONF, fill=MAD))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   geom_hline(yintercept = 0)+
   geom_point(aes(x=3, y=0.97), colour="blue4", size=5, shape=18)+
   geom_point(aes(x=3, y=0.9485), colour="red", size=2, shape=18)+ #Rozycki
@@ -2935,10 +2927,8 @@ gmn<-ggplot(mn, aes(x=MAD, y=CONF, fill=MAD))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
   ggtitle("")+
-  geom_hline(yintercept = 0)+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))
+  geom_hline(yintercept = 0)
 gmn
 
 ```
@@ -3934,3 +3924,97 @@ grid.raster(img)
 
 
 Nota: *Se ajustaron modelos lineales mixtos (estimaciones por máxima verosimilitud restringida REML) para predecir las concentraciones (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las repeticiones (REP) fueron incluidas como efectos aleatorios.*
+
+## Correlaciones ácidos orgánicos y acidez total titulable ATT.
+
+### Tabla de ácidos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+corACn<-datap[-c(1:72,169:192),]
+library(Rmisc)
+estACcor <- summarySE(corACn, measurevar="CONS", groupvars=c("CAR","MAD"))
+estadATcor<-subset(estadSACTS, CAR == "ACIDS")
+estadATcor$CONS<-estadATcor$TOTALS
+estadATcor<-estadATcor[,-c(4)]
+estadATcor<-estadATcor[, c(1,2,3,7,4,5,6)] 
+CTac<-rbind(estACcor,estadATcor)
+CTac
+
+```
+
+### Comparación del perfil de ácidos y de ATT
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+GCac<-ggplot(CTac) +
+  aes(MAD, CONS, fill=CAR, color=CAR) +
+  geom_point()+
+  scale_color_manual(values=c("aquamarine4","springgreen3","burlywood1","khaki3","coral1","tan3"))+
+  scale_fill_manual(values=c("aquamarine4","springgreen3","burlywood1","khaki3","coral1","tan3"))+
+  stat_summary(fun = "mean", size = 6, geom = "point") +
+  geom_errorbar(aes(ymin=CONS-sd, ymax=CONS+sd),
+                width=0, position=position_dodge(0)) +
+  theme_classic()+
+  labs(y="[mg/g dry fruit] for acids. %*100 for ATT", x="Maturity")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  theme(legend.title = element_text("none"))
+GCac
+
+```
+*The bars indicate standard deviation.*
+
+### Correlaciones
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+# NTCac<-CTac[,-c(3,5:7)]
+# NTCac<-spread(data = NTCac, key = CAR, value = CONS)
+# 
+# library(GGally)
+# GCOR<-ggpairs(NTCac, columns = 2:7,lower = list(continuous = "points"))
+# GCOR
+```
+
+Análisis de varianza
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+FACO<-read.delim("acidcor.txt")
+FACO$MAD<-factor(FACO$MAD,levels=c("I", "MM", "M", "SM"))
+colnames(FACO) <- c("MAD","Tartárico","Málico","Quínico" ,"Succínico","ACIDS","ATT")
+FACO$Tartárico<-as.numeric(FACO$Tartárico)
+FACO$Málico<-as.numeric(FACO$Málico)
+
+library(GGally)
+GCORfaco<-ggpairs(FACO, columns = 2:7,lower = list(continuous = "points"))
+GCORfaco
+
+```
+
+#### Anova para cada ácido orgánico y totales sobre la ATT
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+MRLMtar<-lm(data = FACO, ATT~Tartárico)
+MRLMmal<-lm(data = FACO, ATT~Málico)
+MRLMqui<-lm(data = FACO, ATT~Quínico)
+MRLMsuc<-lm(data = FACO, ATT~Succínico)
+MRLMaci<-lm(data = FACO, ATT~ACIDS)
+anova(MRLMtar)
+anova(MRLMmal)
+anova(MRLMqui)
+anova(MRLMsuc)
+anova(MRLMaci)
+
+```
+
+#### Conclusión
+Sólo la correlación con Ac. tartárico es significativa, sin embargo se encuentra en pequeñas trazas sólo en el fruto sobremaduro. Se concluye que la ATT no se correlaciona con los ácidos orgánicos estudiados por separado ni tampoco en su conjunto (totales). El perfíl de ácidos es relativamente constante.
