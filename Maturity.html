@@ -510,22 +510,22 @@ A caption
 <div id="comparaciones-a-posteriori" class="section level3">
 <h3>Comparaciones a posteriori</h3>
 <pre><code>## $emmeans
-##  MADUREZ        emmean       SE df lower.CL upper.CL
-##  Inmaduro     19.46590 3.741684 33 11.85339 27.07841
-##  Medio Maduro 40.12070 3.741684 33 32.50819 47.73321
-##  Maduro       39.55260 3.741684 33 31.94009 47.16511
-##  SobreMaduro  38.50057 4.472168 33 29.40188 47.59926
+##  MADUREZ      emmean   SE df lower.CL upper.CL
+##  Inmaduro       19.5 3.74 33     11.9     27.1
+##  Medio Maduro   40.1 3.74 33     32.5     47.7
+##  Maduro         39.6 3.74 33     31.9     47.2
+##  SobreMaduro    38.5 4.47 33     29.4     47.6
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                     estimate       SE df t.ratio p.value
-##  Inmaduro - Medio Maduro    -20.654800 5.291540 33 -3.903  0.0024 
-##  Inmaduro - Maduro          -20.086700 5.291540 33 -3.796  0.0032 
-##  Inmaduro - SobreMaduro     -19.034671 5.830993 33 -3.264  0.0130 
-##  Medio Maduro - Maduro        0.568100 5.291540 33  0.107  0.9995 
-##  Medio Maduro - SobreMaduro   1.620129 5.830993 33  0.278  0.9924 
-##  Maduro - SobreMaduro         1.052029 5.830993 33  0.180  0.9979 
+##  contrast                   estimate   SE df t.ratio p.value
+##  Inmaduro - Medio Maduro     -20.655 5.29 33 -3.903  0.0024 
+##  Inmaduro - Maduro           -20.087 5.29 33 -3.796  0.0032 
+##  Inmaduro - SobreMaduro      -19.035 5.83 33 -3.264  0.0130 
+##  Medio Maduro - Maduro         0.568 5.29 33  0.107  0.9995 
+##  Medio Maduro - SobreMaduro    1.620 5.83 33  0.278  0.9924 
+##  Maduro - SobreMaduro          1.052 5.83 33  0.180  0.9979 
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -589,23 +589,23 @@ A caption
 <div id="comparaciones-a-posteriori-1" class="section level3">
 <h3>Comparaciones a posteriori</h3>
 <pre><code>## $emmeans
-##  MADUREZ         emmean         SE   df  lower.CL  upper.CL
-##  Inmaduro     0.2929017 0.03689419 9.01 0.2094590 0.3763445
-##  Medio Maduro 0.1633323 0.01264351 9.00 0.1347306 0.1919339
-##  Maduro       0.2481463 0.03324467 9.00 0.1729439 0.3233487
-##  SobreMaduro  0.1709383 0.02227764 6.00 0.1164276 0.2254490
+##  MADUREZ      emmean     SE   df lower.CL upper.CL
+##  Inmaduro      0.293 0.0369 9.01    0.209    0.376
+##  Medio Maduro  0.163 0.0126 9.00    0.135    0.192
+##  Maduro        0.248 0.0332 9.00    0.173    0.323
+##  SobreMaduro   0.171 0.0223 6.00    0.116    0.225
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                      estimate         SE    df t.ratio p.value
-##  Inmaduro - Medio Maduro     0.12956949 0.03900051 11.10  3.322  0.0294 
-##  Inmaduro - Maduro           0.04475544 0.04966275 17.81  0.901  0.8043 
-##  Inmaduro - SobreMaduro      0.12196345 0.04309843 13.98  2.830  0.0576 
-##  Medio Maduro - Maduro      -0.08481405 0.03556777 11.55 -2.385  0.1352 
-##  Medio Maduro - SobreMaduro -0.00760604 0.02561546  9.81 -0.297  0.9903 
-##  Maduro - SobreMaduro        0.07720801 0.04001876 14.52  1.929  0.2590 
+##  contrast                   estimate     SE    df t.ratio p.value
+##  Inmaduro - Medio Maduro     0.12957 0.0390 11.10  3.322  0.0294 
+##  Inmaduro - Maduro           0.04476 0.0497 17.81  0.901  0.8043 
+##  Inmaduro - SobreMaduro      0.12196 0.0431 13.98  2.830  0.0576 
+##  Medio Maduro - Maduro      -0.08481 0.0356 11.55 -2.385  0.1352 
+##  Medio Maduro - SobreMaduro -0.00761 0.0256  9.81 -0.297  0.9903 
+##  Maduro - SobreMaduro        0.07721 0.0400 14.52  1.929  0.2590 
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -741,15 +741,15 @@ carbohydrates and cations in the different stages of maturity.</p>
 ## group: I
 ##    vars  n  mean   sd median trimmed  mad   min   max range  skew kurtosis   se
 ## X1    1 12 94.66 6.71  96.78   96.31 1.75 74.17 98.61 24.44 -2.32     4.27 1.94
-## ----------------------------------------------------------------- 
+## ------------------------------------------------------------------------------------ 
 ## group: MM
 ##    vars  n  mean    sd median trimmed   mad   min   max range skew kurtosis   se
 ## X1    1 12 61.99 24.92  59.17   61.63 30.23 30.61 96.91  66.3 0.25    -1.65 7.19
-## ----------------------------------------------------------------- 
+## ------------------------------------------------------------------------------------ 
 ## group: M
 ##    vars  n  mean    sd median trimmed   mad   min   max range  skew kurtosis   se
 ## X1    1 12 80.07 17.77  85.85   81.54 14.26 49.75 95.71 45.96 -0.55    -1.46 5.13
-## ----------------------------------------------------------------- 
+## ------------------------------------------------------------------------------------ 
 ## group: SM
 ##    vars  n  mean    sd median trimmed  mad min   max range skew kurtosis   se
 ## X1    1 12 22.29 30.04   9.02   19.05 9.54   0 77.05 77.05 0.97    -1.01 8.67</code></pre>
@@ -2590,19 +2590,27 @@ madurez</h3>
 </div>
 <div id="tabla-descriptiva-7" class="section level3">
 <h3>Tabla descriptiva</h3>
-<pre><code>##    CAR MAD N     CONF        sd        se        ci
-## 1  FDI   I 3 1.546667 0.5225259 0.3016805 1.2980263
-## 2  FDI  MM 3 1.176667 0.1159023 0.0669162 0.2879172
-## 3  FDI   M 3 1.260000 0.3064311 0.1769181 0.7612170
-## 4  FDI  SM 3 1.296667 0.2569695 0.1483614 0.6383477
-## 5  FDS   I 3 4.573333 0.2557994 0.1476859 0.6354409
-## 6  FDS  MM 3 3.300000 0.4635731 0.2676440 1.1515794
-## 7  FDS   M 3 1.770000 0.2343075 0.1352775 0.5820521
-## 8  FDS  SM 3 1.926667 0.4465796 0.2578328 1.1093652
-## 9  FDT   I 3 6.120000 0.6646051 0.3837100 1.6509707
-## 10 FDT  MM 3 4.476667 0.5783021 0.3338829 1.4365821
-## 11 FDT   M 3 3.030000 0.4582576 0.2645751 1.1383749
-## 12 FDT  SM 3 3.223333 0.2730079 0.1576212 0.6781893</code></pre>
+<pre><code>##    CAR MAD N       CONF          sd          se          ci
+## 1   DT   I 3 75.0873682  5.72617785 3.306010322 14.22461434
+## 2   DT  MM 3 73.6484073  0.83625999 0.482814929  2.07738497
+## 3   DT   M 3 58.6434249  5.24560165 3.028549527 13.03079689
+## 4   DT  SM 3 59.3641120 10.08351785 5.821721747 25.04884697
+## 5  FDI   I 3  1.5466667  0.52252592 0.301680479  1.29802633
+## 6  FDI  MM 3  1.1766667  0.11590226 0.066916200  0.28791717
+## 7  FDI   M 3  1.2600000  0.30643107 0.176918060  0.76121697
+## 8  FDI  SM 3  1.2966667  0.25696952 0.148361421  0.63834767
+## 9  FDS   I 3  4.5733333  0.25579940 0.147685853  0.63544094
+## 10 FDS  MM 3  3.3000000  0.46357308 0.267644042  1.15157937
+## 11 FDS   M 3  1.7700000  0.23430749 0.135277493  0.58205207
+## 12 FDS  SM 3  1.9266667  0.44657959 0.257832849  1.10936521
+## 13 FDT   I 3  6.1200000  0.66460515 0.383709960  1.65097071
+## 14 FDT  MM 3  4.4766667  0.57830211 0.333882880  1.43658209
+## 15 FDT   M 3  3.0300000  0.45825757 0.264575131  1.13837491
+## 16 FDT  SM 3  3.2233333  0.27300794 0.157621206  0.67818931
+## 17  IS   I 3  0.3371770  0.10613955 0.061279700  0.26366527
+## 18  IS  MM 3  0.3579186  0.01532281 0.008846628  0.03806397
+## 19  IS   M 3  0.7140465  0.14809968 0.085505389  0.36789999
+## 20  IS  SM 3  0.7165490  0.28408383 0.164015874  0.70570335</code></pre>
 </div>
 <div id="fibra-dietaria-soluble" class="section level3">
 <h3>Fibra Dietaria Soluble</h3>
@@ -2945,24 +2953,154 @@ madurez</h3>
 <p>Hay diferencias significativas.</p>
 </div>
 </div>
+<div id="fibra-dietaria-insolublesoluble" class="section level3">
+<h3>Fibra Dietaria Insoluble/Soluble</h3>
+<div id="modelo-y-supuestos-26" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Generalized least squares fit by REML
+##   Model: CONS ~ MAD 
+##   Data: IDdata 
+##   Log-restricted-likelihood: 5.630805
+## 
+## Coefficients:
+## (Intercept)       MADMM        MADM       MADSM 
+##  0.33717696  0.02074164  0.37686956  0.37937206 
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##         I        MM         M        SM 
+## 1.0000000 0.1443647 1.3953301 2.6765109 
+## Degrees of freedom: 12 total; 8 residual
+## Residual standard error: 0.1061396</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-172-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-172-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.96506, p-value = 0.8529</code></pre>
+</div>
+<div id="anova-37" class="section level4">
+<h4>Anova</h4>
+<pre><code>## Denom. DF: 8 
+##             numDF   F-value p-value
+## (Intercept)     1 1733.9643  &lt;.0001
+## MAD             3    7.3337   0.011</code></pre>
+<pre><code>## Analysis of Deviance Table (Type III tests)
+## 
+## Response: CONS
+##             Df  Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 30.275   3.75e-08 ***
+## MAD          3 22.001   6.52e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="test-de-tukey-25" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD    emmean         SE df  lower.CL  upper.CL
+##  I   0.3371770 0.06127971  2 0.0734416 0.6009124
+##  MM  0.3579186 0.00884662  2 0.3198553 0.3959819
+##  M   0.7140465 0.08550543  2 0.3464025 1.0816905
+##  SM  0.7165490 0.16401582  2 0.0109334 1.4221646
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast   estimate         SE   df t.ratio p.value
+##  I - MM   -0.0207416 0.06191499 2.08 -0.335  0.9839 
+##  I - M    -0.3768696 0.10519687 3.63 -3.583  0.0844 
+##  I - SM   -0.3793721 0.17508967 2.55 -2.167  0.3302 
+##  MM - M   -0.3561279 0.08596186 2.04 -4.143  0.1263 
+##  MM - SM  -0.3586304 0.16425423 2.01 -2.183  0.3607 
+##  M - SM   -0.0025025 0.18496586 3.01 -0.014  1.0000 
+## 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-174-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-33" class="section level4">
+<h4>Conclusiones</h4>
+<p>NO hay diferencias significativas.</p>
+</div>
+</div>
+<div id="fibra-dietaria-solubletotal" class="section level3">
+<h3>Fibra Dietaria Soluble/Total %</h3>
+<div id="modelo-y-supuestos-27" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## 
+## Call:
+## lm(formula = CONS ~ MAD, data = DSTdata, control = ctrl)
+## 
+## Coefficients:
+## (Intercept)        MADMM         MADM        MADSM  
+##      75.087       -1.439      -16.444      -15.723</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-175-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-175-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.98508, p-value = 0.9966</code></pre>
+</div>
+<div id="anova-38" class="section level4">
+<h4>Anova</h4>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: CONS
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## MAD        3 712.05 237.351  5.8359 0.0206 *
+## Residuals  8 325.36  40.671                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="test-de-tukey-26" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean       SE df lower.CL upper.CL
+##  I   75.08737 3.681962  8 66.59675 83.57799
+##  MM  73.64841 3.681962  8 65.15779 82.13903
+##  M   58.64342 3.681962  8 50.15281 67.13404
+##  SM  59.36411 3.681962  8 50.87349 67.85473
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM    1.438961 5.20708  8  0.276  0.9921 
+##  I - M    16.443943 5.20708  8  3.158  0.0532 
+##  I - SM   15.723256 5.20708  8  3.020  0.0647 
+##  MM - M   15.004982 5.20708  8  2.882  0.0786 
+##  MM - SM  14.284295 5.20708  8  2.743  0.0956 
+##  M - SM   -0.720687 5.20708  8 -0.138  0.9990 
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-177-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-34" class="section level4">
+<h4>Conclusiones</h4>
+<p>Hay diferencias significativas.</p>
+</div>
+</div>
 </div>
 <div id="tablas-resumen" class="section level2">
 <h2>Tablas resumen</h2>
 <div id="acids" class="section level3">
 <h3>Acids</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-172-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-178-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="sugars" class="section level3">
 <h3>Sugars</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-173-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-179-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cations" class="section level3">
 <h3>Cations</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-174-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-180-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dietary-fibers" class="section level3">
 <h3>Dietary fibers</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-176-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-182-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Nota: <em>Se ajustaron modelos lineales mixtos (estimaciones por
 máxima verosimilitud restringida REML) para predecir las concentraciones
 (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las
@@ -3003,16 +3141,17 @@ class="section level2">
 <div id="comparación-del-perfil-de-ácidos-y-de-att"
 class="section level3">
 <h3>Comparación del perfil de ácidos y de ATT</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-178-1.png" width="960" style="display: block; margin: auto;" />
+<p><img src="Maturity_files/figure-html/unnamed-chunk-184-1.png" width="960" style="display: block; margin: auto;" />
 <em>The bars indicate standard deviation.</em></p>
 </div>
 <div id="correlaciones" class="section level3">
 <h3>Correlaciones</h3>
-<p>Análisis de varianza
-<img src="Maturity_files/figure-html/unnamed-chunk-180-1.png" width="960" style="display: block; margin: auto;" /></p>
-<div id="anova-para-cada-ácido-orgánico-y-totales-sobre-la-att"
+<p><img src="Maturity_files/figure-html/unnamed-chunk-186-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div
+id="análisis-de-varianza-para-cada-ácido-orgánico-y-totales-sobre-la-att"
 class="section level4">
-<h4>Anova para cada ácido orgánico y totales sobre la ATT</h4>
+<h4>Análisis de varianza para cada ácido orgánico y totales sobre la
+ATT</h4>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: ATT
