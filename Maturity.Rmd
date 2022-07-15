@@ -3347,22 +3347,22 @@ DSTdata<-subset(dataf, CAR == "DT")
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-fib2<-ggplot2::ggplot(dataf, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
-  geom_boxplot()+
-  facet_grid(CAR~.)+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/100g fruta fresca", x="Madurez")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
-  theme(legend.position = "none")
-fib2
+# library(ggplot2)
+# fib2<-ggplot2::ggplot(dataf, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
+#   geom_point()+
+#   facet_grid(CAR~.)+
+#   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   labs(y="mg/100g fruta fresca", x="Madurez")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+#   theme(legend.position = "none")
+# fib2
 
 ```
 
@@ -3876,10 +3876,10 @@ Hay diferencias significativas.
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
-ctrl <- lmeControl(opt='optim');
+
 mID2s <- gls(CONS~MAD,
                   weights=varIdent(form=~1|MAD),
-                  control = ctrl, data = IDdata)
+                  data = IDdata)
 mID2s
 
 
@@ -3931,8 +3931,8 @@ shapiro.test(e)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mID2s)
-library(car)
-Anova(mID2s, type="3")
+# library(car)
+# Anova(mID2s, type="3")
 
 ```
 #### Test de Tukey
@@ -3941,16 +3941,16 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
 library(multcompView)
-CompIDs<-emmeans(mID2s, pairwise ~ MAD) #Tukey  
-CompIDs
-plot(CompIDs, comparisons = TRUE) + theme_classic() + 
+CompmID2s<-emmeans(mID2s, pairwise ~ MAD) #Tukey  
+CompmID2s
+plot(CompmID2s, comparisons = TRUE) + theme_classic() + 
   labs(x = "Concentración", y ="Madurez" )
 
 ```
 
 #### Conclusiones
 
-NO hay diferencias significativas.
+Se encontraron diferencias significativas.
 
 ### Fibra Dietaria Soluble/Total %
 
@@ -3959,11 +3959,11 @@ NO hay diferencias significativas.
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
-ctrl <- lmeControl(opt='optim');
-mDST2s <- lm(CONS ~ MAD,
-             control = ctrl, data = DSTdata)
-mDST2s
 
+mDST2s <- gls(CONS ~ MAD,
+              weights = varIdent(form=~1|MAD),
+              data = DSTdata)
+mDST2s
 
 DSTs_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(mDST2s),
@@ -4022,16 +4022,16 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
 library(multcompView)
-CompDSTs<-emmeans(mDST2s, pairwise ~ MAD) #Tukey  
-CompDSTs
-plot(CompDSTs, comparisons = TRUE) + theme_classic() + 
+CompmDST2s<-emmeans(mDST2s, pairwise ~ MAD) #Tukey  
+CompmDST2s
+plot(CompmDST2s, comparisons = TRUE) + theme_classic() + 
   labs(x = "Concentración", y ="Madurez" )
 
 ```
 
 #### Conclusiones
 
-Hay diferencias significativas.
+Se encontraron diferencias significativas.
 
 ## Tablas resumen
 ### Acids

@@ -24,20 +24,20 @@ shinyApp(
   fluidPage(
     titlePanel("Genotypes"),
     sidebarLayout(
-      sidebarPanel(
-        selectInput(
+      selectInput(
           inputId = "ACC",
           "Select Genotype:",
           choices = levels(dataCAR$ACC),
-          selected = levels(dataCAR$ACC)[1])),
-      tableOutput(outputId ="ACC")
+          selected = levels(dataCAR$ACC)[1],
+      mainPanel()
+      )
       
     )
     
   ),
   
   function(input, output) {
-   output$summary <- renderPrint({
+   output$numeric_io <- renderPrint({
     (dataCAR)
   })
   }
