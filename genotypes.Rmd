@@ -7,40 +7,40 @@ runtime: shiny
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
-dataCAR<-read.delim("CAR.txt")
-dataCAR$ACC<-as.factor(dataCAR$ACC)
-dataCAR$REG<-factor(dataCAR$REG,levels=c("Concordia", "Palmar", "Gualeguaychu"))
-library(ggplot2)
+# # setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+# dataCAR<-read.delim("CAR.txt")
+# dataCAR$ACC<-as.factor(dataCAR$ACC)
+# dataCAR$REG<-factor(dataCAR$REG,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+# library(ggplot2)
 ```
 
 ## Cast
 
 ```{r, echo=FALSE}
 
-library(shiny)
-
-shinyApp(
-  fluidPage(
-    titlePanel("Genotypes"),
-    sidebarLayout(
-      selectInput("select",
-          inputId = "ACC",
-          "Select Genotype:",
-          choices = levels(dataCAR$ACC),
-          selected = levels(dataCAR$ACC)[1],
-      mainPanel()
-      )
-      
-    )
-    
-  ),
-  
-  function(input, output) {
-   output$select <- renderTable({
-    (dataCAR)
-  })
-  }
-)
+# library(shiny)
+# 
+# shinyApp(
+#   fluidPage(
+#     titlePanel("Genotypes"),
+#     sidebarLayout(
+#       selectInput("select",
+#           inputId = "ACC",
+#           "Select Genotype:",
+#           choices = levels(dataCAR$ACC),
+#           selected = levels(dataCAR$ACC)[1],
+#       mainPanel()
+#       )
+#       
+#     )
+#     
+#   ),
+#   
+#   function(input, output) {
+#    output$select <- renderTable({
+#     (dataCAR)
+#   })
+#   }
+# )
 
 ```
