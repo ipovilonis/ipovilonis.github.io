@@ -358,29 +358,64 @@ $(document).ready(function () {
 A caption
 </p>
 </div>
-<div
-id="boxplots-de-pesos-g-de-frutos-cosechados-en-el-monte-para-cada-semana-y-cada-temporada."
-class="section level1">
-<h1>Boxplots de Pesos (g) de frutos cosechados en el monte para cada
-semana y cada temporada.</h1>
-<p><img src="Yield_files/figure-html/unnamed-chunk-2-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>The fruit harvest was staggered in three weeks corresponding to the
+second, third and fourth week of December of the years 2019, 2020 and
+2021. The fruits of each individual were weighed to compare yields
+between years by ANOVA.</p>
+<div id="average-fresh-weight-g-per-plant." class="section level1">
+<h1>Average fresh weight (g) per plant.</h1>
+<p><img src="Yield_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div
-id="boxplots-de-pesos-g-de-frutos-cosechados-con-comparación-de-temporadas-en-cada-accesión."
-class="section level1">
-<h1>Boxplots de Pesos (g) de frutos cosechados, con comparación de
-temporadas en cada accesión.</h1>
-<p><img src="Yield_files/figure-html/unnamed-chunk-3-1.png" width="1920" style="display: block; margin: auto;" /></p>
-</div>
-<div id="rendimiento-total-promedio-de-cada-accesión-por-temporada."
-class="section level1">
-<h1>Rendimiento total promedio de cada accesión por temporada.</h1>
+<div id="bars-plot." class="section level1">
+<h1>Bars plot.</h1>
 <p><img src="Yield_files/figure-html/unnamed-chunk-4-1.png" width="1920" style="display: block; margin: auto;" /></p>
 </div>
-<div id="rendimiento-promedio-del-monte-en-cada-temporada."
-class="section level1">
-<h1>Rendimiento promedio del monte en cada temporada.</h1>
+<div id="bars-plot.-1" class="section level1">
+<h1>Bars plot.</h1>
 <p><img src="Yield_files/figure-html/unnamed-chunk-5-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+<div id="decriptive-table-for-years" class="section level1">
+<h1>Decriptive table for years</h1>
+<pre><code>##   YEAR  N        P       sd       se       ci
+## 1 2019 15 551.6452 452.3572 116.7981 250.5071
+## 2 2020 15 739.8667 568.8946 146.8880 315.0433
+## 3 2021 15 937.7800 430.5466 111.1666 238.4287</code></pre>
+</div>
+<div id="average-plant-fresh-weight-g-per-year." class="section level1">
+<h1>Average plant fresh weight (g) per year.</h1>
+<p><img src="Yield_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" />
+The bars indicate standard deviation.</p>
+</div>
+<div id="inferential-statistics" class="section level1">
+<h1>Inferential Statistics</h1>
+<div id="model-and-assumptions" class="section level2">
+<h2>Model and assumptions</h2>
+<pre><code>## 
+## Call:
+## lm(formula = sqrt(P) ~ YEAR, data = dataY2)
+## 
+## Coefficients:
+## (Intercept)     YEAR2020     YEAR2021  
+##      21.219        4.338        8.459</code></pre>
+<p><img src="Yield_files/figure-html/unnamed-chunk-11-1.png" width="1920" style="display: block; margin: auto;" /><img src="Yield_files/figure-html/unnamed-chunk-11-2.png" width="1920" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.98352, p-value = 0.7628</code></pre>
+</div>
+<div id="anova" class="section level2">
+<h2>ANOVA</h2>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: sqrt(P)
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## YEAR       2  536.8 268.405  3.0657 0.05718 .
+## Residuals 42 3677.1  87.551                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>There is no significant difference between years</p>
+</div>
 </div>
 
 
