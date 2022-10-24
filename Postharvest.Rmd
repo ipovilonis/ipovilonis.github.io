@@ -36,7 +36,6 @@ From the application of postharvest technologies it is possible to describe, und
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 data<-read.delim("PosCord.txt")
 datasup<-data[,-(11:12)]
 dataPESO<-subset(datasup, E == "1")
@@ -81,9 +80,9 @@ P1
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
-estad <- summarySE(dataPESO, measurevar="PESO", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+estadPESO <- summarySE(dataPESO, measurevar="PESO", groupvars=c("DIA","TEMP"),na.rm = TRUE)
 
-P3<- ggplot(estad, aes(x=DIA, y=PESO, color=TEMP, group=TEMP)) +
+P3<- ggplot(estadPESO, aes(x=DIA, y=PESO, color=TEMP, group=TEMP)) +
   stat_summary(fun = "mean", size = 2, geom = "point") +
   scale_color_manual(values=c("cyan4", "coral1"))+
   geom_errorbar(aes(ymin=PESO-sd, ymax=PESO+sd), width=.01, position=position_dodge(.9))+
@@ -418,8 +417,8 @@ L1
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
-estad <- summarySE(data, measurevar="L", groupvars=c("DIA","TEMP"),na.rm = TRUE)
-L3<-ggplot(estad, aes(x=DIA, y=L, color=TEMP, group=TEMP)) +
+estadL <- summarySE(data, measurevar="L", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+L3<-ggplot(estadL, aes(x=DIA, y=L, color=TEMP, group=TEMP)) +
   stat_summary(fun = "mean", size = 2, geom = "point") +
   scale_color_manual(values=c("cyan4", "coral1"))+
   geom_errorbar(aes(ymin=L-sd, ymax=L+sd), width=.01, position=position_dodge(.9))+
@@ -722,8 +721,8 @@ a1
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
-estad <- summarySE(data, measurevar="a", groupvars=c("DIA","TEMP"),na.rm = TRUE)
-a3<-ggplot(estad, aes(x=DIA, y=a, color=TEMP, group=TEMP)) +
+estada <- summarySE(data, measurevar="a", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+a3<-ggplot(estada, aes(x=DIA, y=a, color=TEMP, group=TEMP)) +
   stat_summary(fun = "mean", size = 2, geom = "point") +
   scale_color_manual(values=c("cyan4", "coral1"))+
   geom_errorbar(aes(ymin=a-sd, ymax=a+sd), width=.01, position=position_dodge(.9))+
@@ -1018,8 +1017,8 @@ b1
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
-estad <- summarySE(data, measurevar="b", groupvars=c("DIA","TEMP"),na.rm = TRUE)
-b3<-ggplot(estad, aes(x=DIA, y=b, color=TEMP, group=TEMP)) +
+estadb <- summarySE(data, measurevar="b", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+b3<-ggplot(estadb, aes(x=DIA, y=b, color=TEMP, group=TEMP)) +
   stat_summary(fun = "mean", size = 2, geom = "point") +
   scale_color_manual(values=c("cyan4", "coral1"))+
   geom_errorbar(aes(ymin=b-sd, ymax=b+sd), width=.01, position=position_dodge(.9))+
@@ -1262,376 +1261,6 @@ At 7 and 10 days there were significant differences between temperatures.
 library(png)
 library(grid)
 img <- readPNG("pesocolor.png")
- grid.raster(img)
-```
-
-## Fruit losses
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
-data<-read.delim("PosCord.txt")
-datasup<-data[,-(11:12)]
-data<-datasup[-c(349:350),]
-data$DIA<-as.factor(data$DIA)
-data$TEMP<-as.factor(data$TEMP)
-data$ID<-as.factor(data$ID)
-
-```
-
-### Descriptive statistics
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(ggplot2)
-P2 <- ggplot(data = data, aes(x = DIA, y = E, colour=TEMP, group=TEMP))+
-  geom_jitter(se = FALSE, width = 0.1)+
-  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE)  +
-  theme_classic()+
-  scale_color_manual(values=c("cyan4", "coral1"))+
-  labs(y="Absence/presence of fruits", x="Days from harvest")+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme(legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.5, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-P2
-
-P3 <- ggplot(data = data, aes(x = TEMP, y = E, colour=DIA, group=DIA))+
-  geom_jitter(se = FALSE, width = 0.2)+
-  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE)+
-  theme_classic()+
-  scale_color_manual(values=c("green3", "cyan4","yellow2","orange","chocolate3"))+
-  labs(y="Absence/presence of fruits", x="Temperature °C")+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme(legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.5, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-  
-P3
-
-```
-
-
-## pH
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-datac0<-read.delim("datac.txt")
-datac0$DIA<-as.factor(datac0$DIA)
-datac0$TEMP<-as.factor(datac0$TEMP)
-datac<-datac0
-
-#pH
-library(ggplot2)
-p1<-ggplot(data=datac, aes(x=DIA, y=pH, fill=TEMP, width=1)) +
-  geom_boxplot(colour="white")+
-  scale_fill_manual(values=c("cyan4", "coral1","green3"))+
-  labs(y="pH", x="Days from harvest")+
-  theme_classic()+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme(legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.5, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-p1
-```
-
-#### Model
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-data<-datac#[4:15,]
-data$DIA<-factor(data$DIA,levels=c("0","7","14"))
-data$TEMP<-factor(data$TEMP,levels=c("5", "9"))
-
-library(Rmisc)
-estadph <- summarySE(data, measurevar="pH", groupvars=c("DIA","TEMP"),na.rm = TRUE)
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-m1PH<-aov(pH~DIA*TEMP, datac)
-m1PH
-
-```
-
-#### Assumptions
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-PH_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(m1PH),
-  "predichos" = predict(m1PH)))
-
-PH_ajuste$PH <- data$PH
-
-library(ggplot2)
-HVPH<-ggplot(PH_ajuste) +
-  aes(predichos, residuos) +
-  geom_hline(yintercept = 0, colour="white", size=2) +
-  geom_point(colour="white")+
-  theme_classic()+
-  labs(y="Residuals", x="Predicted values")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HVPH
-
-QQPH<-ggplot(PH_ajuste) +
-  aes(sample = residuos) +
-  geom_qq(shape = 1, colour="white") +
-  geom_qq_line(colour="white")+
-  theme_classic()+
-  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQPH
-
-e<-resid(m1PH) # residuos de pearson
-pre<-predict(m1PH) #predichos
-shapiro.test(e)
-car::leveneTest(m1PH)
-```
-
-#### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-anova(m1PH)
-
-```
-There is no evidence of interaction. Significant differences were only found between days.
-
-#### Principal effects
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(emmeans)
-Comp2<-emmeans(m1PH, pairwise ~ DIA)
-plot(Comp2, comparisons = TRUE)+
-  theme_classic()+
-  xlab("pH")+ylab("Days")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-confint(Comp2$contrasts) #IC para la dif de medias
-
-```
-
-Day zero was statistically different from the other days.
-
-## Soluble solids
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(Rmisc)
-estadSS <- summarySE(data, measurevar="SS", groupvars=c("DIA","TEMP"),na.rm = TRUE)
-
-#SS
-library(ggplot2)
-s1<-ggplot(data=datac, aes(x=DIA, y=SS, fill=TEMP, width=1)) +
-  geom_boxplot(colour="white")+
-  scale_fill_manual(values=c("cyan4", "coral1"))+
-  labs(y="Soluble solids", x="Days from harvest")+
-  theme(panel.grid.major.x = element_blank())+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.5, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-s1
-```
-
-#### Model
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-m1SS<-aov(SS~DIA*TEMP, datac)
-m1SS
-
-```
-
-#### Assumptions
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-SS_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(m1SS),
-  "predichos" = predict(m1SS)))
-
-SS_ajuste$SS <- data$SS
-
-library(ggplot2)
-HVSS<-ggplot(SS_ajuste) +
-  aes(predichos, residuos) +
-  geom_hline(yintercept = 0, colour="white", size=2) +
-  geom_point(colour="white")+
-  theme_classic()+
-  labs(y="Residuals", x="Predicted values")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HVSS
-
-QQSS<-ggplot(SS_ajuste) +
-  aes(sample = residuos) +
-  geom_qq(shape = 1, colour="white") +
-  geom_qq_line(colour="white")+
-  theme_classic()+
-  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQSS
-
-e<-resid(m1SS) # residuos de pearson
-pre<-predict(m1SS) #predichos
-shapiro.test(e)
-car::leveneTest(m1SS)
-
-```
-
-#### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-anova(m1SS)
-
-```
-No significant differences were found.
-
-
-## Total titratable acidity
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(Rmisc)
-estadac <- summarySE(data, measurevar="Ac", groupvars=c("DIA","TEMP"),na.rm = TRUE)
-
-#Ac
-library(ggplot2)
-a1<-ggplot(data=datac, aes(x=DIA, y=Ac, fill=TEMP, width=1)) +
-  geom_boxplot(colour="white")+
-  scale_fill_manual(values=c("cyan4", "coral1"))+
-  labs(y="Total titratable acidity", x="Days from harvest")+
-  theme(panel.grid.major.x = element_blank())+
-  theme(panel.grid.major.x = element_blank())+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-a1
-```
-
-#### Model
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-m1ac<-aov(Ac~DIA*TEMP, data)
-m1ac
-```
-
-#### Assumptions
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-ac_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(m1ac),
-  "predichos" = predict(m1ac)))
-
-ac_ajuste$Ac <- data$Ac
-
-library(ggplot2)
-HVac<-ggplot(ac_ajuste) +
-  aes(predichos, residuos) +
-  geom_hline(yintercept = 0, colour="white", size=2) +
-  geom_point(colour="white")+
-  theme_classic()+
-  labs(y="Residuals", x="Predicted values")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HVac
-
-QQac<-ggplot(ac_ajuste) +
-  aes(sample = residuos) +
-  geom_qq(shape = 1, colour="white") +
-  geom_qq_line(colour="white")+
-  theme_classic()+
-  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQac
-
-e<-resid(m1ac) # residuos de pearson
-pre<-predict(m1ac) #predichos
-shapiro.test(e)
-car::leveneTest(m1ac)
-```
-
-#### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-anova(m1ac)
-```
-No significant differences were found.
-
-### Summary table
-```{r,fig.align='center',echo=FALSE}
-library(png)
-library(grid)
-img <- readPNG("acidez.png")
  grid.raster(img)
 ```
 
@@ -2112,6 +1741,893 @@ p1<-ggplot(data=datap, aes(x=DIA, y=PI, fill=TEMP, width=1)) +
 p1
 ```
 
+## General graphs
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+databtg<-read.delim("BTG.txt")
+
+databtg$VR<-factor(databtg$VR, levels = c("PESO","L","a","b","FU"))
+databtg$DIA<-as.factor(databtg$DIA)
+databtg$TEMP<-as.factor(databtg$TEMP)
+
+databtgPESO<-subset(databtg, VR == "PESO")
+databtgL<-subset(databtg, VR == "L")
+databtga<-subset(databtg, VR == "a")
+databtgb<-subset(databtg, VR == "b")
+databtgFU<-subset(databtg, VR == "FU")
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+FGPESO<-ggplot(data = databtgPESO, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="Peso (g)", x="")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  theme(axis.text.x = element_blank())
+
+FGL<-ggplot(data = databtgL, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="*L", x="")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  theme(axis.text.x = element_blank())
+
+FGa<-ggplot(data = databtga, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="*a", x="")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  theme(axis.text.x = element_blank())
+
+FGb<-ggplot(data = databtgb, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="*b", x="")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+FGFU<-ggplot(data = databtgFU, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="Firmeza (N)", x="Días desde cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+library(ggpubr)
+
+FG1<-ggarrange(FGPESO,FGL,FGa,FGb,FGFU, ncol = 1,  common.legend = TRUE)
+
+
+```
+
+## Fruit losses
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read.delim("PosCord.txt")
+datasup<-data[,-(11:12)]
+data<-datasup[-c(349:350),]
+data$DIA<-as.factor(data$DIA)
+data$TEMP<-as.factor(data$TEMP)
+data$ID<-as.factor(data$ID)
+
+```
+
+### Descriptive statistics
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# In white
+
+# library(ggplot2)
+# P2 <- ggplot(data = data, aes(x = DIA, y = E, colour=TEMP, group=TEMP))+
+#   geom_jitter(se = FALSE, width = 0.1)+
+#   geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE)  +
+#   theme_classic()+
+#   scale_color_manual(values=c("cyan4", "coral1"))+
+#   labs(y="Absence/presence of fruits", x="Days from harvest")+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "bottom")+
+#   theme(legend.background = element_rect(fill = "white"))+
+#   theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "blue"))
+# 
+# 
+# P3 <- ggplot(data = data, aes(x = TEMP, y = E, colour=DIA, group=DIA))+
+#   geom_jitter(se = FALSE, width = 0.3, size=5)+
+#   geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE, size=3)+
+#   theme_classic()+
+#   scale_color_manual(values=c("green3", "cyan4","yellow2","orange","chocolate3"))+
+#   labs(y="Descarte de frutos", x="Temperatura °C")+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "bottom")+
+#   theme(legend.background = element_rect(fill = "white"))+
+#   theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "blue"))
+#   
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+P2 <- ggplot(data = data, aes(x = DIA, y = E, colour=TEMP, group=TEMP))+
+  geom_jitter(se = FALSE, width = 0.1)+
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE)  +
+  theme_classic()+
+  scale_color_manual(values=c("cyan4", "coral1"))+
+  labs(y="Absence/presence of fruits", x="Days from harvest")+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "black"))
+P2
+
+P3 <- ggplot(data = data, aes(x = TEMP, y = E, colour=DIA, group=DIA))+
+  geom_jitter(se = FALSE, width = 0.2)+
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE)+
+  theme_classic()+
+  scale_color_manual(values=c("green3", "cyan4","yellow2","orange","chocolate3"))+
+  labs(y="Absence/presence of fruits", x="Temperature °C")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.5, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+  
+P3
+
+```
+
+## pH
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datac0<-read.delim("datac.txt")
+datac0$DIA<-as.factor(datac0$DIA)
+datac0$TEMP<-as.factor(datac0$TEMP)
+datac<-datac0
+
+#pH
+library(ggplot2)
+p1<-ggplot(data=datac, aes(x=DIA, y=pH, fill=TEMP, width=1)) +
+  geom_boxplot(colour="white")+
+  scale_fill_manual(values=c("cyan4", "coral1","green3"))+
+  labs(y="pH", x="Days from harvest")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.5, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+p1
+```
+
+#### Model
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# data<-datac#[4:15,]
+datac$DIA<-factor(datac$DIA,levels=c("0","7","14"))
+datac$TEMP<-factor(datac$TEMP,levels=c("5", "9"))
+
+library(Rmisc)
+estadph <- summarySE(datac, measurevar="pH", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+m1PH<-aov(pH~DIA*TEMP, datac)
+m1PH
+
+```
+
+#### Assumptions
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+PH_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(m1PH),
+  "predichos" = predict(m1PH)))
+
+PH_ajuste$PH <- data$PH
+
+library(ggplot2)
+HVPH<-ggplot(PH_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVPH
+
+QQPH<-ggplot(PH_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQPH
+
+e<-resid(m1PH) # residuos de pearson
+pre<-predict(m1PH) #predichos
+shapiro.test(e)
+car::leveneTest(m1PH)
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(m1PH)
+
+```
+There is no evidence of interaction. Significant differences were only found between days.
+
+#### Principal effects
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp2<-emmeans(m1PH, pairwise ~ DIA)
+plot(Comp2, comparisons = TRUE)+
+  theme_classic()+
+  xlab("pH")+ylab("Days")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+confint(Comp2$contrasts) #IC para la dif de medias
+
+```
+
+Day zero was statistically different from the other days.
+
+## Soluble solids
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadSS <- summarySE(datac, measurevar="SS", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+
+#SS
+library(ggplot2)
+s1<-ggplot(data=datac, aes(x=DIA, y=SS, fill=TEMP, width=1)) +
+  geom_boxplot(colour="white")+
+  scale_fill_manual(values=c("cyan4", "coral1"))+
+  labs(y="Soluble solids", x="Days from harvest")+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.5, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+s1
+```
+
+#### Model
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+m1SS<-aov(SS~DIA*TEMP, datac)
+m1SS
+
+```
+
+#### Assumptions
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+SS_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(m1SS),
+  "predichos" = predict(m1SS)))
+
+SS_ajuste$SS <- data$SS
+
+library(ggplot2)
+HVSS<-ggplot(SS_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVSS
+
+QQSS<-ggplot(SS_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQSS
+
+e<-resid(m1SS) # residuos de pearson
+pre<-predict(m1SS) #predichos
+shapiro.test(e)
+car::leveneTest(m1SS)
+
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(m1SS)
+
+```
+No significant differences were found.
+
+
+## Total titratable acidity
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadac <- summarySE(datac, measurevar="Ac", groupvars=c("DIA","TEMP"),na.rm = TRUE)
+
+#Ac
+library(ggplot2)
+a1<-ggplot(data=datac, aes(x=DIA, y=Ac, fill=TEMP, width=1)) +
+  geom_boxplot(colour="white")+
+  scale_fill_manual(values=c("cyan4", "coral1"))+
+  labs(y="Total titratable acidity", x="Days from harvest")+
+  theme(panel.grid.major.x = element_blank())+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+a1
+```
+
+#### Model
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+m1ac<-aov(Ac~DIA*TEMP, datac)
+m1ac
+```
+
+#### Assumptions
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ac_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(m1ac),
+  "predichos" = predict(m1ac)))
+
+ac_ajuste$Ac <- datac$Ac
+
+library(ggplot2)
+HVac<-ggplot(ac_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVac
+
+QQac<-ggplot(ac_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQac
+
+e<-resid(m1ac) # residuos de pearson
+pre<-predict(m1ac) #predichos
+shapiro.test(e)
+car::leveneTest(m1ac)
+```
+
+#### Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(m1ac)
+```
+No significant differences were found.
+
+### Summary table
+```{r,fig.align='center',echo=FALSE}
+library(png)
+library(grid)
+img <- readPNG("acidez.png")
+ grid.raster(img)
+```
+
+## General graphs
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+databtg<-read.delim("BTG2.txt")
+
+databtg$VR<-factor(databtg$VR, levels = c("pH","SS","acidez"))
+databtg$DIA<-as.factor(databtg$DIA)
+databtg$TEMP<-as.factor(databtg$TEMP)
+
+databtgpH<-subset(databtg, VR == "pH")
+databtgSS<-subset(databtg, VR == "SS")
+databtgacidez<-subset(databtg, VR == "acidez")
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+FGpH<-ggplot(data = databtgpH, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="pH", x="")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  theme(axis.text.x = element_blank())
+
+FGSS<-ggplot(data = databtgSS, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="° Brix", x="")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  theme(axis.text.x = element_blank())
+
+FGacidez<-ggplot(data = databtgacidez, aes(x = DIA, y = MEAN, fill=TEMP))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar", position = "dodge2")+
+  geom_errorbar(aes(ymin=MEAN-sd, ymax=MEAN+sd), width=0.2,position = position_dodge(1))+
+  theme_classic()+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="ATT ((g/100mL)", x="")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+library(ggpubr)
+
+FG2<-ggarrange(FGpH,FGSS,FGacidez, ncol = 1,  common.legend = TRUE)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(ggpubr)
+library(ggdist)
+
+nggPESO<-ggplot(data, aes(x = TEMP, y = PESO, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="Peso (g)", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+nggL<-ggplot(data, aes(x = TEMP, y = L, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="*L", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+ngga<-ggplot(data, aes(x = TEMP, y = a, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="*a", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+nggb<-ggplot(data, aes(x = TEMP, y = b, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="*b", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+nggFU<-ggplot(dataco, aes(x = TEMP, y = FU, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="Fuerza (N)", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+nggph<-ggplot(datac, aes(x = TEMP, y = pH, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="pH inicial", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+nggSS<-ggplot(datac, aes(x = TEMP, y = SS, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="°Brix", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+nggAc<-ggplot(datac, aes(x = TEMP, y = Ac, fill=TEMP)) + 
+  ggdist::stat_halfeye(
+    adjust = .5, 
+    width = .6, 
+    .width = 0, 
+    justification = -.2, 
+    point_colour = NA
+  ) + 
+  geom_boxplot(
+    width = .15, 
+    outlier.shape = NA
+  ) +
+  geom_point(
+    ## draw horizontal lines instead of points
+    shape = 95,
+    size = 10,
+    alpha = .2
+  ) +
+  coord_cartesian(xlim = c(1.2, NA), clip = "off")+
+  facet_grid(.~DIA)+
+  scale_fill_manual(values=c("coral", "coral4"))+
+  labs(y="ATT (%)", x="")+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))
+
+library(ggpubr)
+
+FG3<-ggarrange(nggPESO,nggFU, ncol = 1,  common.legend = TRUE)
+FG4<-ggarrange(nggL,ngga,nggb, ncol = 1,  common.legend = TRUE)
+FG5<-ggarrange(nggph,nggSS,nggAc, ncol = 1,  common.legend = TRUE)
+
+FG3
+FG4
+FG5
+
+```
+
+```{r this_label}
+library(knitr)
+print(opts_current$get()$label)
+```
+
 # Respiration
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -2168,6 +2684,37 @@ gr1<-ggplot(data=resp, aes(x=TIME, y=CO2, color=MAD, shape=REP))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
   ylab("CO2 (ml/kg.h)")
 gr1
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# white
+resp<-read.delim("respiracion2.txt")
+resp$Maduración<-as.factor(resp$MAD)
+resp$Repetición<-as.factor(resp$REP)
+resp$TIME<-as.POSIXct(resp$TIME,format="%H:%M:%S")
+
+library(ggplot2)
+
+gr2<-ggplot(data=resp, aes(x=TIME, y=CO2, color=Maduración, shape=Repetición))+
+  scale_color_manual(values=c("green2","orange"))+
+  scale_shape_manual(values=c(19,17))+
+  geom_point(size=15)+
+  geom_smooth(method="gam", se = FALSE, linetype="solid", lwd=1.5)+
+  scale_y_continuous(breaks=seq(0,200,10))+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=40, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "black"))+
+  ylab("CO2 (ml/kg.h)")+
+  xlab("Tiempo")
+# gr2
 
 ```
 
@@ -2308,3 +2855,4 @@ mresp2
 anova(mresp2)
 
 ```
+

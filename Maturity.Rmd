@@ -12,7 +12,7 @@ output:
 The aim of this work was to study the evolution of fruit size and weight together with the
 soluble solid and total titratable acidity contents with the patterns of accumulation of chlorophylls, carotenoids, phenols and antioxidant activity during ripening of *Hexachlamys edulis* fruits, to understand the optimal time and conditions needed to obtain maximum nutraceutical characteristics. Fruits were harvested from H. edulis plants growing at the experimental field of the University of Morón (Moreno, Buenos Aires, 34°35'4.98" SL, 58°48'52.09" WL, 14 m.a.s.l.).
 
-```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+```{r pressure, echo=FALSE, error=TRUE, fig.cap="A caption", out.width = '100%'}
 knitr::include_graphics("IMG_mat.jpg")
 ```
 
@@ -20,9 +20,9 @@ knitr::include_graphics("IMG_mat.jpg")
 
 ## Peso fresco del fruto (PFF)
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+# #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 data<-read.delim("madurez.txt")
 data$MADUREZ<-as.factor(data$MADUREZ)
 data$MADUREZ<-factor(data$MADUREZ,levels=c("Inmaduro", "Medio Maduro", "Maduro", "SobreMaduro"))
@@ -30,7 +30,7 @@ data$MADUREZ<-factor(data$MADUREZ,levels=c("Inmaduro", "Medio Maduro", "Maduro",
 ```
 
 ### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -40,7 +40,7 @@ estad
 ```
 
 ### Gráfico con desvío estándar
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -58,7 +58,7 @@ ggplot(estad, aes(x=MADUREZ, y=PFF, color=MADUREZ)) +
 ```
 
 ### Boxplot
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 graf1<- ggplot(data, aes(MADUREZ, PFF, fill=MADUREZ)) +  
@@ -73,7 +73,7 @@ graf1
 ```
 
 ### Relacion media-varianza
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 estad$var=estad$sd^2#agrego varianza
@@ -91,7 +91,7 @@ vs
 
 * M0: modelo sólo con el factor fijo madurez.
 * M1: M0 + modelado de la varinza por varIdent
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 M0<- lm(PFF ~ MADUREZ ,data)
@@ -102,7 +102,7 @@ M1 <- gls(PFF ~ MADUREZ, weights=varIdent(form=~1|MADUREZ), data = data)
 ```
 
 ### Eleccción de modelos por AIC
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 AIC(M0, M1)
@@ -111,7 +111,7 @@ AIC(M0, M1)
 Se elije el modelo M1
 
 ### Verificación de supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 e<-resid(M1) # residuos
@@ -131,7 +131,7 @@ leveneTest(PFF~MADUREZ, data, center=mean)
 ```
 
 ### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(M1)
@@ -139,7 +139,7 @@ anova(M1)
 ```
 
 ### Comparaciones a posteriori
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -154,7 +154,7 @@ plot(Comp2, comparisons = TRUE) + theme_classic() +
 ## Peso seco de fruto (PSF)
 
 ### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -164,7 +164,7 @@ estad
 ```
 
 ### Gráfico con desvío estándar
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -183,7 +183,7 @@ ggplot(estad, aes(x=MADUREZ, y=PSF, color=MADUREZ)) +
 ```
 
 ### Boxplot
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 graf2<- ggplot(data, aes(MADUREZ, PSF, fill=MADUREZ)) +  
@@ -198,7 +198,7 @@ graf2
 ```
 
 ### Relacion media-varianza
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 estad$var=estad$sd^2#agrego varianza
@@ -217,7 +217,7 @@ vs
 * M0s: modelo sólo con el factor fijo madurez.
 * M1s: M0 + modelado de la varinza por varIdent
 * M1si: M1 con variable respuesta inversa (1/Y)
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # MODELOS
 M0s<- lm(PSF ~ MADUREZ ,data)
@@ -227,7 +227,7 @@ M1si <- gls(1/PSF ~ MADUREZ, weights=varIdent(form=~1|MADUREZ), data = data)
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 AIC(M0s, M1s, M1si)
@@ -237,7 +237,7 @@ AIC(M0s, M1s, M1si)
 Se elije el modelo M1si
 
 ### Verificación de supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 e<-resid(M1si) # residuos
@@ -257,7 +257,7 @@ leveneTest(PSF~MADUREZ, data, center=mean)
 ```
 
 ### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(M1si)
@@ -265,7 +265,7 @@ anova(M1si)
 ```
 
 ### Comparaciones a posteriori
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -279,7 +279,7 @@ plot(Comp2, comparisons = TRUE)
 ## Humedad
 
 ### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -289,7 +289,7 @@ estadH
 ```
 
 ### Gráfico con desvío estándar
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -308,7 +308,7 @@ ggplot(estadH, aes(x=MADUREZ, y=H, color=MADUREZ)) +
 ```
 
 ### Boxplot
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 graf2<- ggplot(data, aes(MADUREZ, H, fill=MADUREZ)) +  
@@ -323,7 +323,7 @@ graf2
 ```
 
 ### Relacion media-varianza
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # estadH$var=estadH$sd^2#agrego varianza
@@ -342,14 +342,14 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 * M0s: modelo sólo con el factor fijo madurez.
 * M1s: M0 + modelado de la varinza por varIdent
 * M1si: M1 con variable respuesta inversa (1/Y)
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # MODELOS
 M0sH<- lm(H ~ MADUREZ ,data)
 M0sH
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # AIC(M0s, M1s, M1si)
@@ -359,7 +359,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 Se elije el modelo M0sH
 
 ### Verificación de supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 e<-resid(M0sH) # residuos
@@ -379,7 +379,7 @@ leveneTest(H~MADUREZ, data, center=mean)
 ```
 
 ### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(M0sH)
@@ -387,7 +387,7 @@ anova(M0sH)
 ```
 
 ### Comparaciones a posteriori
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -404,12 +404,12 @@ plot(Comp2H, comparisons = TRUE)
 ## Peso seco semilla
 
 ## Tabla resumen
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+
 library(png)
 library(grid)
 img <- readPNG("varfis.png")
- grid.raster(img)
+grid.raster(img)
 ```
 
 ANOVA for the fresh fruit weight (FFW). dry fruit weight (DFW). dry fruit weight as percentage of fresh fruit weight (DFW%). maximum equatorial fruit diameter (MAEFD). minimum equatorial fruit diameter (MIEFD). polar fruit diameter (PFD). seed number (SN). dry seed weight (DSW) and dry seed weight/dry fruit weight ratio (DSW/DFW) considering the fruit ripening of H. edulis "ubajay" harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.
@@ -429,9 +429,9 @@ The objective of this second part is to study the organic acids, carbohydrates a
 ## Actividad anti oxidante (DPPH)
 
 ### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+
 Datos0 <- read.delim("AA_r0.txt")
 Datos0$Muestra<-factor(Datos0$Muestra)
 Datos0$Conc<-factor(Datos0$Conc)
@@ -443,7 +443,7 @@ describeBy(Datos0$In,Datos0$Trata)
 ```
 
 ### Boxplot de capacidad anti oxidante para distintos grados de madurez
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -462,7 +462,7 @@ box
 ```
 
 ### Modelo
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
@@ -472,7 +472,7 @@ maoo
 ```
 
 ### Supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 e<-resid(maoo) # residuos de pearson
@@ -487,7 +487,7 @@ shapiro.test(e)
 ```
 
 ### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(car)
@@ -496,7 +496,7 @@ Anova(maoo)
 ```
 
 ### Comparaciones a posteriori
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -507,16 +507,16 @@ plot(Comp2, comparisons = TRUE) + theme_classic() +
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
 ```
 
 ### Evolución de la Avtividad anti oxidante en la maduración
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=10}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=10}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+
 data<-read.delim("tablaAAO.txt")
 data$T<-as.factor(data$T)
 data$T<-factor(data$T,levels=c("Unripe", "Medium ripe","Ripe", "Overripe"))
@@ -538,8 +538,8 @@ Taao
 ```
 
 ## Tabla resumen
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+
 library(png)
 library(grid)
 img <- readPNG("varqui.png")
@@ -552,10 +552,10 @@ ANOVA for the soluble solids (SS). pH (pH). titulable total acidity (TTA) and so
 
 ## Acidos orgánicos en peso fresco
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+# #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 datap<-read.delim("CHac.txt")
 datap$CAR <- factor(datap$CAR,
                    levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
@@ -572,7 +572,7 @@ data3<-datap[-c(1:72,169:204),]
 ```
 
 ### Concentración del perfíl de ácidos orgánicos a distintos estados de madurez
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -594,7 +594,7 @@ g2
 ```
 
 ### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -604,7 +604,7 @@ estadac
 ```
 
 ### Evolución del perfíl de ácidos orgánicos en la maduración
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data5<-data3
@@ -653,7 +653,7 @@ grid.arrange(SI, SMM, SM, SSM, ncol = 2)
 
 ### Acidos orgánicos Totales
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 dataSACT<-read.delim("SACT.txt")
@@ -670,7 +670,7 @@ dataCT<-dataSACT[-c(1:48),]
 ```
 
 #### Concentración de ácidos orgánicos totales a distintos estados de madurez.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gAT<-ggplot2::ggplot(dataAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
@@ -691,7 +691,7 @@ gAT
 ```
 
 #### Tabla descriptiva totales
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -700,7 +700,7 @@ estadSACT
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -755,7 +755,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mAT1)
@@ -763,7 +763,7 @@ anova(mAT1)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -782,7 +782,7 @@ Existen diferencias significativas entre estados de madurez para los ácidos tot
 ### Ácido Tartárico
 
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 tar<-subset(datap, CAR == "Tartárico")
@@ -796,7 +796,7 @@ tar<-subset(datap, CAR == "Tartárico")
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -850,7 +850,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mtar2)
@@ -858,7 +858,7 @@ anova(mtar2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -877,7 +877,7 @@ Existen diferencias significativas entre estados de madurez. El estado sobre mad
 
 ### Ácido málico
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 mal<-subset(datap, CAR == "Málico")
@@ -891,7 +891,7 @@ mal<-subset(datap, CAR == "Málico")
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -946,7 +946,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mmal2)
@@ -954,7 +954,7 @@ anova(mmal2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -973,7 +973,7 @@ Existen diferencias significativas entre estados de madurez. En el estado maduro
 ### Ácido quínico
 
 #### Modelo y supuestos
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 qui<-subset(datap, CAR == "Quínico")
@@ -984,7 +984,7 @@ qui<-subset(datap, CAR == "Quínico")
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ctrl <- lmeControl(opt='optim');
@@ -994,7 +994,7 @@ mqui2
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 qui_ajuste <- as.data.frame(cbind(
@@ -1044,7 +1044,7 @@ leveneTest(CONF~MAD, qui)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mqui2)
@@ -1052,7 +1052,7 @@ anova(mqui2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1071,7 +1071,7 @@ Se observa un marcado aumento de ácido quínico con la maduración hasta frutos
 ### Ácido succinico
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 suc<-subset(datap, CAR == "Succínico")
@@ -1126,7 +1126,7 @@ leveneTest(CONF~MAD, suc)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=7}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=7}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(msuc2)
@@ -1134,7 +1134,7 @@ anova(msuc2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1153,7 +1153,7 @@ Se encontraron diferencias entre estados de madurez, los frutos inmaduros y sobr
 ## Acidos orgánicos en peso seco
 
 ### Concentración del perfíl de ácidos orgánicos a distintos estados de madurez
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -1175,7 +1175,7 @@ g2
 ```
 
 #### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -1185,7 +1185,7 @@ estadacs
 ```
 
 #### Evolución del perfíl de ácidos orgánicos en la maduración
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data5<-data3
@@ -1233,7 +1233,7 @@ grid.arrange(SI, SMM, SM, SSM, ncol = 2)
 ```
 
 ### Ácidos orgánicos totales
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gAT<-ggplot2::ggplot(dataSACT, aes(x=MAD, y=TOTALS, fill=MAD)) +
@@ -1255,7 +1255,7 @@ gAT
 ```
 
 #### Tabla descriptiva totales
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -1265,7 +1265,7 @@ estadSACTS
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -1320,7 +1320,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mAT1s)
@@ -1328,7 +1328,7 @@ anova(mAT1s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1346,7 +1346,7 @@ La menor concentración de ácidos totales en frutos inmaduros es significativa.
 
 ### Ácido tartárico
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 tar<-subset(datap, CAR == "Tartárico")
@@ -1360,7 +1360,7 @@ tar<-subset(datap, CAR == "Tartárico")
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -1415,7 +1415,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mtar2s)
@@ -1423,7 +1423,7 @@ anova(mtar2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1441,7 +1441,7 @@ Existen diferencias significativas entre estados de madurez. Sólo el estado sob
 
 ### Ácido málico
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 mal<-subset(datap, CAR == "Málico")
@@ -1455,7 +1455,7 @@ mal<-subset(datap, CAR == "Málico")
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -1510,7 +1510,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mmal2s)
@@ -1518,7 +1518,7 @@ anova(mmal2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1537,7 +1537,7 @@ Existen diferencias significativas entre estados de madurez. En el estado maduro
 ### Ácido quínico
 
 #### Modelo y supuestos
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 qui<-subset(datap, CAR == "Quínico")
@@ -1548,7 +1548,7 @@ qui<-subset(datap, CAR == "Quínico")
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ctrl <- lmeControl(opt='optim');
@@ -1559,7 +1559,7 @@ mqui2s
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
@@ -1610,7 +1610,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mqui2s)
@@ -1618,7 +1618,7 @@ anova(mqui2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1637,7 +1637,7 @@ El estado inmaduro se diferenció significativamente por sus bajas concentracion
 ### Ácido succinico
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 suc<-subset(datap, CAR == "Succínico")
@@ -1693,7 +1693,7 @@ leveneTest(CONS~MAD, suc)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=7}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=7}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(msuc2s)
@@ -1701,7 +1701,7 @@ anova(msuc2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1722,7 +1722,7 @@ Se encontraron diferencias significativas entre estados de madurez, los frutos i
 ## Carbohidratos en peso fresco
 
 ### Concentración de sacáridos a distintos estados de madurez
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 g1<-ggplot(data2, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
@@ -1743,7 +1743,7 @@ g1
 ```
 
 #### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -1753,7 +1753,7 @@ estadcar
 ```
 
 #### Evolución del perfíl de sacáridos en la maduración
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data4<-data2
@@ -1801,7 +1801,7 @@ grid.arrange(SI, SMM, SM, SSM, ncol = 2)
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 sac<-subset(datap, CAR == "Sacarosa")
 glu<-subset(datap, CAR == "Glucosa")
@@ -1812,7 +1812,7 @@ glufru<-subset(datap, CAR == "glufru")
 
 ### Carbohidratos Totales
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gST<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
@@ -1833,7 +1833,7 @@ gST
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -1887,7 +1887,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mST1)
@@ -1895,7 +1895,7 @@ anova(mST1)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1913,7 +1913,7 @@ La concentración de azúcares totales es significativamente superior durante la
 
 ### Sacarosa
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
@@ -1967,7 +1967,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(car)
@@ -1976,7 +1976,7 @@ anova(msac2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -1994,7 +1994,7 @@ Los frutos inmaduros tuvieron una concentración de sacarosa significativamente 
 
 ### Glucosa
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
@@ -2048,7 +2048,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(car)
@@ -2057,7 +2057,7 @@ anova(mglu2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2073,7 +2073,7 @@ plot(Compglu, comparisons = TRUE) + theme_classic() +
 
 ### Fructosa
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
@@ -2127,7 +2127,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(car)
@@ -2136,7 +2136,7 @@ anova(mfru2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2155,7 +2155,7 @@ plot(Compfru, comparisons = TRUE) + theme_classic() +
 
 ### Carbohidratos Totales
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gSTs<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
@@ -2177,7 +2177,7 @@ gSTs
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -2231,7 +2231,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mST1s)
@@ -2239,7 +2239,7 @@ anova(mST1s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2257,7 +2257,7 @@ plot(CompmST1s, comparisons = TRUE) + theme_classic() +
 ### Sacarosa
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
@@ -2311,7 +2311,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(car)
@@ -2320,7 +2320,7 @@ anova(msac2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2339,7 +2339,7 @@ Se encontraron diferencias significativas entre estados de madurez. Los frutos m
 ### Glucosa
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -2395,7 +2395,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(car)
@@ -2404,7 +2404,7 @@ anova(mglu2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2421,7 +2421,7 @@ Se encontraron diferencias significativas entre estados de madurez.
 
 ### Fructosa
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
@@ -2475,7 +2475,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(car)
@@ -2484,7 +2484,7 @@ anova(mfru2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2502,7 +2502,7 @@ Se encontraron diferencias significativas entre estados de madurez. Los frutos s
 ### Glucosa/Fructosa
 
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
@@ -2557,7 +2557,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(car)
@@ -2566,7 +2566,7 @@ anova(mglufru2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2588,9 +2588,9 @@ Aproximadamente 1 gr de cada  muestra fue calcinado en mufla a 500 ºC por 5 hor
 La ceniza fue levantada con 5 mL de HCl 20 %, completado a volumen (50mL) con agua destilada. Filtrada y  cuantificada por espectrometría de Absorción Atómica  en un equipo Perkin Elmer  AAAnalyst 200.
 
 Se ajustaron modelos lineales (estimaciones por mínimos cuarados ordinarios OLS) para predecir las concentraciones (CON) de cationes minerales en función del estado de madurez (MAD).
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 data<-read.delim("cationes.txt")
 data$MAD<-as.factor(data$MAD)
 data$CAR<-as.factor(data$CAR)
@@ -2604,7 +2604,7 @@ mn<-data[25:36,]
 ### Tablas descriptivas
 
 #### Mg
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -2614,7 +2614,7 @@ estadcatmg
 ```
 
 #### K
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 estadcatk <- summarySE(k, measurevar="CONF", groupvars=c("MAD"))
@@ -2623,7 +2623,7 @@ estadcatk
 ```
 
 #### Mn
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 estadcatmn <- summarySE(mn, measurevar="CONF", groupvars=c("MAD"))
@@ -2632,7 +2632,7 @@ estadcatmn
 ```
 
 #### Concentración de cationes totales a distintos estados de madurez.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gCT<-ggplot2::ggplot(dataCT, aes(x=MAD, y=TOTALF, fill=MAD)) +
@@ -2653,7 +2653,7 @@ gCT
 ```
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -2708,7 +2708,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mCT1)
@@ -2723,7 +2723,7 @@ No hay diferencias significativas.
 
 #### Concentración de magnesio a distintos estados de madurez.
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -2751,7 +2751,7 @@ gmg
 * Rozycki *et al*., 1997. https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(lme4)
 ctrl <- lmeControl(opt='optim');
@@ -2804,7 +2804,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(mmg2)
 ```
@@ -2817,7 +2817,7 @@ No se encontraron diferencias significativas.
 
 #### Concentración de potasio a distintos estados de madurez.
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gk<-ggplot(k, aes(x=MAD, y=CONF, fill=MAD))+
@@ -2842,7 +2842,7 @@ gk
 *UNLu: http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(lme4)
 ctrl <- lmeControl(opt='optim');
@@ -2895,7 +2895,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mk2)
@@ -2910,7 +2910,7 @@ No hay diferencias significativas en la concentración de potasio a diferentes e
 
 #### Concentración de manganeso a distintos estados de madurez.
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
@@ -2935,7 +2935,7 @@ gmn
 
 #### Modelo y supuestos
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(lme4)
 ctrl <- lmeControl(opt='optim');
@@ -2988,7 +2988,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mmn2)
@@ -3005,7 +3005,7 @@ No hay diferencias significativas en la concentración de manganeso a diferentes
 ### Tablas descriptivas
 
 #### Mg
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -3014,7 +3014,7 @@ estadcatmg
 ```
 
 #### k
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 estadcatk <- summarySE(k, measurevar="CONS", groupvars=c("MAD"))
@@ -3022,7 +3022,7 @@ estadcatk
 ```
 
 #### Mn
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 estadcatmn <- summarySE(mn, measurevar="CONS", groupvars=c("MAD"))
@@ -3032,7 +3032,7 @@ estadcatmn
 #### Totales
 
 #### Tabla descriptiva totales
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -3042,7 +3042,7 @@ estadCT
 ```
 
 ### Concentración de cationes totales a distintos estados de madurez.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gCTs<-ggplot2::ggplot(dataCT, aes(x=MAD, y=TOTALS, fill=MAD)) +
@@ -3063,7 +3063,7 @@ gCTs
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3118,7 +3118,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mCT1s)
@@ -3130,7 +3130,7 @@ anova(mCT1s)
 ### Magnesio
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(lme4)
 ctrl <- lmeControl(opt='optim');
@@ -3184,7 +3184,7 @@ shapiro.test(e)
 
 #### Anova
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 anova(mmg2)
 ```
@@ -3196,7 +3196,7 @@ No se encontraron diferencias significativas.
 ### Potasio
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(lme4)
 ctrl <- lmeControl(opt='optim');
@@ -3249,7 +3249,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mk2s)
@@ -3264,7 +3264,7 @@ No hay diferencias significativas en la concentración de potasio a diferentes e
 
 #### Modelo y supuestos
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(lme4)
 ctrl <- lmeControl(opt='optim');
@@ -3317,7 +3317,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mmn2s)
@@ -3329,7 +3329,7 @@ anova(mmn2s)
 
 ## Fibra Dietaria en peso fresco
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
  
 dataf<-read.delim("fibras.txt")
@@ -3344,7 +3344,7 @@ DSTdata<-subset(dataf, CAR == "DT")
 ```
 
 ### Concentración de Fibras dietarias a distintos estados de madurez
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(ggplot2)
@@ -3367,7 +3367,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ### Tabla descriptiva
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -3382,7 +3382,7 @@ estadfibs <- summarySE(dataf, measurevar="CONS", groupvars=c("CAR", "MAD"))
 ### Fibra Dietaria Soluble
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3436,7 +3436,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mFDS2)
@@ -3444,7 +3444,7 @@ anova(mFDS2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -3463,7 +3463,7 @@ Hay diferencias significativas.
 ### Fibra Dietaria Insoluble
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3517,7 +3517,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mFDI2)
@@ -3525,7 +3525,7 @@ anova(mFDI2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -3547,7 +3547,7 @@ No hay diferencias significativas.
 ### Fibra Dietaria Total
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3601,7 +3601,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mFDT2)
@@ -3609,7 +3609,7 @@ anova(mFDT2)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -3629,7 +3629,7 @@ Hay diferencias significativas.
 ### Fibra Dietaria Soluble
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3683,7 +3683,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mFDS2s)
@@ -3691,7 +3691,7 @@ anova(mFDS2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -3710,7 +3710,7 @@ Hay diferencias significativas.
 ### Fibra Dietaria Insoluble
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3764,7 +3764,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mFDI2s)
@@ -3772,7 +3772,7 @@ anova(mFDI2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -3791,7 +3791,7 @@ No hay diferencias significativas.
 ### Fibra Dietaria Total
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3845,7 +3845,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mFDT2s)
@@ -3853,7 +3853,7 @@ anova(mFDT2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -3872,7 +3872,7 @@ Hay diferencias significativas.
 ### Fibra Dietaria Insoluble/Soluble
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -3927,7 +3927,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mID2s)
@@ -3936,7 +3936,7 @@ anova(mID2s)
 
 ```
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -3955,7 +3955,7 @@ Se encontraron diferencias significativas.
 ### Fibra Dietaria Soluble/Total %
 
 #### Modelo y supuestos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -4009,7 +4009,7 @@ shapiro.test(e)
 ```
 
 #### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(mDST2s)
@@ -4017,7 +4017,7 @@ anova(mDST2s)
 ```
 
 #### Test de Tukey
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -4033,10 +4033,171 @@ plot(CompmDST2s, comparisons = TRUE) + theme_classic() +
 
 Se encontraron diferencias significativas.
 
+## Alimdón
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ALMI<-read.delim("ALMI.txt")
+ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
+
+library(ggplot2)
+galmi2<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, fill=MAD, width=1)) +
+  geom_boxplot()+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="g/100 g fruta fresca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")
+galmi2
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ALMI<-read.delim("ALMI.txt")
+ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
+
+library(Rmisc)
+estalmi <- summarySE(ALMI, measurevar="STARCH", groupvars=c("MAD"))
+
+library(ggplot2)
+galmi2<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCH, color=MAD, width=1))+
+  stat_summary(fun = "mean", size = 6, geom = "point") +
+  geom_errorbar(aes(ymin=STARCH-sd, ymax=STARCH+sd),
+                width=0, position=position_dodge(0))+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")
+galmi2
+
+```
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, color=MAD, width=1))+
+  geom_point(size=9)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")+
+  ylim(0,4)
+galmi3
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+mSTARCH <- lm(STARCH ~ MAD,
+              data = ALMI)
+
+library(nlme)
+mSTARCH2 <- gls(STARCH ~ MAD,
+              weights = varIdent(form=~1|MAD),
+              data = ALMI)
+
+AIC(mSTARCH,mSTARCH2)
+
+STARCH_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mSTARCH),
+  "predichos" = predict(mSTARCH)))
+
+STARCH_ajuste$STARCH <- ALMI$STARCH
+
+library(ggplot2)
+HVSTARCH<-ggplot(STARCH_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVSTARCH
+
+QQSTARCH<-ggplot(STARCH_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQSTARCH
+
+e<-resid(mSTARCH) # residuos de pearson
+pre<-predict(mSTARCH) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mSTARCH)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompSTARCH<-emmeans(mSTARCH, pairwise ~ MAD) #Tukey  
+CompSTARCH
+plot(CompSTARCH, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='green'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+
+```
+
 ## Tablas resumen
 ### Acids
-```{r,fig.align='center',echo=FALSE}
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(png)
 library(grid)
 img <- readPNG("acidos.png")
@@ -4044,8 +4205,8 @@ grid.raster(img)
 ```
 
 ### Sugars
-```{r,fig.align='center',echo=FALSE}
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(png)
 library(grid)
 img <- readPNG("azucares.png")
@@ -4053,15 +4214,15 @@ grid.raster(img)
 ```
 
 ### Cations
-```{r,fig.align='center',echo=FALSE}
-setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(png)
 library(grid)
 img <- readPNG("cationes.png")
 grid.raster(img)
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lattice)
@@ -4079,7 +4240,7 @@ estmn <- summarySE(mn, measurevar="CONS", groupvars=c("MAD"))
 
 ### Dietary fibers
 
-```{r,fig.align='center',echo=FALSE}
+```{r,fig.align='center',echo=FALSE, error=TRUE}
 
 library(png)
 library(grid)
@@ -4094,7 +4255,7 @@ Nota: *Se ajustaron modelos lineales mixtos (estimaciones por máxima verosimili
 ## Correlaciones ácidos orgánicos y acidez total titulable ATT.
 
 ### Tabla de ácidos
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 corACn<-datap[-c(1:72,169:192),]
@@ -4110,7 +4271,7 @@ CTac
 ```
 
 ### Comparación del perfil de ácidos y de ATT
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -4138,7 +4299,7 @@ GCac
 *The bars indicate standard deviation.*
 
 ### Correlaciones
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
 # NTCac<-CTac[,-c(3,5:7)]
@@ -4149,7 +4310,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # GCOR
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 FACO<-read.delim("acidcor.txt")
@@ -4165,7 +4326,7 @@ GCORfaco
 ```
 
 #### Análisis de varianza para cada ácido orgánico y totales sobre la ATT
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 MRLMtar<-lm(data = FACO, ATT~Tartárico)

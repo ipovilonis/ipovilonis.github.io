@@ -11,7 +11,7 @@
 
 
 
-<title>Polinization</title>
+<title>Pollination</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -276,6 +276,9 @@ $(document).ready(function () {
         <li>
           <a href="Chemical.html">Chemical</a>
         </li>
+        <li>
+          <a href="Multivariate.html">Multivariate</a>
+        </li>
       </ul>
     </li>
     <li class="divider"></li>
@@ -333,7 +336,7 @@ $(document).ready(function () {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/ipovilonis/ipovilonis.github.io">
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
     <span class=" favicon.ico"></span>
      
   </a>
@@ -347,33 +350,66 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Polinization</h1>
+<h1 class="title toc-ignore">Pollination</h1>
 
 </div>
 
 
-<p>Eficiencia de polinización por tratamiento
-<img src="Polinization_files/figure-html/unnamed-chunk-1-1.png" width="1440" style="display: block; margin: auto;" />
-* Libre</p>
-<p>Rama sin polinización inducida y sin capucha</p>
-<ul>
-<li>Auto</li>
-</ul>
-<p>Rama con 1 flor encapuchada</p>
-<ul>
-<li>Auto *</li>
-</ul>
-<p>Rama con más de 1 flor encapuchada</p>
-<ul>
-<li>Cruzado =</li>
-</ul>
-<p>Rama con flores emasculadas y polinizadas con flores de la misma
-planta</p>
-<ul>
-<li>Cruzado *</li>
-</ul>
-<p>Rama con flores emasculadas y polinizadas con flores de otra
-planta</p>
+<div id="objetive" class="section level2">
+<h2>Objetive</h2>
+<p>The objective of this essay was to study the pollination regime of
+the species.</p>
+</div>
+<div id="materials-and-methods" class="section level2">
+<h2>Materials and Methods</h2>
+<p>Pollination studies were carried out on floral buds that had not
+begun anthesis yet. In the <strong>natural self-pollinated</strong>
+(NSPO) treatment, branches with only one bud were isolated with paper
+bags , in <strong>natural self-pollinated</strong> (NSPS) branches with
+several buds were isolated with paper bags to check auto compatibility,
+while in the <strong>open pollination</strong> (OP) treatment branches
+were only identified. In the <strong>cross-pollinated</strong> (CPA)
+trial, buds were emasculated and then pollinated manually with pollen
+from another genotype and in <strong>cross pollinated</strong> (CPS) the
+buds were emasculated and then pollinated manually with pollen from
+anothers flowers on the same genotype. These branches were also covered
+with paper bags to avoid the entrance of unknown pollen. Twenty
+repetitions of each treatment were performed in random branches.
+Finally, thirty days later fruit set was verified.</p>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<p><img src="Polinization_files/figure-html/unnamed-chunk-3-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+## Call:
+## glm(formula = PROP ~ TRA, family = &quot;binomial&quot;, data = datapol4)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.6501  -0.3666  -0.3666   0.3436   0.7993  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)   
+## (Intercept)   -2.666      0.907  -2.939  0.00329 **
+## TRACPA         1.219      1.323   0.922  0.35659   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 7.1396  on 26  degrees of freedom
+## Residual deviance: 6.3171  on 25  degrees of freedom
+## AIC: 9.6467
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<p><img src="Polinization_files/figure-html/unnamed-chunk-4-1.png" width="1440" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>Only treatments <strong>open pollination [OP]</strong> (5.6%) and
+<strong>artificial cross-pollinated [CPA]</strong> (20.0%) presented
+fruit set. Therefore the species is self-incompatible.</p>
+</div>
 
 
 
