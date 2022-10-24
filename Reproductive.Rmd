@@ -24,8 +24,6 @@ Se procedío al corte del ovario infero en lupa y se contaron los óvulos presen
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-
-setwd("C:/Users/um/Desktop/EstR")
 data<-read.delim("co.txt")
 data$A<-as.factor(data$A)
 data$ACC<-as.factor(data$ACC)
@@ -34,6 +32,7 @@ data$O<-as.numeric(data$O)
 data$REG<-factor(data$REG,levels=c("Concordia", "Palmar","Gualeguaychu"))
 
 ```
+
 Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y 2021
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)

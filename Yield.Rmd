@@ -60,24 +60,49 @@ Y0
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=11}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+datas2<-subset(data, YEAR == 2019 | YEAR == 2020)
+
 library(tidyverse)
 library(ggplot2)
-f1<-ggplot(data=data, aes(x=WEEK, y=P, fill=ACC)) + 
+f1<-ggplot(data=datas2, aes(x=WEEK, y=P, fill=ACC)) + 
   geom_bar(stat="identity", position="dodge")+
   # scale_fill_manual(values=c("coral", "grey","green4"))+
   # geom_point(size=3, shape=20) +
-  labs(y="WEIGHT (g)", x="WEEK")+
+  labs(y="Fresh Weigth (g)", x="Week")+
   theme(panel.grid.major.x = element_blank())+
   facet_grid(YEAR~.)+
   theme_classic()+
   theme(text = element_text(size=20))+
   theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
+  theme(legend.position = "bottom")+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
+  theme(text = element_text(size=30, color='black'))+
   theme(axis.text = element_text(color='black'))
 f1
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=11}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+f1s<-ggplot(data=datas2, aes(x=YEAR, y=P, fill=ACC)) + 
+  geom_bar(stat="identity", position="dodge")+
+  # scale_fill_manual(values=c("coral", "grey","green4"))+
+  # geom_point(size=3, shape=20) +
+  labs(y="Fresh Weigth (g)", x="Year")+
+  theme(panel.grid.major.x = element_blank())+
+  facet_grid(WEEK~.)+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color='black'))+
+  theme(axis.text = element_text(color='black'))
+f1s
 
 ```
 

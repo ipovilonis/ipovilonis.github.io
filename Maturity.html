@@ -358,6 +358,9 @@ div.tocify {
         <li>
           <a href="Chemical.html">Chemical</a>
         </li>
+        <li>
+          <a href="Multivariate.html">Multivariate</a>
+        </li>
       </ul>
     </li>
     <li class="divider"></li>
@@ -415,7 +418,7 @@ div.tocify {
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/ipovilonis/ipovilonis.github.io">
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
     <span class=" favicon.ico"></span>
      
   </a>
@@ -741,15 +744,15 @@ carbohydrates and cations in the different stages of maturity.</p>
 ## group: I
 ##    vars  n  mean   sd median trimmed  mad   min   max range  skew kurtosis   se
 ## X1    1 12 94.66 6.71  96.78   96.31 1.75 74.17 98.61 24.44 -2.32     4.27 1.94
-## --------------------------------------------------------------------- 
+## ------------------------------------------------------------------- 
 ## group: MM
 ##    vars  n  mean    sd median trimmed   mad   min   max range skew kurtosis   se
 ## X1    1 12 61.99 24.92  59.17   61.63 30.23 30.61 96.91  66.3 0.25    -1.65 7.19
-## --------------------------------------------------------------------- 
+## ------------------------------------------------------------------- 
 ## group: M
 ##    vars  n  mean    sd median trimmed   mad   min   max range  skew kurtosis   se
 ## X1    1 12 80.07 17.77  85.85   81.54 14.26 49.75 95.71 45.96 -0.55    -1.46 5.13
-## --------------------------------------------------------------------- 
+## ------------------------------------------------------------------- 
 ## group: SM
 ##    vars  n  mean    sd median trimmed  mad min   max range skew kurtosis   se
 ## X1    1 12 22.29 30.04   9.02   19.05 9.54   0 77.05 77.05 0.97    -1.01 8.67</code></pre>
@@ -3083,23 +3086,68 @@ madurez</h3>
 </div>
 </div>
 </div>
+<div id="alimdón" class="section level2">
+<h2>Alimdón</h2>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-178-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-179-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-180-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in na.fail.default(structure(list(MAD = structure(c(1L, 1L, 1L, : missing values in object</code></pre>
+<pre><code>## Error in lapply(list(object, ...), ll): object &#39;mSTARCH2&#39; not found</code></pre>
+<pre><code>## Error in `$&lt;-.data.frame`(`*tmp*`, STARCH, value = c(2.322104822, 3.206129697, : replacement has 13 rows, data has 7</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-181-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-181-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.94009, p-value = 0.6395</code></pre>
+<div id="anova-39" class="section level4">
+<h4>Anova</h4>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: STARCH
+##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
+## MAD        2 4.5442 2.27209   7.753 0.04205 *
+## Residuals  4 1.1722 0.29306                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="test-de-tukey-27" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean        SE df  lower.CL upper.CL
+##  I   2.867175 0.3125487  4  1.999401 3.734949
+##  MM  1.968019 0.3125487  4  1.100245 2.835794
+##  M   0.446126 0.5413502  4 -1.056903 1.949155
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate        SE df t.ratio p.value
+##  I - MM   0.8991557 0.4420106  4 2.034   0.2196 
+##  I - M    2.4210491 0.6250974  4 3.873   0.0385 
+##  MM - M   1.5218934 0.6250974  4 2.435   0.1454 
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-183-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
 <div id="tablas-resumen" class="section level2">
 <h2>Tablas resumen</h2>
 <div id="acids" class="section level3">
 <h3>Acids</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-178-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-184-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="sugars" class="section level3">
 <h3>Sugars</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-179-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-185-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="cations" class="section level3">
 <h3>Cations</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-180-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-186-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dietary-fibers" class="section level3">
 <h3>Dietary fibers</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-182-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-188-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Nota: <em>Se ajustaron modelos lineales mixtos (estimaciones por
 máxima verosimilitud restringida REML) para predecir las concentraciones
 (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las
@@ -3140,12 +3188,12 @@ class="section level2">
 <div id="comparación-del-perfil-de-ácidos-y-de-att"
 class="section level3">
 <h3>Comparación del perfil de ácidos y de ATT</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-184-1.png" width="960" style="display: block; margin: auto;" />
+<p><img src="Maturity_files/figure-html/unnamed-chunk-190-1.png" width="960" style="display: block; margin: auto;" />
 <em>The bars indicate standard deviation.</em></p>
 </div>
 <div id="correlaciones" class="section level3">
 <h3>Correlaciones</h3>
-<p><img src="Maturity_files/figure-html/unnamed-chunk-186-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Maturity_files/figure-html/unnamed-chunk-192-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div
 id="análisis-de-varianza-para-cada-ácido-orgánico-y-totales-sobre-la-att"
 class="section level4">
