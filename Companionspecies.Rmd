@@ -248,7 +248,7 @@ df.todo <- cbind(df.mds, datos)
 library(ggplot2)
 library(ggrepel)
 
-ggplot(df.todo, aes(-X1, -X2))+
+ggplot(df.todo, aes(-X5, -X3))+
   geom_hline(yintercept=0, col="black")+
   geom_vline(xintercept=0, col="black")+
   geom_point(size=4,aes(col=REG, pch=as.factor(REG)))+
@@ -298,7 +298,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Sugerencia de comunidades vegetales
+
 
 ```
 

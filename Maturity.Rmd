@@ -4033,7 +4033,7 @@ plot(CompmDST2s, comparisons = TRUE) + theme_classic() +
 
 Se encontraron diferencias significativas.
 
-## Alimdón
+## Almidón en peso seco
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -4061,8 +4061,163 @@ galmi2
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(Rmisc)
+estalmi <- summarySE(ALMI, measurevar="STARCHs", groupvars=c("MAD"))
+
+library(ggplot2)
+galmi2<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
+  stat_summary(fun = "mean", size = 6, geom = "point") +
+  geom_errorbar(aes(ymin=STARCHs-sd, ymax=STARCHs+sd),
+                width=0, position=position_dodge(0))+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")
+galmi2
+
+```
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
+  geom_point(size=9)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")
+#galmi3
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+mSTARCHs <- lm(STARCHs ~ MAD,
+              data = ALMI)
+
+library(nlme)
+mSTARCHs2 <- gls(STARCHs ~ MAD,
+              weights = varIdent(form=~1|MAD),
+              data = ALMI)
+
+AIC(mSTARCHs,mSTARCHs2)
+
+STARCHs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mSTARCHs),
+  "predichos" = predict(mSTARCHs)))
+
+STARCHs_ajuste$STARCHs <- ALMI$STARCHs
+
+library(ggplot2)
+HVSTARCHs<-ggplot(STARCHs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVSTARCHs
+
+QQSTARCHs<-ggplot(STARCHs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQSTARCHs
+
+e<-resid(mSTARCHs) # residuos de pearson
+pre<-predict(mSTARCHs) #predichos
+shapiro.test(e)
+leveneTest(mSTARCHs)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mSTARCHs)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompSTARCHs<-emmeans(mSTARCHs, pairwise ~ MAD) #Tukey  
+CompSTARCHs
+plot(CompSTARCHs, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='green'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+
+```
+
+## Alimdón
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 ALMI<-read.delim("ALMI.txt")
 ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
+
+library(ggplot2)
+galmi2<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, fill=MAD, width=1)) +
+  geom_boxplot()+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="g/100 g fruta fresca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")
+galmi2
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estalmi <- summarySE(ALMI, measurevar="STARCH", groupvars=c("MAD"))
@@ -4104,7 +4259,7 @@ galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, color=MAD, width=1))+
   theme(legend.position = "none")+
   theme(legend.position = "none")+
   ylim(0,4)
-galmi3
+#galmi3
 
 ```
 
@@ -4162,6 +4317,7 @@ QQSTARCH
 e<-resid(mSTARCH) # residuos de pearson
 pre<-predict(mSTARCH) #predichos
 shapiro.test(e)
+leveneTest(mSTARCH)
 
 ```
 
@@ -4204,7 +4360,7 @@ img <- readPNG("acidos.png")
 grid.raster(img)
 ```
 
-### Sugars
+### Carbohydrates
 ```{r,fig.align='center',echo=FALSE, error=TRUE}
 #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(png)
