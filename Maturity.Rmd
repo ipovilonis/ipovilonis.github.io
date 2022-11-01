@@ -4042,10 +4042,10 @@ ALMI<-read.delim("ALMI.txt")
 ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
 
 library(ggplot2)
-galmi2<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, fill=MAD, width=1)) +
+galmi2s<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, fill=MAD, width=1)) +
   geom_boxplot()+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g/100 g fruta fresca", x="Madurez")+
+  labs(y="g/100 g fruta seca", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -4054,7 +4054,6 @@ galmi2<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, fill=MAD, width=1)) +
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
   theme(legend.position = "none")
-galmi2
 
 ```
 
@@ -4065,12 +4064,12 @@ library(Rmisc)
 estalmi <- summarySE(ALMI, measurevar="STARCHs", groupvars=c("MAD"))
 
 library(ggplot2)
-galmi2<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
+galmi3s<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
   stat_summary(fun = "mean", size = 6, geom = "point") +
   geom_errorbar(aes(ymin=STARCHs-sd, ymax=STARCHs+sd),
                 width=0, position=position_dodge(0))+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
+  labs(y="g almidon/100 g fruta seca", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -4079,19 +4078,20 @@ galmi2<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
   theme(legend.position = "none")
-galmi2
+galmi3s
 
 ```
 
+Las barras indican desvío estándar.
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
+galmi4s<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
   geom_point(size=9)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
+  labs(y="g almidon/100 g fruta seca", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -4100,7 +4100,7 @@ galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
   theme(legend.position = "none")
-#galmi3
+#galmi4s
 
 ```
 
@@ -4116,7 +4116,7 @@ mSTARCHs2 <- gls(STARCHs ~ MAD,
               weights = varIdent(form=~1|MAD),
               data = ALMI)
 
-AIC(mSTARCHs,mSTARCHs2)
+# AIC(mSTARCHs,mSTARCHs2)
 
 STARCHs_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(mSTARCHs),
@@ -4158,7 +4158,7 @@ QQSTARCHs
 e<-resid(mSTARCHs) # residuos de pearson
 pre<-predict(mSTARCHs) #predichos
 shapiro.test(e)
-leveneTest(mSTARCHs)
+# leveneTest(mSTARCHs)
 
 ```
 
@@ -4178,7 +4178,7 @@ library(emmeans)
 library(multcompView)
 CompSTARCHs<-emmeans(mSTARCHs, pairwise ~ MAD) #Tukey  
 CompSTARCHs
-plot(CompSTARCHs, comparisons = TRUE) + theme_classic() + 
+plot(CompSTARCHs, comparisons = T) + theme_classic() +
   labs(x = "Concentración", y ="Madurez" )+
   theme_classic()+
   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
@@ -4189,9 +4189,53 @@ plot(CompSTARCHs, comparisons = TRUE) + theme_classic() +
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
 
+
 ```
 
-## Alimdón
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+ggplot_the_response <- function(
+    fit, # model fit from lm, lmer, nlme, glmmTMB
+    fit_emm,
+    fit_pairs,
+    wrap_col = NULL,
+    x_label = "none",
+    y_label = "Response (units)",
+    g_label = NULL,
+    dots = "sina",
+    dodge_width = 0.8,
+    adjust = 0.5,
+    contrast_rows = "all",
+    y_pos = NULL,
+    palette = pal_okabe_ito,
+    legend_position = "top",
+    flip_horizontal = FALSE,
+    group_lines = FALSE  
+)
+
+m1_response_plot <- ggplot_the_response(
+  fit = mSTARCHs,
+  fit_emm = m1_emm,
+  fit_pairs = m1_simple,
+  palette = pal_okabe_ito_blue,
+  y_label = expression(paste("", l^-1, "")),
+  g_label = "none"
+)
+
+m1_response_plot
+
+
+```
+
+
+## Alimdón en peso fresco
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
