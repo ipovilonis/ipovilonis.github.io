@@ -4,6 +4,8 @@ output: html_document
 runtime: shiny
 ---
 
+## Cast
+
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -17,9 +19,10 @@ datashow<-dataCAR[,-c(1,2)]
 
 ```
 
-## Cast
+```{r, echo=FALSE}
 
-```{r eruptions, echo=FALSE}
+library(shiny)
+
 inputPanel(
   selectInput("variable", label = "Variable: ",
               choices = colnames(datashow), selected = "dbh")
@@ -42,8 +45,8 @@ renderPlot({
         legend.title=element_text(size=10, face = "bold"), #tamaño de titulo de leyenda
         legend.text=element_text(size=8), #tamaño de texto de leyenda
         plot.caption=element_text("none"), #tamaño de nota al pie: face = "italic", colour = "gray35",size=6
-        axis.title = element_text("none"),
-        panel.grid.major.x = element_blank(),#tamaño y color de referencias de ejes X e Y
+        axis.title = element_text("none"), #tamaño y color de referencias de ejes X e Y
+        panel.grid.major.x = element_blank(),
         axis.text.x = element_text(colour = "black",size = 20, angle = 90), #tamaño y color del texto de eje X
         axis.text.y = element_text(colour = "black",size = 20)) #tamaño y color del texto de eje Y
   plot0
@@ -54,35 +57,7 @@ renderPlot({
 
 
 ```{r, echo=FALSE}
-# 
-#   dens <- density(faithful$eruptions, adjust = input$bw_adjust)
-  # lines(dens, col = "blue")
 
 
-# library(shiny)
-# 
-# shinyApp(
-#   fluidPage(
-#     titlePanel("Phenotypes"),
-#     sidebarLayout(
-#       selectInput(inputId = "accesion",
-#           "Select Phenotype:",
-#           choices = c("dbh", "height"),
-#           selected = height,
-#       mainPanel()
-#       )
-# 
-#     )
-# 
-#   ),
-# 
-#   function(input, output) {
-#    output$select <- renderPlot({
-#   hist(input$accesion, probability = TRUE, breaks = as.numeric(10),
-#        xlab = "", main = "")
-# 
-# })
-#   }
-# )
 
 ```

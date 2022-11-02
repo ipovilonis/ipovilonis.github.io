@@ -11,7 +11,7 @@
 
 
 
-<title>Yield</title>
+<title>Phenotypes</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -32,6 +32,9 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="shared/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="shared/selectize/js/selectize.min.js"></script>
+<script src="shared/selectize/accessibility/js/selectize-plugin-a11y.min.js"></script>
   <link rel="icon" type="image/png" href="fruto.jpg"/>
 
 <style type="text/css">
@@ -346,80 +349,37 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div id="section-header">
 
 
 
-<h1 class="title toc-ignore">Yield</h1>
+<h1 class="title toc-ignore">Phenotypes</h1>
 
 </div>
 
 
-<div class="figure">
-<img src="IMG_yield2.jpg" alt="A caption" width="100%" />
-<p class="caption">
-A caption
-</p>
+<div id="section-cast" class="section level2">
+<h2>Cast</h2>
+<div class="shiny-input-panel">
+<div class="shiny-flow-layout">
+<div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="variable-label" for="variable">Variable: </label>
+<div>
+<select id="variable"><option value="latitude">latitude</option>
+<option value="longitude">longitude</option>
+<option value="altitude">altitude</option>
+<option value="dbh" selected>dbh</option>
+<option value="larger_diameter">larger_diameter</option>
+<option value="minor_diameter">minor_diameter</option>
+<option value="height">height</option></select>
+<script type="application/json" data-for="variable" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
 </div>
-<p>The fruit harvest was staggered in three weeks corresponding to the
-second, third and fourth week of December of the years 2019, 2020 and
-2021. The fruits of each individual were weighed to compare yields
-between years by ANOVA.</p>
-<div id="average-fresh-weight-g-per-plant." class="section level1">
-<h1>Average fresh weight (g) per plant.</h1>
-<p><img src="Yield_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="bars-plot." class="section level1">
-<h1>Bars plot.</h1>
-<p><img src="Yield_files/figure-html/unnamed-chunk-4-1.png" width="1920" style="display: block; margin: auto;" /></p>
-<p><img src="Yield_files/figure-html/unnamed-chunk-5-1.png" width="1920" style="display: block; margin: auto;" /></p>
 </div>
-<div id="bars-plot.-1" class="section level1">
-<h1>Bars plot.</h1>
-<p><img src="Yield_files/figure-html/unnamed-chunk-6-1.png" width="1920" style="display: block; margin: auto;" /></p>
 </div>
-<div id="decriptive-table-for-years" class="section level1">
-<h1>Decriptive table for years</h1>
-<pre><code>##   YEAR  N        P       sd       se       ci
-## 1 2019 15 551.6452 452.3572 116.7981 250.5071
-## 2 2020 15 739.8667 568.8946 146.8880 315.0433
-## 3 2021 15 937.7800 430.5466 111.1666 238.4287</code></pre>
 </div>
-<div id="average-plant-fresh-weight-g-per-year." class="section level1">
-<h1>Average plant fresh weight (g) per year.</h1>
-<p><img src="Yield_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" />
-The bars indicate standard deviation.</p>
-</div>
-<div id="inferential-statistics" class="section level1">
-<h1>Inferential Statistics</h1>
-<div id="model-and-assumptions" class="section level2">
-<h2>Model and assumptions</h2>
-<pre><code>## 
-## Call:
-## lm(formula = sqrt(P) ~ YEAR, data = dataY2)
-## 
-## Coefficients:
-## (Intercept)     YEAR2020     YEAR2021  
-##      21.219        4.338        8.459</code></pre>
-<p><img src="Yield_files/figure-html/unnamed-chunk-12-1.png" width="1920" style="display: block; margin: auto;" /><img src="Yield_files/figure-html/unnamed-chunk-12-2.png" width="1920" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.98352, p-value = 0.7628</code></pre>
-</div>
-<div id="anova" class="section level2">
-<h2>ANOVA</h2>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: sqrt(P)
-##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-## YEAR       2  536.8 268.405  3.0657 0.05718 .
-## Residuals 42 3677.1  87.551                  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>There is no significant difference between years</p>
-</div>
+<p><div id="oute6564aa140e23308" class="shiny-plot-output" style="width:100%;height:400px;"></div></p>
 </div>
 
 
@@ -444,7 +404,7 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-  window.buildTabsets("TOC");
+  window.buildTabsets("section-TOC");
 });
 
 $(document).ready(function () {
