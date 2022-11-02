@@ -12,6 +12,7 @@ output:
 The aim of this work was to study the evolution of fruit size and weight together with the
 soluble solid and total titratable acidity contents with the patterns of accumulation of chlorophylls, carotenoids, phenols and antioxidant activity during ripening of *Hexachlamys edulis* fruits, to understand the optimal time and conditions needed to obtain maximum nutraceutical characteristics. Fruits were harvested from H. edulis plants growing at the experimental field of the University of Morón (Moreno, Buenos Aires, 34°35'4.98" SL, 58°48'52.09" WL, 14 m.a.s.l.).
 
+
 ```{r pressure, echo=FALSE, error=TRUE, fig.cap="A caption", out.width = '100%'}
 knitr::include_graphics("IMG_mat.jpg")
 ```
@@ -4035,6 +4036,17 @@ Se encontraron diferencias significativas.
 
 ## Almidón en peso seco
 
+M&M: se cuantificó almidón por el método del YODO según [Lage *et al.*, (1983)](https://www.researchgate.net/profile/Jesus-Simal-Lozano/publication/235700249_Determinacion_de_almidon_en_alimentos/links/02bfe513dc78894e15000000/Determinacion-de-almidon-en-alimentos.pdf)
+
++Reactivos
+- Acido perclórico 52% (w/w).
+- Solución de yodo-yoduro potásico: 20 g de yoduro potásico, disueltos en 20 ml de
+agua destilada y 2,0 g de yodo llevados a 1 litro.
+- Muestras de fruto de ubajay inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)
+
++Lectura en espectrofotómetro a 600nm
+
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -4201,39 +4213,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
-ggplot_the_response <- function(
-    fit, # model fit from lm, lmer, nlme, glmmTMB
-    fit_emm,
-    fit_pairs,
-    wrap_col = NULL,
-    x_label = "none",
-    y_label = "Response (units)",
-    g_label = NULL,
-    dots = "sina",
-    dodge_width = 0.8,
-    adjust = 0.5,
-    contrast_rows = "all",
-    y_pos = NULL,
-    palette = pal_okabe_ito,
-    legend_position = "top",
-    flip_horizontal = FALSE,
-    group_lines = FALSE  
-)
-
-m1_response_plot <- ggplot_the_response(
-  fit = mSTARCHs,
-  fit_emm = m1_emm,
-  fit_pairs = m1_simple,
-  palette = pal_okabe_ito_blue,
-  y_label = expression(paste("", l^-1, "")),
-  g_label = "none"
-)
-
-m1_response_plot
-
-
 ```
-
 
 ## Alimdón en peso fresco
 
