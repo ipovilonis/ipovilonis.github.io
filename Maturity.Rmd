@@ -3959,18 +3959,18 @@ Se encontraron diferencias significativas.
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+#gfs<-ggplot(data=DSTdata, aes(y=CONS,x=MAD, fill=MAD))+geom_point()
+
 library(nlme)
 
-mDST2s <- gls(CONS ~ MAD,
-              weights = varIdent(form=~1|MAD),
+mDST2s <- lm(CONS ~ MAD,
               data = DSTdata)
-mDST2s
 
 DSTs_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(mDST2s),
   "predichos" = predict(mDST2s)))
 
-DSTs_ajuste$CONF <- DSTdata$CONF
+DSTs_ajuste$CONS <- DSTdata$CONS
 
 library(ggplot2)
 HVDSTs<-ggplot(DSTs_ajuste) +

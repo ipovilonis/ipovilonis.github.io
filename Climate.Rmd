@@ -6,6 +6,70 @@ title: "Climate"
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+#Load library
+library(readxl)
 
+#Create object "datamet" which contains climate data
+datamet <- read_excel("database.xlsx", sheet = "datamet")
+#Delete unnecessary columns
+datamet<-datamet[,-c(9:28)]
+#
+datamet$site<-as.factor(datamet$site)
+datamet$year<-as.factor(datamet$year)
+datamet$date_long<-as.POSIXct(datamet$date_long,format="%m-%d-%Y")
+datamet$site<-factor(datamet$site,levels=c("concordia", "palmar","gualeguaychu"))
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadmet <- summarySE(datamet, measurevar="temp", groupvars=c("site","year", "month"))
+estadmet
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+c_month<-ggplot(estadmet, aes(x=month, y=temp, color=site, width=1)) +
+  geom_smooth(method = "gam",se=F,size=2)+
+  scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
+  facet_grid(year~.)+
+  labs(y="°C", x="Month")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")
+c_month
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadmet2 <- summarySE(datamet, measurevar="temp", groupvars=c("site","month","year"))
+estadmet2
+
+library(ggplot2)
+c_month2<-ggplot(estadmet, aes(x=month, y=temp, color=year, width=1)) +
+  geom_smooth(method = "gam",se=F,size=2)+
+  scale_color_manual(values=c("maroon4","dodgerblue4","deeppink"))+
+  facet_grid(site~.)+
+  labs(y="°C", x="Month")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  xlim(1,12)
+c_month2
 
 ```

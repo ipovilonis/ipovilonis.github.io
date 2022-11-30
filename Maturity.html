@@ -3024,23 +3024,6 @@ madurez</h3>
 <h3>Fibra Dietaria Soluble/Total %</h3>
 <div id="modelo-y-supuestos-27" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Generalized least squares fit by REML
-##   Model: CONS ~ MAD 
-##   Data: DSTdata 
-##   Log-restricted-likelihood: -24.61778
-## 
-## Coefficients:
-## (Intercept)       MADMM        MADM       MADSM 
-##   75.087368   -1.438961  -16.443943  -15.723256 
-## 
-## Variance function:
-##  Structure: Different standard deviations per stratum
-##  Formula: ~1 | MAD 
-##  Parameter estimates:
-##         I        MM         M        SM 
-## 1.0000000 0.1460416 0.9160737 1.7609506 
-## Degrees of freedom: 12 total; 8 residual
-## Residual standard error: 5.726178</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-175-1.png" width="960" style="display: block; margin: auto;" /><img src="Maturity_files/figure-html/unnamed-chunk-175-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
@@ -3050,33 +3033,35 @@ madurez</h3>
 </div>
 <div id="anova-38" class="section level4">
 <h4>Anova</h4>
-<pre><code>## Denom. DF: 8 
-##             numDF   F-value p-value
-## (Intercept)     1 24233.174  &lt;.0001
-## MAD             3     9.979  0.0044</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: CONS
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)  
+## MAD        3 712.05 237.351  5.8359 0.0206 *
+## Residuals  8 325.36  40.671                 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="test-de-tukey-26" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD   emmean       SE   df lower.CL upper.CL
-##  I   75.08737 3.306011 2.08 61.35328 88.82146
-##  MM  73.64841 0.482815 2.00 71.57099 75.72583
-##  M   58.64342 3.028549 2.09 46.13305 71.15380
-##  SM  59.36411 5.821721 2.00 34.30715 84.42107
+##  MAD   emmean       SE df lower.CL upper.CL
+##  I   75.08737 3.681962  8 66.59675 83.57799
+##  MM  73.64841 3.681962  8 65.15779 82.13903
+##  M   58.64342 3.681962  8 50.15281 67.13404
+##  SM  59.36411 3.681962  8 50.87349 67.85473
 ## 
-## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - MM    1.438961 3.341080 2.16  0.431  0.9680 
-##  I - M    16.443943 4.483505 3.97  3.668  0.0701 
-##  I - SM   15.723256 6.694934 3.19  2.349  0.2581 
-##  MM - M   15.004982 3.066793 2.20  4.893  0.0830 
-##  MM - SM  14.284295 5.841708 2.03  2.445  0.3059 
-##  M - SM   -0.720687 6.562359 3.01 -0.110  0.9994 
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM    1.438961 5.20708  8  0.276  0.9921 
+##  I - M    16.443943 5.20708  8  3.158  0.0532 
+##  I - SM   15.723256 5.20708  8  3.020  0.0647 
+##  MM - M   15.004982 5.20708  8  2.882  0.0786 
+##  MM - SM  14.284295 5.20708  8  2.743  0.0956 
+##  M - SM   -0.720687 5.20708  8 -0.138  0.9990 
 ## 
-## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Maturity_files/figure-html/unnamed-chunk-177-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
