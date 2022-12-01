@@ -2856,3 +2856,29 @@ anova(mresp2)
 
 ```
 
+## Respiration essay
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(readxl)
+datares <- read_excel("database.xlsx", sheet = "respiration")
+datares$site<-as.factor(datares$site)
+datares$time<-as.factor(datares$time)
+
+
+resp_barplot<-ggplot(data = datares, aes(x = time, y = respiration, color=site))+
+  geom_point(size=8)+
+  theme_classic()+
+  labs(y="ml CO2 / kg.h", x="Horas desde cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  scale_color_manual(values=c("blue2", "orange2"))
+resp_barplot
+```
