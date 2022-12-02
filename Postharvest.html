@@ -341,31 +341,22 @@ div.tocify {
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li class="dropdown-submenu">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Fruit</a>
-      <ul class="dropdown-menu" role="menu">
-        <li class="dropdown-submenu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Physics</a>
-          <ul class="dropdown-menu" role="menu">
-            <li>
-              <a href="Morphological.html">Morphological</a>
-            </li>
-            <li>
-              <a href="Colorimetry.html">Colorimetry</a>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <a href="Chemical.html">Chemical</a>
-        </li>
-        <li>
-          <a href="Multivariate.html">Multivariate</a>
-        </li>
-      </ul>
+    <li>
+      <a href="Morphological.html">Morphological</a>
+    </li>
+    <li>
+      <a href="Colorimetry.html">Colorimetry</a>
+    </li>
+    <li>
+      <a href="Chemical.html">Chemical</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="Reproductive.html">Reproductive</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Multivariate.html">Multivariate</a>
     </li>
     <li class="divider"></li>
   </ul>
@@ -410,7 +401,7 @@ div.tocify {
   </ul>
 </li>
 <li>
-  <a href="publications.html">Publishing Articles</a>
+  <a href="publications.html">Academic Publications</a>
 </li>
 <li>
   <a href="about.html">About</a>
@@ -1175,9 +1166,9 @@ tiempo.</p>
 <h4>Principal effects</h4>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>##  contrast  estimate         SE    df  lower.CL  upper.CL
-##  0 - 7    0.5794536 0.08049026 67.24 0.3865437 0.7723635
-##  0 - 14   0.9384849 0.07280629 54.06 0.7630281 1.1139417
-##  7 - 14   0.3590313 0.07551304 66.73 0.1780188 0.5400438
+##  0 - 7    0.5794536 0.08049026 67.29 0.3865467 0.7723605
+##  0 - 14   0.9384849 0.07280629 54.03 0.7630252 1.1139446
+##  7 - 14   0.3590313 0.07551304 67.45 0.1780629 0.5399998
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Degrees-of-freedom method: appx-satterthwaite 
@@ -1460,12 +1451,12 @@ O<sub>2</sub> for mature and immature fruits.</h3>
 ##   Log-restricted-likelihood: -167.0254
 ##   Fixed: CO2 ~ MAD * TIME 
 ##    (Intercept)      MADMaduro           TIME MADMaduro:TIME 
-##   3.366185e+06  -4.629857e+06  -2.015739e-03   2.772511e-03 
+##   3.366359e+06  -4.630096e+06  -2.015739e-03   2.772511e-03 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:    1.278455 13.67191
+## StdDev:    1.278449 13.67191
 ## 
 ## Number of Observations: 40
 ## Number of Groups: 2</code></pre>
@@ -1483,7 +1474,7 @@ O<sub>2</sub> for mature and immature fruits.</h3>
 <div id="anova-8" class="section level3">
 <h3>Anova</h3>
 <pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    35 919.3334  &lt;.0001
+## (Intercept)     1    35 919.3346  &lt;.0001
 ## MAD             1    35   5.2828  0.0276
 ## TIME            1    35   0.5704  0.4551
 ## MAD:TIME        1    35   2.7595  0.1056</code></pre>

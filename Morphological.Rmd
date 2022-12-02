@@ -791,51 +791,6 @@ ICCPSS
 
 ```
 
-# Plot % variation
-
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(readxl)
-varia<- read_excel("varfis.xlsx", sheet="ICC")
-library(dplyr)
-varia<-arrange(varia, ID)
-varia$TYPE<-as.factor(varia$TYPE)
-varia$VR<-as.factor(varia$VR)
-varia$LEVEL<-factor(varia$LEVEL,levels=c("POB", "IND","RES"))
-# varia$VR<-factor(varia$VR,levels=c("AAO", "PHE","CLO B","CAR", "CLO A","PROMQ","TTA", "TSS","TTA/ TSS","PFD", "FFW","DFW","EFD", "PROMF","DSW","SN"))
-
-# library(Rmisc)
-# resvaria <- summarySE(varia, measurevar="PORC", groupvars=c("REG","ACC"))
-# resvaria
-
-library(ggplot2)
-vargg1<-ggplot(varia, aes(x=VR,y=PORC,fill=LEVEL))+
-  stat_summary(fun = "mean", size = 1, geom = "bar",position="dodge", width=0.5) +
-  labs(x="", y="")+
-  facet_grid(TYPE~.)+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("red2","green3","gold")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))
-vargg1
-
-```
-
-
-
-
-
-
-
-
-
-
 # Comapración descriptiva entre años
 
 # Referencias
