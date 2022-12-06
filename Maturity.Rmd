@@ -4499,7 +4499,7 @@ colnames(FACO) <- c("MAD","Tartárico","Málico","Quínico" ,"Succínico","ACIDS
 FACO$Tartárico<-as.numeric(FACO$Tartárico)
 FACO$Málico<-as.numeric(FACO$Málico)
 
-library(GGally)
+library(c)
 GCORfaco<-ggpairs(FACO, columns = 2:7,lower = list(continuous = "points"))
 GCORfaco
 

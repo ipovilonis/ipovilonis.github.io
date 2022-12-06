@@ -2,45 +2,62 @@
 title: "Morphological"
 ---
 
-![The fruit](https://github.com/ipovilonis/ubajay.github.io/ipovilonis/blob/main/IMG_20201228_122058.jpg?raw=true)
+![The fruit](C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/test/ipovilonis.github.io)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
-data<- read_excel("varfis.xlsx", sheet="VAR")
+fisico<- read_excel("database.xlsx", sheet="fisico")
 
-
-data$YEAR<-as.factor(data$YEAR)
-data$ACC<-as.factor(data$ACC)
-data$REG<-factor(data$REG,levels=c("Concordia", "Palmar","Gualeguaychu"))
-data$PSS<-as.numeric(data$PSS)
-data19F<-subset(data, YEAR == "2019")
+fisico$year<-as.factor(fisico$year)
+fisico$phenotype<-as.factor(fisico$phenotype)
+fisico$site<-factor(fisico$site,levels=c("concordia", "palmar","gualeguaychu"))
+fisico$n<-as.factor(fisico$n)
+fisico$pss<-as.numeric(fisico$pss)
+fisico$mad<-as.numeric(fisico$mad)
+data19F<-subset(fisico, year == "2019")
 
 ```
 
-# Indice de madurez
+# Average fruit
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-data<-read.delim("varqui.txt")
-data$YEAR<-as.factor(data$YEAR)
-data$ACC<-as.factor(data$ACC)
-data$REG<-factor(data$REG,levels=c("Concordia", "Palmar","Gualeguaychu"))
-data19Q<-subset(data, YEAR == "2019")
+
+# library(tidyr)
+# fisico %>% drop_na()
+
+variable<-c("Fresh fruit weight","Dry fruit weight","Dry seed weight","Dry pulp weight", "Dry pulp/fresh fruit weight (%)")
+means<-c(mean(fisico$pff), (mean(fisico$psf, na.rm=T)), (mean(fisico$pss, na.rm=T)),((mean(fisico$psf, na.rm=T))-(mean(fisico$pss, na.rm=T))), (0.6311753*100/18.5236420))
+
+fruit<-data.frame(variable,means)
+fruit
+```
+
+# Maturity index
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read_excel("database.xlsx", sheet="varqui")
+data$year<-as.factor(data$year)
+data$phenotype<-as.factor(data$phenotype)
+data$site<-factor(data$site,levels=c("concordia", "palmar","gualeguaychu"))
+data19Q<-subset(data, year == "2019")
 
 library(Rmisc)
-resINDMAD <- summarySE(data19Q, measurevar="INDMAD", groupvars=c("REG","ACC"), na.rm = TRUE)
-resINDMAD
+resindmad <- summarySE(data19Q, measurevar="indmad", groupvars=c("site","phenotype"), na.rm = TRUE)
+resindmad
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-gINDMAD<-ggplot(data=resINDMAD, aes(x=ACC, y=INDMAD, fill=REG))+
+gindmad<-ggplot(data=resindmad, aes(x=phenotype, y=indmad, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=INDMAD-sd, ymax=INDMAD+sd),
+  geom_errorbar(aes(ymin=indmad-sd, ymax=indmad+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~REG)+
+  # facet_grid(.~site)+
   labs(x="", y="Fruit Maturity Index")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
@@ -51,31 +68,31 @@ gINDMAD<-ggplot(data=resINDMAD, aes(x=ACC, y=INDMAD, fill=REG))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gINDMAD
+gindmad
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataINDMAD <- data19Q[!is.na(data19Q$INDMAD),]
+dataindmad <- data19Q[!is.na(data19Q$indmad),]
 
 library(lme4)
 library(lmerTest)
 
-mINDMAD<- lmer((INDMAD) ~ 1 + (1|REG/ACC), dataINDMAD)
+mindmad<- lmer((indmad) ~ 1 + (1|site/phenotype), dataindmad)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-# INDMAD_ajuste <- as.data.frame(cbind(
-#   "residuos" = residuals(mINDMAD),
-#   "predichos" = predict(mINDMAD)))
+# indmad_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mindmad),
+#   "predichos" = predict(mindmad)))
 # 
-# INDMAD_ajuste$INDMAD <- dataINDMAD$INDMAD
+# indmad_ajuste$indmad <- dataindmad$indmad
 # 
 # library(ggplot2)
-# HVINDMAD<-ggplot(INDMAD_ajuste) +
+# HVindmad<-ggplot(indmad_ajuste) +
 #   aes(predichos, residuos) +
 #   geom_hline(yintercept = 0, colour="white", size=2) +
 #   geom_point(colour="white")+
@@ -88,9 +105,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# HVINDMAD
+# HVindmad
 # 
-# QQINDMAD<-ggplot(INDMAD_ajuste) +
+# QQindmad<-ggplot(indmad_ajuste) +
 #   aes(sample = residuos) +
 #   geom_qq(shape = 1, colour="white") +
 #   geom_qq_line(colour="white")+
@@ -103,11 +120,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# QQINDMAD
+# QQindmad
 # 
-# e<-resid(mINDMAD) # residuos de pearson
-# # pre<-predict(mINDMAD) #predichos
-# # alfai<-ranef(mINDMAD)$REP$'(Intercept)'
+# e<-resid(mindmad) # residuos de pearson
+# # pre<-predict(mindmad) #predichos
+# # alfai<-ranef(mindmad)$REP$'(Intercept)'
 # shapiro.test(e)
 
 # OK
@@ -116,45 +133,45 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-summary(mINDMAD)
+summary(mindmad)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
-FRUpINDMAD<-(summary(mINDMAD)$sigma)^2
-ACCpINDMAD<-as.numeric(VarCorr(mINDMAD)$"ACC:REG")
-REGpINDMAD<-as.numeric(VarCorr(mINDMAD)$"REG")
+FRUpindmad<-(summary(mindmad)$sigma)^2
+phenotypepindmad<-as.numeric(VarCorr(mindmad)$"phenotype:site")
+sitepindmad<-as.numeric(VarCorr(mindmad)$"site")
 
-ICCfINDMAD<-FRUpINDMAD/(FRUpINDMAD+ACCpINDMAD+REGpINDMAD)
-ICCaINDMAD<-(ACCpINDMAD)/(FRUpINDMAD+ACCpINDMAD+REGpINDMAD)
-ICCrINDMAD<-REGpINDMAD/(FRUpINDMAD+ACCpINDMAD+REGpINDMAD)
-ICCINDMAD<-performance::icc(mINDMAD)
+ICCfindmad<-FRUpindmad/(FRUpindmad+phenotypepindmad+sitepindmad)
+ICCaindmad<-(phenotypepindmad)/(FRUpindmad+phenotypepindmad+sitepindmad)
+ICCrindmad<-sitepindmad/(FRUpindmad+phenotypepindmad+sitepindmad)
+ICCindmad<-performance::icc(mindmad)
   
-ICCfINDMAD*100
-ICCaINDMAD*100
-ICCrINDMAD*100
-ICCINDMAD
+ICCfindmad*100
+ICCaindmad*100
+ICCrindmad*100
+ICCindmad
 
 ```
 
-# PFF 2019
+# pff 2019
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resPFF <- summarySE(data19F, measurevar="PFF", groupvars=c("REG","ACC"), na.rm = TRUE)
-resPFF
+respff <- summarySE(data19F, measurevar="pff", groupvars=c("site","phenotype"), na.rm = TRUE)
+respff
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-gPFF<-ggplot(data=resPFF, aes(x=ACC, y=PFF, fill=REG))+
+gpff<-ggplot(data=respff, aes(x=phenotype, y=pff, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=PFF-sd, ymax=PFF+sd),
+  geom_errorbar(aes(ymin=pff-sd, ymax=pff+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~REG)+
+  # facet_grid(.~site)+
   labs(x="", y="Fresh fruit weight [g]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
@@ -165,35 +182,35 @@ gPFF<-ggplot(data=resPFF, aes(x=ACC, y=PFF, fill=REG))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gPFF
+gpff
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataPFF <- data19F[!is.na(data19F$PFF),]
+datapff <- data19F[!is.na(data19F$pff),]
 
 library(lme4)
 library(lmerTest)
 
-mPFF<- lmer(sqrt(PFF) ~ 1 + (1|REG/ACC), dataPFF)
-
-library(nlme)
-mPFF2<- lme(sqrt(PFF) ~ 1, random =∼ 1 | REG/ACC, dataPFF)
+mpff<- lmer(sqrt(pff) ~ 1 + (1|site/phenotype), datapff)
+# 
+# library(nlme)
+# mpff2<- lme(sqrt(pff) ~ 1, random = 1 | site/phenotype, datapff)
 
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-# PFF_ajuste <- as.data.frame(cbind(
-#   "residuos" = residuals(mPFF),
-#   "predichos" = predict(mPFF)))
+# pff_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mpff),
+#   "predichos" = predict(mpff)))
 # 
-# PFF_ajuste$PFF <- dataPFF$PFF
+# pff_ajuste$pff <- datapff$pff
 # 
 # library(ggplot2)
-# HVPFF<-ggplot(PFF_ajuste) +
+# HVpff<-ggplot(pff_ajuste) +
 #   aes(predichos, residuos) +
 #   geom_hline(yintercept = 0, colour="white", size=2) +
 #   geom_point(colour="white")+
@@ -206,9 +223,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# HVPFF
+# HVpff
 # 
-# QQPFF<-ggplot(PFF_ajuste) +
+# QQpff<-ggplot(pff_ajuste) +
 #   aes(sample = residuos) +
 #   geom_qq(shape = 1, colour="white") +
 #   geom_qq_line(colour="white")+
@@ -221,11 +238,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# QQPFF
+# QQpff
 # 
-# e<-resid(mPFF) # residuos de pearson
-# # pre<-predict(mPFF) #predichos
-# # alfai<-ranef(mPFF)$REP$'(Intercept)'
+# e<-resid(mpff) # residuos de pearson
+# # pre<-predict(mpff) #predichos
+# # alfai<-ranef(mpff)$REP$'(Intercept)'
 # shapiro.test(e)
 
 # OK
@@ -234,52 +251,52 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-summary(mPFF)
+summary(mpff)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-# summary(mPFF2)
+# summary(mpff2)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
-FRUpPFF<-(summary(mPFF)$sigma)^2 #Ruido/error aleatorio
-ACCpPFF<-as.numeric(VarCorr(mPFF)$"ACC:REG") #Variación entre ind de una misma región
-REGpPFF<-as.numeric(VarCorr(mPFF)$"REG") #Variación entre regiones
+FRUppff<-(summary(mpff)$sigma)^2 #Ruido/error aleatorio
+phenotypeppff<-as.numeric(VarCorr(mpff)$"phenotype:site") #Variación entre ind de una misma siteión
+siteppff<-as.numeric(VarCorr(mpff)$"site") #Variación entre siteiones
 
-ICCfPFF<-FRUpPFF/(FRUpPFF+ACCpPFF+REGpPFF)
-ICCaPFF<-(ACCpPFF)/(FRUpPFF+ACCpPFF+REGpPFF)
-ICCrPFF<-REGpPFF/(FRUpPFF+ACCpPFF+REGpPFF)
-ICCPFF<-performance::icc(mPFF)
-ICCaccPFF<-(ACCpPFF+REGpPFF)/(FRUpPFF+ACCpPFF+REGpPFF)
+ICCfpff<-FRUppff/(FRUppff+phenotypeppff+siteppff)
+ICCapff<-(phenotypeppff)/(FRUppff+phenotypeppff+siteppff)
+ICCrpff<-siteppff/(FRUppff+phenotypeppff+siteppff)
+ICCpff<-performance::icc(mpff)
+ICCphenotypepff<-(phenotypeppff+siteppff)/(FRUppff+phenotypeppff+siteppff)
   
-ICCfPFF*100
-ICCaPFF*100
-ICCrPFF*100
-ICCPFF
-ICCaccPFF
+ICCfpff*100
+ICCapff*100
+ICCrpff*100
+ICCpff
+ICCphenotypepff
 ```
 
 
-# PSF 2019
+# psf 2019
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resPSF <- summarySE(data19F, measurevar="PSF", groupvars=c("REG","ACC"), na.rm = TRUE)
-resPSF
+respsf <- summarySE(data19F, measurevar="psf", groupvars=c("site","phenotype"), na.rm = TRUE)
+respsf
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-gPSF<-ggplot(data=resPSF, aes(x=ACC, y=PSF, fill=REG))+
+gpsf<-ggplot(data=respsf, aes(x=phenotype, y=psf, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=PSF-sd, ymax=PSF+sd),
+  geom_errorbar(aes(ymin=psf-sd, ymax=psf+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~REG)+
+  # facet_grid(.~site)+
   labs(x="", y="Dry fruit weight [g]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
@@ -290,31 +307,31 @@ gPSF<-ggplot(data=resPSF, aes(x=ACC, y=PSF, fill=REG))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gPSF
+gpsf
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataPSF <- data19F[!is.na(data19F$PSF),]
+datapsf <- data19F[!is.na(data19F$psf),]
 
 library(lme4)
 library(lmerTest)
 
-mPSF<- lmer((PSF)^(1/2) ~ 1 + (1|REG/ACC), dataPSF)
+mpsf<- lmer((psf)^(1/2) ~ 1 + (1|site/phenotype), datapsf)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-# PSF_ajuste <- as.data.frame(cbind(
-#   "residuos" = residuals(mPSF),
-#   "predichos" = predict(mPSF)))
+# psf_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mpsf),
+#   "predichos" = predict(mpsf)))
 # 
-# PSF_ajuste$PSF <- dataPSF$PSF
+# psf_ajuste$psf <- datapsf$psf
 # 
 # library(ggplot2)
-# HVPSF<-ggplot(PSF_ajuste) +
+# HVpsf<-ggplot(psf_ajuste) +
 #   aes(predichos, residuos) +
 #   geom_hline(yintercept = 0, colour="white", size=2) +
 #   geom_point(colour="white")+
@@ -327,9 +344,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# HVPSF
+# HVpsf
 # 
-# QQPSF<-ggplot(PSF_ajuste) +
+# QQpsf<-ggplot(psf_ajuste) +
 #   aes(sample = residuos) +
 #   geom_qq(shape = 1, colour="white") +
 #   geom_qq_line(colour="white")+
@@ -342,11 +359,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# QQPSF
+# QQpsf
 # 
-# e<-resid(mPSF) # residuos de pearson
-# # pre<-predict(mPSF) #predichos
-# # alfai<-ranef(mPSF)$REP$'(Intercept)'
+# e<-resid(mpsf) # residuos de pearson
+# # pre<-predict(mpsf) #predichos
+# # alfai<-ranef(mpsf)$REP$'(Intercept)'
 # shapiro.test(e)
 
 # OK
@@ -355,46 +372,46 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-summary(mPSF)
+summary(mpsf)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
-FRUpPSF<-(summary(mPSF)$sigma)^2
-ACCpPSF<-as.numeric(VarCorr(mPSF)$"ACC:REG")
-REGpPSF<-as.numeric(VarCorr(mPSF)$"REG")
+FRUppsf<-(summary(mpsf)$sigma)^2
+phenotypeppsf<-as.numeric(VarCorr(mpsf)$"phenotype:site")
+siteppsf<-as.numeric(VarCorr(mpsf)$"site")
 
-ICCfPSF<-FRUpPSF/(FRUpPSF+ACCpPSF+REGpPSF)
-ICCaPSF<-(ACCpPSF)/(FRUpPSF+ACCpPSF+REGpPSF)
-ICCrPSF<-REGpPSF/(FRUpPSF+ACCpPSF+REGpPSF)
-ICCPSF<-performance::icc(mPSF)
+ICCfpsf<-FRUppsf/(FRUppsf+phenotypeppsf+siteppsf)
+ICCapsf<-(phenotypeppsf)/(FRUppsf+phenotypeppsf+siteppsf)
+ICCrpsf<-siteppsf/(FRUppsf+phenotypeppsf+siteppsf)
+ICCpsf<-performance::icc(mpsf)
   
-ICCfPSF*100
-ICCaPSF*100
-ICCrPSF*100
-ICCPSF
+ICCfpsf*100
+ICCapsf*100
+ICCrpsf*100
+ICCpsf
 
 ```
 
-# DE 2019
+# de 2019
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resDE <- summarySE(data19F, measurevar="DE", groupvars=c("REG","ACC"), na.rm = TRUE)
-resDE
+resde <- summarySE(data19F, measurevar="de", groupvars=c("site","phenotype"), na.rm = TRUE)
+resde
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-gDE<-ggplot(data=resDE, aes(x=ACC, y=DE, fill=REG))+
+gde<-ggplot(data=resde, aes(x=phenotype, y=de, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=DE-sd, ymax=DE+sd),
+  geom_errorbar(aes(ymin=de-sd, ymax=de+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~REG)+
-  labs(x="", y="Dry fruit weight [g]")+
+  # facet_grid(.~site)+
+  labs(x="", y="Ecuatorial diametrer [mm]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_fill_manual(values = colores) +
@@ -404,31 +421,31 @@ gDE<-ggplot(data=resDE, aes(x=ACC, y=DE, fill=REG))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gDE
+gde
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataDE <- data19F[!is.na(data19F$DE),]
+datade <- data19F[!is.na(data19F$de),]
 
 library(lme4)
 library(lmerTest)
 
-mDE<- lmer((DE) ~ 1 + (1|REG/ACC), dataDE)
+mde<- lmer((de) ~ 1 + (1|site/phenotype), datade)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-# DE_ajuste <- as.data.frame(cbind(
-#   "residuos" = residuals(mDE),
-#   "predichos" = predict(mDE)))
+# de_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mde),
+#   "predichos" = predict(mde)))
 # 
-# DE_ajuste$DE <- dataDE$DE
+# de_ajuste$de <- datade$de
 # 
 # library(ggplot2)
-# HVDE<-ggplot(DE_ajuste) +
+# HVde<-ggplot(de_ajuste) +
 #   aes(predichos, residuos) +
 #   geom_hline(yintercept = 0, colour="white", size=2) +
 #   geom_point(colour="white")+
@@ -441,9 +458,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# HVDE
+# HVde
 # 
-# QQDE<-ggplot(DE_ajuste) +
+# QQde<-ggplot(de_ajuste) +
 #   aes(sample = residuos) +
 #   geom_qq(shape = 1, colour="white") +
 #   geom_qq_line(colour="white")+
@@ -456,11 +473,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# QQDE
+# QQde
 # 
-# e<-resid(mDE) # residuos de pearson
-# # pre<-predict(mDE) #predichos
-# # alfai<-ranef(mDE)$REP$'(Intercept)'
+# e<-resid(mde) # residuos de pearson
+# # pre<-predict(mde) #predichos
+# # alfai<-ranef(mde)$REP$'(Intercept)'
 # shapiro.test(e)
 
 # OK
@@ -469,46 +486,46 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-summary(mDE)
+summary(mde)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
-FRUpDE<-(summary(mDE)$sigma)^2
-ACCpDE<-as.numeric(VarCorr(mDE)$"ACC:REG")
-REGpDE<-as.numeric(VarCorr(mDE)$"REG")
+FRUpde<-(summary(mde)$sigma)^2
+phenotypepde<-as.numeric(VarCorr(mde)$"phenotype:site")
+sitepde<-as.numeric(VarCorr(mde)$"site")
 
-ICCfDE<-FRUpDE/(FRUpDE+ACCpDE+REGpDE)
-ICCaDE<-(ACCpDE)/(FRUpDE+ACCpDE+REGpDE)
-ICCrDE<-REGpDE/(FRUpDE+ACCpDE+REGpDE)
-ICCDE<-performance::icc(mDE)
+ICCfde<-FRUpde/(FRUpde+phenotypepde+sitepde)
+ICCade<-(phenotypepde)/(FRUpde+phenotypepde+sitepde)
+ICCrde<-sitepde/(FRUpde+phenotypepde+sitepde)
+ICCde<-performance::icc(mde)
   
-ICCfDE*100
-ICCaDE*100
-ICCrDE*100
-ICCDE
+ICCfde*100
+ICCade*100
+ICCrde*100
+ICCde
 
 ```
 
-# DP 2019
+# dp 2019
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resDP <- summarySE(data19F, measurevar="DP", groupvars=c("REG","ACC"), na.rm = TRUE)
-resDP
+resdp <- summarySE(data19F, measurevar="dp", groupvars=c("site","phenotype"), na.rm = TRUE)
+resdp
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-gDP<-ggplot(data=resDP, aes(x=ACC, y=DP, fill=REG))+
+gdp<-ggplot(data=resdp, aes(x=phenotype, y=dp, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=DP-sd, ymax=DP+sd),
+  geom_errorbar(aes(ymin=dp-sd, ymax=dp+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~REG)+
-  labs(x="", y="Dry fruit weight [g]")+
+  # facet_grid(.~site)+
+  labs(x="", y="polar diameter [mm]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_fill_manual(values = colores) +
@@ -518,31 +535,31 @@ gDP<-ggplot(data=resDP, aes(x=ACC, y=DP, fill=REG))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gDP
+gdp
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataDP <- data19F[!is.na(data19F$DP),]
+datadp <- data19F[!is.na(data19F$dp),]
 
 library(lme4)
 library(lmerTest)
 
-mDP<- lmer((DP) ~ 1 + (1|REG/ACC), dataDP)
+mdp<- lmer((dp) ~ 1 + (1|site/phenotype), datadp)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-# DP_ajuste <- as.data.frame(cbind(
-#   "residuos" = residuals(mDP),
-#   "predichos" = predict(mDP)))
+# dp_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mdp),
+#   "predichos" = predict(mdp)))
 # 
-# DP_ajuste$DP <- dataDP$DP
+# dp_ajuste$dp <- datadp$dp
 # 
 # library(ggplot2)
-# HVDP<-ggplot(DP_ajuste) +
+# HVdp<-ggplot(dp_ajuste) +
 #   aes(predichos, residuos) +
 #   geom_hline(yintercept = 0, colour="white", size=2) +
 #   geom_point(colour="white")+
@@ -555,9 +572,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# HVDP
+# HVdp
 # 
-# QQDP<-ggplot(DP_ajuste) +
+# QQdp<-ggplot(dp_ajuste) +
 #   aes(sample = residuos) +
 #   geom_qq(shape = 1, colour="white") +
 #   geom_qq_line(colour="white")+
@@ -570,11 +587,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# QQDP
+# QQdp
 # 
-# e<-resid(mDP) # residuos de pearson
-# # pre<-predict(mDP) #predichos
-# # alfai<-ranef(mDP)$REP$'(Intercept)'
+# e<-resid(mdp) # residuos de pearson
+# # pre<-predict(mdp) #predichos
+# # alfai<-ranef(mdp)$REP$'(Intercept)'
 # shapiro.test(e)
 
 # OK
@@ -583,46 +600,46 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-summary(mDP)
+summary(mdp)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
-FRUpDP<-(summary(mDP)$sigma)^2
-ACCpDP<-as.numeric(VarCorr(mDP)$"ACC:REG")
-REGpDP<-as.numeric(VarCorr(mDP)$"REG")
+FRUpdp<-(summary(mdp)$sigma)^2
+phenotypepdp<-as.numeric(VarCorr(mdp)$"phenotype:site")
+sitepdp<-as.numeric(VarCorr(mdp)$"site")
 
-ICCfDP<-FRUpDP/(FRUpDP+ACCpDP+REGpDP)
-ICCaDP<-(ACCpDP)/(FRUpDP+ACCpDP+REGpDP)
-ICCrDP<-REGpDP/(FRUpDP+ACCpDP+REGpDP)
-ICCDP<-performance::icc(mDP)
+ICCfdp<-FRUpdp/(FRUpdp+phenotypepdp+sitepdp)
+ICCadp<-(phenotypepdp)/(FRUpdp+phenotypepdp+sitepdp)
+ICCrdp<-sitepdp/(FRUpdp+phenotypepdp+sitepdp)
+ICCdp<-performance::icc(mdp)
   
-ICCfDP*100
-ICCaDP*100
-ICCrDP*100
-ICCDP
+ICCfdp*100
+ICCadp*100
+ICCrdp*100
+ICCdp
 
 ```
 
-# NS 2019
+# ns 2019
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resNS <- summarySE(data19F, measurevar="NS", groupvars=c("REG","ACC"), na.rm = TRUE)
-resNS
+resns <- summarySE(data19F, measurevar="ns", groupvars=c("site","phenotype"), na.rm = TRUE)
+resns
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-gNS<-ggplot(data=resNS, aes(x=ACC, y=NS, fill=REG))+
+gns<-ggplot(data=resns, aes(x=phenotype, y=ns, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=NS-sd, ymax=NS+sd),
+  geom_errorbar(aes(ymin=ns-sd, ymax=ns+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~REG)+
-  labs(x="", y="Dry fruit weight [g]")+
+  # facet_grid(.~site)+
+  labs(x="", y="Seed number")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_fill_manual(values = colores) +
@@ -632,17 +649,17 @@ gNS<-ggplot(data=resNS, aes(x=ACC, y=NS, fill=REG))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gNS
+gns
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataNS <- data19F[!is.na(data19F$NS),]
-
-
-library(glmmTMB)
-mNS<- glmmTMB((NS) ~ 1 + (1|REG/ACC), dataNS, family="compois")
+# datans <- data19F[!is.na(data19F$ns),]
+# 
+# 
+# library(glmmTMB)
+# mns<- glmmTMB((ns) ~ 1 + (1|site/phenotype), data19F, family="compois")
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -654,46 +671,46 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-summary(mNS)
+# summary(mns)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
-FRUpNS<-(summary(mNS)$sigma)^2
-ACCpNS<-0.01333
-REGpNS<-1.199e-10
-
-ICCfNS<-FRUpNS/(FRUpNS+ACCpNS+REGpNS)
-ICCaNS<-(ACCpNS)/(FRUpNS+ACCpNS+REGpNS)
-ICCrNS<-REGpNS/(FRUpNS+ACCpNS+REGpNS)
-ICCNS<-ICCaNS-ICCrNS
-  
-ICCfNS*100
-ICCaNS*100
-ICCrNS*100
-ICCNS
+# FRUpns<-(summary(mns)$sigma)^2
+# phenotypepns<-0.01333
+# sitepns<-1.199e-10
+# 
+# ICCfns<-FRUpns/(FRUpns+phenotypepns+sitepns)
+# ICCans<-(phenotypepns)/(FRUpns+phenotypepns+sitepns)
+# ICCrns<-sitepns/(FRUpns+phenotypepns+sitepns)
+# ICCns<-ICCans-ICCrns
+#   
+# ICCfns*100
+# ICCans*100
+# ICCrns*100
+# ICCns
 
 ```
 
-# PSS 2019
+# pss 2019
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resPSS <- summarySE(data19F, measurevar="PSS", groupvars=c("REG","ACC"))
-resPSS
+respss <- summarySE(data19F, measurevar="pss", groupvars=c("site","phenotype"))
+respss
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-gPSS<-ggplot(data=resPSS, aes(x=ACC, y=PSS, fill=REG))+
+gpss<-ggplot(data=respss, aes(x=phenotype, y=pss, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=PSS-sd, ymax=PSS+sd),
+  geom_errorbar(aes(ymin=pss-sd, ymax=pss+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~REG)+
-  labs(x="", y="Dry fruit weight [g]")+
+  # facet_grid(.~site)+
+  labs(x="", y="Dry seed weight [g]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_fill_manual(values = colores) +
@@ -703,31 +720,31 @@ gPSS<-ggplot(data=resPSS, aes(x=ACC, y=PSS, fill=REG))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gPSS
+gpss
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataPSS <- data19F[!is.na(data19F$PSS),]
+datapss <- data19F[!is.na(data19F$pss),]
 
 library(lme4)
 library(lmerTest)
 
-mPSS<- lmer(sqrt(PSS) ~ 1 + (1|REG/ACC), dataPSS)
+mpss<- lmer(sqrt(pss) ~ 1 + (1|site/phenotype), datapss)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-# PSS_ajuste <- as.data.frame(cbind(
-#   "residuos" = residuals(mPSS),
-#   "predichos" = predict(mPSS)))
+# pss_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mpss),
+#   "predichos" = predict(mpss)))
 # 
-# PSS_ajuste$PSS <- dataPSS$PSS
+# pss_ajuste$pss <- datapss$pss
 # 
 # library(ggplot2)
-# HVPSS<-ggplot(PSS_ajuste) +
+# HVpss<-ggplot(pss_ajuste) +
 #   aes(predichos, residuos) +
 #   geom_hline(yintercept = 0, colour="white", size=2) +
 #   geom_point(colour="white")+
@@ -740,9 +757,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# HVPSS
+# HVpss
 # 
-# QQPSS<-ggplot(PSS_ajuste) +
+# QQpss<-ggplot(pss_ajuste) +
 #   aes(sample = residuos) +
 #   geom_qq(shape = 1, colour="white") +
 #   geom_qq_line(colour="white")+
@@ -755,11 +772,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   theme(axis.text = element_text(color='white'))+
 #   theme(plot.background = element_rect(fill = "gray12"))+
 #   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-# QQPSS
+# QQpss
 # 
-# e<-resid(mPSS) # residuos de pearson
-# # pre<-predict(mPSS) #predichos
-# # alfai<-ranef(mPSS)$REP$'(Intercept)'
+# e<-resid(mpss) # residuos de pearson
+# # pre<-predict(mpss) #predichos
+# # alfai<-ranef(mpss)$REP$'(Intercept)'
 # shapiro.test(e)
 
 # OK
@@ -768,26 +785,26 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-summary(mPSS)
+summary(mpss)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
-FRUpPSS<-(summary(mPSS)$sigma)^2
-ACCpPSS<-as.numeric(VarCorr(mPSS)$"ACC:REG")
-REGpPSS<-as.numeric(VarCorr(mPSS)$"REG")
-
-ICCfPSS<-FRUpPSS/(FRUpPSS+ACCpPSS+REGpPSS)
-ICCaPSS<-(ACCpPSS)/(FRUpPSS+ACCpPSS+REGpPSS)
-ICCrPSS<-REGpPSS/(FRUpPSS+ACCpPSS+REGpPSS)
-ICCPSS<-performance::icc(mPSS)
-  
-ICCfPSS*100
-ICCaPSS*100
-ICCrPSS*100
-ICCPSS
+# FRUppss<-(summary(mpss)$sigma)^2
+# phenotypeppss<-as.numeric(VarCorr(mpss)$"phenotype:site")
+# siteppss<-as.numeric(VarCorr(mpss)$"site")
+# 
+# ICCfpss<-FRUppss/(FRUppss+phenotypeppss+siteppss)
+# ICCapss<-(phenotypeppss)/(FRUppss+phenotypeppss+siteppss)
+# ICCrpss<-siteppss/(FRUppss+phenotypeppss+siteppss)
+# ICCpss<-performance::icc(mpss)
+#   
+# ICCfpss*100
+# ICCapss*100
+# ICCrpss*100
+# ICCpss
 
 ```
 
@@ -795,24 +812,24 @@ ICCPSS
 
 # Referencias
 
-* **PFF** Peso fresco del fruto
-* **DE** Diámetro ecuatorial
-* **DP** Diámetro polar
+* **pff** Peso fresco del fruto
+* **de** Diámetro ecuatorial
+* **dp** Diámetro polar
 * **PEN** Resistencia a la penetración
-* **PSF** Peso seco del fruto
-* **PSS** Peso seco semilla
+* **psf** Peso seco del fruto
+* **pss** Peso seco semilla
 * **IM** Índice de madurez
 
-# **PFF** Peso fresco del fruto
+# **pff** Peso fresco del fruto
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 
-datamorf<-read.delim("datamorf.txt")
+datamorf<-read_excel("database.xlsx", sheet="datamorf")
 
-datamorf$YEAR<-as.factor(datamorf$YEAR)
-datamorf$REG<-factor(datamorf$REG,levels=c("Concordia", "Palmar", "Gualeguaychu"))
-datamorf$ACC<-as.factor(datamorf$ACC)
+datamorf$year<-as.factor(datamorf$year)
+datamorf$site<-factor(datamorf$site,levels=c("concordia", "palmar", "gualeguaychu"))
+datamorf$phenotype<-as.factor(datamorf$phenotype)
 
 
 ```
@@ -822,18 +839,18 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 
 library(Rmisc)
-estpff <- summarySE(datamorf, measurevar="PFF", groupvars=c("YEAR","REG"))
+estpff <- summarySE(datamorf, measurevar="pff", groupvars=c("year","site"))
 estpff
 
 library(ggplot2)
-gw<-ggplot(estpff, aes(x=REG,y=PFF,fill=YEAR))+
+gw<-ggplot(estpff, aes(x=site,y=pff,fill=year))+
   geom_bar(stat="identity", position="dodge", size=2, width = 0.5)+
-  geom_errorbar(aes(ymin=PFF-se, ymax=PFF+se),
+  geom_errorbar(aes(ymin=pff-se, ymax=pff+se),
                 width=.2, position=position_dodge(0.5)) +
   theme_classic()+
-  labs(y="Weigth (g)", x="")+
+  labs(y="Fresh Fruit Weigth (g)", x="")+
   # scale_color_manual(values = c("cyan2","burlywood2","palegreen4"))+
-  scale_fill_manual(values = c("coral","green4"))+
+  scale_fill_manual(values = c("coral","green4","blue"))+
   theme(text = element_text(size=20))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
@@ -850,25 +867,25 @@ gw
 The bars indicate standard deviation.
 The dashed red line indicates the mean.
 
-# **DE** Diámetro ecuatorial
+# **de** Diámetro ecuatorial
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 
 library(Rmisc)
-estde <- summarySE(datamorf, measurevar="DE", groupvars=c("YEAR","REG"))
+estde <- summarySE(datamorf, measurevar="de", groupvars=c("year","site"))
 estde
 
 library(ggplot2)
-gde<-ggplot(estde, aes(x=REG,y=DE,fill=YEAR))+
+gde<-ggplot(estde, aes(x=site,y=de,fill=year))+
   geom_bar(stat="identity", position="dodge", size=2, width = 0.5)+
-  geom_errorbar(aes(ymin=DE-se, ymax=DE+se),
+  geom_errorbar(aes(ymin=de-se, ymax=de+se),
                 width=.2, position=position_dodge(0.5)) +
   theme_classic()+
   labs(y="Ecuatorial diameter (mm)", x="")+
   # scale_color_manual(values = c("cyan2","burlywood2","palegreen4"))+
-  scale_fill_manual(values = c("coral","green4"))+
+  scale_fill_manual(values = c("coral","green4","blue"))+
   theme(text = element_text(size=20))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
