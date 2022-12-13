@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>madCarbohydrates</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Hexachlamys edulis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="genotypes.html">Phenotypes</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Variability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Morphological.html">Morphological</a>
+    </li>
+    <li>
+      <a href="Colorimetry.html">Colorimetry</a>
+    </li>
+    <li>
+      <a href="Chemical.html">Chemical</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Reproductive.html">Reproductive</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Multivariate.html">Multivariate</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Maturity
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Maturity.html">Summary tables</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Physical variables</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Antioxidant Activity</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Organic Acids</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohydrates</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Dietary Fiber</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cations</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Essays
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Phenology.html">Phenology</a>
+    </li>
+    <li>
+      <a href="Polinization.html">Polinization</a>
+    </li>
+    <li>
+      <a href="Branches.html">Branches</a>
+    </li>
+    <li>
+      <a href="Yield.html">Yield</a>
+    </li>
+    <li>
+      <a href="Postharvest.html">Postharvest</a>
+    </li>
+    <li>
+      <a href="Companionspecies.html">Companion species</a>
+    </li>
+    <li>
+      <a href="Climate.html">Climate</a>
+    </li>
+    <li>
+      <a href="Soil.html">Soil</a>
+    </li>
+    <li>
+      <a href="Genetics.html">Genetics</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Academic Publications</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">madCarbohydrates</h1>
+
+</div>
+
+
+<div id="carbohidratos-en-peso-fresco" class="section level2">
+<h2>Carbohidratos en peso fresco</h2>
+<div id="concentración-de-sacáridos-a-distintos-estados-de-madurez"
+class="section level3">
+<h3>Concentración de sacáridos a distintos estados de madurez</h3>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="tabla-descriptiva" class="section level4">
+<h4>Tabla descriptiva</h4>
+<pre><code>##         CAR MAD N        CONS          sd           se          ci
+## 1  Sacarosa   I 6  21.2063923 12.26720656  5.008066106 12.87364376
+## 2  Sacarosa  MM 6  77.7896157 12.58924796  5.139538960 13.21160549
+## 3  Sacarosa   M 6  82.5380555  6.48109241  2.645894896  6.80148936
+## 4  Sacarosa  SM 6  59.3865102 14.23412386  5.811056731 14.93779688
+## 5   Glucosa   I 6  95.5909412  3.78928109  1.546967528  3.97660663
+## 6   Glucosa  MM 6  89.4896332 10.68179429  4.360824260 11.20985563
+## 7   Glucosa   M 6 105.0027938 12.13877707  4.955634988 12.73886528
+## 8   Glucosa  SM 6 163.1297948 12.48887083  5.098560167 13.10626615
+## 9  Fructosa   I 6 150.0834582 10.91193317  4.454778061 11.45137157
+## 10 Fructosa  MM 6 134.4011058 12.37547410  5.052266145 12.98726358
+## 11 Fructosa   M 6 163.0849068 15.81200282  6.455223118 16.59367929
+## 12 Fructosa  SM 6 205.8517782 16.90813358  6.902716631 17.74399799
+## 13   glufru   I 6   0.6390000  0.03989191  0.016285806  0.04186400
+## 14   glufru  MM 6   0.6645162  0.01797801  0.007339493  0.01886677
+## 15   glufru   M 6   0.6429843  0.01447382  0.005908914  0.01518935
+## 16   glufru  SM 6   0.7928725  0.01520067  0.006205646  0.01595212
+## 17      ATT   I 3 177.9200000  5.07984252  2.932848445 12.61902837
+## 18      ATT  MM 3 160.6400000  2.78969532  1.610631346  6.92998736
+## 19      ATT   M 3 182.8266667 20.39063837 11.772540555 50.65315375
+## 20      ATT  SM 3 138.4533333  8.35275603  4.822465944 20.74939626</code></pre>
+</div>
+<div id="evolución-del-perfíl-de-sacáridos-en-la-maduración"
+class="section level4">
+<h4>Evolución del perfíl de sacáridos en la maduración</h4>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="carbohidratos-totales" class="section level3">
+<h3>Carbohidratos Totales</h3>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="modelo-y-supuestos" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataST 
+##   Log-restricted-likelihood: -57.21909
+##   Fixed: TOTALF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   45.629848   -8.861626   -6.470594    7.489795 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    2.318824 3.260595
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-6-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.93464, p-value = 0.1238</code></pre>
+</div>
+<div id="anova" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 853.1332  &lt;.0001
+## MAD             3    18  30.3096  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean   SE df lower.CL upper.CL
+##  I     45.6 1.89  2     37.5     53.8
+##  MM    36.8 1.89  2     28.6     44.9
+##  M     39.2 1.89  2     31.0     47.3
+##  SM    53.1 1.89  2     45.0     61.2
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM       8.86 1.88 18  4.707  0.0009 
+##  I - M        6.47 1.88 18  3.437  0.0142 
+##  I - SM      -7.49 1.88 18 -3.979  0.0045 
+##  MM - M      -2.39 1.88 18 -1.270  0.5925 
+##  MM - SM    -16.35 1.88 18 -8.686  &lt;.0001 
+##  M - SM     -13.96 1.88 18 -7.416  &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones" class="section level4">
+<h4>Conclusiones</h4>
+<p>La concentración de azúcares totales es significativamente superior
+durante la fructificación en frutos inmaduros, luego decae y durante la
+maduración aumentan nuevamente. Los frutos sobre maduros se
+diferenciaron singnificativamente de los maduro y medio maduros en su
+contenido de azúcares totales.</p>
+</div>
+</div>
+<div id="sacarosa" class="section level3">
+<h3>Sacarosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: sac 
+##   Log-restricted-likelihood: -40.87024
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    3.434312    6.043346    5.781547    3.967407 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:  0.01754422 1.561032
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.89326, p-value = 0.01554</code></pre>
+<div id="anova-1" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 536.2198  &lt;.0001
+## MAD             3    18  19.1557  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-1" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     3.43 0.637  2    0.692     6.18
+##  MM    9.48 0.637  2    6.735    12.22
+##  M     9.22 0.637  2    6.473    11.96
+##  SM    7.40 0.637  2    4.659    10.14
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     -6.043 0.901 18 -6.705  &lt;.0001 
+##  I - M      -5.782 0.901 18 -6.415  &lt;.0001 
+##  I - SM     -3.967 0.901 18 -4.402  0.0018 
+##  MM - M      0.262 0.901 18  0.290  0.9912 
+##  MM - SM     2.076 0.901 18  2.303  0.1343 
+##  M - SM      1.814 0.901 18  2.013  0.2200 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-1" class="section level4">
+<h4>Conclusiones</h4>
+<p>Los frutos inmaduros tuvieron una concentración de sacarosa
+significativamente menor.</p>
+</div>
+</div>
+<div id="glucosa" class="section level3">
+<h3>Glucosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: glu 
+##   Log-restricted-likelihood: -37.17267
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   16.358718   -5.446416   -4.634213    3.856195 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:   0.8594376 1.195703
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.97272, p-value = 0.7341</code></pre>
+<div id="anova-2" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 716.5799  &lt;.0001
+## MAD             3    18  78.7907  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-2" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     16.4 0.696  2    13.36     19.4
+##  MM    10.9 0.696  2     7.92     13.9
+##  M     11.7 0.696  2     8.73     14.7
+##  SM    20.2 0.696  2    17.22     23.2
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      5.446 0.69 18   7.889 &lt;.0001 
+##  I - M       4.634 0.69 18   6.713 &lt;.0001 
+##  I - SM     -3.856 0.69 18  -5.586 0.0001 
+##  MM - M     -0.812 0.69 18  -1.177 0.6487 
+##  MM - SM    -9.303 0.69 18 -13.475 &lt;.0001 
+##  M - SM     -8.490 0.69 18 -12.299 &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-2" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+<div id="fructosa" class="section level3">
+<h3>Fructosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: fru 
+##   Log-restricted-likelihood: -49.37954
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   25.836818   -9.458555   -7.617928   -0.333807 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    1.642008 2.194173
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.94427, p-value = 0.2029</code></pre>
+<div id="anova-3" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 419.8676  &lt;.0001
+## MAD             3    18  29.8392  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-3" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean  SE df lower.CL upper.CL
+##  I     25.8 1.3  2     20.2     31.4
+##  MM    16.4 1.3  2     10.8     22.0
+##  M     18.2 1.3  2     12.6     23.8
+##  SM    25.5 1.3  2     19.9     31.1
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      9.459 1.27 18  7.466  &lt;.0001 
+##  I - M       7.618 1.27 18  6.013  0.0001 
+##  I - SM      0.334 1.27 18  0.264  0.9934 
+##  MM - M     -1.841 1.27 18 -1.453  0.4846 
+##  MM - SM    -9.125 1.27 18 -7.203  &lt;.0001 
+##  M - SM     -7.284 1.27 18 -5.750  0.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-3" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+</div>
+<div id="carbohidratos-en-peso-seco" class="section level2">
+<h2>Carbohidratos en peso seco</h2>
+<div id="carbohidratos-totales-1" class="section level3">
+<h3>Carbohidratos Totales</h3>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="modelo-y-supuestos-1" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataST 
+##   Log-restricted-likelihood: -98.02213
+##   Fixed: TOTALS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   266.88079    34.79956    83.74496   161.48729 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    2.425004 27.10964
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-19-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.85942, p-value = 0.003287</code></pre>
+</div>
+<div id="anova-4" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 3483.291  &lt;.0001
+## MAD             3    18   39.998  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-4" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean   SE df lower.CL upper.CL
+##  I      267 11.2  2      219      315
+##  MM     302 11.2  2      254      350
+##  M      351 11.2  2      303      399
+##  SM     428 11.2  2      380      476
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      -34.8 15.7 18  -2.223 0.1546 
+##  I - M       -83.7 15.7 18  -5.351 0.0002 
+##  I - SM     -161.5 15.7 18 -10.318 &lt;.0001 
+##  MM - M      -48.9 15.7 18  -3.127 0.0272 
+##  MM - SM    -126.7 15.7 18  -8.094 &lt;.0001 
+##  M - SM      -77.7 15.7 18  -4.967 0.0005 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-4" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+<div id="sacarosa-1" class="section level3">
+<h3>Sacarosa</h3>
+<div id="modelo-y-supuestos-2" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: sac 
+##   Log-restricted-likelihood: -81.26393
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    21.20639    56.58322    61.33166    38.18012 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    0.213967 11.76289
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.89326, p-value = 0.01554</code></pre>
+</div>
+<div id="anova-5" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 627.5707  &lt;.0001
+## MAD             3    18  33.6723  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-5" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean      SE df lower.CL  upper.CL
+##  I   21.20639 4.80377  2  0.53744  41.87535
+##  MM  77.78962 4.80377  2 57.12066  98.45857
+##  M   82.53806 4.80377  2 61.86910 103.20701
+##  SM  59.38651 4.80377  2 38.71756  80.05546
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM   -56.58322 6.79131 18 -8.332  &lt;.0001 
+##  I - M    -61.33166 6.79131 18 -9.031  &lt;.0001 
+##  I - SM   -38.18012 6.79131 18 -5.622  0.0001 
+##  MM - M    -4.74844 6.79131 18 -0.699  0.8960 
+##  MM - SM   18.40311 6.79131 18  2.710  0.0629 
+##  M - SM    23.15155 6.79131 18  3.409  0.0151 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-5" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez.
+Los frutos maduros tendrían mayor concentración de sacarosa, no se
+diferenciaron de los frutos medios maduros.</p>
+</div>
+</div>
+<div id="glucosa-1" class="section level3">
+<h3>Glucosa</h3>
+<div id="modelo-y-supuestos-3" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: glu 
+##   Log-restricted-likelihood: -72.29575
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   95.590941   -6.101308    9.411853   67.538854 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)  Residual
+## StdDev:    4.193433 0.3677374
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##        I        M       MM       SM 
+##  1.00000 39.24988 35.83603 40.68954 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-25-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-25-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.88864, p-value = 0.01246</code></pre>
+</div>
+<div id="anova-6" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1    18 1554.2972  &lt;.0001
+## MAD             3    18   41.9999  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-6" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD    emmean       SE df  lower.CL upper.CL
+##  I    95.59094 2.425730  2  85.15387 106.0280
+##  MM   89.48963 5.899661  2  64.10544 114.8738
+##  M   105.00279 6.370504  2  77.59273 132.4129
+##  SM  163.12979 6.570934  2 134.85735 191.4022
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate       SE df t.ratio p.value
+##  I - MM     6.10131 5.382091 18   1.134 0.6742 
+##  I - M     -9.41185 5.894424 18  -1.597 0.4051 
+##  I - SM   -67.53885 6.110490 18 -11.053 &lt;.0001 
+##  MM - M   -15.51316 7.979102 18  -1.944 0.2454 
+##  MM - SM  -73.64016 8.140020 18  -9.047 &lt;.0001 
+##  M - SM   -58.12700 8.487476 18  -6.849 &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-6" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de
+madurez.</p>
+</div>
+</div>
+<div id="fructosa-1" class="section level3">
+<h3>Fructosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: fru 
+##   Log-restricted-likelihood: -84.29409
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   150.08346   -15.68235    13.00145    55.76832 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    6.561438  12.9455
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-28-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.90912, p-value = 0.03375</code></pre>
+<div id="anova-7" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1    18 1250.8437  &lt;.0001
+## MAD             3    18   33.6605  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-7" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD   emmean       SE df lower.CL upper.CL
+##  I   150.0835 6.502446  2 122.1057 178.0612
+##  MM  134.4011 6.502446  2 106.4233 162.3789
+##  M   163.0849 6.502446  2 135.1071 191.0627
+##  SM  205.8518 6.502446  2 177.8740 233.8296
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate       SE df t.ratio p.value
+##  I - MM    15.68235 7.474086 18  2.098  0.1913 
+##  I - M    -13.00145 7.474086 18 -1.740  0.3333 
+##  I - SM   -55.76832 7.474086 18 -7.462  &lt;.0001 
+##  MM - M   -28.68380 7.474086 18 -3.838  0.0060 
+##  MM - SM  -71.45067 7.474086 18 -9.560  &lt;.0001 
+##  M - SM   -42.76687 7.474086 18 -5.722  0.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-7" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez.
+Los frutos sobre maduros tendrían mayor concentración de fructosa.</p>
+</div>
+</div>
+<div id="glucosafructosa" class="section level3">
+<h3>Glucosa/Fructosa</h3>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: glufru 
+##   Log-restricted-likelihood: 46.34723
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+## 0.639000000 0.025516167 0.003984333 0.153872500 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##          (Intercept)   Residual
+## StdDev: 0.0001849716 0.03988303
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##         I         M        MM        SM 
+## 1.0000000 0.3627390 0.4508803 0.3812741 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-31-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.96656, p-value = 0.5834</code></pre>
+<div id="anova-8" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 37510.31  &lt;.0001
+## MAD             3    18   118.08  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-8" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD    emmean          SE df  lower.CL  upper.CL
+##  I   0.6390000 0.016282530  2 0.5689419 0.7090581
+##  MM  0.6645162 0.007342091  2 0.6329257 0.6961066
+##  M   0.6429843 0.005907146  2 0.6175679 0.6684007
+##  SM  0.7928725 0.006208892  2 0.7661578 0.8195872
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast    estimate          SE df t.ratio p.value
+##  I - MM   -0.02551617 0.017860691 18  -1.429 0.4986 
+##  I - M    -0.00398433 0.017320287 18  -0.230 0.9956 
+##  I - SM   -0.15387250 0.017425508 18  -8.830 &lt;.0001 
+##  MM - M    0.02153183 0.009422201 18   2.285 0.1387 
+##  MM - SM  -0.12835633 0.009614251 18 -13.351 &lt;.0001 
+##  M - SM   -0.14988817 0.008568658 18 -17.493 &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-33-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-8" class="section level4">
+<h4>Conclusiones</h4>
+<p>La relación glucosa/fructosa es significativamente mayor en frutos
+sobre maduros.</p>
+</div>
+</div>
+</div>
+<div id="almidón-en-peso-seco" class="section level2">
+<h2>Almidón en peso seco</h2>
+<p>M&amp;M: se cuantificó almidón por el método del YODO según <a
+href="https://www.researchgate.net/profile/Jesus-Simal-Lozano/publication/235700249_Determinacion_de_almidon_en_alimentos/links/02bfe513dc78894e15000000/Determinacion-de-almidon-en-alimentos.pdf">Lage
+<em>et al.</em>, (1983)</a></p>
+<p>+Reactivos - Acido perclórico 52% (w/w). - Solución de yodo-yoduro
+potásico: 20 g de yoduro potásico, disueltos en 20 ml de agua destilada
+y 2,0 g de yodo llevados a 1 litro. - Muestras de fruto de ubajay
+inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)</p>
+<p>+Lectura en espectrofotómetro a 600nm</p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-35-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Las barras indican desvío estándar.</p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-37-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.97169, p-value = 0.9276</code></pre>
+<div id="anova-9" class="section level4">
+<h4>Anova</h4>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: STARCHs
+##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
+## MAD        3 394.95 131.650  11.705 0.002691 **
+## Residuals  8  89.97  11.247                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="test-de-tukey-9" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD    emmean       SE df  lower.CL  upper.CL
+##  I   17.139127 1.936222  8 12.674189 21.604064
+##  MM  16.119342 1.936222  8 11.654405 20.584279
+##  M    4.045539 1.936222  8 -0.419399  8.510476
+##  SM   6.596480 1.936222  8  2.131543 11.061417
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate       SE df t.ratio p.value
+##  I - MM    1.019784 2.738232  8  0.372  0.9811 
+##  I - M    13.093588 2.738232  8  4.782  0.0061 
+##  I - SM   10.542647 2.738232  8  3.850  0.0204 
+##  MM - M   12.073804 2.738232  8  4.409  0.0097 
+##  MM - SM   9.522862 2.738232  8  3.478  0.0340 
+##  M - SM   -2.550941 2.738232  8 -0.932  0.7895 
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="alimdón-en-peso-fresco" class="section level2">
+<h2>Alimdón en peso fresco</h2>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-43-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>##          df      AIC
+## mSTARCH   5 16.95248
+## mSTARCH2  8 22.28308</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-45-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.95235, p-value = 0.6716</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  0.9022 0.4814
+##        8</code></pre>
+<div id="anova-10" class="section level4">
+<h4>Anova</h4>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: STARCH
+##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
+## MAD        3 10.9242  3.6414  23.229 0.0002651 ***
+## Residuals  8  1.2541  0.1568                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="test-de-tukey-10" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD    emmean        SE df   lower.CL upper.CL
+##  I   2.8671751 0.2285899  8  2.3400458 3.394304
+##  MM  1.9680194 0.2285899  8  1.4408901 2.495149
+##  M   0.4538284 0.2285899  8 -0.0733009 0.980958
+##  SM  0.8205086 0.2285899  8  0.2933793 1.347638
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast   estimate       SE df t.ratio p.value
+##  I - MM    0.8991557 0.323275  8  2.781  0.0906 
+##  I - M     2.4133467 0.323275  8  7.465  0.0003 
+##  I - SM    2.0466665 0.323275  8  6.331  0.0010 
+##  MM - M    1.5141910 0.323275  8  4.684  0.0068 
+##  MM - SM   1.1475108 0.323275  8  3.550  0.0308 
+##  M - SM   -0.3666802 0.323275  8 -1.134  0.6804 
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

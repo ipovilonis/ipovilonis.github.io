@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>madPhysical</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Hexachlamys edulis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="genotypes.html">Phenotypes</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Variability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Morphological.html">Morphological</a>
+    </li>
+    <li>
+      <a href="Colorimetry.html">Colorimetry</a>
+    </li>
+    <li>
+      <a href="Chemical.html">Chemical</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Reproductive.html">Reproductive</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Multivariate.html">Multivariate</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Maturity
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Maturity.html">Summary tables</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Physical variables</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Antioxidant Activity</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Organic Acids</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohydrates</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Dietary Fiber</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cations</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Essays
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Phenology.html">Phenology</a>
+    </li>
+    <li>
+      <a href="Polinization.html">Polinization</a>
+    </li>
+    <li>
+      <a href="Branches.html">Branches</a>
+    </li>
+    <li>
+      <a href="Yield.html">Yield</a>
+    </li>
+    <li>
+      <a href="Postharvest.html">Postharvest</a>
+    </li>
+    <li>
+      <a href="Companionspecies.html">Companion species</a>
+    </li>
+    <li>
+      <a href="Climate.html">Climate</a>
+    </li>
+    <li>
+      <a href="Soil.html">Soil</a>
+    </li>
+    <li>
+      <a href="Genetics.html">Genetics</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Academic Publications</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">madPhysical</h1>
+
+</div>
+
+
+<p>The aim of this work was to study the evolution of fruit size and
+weight together with the soluble solid and total titratable acidity
+contents with the patterns of accumulation of chlorophylls, carotenoids,
+phenols and antioxidant activity during ripening of <em>Hexachlamys
+edulis</em> fruits, to understand the optimal time and conditions needed
+to obtain maximum nutraceutical characteristics. Fruits were harvested
+from H. edulis plants growing at the experimental field of the
+University of Morón (Moreno, Buenos Aires, 34°35’4.98” SL, 58°48’52.09”
+WL, 14 m.a.s.l.).</p>
+<div class="figure">
+<img src="IMG_mat.jpg" alt="A caption" width="100%" />
+<p class="caption">
+A caption
+</p>
+</div>
+<div id="variables-físicas" class="section level1">
+<h1>Variables físicas</h1>
+<div id="peso-fresco-del-fruto-pff" class="section level2">
+<h2>Peso fresco del fruto (PFF)</h2>
+<div id="tabla-descriptiva" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>##        MADUREZ  N      PFF        sd       se        ci
+## 1     Inmaduro 10 19.46590  8.371828 2.647404  5.988845
+## 2 Medio Maduro 10 40.12070  7.611044 2.406823  5.444613
+## 3       Maduro 10 39.55260 17.661441 5.585038 12.634234
+## 4  SobreMaduro  7 38.50057 10.492754 3.965888  9.704179</code></pre>
+</div>
+<div id="gráfico-con-desvío-estándar" class="section level3">
+<h3>Gráfico con desvío estándar</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="relacion-media-varianza" class="section level3">
+<h3>Relacion media-varianza</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelos" class="section level3">
+<h3>Modelos</h3>
+<ul>
+<li>M0: modelo sólo con el factor fijo madurez.</li>
+<li>M1: M0 + modelado de la varinza por varIdent</li>
+</ul>
+</div>
+<div id="eleccción-de-modelos-por-aic" class="section level3">
+<h3>Eleccción de modelos por AIC</h3>
+<pre><code>##    df      AIC
+## M0  5 293.6096
+## M1  8 273.1772</code></pre>
+<p>Se elije el modelo M1</p>
+</div>
+<div id="verificación-de-supuestos" class="section level3">
+<h3>Verificación de supuestos</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.93662, p-value = 0.03605</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
+##       Df F value Pr(&gt;F)
+## group  3  2.0968 0.1195
+##       33</code></pre>
+</div>
+<div id="anova" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Denom. DF: 33 
+##             numDF  F-value p-value
+## (Intercept)     1 438.1966  &lt;.0001
+## MADUREZ         3  12.7130  &lt;.0001</code></pre>
+</div>
+<div id="comparaciones-a-posteriori" class="section level3">
+<h3>Comparaciones a posteriori</h3>
+<pre><code>## $emmeans
+##  MADUREZ        emmean       SE df lower.CL upper.CL
+##  Inmaduro     19.46590 3.741684 33 11.85339 27.07841
+##  Medio Maduro 40.12070 3.741684 33 32.50819 47.73321
+##  Maduro       39.55260 3.741684 33 31.94009 47.16511
+##  SobreMaduro  38.50057 4.472168 33 29.40188 47.59926
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast                     estimate       SE df t.ratio p.value
+##  Inmaduro - Medio Maduro    -20.654800 5.291540 33 -3.903  0.0024 
+##  Inmaduro - Maduro          -20.086700 5.291540 33 -3.796  0.0032 
+##  Inmaduro - SobreMaduro     -19.034671 5.830993 33 -3.264  0.0130 
+##  Medio Maduro - Maduro        0.568100 5.291540 33  0.107  0.9995 
+##  Medio Maduro - SobreMaduro   1.620129 5.830993 33  0.278  0.9924 
+##  Maduro - SobreMaduro         1.052029 5.830993 33  0.180  0.9979 
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="peso-seco-de-fruto-psf" class="section level2">
+<h2>Peso seco de fruto (PSF)</h2>
+<div id="tabla-descriptiva-1" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>##        MADUREZ  N      PSF       sd        se       ci
+## 1     Inmaduro 10 4.140500 2.194326 0.6939069 1.569727
+## 2 Medio Maduro 10 6.622500 2.345851 0.7418231 1.678120
+## 3       Maduro 10 4.997900 2.840011 0.8980904 2.031622
+## 4  SobreMaduro  7 6.506857 2.377224 0.8985063 2.198566</code></pre>
+</div>
+<div id="gráfico-con-desvío-estándar-1" class="section level3">
+<h3>Gráfico con desvío estándar</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot-1" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="relacion-media-varianza-1" class="section level3">
+<h3>Relacion media-varianza</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelos-1" class="section level3">
+<h3>Modelos</h3>
+<ul>
+<li>M0s: modelo sólo con el factor fijo madurez.</li>
+<li>M1s: M0 + modelado de la varinza por varIdent</li>
+<li>M1si: M1 con variable respuesta inversa (1/Y)</li>
+</ul>
+<pre><code>##      df       AIC
+## M0s   5 177.31681
+## M1s   8 177.17677
+## M1si  8 -52.63631</code></pre>
+<p>Se elije el modelo M1si</p>
+</div>
+<div id="verificación-de-supuestos-1" class="section level3">
+<h3>Verificación de supuestos</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.97956, p-value = 0.7162</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
+##       Df F value Pr(&gt;F)
+## group  3  0.1788   0.91
+##       33</code></pre>
+</div>
+<div id="anova-1" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Denom. DF: 33 
+##             numDF  F-value p-value
+## (Intercept)     1 329.0795  &lt;.0001
+## MADUREZ         3   5.1402   0.005</code></pre>
+</div>
+<div id="comparaciones-a-posteriori-1" class="section level3">
+<h3>Comparaciones a posteriori</h3>
+<pre><code>## $emmeans
+##  MADUREZ         emmean         SE   df  lower.CL  upper.CL
+##  Inmaduro     0.2929017 0.03689419 9.01 0.2094590 0.3763445
+##  Medio Maduro 0.1633323 0.01264351 9.00 0.1347306 0.1919339
+##  Maduro       0.2481463 0.03324467 9.00 0.1729439 0.3233487
+##  SobreMaduro  0.1709383 0.02227764 6.00 0.1164276 0.2254490
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast                      estimate         SE    df t.ratio p.value
+##  Inmaduro - Medio Maduro     0.12956949 0.03900051 11.10  3.322  0.0294 
+##  Inmaduro - Maduro           0.04475544 0.04966275 17.81  0.901  0.8043 
+##  Inmaduro - SobreMaduro      0.12196345 0.04309843 13.98  2.830  0.0576 
+##  Medio Maduro - Maduro      -0.08481405 0.03556777 11.55 -2.385  0.1352 
+##  Medio Maduro - SobreMaduro -0.00760604 0.02561546  9.81 -0.297  0.9903 
+##  Maduro - SobreMaduro        0.07720801 0.04001876 14.52  1.929  0.2590 
+## 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="humedad" class="section level2">
+<h2>Humedad</h2>
+<div id="tabla-descriptiva-2" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>##        MADUREZ  N         H         sd          se         ci
+## 1     Inmaduro 10 0.7937000 0.02310387 0.007306086 0.01652751
+## 2 Medio Maduro 10 0.8354000 0.03828025 0.012105279 0.02738404
+## 3       Maduro 10 0.8747000 0.02555626 0.008081598 0.01828184
+## 4  SobreMaduro  7 0.8331429 0.02385672 0.009016991 0.02206378</code></pre>
+</div>
+<div id="gráfico-con-desvío-estándar-2" class="section level3">
+<h3>Gráfico con desvío estándar</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="boxplot-2" class="section level3">
+<h3>Boxplot</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="relacion-media-varianza-2" class="section level3">
+<h3>Relacion media-varianza</h3>
+</div>
+<div id="modelos-2" class="section level3">
+<h3>Modelos</h3>
+<ul>
+<li>M0s: modelo sólo con el factor fijo madurez.</li>
+<li>M1s: M0 + modelado de la varinza por varIdent</li>
+<li>M1si: M1 con variable respuesta inversa (1/Y)</li>
+</ul>
+<pre><code>## 
+## Call:
+## lm(formula = H ~ MADUREZ, data = data)
+## 
+## Coefficients:
+##         (Intercept)  MADUREZMedio Maduro        MADUREZMaduro   MADUREZSobreMaduro  
+##             0.79370              0.04170              0.08100              0.03944</code></pre>
+<p>Se elije el modelo M0sH</p>
+</div>
+<div id="verificación-de-supuestos-2" class="section level3">
+<h3>Verificación de supuestos</h3>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.968, p-value = 0.3568</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = mean)
+##       Df F value Pr(&gt;F)
+## group  3  1.0003  0.405
+##       33</code></pre>
+</div>
+<div id="anova-2" class="section level3">
+<h3>Anova</h3>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: H
+##           Df   Sum Sq   Mean Sq F value    Pr(&gt;F)    
+## MADUREZ    3 0.032827 0.0109422  13.234 7.753e-06 ***
+## Residuals 33 0.027285 0.0008268                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="comparaciones-a-posteriori-2" class="section level3">
+<h3>Comparaciones a posteriori</h3>
+<pre><code>## $emmeans
+##  MADUREZ         emmean         SE df  lower.CL  upper.CL
+##  Inmaduro     0.7937000 0.00909303 33 0.7752001 0.8121999
+##  Medio Maduro 0.8354000 0.00909303 33 0.8169001 0.8538999
+##  Maduro       0.8747000 0.00909303 33 0.8562001 0.8931999
+##  SobreMaduro  0.8331429 0.01086825 33 0.8110312 0.8552545
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast                      estimate         SE df t.ratio p.value
+##  Inmaduro - Medio Maduro    -0.04170000 0.01285949 33 -3.243  0.0137 
+##  Inmaduro - Maduro          -0.08100000 0.01285949 33 -6.299  &lt;.0001 
+##  Inmaduro - SobreMaduro     -0.03944286 0.01417047 33 -2.783  0.0418 
+##  Medio Maduro - Maduro      -0.03930000 0.01285949 33 -3.056  0.0218 
+##  Medio Maduro - SobreMaduro  0.00225714 0.01417047 33  0.159  0.9985 
+##  Maduro - SobreMaduro        0.04155714 0.01417047 33  2.933  0.0294 
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="diámetro" class="section level2">
+<h2>Diámetro</h2>
+</div>
+<div id="peso-seco-semilla" class="section level2">
+<h2>Peso seco semilla</h2>
+</div>
+<div id="tabla-resumen" class="section level2">
+<h2>Tabla resumen</h2>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>ANOVA for the fresh fruit weight (FFW). dry fruit weight (DFW). dry
+fruit weight as percentage of fresh fruit weight (DFW%). maximum
+equatorial fruit diameter (MAEFD). minimum equatorial fruit diameter
+(MIEFD). polar fruit diameter (PFD). seed number (SN). dry seed weight
+(DSW) and dry seed weight/dry fruit weight ratio (DSW/DFW) considering
+the fruit ripening of H. edulis “ubajay” harvested from the plants
+growing in the experimental field of the University of Morón in Moreno
+(Buenos Aires) during December 2018.</p>
+</div>
+<div id="colorimetría" class="section level2">
+<h2>Colorimetría</h2>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

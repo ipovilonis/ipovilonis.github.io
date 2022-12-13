@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>madCations</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Hexachlamys edulis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="genotypes.html">Phenotypes</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Variability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Morphological.html">Morphological</a>
+    </li>
+    <li>
+      <a href="Colorimetry.html">Colorimetry</a>
+    </li>
+    <li>
+      <a href="Chemical.html">Chemical</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Reproductive.html">Reproductive</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Multivariate.html">Multivariate</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Maturity
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Maturity.html">Summary tables</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Physical variables</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Antioxidant Activity</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Organic Acids</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohydrates</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Dietary Fiber</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cations</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Essays
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Phenology.html">Phenology</a>
+    </li>
+    <li>
+      <a href="Polinization.html">Polinization</a>
+    </li>
+    <li>
+      <a href="Branches.html">Branches</a>
+    </li>
+    <li>
+      <a href="Yield.html">Yield</a>
+    </li>
+    <li>
+      <a href="Postharvest.html">Postharvest</a>
+    </li>
+    <li>
+      <a href="Companionspecies.html">Companion species</a>
+    </li>
+    <li>
+      <a href="Climate.html">Climate</a>
+    </li>
+    <li>
+      <a href="Soil.html">Soil</a>
+    </li>
+    <li>
+      <a href="Genetics.html">Genetics</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Academic Publications</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">madCations</h1>
+
+</div>
+
+
+<div id="cationes-en-peso-fresco" class="section level2">
+<h2>Cationes en peso fresco</h2>
+<p>Aproximadamente 1 gr de cada muestra fue calcinado en mufla a 500 ºC
+por 5 horas. La ceniza fue levantada con 5 mL de HCl 20 %, completado a
+volumen (50mL) con agua destilada. Filtrada y cuantificada por
+espectrometría de Absorción Atómica en un equipo Perkin Elmer AAAnalyst
+200.</p>
+<p>Se ajustaron modelos lineales (estimaciones por mínimos cuarados
+ordinarios OLS) para predecir las concentraciones (CON) de cationes
+minerales en función del estado de madurez (MAD).</p>
+<div id="tablas-descriptivas" class="section level3">
+<h3>Tablas descriptivas</h3>
+<div id="mg" class="section level4">
+<h4>Mg</h4>
+<pre><code>##   MAD N       CONF          sd          se          ci
+## 1   I 3 0.05700000 0.018665208 0.010776363 0.046366948
+## 2  MM 3 0.04246667 0.004735328 0.002733943 0.011763207
+## 3   M 3 0.04543333 0.003231615 0.001865774 0.008027776
+## 4  SM 3 0.03090000 0.005350701 0.003089229 0.013291878</code></pre>
+</div>
+<div id="k" class="section level4">
+<h4>K</h4>
+<pre><code>##   MAD N     CONF        sd        se        ci
+## 1   I 3 3.533633 1.3075661 0.7549236 3.2481742
+## 2  MM 3 2.516767 0.3102783 0.1791393 0.7707741
+## 3   M 3 2.557867 0.3058141 0.1765618 0.7596843
+## 4  SM 3 2.183467 0.3900901 0.2252186 0.9690374</code></pre>
+</div>
+<div id="mn" class="section level4">
+<h4>Mn</h4>
+<pre><code>##   MAD N         CONF           sd           se           ci
+## 1   I 3 0.0000000000 0.000000e+00 0.000000e+00 0.0000000000
+## 2  MM 3 0.0014333333 1.401190e-03 8.089774e-04 0.0034807488
+## 3   M 3 0.0005333333 5.773503e-05 3.333333e-05 0.0001434218
+## 4  SM 3 0.0000000000 0.000000e+00 0.000000e+00 0.0000000000</code></pre>
+</div>
+<div
+id="concentración-de-cationes-totales-a-distintos-estados-de-madurez."
+class="section level4">
+<h4>Concentración de cationes totales a distintos estados de
+madurez.</h4>
+<p><img src="madCations_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelo-y-supuestos" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataCT 
+##   Log-restricted-likelihood: -10.91802
+##   Fixed: TOTALF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    3.590633   -1.029967   -0.986800   -1.376267 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)  Residual
+## StdDev:   0.2418371 0.6842036
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-6-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.92829, p-value = 0.3623</code></pre>
+</div>
+<div id="anova" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1     6 128.54383  &lt;.0001
+## MAD             3     6   2.24411  0.1836</code></pre>
+</div>
+<div id="conclusiones" class="section level4">
+<h4>Conclusiones</h4>
+<p>No hay diferencias significativas.</p>
+</div>
+</div>
+<div id="magnesio" class="section level3">
+<h3>Magnesio</h3>
+<div id="concentración-de-magnesio-a-distintos-estados-de-madurez."
+class="section level4">
+<h4>Concentración de magnesio a distintos estados de madurez.</h4>
+<p><img src="madCations_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" />
+* Kinupp-Barros, 2008. <a
+href="https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&amp;format=pdf"
+class="uri">https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&amp;format=pdf</a>
+* Rozycki <em>et al</em>., 1997. <a
+href="https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290"
+class="uri">https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290</a></p>
+</div>
+<div id="modelo-y-supuestos-1" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: mg 
+##   Log-restricted-likelihood: 23.21133
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##  0.05700000 -0.01453333 -0.01156667 -0.02610000 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)    Residual
+## StdDev: 0.002351118 0.009846004
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.91072, p-value = 0.218</code></pre>
+</div>
+<div id="anova-1" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1     6 194.69377  &lt;.0001
+## MAD             3     6   3.55882   0.087</code></pre>
+</div>
+<div id="conclusiones-1" class="section level4">
+<h4>Conclusiones</h4>
+<p>No se encontraron diferencias significativas.</p>
+</div>
+</div>
+<div id="potasio" class="section level3">
+<h3>Potasio</h3>
+<div id="concentración-de-potasio-a-distintos-estados-de-madurez."
+class="section level4">
+<h4>Concentración de potasio a distintos estados de madurez.</h4>
+<p><img src="madCations_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>*UNLu: <a
+href="http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf"
+class="uri">http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf</a></p>
+</div>
+<div id="modelo-y-supuestos-2" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: k 
+##   Log-restricted-likelihood: -10.81192
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   3.5336333  -1.0168667  -0.9757667  -1.3501667 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:   0.2394217 0.674991
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.92858, p-value = 0.3653</code></pre>
+</div>
+<div id="anova-2" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1     6 127.53049  &lt;.0001
+## MAD             3     6   2.22889  0.1854</code></pre>
+</div>
+<div id="conclusiones-2" class="section level4">
+<h4>Conclusiones</h4>
+<p>No hay diferencias significativas en la concentración de potasio a
+diferentes estados de madurez.</p>
+</div>
+</div>
+<div id="manganeso" class="section level3">
+<h3>Manganeso</h3>
+<div id="concentración-de-manganeso-a-distintos-estados-de-madurez."
+class="section level4">
+<h4>Concentración de manganeso a distintos estados de madurez.</h4>
+<p><img src="madCations_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelo-y-supuestos-3" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: mn 
+##   Log-restricted-likelihood: 44.55304
+##   Fixed: CONF ~ MAD 
+##   (Intercept)         MADMM          MADM         MADSM 
+##  1.897032e-19  1.433333e-03  5.333333e-04 -1.770495e-19 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##          (Intercept)     Residual
+## StdDev: 5.005504e-05 0.0006994217
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.64553, p-value = 0.0002643</code></pre>
+</div>
+<div id="anova-3" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1     6 5.810816  0.0525
+## MAD             3     6 2.804519  0.1306</code></pre>
+</div>
+<div id="conclusiones-3" class="section level4">
+<h4>Conclusiones</h4>
+<p>No hay diferencias significativas en la concentración de manganeso a
+diferentes estados de madurez. Se observó que sólo en estados medio
+maduro y maduro aparece en muy bajas concentraciones.</p>
+</div>
+</div>
+</div>
+<div id="cationes-en-peso-seco" class="section level2">
+<h2>Cationes en peso seco</h2>
+<div id="tablas-descriptivas-1" class="section level3">
+<h3>Tablas descriptivas</h3>
+<div id="mg-1" class="section level4">
+<h4>Mg</h4>
+<pre><code>##   MAD N      CONS         sd         se         ci
+## 1   I 3 0.3329190 0.10901734 0.06294119 0.27081410
+## 2  MM 3 0.3491543 0.03893336 0.02247818 0.09671582
+## 3   M 3 0.4060377 0.02888092 0.01667441 0.07174419
+## 4  SM 3 0.2487550 0.04307514 0.02486944 0.10700458</code></pre>
+</div>
+<div id="k-1" class="section level4">
+<h4>k</h4>
+<pre><code>##   MAD N     CONS       sd       se        ci
+## 1   I 3 20.63884 7.637081 4.409271 18.971561
+## 2  MM 3 20.69247 2.551061 1.472856  6.337187
+## 3   M 3 22.85966 2.733061 1.577933  6.789300
+## 4  SM 3 17.57761 3.140351 1.813083  7.801065</code></pre>
+</div>
+<div id="mn-1" class="section level4">
+<h4>Mn</h4>
+<pre><code>##   MAD N        CONS           sd           se          ci
+## 1   I 3 0.000000000 0.0000000000 0.0000000000 0.000000000
+## 2  MM 3 0.011784667 0.0115202913 0.0066512433 0.028617990
+## 3   M 3 0.004766667 0.0005155738 0.0002976667 0.001280756
+## 4  SM 3 0.000000000 0.0000000000 0.0000000000 0.000000000</code></pre>
+</div>
+<div id="totales" class="section level4">
+<h4>Totales</h4>
+</div>
+<div id="tabla-descriptiva-totales" class="section level4">
+<h4>Tabla descriptiva totales</h4>
+<pre><code>##       CAR MAD N   TOTALS       sd       se        ci
+## 1 CATIONS   I 3 20.97176 7.741948 4.469816 19.232065
+## 2 CATIONS  MM 3 21.05341 2.577853 1.488324  6.403742
+## 3 CATIONS   M 3 23.27046 2.761513 1.594360  6.859978
+## 4 CATIONS  SM 3 17.82637 3.175920 1.833618  7.889422</code></pre>
+</div>
+</div>
+<div
+id="concentración-de-cationes-totales-a-distintos-estados-de-madurez.-1"
+class="section level3">
+<h3>Concentración de cationes totales a distintos estados de
+madurez.</h3>
+<p><img src="madCations_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataCT 
+##   Log-restricted-likelihood: -25.69378
+##   Fixed: TOTALS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+## 20.97175533  0.08165467  2.29870900 -3.14538800 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    1.404952 4.370537
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.95503, p-value = 0.7112</code></pre>
+<div id="anova-4" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1     6 191.94434  &lt;.0001
+## MAD             3     6   0.78726  0.5434</code></pre>
+</div>
+<div id="conclusiones-4" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+<div id="magnesio-1" class="section level3">
+<h3>Magnesio</h3>
+<div id="modelo-y-supuestos-4" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: mg 
+##   Log-restricted-likelihood: 8.525821
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##  0.33291900  0.01623533  0.07311867 -0.08416400 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)   Residual
+## StdDev:  0.01337147 0.06199825
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-24-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.96699, p-value = 0.8768</code></pre>
+</div>
+<div id="anova-5" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1     6 194.69377  &lt;.0001
+## MAD             3     6   3.55882   0.087</code></pre>
+</div>
+<div id="conclusiones-5" class="section level4">
+<h4>Conclusiones</h4>
+<p>No se encontraron diferencias significativas.</p>
+</div>
+</div>
+<div id="potasio-1" class="section level3">
+<h3>Potasio</h3>
+<div id="modelo-y-supuestos-5" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: k 
+##   Log-restricted-likelihood: -25.59078
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   20.638837    0.053634    2.220823   -3.061224 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    1.391324 4.313561
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-26-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.95472, p-value = 0.7066</code></pre>
+</div>
+<div id="anova-6" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1     6 190.30685  &lt;.0001
+## MAD             3     6   0.76054  0.5559</code></pre>
+</div>
+<div id="conclusiones-6" class="section level4">
+<h4>Conclusiones</h4>
+<p>No hay diferencias significativas en la concentración de potasio a
+diferentes estados de madurez.</p>
+</div>
+</div>
+<div id="manganeso-1" class="section level3">
+<h3>Manganeso</h3>
+<div id="modelo-y-supuestos-6" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: mn 
+##   Log-restricted-likelihood: 27.69752
+##   Fixed: CONS ~ MAD 
+##   (Intercept)         MADMM          MADM         MADSM 
+## -4.553257e-18  1.178467e-02  4.766667e-03  1.239346e-18 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##          (Intercept)    Residual
+## StdDev: 0.0004133037 0.005751252
+## 
+## Number of Observations: 12
+## Number of Groups: 3</code></pre>
+<p><img src="madCations_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-28-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.64823, p-value = 0.0002793</code></pre>
+</div>
+<div id="anova-7" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1     6 6.085868  0.0487
+## MAD             3     6 2.815041  0.1299</code></pre>
+</div>
+<div id="conclusiones-7" class="section level4">
+<h4>Conclusiones</h4>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -20,11 +20,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Luego las muestras son transferidas a tubos de ensayo y el volumen llevado a 500 μl con agua desionizada. Se adicionan 250 μl de reactivo Folin-Ciocalteu (1N) y 1,25 ml de solución acuosa de carbonato de sodio decahidratado al 20%.
 # Luego de 40 minutos en oscuridad la absorbancia es medida por espectrofotometría a 725 nm. El contenido de fenoles totales es expresado en mg ácido tánico/100g de peso fresco.
 library(readxl)
-data<-read_excel("database.xlsx", sheet="varqui")
-data$year<-as.factor(data$year)
-data$phenotype<-as.factor(data$phenotype)
-data$site<-factor(data$site,levels=c("concordia", "palmar","gualeguaychu"))
-data19Q<-subset(data, year == "2019")
+datavq<-read_excel("database.xlsx", sheet="varqui")
+datavq$year<-as.factor(datavq$year)
+datavq$phenotype<-as.factor(datavq$phenotype)
+datavq$site<-factor(datavq$site,levels=c("concordia", "palmar","gualeguaychu"))
+datavq19Q<-subset(datavq, year == "2019")
 
 ```
 
@@ -34,7 +34,7 @@ data19Q<-subset(data, year == "2019")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resaao25 <- summarySE(data19Q, measurevar="aao25", groupvars=c("site","phenotype"), na.rm = TRUE)
+resaao25 <- summarySE(datavq19Q, measurevar="aao25", groupvars=c("site","phenotype"), na.rm = TRUE)
 resaao25
 
 library(ggplot2)
@@ -60,12 +60,12 @@ gaao25
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataaao25 <- data19Q[!is.na(data19Q$aao25),]
+datavqaao25 <- datavq19Q[!is.na(datavq19Q$aao25),]
 
 library(lme4)
 library(lmerTest) #Test de Wald
 
-maao25<- lmer(aao25 ~ 1 + (1|site/phenotype), dataaao25)
+maao25<- lmer(aao25 ~ 1 + (1|site/phenotype), datavqaao25)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -75,7 +75,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   "residuos" = residuals(maao25),
 #   "predichos" = predict(maao25)))
 # 
-# aao25_ajuste$aao25 <- dataaao25$aao25
+# aao25_ajuste$aao25 <- datavqaao25$aao25
 # 
 # library(ggplot2)
 # HVaao25<-ggplot(aao25_ajuste) +
@@ -154,7 +154,7 @@ ICCaao25
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resfen <- summarySE(data19Q, measurevar="fen", groupvars=c("site","phenotype"), na.rm = TRUE)
+resfen <- summarySE(datavq19Q, measurevar="fen", groupvars=c("site","phenotype"), na.rm = TRUE)
 resfen
 
 library(ggplot2)
@@ -180,12 +180,12 @@ gfen
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datafen <- data19Q[!is.na(data19Q$fen),]
+datavqfen <- datavq19Q[!is.na(datavq19Q$fen),]
 
 library(lme4)
 library(lmerTest)
 
-mfen<- lmer(log(fen) ~ 1 + (1|site/phenotype), datafen)
+mfen<- lmer(log(fen) ~ 1 + (1|site/phenotype), datavqfen)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -195,7 +195,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   "residuos" = residuals(mfen),
 #   "predichos" = predict(mfen)))
 # 
-# fen_ajuste$fen <- datafen$fen
+# fen_ajuste$fen <- datavqfen$fen
 # 
 # library(ggplot2)
 # HVfen<-ggplot(fen_ajuste) +
@@ -268,7 +268,7 @@ ICCfen
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-rescloa <- summarySE(data19Q, measurevar="cloa", groupvars=c("site","phenotype"), na.rm = TRUE)
+rescloa <- summarySE(datavq19Q, measurevar="cloa", groupvars=c("site","phenotype"), na.rm = TRUE)
 rescloa
 
 library(ggplot2)
@@ -294,15 +294,15 @@ gcloa
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datacloa <- data19Q[!is.na(data19Q$cloa),]
+datavqcloa <- datavq19Q[!is.na(datavq19Q$cloa),]
 
 library(lme4)
 library(lmerTest)
 
-mcloa<- lmer(sqrt(cloa) ~ 1 + (1|site/phenotype), datacloa)
+mcloa<- lmer(sqrt(cloa) ~ 1 + (1|site/phenotype), datavqcloa)
 # library(nlme)
 # mcloa<-lme(sqrt(cloa) ~ 1, random = ~ 1|site/phenotype,
-#             weights=varPower(), datacloa)
+#             weights=varPower(), datavqcloa)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -312,7 +312,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   "residuos" = residuals(mcloa),
 #   "predichos" = predict(mcloa)))
 # 
-# cloa_ajuste$cloa <- datacloa$cloa
+# cloa_ajuste$cloa <- datavqcloa$cloa
 # 
 # library(ggplot2)
 # HVcloa<-ggplot(cloa_ajuste) +
@@ -385,7 +385,7 @@ ICCcloa
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resclob <- summarySE(data19Q, measurevar="clob", groupvars=c("site","phenotype"), na.rm = TRUE)
+resclob <- summarySE(datavq19Q, measurevar="clob", groupvars=c("site","phenotype"), na.rm = TRUE)
 resclob
 
 library(ggplot2)
@@ -411,22 +411,22 @@ gclob
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataclob <- data19Q[!is.na(data19Q$clob),]
+datavqclob <- datavq19Q[!is.na(datavq19Q$clob),]
 
 library(lme4)
 library(lmerTest)
 
-mclob<- lmer(sqrt(clob) ~ 1 + (1|site/phenotype), dataclob)
+mclob<- lmer(sqrt(clob) ~ 1 + (1|site/phenotype), datavqclob)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# clob_ajuste <- as.data.frame(cbind(
+# clob_ajuste <- as.datavq.frame(cbind(
 #   "residuos" = residuals(mclob),
 #   "predichos" = predict(mclob)))
 # 
-# clob_ajuste$clob <- dataclob$clob
+# clob_ajuste$clob <- datavqclob$clob
 # 
 # library(ggplot2)
 # HVclob<-ggplot(clob_ajuste) +
@@ -493,13 +493,13 @@ ICCclob
 
 ```
 
-# caroTENOIDES 2019
+# CAROTENOIDES 2019
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-rescaro <- summarySE(data19Q, measurevar="caro", groupvars=c("site","phenotype"), na.rm = TRUE)
+rescaro <- summarySE(datavq19Q, measurevar="caro", groupvars=c("site","phenotype"), na.rm = TRUE)
 rescaro
 
 library(ggplot2)
@@ -525,15 +525,15 @@ gcaro
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datacaro <- data19Q[!is.na(data19Q$caro),]
+datavqcaro <- datavq19Q[!is.na(datavq19Q$caro),]
 
 library(lme4)
 library(lmerTest)
 
-mcaro<- lmer((caro) ~ 1 + (1|site/phenotype), datacaro)
+mcaro<- lmer((caro) ~ 1 + (1|site/phenotype), datavqcaro)
 
 # library(nlme)
-# mcaro2<- lme((caro) ~ 1, random =∼ 1 | site/phenotype, datacaro)
+# mcaro2<- lme((caro) ~ 1, random =∼ 1 | site/phenotype, datavqcaro)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -543,7 +543,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   "residuos" = residuals(mcaro),
 #   "predichos" = predict(mcaro)))
 # 
-# caro_ajuste$caro <- datacaro$caro
+# caro_ajuste$caro <- datavqcaro$caro
 # 
 # library(ggplot2)
 # HVcaro<-ggplot(caro_ajuste) +
@@ -616,7 +616,7 @@ ICCcaro
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resatt <- summarySE(data19Q, measurevar="att", groupvars=c("site","phenotype"), na.rm = TRUE)
+resatt <- summarySE(datavq19Q, measurevar="att", groupvars=c("site","phenotype"), na.rm = TRUE)
 resatt
 
 library(ggplot2)
@@ -642,12 +642,12 @@ gatt
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataatt <- data19Q[!is.na(data19Q$att),]
+datavqatt <- datavq19Q[!is.na(datavq19Q$att),]
 
 library(lme4)
 library(lmerTest)
 
-matt<- lmer(log(att) ~ 1 + (1|site/phenotype), dataatt)
+matt<- lmer(log(att) ~ 1 + (1|site/phenotype), datavqatt)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -657,7 +657,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   "residuos" = residuals(matt),
 #   "predichos" = predict(matt)))
 # 
-# att_ajuste$att <- dataatt$att
+# att_ajuste$att <- datavqatt$att
 # 
 # library(ggplot2)
 # HVatt<-ggplot(att_ajuste) +
@@ -730,7 +730,7 @@ ICCatt
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resratio <- summarySE(data19Q, measurevar="ratio", groupvars=c("site","phenotype"), na.rm = TRUE)
+resratio <- summarySE(datavq19Q, measurevar="ratio", groupvars=c("site","phenotype"), na.rm = TRUE)
 resratio
 
 library(ggplot2)
@@ -756,12 +756,12 @@ gratio
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dataratio <- data19Q[!is.na(data19Q$ratio),]
+datavqratio <- datavq19Q[!is.na(datavq19Q$ratio),]
 
 library(lme4)
 library(lmerTest)
 
-mratio<- lmer(log(ratio) ~ 1 + (1|site/phenotype), dataratio)
+mratio<- lmer(log(ratio) ~ 1 + (1|site/phenotype), datavqratio)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -844,7 +844,7 @@ ICCratio
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resbrix <- summarySE(data19Q, measurevar="brix", groupvars=c("site","phenotype"), na.rm = TRUE)
+resbrix <- summarySE(datavq19Q, measurevar="brix", groupvars=c("site","phenotype"), na.rm = TRUE)
 resbrix
 
 library(ggplot2)
@@ -870,12 +870,12 @@ gbrix
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-databrix <- data19Q[!is.na(data19Q$brix),]
+datavqbrix <- datavq19Q[!is.na(datavq19Q$brix),]
 
 library(lme4)
 library(lmerTest)
 
-mbrix<- lmer((brix) ~ 1 + (1|site/phenotype), databrix)
+mbrix<- lmer((brix) ~ 1 + (1|site/phenotype), datavqbrix)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -885,7 +885,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   "residuos" = residuals(mbrix),
 #   "predichos" = predict(mbrix)))
 # 
-# brix_ajuste$brix <- databrix$brix
+# brix_ajuste$brix <- datavqbrix$brix
 # 
 # library(ggplot2)
 # HVbrix<-ggplot(brix_ajuste) +
@@ -981,15 +981,22 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 ### Boxplot y dispersión de concentración de fenoles de las tres poblaciones para 2019 y 2021
+
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-estfenvar <- summarySE(data, measurevar="fen", groupvars=c("year","site"), na.rm = TRUE)
+estfenvar <- summarySE(datavq, measurevar="fen", groupvars=c("year","site"), na.rm = TRUE)
 estfenvar
 
-estaaovar <- summarySE(data, measurevar="aao", groupvars=c("year","site"), na.rm = TRUE)
+estaaovar <- summarySE(datavq, measurevar="aao", groupvars=c("year","site"), na.rm = TRUE)
 estaaovar
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
@@ -1016,7 +1023,7 @@ gfen
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-concordia<-subset(data, site == "concordia")
+concordia<-subset(datavq, site == "concordia")
 concordia$year<-as.factor(concordia$year)
 concordia$phenotype<-as.factor(concordia$phenotype)
 concordia$site<-as.factor(concordia$site)
@@ -1048,7 +1055,7 @@ g2
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-palmar<-subset(data, site == "palmar")
+palmar<-subset(datavq, site == "palmar")
 palmar$year<-as.factor(palmar$year)
 palmar$phenotype<-as.factor(palmar$phenotype)
 palmar$site<-as.factor(palmar$site)
@@ -1079,7 +1086,7 @@ g3
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-guale<-subset(data, site == "gualeguaychu")
+guale<-subset(datavq, site == "gualeguaychu")
 guale$year<-as.factor(guale$year)
 guale$phenotype<-as.factor(guale$phenotype)
 guale$site<-as.factor(guale$site)
@@ -1113,7 +1120,7 @@ g4
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-estF <- summarySE(data, measurevar="fen", groupvars=c("year"), na.rm = T)
+estF <- summarySE(datavq, measurevar="fen", groupvars=c("year"), na.rm = T)
 estF
 ```
 
@@ -1131,18 +1138,18 @@ Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.
 ```{r, echo=FALSE, include = FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Se quitan outliers
-g_caja<-boxplot(data$fen, col="green3", frame.plot=F)
-# data<-data[!(data$fen %in% g_caja$out),]
+g_caja<-boxplot(datavq$fen, col="green3", frame.plot=F)
+# datavq<-datavq[!(datavq$fen %in% g_caja$out),]
 
 ```
 
 ```{r echo=FALSE, warning=FALSE}
 
-datafen <- data[!is.na(data$fen),]
+datavqfen <- datavq[!is.na(datavq$fen),]
 library(lme4)
 library(lmerTest) #Test de Wald
 
-mfen<- lmer(log(fen) ~ 1 + (1|site/phenotype) + (1|year), datafen)
+mfen<- lmer(log(fen) ~ 1 + (1|site/phenotype) + (1|year), datavqfen)
 
 ```
 
@@ -1156,7 +1163,7 @@ summary(mfen)
 ```{r echo=FALSE, warning=FALSE}
 # library(nlme)
 # ctrl <- lmeControl(opt='optim');
-# modidentfen <- lme(logb(fen) ~ year, random= ~1 | site/phenotype, weights=varIdent(form=~1|site),control = ctrl, data = data)
+# modidentfen <- lme(logb(fen) ~ year, random= ~1 | site/phenotype, weights=varIdent(form=~1|site),control = ctrl, data = datavq)
 
 ```
 
@@ -1191,7 +1198,7 @@ shapiro.test(alfai)
 ```{r echo=FALSE, warning=FALSE}
 # ### Significacion parte fija
 # library(lme4)
-# mF0<- lmer(log(fen) ~ 1 + (1|site/phenotype), data)
+# mF0<- lmer(log(fen) ~ 1 + (1|site/phenotype), datavq)
 # round(anova(mF0,mfen),2)
 ```
 
@@ -1263,15 +1270,15 @@ sjPlot::tab_model(mfen)
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-
-data<-read.delim("acidezsolidos.txt")
-data$year<-as.factor(data$year)
-data$phenotype<-as.factor(data$phenotype)
-data$site<-factor(data$site,levels=c("concordia", "palmar","gualeguaychu"))
-data$ph7=as.numeric(data$ph7)
-data$mad<-as.factor(data$mad)
-data21<-subset(data, year == "2021")
-data19<-subset(data, year == "2019")
+library(readxl)
+dataacso<-read_excel("database.xlsx", sheet="acidezsolidos")
+dataacso$year<-as.factor(dataacso$year)
+dataacso$phenotype<-as.factor(dataacso$phenotype)
+dataacso$site<-factor(dataacso$site,levels=c("concordia", "palmar","gualeguaychu"))
+dataacso$ph7=as.numeric(dataacso$ph7)
+dataacso$mad<-as.factor(dataacso$mad)
+dataacso21<-subset(dataacso, year == "2021")
+dataacso19<-subset(dataacso, year == "2019")
 ```
 
 
@@ -1279,7 +1286,7 @@ data19<-subset(data, year == "2019")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resatt <- summarySE(data, measurevar="ac", groupvars=c("year","site"), na.rm = TRUE)
+resatt <- summarySE(dataacso, measurevar="ac", groupvars=c("year","site"), na.rm = TRUE)
 resatt
 
 library(ggplot2)
@@ -1307,7 +1314,7 @@ gatt
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resatt21 <- summarySE(data21, measurevar="ac", groupvars=c("site"), na.rm = TRUE)
+resatt21 <- summarySE(dataacso21, measurevar="ac", groupvars=c("site"), na.rm = TRUE)
 resatt21
 
 library(ggplot2)
@@ -1334,18 +1341,18 @@ gatt
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-modelo<-lm(data=data, ac~site)
+modelo<-lm(data=dataacso, ac~site)
 anova(modelo)
 
 ```
 
 ```{r echo=FALSE, warning=FALSE}
 
-# datafen <- data[!is.na(data$fen),]
+# datafen <- dataacso[!is.na(data$fen),]
 library(lme4)
 library(lmerTest) #Test de Wald
 
-modelo2<- lmer(ac ~ 1 + (1|site/phenotype) + (1|year), data)
+modelo2<- lmer(ac ~ 1 + (1|site/phenotype) + (1|year), dataacso)
 
 ```
 
@@ -1355,16 +1362,16 @@ modelo2<- lmer(ac ~ 1 + (1|site/phenotype) + (1|year), data)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resbrix <- summarySE(data, measurevar="brix", groupvars=c("phenotype"), na.rm = TRUE)
+resbrix <- summarySE(dataacso, measurevar="brix", groupvars=c("phenotype", "year"), na.rm = TRUE)
 resbrix
 
 library(ggplot2)
 
-gbrix<-ggplot(data=resbrix, aes(x=phenotype, y=brix))+
+gbrix<-ggplot(data=resbrix, aes(x=phenotype, y=brix, fill=year))+
   stat_summary(fun = "mean", size = 0.5, geom = "bar") +
   geom_errorbar(aes(ymin=brix-sd, ymax=brix+sd),
                 width=.2, position=position_dodge(.9))+
-  # facet_grid(.~site)+
+  facet_grid(year~.)+
   labs(x="phenotype", y="° brix")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
@@ -1382,11 +1389,11 @@ gbrix
 
 ```{r echo=FALSE, warning=FALSE}
 
-# datafen <- data[!is.na(data$fen),]
+# dataacsofen <- dataacso[!is.na(dataacso$fen),]
 library(lme4)
 library(lmerTest) #Test de Wald
 
-modelo2<- lmer(brix ~ year + (1|site/phenotype), data)
+modelo2<- lmer(brix ~ year + (1|site/phenotype), dataacso)
 
 ```
 
@@ -1394,12 +1401,12 @@ modelo2<- lmer(brix ~ year + (1|site/phenotype), data)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-resbrix <- summarySE(data, measurevar="brix", groupvars=c("phenotype"), na.rm = TRUE)
+resbrix <- summarySE(dataacso, measurevar="brix", groupvars=c("phenotype"), na.rm = TRUE)
 resbrix
 
 library(ggplot2)
 
-gcor<-ggplot(data=data, aes(x=ac, y=brix, color=year, shape=phenotype))+
+gcor<-ggplot(data=dataacso, aes(x=ac, y=brix, color=year, shape=phenotype))+
   geom_point()+
   # facet_grid(.~site)+
   labs(x="Acidez %", y="° brix")+

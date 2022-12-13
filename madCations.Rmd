@@ -1,0 +1,755 @@
+---
+title: "madCations"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+
+## Cationes en peso fresco
+
+Aproximadamente 1 gr de cada  muestra fue calcinado en mufla a 500 ºC por 5 horas.
+La ceniza fue levantada con 5 mL de HCl 20 %, completado a volumen (50mL) con agua destilada. Filtrada y  cuantificada por espectrometría de Absorción Atómica  en un equipo Perkin Elmer  AAAnalyst 200.
+
+Se ajustaron modelos lineales (estimaciones por mínimos cuarados ordinarios OLS) para predecir las concentraciones (CON) de cationes minerales en función del estado de madurez (MAD).
+```{r, echo=FALSE, error=TRUE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+data<-read.delim("cationes.txt")
+data$MAD<-as.factor(data$MAD)
+data$CAR<-as.factor(data$CAR)
+data$MAD<-factor(data$MAD,levels=c("I", "MM", "M", "SM"))
+data[is.na(data)] <-  0
+mg<-data[1:12,]
+k<-data[13:24,]
+mn<-data[25:36,]
+```
+
+### Tablas descriptivas
+
+#### Mg
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadcatmg <- summarySE(mg, measurevar="CONF", groupvars=c("MAD"))
+estadcatmg
+
+```
+
+#### K
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+estadcatk <- summarySE(k, measurevar="CONF", groupvars=c("MAD"))
+estadcatk
+
+```
+
+#### Mn
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+estadcatmn <- summarySE(mn, measurevar="CONF", groupvars=c("MAD"))
+estadcatmn
+
+```
+
+#### Concentración de cationes totales a distintos estados de madurez.
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gCT<-ggplot2::ggplot(dataCT, aes(x=MAD, y=TOTALF, fill=MAD)) +
+  geom_boxplot(width = 0.50)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Totales (mg/g fruta fresca)", x="Madurez")+
+  # facet_grid(CAR~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")
+gCT
+
+```
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mCT1 <- lme(TOTALF~ MAD, random = ~ 1|REP,
+             control = ctrl, data = dataCT)
+
+mCT1
+
+CT_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mCT1),
+  "predichos" = predict(mCT1)))
+
+CT_ajuste$CT <- dataCT$TOTALF
+
+library(ggplot2)
+HVCT<-ggplot(CT_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVCT
+
+QQCT<-ggplot(CT_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQCT
+
+e<-resid(mCT1) # residuos de pearson
+# pre<-predict(mCT1) #predichos
+# alfai<-ranef(mCT1)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mCT1)
+
+```
+
+#### Conclusiones
+
+No hay diferencias significativas.
+
+### Magnesio
+
+#### Concentración de magnesio a distintos estados de madurez.
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+gmg<-ggplot(mg, aes(x=MAD, y=CONF, fill=MAD))+
+  geom_boxplot()+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Concentración de Mg (mg/g) de peso fresco de fruto", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  geom_hline(yintercept = 0)+
+  geom_point(aes(x=3, y=0.1115), colour="red", size=2, shape=18) + #Rozycki 1997
+  annotate("text", x = c(3), y = c(0.139), label = c("Rozycki et al., 1997"))+
+  geom_point(aes(x=3, y=0.11), colour="green", size=2, shape=8) + #Kinupp
+  annotate("text", x = c(3), y = c(0.109), label = c("Kinupp-Barros, 2008"))+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))
+gmg
+
+```
+* Kinupp-Barros, 2008. https://www.scielo.br/j/cta/a/YVFJFF7hsmZKq9BQFcQ5Yyy/?lang=pt&format=pdf
+* Rozycki *et al*., 1997. https://pesquisa.bvsalud.org/portal/resource/pt/lil-228290
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mmg2<-lme(CONF~MAD, random = ~ 1|REP,
+           control = ctrl, data = mg)
+mmg2
+
+mg_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mmg2),
+  "predichos" = predict(mmg2)))
+
+mg_ajuste$CONS <- mg$CONS
+
+library(ggplot2)
+HVmg<-ggplot(mg_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVmg
+
+QQmg<-ggplot(mg_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmg
+
+e<-resid(mmg2) # residuos de pearson
+pre<-predict(mmg2) #predichos
+alfai<-ranef(mmg2)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(mmg2)
+```
+
+#### Conclusiones
+
+No se encontraron diferencias significativas.
+
+### Potasio
+
+#### Concentración de potasio a distintos estados de madurez.
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gk<-ggplot(k, aes(x=MAD, y=CONF, fill=MAD))+
+  geom_boxplot()+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Concentración de K (mg/g) de peso fresco de fruto", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  geom_hline(yintercept = 0)+
+  geom_point(aes(x=3, y=0.97), colour="blue4", size=5, shape=18)+
+  geom_point(aes(x=3, y=0.9485), colour="red", size=2, shape=18)+ #Rozycki
+  annotate("text", x = c(3.5, 3), y = c(1.2, 1.1), label = c("Rozycki et al.,1997", "UNLu"))
+gk
+
+```
+
+*UNLu: http://www.argenfoods.unlu.edu.ar/Tablas/Grupo/Frutas.pdf
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mk2<-lme(CONF~MAD, random = ~ 1|REP,
+           control = ctrl, data = k)
+mk2
+
+k_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mk2),
+  "predichos" = predict(mk2)))
+
+k_ajuste$CONS <- k$CONS
+
+library(ggplot2)
+HVk<-ggplot(k_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVk
+
+QQk<-ggplot(k_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQk
+
+e<-resid(mk2) # residuos de pearson
+pre<-predict(mk2) #predichos
+alfai<-ranef(mk2)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mk2)
+
+```
+
+#### Conclusiones
+
+No hay diferencias significativas en la concentración de potasio a diferentes estados de madurez.
+
+### Manganeso
+
+#### Concentración de manganeso a distintos estados de madurez.
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+gmn<-ggplot(mn, aes(x=MAD, y=CONF, fill=MAD))+
+  geom_hline(yintercept=0, col="darkgray")+
+  geom_boxplot()+
+  geom_point()+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Concentración de Mn (mn/g) de peso fresco de fruto", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  ggtitle("")+
+  geom_hline(yintercept = 0)
+gmn
+
+```
+
+#### Modelo y supuestos
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mmn2<-lme(CONF~MAD, random = ~ 1|REP, # Revisar REP !!!!!
+           control = ctrl, data = mn)
+mmn2
+
+mn_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mmn2),
+  "predichos" = predict(mmn2)))
+
+mn_ajuste$CONF <- mn$CONF
+
+library(ggplot2)
+HVmn<-ggplot(mn_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVmn
+
+QQmn<-ggplot(mn_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmn
+
+e<-resid(mmn2) # residuos de pearson
+pre<-predict(mmn2) #predichos
+alfai<-ranef(mmn2)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mmn2)
+
+```
+
+#### Conclusiones
+
+No hay diferencias significativas en la concentración de manganeso a diferentes estados de madurez. Se observó que sólo en estados medio maduro y maduro aparece en muy bajas concentraciones.
+
+
+## Cationes en peso seco
+
+### Tablas descriptivas
+
+#### Mg
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadcatmg <- summarySE(mg, measurevar="CONS", groupvars=c("MAD"))
+estadcatmg
+```
+
+#### k
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+estadcatk <- summarySE(k, measurevar="CONS", groupvars=c("MAD"))
+estadcatk
+```
+
+#### Mn
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+estadcatmn <- summarySE(mn, measurevar="CONS", groupvars=c("MAD"))
+estadcatmn
+```
+
+#### Totales
+
+#### Tabla descriptiva totales
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadCT <- summarySE(dataCT, measurevar="TOTALS", groupvars=c("CAR", "MAD"))
+estadCT
+
+```
+
+### Concentración de cationes totales a distintos estados de madurez.
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gCTs<-ggplot2::ggplot(dataCT, aes(x=MAD, y=TOTALS, fill=MAD)) +
+  geom_boxplot(width = 0.50)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Totales (mg/g fruto seco)", x="Madurez")+
+  # facet_grid(CAR~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+  theme(legend.position = "none")
+gCTs
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mCT1s <- lme(TOTALS~ MAD, random = ~ 1|REP,
+             control = ctrl, data = dataCT)
+
+mCT1s
+
+CTs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mCT1s),
+  "predichos" = predict(mCT1s)))
+
+CTs_ajuste$CT <- dataCT$TOTALS
+
+library(ggplot2)
+HVCTs<-ggplot(CTs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVCTs
+
+QQCTs<-ggplot(CTs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQCTs
+
+e<-resid(mCT1s) # residuos de pearson
+# pre<-predict(mCT1) #predichos
+# alfai<-ranef(mCT1)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mCT1s)
+
+```
+
+#### Conclusiones
+
+### Magnesio
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mmg2s<-lme(CONS~MAD, random = ~ 1|REP,
+           control = ctrl, data = mg)
+mmg2s
+
+mgs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mmg2s),
+  "predichos" = predict(mmg2s)))
+
+mgs_ajuste$CONS <- mg$CONS
+
+library(ggplot2)
+HVmgs<-ggplot(mgs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVmgs
+
+QQmgs<-ggplot(mgs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmgs
+
+e<-resid(mmg2s) # residuos de pearson
+pre<-predict(mmg2s) #predichos
+alfai<-ranef(mmg2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(mmg2)
+```
+
+#### Conclusiones
+
+No se encontraron diferencias significativas.
+
+### Potasio
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mk2s<-lme(CONS~MAD, random = ~ 1|REP,
+           control = ctrl, data = k)
+mk2s
+
+ks_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mk2s),
+  "predichos" = predict(mk2s)))
+
+ks_ajuste$CONS <- k$CONS
+
+library(ggplot2)
+HVks<-ggplot(ks_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVks
+
+QQks<-ggplot(ks_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQks
+
+e<-resid(mk2s) # residuos de pearson
+pre<-predict(mk2s) #predichos
+alfai<-ranef(mk2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mk2s)
+
+```
+
+#### Conclusiones
+
+No hay diferencias significativas en la concentración de potasio a diferentes estados de madurez.
+
+### Manganeso
+
+#### Modelo y supuestos
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(lme4)
+ctrl <- lmeControl(opt='optim');
+mmn2s<-lme(CONS~MAD, random = ~ 1|REP, # Revisar REP !!!!!
+           control = ctrl, data = mn)
+mmn2s
+
+mns_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mmn2s),
+  "predichos" = predict(mmn2s)))
+
+mns_ajuste$CONS <- mn$CONS
+
+library(ggplot2)
+HVmns<-ggplot(mns_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVmns
+
+QQmns<-ggplot(mns_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmns
+
+e<-resid(mmn2s) # residuos de pearson
+pre<-predict(mmn2s) #predichos
+alfai<-ranef(mmn2s)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mmn2s)
+
+```
+
+#### Conclusiones

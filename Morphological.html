@@ -281,6 +281,36 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Maturity
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Maturity.html">Summary tables</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Physical variables</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Antioxidant Activity</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Organic Acids</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohydrates</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Dietary Fiber</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cations</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Essays
      
     <span class="caret"></span>
@@ -294,9 +324,6 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="Branches.html">Branches</a>
-    </li>
-    <li>
-      <a href="Maturity.html">Maturity</a>
     </li>
     <li>
       <a href="Yield.html">Yield</a>
@@ -352,9 +379,6 @@ src="C:/Users/um/Documents/ipovilonis/Doc/6%20-%20Producción/test/ipovilonis.gi
 alt="" />
 <p class="caption">The fruit</p>
 </div>
-<pre><code>## Warning: NAs introducidos por coerción
-
-## Warning: NAs introducidos por coerción</code></pre>
 <div id="average-fruit" class="section level1">
 <h1>Average fruit</h1>
 <pre><code>##                          variable      means
@@ -406,8 +430,7 @@ alt="" />
 ## 37 gualeguaychu       362 4 0.0000  0  0  0
 ## 38 gualeguaychu       363 4 0.2222  0  0  0</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: (indmad) ~ 1 + (1 | site/phenotype)
 ##    Data: dataindmad
 ## 
@@ -486,8 +509,7 @@ alt="" />
 ## 42 gualeguaychu       363  9 10.123889  6.0783181 2.0261060  4.6722089
 ## 43 gualeguaychu       364  6  1.260167  0.4681275 0.1911123  0.4912697</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: sqrt(pff) ~ 1 + (1 | site/phenotype)
 ##    Data: datapff
 ## 
@@ -565,8 +587,7 @@ alt="" />
 ## 42 gualeguaychu       363  9 2.2142222 1.4958130 0.49860432 1.14978363
 ## 43 gualeguaychu       364  6 0.2136667 0.0601620 0.02456104 0.06313615</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: (psf)^(1/2) ~ 1 + (1 | site/phenotype)
 ##    Data: datapsf
 ## 
@@ -643,8 +664,7 @@ alt="" />
 ## 42 gualeguaychu       363  9 26.34444 6.985687 2.3285625  5.369675
 ## 43 gualeguaychu       364  6 13.57333 1.702030 0.6948509  1.786171</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: (de) ~ 1 + (1 | site/phenotype)
 ##    Data: datade
 ## 
@@ -721,8 +741,7 @@ alt="" />
 ## 42 gualeguaychu       363  9 26.29667 6.949102 2.3163675  5.341553
 ## 43 gualeguaychu       364  6 15.58667 2.135281 0.8717250  2.240840</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: (dp) ~ 1 + (1 | site/phenotype)
 ##    Data: datadp
 ## 
@@ -847,8 +866,7 @@ alt="" />
 ## 42 gualeguaychu       363  9        NA        NA         NA        NA
 ## 43 gualeguaychu       364  6        NA        NA         NA        NA</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
-## lmerModLmerTest]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: sqrt(pss) ~ 1 + (1 | site/phenotype)
 ##    Data: datapss
 ## 
@@ -888,18 +906,32 @@ alt="" />
 </div>
 <div id="pff-peso-fresco-del-fruto" class="section level1">
 <h1><strong>pff</strong> Peso fresco del fruto</h1>
-<pre><code>##   year site   N       pff       sd        se        ci
-## 1 2019 &lt;NA&gt; 411  9.679444 6.271831 0.3093666 0.6081426
-## 2 2021 &lt;NA&gt; 514 10.484821 6.978113 0.3077914 0.6046866</code></pre>
+<pre><code>##   year         site   N       pff       sd        se        ci
+## 1 2019    concordia 161 10.020429 5.975964 0.4709719 0.9301232
+## 2 2019       palmar 156 10.405921 6.127587 0.4905996 0.9691242
+## 3 2019 gualeguaychu  94  7.889777 6.713651 0.6924602 1.3750888
+## 4 2021    concordia 179  5.998939 4.949219 0.3699220 0.7299970
+## 5 2021       palmar 171 12.536789 7.001749 0.5354371 1.0569618
+## 6 2021 gualeguaychu 164 13.241445 6.419648 0.5012903 0.9898602
+## 7 2022    concordia 121  7.943298 5.014442 0.4558584 0.9025679
+## 8 2022       palmar   6 11.358500 7.145121 2.9169834 7.4983445
+## 9 2022 gualeguaychu 114  8.640035 5.064179 0.4743038 0.9396814</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" />
 The bars indicate standard deviation. The dashed red line indicates the
 mean.</p>
 </div>
 <div id="de-diámetro-ecuatorial" class="section level1">
 <h1><strong>de</strong> Diámetro ecuatorial</h1>
-<pre><code>##   year site   N       de        sd        se        ci
-## 1 2019 &lt;NA&gt; 411 27.37373  7.438403 0.3669094 0.7212583
-## 2 2021 &lt;NA&gt; 514 27.71155 11.982081 0.5285069 1.0383042</code></pre>
+<pre><code>##   year         site   N       de        sd        se        ci
+## 1 2019    concordia 161 28.04247  7.381213 0.5817211 1.1488418
+## 2 2019       palmar 156 28.88958  6.654205 0.5327628 1.0524127
+## 3 2019 gualeguaychu  94 23.71266  7.630252 0.7870004 1.5628268
+## 4 2021    concordia 179 21.40870  7.504648 0.5609237 1.1069161
+## 5 2021       palmar 171 30.23503  6.537292 0.4999192 0.9868489
+## 6 2021 gualeguaychu 164 31.95970 16.652705 1.3003578 2.5677185
+## 7 2022    concordia 121 25.07826  6.594981 0.5995437 1.1870548
+## 8 2022       palmar   6 30.01000  7.182147 2.9320994 7.5372014
+## 9 2022 gualeguaychu 114 24.64061  5.917095 0.5541867 1.0979438</code></pre>
 <p><img src="Morphological_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The bars indicate standard deviation. The dashed red line indicates
 the mean.</p>

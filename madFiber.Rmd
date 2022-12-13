@@ -1,0 +1,721 @@
+---
+title: "madFiber"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+
+
+## Fibra Dietaria en peso fresco
+
+```{r, echo=FALSE, error=TRUE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+ 
+dataf<-read.delim("fibras.txt")
+dataf$MAD<-factor(dataf$MAD,levels=c("I", "MM", "M", "SM"))
+FDSdata<-subset(dataf, CAR == "FDS")
+FDIdata<-subset(dataf, CAR == "FDI")
+FDTdata<-subset(dataf, CAR == "FDT")
+IDdata<-subset(dataf, CAR == "IS")
+DSTdata<-subset(dataf, CAR == "DT")
+
+
+```
+
+### Concentración de Fibras dietarias a distintos estados de madurez
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(ggplot2)
+# fib2<-ggplot2::ggplot(dataf, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
+#   geom_point()+
+#   facet_grid(CAR~.)+
+#   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   labs(y="mg/100g fruta fresca", x="Madurez")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   scale_colour_manual(values = c("cyan4", "coral1","green3"))+
+#   theme(legend.position = "none")
+# fib2
+
+```
+
+### Tabla descriptiva
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadfib <- summarySE(dataf, measurevar="CONF", groupvars=c("CAR", "MAD"))
+estadfib
+
+estadfibs <- summarySE(dataf, measurevar="CONS", groupvars=c("CAR", "MAD"))
+
+
+```
+
+### Fibra Dietaria Soluble
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mFDS2 <- lm(CONF ~ MAD,
+             control = ctrl, data = FDSdata)
+mFDS2
+
+
+FDS_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mFDS2),
+  "predichos" = predict(mFDS2)))
+
+FDS_ajuste$CONF <- FDSdata$CONF
+
+library(ggplot2)
+HVFDS<-ggplot(FDS_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVFDS
+
+QQFDS<-ggplot(FDS_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQFDS
+
+e<-resid(mFDS2) # residuos de pearson
+pre<-predict(mFDS2) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mFDS2)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompFDS<-emmeans(mFDS2, pairwise ~ MAD) #Tukey  
+CompFDS
+plot(CompFDS, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Hay diferencias significativas.
+
+### Fibra Dietaria Insoluble
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mFDI2 <- lm(CONF ~ MAD,
+             control = ctrl, data = FDIdata)
+mFDI2
+
+
+FDI_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mFDI2),
+  "predichos" = predict(mFDI2)))
+
+FDI_ajuste$CONF <- FDIdata$CONF
+
+library(ggplot2)
+HVFDI<-ggplot(FDI_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVFDI
+
+QQFDI<-ggplot(FDI_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQFDI
+
+e<-resid(mFDI2) # residuos de pearson
+pre<-predict(mFDI2) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mFDI2)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompFDI<-emmeans(mFDI2, pairwise ~ MAD) #Tukey  
+CompFDI
+plot(CompFDI, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+No hay diferencias significativas.
+
+
+
+
+### Fibra Dietaria Total
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mFDT2 <- lm(CONF ~ MAD,
+             control = ctrl, data = FDTdata)
+mFDT2
+
+
+FDT_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mFDT2),
+  "predichos" = predict(mFDT2)))
+
+FDT_ajuste$CONF <- FDTdata$CONF
+
+library(ggplot2)
+HVFDT<-ggplot(FDT_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVFDT
+
+QQFDT<-ggplot(FDT_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQFDT
+
+e<-resid(mFDT2) # residuos de pearson
+pre<-predict(mFDT2) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mFDT2)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompFDT<-emmeans(mFDT2, pairwise ~ MAD) #Tukey  
+CompFDT
+plot(CompFDT, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Hay diferencias significativas.
+
+## Fibra Dietaria en peso seco
+### Fibra Dietaria Soluble
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mFDS2s <- lm(CONS ~ MAD,
+             control = ctrl, data = FDSdata)
+mFDS2s
+
+
+FDSs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mFDS2s),
+  "predichos" = predict(mFDS2s)))
+
+FDSs_ajuste$CONS <- FDSdata$CONS
+
+library(ggplot2)
+HVFDSs<-ggplot(FDSs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVFDSs
+
+QQFDSs<-ggplot(FDSs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQFDSs
+
+e<-resid(mFDS2s) # residuos de pearson
+pre<-predict(mFDS2s) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mFDS2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompFDSs<-emmeans(mFDS2s, pairwise ~ MAD) #Tukey  
+CompFDSs
+plot(CompFDSs, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Hay diferencias significativas.
+
+### Fibra Dietaria Insoluble
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mFDI2s <- lm(CONS ~ MAD,
+             control = ctrl, data = FDIdata)
+mFDI2s
+
+
+FDIs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mFDI2s),
+  "predichos" = predict(mFDI2s)))
+
+FDIs_ajuste$CONS <- FDIdata$CONS
+
+library(ggplot2)
+HVFDIs<-ggplot(FDIs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVFDIs
+
+QQFDIs<-ggplot(FDIs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQFDIs
+
+e<-resid(mFDI2s) # residuos de pearson
+pre<-predict(mFDI2s) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mFDI2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompFDIs<-emmeans(mFDI2s, pairwise ~ MAD) #Tukey  
+CompFDIs
+plot(CompFDIs, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+No hay diferencias significativas.
+
+### Fibra Dietaria Total
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mFDT2s <- lm(CONS ~ MAD,
+             control = ctrl, data = FDTdata)
+mFDT2s
+
+
+FDTs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mFDT2s),
+  "predichos" = predict(mFDT2s)))
+
+FDTs_ajuste$CONF <- FDTdata$CONF
+
+library(ggplot2)
+HVFDTs<-ggplot(FDTs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVFDTs
+
+QQFDTs<-ggplot(FDTs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQFDTs
+
+e<-resid(mFDT2s) # residuos de pearson
+pre<-predict(mFDT2s) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mFDT2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompFDTs<-emmeans(mFDT2s, pairwise ~ MAD) #Tukey  
+CompFDTs
+plot(CompFDTs, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Hay diferencias significativas.
+
+### Fibra Dietaria Insoluble/Soluble
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+
+mID2s <- gls(CONS~MAD,
+                  weights=varIdent(form=~1|MAD),
+                  data = IDdata)
+mID2s
+
+
+IDs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mID2s),
+  "predichos" = predict(mID2s)))
+
+IDs_ajuste$CONF <- IDdata$CONF
+
+library(ggplot2)
+HVIDs<-ggplot(IDs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVIDs
+
+QQIDs<-ggplot(IDs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQIDs
+
+e<-resid(mID2s) # residuos de pearson
+pre<-predict(mID2s) #predichos
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mID2s)
+# library(car)
+# Anova(mID2s, type="3")
+
+```
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompmID2s<-emmeans(mID2s, pairwise ~ MAD) #Tukey  
+CompmID2s
+plot(CompmID2s, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Se encontraron diferencias significativas.
+
+### Fibra Dietaria Soluble/Total %
+
+#### Modelo y supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#gfs<-ggplot(data=DSTdata, aes(y=CONS,x=MAD, fill=MAD))+geom_point()
+
+library(nlme)
+
+mDST2s <- lm(CONS ~ MAD,
+              data = DSTdata)
+
+DSTs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mDST2s),
+  "predichos" = predict(mDST2s)))
+
+DSTs_ajuste$CONS <- DSTdata$CONS
+
+library(ggplot2)
+HVDSTs<-ggplot(DSTs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVDSTs
+
+QQDSTs<-ggplot(DSTs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQDSTs
+
+e<-resid(mDST2s) # residuos de pearson
+pre<-predict(mDST2s) #predichos
+shapiro.test(e)
+
+```
+
+
+
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mDST2s)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompmDST2s<-emmeans(mDST2s, pairwise ~ MAD) #Tukey  
+CompmDST2s
+plot(CompmDST2s, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración", y ="Madurez" )
+
+```
+
+#### Conclusiones
+
+Se encontraron diferencias significativas.

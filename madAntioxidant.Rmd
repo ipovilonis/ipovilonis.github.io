@@ -1,0 +1,134 @@
+---
+title: "madAntioxidant"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+
+
+## Actividad anti oxidante (DPPH)
+
+### Tabla descriptiva
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+Datos0 <- read.delim("AA_r0.txt")
+Datos0$Muestra<-factor(Datos0$Muestra)
+Datos0$Conc<-factor(Datos0$Conc)
+Datos0$Trata<-factor(Datos0$Trata,levels=c("I","MM", "M","SM"))
+
+library(psych)
+describeBy(Datos0$In,Datos0$Trata)
+
+```
+
+### Boxplot de capacidad anti oxidante para distintos grados de madurez
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("palegreen4","green2","orange2","burlywood2")
+box <- ggplot(Datos0, aes(x=Datos0$Trata, y=Datos0$In, fill=Trata)) +
+  geom_boxplot(aes())+
+  theme_classic()+
+  geom_jitter(alpha=0.6, size=6,aes(color=Conc), position = position_jitter(width = .05))+
+  scale_fill_manual(values = colores)+
+  scale_color_manual(values = c("cyan4", "coral1","green3","yellow3"))+
+  theme(legend.position="bottom", legend.text=element_text(size = 10),
+        legend.title = element_text(size=16, face="bold")) +
+  ylab("% Inh")+xlab("Maturity")
+box
+
+```
+
+### Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+maoo<-lmer(In~Trata + (1|Conc), data=Datos0)
+maoo
+
+```
+
+### Supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+e<-resid(maoo) # residuos de pearson
+pre<-predict(maoo) #predichos
+par(mfrow = c(1, 2))
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de Residuos vs Predichos",cex.main=.8 )
+abline(0,0)
+qqnorm(e)
+qqline(e)
+shapiro.test(e)
+
+```
+
+### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(maoo)
+
+```
+
+### Comparaciones a posteriori
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp2<-emmeans(maoo, pairwise ~ Trata) #Tukey por default  
+Comp2
+plot(Comp2, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Capacidad anti oxidante (%)", y ="Madurez" )
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+### Evolución de la Avtividad anti oxidante en la maduración
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=10}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read.delim("tablaAAO.txt")
+data$T<-as.factor(data$T)
+data$T<-factor(data$T,levels=c("Unripe", "Medium ripe","Ripe", "Overripe"))
+colores<-c("palegreen4","green2","orange","burlywood2")
+Taao<-ggplot(data=data, aes(Conc, inh, color=data$T)) +
+  geom_point(lwd=5, show.legend = FALSE, shape=data$T) +
+  (scale_color_manual(values = colores)) +
+  geom_smooth(method="loess", lwd=1.2) + labs(y="inh %", x="Concentration mg fruit/Ml") +
+  geom_errorbar(aes(ymin=inh-DS, ymax=inh+DS), width=.9, position=position_dodge(.01))+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.85, 0.25),
+        legend.background = element_rect(fill = "white"))+
+  theme(text = element_text(size=20))+
+  theme(legend.position = "bottom")
+
+Taao
+
+```
+
+## Tabla resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+
+library(png)
+library(grid)
+img <- readPNG("varqui.png")
+ grid.raster(img)
+```
+
+ANOVA for the soluble solids (SS). pH (pH). titulable total acidity (TTA) and soluble solids/ titulable total acidity (SS/TTA). total polyphenols (TP). DPPH radical scavenging activity (DPPH) considering the fruit ripening stages of H. edulis "ubajay" harvested from the plants growing in the experimental field of the University of Morón in Moreno (Buenos Aires) during December 2018.

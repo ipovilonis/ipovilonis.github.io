@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>madAcids</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Hexachlamys edulis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="genotypes.html">Phenotypes</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Variability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Morphological.html">Morphological</a>
+    </li>
+    <li>
+      <a href="Colorimetry.html">Colorimetry</a>
+    </li>
+    <li>
+      <a href="Chemical.html">Chemical</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Reproductive.html">Reproductive</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Multivariate.html">Multivariate</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Maturity
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Maturity.html">Summary tables</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Physical variables</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Antioxidant Activity</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Organic Acids</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohydrates</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Dietary Fiber</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cations</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Essays
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Phenology.html">Phenology</a>
+    </li>
+    <li>
+      <a href="Polinization.html">Polinization</a>
+    </li>
+    <li>
+      <a href="Branches.html">Branches</a>
+    </li>
+    <li>
+      <a href="Yield.html">Yield</a>
+    </li>
+    <li>
+      <a href="Postharvest.html">Postharvest</a>
+    </li>
+    <li>
+      <a href="Companionspecies.html">Companion species</a>
+    </li>
+    <li>
+      <a href="Climate.html">Climate</a>
+    </li>
+    <li>
+      <a href="Soil.html">Soil</a>
+    </li>
+    <li>
+      <a href="Genetics.html">Genetics</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Academic Publications</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">madAcids</h1>
+
+</div>
+
+
+<div id="acidos-orgánicos-en-peso-fresco" class="section level2">
+<h2>Acidos orgánicos en peso fresco</h2>
+<div
+id="concentración-del-perfíl-de-ácidos-orgánicos-a-distintos-estados-de-madurez"
+class="section level3">
+<h3>Concentración del perfíl de ácidos orgánicos a distintos estados de
+madurez</h3>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>##          CAR MAD N        CONF         sd         se         ci
+## 1  Tartárico   I 6  0.00000000 0.00000000 0.00000000 0.00000000
+## 2  Tartárico  MM 6  0.00000000 0.00000000 0.00000000 0.00000000
+## 3  Tartárico   M 6  0.00000000 0.00000000 0.00000000 0.00000000
+## 4  Tartárico  SM 6  0.11525617 0.05645887 0.02304924 0.05924995
+## 5     Málico   I 6  7.38748867 2.39039720 0.97587557 2.50856802
+## 6     Málico  MM 6 10.97554617 0.73282731 0.29917550 0.76905510
+## 7     Málico   M 6 11.75953867 0.36205255 0.14780733 0.37995084
+## 8     Málico  SM 6 10.53686683 0.85612489 0.34951152 0.89844797
+## 9    Quínico   I 6  0.06656933 0.10312877 0.04210214 0.10822700
+## 10   Quínico  MM 6  3.07602417 0.45248106 0.18472462 0.47484975
+## 11   Quínico   M 6  2.54553617 0.33950376 0.13860183 0.35628735
+## 12   Quínico  SM 6  2.84914933 0.49833707 0.20344526 0.52297268
+## 13 Succínico   I 6 19.18377483 2.08491332 0.85116230 2.18798234
+## 14 Succínico  MM 6 11.25241550 0.77428920 0.31610224 0.81256668
+## 15 Succínico   M 6 11.11272483 0.25542969 0.10427873 0.26805702
+## 16 Succínico  SM 6 14.31751033 0.97755546 0.39908535 1.02588154</code></pre>
+</div>
+<div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración"
+class="section level3">
+<h3>Evolución del perfíl de ácidos orgánicos en la maduración</h3>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="acidos-orgánicos-totales" class="section level3">
+<h3>Acidos orgánicos Totales</h3>
+<div
+id="concentración-de-ácidos-orgánicos-totales-a-distintos-estados-de-madurez."
+class="section level4">
+<h4>Concentración de ácidos orgánicos totales a distintos estados de
+madurez.</h4>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-totales" class="section level4">
+<h4>Tabla descriptiva totales</h4>
+<pre><code>##        CAR MAD N    TOTALF        sd        se        ci
+## 1    ACIDS   I 6 26.637833 1.9904221 0.8125864 2.0888199
+## 2    ACIDS  MM 6 25.303985 1.7882992 0.7300701 1.8767049
+## 3    ACIDS   M 6 25.417800 0.4341472 0.1772399 0.4556096
+## 4    ACIDS  SM 6 27.818783 1.0618125 0.4334832 1.1143039
+## 5  CATIONS   I 3  3.590633 1.3255207 0.7652897 3.2927760
+## 6  CATIONS  MM 3  2.560667 0.3135370 0.1810207 0.7788691
+## 7  CATIONS   M 3  2.603833 0.3089976 0.1783999 0.7675927
+## 8  CATIONS  SM 3  2.214367 0.3945083 0.2277695 0.9800130
+## 9   SUGARS   I 6 45.629848 4.8115374 1.9643019 5.0493989
+## 10  SUGARS  MM 6 36.768222 5.1410362 2.0988192 5.3951866
+## 11  SUGARS   M 6 39.159254 2.5994183 1.0612081 2.7279222
+## 12  SUGARS  SM 6 53.119643 1.8422850 0.7521097 1.9333595</code></pre>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataAT 
+##   Log-restricted-likelihood: -39.09968
+##   Fixed: TOTALF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   26.637833   -1.333847   -1.220033    1.180950 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:   0.5444281 1.371765
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-8-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.97767, p-value = 0.8493</code></pre>
+</div>
+<div id="anova" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 3901.697  &lt;.0001
+## MAD             3    18    4.454  0.0165</code></pre>
+</div>
+<div id="test-de-tukey" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     26.6 0.642  2     23.9     29.4
+##  MM    25.3 0.642  2     22.5     28.1
+##  M     25.4 0.642  2     22.7     28.2
+##  SM    27.8 0.642  2     25.1     30.6
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM      1.334 0.792 18  1.684  0.3602 
+##  I - M       1.220 0.792 18  1.540  0.4354 
+##  I - SM     -1.181 0.792 18 -1.491  0.4629 
+##  MM - M     -0.114 0.792 18 -0.144  0.9989 
+##  MM - SM    -2.515 0.792 18 -3.175  0.0246 
+##  M - SM     -2.401 0.792 18 -3.032  0.0331 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez para los
+ácidos totales detectados en este trabajo.</p>
+</div>
+</div>
+<div id="ácido-tartárico" class="section level3">
+<h3>Ácido Tartárico</h3>
+<div id="modelo-y-supuestos" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: tar 
+##   Log-restricted-likelihood: 39.7876
+##   Fixed: CONF ~ MAD 
+##   (Intercept)         MADMM          MADM         MADSM 
+##  1.058323e-17 -1.116798e-17 -1.387779e-17  1.152562e-01 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)  Residual
+## StdDev:  0.01080452 0.0265232
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.72687, p-value = 2.331e-05</code></pre>
+</div>
+<div id="anova-1" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 12.16941  0.0026
+## MAD             3    18 28.32485  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-1" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean     SE df lower.CL upper.CL
+##  I    0.000 0.0125  2  -0.0538   0.0538
+##  MM   0.000 0.0125  2  -0.0538   0.0538
+##  M    0.000 0.0125  2  -0.0538   0.0538
+##  SM   0.115 0.0125  2   0.0615   0.1690
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate     SE df t.ratio p.value
+##  I - MM      0.000 0.0153 18  0.000  1.0000 
+##  I - M       0.000 0.0153 18  0.000  1.0000 
+##  I - SM     -0.115 0.0153 18 -7.527  &lt;.0001 
+##  MM - M      0.000 0.0153 18  0.000  1.0000 
+##  MM - SM    -0.115 0.0153 18 -7.527  &lt;.0001 
+##  M - SM     -0.115 0.0153 18 -7.527  &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-1" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez. El
+estado sobre maduro es el único que presenta ácido tartárico
+detectable.</p>
+</div>
+</div>
+<div id="ácido-málico" class="section level3">
+<h3>Ácido málico</h3>
+<div id="modelo-y-supuestos-1" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: mal 
+##   Log-restricted-likelihood: -26.58205
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    7.387489    3.588058    4.372050    3.149378 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:   0.3652165 2.680123
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##          I          M         MM         SM 
+## 1.00000000 0.05526687 0.27021057 0.26008009 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-16-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.88973, p-value = 0.01312</code></pre>
+</div>
+<div id="anova-2" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1    18 2846.5229  &lt;.0001
+## MAD             3    18   12.9604   1e-04</code></pre>
+</div>
+<div id="test-de-tukey-2" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     7.39 1.114  2     2.59     12.2
+##  MM   10.98 0.363  2     9.41     12.5
+##  M    11.76 0.219  2    10.82     12.7
+##  SM   10.54 0.354  2     9.01     12.1
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     -3.588 1.133 18 -3.166  0.0251 
+##  I - M      -4.372 1.096 18 -3.990  0.0043 
+##  I - SM     -3.149 1.131 18 -2.786  0.0542 
+##  MM - M     -0.784 0.302 18 -2.598  0.0780 
+##  MM - SM     0.439 0.410 18  1.069  0.7121 
+##  M - SM      1.223 0.291 18  4.203  0.0027 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-2" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez. En el
+estado maduro se presentó el pico de concentración de ácido málico.</p>
+</div>
+</div>
+<div id="ácido-quínico" class="section level3">
+<h3>Ácido quínico</h3>
+<div id="modelo-y-supuestos-2" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: qui 
+##   Log-restricted-likelihood: -11.80976
+##   Fixed: CONF ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##  0.06656933  3.00945483  2.47896683  2.78258000 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)  Residual
+## StdDev:   0.1805716 0.3444666
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-21-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.93241, p-value = 0.1104</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value  Pr(&gt;F)  
+## group  3  3.0561 0.05203 .
+##       20                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="anova-3" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1    18 288.07894  &lt;.0001
+## MAD             3    18  98.47655  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-3" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean    SE df lower.CL upper.CL
+##  I   0.0666 0.175  2   -0.687     0.82
+##  MM  3.0760 0.175  2    2.323     3.83
+##  M   2.5455 0.175  2    1.792     3.30
+##  SM  2.8491 0.175  2    2.096     3.60
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     -3.009 0.199 18 -15.132 &lt;.0001 
+##  I - M      -2.479 0.199 18 -12.465 &lt;.0001 
+##  I - SM     -2.783 0.199 18 -13.991 &lt;.0001 
+##  MM - M      0.530 0.199 18   2.667 0.0683 
+##  MM - SM     0.227 0.199 18   1.141 0.6700 
+##  M - SM     -0.304 0.199 18  -1.527 0.4431 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-3" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se observa un marcado aumento de ácido quínico con la maduración
+hasta frutos maduros. Luego en frutos sobre maduros Frutos medio maduros
+presentan gran variabiliad.</p>
+</div>
+</div>
+<div id="ácido-succinico" class="section level3">
+<h3>Ácido succinico</h3>
+<div id="modelo-y-supuestos-3" class="section level4">
+<h4>Modelo y supuestos</h4>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-24-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.8254, p-value = 0.0007898</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  1.8901 0.1638
+##       20</code></pre>
+</div>
+<div id="anova-4" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 667.5826  &lt;.0001
+## MAD             3    18  97.5744  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-4" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     19.2 0.634  2    16.46     21.9
+##  MM    11.3 0.634  2     8.52     14.0
+##  M     11.1 0.634  2     8.38     13.8
+##  SM    14.3 0.634  2    11.59     17.0
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM       7.93 0.541 18 14.658  &lt;.0001 
+##  I - M        8.07 0.541 18 14.916  &lt;.0001 
+##  I - SM       4.87 0.541 18  8.993  &lt;.0001 
+##  MM - M       0.14 0.541 18  0.258  0.9938 
+##  MM - SM     -3.07 0.541 18 -5.665  0.0001 
+##  M - SM      -3.20 0.541 18 -5.923  0.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-4" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias entre estados de madurez, los frutos
+inmaduros y sobre maduros presentaron las mayores concentraciones de
+ácido succínico.</p>
+</div>
+</div>
+</div>
+<div id="acidos-orgánicos-en-peso-seco" class="section level2">
+<h2>Acidos orgánicos en peso seco</h2>
+<div
+id="concentración-del-perfíl-de-ácidos-orgánicos-a-distintos-estados-de-madurez-1"
+class="section level3">
+<h3>Concentración del perfíl de ácidos orgánicos a distintos estados de
+madurez</h3>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="tabla-descriptiva-1" class="section level4">
+<h4>Tabla descriptiva</h4>
+<pre><code>##          CAR MAD N        CONS         sd        se         ci
+## 1  Tartárico   I 6   0.0000000  0.0000000 0.0000000  0.0000000
+## 2  Tartárico  MM 6   0.0000000  0.0000000 0.0000000  0.0000000
+## 3  Tartárico   M 6   0.0000000  0.0000000 0.0000000  0.0000000
+## 4  Tartárico  SM 6   0.9411357  0.4830675 0.1972115  0.5069482
+## 5     Málico   I 6  44.9021340 19.1523848 7.8189284 20.0991952
+## 6     Málico  MM 6  90.1895317  4.0220151 1.6419808  4.2208460
+## 7     Málico   M 6 105.1474897  3.3635752 1.3731738  3.5298556
+## 8     Málico  SM 6  84.7945992  5.3680332 2.1914904  5.6334054
+## 9    Quínico   I 6   0.4406633  0.6826727 0.2787000  0.7164211
+## 10   Quínico  MM 6  25.3176063  3.8140014 1.5570595  4.0025490
+## 11   Quínico   M 6  22.6888082  2.2426216 0.9155464  2.3534871
+## 12   Quínico  SM 6  22.9204245  3.7568053 1.5337093  3.9425254
+## 13 Succínico   I 6 112.3334865  6.5345266 2.6677093  6.8575651
+## 14 Succínico  MM 6  92.4815923  4.7805090 1.9516346  5.0168366
+## 15 Succínico   M 6  99.4372398  4.8240139 1.9693954  5.0624921
+## 16 Succínico  SM 6 115.6551513 12.4187931 5.0699510 13.0327241</code></pre>
+</div>
+<div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración-1"
+class="section level4">
+<h4>Evolución del perfíl de ácidos orgánicos en la maduración</h4>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="ácidos-orgánicos-totales" class="section level3">
+<h3>Ácidos orgánicos totales</h3>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="tabla-descriptiva-totales-1" class="section level4">
+<h4>Tabla descriptiva totales</h4>
+<pre><code>##        CAR MAD N    TOTALS        sd        se        ci
+## 1    ACIDS   I 6 157.67628 24.414796  9.967299 25.621757
+## 2    ACIDS  MM 6 207.98873 11.656957  4.758933 12.233226
+## 3    ACIDS   M 6 227.27354  4.284626  1.749191  4.496439
+## 4    ACIDS  SM 6 224.31131 13.987406  5.710335 14.678882
+## 5  CATIONS   I 3  20.97176  7.741948  4.469816 19.232065
+## 6  CATIONS  MM 3  21.05341  2.577853  1.488324  6.403742
+## 7  CATIONS   M 3  23.27046  2.761513  1.594360  6.859978
+## 8  CATIONS  SM 3  17.82637  3.175920  1.833618  7.889422
+## 9   SUGARS   I 6 266.88079  8.481943  3.462739  8.901254
+## 10  SUGARS  MM 6 301.68035 34.616722 14.132218 36.328022
+## 11  SUGARS   M 6 350.62576 31.182387 12.730156 32.723908
+## 12  SUGARS  SM 6 428.36808 26.752779 10.921776 28.075319</code></pre>
+</div>
+<div id="modelo-y-supuestos-4" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: dataAT 
+##   Log-restricted-likelihood: -86.62191
+##   Fixed: TOTALS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   157.67628    50.31245    69.59725    66.63503 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:   0.1187511  15.3783
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-32-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.95588, p-value = 0.3613</code></pre>
+</div>
+<div id="anova-5" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 4234.257  &lt;.0001
+## MAD             3    18   26.349  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-5" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean   SE df lower.CL upper.CL
+##  I      158 6.28  2      131      185
+##  MM     208 6.28  2      181      235
+##  M      227 6.28  2      200      254
+##  SM     224 6.28  2      197      251
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM     -50.31 8.88 18 -5.667  0.0001 
+##  I - M      -69.60 8.88 18 -7.839  &lt;.0001 
+##  I - SM     -66.64 8.88 18 -7.505  &lt;.0001 
+##  MM - M     -19.28 8.88 18 -2.172  0.1689 
+##  MM - SM    -16.32 8.88 18 -1.838  0.2886 
+##  M - SM       2.96 8.88 18  0.334  0.9868 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-5" class="section level4">
+<h4>Conclusiones</h4>
+<p>La menor concentración de ácidos totales en frutos inmaduros es
+significativa.</p>
+</div>
+</div>
+<div id="ácido-tartárico-1" class="section level3">
+<h3>Ácido tartárico</h3>
+<div id="modelo-y-supuestos-5" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: tar 
+##   Log-restricted-likelihood: -3.096888
+##   Fixed: CONS ~ MAD 
+##   (Intercept)         MADMM          MADM         MADSM 
+##  2.392333e-17  1.532898e-17 -1.110223e-16  9.411357e-01 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)  Residual
+## StdDev:  0.09563016 0.2258815
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-36-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.75036, p-value = 5.041e-05</code></pre>
+</div>
+<div id="anova-6" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF  F-value p-value
+## (Intercept)     1    18 10.69872  0.0042
+## MAD             3    18 26.03961  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-6" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean    SE df lower.CL upper.CL
+##  I    0.000 0.107  2   -0.462    0.462
+##  MM   0.000 0.107  2   -0.462    0.462
+##  M    0.000 0.107  2   -0.462    0.462
+##  SM   0.941 0.107  2    0.479    1.404
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      0.000 0.13 18  0.000  1.0000 
+##  I - M       0.000 0.13 18  0.000  1.0000 
+##  I - SM     -0.941 0.13 18 -7.217  &lt;.0001 
+##  MM - M      0.000 0.13 18  0.000  1.0000 
+##  MM - SM    -0.941 0.13 18 -7.217  &lt;.0001 
+##  M - SM     -0.941 0.13 18 -7.217  &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-6" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez. Sólo el
+estado sobre maduro presentó ácido málico detectable.</p>
+</div>
+</div>
+<div id="ácido-málico-1" class="section level3">
+<h3>Ácido málico</h3>
+<div id="modelo-y-supuestos-6" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: mal 
+##   Log-restricted-likelihood: -66.5285
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##    44.90213    45.28740    60.24536    39.89247 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    3.184406 19.91438
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##         I         M        MM        SM 
+## 1.0000000 0.0829966 0.2681539 0.1785083 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-40-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.87203, p-value = 0.005766</code></pre>
+</div>
+<div id="anova-7" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1    18 2706.3660  &lt;.0001
+## MAD             3    18   77.8867  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-7" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean   SE df lower.CL upper.CL
+##  I     44.9 8.34  2     9.04     80.8
+##  MM    90.2 2.85  2    77.92    102.5
+##  M    105.1 1.96  2    96.72    113.6
+##  SM    84.8 2.34  2    74.72     94.9
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM     -45.29 8.42 18 -5.380  0.0002 
+##  I - M      -60.25 8.16 18 -7.385  &lt;.0001 
+##  I - SM     -39.89 8.26 18 -4.830  0.0007 
+##  MM - M     -14.96 2.28 18 -6.554  &lt;.0001 
+##  MM - SM      5.39 2.62 18  2.060  0.2038 
+##  M - SM      20.35 1.60 18 12.717  &lt;.0001 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-7" class="section level4">
+<h4>Conclusiones</h4>
+<p>Existen diferencias significativas entre estados de madurez. En el
+estado maduro se presentó el pico de concentración de ácido málico.</p>
+</div>
+</div>
+<div id="ácido-quínico-1" class="section level3">
+<h3>Ácido quínico</h3>
+<div id="modelo-y-supuestos-7" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: qui 
+##   Log-restricted-likelihood: 58.15489
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##   0.3746778  24.8769430  22.2481448  22.4797612 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept)     Residual
+## StdDev:   0.6710272 1.179409e-16
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | MAD 
+##  Parameter estimates:
+##            I            M           MM           SM 
+## 1.000000e+00 2.223316e+16 3.723258e+16 3.666682e+16 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-45-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.94578, p-value = 0.2191</code></pre>
+</div>
+<div id="anova-8" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1    18   2.42807  0.1366
+## MAD             3    18 262.20498  &lt;.0001</code></pre>
+</div>
+<div id="test-de-tukey-8" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean   SE df lower.CL upper.CL
+##  I    0.375 0.24  2    -0.66     1.41
+##  MM  25.252 1.81  2    17.47    33.03
+##  M   22.623 1.10  2    17.90    27.34
+##  SM  22.854 1.78  2    15.19    30.52
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM    -24.877 1.79 18 -13.877 &lt;.0001 
+##  I - M     -22.248 1.07 18 -20.783 &lt;.0001 
+##  I - SM    -22.480 1.77 18 -12.733 &lt;.0001 
+##  MM - M      2.629 2.09 18   1.259 0.5992 
+##  MM - SM     2.397 2.52 18   0.953 0.7772 
+##  M - SM     -0.232 2.06 18  -0.112 0.9995 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-8" class="section level4">
+<h4>Conclusiones</h4>
+<p>El estado inmaduro se diferenció significativamente por sus bajas
+concentraciones de quínico. Luego durante la maduración el ácido se
+mantiene constante.</p>
+</div>
+</div>
+<div id="ácido-succinico-1" class="section level3">
+<h3>Ácido succinico</h3>
+<div id="modelo-y-supuestos-8" class="section level4">
+<h4>Modelo y supuestos</h4>
+<pre><code>## Linear mixed-effects model fit by REML
+##   Data: suc 
+##   Log-restricted-likelihood: -72.91629
+##   Fixed: CONS ~ MAD 
+## (Intercept)       MADMM        MADM       MADSM 
+##  112.333486  -19.851894  -12.896247    3.321665 
+## 
+## Random effects:
+##  Formula: ~1 | REP
+##         (Intercept) Residual
+## StdDev:    2.089065 7.567785
+## 
+## Number of Observations: 24
+## Number of Groups: 3</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-48-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-48-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.96753, p-value = 0.6065</code></pre>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  1.4818 0.2497
+##       20</code></pre>
+</div>
+<div id="anova-9" class="section level4">
+<h4>Anova</h4>
+<pre><code>##             numDF denDF   F-value p-value
+## (Intercept)     1    18 2869.0535  &lt;.0001
+## MAD             3    18   12.3959   1e-04</code></pre>
+</div>
+<div id="test-de-tukey-9" class="section level4">
+<h4>Test de Tukey</h4>
+<pre><code>## $emmeans
+##  MAD emmean   SE df lower.CL upper.CL
+##  I    112.3 3.32  2     98.1      127
+##  MM    92.5 3.32  2     78.2      107
+##  M     99.4 3.32  2     85.2      114
+##  SM   115.7 3.32  2    101.4      130
+## 
+## Degrees-of-freedom method: containment 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      19.85 4.37 18  4.544  0.0013 
+##  I - M       12.90 4.37 18  2.952  0.0389 
+##  I - SM      -3.32 4.37 18 -0.760  0.8711 
+##  MM - M      -6.96 4.37 18 -1.592  0.4076 
+##  MM - SM    -23.17 4.37 18 -5.304  0.0003 
+##  M - SM     -16.22 4.37 18 -3.712  0.0079 
+## 
+## Degrees-of-freedom method: containment 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="conclusiones-9" class="section level4">
+<h4>Conclusiones</h4>
+<p>Se encontraron diferencias significativas entre estados de madurez,
+los frutos inmaduros y sobre maduros presentaron las mayores
+concentraciones de ácido succínico.</p>
+</div>
+</div>
+</div>
+<div id="correlaciones-ácidos-orgánicos-y-acidez-total-titulable-att."
+class="section level2">
+<h2>Correlaciones ácidos orgánicos y acidez total titulable ATT.</h2>
+<div id="tabla-de-ácidos" class="section level3">
+<h3>Tabla de ácidos</h3>
+<pre><code>##          CAR MAD N        CONS         sd         se         ci
+## 1  Tartárico   I 6   0.0000000  0.0000000  0.0000000  0.0000000
+## 2  Tartárico  MM 6   0.0000000  0.0000000  0.0000000  0.0000000
+## 3  Tartárico   M 6   0.0000000  0.0000000  0.0000000  0.0000000
+## 4  Tartárico  SM 6   0.9411357  0.4830675  0.1972115  0.5069482
+## 5     Málico   I 6  44.9021340 19.1523848  7.8189284 20.0991952
+## 6     Málico  MM 6  90.1895317  4.0220151  1.6419808  4.2208460
+## 7     Málico   M 6 105.1474897  3.3635752  1.3731738  3.5298556
+## 8     Málico  SM 6  84.7945992  5.3680332  2.1914904  5.6334054
+## 9    Quínico   I 6   0.4406633  0.6826727  0.2787000  0.7164211
+## 10   Quínico  MM 6  25.3176063  3.8140014  1.5570595  4.0025490
+## 11   Quínico   M 6  22.6888082  2.2426216  0.9155464  2.3534871
+## 12   Quínico  SM 6  22.9204245  3.7568053  1.5337093  3.9425254
+## 13 Succínico   I 6 112.3334865  6.5345266  2.6677093  6.8575651
+## 14 Succínico  MM 6  92.4815923  4.7805090  1.9516346  5.0168366
+## 15 Succínico   M 6  99.4372398  4.8240139  1.9693954  5.0624921
+## 16 Succínico  SM 6 115.6551513 12.4187931  5.0699510 13.0327241
+## 17       ATT   I 3 177.9200000  5.0798425  2.9328484 12.6190284
+## 18       ATT  MM 3 160.6400000  2.7896953  1.6106313  6.9299874
+## 19       ATT   M 3 182.8266667 20.3906384 11.7725406 50.6531538
+## 20       ATT  SM 3 138.4533333  8.3527560  4.8224659 20.7493963
+## 21     ACIDS   I 6 157.6762838 24.4147956  9.9672986 25.6217567
+## 22     ACIDS  MM 6 207.9887302 11.6569573  4.7589329 12.2332265
+## 23     ACIDS   M 6 227.2735378  4.2846256  1.7491911  4.4964388
+## 24     ACIDS  SM 6 224.3113107 13.9874058  5.7103345 14.6788822</code></pre>
+</div>
+<div id="comparación-del-perfil-de-ácidos-y-de-att"
+class="section level3">
+<h3>Comparación del perfil de ácidos y de ATT</h3>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" />
+<em>The bars indicate standard deviation.</em></p>
+</div>
+<div id="correlaciones" class="section level3">
+<h3>Correlaciones</h3>
+<pre><code>## Error in library(c): there is no package called &#39;c&#39;</code></pre>
+<pre><code>## Error in ggpairs(FACO, columns = 2:7, lower = list(continuous = &quot;points&quot;)): could not find function &quot;ggpairs&quot;</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-54-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div
+id="análisis-de-varianza-para-cada-ácido-orgánico-y-totales-sobre-la-att"
+class="section level4">
+<h4>Análisis de varianza para cada ácido orgánico y totales sobre la
+ATT</h4>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value  Pr(&gt;F)   
+## Tartárico  1 0.23843 0.238432  10.684 0.00845 **
+## Residuals 10 0.22317 0.022317                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## Málico     1 0.02418 0.024176  0.5527 0.4743
+## Residuals 10 0.43742 0.043742</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## Quínico    1 0.04313 0.043135  1.0308 0.3339
+## Residuals 10 0.41847 0.041847</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## Succínico  1 0.07252 0.072524   1.864 0.2021
+## Residuals 10 0.38908 0.038908</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ATT
+##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
+## ACIDS      1 0.08885 0.088847  2.3835 0.1537
+## Residuals 10 0.37275 0.037275</code></pre>
+</div>
+<div
+id="análisis-de-varianza-para-cada-ácido-orgánico-y-totales-sobre-acidos-totales"
+class="section level4">
+<h4>Análisis de varianza para cada ácido orgánico y totales sobre Acidos
+Totales</h4>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ACIDS
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## Tartárico  1 1691.8 1691.79   1.726 0.2183
+## Residuals 10 9801.7  980.17</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ACIDS
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Málico     1 9942.7  9942.7   64.11 1.169e-05 ***
+## Residuals 10 1550.9   155.1                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ACIDS
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Quínico    1 8417.1  8417.1  27.361 0.0003839 ***
+## Residuals 10 3076.4   307.6                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: ACIDS
+##           Df  Sum Sq Mean Sq F value Pr(&gt;F)
+## Succínico  1    26.2   26.17  0.0228 0.8829
+## Residuals 10 11467.4 1146.74</code></pre>
+</div>
+<div id="conclusión" class="section level4">
+<h4>Conclusión</h4>
+<p>Sólo la correlación con Ac. tartárico es significativa, sin embargo
+se encuentra en pequeñas trazas sólo en el fruto sobremaduro. Se
+concluye que la ATT no se correlaciona con los ácidos orgánicos
+estudiados por separado ni tampoco en su conjunto (totales). El perfíl
+de ácidos es relativamente constante.</p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
