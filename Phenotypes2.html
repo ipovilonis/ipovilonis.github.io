@@ -11,7 +11,7 @@
 
 
 
-<title>Reproductive</title>
+<title>Phenotypes</title>
 
 <script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -29,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -226,75 +223,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-.tocify-subheader {
-  display: inline;
-}
-.tocify-subheader .tocify-item {
-  font-size: 0.95em;
-}
-
-</style>
-
-
 
 </head>
 
@@ -302,16 +230,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -450,94 +368,71 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Reproductive</h1>
+<h1 class="title toc-ignore">Phenotypes</h1>
 
 </div>
 
 
-<div class="figure">
-<img src="DSCN6196.jpg" alt="A caption" width="100%" />
-<p class="caption">
-A caption
-</p>
-</div>
-<div id="n-óvulos" class="section level1">
-<h1>N° óvulos</h1>
-<div id="metodología" class="section level2">
-<h2>Metodología</h2>
-<p>Se muestrearon 10 fores por genotipo de <em>Hexachlamys edulis</em>
-en 3 poblaciones de Entre Ríos: Concordia, PN el Palmar y Gualeguaychú.
-Se procedío al corte del ovario infero en lupa y se contaron los óvulos
-presentes en total en cada flor.</p>
-</div>
-<div id="estadística-descriptiva" class="section level2">
-<h2>Estadística descriptiva</h2>
-<p>Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y
-2021
-<img src="Reproductive_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" />
-N° óvulos entre individuos de Concordia en ambos años.
-<img src="Reproductive_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" />
-N° óvulos entre individuos del Palmar en ambos años.
-<img src="Reproductive_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" />
-N° óvulos entre individuos de Gualeguaychú en ambos años.
-<img src="Reproductive_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estadística-inferencial" class="section level2">
-<h2>Estadística inferencial</h2>
-<p>Comparación interpoblacional e intrapoblacional para los años 2019 y
-2021.</p>
-<p>Diseño anidado: Población(Genotipo) Análisis univariado de la
-variable N° de óvulos. Distribución de probabilidades: Poisson. Análisis
-de componentes de varianza. factores aleatorios: Población y Genotipo
-factores fijos: año</p>
-<pre><code>## Analysis of Variance Table
-##   npar Sum Sq Mean Sq F value
-## A    1 13.187  13.187  13.187</code></pre>
-<pre><code>## $emmeans
-##  A        rate        SE  df asymp.LCL asymp.UCL
-##  2019 4.367776 0.1818380 Inf  4.025533  4.739116
-##  2021 4.969390 0.2116835 Inf  4.571345  5.402094
-## 
-## Confidence level used: 0.95 
-## Intervals are back-transformed from the log scale 
-## 
-## $contrasts
-##  contrast        ratio         SE  df asymp.LCL asymp.UCL
-##  2019 / 2021 0.8789362 0.03122883 Inf 0.8198114 0.9423251
-## 
-## Confidence level used: 0.95 
-## Intervals are back-transformed from the log scale</code></pre>
-<p><img src="Reproductive_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<pre><code>## # Intraclass Correlation Coefficient
-## 
-##      Adjusted ICC: 0.089
-##   Conditional ICC: 0.087</code></pre>
-<pre><code>## [1] 0.911</code></pre>
-<p>Conclusiones:</p>
-<p>Se observan diferencias significativas entre años p = 0.000243 *** El
-año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo
-4,37</p>
-<p>Un 91,1% de la variabilidad está explicada por flores dentro de un
-mismo genotipo (ICC=8,9%)</p>
-</div>
-</div>
-<div id="próximas-variables" class="section level1">
-<h1>Próximas variables</h1>
-<ul>
-<li><p>Conteo de polen</p></li>
-<li><p>Diámetro polen</p></li>
-<li><p>Peso seco de la flor</p></li>
-<li><p>N° semillas</p></li>
-<li><p><strong>S/O</strong> ratio semillas óvulos</p></li>
-<li><p><strong>Fr/Fl</strong> ratio flores frutos</p></li>
-<li><p><strong>F</strong> ratio frutos óvulos</p></li>
-</ul>
+<div id="cast" class="section level2">
+<h2>Cast</h2>
+<pre><code>##            site phenotype  latitude longitude altitude   dbh larger_diameter minor_diameter height
+## 1     Concordia       154 -31.29335 -57.96305  24.3840  72.0             5.5           5.00  6.000
+## 2     Concordia       156 -31.29322 -57.96290  16.7640  51.0             5.5           4.20  5.625
+## 3     Concordia       161 -31.29313 -57.96283  23.7744  44.0             4.7           5.00  5.250
+## 4     Concordia       171 -31.29310 -57.96278  23.4696  39.0             5.0           4.40  4.875
+## 5     Concordia       174 -31.29303 -57.96297  24.3840  98.0             6.2           6.00  7.875
+## 6     Concordia       175 -31.29382 -57.96083  38.7096  42.0             4.6           4.50  4.125
+## 7     Concordia       178 -31.29408 -57.96080  24.9936  12.0             3.1           2.60  1.875
+## 8     Concordia       185 -31.29412 -57.96077  45.7200  30.0             3.4           3.00  3.600
+## 9     Concordia       190 -31.29468 -57.96173  17.0688  33.0             6.0           6.00  7.500
+## 10    Concordia       193 -31.29367 -57.96092  26.5176  24.0             3.5           3.80  5.250
+## 11    Concordia       197 -31.29072 -57.95800  33.2232  36.0             6.0           6.00  5.250
+## 12    Concordia       198 -31.29274 -57.96374       NA 132.0             6.5           5.50  6.750
+## 13    Concordia       199 -31.29393 -57.96591       NA 132.0             9.5           7.00  6.750
+## 14    Concordia       208 -31.29062 -57.95795  24.9936   7.5             3.2           3.00  2.600
+## 15    Concordia       221 -31.31532 -57.99050       NA 122.0             9.4           8.40  6.000
+## 16    Concordia       222 -31.31354 -57.99196       NA  77.0            10.0           5.00  7.125
+## 17    Concordia       223 -31.31404 -57.99186       NA 203.0            12.5          11.00  9.750
+## 18       Palmar       260 -31.86395 -58.20998  30.2000 270.0            10.0           9.00  9.750
+## 19       Palmar       261 -31.86363 -58.21030  25.0000  64.0             8.0           5.50  7.500
+## 20       Palmar       262 -31.86375 -58.21025  23.8000  66.0             5.0           4.00  8.250
+## 21       Palmar       268 -31.86587 -58.21043  25.6000  53.0             8.5           4.20  7.500
+## 22       Palmar       271 -31.86562 -58.21037  26.8000  78.0             7.0           5.00  9.375
+## 23       Palmar       272 -31.86655 -58.21095  26.8000  54.0             5.2           4.20  6.375
+## 24       Palmar       274 -31.86653 -58.21105  26.8000  47.0             3.5           3.00  7.875
+## 25       Palmar       276 -31.86633 -58.21100  26.5000  57.0             4.6           5.50  7.500
+## 26       Palmar       280 -31.86628 -58.21082  26.8000  62.0             4.0           3.00  8.625
+## 27       Palmar       281 -31.87447 -58.20853  24.1000  27.0             6.3           3.50  5.250
+## 28       Palmar       284 -31.87435 -58.20845  23.5000  20.0             3.8           3.80  4.700
+## 29       Palmar       285 -31.87423 -58.20841  24.7000 110.0             8.0           6.40  7.875
+## 30       Palmar       286 -31.87400 -58.23322  25.3000  67.0             6.5           5.50 10.500
+## 31       Palmar       287 -31.87302 -58.23253  47.9000 115.0             7.8           7.40 11.625
+## 32       Palmar       288 -31.87428 -58.20855  23.8000  21.0             3.4           3.00  4.700
+## 33       Palmar       289 -31.87438 -58.20858       NA    NA              NA             NA     NA
+## 34       Palmar       236 -31.87366 -58.22078       NA  84.0             6.8           7.80 10.000
+## 35       Palmar       290 -31.87433 -58.20834       NA  50.0             6.0           3.75  6.000
+## 36 Gualeguaychu       305 -33.06490 -58.26965  42.4000 100.0             7.7           7.20  9.750
+## 37 Gualeguaychu       306 -33.06515 -58.26987  42.7000  21.0             3.5           3.30  3.500
+## 38 Gualeguaychu       321 -33.06542 -58.26988  41.8000  29.0             4.7           4.50  4.500
+## 39 Gualeguaychu       324 -33.06505 -58.27017  25.6000  93.0             6.0           7.00 10.125
+## 40 Gualeguaychu       325 -33.06513 -58.27030  33.5000 145.0             9.1           8.80  9.000
+## 41 Gualeguaychu       331 -33.06502 -58.27032  33.2000  35.0             5.5           4.80  3.900
+## 42 Gualeguaychu       337 -33.06465 -58.27070  31.1000  36.0             4.8           3.80  5.625
+## 43 Gualeguaychu       348 -33.06467 -58.27118  33.5000 160.0             2.8           2.50  4.500
+## 44 Gualeguaychu       351 -33.06602 -58.27102  18.0000  25.0             3.3           5.30  9.000
+## 45 Gualeguaychu       359 -33.06600 -58.27090  17.4000  22.0             3.8           2.00  3.900
+## 46 Gualeguaychu       362 -33.06650 -58.27007   9.1000  10.0             1.5           1.40  3.100
+## 47 Gualeguaychu       363 -33.06643 -58.27012  11.0000  46.0             5.0           4.80  7.125
+## 48 Gualeguaychu       364 -33.06430 -58.26892  36.0000  34.0             5.0           4.70  6.000
+## 49 Gualeguaychu       390 -33.06396 -58.27644       NA  22.0             6.1           5.50  4.500
+## 50 Gualeguaychu       392 -33.06384 -58.27673       NA  87.0             8.1           8.00 10.000
+## 51 Gualeguaychu       393 -33.06269 -58.27789       NA  57.0             9.0           8.70  7.500
+## 52 Gualeguaychu       395 -33.06353 -58.27693       NA  20.0             4.7           3.20  2.100
+## 53 Gualeguaychu       396 -33.06282 -58.27789       NA  47.0             8.2           6.20  7.875</code></pre>
 </div>
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -570,35 +465,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4,h5",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = false;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
