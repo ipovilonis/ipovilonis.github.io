@@ -1,7 +1,6 @@
 ---
 title: "Phenotypes"
 output: html_document
-runtime: shiny
 ---
 
 ## Cast
@@ -9,14 +8,15 @@ runtime: shiny
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# library(ggplot2)
-# 
-# dataCAR<-read.delim("CAR.txt")
-# dataCAR$phenotype<-as.factor(dataCAR$phenotype)
-# dataCAR$site<-factor(dataCAR$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
-# 
-# datashow<-dataCAR[,-c(1,2)]
+library(ggplot2)
 
+dataCAR<-read.delim("CAR.txt")
+dataCAR$phenotype<-as.factor(dataCAR$phenotype)
+dataCAR$site<-factor(dataCAR$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+
+datashow<-dataCAR[,-c(1,2)]
+
+dataCAR
 ```
 
 ```{r, echo=FALSE}
