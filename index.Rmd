@@ -46,6 +46,8 @@ server <- function(input, output) {
   # Crear un mapa base
   output$mapa <- renderLeaflet({
     leaflet() %>% addTiles()
+    selectInput("sitio", "Seleccione un sitio:",
+              choices = sitios$sitio, selected = "Gualeguaychú")
   })
   
   # Agregar marcadores para cada sitio
