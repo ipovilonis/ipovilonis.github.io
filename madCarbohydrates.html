@@ -460,93 +460,89 @@ div.tocify {
 <div id="concentración-de-sacáridos-a-distintos-estados-de-madurez"
 class="section level3">
 <h3>Concentración de sacáridos a distintos estados de madurez</h3>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div id="tabla-descriptiva" class="section level4">
 <h4>Tabla descriptiva</h4>
-<pre><code>##         CAR MAD N        CONS          sd           se          ci
-## 1  Sacarosa   I 6  21.2063923 12.26720656  5.008066106 12.87364376
-## 2  Sacarosa  MM 6  77.7896157 12.58924796  5.139538960 13.21160549
-## 3  Sacarosa   M 6  82.5380555  6.48109241  2.645894896  6.80148936
-## 4  Sacarosa  SM 6  59.3865102 14.23412386  5.811056731 14.93779688
-## 5   Glucosa   I 6  95.5909412  3.78928109  1.546967528  3.97660663
-## 6   Glucosa  MM 6  89.4896332 10.68179429  4.360824260 11.20985563
-## 7   Glucosa   M 6 105.0027938 12.13877707  4.955634988 12.73886528
-## 8   Glucosa  SM 6 163.1297948 12.48887083  5.098560167 13.10626615
-## 9  Fructosa   I 6 150.0834582 10.91193317  4.454778061 11.45137157
-## 10 Fructosa  MM 6 134.4011058 12.37547410  5.052266145 12.98726358
-## 11 Fructosa   M 6 163.0849068 15.81200282  6.455223118 16.59367929
-## 12 Fructosa  SM 6 205.8517782 16.90813358  6.902716631 17.74399799
-## 13   glufru   I 6   0.6390000  0.03989191  0.016285806  0.04186400
-## 14   glufru  MM 6   0.6645162  0.01797801  0.007339493  0.01886677
-## 15   glufru   M 6   0.6429843  0.01447382  0.005908914  0.01518935
-## 16   glufru  SM 6   0.7928725  0.01520067  0.006205646  0.01595212
-## 17      ATT   I 3 177.9200000  5.07984252  2.932848445 12.61902837
-## 18      ATT  MM 3 160.6400000  2.78969532  1.610631346  6.92998736
-## 19      ATT   M 3 182.8266667 20.39063837 11.772540555 50.65315375
-## 20      ATT  SM 3 138.4533333  8.35275603  4.822465944 20.74939626</code></pre>
+<pre><code>##         CAR MAD N       CONF         sd          se         ci
+## 1  Sacarosa   I 6  3.4343120 1.67955287 0.685674588 1.76258264
+## 2  Sacarosa  MM 6  9.4776577 1.70781008 0.697210544 1.79223676
+## 3  Sacarosa   M 6  9.2158590 0.44855027 0.183119882 0.47072464
+## 4  Sacarosa  SM 6  7.4017187 1.95170563 0.796780486 2.04818945
+## 5   Glucosa   I 6 16.3587182 1.91125531 0.780266712 2.00573944
+## 6   Glucosa  MM 6 10.9123023 1.60515560 0.655302029 1.68450749
+## 7   Glucosa   M 6 11.7245048 1.12065648 0.457506091 1.17605685
+## 8   Glucosa  SM 6 20.2149135 0.77275452 0.315475710 0.81095613
+## 9  Fructosa   I 6 25.8368177 4.55708923 1.860423886 4.78237185
+## 10 Fructosa  MM 6 16.3782627 1.95808799 0.799386076 2.05488733
+## 11 Fructosa   M 6 18.2188897 1.45804414 0.595244029 1.53012349
+## 12 Fructosa  SM 6 25.5030107 1.07625165 0.439377894 1.12945683
+## 13   glufru   I 6  0.6390000 0.03989191 0.016285806 0.04186400
+## 14   glufru  MM 6  0.6645162 0.01797801 0.007339493 0.01886677
+## 15   glufru   M 6  0.6429843 0.01447382 0.005908914 0.01518935
+## 16   glufru  SM 6  0.7928725 0.01520067 0.006205646 0.01595212</code></pre>
 </div>
 <div id="evolución-del-perfíl-de-sacáridos-en-la-maduración"
 class="section level4">
 <h4>Evolución del perfíl de sacáridos en la maduración</h4>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="carbohidratos-totales" class="section level3">
 <h3>Carbohidratos Totales</h3>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div id="modelo-y-supuestos" class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataST 
-##   Log-restricted-likelihood: -57.21909
+##   Log-restricted-likelihood: -148.8139
 ##   Fixed: TOTALF ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##   45.629848   -8.861626   -6.470594    7.489795 
+##   30.563326   -5.930540   -4.328680    5.008895 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:    2.318824 3.260595
+## StdDev:   0.1379395 22.06858
 ## 
-## Number of Observations: 24
+## Number of Observations: 36
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-6-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-7-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.93464, p-value = 0.1238</code></pre>
+## W = 0.76125, p-value = 3.019e-06</code></pre>
 </div>
 <div id="anova" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    18 853.1332  &lt;.0001
-## MAD             3    18  30.3096  &lt;.0001</code></pre>
+## (Intercept)     1    30 63.21554  &lt;.0001
+## MAD             3    30  0.44417  0.7232</code></pre>
 </div>
 <div id="test-de-tukey" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD   emmean       SE df lower.CL upper.CL
-##  I   45.62985 1.887916  2 37.50680 53.75290
-##  MM  36.76822 1.887916  2 28.64517 44.89127
-##  M   39.15925 1.887916  2 31.03620 47.28230
-##  SM  53.11964 1.887916  2 44.99659 61.24269
+##  MAD emmean   SE df lower.CL upper.CL
+##  I     30.6 7.36  2    -1.09     62.2
+##  MM    24.6 7.36  2    -7.02     56.3
+##  M     26.2 7.36  2    -5.42     57.9
+##  SM    35.6 7.36  2     3.92     67.2
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast   estimate       SE df t.ratio p.value
-##  I - MM     8.861626 1.882506 18  4.707  0.0009 
-##  I - M      6.470594 1.882506 18  3.437  0.0142 
-##  I - SM    -7.489795 1.882506 18 -3.979  0.0045 
-##  MM - M    -2.391031 1.882506 18 -1.270  0.5925 
-##  MM - SM  -16.351421 1.882506 18 -8.686  &lt;.0001 
-##  M - SM   -13.960390 1.882506 18 -7.416  &lt;.0001 
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM       5.93 10.4 30  0.570  0.9402 
+##  I - M        4.33 10.4 30  0.416  0.9753 
+##  I - SM      -5.01 10.4 30 -0.481  0.9626 
+##  MM - M      -1.60 10.4 30 -0.154  0.9987 
+##  MM - SM    -10.94 10.4 30 -1.052  0.7209 
+##  M - SM      -9.34 10.4 30 -0.898  0.8061 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones" class="section level4">
 <h4>Conclusiones</h4>
@@ -573,7 +569,7 @@ contenido de azúcares totales.</p>
 ## 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -588,27 +584,27 @@ contenido de azúcares totales.</p>
 <div id="test-de-tukey-1" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD   emmean       SE df lower.CL  upper.CL
-##  I   3.434312 0.637369  2 0.691935  6.176689
-##  MM  9.477658 0.637369  2 6.735280 12.220035
-##  M   9.215859 0.637369  2 6.473482 11.958236
-##  SM  7.401719 0.637369  2 4.659341 10.144096
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     3.43 0.637  2    0.692     6.18
+##  MM    9.48 0.637  2    6.735    12.22
+##  M     9.22 0.637  2    6.473    11.96
+##  SM    7.40 0.637  2    4.659    10.14
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate       SE df t.ratio p.value
-##  I - MM   -6.043346 0.901262 18 -6.705  &lt;.0001 
-##  I - M    -5.781547 0.901262 18 -6.415  &lt;.0001 
-##  I - SM   -3.967407 0.901262 18 -4.402  0.0018 
-##  MM - M    0.261799 0.901262 18  0.290  0.9912 
-##  MM - SM   2.075939 0.901262 18  2.303  0.1343 
-##  M - SM    1.814140 0.901262 18  2.013  0.2200 
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     -6.043 0.901 18 -6.705  &lt;.0001 
+##  I - M      -5.782 0.901 18 -6.415  &lt;.0001 
+##  I - SM     -3.967 0.901 18 -4.402  0.0018 
+##  MM - M      0.262 0.901 18  0.290  0.9912 
+##  MM - SM     2.076 0.901 18  2.303  0.1343 
+##  M - SM      1.814 0.901 18  2.013  0.2200 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-1" class="section level4">
 <h4>Conclusiones</h4>
@@ -632,7 +628,7 @@ significativamente menor.</p>
 ## 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-13-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -647,27 +643,27 @@ significativamente menor.</p>
 <div id="test-de-tukey-2" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD   emmean        SE df  lower.CL upper.CL
-##  I   16.35872 0.6960568  2 13.363827 19.35361
-##  MM  10.91230 0.6960568  2  7.917412 13.90719
-##  M   11.72451 0.6960568  2  8.729614 14.71940
-##  SM  20.21491 0.6960568  2 17.220023 23.20980
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     16.4 0.696  2    13.36     19.4
+##  MM    10.9 0.696  2     7.92     13.9
+##  M     11.7 0.696  2     8.73     14.7
+##  SM    20.2 0.696  2    17.22     23.2
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate        SE df t.ratio p.value
-##  I - MM    5.446416 0.6903392 18   7.889 &lt;.0001 
-##  I - M     4.634213 0.6903392 18   6.713 &lt;.0001 
-##  I - SM   -3.856195 0.6903392 18  -5.586 0.0001 
-##  MM - M   -0.812202 0.6903392 18  -1.177 0.6487 
-##  MM - SM  -9.302611 0.6903392 18 -13.475 &lt;.0001 
-##  M - SM   -8.490409 0.6903392 18 -12.299 &lt;.0001 
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      5.446 0.69 18   7.889 &lt;.0001 
+##  I - M       4.634 0.69 18   6.713 &lt;.0001 
+##  I - SM     -3.856 0.69 18  -5.586 0.0001 
+##  MM - M     -0.812 0.69 18  -1.177 0.6487 
+##  MM - SM    -9.303 0.69 18 -13.475 &lt;.0001 
+##  M - SM     -8.490 0.69 18 -12.299 &lt;.0001 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-2" class="section level4">
 <h4>Conclusiones</h4>
@@ -689,7 +685,7 @@ significativamente menor.</p>
 ## 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-15-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-16-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -704,27 +700,27 @@ significativamente menor.</p>
 <div id="test-de-tukey-3" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD   emmean       SE df lower.CL upper.CL
-##  I   25.83682 1.304273  2 20.22498 31.44865
-##  MM  16.37826 1.304273  2 10.76643 21.99010
-##  M   18.21889 1.304273  2 12.60706 23.83073
-##  SM  25.50301 1.304273  2 19.89118 31.11485
+##  MAD emmean  SE df lower.CL upper.CL
+##  I     25.8 1.3  2     20.2     31.4
+##  MM    16.4 1.3  2     10.8     22.0
+##  M     18.2 1.3  2     12.6     23.8
+##  SM    25.5 1.3  2     19.9     31.1
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate       SE df t.ratio p.value
-##  I - MM    9.458555 1.266806 18  7.466  &lt;.0001 
-##  I - M     7.617928 1.266806 18  6.013  0.0001 
-##  I - SM    0.333807 1.266806 18  0.264  0.9934 
-##  MM - M   -1.840627 1.266806 18 -1.453  0.4846 
-##  MM - SM  -9.124748 1.266806 18 -7.203  &lt;.0001 
-##  M - SM   -7.284121 1.266806 18 -5.750  0.0001 
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      9.459 1.27 18  7.466  &lt;.0001 
+##  I - M       7.618 1.27 18  6.013  0.0001 
+##  I - SM      0.334 1.27 18  0.264  0.9934 
+##  MM - M     -1.841 1.27 18 -1.453  0.4846 
+##  MM - SM    -9.125 1.27 18 -7.203  &lt;.0001 
+##  M - SM     -7.284 1.27 18 -5.750  0.0001 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-3" class="section level4">
 <h4>Conclusiones</h4>
@@ -735,60 +731,60 @@ significativamente menor.</p>
 <h2>Carbohidratos en peso seco</h2>
 <div id="carbohidratos-totales-1" class="section level3">
 <h3>Carbohidratos Totales</h3>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div id="modelo-y-supuestos-1" class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataST 
-##   Log-restricted-likelihood: -98.02213
+##   Log-restricted-likelihood: -214.5764
 ##   Fixed: TOTALS ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##   266.88079    34.79956    83.74496   161.48729 
+##   178.06395    23.17692    55.81503   107.67389 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:    2.425004 27.10964
+## StdDev:    2.310465 172.2901
 ## 
-## Number of Observations: 24
+## Number of Observations: 36
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-19-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-20-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.85942, p-value = 0.003287</code></pre>
+## W = 0.77765, p-value = 6.038e-06</code></pre>
 </div>
 <div id="anova-4" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    18 3483.291  &lt;.0001
-## MAD             3    18   39.998  &lt;.0001</code></pre>
+## (Intercept)     1    30 61.11802  &lt;.0001
+## MAD             3    30  0.66047  0.5828</code></pre>
 </div>
 <div id="test-de-tukey-4" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD   emmean       SE df lower.CL upper.CL
-##  I   266.8808 11.15567  2 218.8818 314.8798
-##  MM  301.6804 11.15567  2 253.6814 349.6793
-##  M   350.6258 11.15567  2 302.6268 398.6247
-##  SM  428.3681 11.15567  2 380.3691 476.3671
+##  MAD emmean   SE df lower.CL upper.CL
+##  I      178 57.4  2    -69.1      425
+##  MM     201 57.4  2    -45.9      448
+##  M      234 57.4  2    -13.3      481
+##  SM     286 57.4  2     38.6      533
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast   estimate       SE df t.ratio p.value
-##  I - MM    -34.79956 15.65176 18  -2.223 0.1546 
-##  I - M     -83.74496 15.65176 18  -5.351 0.0002 
-##  I - SM   -161.48729 15.65176 18 -10.318 &lt;.0001 
-##  MM - M    -48.94540 15.65176 18  -3.127 0.0272 
-##  MM - SM  -126.68773 15.65176 18  -8.094 &lt;.0001 
-##  M - SM    -77.74233 15.65176 18  -4.967 0.0005 
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      -23.2 81.2 30 -0.285  0.9917 
+##  I - M       -55.8 81.2 30 -0.687  0.9012 
+##  I - SM     -107.7 81.2 30 -1.326  0.5543 
+##  MM - M      -32.6 81.2 30 -0.402  0.9776 
+##  MM - SM     -84.5 81.2 30 -1.040  0.7274 
+##  M - SM      -51.9 81.2 30 -0.639  0.9187 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-4" class="section level4">
 <h4>Conclusiones</h4>
@@ -812,7 +808,7 @@ significativamente menor.</p>
 ## 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-23-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -848,7 +844,7 @@ significativamente menor.</p>
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-25-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-5" class="section level4">
 <h4>Conclusiones</h4>
@@ -881,7 +877,7 @@ diferenciaron de los frutos medios maduros.</p>
 ##  1.00000 39.24988 35.83603 40.68954 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-25-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-25-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-26-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -917,7 +913,7 @@ diferenciaron de los frutos medios maduros.</p>
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-6" class="section level4">
 <h4>Conclusiones</h4>
@@ -941,7 +937,7 @@ madurez.</p>
 ## 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-28-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-29-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -976,7 +972,7 @@ madurez.</p>
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-7" class="section level4">
 <h4>Conclusiones</h4>
@@ -1006,7 +1002,7 @@ Los frutos sobre maduros tendrían mayor concentración de fructosa.</p>
 ## 1.0000000 0.3627390 0.4508803 0.3812741 
 ## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-31-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-32-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1041,7 +1037,7 @@ Los frutos sobre maduros tendrían mayor concentración de fructosa.</p>
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-33-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusiones-8" class="section level4">
 <h4>Conclusiones</h4>
@@ -1060,9 +1056,9 @@ potásico: 20 g de yoduro potásico, disueltos en 20 ml de agua destilada
 y 2,0 g de yodo llevados a 1 litro. - Muestras de fruto de ubajay
 inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)</p>
 <p>+Lectura en espectrofotómetro a 600nm</p>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-35-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Las barras indican desvío estándar.</p>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-37-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-38-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1100,17 +1096,17 @@ inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)</p>
 ##  M - SM   -2.550941 2.738232  8 -0.932  0.7895 
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="alimdón-en-peso-fresco" class="section level2">
 <h2>Alimdón en peso fresco</h2>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-43-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>##          df      AIC
 ## mSTARCH   5 16.95248
 ## mSTARCH2  8 22.28308</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-45-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-46-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-46-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -1152,7 +1148,7 @@ inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)</p>
 ##  M - SM   -0.3666802 0.323275  8 -1.134  0.6804 
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-48-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 

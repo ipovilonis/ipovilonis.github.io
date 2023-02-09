@@ -27,12 +27,11 @@ datap$REP<-as.factor(datap$REP)
 datap$CONF<-as.numeric(datap$CONF)
 datap$MAD<-factor(datap$MAD,levels=c("I", "MM", "M", "SM"))
 
-data2<-datap[-c(73:168),]
-data3<-datap[-c(1:72,169:204),]
+data3<-datap[-c(1:72,169:192),]
 
 ```
 
-### Concentración del perfíl de ácidos orgánicos a distintos estados de madurez
+### Concentración del perfíl de ácidos orgánicos a distintos estados de Maturity
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -41,7 +40,7 @@ g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
   geom_boxplot()+
   facet_grid(CAR~.)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g fruta fresca", x="Madurez")+
+  labs(y="mg/g fruta fresca", x="Maturity")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -127,17 +126,18 @@ dataSACT$MAD<-factor(dataSACT$MAD,levels=c("I", "MM", "M", "SM"))
 dataST<-dataSACT[-c(25:60),]
 dataAT<-dataSACT[-c(1:24,49:60),]
 dataCT<-dataSACT[-c(1:48),]
+dataSTAT<-dataSACT[-c(1:60),]
 
 ```
 
-#### Concentración de ácidos orgánicos totales a distintos estados de madurez.
+#### Concentración de ácidos orgánicos totales a distintos estados de Maturity.
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gAT<-ggplot2::ggplot(dataAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
   geom_boxplot(width = 0.50)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="Totales (mg/g fruta fresca)", x="Madurez")+
+  labs(y="Totales (mg/g fruta fresca)", x="Maturity")+
   # facet_grid(CAR~.)+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
@@ -232,13 +232,13 @@ library(multcompView)
 CompAT<-emmeans(mAT1, pairwise ~ MAD) #Tukey  
 CompAT
 plot(CompAT, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez")
+  labs(x = "Concentración mg/g fruta fresca", y ="Maturity")
 
 ```
 
 #### Conclusiones
 
-Existen diferencias significativas entre estados de madurez para los ácidos totales detectados en este trabajo.
+Existen diferencias significativas entre estados de Maturity para los ácidos totales detectados en este trabajo.
 
 ### Ácido Tartárico
 
@@ -327,13 +327,13 @@ library(multcompView)
 Comptar<-emmeans(mtar2, pairwise ~ MAD) #Tukey  
 Comptar
 plot(Comptar, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+  labs(x = "Concentración mg/g fruta fresca", y ="Maturity" )
 
 ```
 
 #### Conclusiones
 
-Existen diferencias significativas entre estados de madurez. El estado sobre maduro es el único que presenta ácido tartárico detectable.
+Existen diferencias significativas entre estados de Maturity. El estado sobre maduro es el único que presenta ácido tartárico detectable.
 
 
 ### Ácido málico
@@ -423,13 +423,13 @@ library(multcompView)
 Compmal<-emmeans(mmal2, pairwise ~ MAD) #Tukey  
 Compmal
 plot(Compmal, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+  labs(x = "Concentración mg/g fruta fresca", y ="Maturity" )
 
 ```
 
 #### Conclusiones
 
-Existen diferencias significativas entre estados de madurez. En el estado maduro se presentó el pico de concentración de ácido málico.
+Existen diferencias significativas entre estados de Maturity. En el estado maduro se presentó el pico de concentración de ácido málico.
 
 ### Ácido quínico
 
@@ -521,7 +521,7 @@ library(multcompView)
 Compqui<-emmeans(mqui2, pairwise ~ MAD) #Tukey  
 Compqui
 plot(Compqui, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+  labs(x = "Concentración mg/g fruta fresca", y ="Maturity" )
 
 ```
 
@@ -603,17 +603,17 @@ library(multcompView)
 Compsuc<-emmeans(msuc2, pairwise ~ MAD) #Tukey  
 Compsuc
 plot(Compsuc, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+  labs(x = "Concentración mg/g fruta fresca", y ="Maturity" )
 
 ```
 
 #### Conclusiones
 
-Se encontraron diferencias entre estados de madurez, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
+Se encontraron diferencias entre estados de Maturity, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
 
 ## Acidos orgánicos en peso seco
 
-### Concentración del perfíl de ácidos orgánicos a distintos estados de madurez
+### Concentración del perfíl de ácidos orgánicos a distintos estados de Maturity
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -622,7 +622,7 @@ g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
   geom_boxplot()+
   facet_grid(CAR~.)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g fruta seca", x="Madurez")+
+  labs(y="mg/g fruta seca", x="Maturity")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -700,7 +700,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 gAT<-ggplot2::ggplot(dataSACT, aes(x=MAD, y=TOTALS, fill=MAD)) +
   geom_boxplot(width = 0.50)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="Totales (mg/g fruto seca)", x="Madurez")+
+  labs(y="Totales (mg/g fruto seca)", x="Maturity")+
   # facet_grid(CAR~.)+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
@@ -797,7 +797,7 @@ library(multcompView)
 CompATs<-emmeans(mAT1s, pairwise ~ MAD) #Tukey  
 CompATs
 plot(CompATs, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+  labs(x = "Concentración mg/g fruta fresca", y ="Maturity" )
 
 ```
 
@@ -892,13 +892,13 @@ library(multcompView)
 Comptars<-emmeans(mtar2s, pairwise ~ MAD) #Tukey  
 Comptars
 plot(Comptars, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración", y ="Madurez" )
+  labs(x = "Concentración", y ="Maturity" )
 
 ```
 
 #### Conclusiones
 
-Existen diferencias significativas entre estados de madurez. Sólo el estado sobre maduro presentó ácido málico detectable.
+Existen diferencias significativas entre estados de Maturity. Sólo el estado sobre maduro presentó ácido málico detectable.
 
 ### Ácido málico
 
@@ -987,13 +987,13 @@ library(multcompView)
 Compmals<-emmeans(mmal2s, pairwise ~ MAD) #Tukey  
 Compmals
 plot(Compmals, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración", y ="Madurez" )
+  labs(x = "Concentración", y ="Maturity" )
 
 ```
 
 #### Conclusiones
 
-Existen diferencias significativas entre estados de madurez. En el estado maduro se presentó el pico de concentración de ácido málico.
+Existen diferencias significativas entre estados de Maturity. En el estado maduro se presentó el pico de concentración de ácido málico.
 
 ### Ácido quínico
 
@@ -1087,7 +1087,7 @@ library(multcompView)
 Compquis<-emmeans(mqui2s, pairwise ~ MAD) #Tukey  
 Compquis
 plot(Compquis, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración", y ="Madurez" )
+  labs(x = "Concentración", y ="Maturity" )
 
 ```
 
@@ -1170,13 +1170,13 @@ library(multcompView)
 Compsucs<-emmeans(msuc2s, pairwise ~ MAD) #Tukey  
 Compsucs
 plot(Compsucs, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración", y ="Madurez" )
+  labs(x = "Concentración", y ="Maturity" )
 
 ```
 
 #### Conclusiones
 
-Se encontraron diferencias significativas entre estados de madurez, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
+Se encontraron diferencias significativas entre estados de Maturity, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
 
 
 ## Correlaciones ácidos orgánicos y acidez total titulable ATT.
@@ -1197,7 +1197,7 @@ CTac
 
 ```
 
-### Comparación del perfil de ácidos y de ATT
+## Comparación del perfil de ácidos y de ATT
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1224,6 +1224,118 @@ GCac
 
 ```
 *The bars indicate standard deviation.*
+
+## Concentración del ratio azúcares totales / ácidos orgánicos totales a distintos estados de Madurez.
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gSTAT<-ggplot2::ggplot(dataSTAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
+  geom_boxplot(width = 0.50)+
+  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="Total sugar/Total acids", x="Maturity")+
+  # facet_grid(CAR~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(legend.position = "none")
+gSTAT
+
+```
+
+#### Tabla descriptiva totales
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+library(Rmisc)
+dataSACT2<-dataSACT[-c(1:60),]
+estadSACT2 <- summarySE(dataSACT2, measurevar="TOTALS", groupvars=c("MAD"))
+estadSACT2
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+ctrl <- lmeControl(opt='optim');
+mSTAT1 <- lme(TOTALS~ MAD, random = ~ 1|REP,
+             control = ctrl, data = dataSTAT)
+
+mSTAT1
+
+STAT_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mSTAT1),
+  "predichos" = predict(mSTAT1)))
+
+STAT_ajuste$STAT <- dataSTAT$TOTALS
+
+library(ggplot2)
+HVSTAT<-ggplot(STAT_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVSTAT
+
+QQSTAT<-ggplot(STAT_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQSTAT
+
+e<-resid(mSTAT1) # residuos de pearson
+# pre<-predict(mSTAT1) #predichos
+# alfai<-ranef(mSTAT1)$REP$'(Intercept)'
+shapiro.test(e)
+
+```
+
+#### Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mSTAT1)
+
+```
+
+#### Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompSTAT<-emmeans(mSTAT1, pairwise ~ MAD) #Tukey  
+CompSTAT
+plot(CompSTAT, comparisons = TRUE) + theme_classic() + 
+  labs(x = "Concentración mg/g fruta fresca", y ="Maturity")
+
+```
+
+#### Conclusiones
+
+Existen diferencias significativas entre estados de Maturity para la relación azúcares totales / ácidos totales. La diferencia está dada únicamente entre los niveles MM y SM.
 
 ### Correlaciones
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}

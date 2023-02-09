@@ -13,11 +13,31 @@ output:
 
 ## Carbohidratos en peso fresco
 
+```{r, echo=FALSE, error=TRUE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+datap<-read.delim("CHac.txt")
+datap$CAR <- factor(datap$CAR,
+                   levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
+                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru", "ATT"),
+                   labels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
+                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru", "ATT"))
+datap$REP<-as.factor(datap$REP)
+datap$CONF<-as.numeric(datap$CONF)
+datap$MAD<-factor(datap$MAD,levels=c("I", "MM", "M", "SM"))
+
+data2<-datap[-c(73:168, 193:204),]
+
+
+```
+
 ### Concentración de sacáridos a distintos estados de madurez
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-g1<-ggplot(data2, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
+library(ggplot2)
+g1<-ggplot(data2, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
  geom_boxplot()+
   facet_grid(CAR~.)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
@@ -39,7 +59,7 @@ g1
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
-estadcar <- summarySE(data2, measurevar="CONS", groupvars=c("CAR", "MAD"))
+estadcar <- summarySE(data2, measurevar="CONF", groupvars=c("CAR", "MAD"))
 estadcar
 
 ```
@@ -56,7 +76,7 @@ dataM<-subset(data4, MAD == "M")
 dataSSM<-subset(data4, MAD == "SM")
 
 
-SI<-ggplot(dataSI, aes(x = "CAT", y = CONS, fill = CAR)) +
+SI<-ggplot(dataSI, aes(x = "CAT", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
@@ -64,7 +84,7 @@ SI<-ggplot(dataSI, aes(x = "CAT", y = CONS, fill = CAR)) +
   theme(legend.title = element_blank())+
   xlab("[TS]") + ylab("mg/g fruta seca")
 
-SMM<-ggplot(dataSMM, aes(x = "CAT", y = CONS, fill = CAR)) +
+SMM<-ggplot(dataSMM, aes(x = "CAT", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
@@ -72,7 +92,7 @@ SMM<-ggplot(dataSMM, aes(x = "CAT", y = CONS, fill = CAR)) +
   theme(legend.title = element_blank())+
   xlab("[TS]") + ylab("mg/g fruta seca")
 
-SM<-ggplot(dataM, aes(x = "CAT", y = CONS, fill = CAR)) +
+SM<-ggplot(dataM, aes(x = "CAT", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
@@ -80,7 +100,7 @@ SM<-ggplot(dataM, aes(x = "CAT", y = CONS, fill = CAR)) +
   theme(legend.title = element_blank())+
   xlab("[TS]") + ylab("mg/g fruta seca")
 
-SSM<-ggplot(dataSSM, aes(x = "CAT", y = CONS, fill = CAR)) +
+SSM<-ggplot(dataSSM, aes(x = "CAT", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
   scale_fill_manual(values = c("coral","coral3","burlywood2","red")) +
   coord_polar("y", start = pi / 3) +
