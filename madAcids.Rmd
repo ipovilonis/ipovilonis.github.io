@@ -9,8 +9,6 @@ output:
      smooth_scroll: true
 ---
 
-
-
 ## Acidos orgánicos en peso fresco
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
@@ -36,10 +34,10 @@ data3<-datap[-c(1:72,169:192),]
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
-  geom_boxplot()+
+g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONF, color=MAD, width=1)) +
+  geom_point(size=3)+
   facet_grid(CAR~.)+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="mg/g fruta fresca", x="Maturity")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
@@ -123,10 +121,12 @@ dataSACT$TOTALS<-as.numeric(dataSACT$TOTALS)
 dataSACT$TOTALF<-as.numeric(dataSACT$TOTALF)
 dataSACT$MAD<-factor(dataSACT$MAD,levels=c("I", "MM", "M", "SM"))
 
-dataST<-dataSACT[-c(25:60),]
-dataAT<-dataSACT[-c(1:24,49:60),]
-dataCT<-dataSACT[-c(1:48),]
-dataSTAT<-dataSACT[-c(1:60),]
+library(dplyr)
+
+dataST<-filter(dataSACT, CAR == "SUGARS")
+dataAT<-filter(dataSACT, CAR == "ACIDS")
+dataCT<-filter(dataSACT, CAR == "CATIONS")
+dataSTAT<-filter(dataSACT, CAR == "STAT")
 
 ```
 
@@ -614,24 +614,92 @@ Se encontraron diferencias entre estados de Maturity, los frutos inmaduros y sob
 ## Acidos orgánicos en peso seco
 
 ### Concentración del perfíl de ácidos orgánicos a distintos estados de Maturity
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=14}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(dplyr)
+
+datatar <- filter(data3, data3$CAR == "Tartárico")
+datamal <- filter(data3, data3$CAR == "Málico")
+dataqui <- filter(data3, data3$CAR == "Quínico")
+datasuc <- filter(data3, data3$CAR == "Succínico")
+dataatt <- filter(data3, data3$CAR == "ATT")
+dataato <- dataAT
+
 library(ggplot2)
-g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONS, fill=MAD, width=1)) +
-  geom_boxplot()+
-  facet_grid(CAR~.)+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g fruta seca", x="Maturity")+
+aci1<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g dry fruit", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
   theme(legend.position = "none")
-g2
+
+aci2<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g dry fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+aci3<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g dry fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+aci4<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g dry fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+aci5<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="%", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())
+
+aci6<-ggplot2::ggplot(dataato, aes(x=MAD, y=TOTALS, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g dry fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+library(ggpubr)
+ggarrange(aci1, aci2, aci3, aci4, aci5, aci6, common.legend = TRUE, legend = "bottom")
 
 ```
 
@@ -1337,7 +1405,7 @@ plot(CompSTAT, comparisons = TRUE) + theme_classic() +
 
 Existen diferencias significativas entre estados de Maturity para la relación azúcares totales / ácidos totales. La diferencia está dada únicamente entre los niveles MM y SM.
 
-### Correlaciones
+## Correlaciones
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
@@ -1349,7 +1417,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # GCOR
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+### Correlaciones de Pearson.
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=10}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 FACO<-read.delim("acidcor.txt")
@@ -1358,46 +1428,189 @@ colnames(FACO) <- c("MAD","Tartárico","Málico","Quínico" ,"Succínico","ACIDS
 FACO$Tartárico<-as.numeric(FACO$Tartárico)
 FACO$Málico<-as.numeric(FACO$Málico)
 
-library(c)
-GCORfaco<-ggpairs(FACO, columns = 2:7,lower = list(continuous = "points"))
+# Creamos las variables Dummy
+FACO$MADMM <- ifelse(FACO$MAD == "MM", 1, 0)
+FACO$MADM <- ifelse(FACO$MAD == "M", 1, 0)
+FACO$MADSM <- ifelse(FACO$MAD == "SM", 1, 0)
+
+#Variables Dummy como categóricas
+
+FACO$MADMM <- as.factor(FACO$MADMM)
+FACO$MADM <- as.factor(FACO$MADM)
+FACO$MADSM <- as.factor(FACO$MADSM)
+
+library(ggplot2)
+library(GGally)
+GCORfaco <- ggpairs(FACO, columns = 2:7,lower = list(continuous = "points"))
 GCORfaco
+# ggplot2::aes(colour=MAD)) + ggplot2::scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   ggplot2::theme_classic()
 
 ```
 
-#### Análisis de varianza para cada ácido orgánico y totales sobre la ATT
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=10}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-MRLMtar<-lm(data = FACO, ATT~Tartárico)
-MRLMmal<-lm(data = FACO, ATT~Málico)
-MRLMqui<-lm(data = FACO, ATT~Quínico)
-MRLMsuc<-lm(data = FACO, ATT~Succínico)
-MRLMaci<-lm(data = FACO, ATT~ACIDS)
-anova(MRLMtar)
-anova(MRLMmal)
-anova(MRLMqui)
-anova(MRLMsuc)
-anova(MRLMaci)
+cor.test(FACO$Málico, FACO$Quínico)
+cor.test(FACO$Tartárico, FACO$Succínico)
+cor.test(FACO$ATT, FACO$Tartárico)
+cor.test(FACO$ACIDS, FACO$Quínico)
+cor.test(FACO$ACIDS, FACO$Málico)
 
 ```
 
-#### Análisis de varianza para cada ácido orgánico y totales sobre Acidos Totales
+### Gráficos de correlación detallados por estados de madurez
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=10}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gac1 <- ggplot(FACO, aes(Quínico, Málico, color=MAD)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  theme_classic()+
+  theme(legend.position = "none")
+
+gac2 <- ggplot(FACO, aes(Succínico, Tartárico, color=MAD)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  theme_classic()+
+  theme(legend.position = "none")
+
+gac3 <- ggplot(FACO, aes(ATT, Tartárico, color=MAD)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  theme_classic()+
+  theme(legend.position = "none")
+
+gac4 <- ggplot(FACO, aes(ACIDS, Quínico, color=MAD)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  theme_classic()+
+  theme(legend.position = "none")
+
+gac5 <- ggplot(FACO, aes(ACIDS, Málico, color=MAD)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  theme_classic()+
+  theme(legend.position = "none")
+
+gac6 <- ggplot(FACO, aes(ACIDS, Succínico, color=MAD)) + 
+  geom_point(size=3) + 
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  theme_classic()+
+  theme(legend.position = "none")
+
+library(ggpubr)
+ggarrange(gac1, gac2, gac3, gac4, gac5, gac6, common.legend = TRUE, legend = "bottom")
+
+```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-AMRLMtar<-lm(data = FACO, ACIDS~Tartárico)
-AMRLMmal<-lm(data = FACO, ACIDS~Málico)
-AMRLMqui<-lm(data = FACO, ACIDS~Quínico)
-AMRLMsuc<-lm(data = FACO, ACIDS~Succínico)
+# mquimal <- lm(data=FACO, Málico ~ Quínico + MADMM + MADM + MADSM)
+# mtarsuc <- lm(data=FACO, Tartárico ~ Succínico + MADMM + MADM + MADSM)
+# 
+# summary(mquimal)
+# summary(mtarsuc)
 
-anova(AMRLMtar)
-anova(AMRLMmal)
-anova(AMRLMqui)
-anova(AMRLMsuc)
+```
 
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# FALTA CONVERTIR % a mg/g
+
+# MRLMtar<-lm(data = FACO, ATT~Tartárico + MADMM + MADM + MADSM)
+
+# MRLMmal<-lm(data = FACO, ATT~Málico + MADMM + MADM + MADSM)
+# MRLMqui<-lm(data = FACO, ATT~Quínico + MADMM + MADM + MADSM)
+# MRLMsuc<-lm(data = FACO, ATT~Succínico + MADMM + MADM + MADSM)
+# MRLMaci<-lm(data = FACO, ATT~ACIDS + MADMM + MADM + MADSM)
+
+# summary(MRLMtar)
+
+# summary(MRLMmal)
+# summary(MRLMqui)
+# summary(MRLMsuc)
+# summary(MRLMaci)
+
+# MRLMtar2<-lm(data = FACO, ATT~Tartárico)
+# summary(MRLMtar2)
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# AMRLMtar<-lm(data = FACO, ACIDS~Tartárico + MADMM + MADM + MADSM)
+# AMRLMmal<-lm(data = FACO, ACIDS~Málico + MADMM + MADM + MADSM)
+# AMRLMqui<-lm(data = FACO, ACIDS~Quínico + MADMM + MADM + MADSM)
+# AMRLMsuc<-lm(data = FACO, ACIDS~Succínico + MADMM + MADM + MADSM)
+# 
+# summary(AMRLMtar)
+# summary(AMRLMmal)
+# summary(AMRLMqui)
+# summary(AMRLMsuc)
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(ggplot2)
+# 
+# # Transforma la salida del modelo en un data frame
+# model_df2 <- data.frame(Quínico = FACO$Quínico,
+#                        Málico = FACO$Málico,
+#                        MAD = FACO$MAD,
+#                        pred = predict(mquimal))
+# 
+# # Crea un gráfico de dispersión con la línea de regresión
+# ggplot(model_df2, aes(x = Málico, y = Quínico, color = MAD)) + 
+#   geom_point() + 
+#   geom_smooth(method = "lm", se = FALSE) + 
+#   ggtitle("Regresión lineal mixta") + 
+#   xlab("Málico") + 
+#   ylab("Quínico") +
+#   theme_classic()+
+#   theme(legend.position = "bottom") +
+#   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(ggplot2)
+# 
+# # Transforma la salida del modelo en un data frame
+# model_df1 <- data.frame(Tartárico = FACO$Tartárico,
+#                        Succínico = FACO$Succínico,
+#                        MAD = FACO$MAD,
+#                        pred = predict(mtarsuc))
+# 
+# # Crea un gráfico de dispersión con la línea de regresión
+# ggplot(model_df1, aes(x = Succínico, y = Tartárico, color = MAD)) + 
+#   geom_point() + 
+#   geom_smooth(method = "lm", se = FALSE) + 
+#   ggtitle("Regresión lineal mixta") + 
+#   xlab("Succínico") + 
+#   ylab("Tartárico")+
+#   theme_classic()+
+#   theme(legend.position = "bottom") +
+#   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))
+
+# Sólo la correlación entre ácidos Succínico y Tartárico (r=0.687 , p=0.00824) es significativa, sin embargo éste último sólo se encuentra en pequeñas trazas en el fruto sobremaduro. La ATT no se correlaciona con los ácidos orgánicos estudiados por separado ni tampoco en su conjunto (totales), esto podría deberse a que el perfíl de ácidos y la ATT es relativamente constante durante la maduración. Finalmente, los ácidos totales sólo se correlacionaron significativamente con el ácido Málico (r=0.930 , p=0.002435) la estrecha relación se explicaría porque este ácido.
 
 ```
 
 #### Conclusión
-Sólo la correlación con Ac. tartárico es significativa, sin embargo se encuentra en pequeñas trazas sólo en el fruto sobremaduro. Se concluye que la ATT no se correlaciona con los ácidos orgánicos estudiados por separado ni tampoco en su conjunto (totales). El perfíl de ácidos es relativamente constante.
+
+Linear relationships between organic acids became evident between Malic and Quinic acid with an r=0.8600213 and a p-value=0.000333, and between Tartaric and Succinic acid with an r=0.6869819 and a p-value=0.01358. Total titratable acidity (TTA) showed a significant linear association only with Tartaric acid with an r=-0.7187027 and a p-value=0.00845. However, this inverse association is linked to the fact that Tartaric acid only appears in trace amounts in overripe fruits. Total acids with Quinic acid presented a correlation of 0.8557676 with a p-value=0.0003839. Meanwhile, Malic acid  an r=0.9300893 and a p-value=1.169e-05. In both cases, these acids explain the increase in total acid concentration throughout fruit ripening.
+
+
+
+
+

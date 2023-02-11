@@ -502,30 +502,30 @@ madurez.</h4>
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataCT 
-##   Log-restricted-likelihood: -38.47728
+##   Log-restricted-likelihood: -10.91802
 ##   Fixed: TOTALF ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##   2.0104570  -0.5491672  -0.5158258  -0.6645856 
+##    3.590633   -1.029967   -0.986800   -1.376267 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
-##         (Intercept) Residual
-## StdDev:  0.01120696 1.385032
+##         (Intercept)  Residual
+## StdDev:   0.2418371 0.6842036
 ## 
-## Number of Observations: 24
+## Number of Observations: 12
 ## Number of Groups: 3</code></pre>
 <p><img src="madCations_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-6-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.88053, p-value = 0.008518</code></pre>
+## W = 0.92829, p-value = 0.3623</code></pre>
 </div>
 <div id="anova" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 31.139565  &lt;.0001
-## MAD             3    18  0.272609  0.8443</code></pre>
+## (Intercept)     1     6 128.54383  &lt;.0001
+## MAD             3     6   2.24411  0.1836</code></pre>
 </div>
 <div id="conclusiones" class="section level4">
 <h4>Conclusiones</h4>
@@ -701,15 +701,11 @@ maduro y maduro aparece en muy bajas concentraciones.</p>
 </div>
 <div id="tabla-descriptiva-totales" class="section level4">
 <h4>Tabla descriptiva totales</h4>
-<pre><code>##       CAR MAD N     TOTALS          sd          se           ci
-## 1 CATIONS   I 3 20.9717553 7.741948182 4.469815867 19.232065442
-## 2 CATIONS  MM 3 21.0534100 2.577853260 1.488324274  6.403742498
-## 3 CATIONS   M 3 23.2704643 2.761512785 1.594360150  6.859978051
-## 4 CATIONS  SM 3 17.8263673 3.175919852 1.833618181  7.889422273
-## 5    STAT   I 3  0.4302806 0.065832943 0.038008667  0.163538096
-## 6    STAT  MM 3  0.3619129 0.029072730 0.016785148  0.072220664
-## 7    STAT   M 3  0.3854290 0.033172825 0.019152339  0.082405866
-## 8    STAT  SM 3  0.4773761 0.001933343 0.001116216  0.004802689</code></pre>
+<pre><code>##       CAR MAD N   TOTALS       sd       se        ci
+## 1 CATIONS   I 3 20.97176 7.741948 4.469816 19.232065
+## 2 CATIONS  MM 3 21.05341 2.577853 1.488324  6.403742
+## 3 CATIONS   M 3 23.27046 2.761513 1.594360  6.859978
+## 4 CATIONS  SM 3 17.82637 3.175920 1.833618  7.889422</code></pre>
 </div>
 </div>
 <div
@@ -720,29 +716,29 @@ madurez.</h3>
 <p><img src="madCations_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataCT 
-##   Log-restricted-likelihood: -80.94413
+##   Log-restricted-likelihood: -25.69378
 ##   Fixed: TOTALS ~ MAD 
-##  (Intercept)        MADMM         MADM        MADSM 
-## 10.701017976  0.006643485  1.126928679 -1.549146276 
+## (Intercept)       MADMM        MADM       MADSM 
+## 20.97175533  0.08165467  2.29870900 -3.14538800 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:  0.08985096 11.57755
+## StdDev:    1.404952 4.370537
 ## 
-## Number of Observations: 24
+## Number of Observations: 12
 ## Number of Groups: 3</code></pre>
 <p><img src="madCations_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /><img src="madCations_files/figure-html/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.81625, p-value = 0.0005498</code></pre>
+## W = 0.95503, p-value = 0.7112</code></pre>
 <div id="anova-4" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 20.097617  0.0003
-## MAD             3    18  0.054114  0.9829</code></pre>
+## (Intercept)     1     6 191.94434  &lt;.0001
+## MAD             3     6   0.78726  0.5434</code></pre>
 </div>
 <div id="conclusiones-4" class="section level4">
 <h4>Conclusiones</h4>

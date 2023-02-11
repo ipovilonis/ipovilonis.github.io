@@ -483,15 +483,15 @@ Maturity</h3>
 ## 14 Succínico  MM 6 11.25241550 0.77428920 0.31610224 0.81256668
 ## 15 Succínico   M 6 11.11272483 0.25542969 0.10427873 0.26805702
 ## 16 Succínico  SM 6 14.31751033 0.97755546 0.39908535 1.02588154
-## 17       ATT   I 3          NA         NA         NA         NA
-## 18       ATT  MM 3          NA         NA         NA         NA
-## 19       ATT   M 3          NA         NA         NA         NA
-## 20       ATT  SM 3          NA         NA         NA         NA</code></pre>
+## 17       ATT   I 3  1.77920000 0.05079843 0.02932848 0.12619028
+## 18       ATT  MM 3  1.60640000 0.02789695 0.01610631 0.06929987
+## 19       ATT   M 3  1.82826667 0.20390638 0.11772541 0.50653154
+## 20       ATT  SM 3  1.38453333 0.08352756 0.04822466 0.20749396</code></pre>
 </div>
 <div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración"
 class="section level3">
 <h3>Evolución del perfíl de ácidos orgánicos en la maduración</h3>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error: Insufficient values in manual scale. 5 needed but only 4 provided.</code></pre>
 </div>
 <div id="acidos-orgánicos-totales" class="section level3">
 <h3>Acidos orgánicos Totales</h3>
@@ -523,51 +523,51 @@ Maturity.</h4>
 ## 16  SUGARS  SM 6 53.1196432 1.842284986 0.752109696 1.933359523</code></pre>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataAT 
-##   Log-restricted-likelihood: -131.8811
+##   Log-restricted-likelihood: -39.09968
 ##   Fixed: TOTALF ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##  17.9019822  -0.9120209  -0.8283060   0.8029983 
+##   26.637833   -1.333847   -1.220033    1.180950 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:  0.07897369 13.00074
+## StdDev:   0.5444281 1.371765
 ## 
-## Number of Observations: 36
+## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
 <p><img src="madAcids_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-8-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.68242, p-value = 1.515e-07</code></pre>
+## W = 0.97767, p-value = 0.8493</code></pre>
 </div>
 <div id="anova" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    30 66.45558  &lt;.0001
-## MAD             3    30  0.03449  0.9912</code></pre>
+## (Intercept)     1    18 3901.697  &lt;.0001
+## MAD             3    18    4.454  0.0165</code></pre>
 </div>
 <div id="test-de-tukey" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I     17.9 4.33  2  -0.7449     36.5
-##  MM    17.0 4.33  2  -1.6570     35.6
-##  M     17.1 4.33  2  -1.5733     35.7
-##  SM    18.7 4.33  2   0.0581     37.4
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     26.6 0.642  2     23.9     29.4
+##  MM    25.3 0.642  2     22.5     28.1
+##  M     25.4 0.642  2     22.7     28.2
+##  SM    27.8 0.642  2     25.1     30.6
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM     0.9120 6.13 30  0.149  0.9988 
-##  I - M      0.8283 6.13 30  0.135  0.9991 
-##  I - SM    -0.8030 6.13 30 -0.131  0.9992 
-##  MM - M    -0.0837 6.13 30 -0.014  1.0000 
-##  MM - SM   -1.7150 6.13 30 -0.280  0.9922 
-##  M - SM    -1.6313 6.13 30 -0.266  0.9933 
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM      1.334 0.792 18  1.684  0.3602 
+##  I - M       1.220 0.792 18  1.540  0.4354 
+##  I - SM     -1.181 0.792 18 -1.491  0.4629 
+##  MM - M     -0.114 0.792 18 -0.144  0.9989 
+##  MM - SM    -2.515 0.792 18 -3.175  0.0246 
+##  M - SM     -2.401 0.792 18 -3.032  0.0331 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -840,30 +840,32 @@ id="concentración-del-perfíl-de-ácidos-orgánicos-a-distintos-estados-de-matu
 class="section level3">
 <h3>Concentración del perfíl de ácidos orgánicos a distintos estados de
 Maturity</h3>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error: Can&#39;t add `theme` to a ggplot object.
+## Did you forget to add parentheses, as in `theme()`?</code></pre>
+<pre><code>## Error in FUN(X[[i]], ...): object &#39;CONS&#39; not found</code></pre>
 <div id="tabla-descriptiva-1" class="section level4">
 <h4>Tabla descriptiva</h4>
-<pre><code>##          CAR MAD N        CONS         sd         se         ci
-## 1  Tartárico   I 6   0.0000000  0.0000000  0.0000000  0.0000000
-## 2  Tartárico  MM 6   0.0000000  0.0000000  0.0000000  0.0000000
-## 3  Tartárico   M 6   0.0000000  0.0000000  0.0000000  0.0000000
-## 4  Tartárico  SM 6   0.9411357  0.4830675  0.1972115  0.5069482
-## 5     Málico   I 6  44.9021340 19.1523848  7.8189284 20.0991952
-## 6     Málico  MM 6  90.1895317  4.0220151  1.6419808  4.2208460
-## 7     Málico   M 6 105.1474897  3.3635752  1.3731738  3.5298556
-## 8     Málico  SM 6  84.7945992  5.3680332  2.1914904  5.6334054
-## 9    Quínico   I 6   0.4406633  0.6826727  0.2787000  0.7164211
-## 10   Quínico  MM 6  25.3176063  3.8140014  1.5570595  4.0025490
-## 11   Quínico   M 6  22.6888082  2.2426216  0.9155464  2.3534871
-## 12   Quínico  SM 6  22.9204245  3.7568053  1.5337093  3.9425254
-## 13 Succínico   I 6 112.3334865  6.5345266  2.6677093  6.8575651
-## 14 Succínico  MM 6  92.4815923  4.7805090  1.9516346  5.0168366
-## 15 Succínico   M 6  99.4372398  4.8240139  1.9693954  5.0624921
-## 16 Succínico  SM 6 115.6551513 12.4187931  5.0699510 13.0327241
-## 17       ATT   I 3 177.9200000  5.0798425  2.9328484 12.6190284
-## 18       ATT  MM 3 160.6400000  2.7896953  1.6106313  6.9299874
-## 19       ATT   M 3 182.8266667 20.3906384 11.7725406 50.6531538
-## 20       ATT  SM 3 138.4533333  8.3527560  4.8224659 20.7493963</code></pre>
+<pre><code>##          CAR MAD N        CONS          sd         se          ci
+## 1  Tartárico   I 6   0.0000000  0.00000000 0.00000000  0.00000000
+## 2  Tartárico  MM 6   0.0000000  0.00000000 0.00000000  0.00000000
+## 3  Tartárico   M 6   0.0000000  0.00000000 0.00000000  0.00000000
+## 4  Tartárico  SM 6   0.9411357  0.48306748 0.19721147  0.50694823
+## 5     Málico   I 6  44.9021340 19.15238481 7.81892835 20.09919520
+## 6     Málico  MM 6  90.1895317  4.02201511 1.64198079  4.22084600
+## 7     Málico   M 6 105.1474897  3.36357515 1.37317381  3.52985564
+## 8     Málico  SM 6  84.7945992  5.36803324 2.19149040  5.63340540
+## 9    Quínico   I 6   0.4406633  0.68267270 0.27869996  0.71642106
+## 10   Quínico  MM 6  25.3176063  3.81400139 1.55705955  4.00254899
+## 11   Quínico   M 6  22.6888082  2.24262162 0.91554644  2.35348706
+## 12   Quínico  SM 6  22.9204245  3.75680532 1.53370935  3.94252539
+## 13 Succínico   I 6 112.3334865  6.53452657 2.66770930  6.85756508
+## 14 Succínico  MM 6  92.4815923  4.78050904 1.95163464  5.01683657
+## 15 Succínico   M 6  99.4372398  4.82401388 1.96939542  5.06249209
+## 16 Succínico  SM 6 115.6551513 12.41879308 5.06995105 13.03272407
+## 17       ATT   I 3   1.7792000  0.05079843 0.02932848  0.12619028
+## 18       ATT  MM 3   1.6064000  0.02789695 0.01610631  0.06929987
+## 19       ATT   M 3   1.8282667  0.20390638 0.11772541  0.50653154
+## 20       ATT  SM 3   1.3845333  0.08352756 0.04822466  0.20749396</code></pre>
 </div>
 <div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración-1"
 class="section level4">
@@ -898,51 +900,51 @@ class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataAT 
-##   Log-restricted-likelihood: -198.3047
+##   Log-restricted-likelihood: -86.62191
 ##   Fixed: TOTALS ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##   105.26095    33.51884    46.38322    44.43905 
+##   157.67628    50.31245    69.59725    66.63503 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:    1.378713 103.6159
+## StdDev:   0.1187511  15.3783
 ## 
-## Number of Observations: 36
+## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
 <p><img src="madAcids_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-32-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.72771, p-value = 7.938e-07</code></pre>
+## W = 0.95588, p-value = 0.3613</code></pre>
 </div>
 <div id="anova-5" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    30 62.20346  &lt;.0001
-## MAD             3    30  0.38689  0.7632</code></pre>
+## (Intercept)     1    18 4234.257  &lt;.0001
+## MAD             3    18   26.349  &lt;.0001</code></pre>
 </div>
 <div id="test-de-tukey-5" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
 ##  MAD emmean   SE df lower.CL upper.CL
-##  I      105 34.5  2   -43.39      254
-##  MM     139 34.5  2    -9.87      287
-##  M      152 34.5  2     3.00      300
-##  SM     150 34.5  2     1.05      298
+##  I      158 6.28  2      131      185
+##  MM     208 6.28  2      181      235
+##  M      227 6.28  2      200      254
+##  SM     224 6.28  2      197      251
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
 ##  contrast estimate   SE df t.ratio p.value
-##  I - MM     -33.52 48.8 30 -0.686  0.9015 
-##  I - M      -46.38 48.8 30 -0.950  0.7785 
-##  I - SM     -44.44 48.8 30 -0.910  0.7998 
-##  MM - M     -12.86 48.8 30 -0.263  0.9935 
-##  MM - SM    -10.92 48.8 30 -0.224  0.9960 
-##  M - SM       1.94 48.8 30  0.040  1.0000 
+##  I - MM     -50.31 8.88 18 -5.667  0.0001 
+##  I - M      -69.60 8.88 18 -7.839  &lt;.0001 
+##  I - SM     -66.64 8.88 18 -7.505  &lt;.0001 
+##  MM - M     -19.28 8.88 18 -2.172  0.1689 
+##  MM - SM    -16.32 8.88 18 -1.838  0.2886 
+##  M - SM       2.96 8.88 18  0.334  0.9868 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1226,31 +1228,31 @@ class="section level2">
 <h2>Correlaciones ácidos orgánicos y acidez total titulable ATT.</h2>
 <div id="tabla-de-ácidos" class="section level3">
 <h3>Tabla de ácidos</h3>
-<pre><code>##          CAR MAD N        CONS         sd         se         ci
-## 1  Tartárico   I 6   0.0000000  0.0000000  0.0000000  0.0000000
-## 2  Tartárico  MM 6   0.0000000  0.0000000  0.0000000  0.0000000
-## 3  Tartárico   M 6   0.0000000  0.0000000  0.0000000  0.0000000
-## 4  Tartárico  SM 6   0.9411357  0.4830675  0.1972115  0.5069482
-## 5     Málico   I 6  44.9021340 19.1523848  7.8189284 20.0991952
-## 6     Málico  MM 6  90.1895317  4.0220151  1.6419808  4.2208460
-## 7     Málico   M 6 105.1474897  3.3635752  1.3731738  3.5298556
-## 8     Málico  SM 6  84.7945992  5.3680332  2.1914904  5.6334054
-## 9    Quínico   I 6   0.4406633  0.6826727  0.2787000  0.7164211
-## 10   Quínico  MM 6  25.3176063  3.8140014  1.5570595  4.0025490
-## 11   Quínico   M 6  22.6888082  2.2426216  0.9155464  2.3534871
-## 12   Quínico  SM 6  22.9204245  3.7568053  1.5337093  3.9425254
-## 13 Succínico   I 6 112.3334865  6.5345266  2.6677093  6.8575651
-## 14 Succínico  MM 6  92.4815923  4.7805090  1.9516346  5.0168366
-## 15 Succínico   M 6  99.4372398  4.8240139  1.9693954  5.0624921
-## 16 Succínico  SM 6 115.6551513 12.4187931  5.0699510 13.0327241
-## 17       ATT   I 3 177.9200000  5.0798425  2.9328484 12.6190284
-## 18       ATT  MM 3 160.6400000  2.7896953  1.6106313  6.9299874
-## 19       ATT   M 3 182.8266667 20.3906384 11.7725406 50.6531538
-## 20       ATT  SM 3 138.4533333  8.3527560  4.8224659 20.7493963
-## 21     ACIDS   I 6 157.6762838 24.4147956  9.9672986 25.6217567
-## 22     ACIDS  MM 6 207.9887302 11.6569573  4.7589329 12.2332265
-## 23     ACIDS   M 6 227.2735378  4.2846256  1.7491911  4.4964388
-## 24     ACIDS  SM 6 224.3113107 13.9874058  5.7103345 14.6788822</code></pre>
+<pre><code>##          CAR MAD N        CONS          sd         se          ci
+## 1  Tartárico   I 6   0.0000000  0.00000000 0.00000000  0.00000000
+## 2  Tartárico  MM 6   0.0000000  0.00000000 0.00000000  0.00000000
+## 3  Tartárico   M 6   0.0000000  0.00000000 0.00000000  0.00000000
+## 4  Tartárico  SM 6   0.9411357  0.48306748 0.19721147  0.50694823
+## 5     Málico   I 6  44.9021340 19.15238481 7.81892835 20.09919520
+## 6     Málico  MM 6  90.1895317  4.02201511 1.64198079  4.22084600
+## 7     Málico   M 6 105.1474897  3.36357515 1.37317381  3.52985564
+## 8     Málico  SM 6  84.7945992  5.36803324 2.19149040  5.63340540
+## 9    Quínico   I 6   0.4406633  0.68267270 0.27869996  0.71642106
+## 10   Quínico  MM 6  25.3176063  3.81400139 1.55705955  4.00254899
+## 11   Quínico   M 6  22.6888082  2.24262162 0.91554644  2.35348706
+## 12   Quínico  SM 6  22.9204245  3.75680532 1.53370935  3.94252539
+## 13 Succínico   I 6 112.3334865  6.53452657 2.66770930  6.85756508
+## 14 Succínico  MM 6  92.4815923  4.78050904 1.95163464  5.01683657
+## 15 Succínico   M 6  99.4372398  4.82401388 1.96939542  5.06249209
+## 16 Succínico  SM 6 115.6551513 12.41879308 5.06995105 13.03272407
+## 17       ATT   I 3   1.7792000  0.05079843 0.02932848  0.12619028
+## 18       ATT  MM 3   1.6064000  0.02789695 0.01610631  0.06929987
+## 19       ATT   M 3   1.8282667  0.20390638 0.11772541  0.50653154
+## 20       ATT  SM 3   1.3845333  0.08352756 0.04822466  0.20749396
+## 21     ACIDS   I 6 157.6762838 24.41479565 9.96729859 25.62175670
+## 22     ACIDS  MM 6 207.9887302 11.65695733 4.75893290 12.23322648
+## 23     ACIDS   M 6 227.2735378  4.28462561 1.74919108  4.49643882
+## 24     ACIDS  SM 6 224.3113107 13.98740581 5.71033451 14.67888217</code></pre>
 </div>
 </div>
 <div id="comparación-del-perfil-de-ácidos-y-de-att"
@@ -1330,90 +1332,85 @@ a distintos estados de Madurez.</h2>
 relación azúcares totales / ácidos totales. La diferencia está dada
 únicamente entre los niveles MM y SM.</p>
 </div>
-<div id="correlaciones" class="section level3">
-<h3>Correlaciones</h3>
-<pre><code>## Error in library(c): there is no package called &#39;c&#39;</code></pre>
-<pre><code>## Error in ggpairs(FACO, columns = 2:7, lower = list(continuous = &quot;points&quot;)): could not find function &quot;ggpairs&quot;</code></pre>
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;GCORfaco&#39; not found</code></pre>
-<div
-id="análisis-de-varianza-para-cada-ácido-orgánico-y-totales-sobre-la-att"
-class="section level4">
-<h4>Análisis de varianza para cada ácido orgánico y totales sobre la
-ATT</h4>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: ATT
-##           Df  Sum Sq  Mean Sq F value  Pr(&gt;F)   
-## Tartárico  1 0.23843 0.238432  10.684 0.00845 **
-## Residuals 10 0.22317 0.022317                   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: ATT
-##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
-## Málico     1 0.02418 0.024176  0.5527 0.4743
-## Residuals 10 0.43742 0.043742</code></pre>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: ATT
-##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
-## Quínico    1 0.04313 0.043135  1.0308 0.3339
-## Residuals 10 0.41847 0.041847</code></pre>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: ATT
-##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
-## Succínico  1 0.07252 0.072524   1.864 0.2021
-## Residuals 10 0.38908 0.038908</code></pre>
-<pre><code>## Analysis of Variance Table
-## 
-## Response: ATT
-##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
-## ACIDS      1 0.08885 0.088847  2.3835 0.1537
-## Residuals 10 0.37275 0.037275</code></pre>
 </div>
-<div
-id="análisis-de-varianza-para-cada-ácido-orgánico-y-totales-sobre-acidos-totales"
-class="section level4">
-<h4>Análisis de varianza para cada ácido orgánico y totales sobre Acidos
-Totales</h4>
-<pre><code>## Analysis of Variance Table
+<div id="correlaciones" class="section level2">
+<h2>Correlaciones</h2>
+<div id="correlaciones-de-pearson." class="section level3">
+<h3>Correlaciones de Pearson.</h3>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-59-1.png" width="1152" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
 ## 
-## Response: ACIDS
-##           Df Sum Sq Mean Sq F value Pr(&gt;F)
-## Tartárico  1 1691.8 1691.79   1.726 0.2183
-## Residuals 10 9801.7  980.17</code></pre>
-<pre><code>## Analysis of Variance Table
+## data:  FACO$Málico and FACO$Quínico
+## t = 5.3299, df = 10, p-value = 0.000333
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.5649710 0.9600656
+## sample estimates:
+##       cor 
+## 0.8600213</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
 ## 
-## Response: ACIDS
-##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-## Málico     1 9942.7  9942.7   64.11 1.169e-05 ***
-## Residuals 10 1550.9   155.1                      
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## Analysis of Variance Table
+## data:  FACO$Tartárico and FACO$Succínico
+## t = 2.9895, df = 10, p-value = 0.01358
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.1866812 0.9043389
+## sample estimates:
+##       cor 
+## 0.6869819</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
 ## 
-## Response: ACIDS
-##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-## Quínico    1 8417.1  8417.1  27.361 0.0003839 ***
-## Residuals 10 3076.4   307.6                      
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## Analysis of Variance Table
+## data:  FACO$ATT and FACO$Tartárico
+## t = -3.2686, df = 10, p-value = 0.00845
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.9151410 -0.2464551
+## sample estimates:
+##        cor 
+## -0.7187027</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
 ## 
-## Response: ACIDS
-##           Df  Sum Sq Mean Sq F value Pr(&gt;F)
-## Succínico  1    26.2   26.17  0.0228 0.8829
-## Residuals 10 11467.4 1146.74</code></pre>
+## data:  FACO$ACIDS and FACO$Quínico
+## t = 5.2307, df = 10, p-value = 0.0003839
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.5539018 0.9587847
+## sample estimates:
+##       cor 
+## 0.8557676</code></pre>
+<pre><code>## 
+##  Pearson&#39;s product-moment correlation
+## 
+## data:  FACO$ACIDS and FACO$Málico
+## t = 8.0069, df = 10, p-value = 1.169e-05
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.7639902 0.9805782
+## sample estimates:
+##       cor 
+## 0.9300893</code></pre>
 </div>
+<div id="gráficos-de-correlación-detallados-por-estados-de-madurez"
+class="section level3">
+<h3>Gráficos de correlación detallados por estados de madurez</h3>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-61-1.png" width="1152" style="display: block; margin: auto;" /></p>
 <div id="conclusión" class="section level4">
 <h4>Conclusión</h4>
-<p>Sólo la correlación con Ac. tartárico es significativa, sin embargo
-se encuentra en pequeñas trazas sólo en el fruto sobremaduro. Se
-concluye que la ATT no se correlaciona con los ácidos orgánicos
-estudiados por separado ni tampoco en su conjunto (totales). El perfíl
-de ácidos es relativamente constante.</p>
+<p>Linear relationships between organic acids became evident between
+Malic and Quinic acid with an r=0.8600213 and a p-value=0.000333, and
+between Tartaric and Succinic acid with an r=0.6869819 and a
+p-value=0.01358. Total titratable acidity (TTA) showed a significant
+linear association only with Tartaric acid with an r=-0.7187027 and a
+p-value=0.00845. However, this inverse association is linked to the fact
+that Tartaric acid only appears in trace amounts in overripe fruits.
+Total acids with Quinic acid presented a correlation of 0.8557676 with a
+p-value=0.0003839. Meanwhile, Malic acid an r=0.9300893 and a
+p-value=1.169e-05. In both cases, these acids explain the increase in
+total acid concentration throughout fruit ripening.</p>
 </div>
 </div>
 </div>

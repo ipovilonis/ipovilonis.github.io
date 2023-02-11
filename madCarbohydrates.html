@@ -494,51 +494,51 @@ class="section level4">
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataST 
-##   Log-restricted-likelihood: -148.8139
+##   Log-restricted-likelihood: -57.21909
 ##   Fixed: TOTALF ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##   30.563326   -5.930540   -4.328680    5.008895 
+##   45.629848   -8.861626   -6.470594    7.489795 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:   0.1379395 22.06858
+## StdDev:    2.318824 3.260595
 ## 
-## Number of Observations: 36
+## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-7-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.76125, p-value = 3.019e-06</code></pre>
+## W = 0.93464, p-value = 0.1238</code></pre>
 </div>
 <div id="anova" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    30 63.21554  &lt;.0001
-## MAD             3    30  0.44417  0.7232</code></pre>
+## (Intercept)     1    18 853.1332  &lt;.0001
+## MAD             3    18  30.3096  &lt;.0001</code></pre>
 </div>
 <div id="test-de-tukey" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
 ##  MAD emmean   SE df lower.CL upper.CL
-##  I     30.6 7.36  2    -1.09     62.2
-##  MM    24.6 7.36  2    -7.02     56.3
-##  M     26.2 7.36  2    -5.42     57.9
-##  SM    35.6 7.36  2     3.92     67.2
+##  I     45.6 1.89  2     37.5     53.8
+##  MM    36.8 1.89  2     28.6     44.9
+##  M     39.2 1.89  2     31.0     47.3
+##  SM    53.1 1.89  2     45.0     61.2
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
 ##  contrast estimate   SE df t.ratio p.value
-##  I - MM       5.93 10.4 30  0.570  0.9402 
-##  I - M        4.33 10.4 30  0.416  0.9753 
-##  I - SM      -5.01 10.4 30 -0.481  0.9626 
-##  MM - M      -1.60 10.4 30 -0.154  0.9987 
-##  MM - SM    -10.94 10.4 30 -1.052  0.7209 
-##  M - SM      -9.34 10.4 30 -0.898  0.8061 
+##  I - MM       8.86 1.88 18  4.707  0.0009 
+##  I - M        6.47 1.88 18  3.437  0.0142 
+##  I - SM      -7.49 1.88 18 -3.979  0.0045 
+##  MM - M      -2.39 1.88 18 -1.270  0.5925 
+##  MM - SM    -16.35 1.88 18 -8.686  &lt;.0001 
+##  M - SM     -13.96 1.88 18 -7.416  &lt;.0001 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -736,51 +736,51 @@ significativamente menor.</p>
 <h4>Modelo y supuestos</h4>
 <pre><code>## Linear mixed-effects model fit by REML
 ##   Data: dataST 
-##   Log-restricted-likelihood: -214.5764
+##   Log-restricted-likelihood: -98.02213
 ##   Fixed: TOTALS ~ MAD 
 ## (Intercept)       MADMM        MADM       MADSM 
-##   178.06395    23.17692    55.81503   107.67389 
+##   266.88079    34.79956    83.74496   161.48729 
 ## 
 ## Random effects:
 ##  Formula: ~1 | REP
 ##         (Intercept) Residual
-## StdDev:    2.310465 172.2901
+## StdDev:    2.425004 27.10964
 ## 
-## Number of Observations: 36
+## Number of Observations: 24
 ## Number of Groups: 3</code></pre>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-20-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.77765, p-value = 6.038e-06</code></pre>
+## W = 0.85942, p-value = 0.003287</code></pre>
 </div>
 <div id="anova-4" class="section level4">
 <h4>Anova</h4>
 <pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    30 61.11802  &lt;.0001
-## MAD             3    30  0.66047  0.5828</code></pre>
+## (Intercept)     1    18 3483.291  &lt;.0001
+## MAD             3    18   39.998  &lt;.0001</code></pre>
 </div>
 <div id="test-de-tukey-4" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
 ##  MAD emmean   SE df lower.CL upper.CL
-##  I      178 57.4  2    -69.1      425
-##  MM     201 57.4  2    -45.9      448
-##  M      234 57.4  2    -13.3      481
-##  SM     286 57.4  2     38.6      533
+##  I      267 11.2  2      219      315
+##  MM     302 11.2  2      254      350
+##  M      351 11.2  2      303      399
+##  SM     428 11.2  2      380      476
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
 ##  contrast estimate   SE df t.ratio p.value
-##  I - MM      -23.2 81.2 30 -0.285  0.9917 
-##  I - M       -55.8 81.2 30 -0.687  0.9012 
-##  I - SM     -107.7 81.2 30 -1.326  0.5543 
-##  MM - M      -32.6 81.2 30 -0.402  0.9776 
-##  MM - SM     -84.5 81.2 30 -1.040  0.7274 
-##  M - SM      -51.9 81.2 30 -0.639  0.9187 
+##  I - MM      -34.8 15.7 18  -2.223 0.1546 
+##  I - M       -83.7 15.7 18  -5.351 0.0002 
+##  I - SM     -161.5 15.7 18 -10.318 &lt;.0001 
+##  MM - M      -48.9 15.7 18  -3.127 0.0272 
+##  MM - SM    -126.7 15.7 18  -8.094 &lt;.0001 
+##  M - SM      -77.7 15.7 18  -4.967 0.0005 
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
