@@ -30,25 +30,92 @@ data3<-datap[-c(1:72,169:192),]
 ```
 
 ### Concentración del perfíl de ácidos orgánicos a distintos estados de Maturity
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=14}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(dplyr)
+
+datatar <- filter(data3, data3$CAR == "Tartárico")
+datamal <- filter(data3, data3$CAR == "Málico")
+dataqui <- filter(data3, data3$CAR == "Quínico")
+datasuc <- filter(data3, data3$CAR == "Succínico")
+dataatt <- filter(data3, data3$CAR == "ATT")
+dataato <- dataAT
+
 library(ggplot2)
-g2<-ggplot2::ggplot(data3, aes(x=MAD, y=CONF, color=MAD, width=1)) +
+aci1s<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
-  facet_grid(CAR~.)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g fruta fresca", x="Maturity")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Tartaric mg/g fresh fruit", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
   theme(legend.position = "none")
-g2
 
+aci2s<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Malic mg/g fresh fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+aci3s<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Quinic mg/g fresh fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+aci4s<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Succinic mg/g fresh fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+aci5s<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="%", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())
+
+aci6s<-ggplot2::ggplot(dataato, aes(x=MAD, y=TOTALF, color=MAD, width=1, shape=REP)) +
+  geom_point(size=3)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Total organic acids mg/g fresh fruit", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")
+
+library(ggpubr)
+ggarrange(aci1s, aci2s, aci3s, aci4s, aci5s, aci6s, common.legend = TRUE, legend = "bottom")
 ```
 
 ### Tabla descriptiva
@@ -629,8 +696,8 @@ dataato <- dataAT
 library(ggplot2)
 aci1<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g dry fruit", x="")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Tartaric mg/g dry fruit", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -641,8 +708,8 @@ aci1<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
 
 aci2<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g dry fruit", x="")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Malic mg/g dry fruit", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -653,8 +720,8 @@ aci2<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
 
 aci3<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g dry fruit", x="")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Quinic mg/g dry fruit", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -665,8 +732,8 @@ aci3<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
 
 aci4<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g dry fruit", x="")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Succinic mg/g dry fruit", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -677,7 +744,7 @@ aci4<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
 
 aci5<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="%", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
@@ -688,8 +755,8 @@ aci5<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
 
 aci6<-ggplot2::ggplot(dataato, aes(x=MAD, y=TOTALS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g dry fruit", x="")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+  labs(y="Total organic acids mg/g dry fruit", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
