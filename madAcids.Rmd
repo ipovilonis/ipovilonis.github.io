@@ -1332,39 +1332,11 @@ CTac
 
 ```
 
-## Comparación del perfil de ácidos y de ATT
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(ggplot2)
-GCac<-ggplot(CTac) +
-  aes(MAD, CONS, fill=CAR, color=CAR) +
-  geom_point()+
-  scale_color_manual(values=c("aquamarine4","springgreen3","burlywood1","khaki3","coral1","tan3"))+
-  scale_fill_manual(values=c("aquamarine4","springgreen3","burlywood1","khaki3","coral1","tan3"))+
-  stat_summary(fun = "mean", size = 6, geom = "point") +
-  geom_errorbar(aes(ymin=CONS-sd, ymax=CONS+sd),
-                width=0, position=position_dodge(0)) +
-  theme_classic()+
-  labs(y="[mg/g dry fruit] for acids. %*100 for ATT", x="Maturity")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
-  theme(legend.title = element_text("none"))
-GCac
-
-```
-*The bars indicate standard deviation.*
-
 ## Concentración del ratio azúcares totales / ácidos orgánicos totales a distintos estados de Madurez.
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-gSTAT<-ggplot2::ggplot(dataSTAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
+library(ggplot2)
+gSTAT<-ggplot(dataSTAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
   geom_boxplot(width = 0.50)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="Total sugar/Total acids", x="Maturity")+
