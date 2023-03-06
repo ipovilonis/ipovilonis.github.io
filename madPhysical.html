@@ -13,7 +13,7 @@
 
 <title>Physical</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -178,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -187,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -417,6 +414,9 @@ div.tocify {
       <a href="Postharvest.html">Postharvest</a>
     </li>
     <li>
+      <a href="Climateric.html">Climateric</a>
+    </li>
+    <li>
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
@@ -544,12 +544,12 @@ A caption
 ## 
 ## $contrasts
 ##  contrast                     estimate       SE df t.ratio p.value
-##  Inmaduro - Medio Maduro    -20.654800 5.291540 33 -3.903  0.0024 
-##  Inmaduro - Maduro          -20.086700 5.291540 33 -3.796  0.0032 
-##  Inmaduro - SobreMaduro     -19.034671 5.830993 33 -3.264  0.0130 
-##  Medio Maduro - Maduro        0.568100 5.291540 33  0.107  0.9995 
-##  Medio Maduro - SobreMaduro   1.620129 5.830993 33  0.278  0.9924 
-##  Maduro - SobreMaduro         1.052029 5.830993 33  0.180  0.9979 
+##  Inmaduro - Medio Maduro    -20.654800 5.291540 33  -3.903  0.0024
+##  Inmaduro - Maduro          -20.086700 5.291540 33  -3.796  0.0032
+##  Inmaduro - SobreMaduro     -19.034671 5.830993 33  -3.264  0.0130
+##  Medio Maduro - Maduro        0.568100 5.291540 33   0.107  0.9995
+##  Medio Maduro - SobreMaduro   1.620129 5.830993 33   0.278  0.9924
+##  Maduro - SobreMaduro         1.052029 5.830993 33   0.180  0.9979
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -612,26 +612,28 @@ A caption
 </div>
 <div id="comparaciones-a-posteriori-1" class="section level3">
 <h3>Comparaciones a posteriori</h3>
+<pre><code>## Error in model.matrix.default(frml, data, ...) : 
+##   model frame and formula mismatch in model.matrix()</code></pre>
+<pre><code>## Error: Can&#39;t estimate Satterthwaite parameters.
+##   Try adding the argument &#39;mode = &quot;appx-satterthwaite&quot;&#39;</code></pre>
 <pre><code>## $emmeans
-##  MADUREZ         emmean         SE   df  lower.CL  upper.CL
-##  Inmaduro     0.2929017 0.03689419 9.01 0.2094590 0.3763445
-##  Medio Maduro 0.1633323 0.01264351 9.00 0.1347306 0.1919339
-##  Maduro       0.2481463 0.03324467 9.00 0.1729439 0.3233487
-##  SobreMaduro  0.1709383 0.02227764 6.00 0.1164276 0.2254490
+##  MADUREZ        emmean       SE df lower.CL upper.CL
+##  Inmaduro     19.46590 3.741684 33 11.85339 27.07841
+##  Medio Maduro 40.12070 3.741684 33 32.50819 47.73321
+##  Maduro       39.55260 3.741684 33 31.94009 47.16511
+##  SobreMaduro  38.50057 4.472168 33 29.40188 47.59926
 ## 
-## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                      estimate         SE    df t.ratio p.value
-##  Inmaduro - Medio Maduro     0.12956949 0.03900051 11.10  3.322  0.0294 
-##  Inmaduro - Maduro           0.04475544 0.04966275 17.81  0.901  0.8043 
-##  Inmaduro - SobreMaduro      0.12196345 0.04309843 13.98  2.830  0.0576 
-##  Medio Maduro - Maduro      -0.08481405 0.03556777 11.55 -2.385  0.1352 
-##  Medio Maduro - SobreMaduro -0.00760604 0.02561546  9.81 -0.297  0.9903 
-##  Maduro - SobreMaduro        0.07720801 0.04001876 14.52  1.929  0.2590 
+##  contrast                     estimate       SE df t.ratio p.value
+##  Inmaduro - Medio Maduro    -20.654800 5.291540 33  -3.903  0.0024
+##  Inmaduro - Maduro          -20.086700 5.291540 33  -3.796  0.0032
+##  Inmaduro - SobreMaduro     -19.034671 5.830993 33  -3.264  0.0130
+##  Medio Maduro - Maduro        0.568100 5.291540 33   0.107  0.9995
+##  Medio Maduro - SobreMaduro   1.620129 5.830993 33   0.278  0.9924
+##  Maduro - SobreMaduro         1.052029 5.830993 33   0.180  0.9979
 ## 
-## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
@@ -710,12 +712,12 @@ A caption
 ## 
 ## $contrasts
 ##  contrast                      estimate         SE df t.ratio p.value
-##  Inmaduro - Medio Maduro    -0.04170000 0.01285949 33 -3.243  0.0137 
-##  Inmaduro - Maduro          -0.08100000 0.01285949 33 -6.299  &lt;.0001 
-##  Inmaduro - SobreMaduro     -0.03944286 0.01417047 33 -2.783  0.0418 
-##  Medio Maduro - Maduro      -0.03930000 0.01285949 33 -3.056  0.0218 
-##  Medio Maduro - SobreMaduro  0.00225714 0.01417047 33  0.159  0.9985 
-##  Maduro - SobreMaduro        0.04155714 0.01417047 33  2.933  0.0294 
+##  Inmaduro - Medio Maduro    -0.04170000 0.01285949 33  -3.243  0.0137
+##  Inmaduro - Maduro          -0.08100000 0.01285949 33  -6.299  &lt;.0001
+##  Inmaduro - SobreMaduro     -0.03944286 0.01417047 33  -2.783  0.0418
+##  Medio Maduro - Maduro      -0.03930000 0.01285949 33  -3.056  0.0218
+##  Medio Maduro - SobreMaduro  0.00225714 0.01417047 33   0.159  0.9985
+##  Maduro - SobreMaduro        0.04155714 0.01417047 33   2.933  0.0294
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>

@@ -25,52 +25,52 @@ Different reproductive, genetic, phenological, physical and chemical variables w
 
 ```{r pressure, echo=FALSE, error=TRUE, fig.cap="A caption", out.width = '100%'}
 
-library(shiny)
-library(leaflet)
-
-# Crear un data frame con las coordenadas de los tres sitios
-sitios <- data.frame(sitio = c("Concordia", "Palmar", "Gualeguaychú"),
-                     lat = c(-31.293817, -31.873664, -33.063958),
-                     lon = c(-57.9608333333, -58.220783, -58.276436))
-
-# Crear la interfaz de usuario de la aplicación
-ui <- fluidPage(
-  leafletOutput("mapa"),
-  selectInput("sitio", "Seleccione un sitio:",
-              choices = sitios$sitio)
-)
-
-# Crear el servidor de la aplicación
-server <- function(input, output) {
-  
-  # Crear un mapa base
-  output$mapa <- renderLeaflet({
-    leaflet() %>% addTiles()
-    selectInput("sitio", "Seleccione un sitio:",
-              choices = sitios$sitio, selected = "Gualeguaychú")
-  })
-  
-  # Agregar marcadores para cada sitio
-  observe({
-    leafletProxy("mapa") %>%
-      clearMarkers() %>%
-      addMarkers(data = sitios, 
-                 lat = ~lat, lng = ~lon, 
-                 label = ~sitio)
-  })
-  
-  # Actualizar el mapa cuando se selecciona un sitio
-  observeEvent(input$sitio, {
-    seleccionado <- sitios[sitios$sitio == input$sitio,]
-    leafletProxy("mapa") %>%
-      setView(lng = seleccionado$lon, lat = seleccionado$lat, zoom = 13)
-  })
-  
-}
-
-# Ejecutar la aplicación
-shinyApp(ui, server)
-
+# library(shiny)
+# library(leaflet)
+# 
+# # Crear un data frame con las coordenadas de los tres sitios
+# sitios <- data.frame(sitio = c("Concordia", "Palmar", "Gualeguaychú"),
+#                      lat = c(-31.293817, -31.873664, -33.063958),
+#                      lon = c(-57.9608333333, -58.220783, -58.276436))
+# 
+# # Crear la interfaz de usuario de la aplicación
+# ui <- fluidPage(
+#   leafletOutput("mapa"),
+#   selectInput("sitio", "Seleccione un sitio:",
+#               choices = sitios$sitio)
+# )
+# 
+# # Crear el servidor de la aplicación
+# server <- function(input, output) {
+#   
+#   # Crear un mapa base
+#   output$mapa <- renderLeaflet({
+#     leaflet() %>% addTiles()
+#     selectInput("sitio", "Seleccione un sitio:",
+#               choices = sitios$sitio, selected = "Gualeguaychú")
+#   })
+#   
+#   # Agregar marcadores para cada sitio
+#   observe({
+#     leafletProxy("mapa") %>%
+#       clearMarkers() %>%
+#       addMarkers(data = sitios, 
+#                  lat = ~lat, lng = ~lon, 
+#                  label = ~sitio)
+#   })
+#   
+#   # Actualizar el mapa cuando se selecciona un sitio
+#   observeEvent(input$sitio, {
+#     seleccionado <- sitios[sitios$sitio == input$sitio,]
+#     leafletProxy("mapa") %>%
+#       setView(lng = seleccionado$lon, lat = seleccionado$lat, zoom = 13)
+#   })
+#   
+# }
+# 
+# # Ejecutar la aplicación
+# shinyApp(ui, server)
+# 
 
 ```
 

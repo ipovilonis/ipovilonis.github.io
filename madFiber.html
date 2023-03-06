@@ -13,7 +13,7 @@
 
 <title>Fiber</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -178,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -187,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -417,6 +414,9 @@ div.tocify {
       <a href="Postharvest.html">Postharvest</a>
     </li>
     <li>
+      <a href="Climateric.html">Climateric</a>
+    </li>
+    <li>
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
@@ -551,12 +551,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast   estimate        SE df t.ratio p.value
-##  I - MM    0.3700000 0.2727636  8  1.356  0.5566 
-##  I - M     0.2866667 0.2727636  8  1.051  0.7264 
-##  I - SM    0.2500000 0.2727636  8  0.917  0.7971 
-##  MM - M   -0.0833333 0.2727636  8 -0.306  0.9894 
-##  MM - SM  -0.1200000 0.2727636  8 -0.440  0.9698 
-##  M - SM   -0.0366667 0.2727636  8 -0.134  0.9991 
+##  I - MM    0.3700000 0.2727636  8   1.356  0.5566
+##  I - M     0.2866667 0.2727636  8   1.051  0.7264
+##  I - SM    0.2500000 0.2727636  8   0.917  0.7971
+##  MM - M   -0.0833333 0.2727636  8  -0.306  0.9894
+##  MM - SM  -0.1200000 0.2727636  8  -0.440  0.9698
+##  M - SM   -0.0366667 0.2727636  8  -0.134  0.9991
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madFiber_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -608,12 +608,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast   estimate        SE df t.ratio p.value
-##  I - MM    1.2733333 0.2985148  8  4.266  0.0117 
-##  I - M     2.8033333 0.2985148  8  9.391  0.0001 
-##  I - SM    2.6466667 0.2985148  8  8.866  0.0001 
-##  MM - M    1.5300000 0.2985148  8  5.125  0.0040 
-##  MM - SM   1.3733333 0.2985148  8  4.601  0.0076 
-##  M - SM   -0.1566667 0.2985148  8 -0.525  0.9507 
+##  I - MM    1.2733333 0.2985148  8   4.266  0.0117
+##  I - M     2.8033333 0.2985148  8   9.391  0.0001
+##  I - SM    2.6466667 0.2985148  8   8.866  0.0001
+##  MM - M    1.5300000 0.2985148  8   5.125  0.0040
+##  MM - SM   1.3733333 0.2985148  8   4.601  0.0076
+##  M - SM   -0.1566667 0.2985148  8  -0.525  0.9507
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madFiber_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -665,12 +665,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast   estimate        SE df t.ratio p.value
-##  I - MM    1.6433333 0.4204495  8  3.909  0.0188 
-##  I - M     3.0900000 0.4204495  8  7.349  0.0004 
-##  I - SM    2.8966667 0.4204495  8  6.889  0.0006 
-##  MM - M    1.4466667 0.4204495  8  3.441  0.0358 
-##  MM - SM   1.2533333 0.4204495  8  2.981  0.0683 
-##  M - SM   -0.1933333 0.4204495  8 -0.460  0.9658 
+##  I - MM    1.6433333 0.4204495  8   3.909  0.0188
+##  I - M     3.0900000 0.4204495  8   7.349  0.0004
+##  I - SM    2.8966667 0.4204495  8   6.889  0.0006
+##  MM - M    1.4466667 0.4204495  8   3.441  0.0358
+##  MM - SM   1.2533333 0.4204495  8   2.981  0.0683
+##  M - SM   -0.1933333 0.4204495  8  -0.460  0.9658
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madFiber_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -723,12 +723,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast   estimate       SE df t.ratio p.value
-##  I - MM   -0.6407818 1.914919  8 -0.335  0.9861 
-##  I - M    -2.2270312 1.914919  8 -1.163  0.6644 
-##  I - SM   -1.4049941 1.914919  8 -0.734  0.8809 
-##  MM - M   -1.5862493 1.914919  8 -0.828  0.8398 
-##  MM - SM  -0.7642123 1.914919  8 -0.399  0.9770 
-##  M - SM    0.8220370 1.914919  8  0.429  0.9718 
+##  I - MM   -0.6407818 1.914919  8  -0.335  0.9861
+##  I - M    -2.2270312 1.914919  8  -1.163  0.6644
+##  I - SM   -1.4049941 1.914919  8  -0.734  0.8809
+##  MM - M   -1.5862493 1.914919  8  -0.828  0.8398
+##  MM - SM  -0.7642123 1.914919  8  -0.399  0.9770
+##  M - SM    0.8220370 1.914919  8   0.429  0.9718
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madFiber_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -780,12 +780,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast  estimate       SE df t.ratio p.value
-##  I - MM   -0.420700 2.382884  8 -0.177  0.9979 
-##  I - M    10.892902 2.382884  8  4.571  0.0079 
-##  I - SM   11.201107 2.382884  8  4.701  0.0067 
-##  MM - M   11.313602 2.382884  8  4.748  0.0063 
-##  MM - SM  11.621806 2.382884  8  4.877  0.0054 
-##  M - SM    0.308205 2.382884  8  0.129  0.9992 
+##  I - MM   -0.420700 2.382884  8  -0.177  0.9979
+##  I - M    10.892902 2.382884  8   4.571  0.0079
+##  I - SM   11.201107 2.382884  8   4.701  0.0067
+##  MM - M   11.313602 2.382884  8   4.748  0.0063
+##  MM - SM  11.621806 2.382884  8   4.877  0.0054
+##  M - SM    0.308205 2.382884  8   0.129  0.9992
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madFiber_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -837,12 +837,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast  estimate       SE df t.ratio p.value
-##  I - MM   -1.061481 3.143201  8 -0.338  0.9858 
-##  I - M     8.665871 3.143201  8  2.757  0.0937 
-##  I - SM    9.796112 3.143201  8  3.117  0.0564 
-##  MM - M    9.727352 3.143201  8  3.095  0.0582 
-##  MM - SM  10.857594 3.143201  8  3.454  0.0351 
-##  M - SM    1.130242 3.143201  8  0.360  0.9829 
+##  I - MM   -1.061481 3.143201  8  -0.338  0.9858
+##  I - M     8.665871 3.143201  8   2.757  0.0937
+##  I - SM    9.796112 3.143201  8   3.117  0.0564
+##  MM - M    9.727352 3.143201  8   3.095  0.0582
+##  MM - SM  10.857594 3.143201  8   3.454  0.0351
+##  M - SM    1.130242 3.143201  8   0.360  0.9829
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madFiber_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -901,12 +901,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast   estimate         SE   df t.ratio p.value
-##  I - MM   -0.0207416 0.06191498 2.09 -0.335  0.9839 
-##  I - M    -0.3768696 0.10519683 3.63 -3.583  0.0843 
-##  I - SM   -0.3793721 0.17508972 2.55 -2.167  0.3302 
-##  MM - M   -0.3561279 0.08596182 2.05 -4.143  0.1260 
-##  MM - SM  -0.3586304 0.16425429 2.01 -2.183  0.3607 
-##  M - SM   -0.0025025 0.18496589 3.01 -0.014  1.0000 
+##  I - MM   -0.0207416 0.06191498 2.09  -0.335  0.9839
+##  I - M    -0.3768696 0.10519683 3.63  -3.583  0.0843
+##  I - SM   -0.3793721 0.17508972 2.55  -2.167  0.3302
+##  MM - M   -0.3561279 0.08596182 2.05  -4.143  0.1260
+##  MM - SM  -0.3586304 0.16425429 2.01  -2.183  0.3607
+##  M - SM   -0.0025025 0.18496589 3.01  -0.014  1.0000
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -952,12 +952,12 @@ madurez</h3>
 ## 
 ## $contrasts
 ##  contrast  estimate      SE df t.ratio p.value
-##  I - MM    1.438961 5.20708  8  0.276  0.9921 
-##  I - M    16.443943 5.20708  8  3.158  0.0532 
-##  I - SM   15.723256 5.20708  8  3.020  0.0647 
-##  MM - M   15.004982 5.20708  8  2.882  0.0786 
-##  MM - SM  14.284295 5.20708  8  2.743  0.0956 
-##  M - SM   -0.720687 5.20708  8 -0.138  0.9990 
+##  I - MM    1.438961 5.20708  8   0.276  0.9921
+##  I - M    16.443943 5.20708  8   3.158  0.0532
+##  I - SM   15.723256 5.20708  8   3.020  0.0647
+##  MM - M   15.004982 5.20708  8   2.882  0.0786
+##  MM - SM  14.284295 5.20708  8   2.743  0.0956
+##  M - SM   -0.720687 5.20708  8  -0.138  0.9990
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madFiber_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>

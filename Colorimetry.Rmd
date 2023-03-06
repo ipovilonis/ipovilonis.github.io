@@ -176,7 +176,7 @@ library("nlme")
 mL<-nlme::gls(L~MAD, weights=varIdent(form=~1|MAD), data)
 anova(mL)
 library(emmeans)
-compL<-emmeans::emmeans(mL, pairwise ~ MAD)
+compL<-emmeans::emmeans(mL, pairwise ~ MAD, mode = "df.error")
 plot(compL, comparisons = TRUE)
 ```
 
@@ -193,7 +193,7 @@ attach(data)
 ma<-nlme::gls(sa~MAD, weights=varIdent(form=~1|MAD), data)
 anova(ma)
 library(emmeans)
-compa<-emmeans::emmeans(ma, pairwise ~ MAD)
+compa<-emmeans::emmeans(ma, pairwise ~ MAD, mode = "df.error")
 plot(compa, comparisons = TRUE)
 ```
 
@@ -204,7 +204,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 mb<-nlme::gls(b~MAD, weights=varIdent(form=~1|MAD), data)
 anova(mb)
 library(emmeans)
-compb<-emmeans::emmeans(mb, pairwise ~ MAD)
+compb<-emmeans::emmeans(mb, pairwise ~ MAD, mode = "df.error")
 plot(compb, comparisons = TRUE)
 ```
 

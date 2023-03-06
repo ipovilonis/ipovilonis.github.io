@@ -13,7 +13,7 @@
 
 <title>Postharvest</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -178,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -187,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -417,6 +414,9 @@ div.tocify {
       <a href="Postharvest.html">Postharvest</a>
     </li>
     <li>
+      <a href="Climateric.html">Climateric</a>
+    </li>
+    <li>
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
@@ -586,52 +586,52 @@ made and simple effects are analyzed.</p>
 </div>
 <div id="interaction-comparisons" class="section level4">
 <h4>Interaction comparisons</h4>
-<pre><code>##  contrast      estimate        SE  df t.ratio p.value
-##  5 0 - 9 0    0.4114367 0.5375393 400  0.765  0.9990 
-##  5 0 - 5 3    0.2419098 0.0144627 400 16.726  &lt;.0001 
-##  5 0 - 9 3    0.7492589 0.5375393 400  1.394  0.9287 
-##  5 0 - 5 7    0.4323722 0.0201502 400 21.458  &lt;.0001 
-##  5 0 - 9 7    0.8438589 0.5375393 400  1.570  0.8619 
-##  5 0 - 5 10   0.6961720 0.0297082 400 23.434  &lt;.0001 
-##  5 0 - 9 10   1.1122695 0.5375967 400  2.069  0.5506 
-##  5 0 - 5 14   0.9632405 0.0400681 400 24.040  &lt;.0001 
-##  5 0 - 9 14   1.3348141 0.5378226 400  2.482  0.2814 
-##  9 0 - 5 3   -0.1695268 0.5375588 400 -0.315  1.0000 
-##  9 0 - 9 3    0.3378222 0.0153766 400 21.970  &lt;.0001 
-##  9 0 - 5 7    0.0209355 0.5375662 400  0.039  1.0000 
-##  9 0 - 9 7    0.4324222 0.0214553 400 20.155  &lt;.0001 
-##  9 0 - 5 10   0.2847354 0.5375801 400  0.530  1.0000 
-##  9 0 - 9 10   0.7008328 0.0328018 400 21.366  &lt;.0001 
-##  9 0 - 5 14   0.5518038 0.5375929 400  1.026  0.9905 
-##  9 0 - 9 14   0.9233775 0.0466245 400 19.805  &lt;.0001 
-##  5 3 - 9 3    0.5073491 0.5375588 400  0.944  0.9949 
-##  5 3 - 5 7    0.1904623 0.0082883 400 22.980  &lt;.0001 
-##  5 3 - 9 7    0.6019491 0.5375588 400  1.120  0.9825 
-##  5 3 - 5 10   0.4542622 0.0173640 400 26.161  &lt;.0001 
-##  5 3 - 9 10   0.8703596 0.5376162 400  1.619  0.8384 
-##  5 3 - 5 14   0.7213307 0.0285542 400 25.262  &lt;.0001 
-##  5 3 - 9 14   1.0929043 0.5378421 400  2.032  0.5769 
-##  9 3 - 5 7   -0.3168867 0.5375662 400 -0.589  0.9999 
-##  9 3 - 9 7    0.0946000 0.0087963 400 10.754  &lt;.0001 
-##  9 3 - 5 10  -0.0530869 0.5375801 400 -0.099  1.0000 
-##  9 3 - 9 10   0.3630106 0.0202501 400 17.926  &lt;.0001 
-##  9 3 - 5 14   0.2139816 0.5375929 400  0.398  1.0000 
-##  9 3 - 9 14   0.5855552 0.0354392 400 16.523  &lt;.0001 
-##  5 7 - 9 7    0.4114867 0.5375662 400  0.765  0.9990 
-##  5 7 - 5 10   0.2637999 0.0116986 400 22.550  &lt;.0001 
-##  5 7 - 9 10   0.6798973 0.5376235 400  1.265  0.9608 
-##  5 7 - 5 14   0.5308683 0.0233264 400 22.758  &lt;.0001 
-##  5 7 - 9 14   0.9024420 0.5378495 400  1.678  0.8074 
-##  9 7 - 5 10  -0.1476869 0.5375801 400 -0.275  1.0000 
-##  9 7 - 9 10   0.2684106 0.0148289 400 18.101  &lt;.0001 
-##  9 7 - 5 14   0.1193816 0.5375929 400  0.222  1.0000 
-##  9 7 - 9 14   0.4909552 0.0306152 400 16.036  &lt;.0001 
-##  5 10 - 9 10  0.4160974 0.5376375 400  0.774  0.9989 
-##  5 10 - 5 14  0.2670685 0.0150043 400 17.799  &lt;.0001 
-##  5 10 - 9 14  0.6386421 0.5378634 400  1.187  0.9740 
-##  9 10 - 5 14 -0.1490289 0.5376503 400 -0.277  1.0000 
-##  9 10 - 9 14  0.2225447 0.0207420 400 10.729  &lt;.0001 
-##  5 14 - 9 14  0.3715736 0.5378762 400  0.691  0.9996 
+<pre><code>##  contrast                    estimate        SE  df t.ratio p.value
+##  TEMP5 DIA0 - TEMP9 DIA0    0.4114367 0.5375393 401   0.765  0.9990
+##  TEMP5 DIA0 - TEMP5 DIA3    0.2419098 0.0144627 401  16.726  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA3    0.7492589 0.5375393 401   1.394  0.9287
+##  TEMP5 DIA0 - TEMP5 DIA7    0.4323722 0.0201502 401  21.458  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA7    0.8438589 0.5375393 401   1.570  0.8619
+##  TEMP5 DIA0 - TEMP5 DIA10   0.6961720 0.0297082 401  23.434  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA10   1.1122695 0.5375967 401   2.069  0.5506
+##  TEMP5 DIA0 - TEMP5 DIA14   0.9632405 0.0400681 401  24.040  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA14   1.3348141 0.5378226 401   2.482  0.2814
+##  TEMP9 DIA0 - TEMP5 DIA3   -0.1695268 0.5375588 401  -0.315  1.0000
+##  TEMP9 DIA0 - TEMP9 DIA3    0.3378222 0.0153766 401  21.970  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA7    0.0209355 0.5375662 401   0.039  1.0000
+##  TEMP9 DIA0 - TEMP9 DIA7    0.4324222 0.0214553 401  20.155  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA10   0.2847354 0.5375801 401   0.530  1.0000
+##  TEMP9 DIA0 - TEMP9 DIA10   0.7008328 0.0328018 401  21.366  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA14   0.5518038 0.5375929 401   1.026  0.9905
+##  TEMP9 DIA0 - TEMP9 DIA14   0.9233775 0.0466245 401  19.805  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA3    0.5073491 0.5375588 401   0.944  0.9949
+##  TEMP5 DIA3 - TEMP5 DIA7    0.1904623 0.0082883 401  22.980  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA7    0.6019491 0.5375588 401   1.120  0.9825
+##  TEMP5 DIA3 - TEMP5 DIA10   0.4542622 0.0173640 401  26.161  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA10   0.8703596 0.5376162 401   1.619  0.8384
+##  TEMP5 DIA3 - TEMP5 DIA14   0.7213307 0.0285542 401  25.262  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA14   1.0929043 0.5378421 401   2.032  0.5769
+##  TEMP9 DIA3 - TEMP5 DIA7   -0.3168867 0.5375662 401  -0.589  0.9999
+##  TEMP9 DIA3 - TEMP9 DIA7    0.0946000 0.0087963 401  10.754  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA10  -0.0530869 0.5375801 401  -0.099  1.0000
+##  TEMP9 DIA3 - TEMP9 DIA10   0.3630106 0.0202501 401  17.926  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA14   0.2139816 0.5375929 401   0.398  1.0000
+##  TEMP9 DIA3 - TEMP9 DIA14   0.5855552 0.0354392 401  16.523  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA7    0.4114867 0.5375662 401   0.765  0.9990
+##  TEMP5 DIA7 - TEMP5 DIA10   0.2637999 0.0116986 401  22.550  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA10   0.6798973 0.5376235 401   1.265  0.9608
+##  TEMP5 DIA7 - TEMP5 DIA14   0.5308683 0.0233264 401  22.758  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA14   0.9024420 0.5378495 401   1.678  0.8074
+##  TEMP9 DIA7 - TEMP5 DIA10  -0.1476869 0.5375801 401  -0.275  1.0000
+##  TEMP9 DIA7 - TEMP9 DIA10   0.2684106 0.0148289 401  18.101  &lt;.0001
+##  TEMP9 DIA7 - TEMP5 DIA14   0.1193816 0.5375929 401   0.222  1.0000
+##  TEMP9 DIA7 - TEMP9 DIA14   0.4909552 0.0306152 401  16.036  &lt;.0001
+##  TEMP5 DIA10 - TEMP9 DIA10  0.4160974 0.5376375 401   0.774  0.9989
+##  TEMP5 DIA10 - TEMP5 DIA14  0.2670685 0.0150043 401  17.799  &lt;.0001
+##  TEMP5 DIA10 - TEMP9 DIA14  0.6386421 0.5378634 401   1.187  0.9740
+##  TEMP9 DIA10 - TEMP5 DIA14 -0.1490289 0.5376503 401  -0.277  1.0000
+##  TEMP9 DIA10 - TEMP9 DIA14  0.2225447 0.0207420 401  10.729  &lt;.0001
+##  TEMP5 DIA14 - TEMP9 DIA14  0.3715736 0.5378762 401   0.691  0.9996
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 10 estimates</code></pre>
@@ -645,24 +645,24 @@ class="section level4">
 <div id="simple-effects" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    0.4114367 0.5375393 400 0.765   0.4445 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.4114367 0.5375393 401   0.765  0.4445
 ## 
 ## DIA = 3:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    0.5073491 0.5375588 400 0.944   0.3458 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.5073491 0.5375588 401   0.944  0.3458
 ## 
 ## DIA = 7:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    0.4114867 0.5375662 400 0.765   0.4444 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.4114867 0.5375662 401   0.765  0.4444
 ## 
 ## DIA = 10:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    0.4160974 0.5376375 400 0.774   0.4394 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.4160974 0.5376375 401   0.774  0.4394
 ## 
 ## DIA = 14:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    0.3715736 0.5378762 400 0.691   0.4901 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.3715736 0.5378762 401   0.691  0.4901
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -750,52 +750,52 @@ made and simple effects are analyzed.</p>
 </div>
 <div id="interaction-comparisons-1" class="section level4">
 <h4>Interaction comparisons</h4>
-<pre><code>##  contrast     estimate        SE  df t.ratio p.value
-##  5 0 - 9 0    0.425180 0.9286766 415   0.458 1.0000 
-##  5 0 - 5 3    1.095623 0.5101433 415   2.148 0.4949 
-##  5 0 - 9 3   -0.066493 0.9250016 415  -0.072 1.0000 
-##  5 0 - 5 7   -6.612150 0.8767786 415  -7.541 &lt;.0001 
-##  5 0 - 9 7   -8.083875 0.9205575 415  -8.781 &lt;.0001 
-##  5 0 - 5 10  -3.924903 0.7167686 415  -5.476 &lt;.0001 
-##  5 0 - 9 10  -7.840254 1.0591053 415  -7.403 &lt;.0001 
-##  5 0 - 5 14  -3.914318 0.7599982 415  -5.150 &lt;.0001 
-##  5 0 - 9 14  -5.121957 1.1166504 415  -4.587 0.0003 
-##  9 0 - 5 3    0.670444 0.9247149 415   0.725 0.9993 
-##  9 0 - 9 3   -0.491673 0.5156938 415  -0.953 0.9945 
-##  9 0 - 5 7   -7.037329 0.9251051 415  -7.607 &lt;.0001 
-##  9 0 - 9 7   -8.509055 0.8775832 415  -9.696 &lt;.0001 
-##  9 0 - 5 10  -4.350083 0.9342254 415  -4.656 0.0002 
-##  9 0 - 9 10  -8.265434 0.8853580 415  -9.336 &lt;.0001 
-##  9 0 - 5 14  -4.339498 0.9528606 415  -4.554 0.0003 
-##  9 0 - 9 14  -5.547136 0.9692356 415  -5.723 &lt;.0001 
-##  5 3 - 9 3   -1.162116 0.9210242 415  -1.262 0.9614 
-##  5 3 - 5 7   -7.707773 0.8521333 415  -9.045 &lt;.0001 
-##  5 3 - 9 7   -9.179499 0.9165607 415 -10.015 &lt;.0001 
-##  5 3 - 5 10  -5.020527 0.7130207 415  -7.041 &lt;.0001 
-##  5 3 - 9 10  -8.935877 1.0556333 415  -8.465 &lt;.0001 
-##  5 3 - 5 14  -5.009942 0.7972301 415  -6.284 &lt;.0001 
-##  5 3 - 9 14  -6.217580 1.1133578 415  -5.585 &lt;.0001 
-##  9 3 - 5 7   -6.545657 0.9214159 415  -7.104 &lt;.0001 
-##  9 3 - 9 7   -8.017382 0.8528374 415  -9.401 &lt;.0001 
-##  9 3 - 5 10  -3.858410 0.9305723 415  -4.146 0.0017 
-##  9 3 - 9 10  -7.773761 0.8819781 415  -8.814 &lt;.0001 
-##  9 3 - 5 14  -3.847825 0.9492793 415  -4.053 0.0024 
-##  9 3 - 9 14  -5.055464 1.0005803 415  -5.053 &lt;.0001 
-##  5 7 - 9 7   -1.471725 0.9169544 415  -1.605 0.8453 
-##  5 7 - 5 10   2.687246 0.7495586 415   3.585 0.0137 
-##  5 7 - 9 10  -1.228104 1.0559751 415  -1.163 0.9774 
-##  5 7 - 5 14   2.697831 0.8442049 415   3.196 0.0479 
-##  5 7 - 9 14   1.490193 1.1136819 415   1.338 0.9442 
-##  9 7 - 5 10   4.158972 0.9261549 415   4.491 0.0004 
-##  9 7 - 9 10   0.243621 0.8945760 415   0.272 1.0000 
-##  9 7 - 5 14   4.169557 0.9449493 415   4.412 0.0005 
-##  9 7 - 9 14   2.961919 1.0288943 415   2.879 0.1149 
-##  5 10 - 9 10 -3.915351 1.0639741 415  -3.680 0.0098 
-##  5 10 - 5 14  0.010585 0.6552582 415   0.016 1.0000 
-##  5 10 - 9 14 -1.197053 1.1212693 415  -1.068 0.9875 
-##  9 10 - 5 14  3.925936 1.0803737 415   3.634 0.0116 
-##  9 10 - 9 14  2.718297 0.8911828 415   3.050 0.0728 
-##  5 14 - 9 14 -1.207638 1.1368427 415  -1.062 0.9879 
+<pre><code>##  contrast                   estimate        SE  df t.ratio p.value
+##  TEMP5 DIA0 - TEMP9 DIA0    0.425180 0.9286766 416   0.458  1.0000
+##  TEMP5 DIA0 - TEMP5 DIA3    1.095623 0.5101433 416   2.148  0.4949
+##  TEMP5 DIA0 - TEMP9 DIA3   -0.066493 0.9250016 416  -0.072  1.0000
+##  TEMP5 DIA0 - TEMP5 DIA7   -6.612150 0.8767786 416  -7.541  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA7   -8.083875 0.9205575 416  -8.781  &lt;.0001
+##  TEMP5 DIA0 - TEMP5 DIA10  -3.924903 0.7167686 416  -5.476  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA10  -7.840254 1.0591053 416  -7.403  &lt;.0001
+##  TEMP5 DIA0 - TEMP5 DIA14  -3.914318 0.7599982 416  -5.150  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA14  -5.121957 1.1166504 416  -4.587  0.0003
+##  TEMP9 DIA0 - TEMP5 DIA3    0.670444 0.9247149 416   0.725  0.9993
+##  TEMP9 DIA0 - TEMP9 DIA3   -0.491673 0.5156938 416  -0.953  0.9945
+##  TEMP9 DIA0 - TEMP5 DIA7   -7.037329 0.9251051 416  -7.607  &lt;.0001
+##  TEMP9 DIA0 - TEMP9 DIA7   -8.509055 0.8775832 416  -9.696  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA10  -4.350083 0.9342254 416  -4.656  0.0002
+##  TEMP9 DIA0 - TEMP9 DIA10  -8.265434 0.8853580 416  -9.336  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA14  -4.339498 0.9528606 416  -4.554  0.0003
+##  TEMP9 DIA0 - TEMP9 DIA14  -5.547136 0.9692356 416  -5.723  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA3   -1.162116 0.9210242 416  -1.262  0.9614
+##  TEMP5 DIA3 - TEMP5 DIA7   -7.707773 0.8521333 416  -9.045  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA7   -9.179499 0.9165607 416 -10.015  &lt;.0001
+##  TEMP5 DIA3 - TEMP5 DIA10  -5.020527 0.7130207 416  -7.041  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA10  -8.935877 1.0556333 416  -8.465  &lt;.0001
+##  TEMP5 DIA3 - TEMP5 DIA14  -5.009942 0.7972301 416  -6.284  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA14  -6.217580 1.1133578 416  -5.585  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA7   -6.545657 0.9214159 416  -7.104  &lt;.0001
+##  TEMP9 DIA3 - TEMP9 DIA7   -8.017382 0.8528374 416  -9.401  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA10  -3.858410 0.9305723 416  -4.146  0.0017
+##  TEMP9 DIA3 - TEMP9 DIA10  -7.773761 0.8819781 416  -8.814  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA14  -3.847825 0.9492793 416  -4.053  0.0024
+##  TEMP9 DIA3 - TEMP9 DIA14  -5.055464 1.0005803 416  -5.053  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA7   -1.471725 0.9169544 416  -1.605  0.8453
+##  TEMP5 DIA7 - TEMP5 DIA10   2.687246 0.7495586 416   3.585  0.0137
+##  TEMP5 DIA7 - TEMP9 DIA10  -1.228104 1.0559751 416  -1.163  0.9774
+##  TEMP5 DIA7 - TEMP5 DIA14   2.697831 0.8442049 416   3.196  0.0479
+##  TEMP5 DIA7 - TEMP9 DIA14   1.490193 1.1136819 416   1.338  0.9442
+##  TEMP9 DIA7 - TEMP5 DIA10   4.158972 0.9261549 416   4.491  0.0004
+##  TEMP9 DIA7 - TEMP9 DIA10   0.243621 0.8945760 416   0.272  1.0000
+##  TEMP9 DIA7 - TEMP5 DIA14   4.169557 0.9449493 416   4.412  0.0005
+##  TEMP9 DIA7 - TEMP9 DIA14   2.961919 1.0288943 416   2.879  0.1149
+##  TEMP5 DIA10 - TEMP9 DIA10 -3.915351 1.0639741 416  -3.680  0.0098
+##  TEMP5 DIA10 - TEMP5 DIA14  0.010585 0.6552582 416   0.016  1.0000
+##  TEMP5 DIA10 - TEMP9 DIA14 -1.197053 1.1212693 416  -1.068  0.9875
+##  TEMP9 DIA10 - TEMP5 DIA14  3.925936 1.0803737 416   3.634  0.0116
+##  TEMP9 DIA10 - TEMP9 DIA14  2.718297 0.8911828 416   3.050  0.0728
+##  TEMP5 DIA14 - TEMP9 DIA14 -1.207638 1.1368427 416  -1.062  0.9879
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 10 estimates</code></pre>
@@ -808,24 +808,24 @@ class="section level4">
 <div id="simple-effects-1" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9     0.425180 0.9286766 415  0.458  0.6473 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.425180 0.9286766 416   0.458  0.6473
 ## 
 ## DIA = 3:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -1.162116 0.9210242 415 -1.262  0.2077 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -1.162116 0.9210242 416  -1.262  0.2077
 ## 
 ## DIA = 7:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -1.471725 0.9169544 415 -1.605  0.1093 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -1.471725 0.9169544 416  -1.605  0.1092
 ## 
 ## DIA = 10:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -3.915351 1.0639741 415 -3.680  0.0003 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -3.915351 1.0639741 416  -3.680  0.0003
 ## 
 ## DIA = 14:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -1.207638 1.1368427 415 -1.062  0.2887 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -1.207638 1.1368427 416  -1.062  0.2887
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -912,24 +912,24 @@ made and simple effects are analyzed.</p>
 <div id="interaction-comparisons-2" class="section level4">
 <h4>Interaction comparisons</h4>
 <pre><code>## DIA = 0:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9     0.824219 0.7569359 419  1.089  0.2768 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.824219 0.7569359 420   1.089  0.2768
 ## 
 ## DIA = 3:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -0.803820 0.7569336 419 -1.062  0.2889 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -0.803820 0.7569336 420  -1.062  0.2889
 ## 
 ## DIA = 7:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -4.617961 0.7569114 419 -6.101  &lt;.0001 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.617961 0.7569114 420  -6.101  &lt;.0001
 ## 
 ## DIA = 10:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -7.761660 0.8720270 419 -8.901  &lt;.0001 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -7.761660 0.8720270 420  -8.901  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -8.780406 0.9140059 419 -9.607  &lt;.0001 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -8.780406 0.9140059 420  -9.607  &lt;.0001
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 </div>
@@ -941,24 +941,24 @@ class="section level4">
 <div id="simple-effects-2" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9     0.824219 0.7569359 419  1.089  0.2768 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.824219 0.7569359 420   1.089  0.2768
 ## 
 ## DIA = 3:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -0.803820 0.7569336 419 -1.062  0.2889 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -0.803820 0.7569336 420  -1.062  0.2889
 ## 
 ## DIA = 7:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -4.617961 0.7569114 419 -6.101  &lt;.0001 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.617961 0.7569114 420  -6.101  &lt;.0001
 ## 
 ## DIA = 10:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -7.761660 0.8720270 419 -8.901  &lt;.0001 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -7.761660 0.8720270 420  -8.901  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast  estimate        SE  df t.ratio p.value
-##  5 - 9    -8.780406 0.9140059 419 -9.607  &lt;.0001 
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -8.780406 0.9140059 420  -9.607  &lt;.0001
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1045,24 +1045,24 @@ made and simple effects are analyzed.</p>
 <div id="interaction-comparisons-3" class="section level4">
 <h4>Interaction comparisons</h4>
 <pre><code>## DIA = 0:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9     0.654116 1.138494 430  0.575  0.5659 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.654116 1.138494 420   0.575  0.5659
 ## 
 ## DIA = 3:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9     1.957681 1.138387 430  1.720  0.0862 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  1.957681 1.138387 420   1.720  0.0862
 ## 
 ## DIA = 7:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9    -4.131289 1.138456 430 -3.629  0.0003 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.131289 1.138456 420  -3.629  0.0003
 ## 
 ## DIA = 10:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9    -6.336435 1.337732 430 -4.737  &lt;.0001 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -6.336435 1.337732 420  -4.737  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9    -2.597152 1.401258 430 -1.853  0.0645 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -2.597152 1.401258 420  -1.853  0.0645
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 </div>
@@ -1074,24 +1074,24 @@ class="section level4">
 <div id="simple-effects-3" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9     0.654116 1.138494 430  0.575  0.5659 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.654116 1.138494 420   0.575  0.5659
 ## 
 ## DIA = 3:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9     1.957681 1.138387 430  1.720  0.0862 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  1.957681 1.138387 420   1.720  0.0862
 ## 
 ## DIA = 7:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9    -4.131289 1.138456 430 -3.629  0.0003 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.131289 1.138456 420  -3.629  0.0003
 ## 
 ## DIA = 10:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9    -6.336435 1.337732 430 -4.737  &lt;.0001 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -6.336435 1.337732 420  -4.737  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast  estimate       SE  df t.ratio p.value
-##  5 - 9    -2.597152 1.401258 430 -1.853  0.0645 
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -2.597152 1.401258 420  -1.853  0.0645
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" />
@@ -1142,13 +1142,13 @@ between temperatures.</p>
 <div id="efectos-principales" class="section level4">
 <h4>Efectos principales</h4>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast  estimate         SE    df  lower.CL  upper.CL
-##  0 - 7    0.8075977 0.07639803 74.06 0.6248744 0.9903209
-##  0 - 14   1.1844601 0.06919941 59.01 1.0180887 1.3508314
-##  7 - 14   0.3768624 0.07536059 69.16 0.1963595 0.5573653
+<pre><code>##  contrast      estimate         SE  df  lower.CL  upper.CL
+##  DIA0 - DIA7  0.8075977 0.07639803 112 0.6261313 0.9890640
+##  DIA0 - DIA14 1.1844601 0.06919941 112 1.0200924 1.3488277
+##  DIA7 - DIA14 0.3768624 0.07536059 112 0.1978602 0.5558645
 ## 
 ## Results are averaged over the levels of: TEMP 
-## Degrees-of-freedom method: satterthwaite 
+## Degrees-of-freedom method: df.error 
 ## Results are given on the log (not the response) scale. 
 ## Confidence level used: 0.95 
 ## Conf-level adjustment: tukey method for comparing a family of 3 estimates</code></pre>
@@ -1195,13 +1195,13 @@ tiempo.</p>
 <div id="principal-effects" class="section level4">
 <h4>Principal effects</h4>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast  estimate         SE    df  lower.CL  upper.CL
-##  0 - 7    0.5794536 0.08049026 67.79 0.3865789 0.7723283
-##  0 - 14   0.9384849 0.07280629 54.09 0.7630308 1.1139390
-##  7 - 14   0.3590313 0.07551304 67.44 0.1780624 0.5400003
+<pre><code>##  contrast      estimate         SE  df  lower.CL  upper.CL
+##  DIA0 - DIA7  0.5794536 0.08049026 108 0.3881719 0.7707353
+##  DIA0 - DIA14 0.9384849 0.07280629 108 0.7654638 1.1115060
+##  DIA7 - DIA14 0.3590313 0.07551304 108 0.1795777 0.5384849
 ## 
 ## Results are averaged over the levels of: TEMP 
-## Degrees-of-freedom method: appx-satterthwaite 
+## Degrees-of-freedom method: df.error 
 ## Results are given on the log (not the response) scale. 
 ## Confidence level used: 0.95 
 ## Conf-level adjustment: tukey method for comparing a family of 3 estimates</code></pre>
@@ -1260,10 +1260,10 @@ tiempo.</p>
 <div id="principal-effects-1" class="section level4">
 <h4>Principal effects</h4>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-83-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast  estimate         SE  df   lower.CL  upper.CL
-##  0 - 7    0.6565520 0.07432611 113  0.4800280 0.8330759
-##  0 - 14   0.7232712 0.07432681 113  0.5467456 0.8997968
-##  7 - 14   0.0667193 0.06696798 113 -0.0923292 0.2257677
+<pre><code>##  contrast      estimate         SE  df   lower.CL  upper.CL
+##  DIA0 - DIA7  0.6565520 0.07432611 113  0.4800280 0.8330759
+##  DIA0 - DIA14 0.7232712 0.07432681 113  0.5467456 0.8997968
+##  DIA7 - DIA14 0.0667193 0.06696798 113 -0.0923292 0.2257677
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Confidence level used: 0.95 
@@ -1340,10 +1340,10 @@ only found between days.</p>
 <div id="principal-effects-2" class="section level4">
 <h4>Principal effects</h4>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast   estimate         SE df    lower.CL  upper.CL
-##  0 - 7    0.17333333 0.03566822 12  0.07817537 0.2684913
-##  0 - 14   0.23666667 0.03566822 12  0.14150871 0.3318246
-##  7 - 14   0.06333333 0.03566822 12 -0.03182463 0.1584913
+<pre><code>##  contrast       estimate         SE df    lower.CL  upper.CL
+##  DIA0 - DIA7  0.17333333 0.03566822 12  0.07817537 0.2684913
+##  DIA0 - DIA14 0.23666667 0.03566822 12  0.14150871 0.3318246
+##  DIA7 - DIA14 0.06333333 0.03566822 12 -0.03182463 0.1584913
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Confidence level used: 0.95 
@@ -1445,78 +1445,6 @@ only found between days.</p>
 <h2>General graphs</h2>
 <p><img src="Postharvest_files/figure-html/unnamed-chunk-109-1.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-109-2.png" width="672" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-109-3.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>## [1] &quot;this_label&quot;</code></pre>
-</div>
-</div>
-<div id="respiration" class="section level1">
-<h1>Respiration</h1>
-<div class="figure">
-<img src="IMG_pos.jpg" alt="A caption" width="100%" />
-<p class="caption">
-A caption
-</p>
-</div>
-<div id="boxplot-for-co2-emission-for-two-stages-of-maturity-in-time."
-class="section level3">
-<h3>Boxplot for CO<sub>2</sub> emission for two stages of maturity in
-time.</h3>
-</div>
-<div
-id="co2-emission-for-two-stages-of-maturity-in-time.-shapes-indicate-different-repetitions."
-class="section level3">
-<h3>CO<sub>2</sub> emission for two stages of maturity in time. Shapes
-indicate different repetitions.</h3>
-<p><img src="Postharvest_files/figure-html/unnamed-chunk-112-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div
-id="correlation-between-the-concentration-of-co2-and-o2-for-mature-and-immature-fruits."
-class="section level3">
-<h3>Correlation between the concentration of CO<sub>2</sub> and
-O<sub>2</sub> for mature and immature fruits.</h3>
-<p><img src="Postharvest_files/figure-html/unnamed-chunk-115-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="model-6" class="section level3">
-<h3>Model</h3>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: resp 
-##   Log-restricted-likelihood: -167.0254
-##   Fixed: CO2 ~ MAD * TIME 
-##    (Intercept)      MADMaduro           TIME MADMaduro:TIME 
-##   3.379770e+06  -4.648541e+06  -2.015739e-03   2.772511e-03 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept) Residual
-## StdDev:    1.278453 13.67191
-## 
-## Number of Observations: 40
-## Number of Groups: 2</code></pre>
-</div>
-<div id="assumptions-10" class="section level3">
-<h3>Assumptions</h3>
-<p><img src="Postharvest_files/figure-html/unnamed-chunk-118-1.png" width="960" style="display: block; margin: auto;" /><img src="Postharvest_files/figure-html/unnamed-chunk-118-2.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.96806, p-value = 0.3119</code></pre>
-<p>Assumptions are ok.</p>
-</div>
-<div id="anova-8" class="section level3">
-<h3>Anova</h3>
-<pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    35 919.3338  &lt;.0001
-## MAD             1    35   5.2828  0.0276
-## TIME            1    35   0.5704  0.4551
-## MAD:TIME        1    35   2.7595  0.1056</code></pre>
-<p>There is no interaction or significant differences.</p>
-</div>
-<div id="conclusion-for-respiration" class="section level3">
-<h3>Conclusion for respiration</h3>
-<p>There is no convincing evidence in this essay to affirm that the
-fruit of the ubajay is climacteric.</p>
-</div>
-<div id="respiration-essay" class="section level2">
-<h2>Respiration essay</h2>
 </div>
 </div>
 

@@ -13,7 +13,7 @@
 
 <title>Acids</title>
 
-<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
@@ -145,11 +145,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -178,8 +182,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -187,16 +191,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -417,6 +414,9 @@ div.tocify {
       <a href="Postharvest.html">Postharvest</a>
     </li>
     <li>
+      <a href="Climateric.html">Climateric</a>
+    </li>
+    <li>
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
@@ -469,32 +469,20 @@ Maturity</h3>
 </div>
 <div id="tabla-descriptiva" class="section level3">
 <h3>Tabla descriptiva</h3>
-<pre><code>##          CAR MAD N        CONF         sd         se         ci
-## 1  Tartárico   I 6  0.00000000 0.00000000 0.00000000 0.00000000
-## 2  Tartárico  MM 6  0.00000000 0.00000000 0.00000000 0.00000000
-## 3  Tartárico   M 6  0.00000000 0.00000000 0.00000000 0.00000000
-## 4  Tartárico  SM 6  0.11525617 0.05645887 0.02304924 0.05924995
-## 5     Málico   I 6  7.38748867 2.39039720 0.97587557 2.50856802
-## 6     Málico  MM 6 10.97554617 0.73282731 0.29917550 0.76905510
-## 7     Málico   M 6 11.75953867 0.36205255 0.14780733 0.37995084
-## 8     Málico  SM 6 10.53686683 0.85612489 0.34951152 0.89844797
-## 9    Quínico   I 6  0.06656933 0.10312877 0.04210214 0.10822700
-## 10   Quínico  MM 6  3.07602417 0.45248106 0.18472462 0.47484975
-## 11   Quínico   M 6  2.54553617 0.33950376 0.13860183 0.35628735
-## 12   Quínico  SM 6  2.84914933 0.49833707 0.20344526 0.52297268
-## 13 Succínico   I 6 19.18377483 2.08491332 0.85116230 2.18798234
-## 14 Succínico  MM 6 11.25241550 0.77428920 0.31610224 0.81256668
-## 15 Succínico   M 6 11.11272483 0.25542969 0.10427873 0.26805702
-## 16 Succínico  SM 6 14.31751033 0.97755546 0.39908535 1.02588154
-## 17       ATT   I 3  1.77920000 0.05079843 0.02932848 0.12619028
-## 18       ATT  MM 3  1.60640000 0.02789695 0.01610631 0.06929987
-## 19       ATT   M 3  1.82826667 0.20390638 0.11772541 0.50653154
-## 20       ATT  SM 3  1.38453333 0.08352756 0.04822466 0.20749396</code></pre>
+<pre><code>##    CAR MAD  N     CONF         sd         se         ci
+## 1  ATT   I  3 1.779200 0.05079843 0.02932848 0.12619028
+## 2  ATT  MM  3 1.606400 0.02789695 0.01610631 0.06929987
+## 3  ATT   M  3 1.828267 0.20390638 0.11772541 0.50653154
+## 4  ATT  SM  3 1.384533 0.08352756 0.04822466 0.20749396
+## 5 &lt;NA&gt;   I 24 6.659458 8.13360208 1.66026457 3.43451894
+## 6 &lt;NA&gt;  MM 24 6.325996 5.04552019 1.02991250 2.13053632
+## 7 &lt;NA&gt;   M 24 6.354450 5.28334578 1.07845844 2.23096126
+## 8 &lt;NA&gt;  SM 24 6.954696 5.87462880 1.19915358 2.48063818</code></pre>
 </div>
 <div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración"
 class="section level3">
 <h3>Evolución del perfíl de ácidos orgánicos en la maduración</h3>
-<pre><code>## Error: Insufficient values in manual scale. 5 needed but only 4 provided.</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="acidos-orgánicos-totales" class="section level3">
 <h3>Acidos orgánicos Totales</h3>
@@ -554,23 +542,23 @@ Maturity.</h4>
 <div id="test-de-tukey" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean    SE df lower.CL upper.CL
-##  I     26.6 0.642  2     23.9     29.4
-##  MM    25.3 0.642  2     22.5     28.1
-##  M     25.4 0.642  2     22.7     28.2
-##  SM    27.8 0.642  2     25.1     30.6
+##  MAD   emmean        SE df lower.CL upper.CL
+##  I   26.63783 0.6422025  2 23.87466 29.40101
+##  MM  25.30399 0.6422025  2 22.54081 28.06716
+##  M   25.41780 0.6422025  2 22.65463 28.18097
+##  SM  27.81878 0.6422025  2 25.05561 30.58196
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate    SE df t.ratio p.value
-##  I - MM      1.334 0.792 18  1.684  0.3602 
-##  I - M       1.220 0.792 18  1.540  0.4354 
-##  I - SM     -1.181 0.792 18 -1.491  0.4629 
-##  MM - M     -0.114 0.792 18 -0.144  0.9989 
-##  MM - SM    -2.515 0.792 18 -3.175  0.0246 
-##  M - SM     -2.401 0.792 18 -3.032  0.0331 
+##  contrast   estimate        SE df t.ratio p.value
+##  I - MM    1.3338475 0.7919891 18   1.684  0.3602
+##  I - M     1.2200332 0.7919891 18   1.540  0.4354
+##  I - SM   -1.1809497 0.7919891 18  -1.491  0.4629
+##  MM - M   -0.1138143 0.7919891 18  -0.144  0.9989
+##  MM - SM  -2.5147972 0.7919891 18  -3.175  0.0246
+##  M - SM   -2.4009828 0.7919891 18  -3.032  0.0331
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -586,57 +574,32 @@ Maturity.</h4>
 <h3>Ácido Tartárico</h3>
 <div id="modelo-y-supuestos" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: tar 
-##   Log-restricted-likelihood: 39.7876
-##   Fixed: CONF ~ MAD 
-##   (Intercept)         MADMM          MADM         MADSM 
-##  1.058323e-17 -1.116798e-17 -1.387779e-17  1.152562e-01 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept)  Residual
-## StdDev:  0.01080452 0.0265232
-## 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;mtar2&#39; not found</code></pre>
+<pre><code>## Error in residuals(mtar2): object &#39;mtar2&#39; not found</code></pre>
+<pre><code>## Error in tar_ajuste$CONF &lt;- tar$CONF: object &#39;tar_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(tar_ajuste): object &#39;tar_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVtar&#39; not found</code></pre>
+<pre><code>## Error in ggplot(tar_ajuste): object &#39;tar_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQtar&#39; not found</code></pre>
+<pre><code>## Error in resid(mtar2): object &#39;mtar2&#39; not found</code></pre>
+<pre><code>## Error in predict(mtar2): object &#39;mtar2&#39; not found</code></pre>
+<pre><code>## Error in ranef(mtar2): object &#39;mtar2&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.72687, p-value = 2.331e-05</code></pre>
+## W = 0.97767, p-value = 0.8493</code></pre>
 </div>
 <div id="anova-1" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    18 12.16941  0.0026
-## MAD             3    18 28.32485  &lt;.0001</code></pre>
+<pre><code>## Error in anova(mtar2): object &#39;mtar2&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-1" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean     SE df lower.CL upper.CL
-##  I    0.000 0.0125  2  -0.0538   0.0538
-##  MM   0.000 0.0125  2  -0.0538   0.0538
-##  M    0.000 0.0125  2  -0.0538   0.0538
-##  SM   0.115 0.0125  2   0.0615   0.1690
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate     SE df t.ratio p.value
-##  I - MM      0.000 0.0153 18  0.000  1.0000 
-##  I - M       0.000 0.0153 18  0.000  1.0000 
-##  I - SM     -0.115 0.0153 18 -7.527  &lt;.0001 
-##  MM - M      0.000 0.0153 18  0.000  1.0000 
-##  MM - SM    -0.115 0.0153 18 -7.527  &lt;.0001 
-##  M - SM     -0.115 0.0153 18 -7.527  &lt;.0001 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;mtar2&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Comptar&#39; not found</code></pre>
+<pre><code>## Error in plot(Comptar, comparisons = TRUE): object &#39;Comptar&#39; not found</code></pre>
 </div>
 <div id="conclusiones-1" class="section level4">
 <h4>Conclusiones</h4>
@@ -649,63 +612,32 @@ detectable.</p>
 <h3>Ácido málico</h3>
 <div id="modelo-y-supuestos-1" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: mal 
-##   Log-restricted-likelihood: -26.58205
-##   Fixed: CONF ~ MAD 
-## (Intercept)       MADMM        MADM       MADSM 
-##    7.387489    3.588058    4.372050    3.149378 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept) Residual
-## StdDev:   0.3652165 2.680123
-## 
-## Variance function:
-##  Structure: Different standard deviations per stratum
-##  Formula: ~1 | MAD 
-##  Parameter estimates:
-##          I          M         MM         SM 
-## 1.00000000 0.05526687 0.27021057 0.26008009 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-16-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;mmal2&#39; not found</code></pre>
+<pre><code>## Error in residuals(mmal2): object &#39;mmal2&#39; not found</code></pre>
+<pre><code>## Error in mal_ajuste$CONF &lt;- mal$CONF: object &#39;mal_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(mal_ajuste): object &#39;mal_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVmal&#39; not found</code></pre>
+<pre><code>## Error in ggplot(mal_ajuste): object &#39;mal_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQmal&#39; not found</code></pre>
+<pre><code>## Error in resid(mmal2): object &#39;mmal2&#39; not found</code></pre>
+<pre><code>## Error in predict(mmal2): object &#39;mmal2&#39; not found</code></pre>
+<pre><code>## Error in ranef(mmal2): object &#39;mmal2&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.88973, p-value = 0.01312</code></pre>
+## W = 0.97767, p-value = 0.8493</code></pre>
 </div>
 <div id="anova-2" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 2846.5229  &lt;.0001
-## MAD             3    18   12.9604   1e-04</code></pre>
+<pre><code>## Error in anova(mmal2): object &#39;mmal2&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-2" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean    SE df lower.CL upper.CL
-##  I     7.39 1.114  2     2.59     12.2
-##  MM   10.98 0.363  2     9.41     12.5
-##  M    11.76 0.219  2    10.82     12.7
-##  SM   10.54 0.354  2     9.01     12.1
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate    SE df t.ratio p.value
-##  I - MM     -3.588 1.133 18 -3.166  0.0251 
-##  I - M      -4.372 1.096 18 -3.990  0.0043 
-##  I - SM     -3.149 1.131 18 -2.786  0.0542 
-##  MM - M     -0.784 0.302 18 -2.598  0.0780 
-##  MM - SM     0.439 0.410 18  1.069  0.7121 
-##  M - SM      1.223 0.291 18  4.203  0.0027 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;mmal2&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Compmal&#39; not found</code></pre>
+<pre><code>## Error in plot(Compmal, comparisons = TRUE): object &#39;Compmal&#39; not found</code></pre>
 </div>
 <div id="conclusiones-2" class="section level4">
 <h4>Conclusiones</h4>
@@ -717,63 +649,33 @@ estado maduro se presentó el pico de concentración de ácido málico.</p>
 <h3>Ácido quínico</h3>
 <div id="modelo-y-supuestos-2" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: qui 
-##   Log-restricted-likelihood: -11.80976
-##   Fixed: CONF ~ MAD 
-## (Intercept)       MADMM        MADM       MADSM 
-##  0.06656933  3.00945483  2.47896683  2.78258000 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept)  Residual
-## StdDev:   0.1805716 0.3444666
-## 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-21-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;mqui2&#39; not found</code></pre>
+<pre><code>## Error in residuals(mqui2): object &#39;mqui2&#39; not found</code></pre>
+<pre><code>## Error in qui_ajuste$CONF &lt;- qui$CONF: object &#39;qui_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(qui_ajuste): object &#39;qui_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVqui&#39; not found</code></pre>
+<pre><code>## Error in ggplot(qui_ajuste): object &#39;qui_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQqui&#39; not found</code></pre>
+<pre><code>## Error in resid(mqui2): object &#39;mqui2&#39; not found</code></pre>
+<pre><code>## Error in predict(mqui2): object &#39;mqui2&#39; not found</code></pre>
+<pre><code>## Error in ranef(mqui2): object &#39;mqui2&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.93241, p-value = 0.1104</code></pre>
-<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value  Pr(&gt;F)  
-## group  3  3.0561 0.05203 .
-##       20                  
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## W = 0.97767, p-value = 0.8493</code></pre>
+<pre><code>## Error in `contrasts&lt;-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]): contrasts can be applied only to factors with 2 or more levels</code></pre>
 </div>
 <div id="anova-3" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 288.07894  &lt;.0001
-## MAD             3    18  98.47655  &lt;.0001</code></pre>
+<pre><code>## Error in anova(mqui2): object &#39;mqui2&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-3" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean    SE df lower.CL upper.CL
-##  I   0.0666 0.175  2   -0.687     0.82
-##  MM  3.0760 0.175  2    2.323     3.83
-##  M   2.5455 0.175  2    1.792     3.30
-##  SM  2.8491 0.175  2    2.096     3.60
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate    SE df t.ratio p.value
-##  I - MM     -3.009 0.199 18 -15.132 &lt;.0001 
-##  I - M      -2.479 0.199 18 -12.465 &lt;.0001 
-##  I - SM     -2.783 0.199 18 -13.991 &lt;.0001 
-##  MM - M      0.530 0.199 18   2.667 0.0683 
-##  MM - SM     0.227 0.199 18   1.141 0.6700 
-##  M - SM     -0.304 0.199 18  -1.527 0.4431 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;mqui2&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Compqui&#39; not found</code></pre>
+<pre><code>## Error in plot(Compqui, comparisons = TRUE): object &#39;Compqui&#39; not found</code></pre>
 </div>
 <div id="conclusiones-3" class="section level4">
 <h4>Conclusiones</h4>
@@ -786,47 +688,32 @@ presentan gran variabiliad.</p>
 <h3>Ácido succinico</h3>
 <div id="modelo-y-supuestos-3" class="section level4">
 <h4>Modelo y supuestos</h4>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-24-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in residuals(msuc2): object &#39;msuc2&#39; not found</code></pre>
+<pre><code>## Error in suc_ajuste$CONF &lt;- suc$CONF: object &#39;suc_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(suc_ajuste): object &#39;suc_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVsuc&#39; not found</code></pre>
+<pre><code>## Error in ggplot(suc_ajuste): object &#39;suc_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQsuc&#39; not found</code></pre>
+<pre><code>## Error in resid(msuc2): object &#39;msuc2&#39; not found</code></pre>
+<pre><code>## Error in predict(msuc2): object &#39;msuc2&#39; not found</code></pre>
+<pre><code>## Error in ranef(msuc2): object &#39;msuc2&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.8254, p-value = 0.0007898</code></pre>
-<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value Pr(&gt;F)
-## group  3  1.8901 0.1638
-##       20</code></pre>
+## W = 0.97767, p-value = 0.8493</code></pre>
+<pre><code>## Error in `contrasts&lt;-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]): contrasts can be applied only to factors with 2 or more levels</code></pre>
 </div>
 <div id="anova-4" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    18 667.5826  &lt;.0001
-## MAD             3    18  97.5744  &lt;.0001</code></pre>
+<pre><code>## Error in anova(msuc2): object &#39;msuc2&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-4" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean    SE df lower.CL upper.CL
-##  I     19.2 0.634  2    16.46     21.9
-##  MM    11.3 0.634  2     8.52     14.0
-##  M     11.1 0.634  2     8.38     13.8
-##  SM    14.3 0.634  2    11.59     17.0
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate    SE df t.ratio p.value
-##  I - MM       7.93 0.541 18 14.658  &lt;.0001 
-##  I - M        8.07 0.541 18 14.916  &lt;.0001 
-##  I - SM       4.87 0.541 18  8.993  &lt;.0001 
-##  MM - M       0.14 0.541 18  0.258  0.9938 
-##  MM - SM     -3.07 0.541 18 -5.665  0.0001 
-##  M - SM      -3.20 0.541 18 -5.923  0.0001 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;msuc2&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Compsuc&#39; not found</code></pre>
+<pre><code>## Error in plot(Compsuc, comparisons = TRUE): object &#39;Compsuc&#39; not found</code></pre>
 </div>
 <div id="conclusiones-4" class="section level4">
 <h4>Conclusiones</h4>
@@ -846,32 +733,20 @@ Maturity</h3>
 <p><img src="madAcids_files/figure-html/unnamed-chunk-27-1.png" width="1536" style="display: block; margin: auto;" /></p>
 <div id="tabla-descriptiva-1" class="section level4">
 <h4>Tabla descriptiva</h4>
-<pre><code>##          CAR MAD N        CONS          sd         se          ci
-## 1  Tartárico   I 6   0.0000000  0.00000000 0.00000000  0.00000000
-## 2  Tartárico  MM 6   0.0000000  0.00000000 0.00000000  0.00000000
-## 3  Tartárico   M 6   0.0000000  0.00000000 0.00000000  0.00000000
-## 4  Tartárico  SM 6   0.9411357  0.48306748 0.19721147  0.50694823
-## 5     Málico   I 6  44.9021340 19.15238481 7.81892835 20.09919520
-## 6     Málico  MM 6  90.1895317  4.02201511 1.64198079  4.22084600
-## 7     Málico   M 6 105.1474897  3.36357515 1.37317381  3.52985564
-## 8     Málico  SM 6  84.7945992  5.36803324 2.19149040  5.63340540
-## 9    Quínico   I 6   0.4406633  0.68267270 0.27869996  0.71642106
-## 10   Quínico  MM 6  25.3176063  3.81400139 1.55705955  4.00254899
-## 11   Quínico   M 6  22.6888082  2.24262162 0.91554644  2.35348706
-## 12   Quínico  SM 6  22.9204245  3.75680532 1.53370935  3.94252539
-## 13 Succínico   I 6 112.3334865  6.53452657 2.66770930  6.85756508
-## 14 Succínico  MM 6  92.4815923  4.78050904 1.95163464  5.01683657
-## 15 Succínico   M 6  99.4372398  4.82401388 1.96939542  5.06249209
-## 16 Succínico  SM 6 115.6551513 12.41879308 5.06995105 13.03272407
-## 17       ATT   I 3   1.7792000  0.05079843 0.02932848  0.12619028
-## 18       ATT  MM 3   1.6064000  0.02789695 0.01610631  0.06929987
-## 19       ATT   M 3   1.8282667  0.20390638 0.11772541  0.50653154
-## 20       ATT  SM 3   1.3845333  0.08352756 0.04822466  0.20749396</code></pre>
+<pre><code>##    CAR MAD  N      CONS          sd         se          ci
+## 1  ATT   I  3  1.779200  0.05079843 0.02932848  0.12619028
+## 2  ATT  MM  3  1.606400  0.02789695 0.01610631  0.06929987
+## 3  ATT   M  3  1.828267  0.20390638 0.11772541  0.50653154
+## 4  ATT  SM  3  1.384533  0.08352756 0.04822466  0.20749396
+## 5 &lt;NA&gt;   I 24 39.419071 47.80778177 9.75872259 20.18745575
+## 6 &lt;NA&gt;  MM 24 51.997183 41.36096715 8.44277206 17.46520468
+## 7 &lt;NA&gt;   M 24 56.818384 47.30540308 9.65617497 19.97531984
+## 8 &lt;NA&gt;  SM 24 56.077828 47.57987226 9.71220076 20.09121801</code></pre>
 </div>
 <div id="evolución-del-perfíl-de-ácidos-orgánicos-en-la-maduración-1"
 class="section level4">
 <h4>Evolución del perfíl de ácidos orgánicos en la maduración</h4>
-<pre><code>## Error: Insufficient values in manual scale. 5 needed but only 4 provided.</code></pre>
+<p><img src="madAcids_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="ácidos-orgánicos-totales" class="section level3">
@@ -929,23 +804,23 @@ class="section level4">
 <div id="test-de-tukey-5" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I      158 6.28  2      131      185
-##  MM     208 6.28  2      181      235
-##  M      227 6.28  2      200      254
-##  SM     224 6.28  2      197      251
+##  MAD   emmean       SE df lower.CL upper.CL
+##  I   157.6763 6.278539  2 130.6619 184.6907
+##  MM  207.9887 6.278539  2 180.9744 235.0031
+##  M   227.2735 6.278539  2 200.2592 254.2879
+##  SM  224.3113 6.278539  2 197.2969 251.3257
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM     -50.31 8.88 18 -5.667  0.0001 
-##  I - M      -69.60 8.88 18 -7.839  &lt;.0001 
-##  I - SM     -66.64 8.88 18 -7.505  &lt;.0001 
-##  MM - M     -19.28 8.88 18 -2.172  0.1689 
-##  MM - SM    -16.32 8.88 18 -1.838  0.2886 
-##  M - SM       2.96 8.88 18  0.334  0.9868 
+##  contrast  estimate       SE df t.ratio p.value
+##  I - MM   -50.31245 8.878665 18  -5.667  0.0001
+##  I - M    -69.59725 8.878665 18  -7.839  &lt;.0001
+##  I - SM   -66.63503 8.878665 18  -7.505  &lt;.0001
+##  MM - M   -19.28481 8.878665 18  -2.172  0.1689
+##  MM - SM  -16.32258 8.878665 18  -1.838  0.2886
+##  M - SM     2.96223 8.878665 18   0.334  0.9868
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -961,57 +836,32 @@ significativa.</p>
 <h3>Ácido tartárico</h3>
 <div id="modelo-y-supuestos-5" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: tar 
-##   Log-restricted-likelihood: -3.096888
-##   Fixed: CONS ~ MAD 
-##   (Intercept)         MADMM          MADM         MADSM 
-##  2.392333e-17  1.532898e-17 -1.110223e-16  9.411357e-01 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept)  Residual
-## StdDev:  0.09563016 0.2258815
-## 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-36-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;mtar2s&#39; not found</code></pre>
+<pre><code>## Error in residuals(mtar2s): object &#39;mtar2s&#39; not found</code></pre>
+<pre><code>## Error in tars_ajuste$CONS &lt;- tar$CONS: object &#39;tars_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(tars_ajuste): object &#39;tars_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVtars&#39; not found</code></pre>
+<pre><code>## Error in ggplot(tars_ajuste): object &#39;tars_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQtars&#39; not found</code></pre>
+<pre><code>## Error in resid(mtar2s): object &#39;mtar2s&#39; not found</code></pre>
+<pre><code>## Error in predict(mtar2s): object &#39;mtar2s&#39; not found</code></pre>
+<pre><code>## Error in ranef(mtar2s): object &#39;mtar2s&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.75036, p-value = 5.041e-05</code></pre>
+## W = 0.95588, p-value = 0.3613</code></pre>
 </div>
 <div id="anova-6" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    18 10.69872  0.0042
-## MAD             3    18 26.03961  &lt;.0001</code></pre>
+<pre><code>## Error in anova(mtar2s): object &#39;mtar2s&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-6" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean    SE df lower.CL upper.CL
-##  I    0.000 0.107  2   -0.462    0.462
-##  MM   0.000 0.107  2   -0.462    0.462
-##  M    0.000 0.107  2   -0.462    0.462
-##  SM   0.941 0.107  2    0.479    1.404
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM      0.000 0.13 18  0.000  1.0000 
-##  I - M       0.000 0.13 18  0.000  1.0000 
-##  I - SM     -0.941 0.13 18 -7.217  &lt;.0001 
-##  MM - M      0.000 0.13 18  0.000  1.0000 
-##  MM - SM    -0.941 0.13 18 -7.217  &lt;.0001 
-##  M - SM     -0.941 0.13 18 -7.217  &lt;.0001 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;mtar2s&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Comptars&#39; not found</code></pre>
+<pre><code>## Error in plot(Comptars, comparisons = TRUE): object &#39;Comptars&#39; not found</code></pre>
 </div>
 <div id="conclusiones-6" class="section level4">
 <h4>Conclusiones</h4>
@@ -1023,63 +873,32 @@ estado sobre maduro presentó ácido málico detectable.</p>
 <h3>Ácido málico</h3>
 <div id="modelo-y-supuestos-6" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: mal 
-##   Log-restricted-likelihood: -66.5285
-##   Fixed: CONS ~ MAD 
-## (Intercept)       MADMM        MADM       MADSM 
-##    44.90213    45.28740    60.24536    39.89247 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept) Residual
-## StdDev:    3.184406 19.91438
-## 
-## Variance function:
-##  Structure: Different standard deviations per stratum
-##  Formula: ~1 | MAD 
-##  Parameter estimates:
-##         I         M        MM        SM 
-## 1.0000000 0.0829966 0.2681539 0.1785083 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-40-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;mmal2s&#39; not found</code></pre>
+<pre><code>## Error in residuals(mmal2s): object &#39;mmal2s&#39; not found</code></pre>
+<pre><code>## Error in mals_ajuste$CONS &lt;- mal$CONS: object &#39;mals_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(mals_ajuste): object &#39;mals_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVmals&#39; not found</code></pre>
+<pre><code>## Error in ggplot(mals_ajuste): object &#39;mals_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQmals&#39; not found</code></pre>
+<pre><code>## Error in resid(mmal2s): object &#39;mmal2s&#39; not found</code></pre>
+<pre><code>## Error in predict(mmal2s): object &#39;mmal2s&#39; not found</code></pre>
+<pre><code>## Error in ranef(mmal2s): object &#39;mmal2s&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.87203, p-value = 0.005766</code></pre>
+## W = 0.95588, p-value = 0.3613</code></pre>
 </div>
 <div id="anova-7" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 2706.3660  &lt;.0001
-## MAD             3    18   77.8867  &lt;.0001</code></pre>
+<pre><code>## Error in anova(mmal2s): object &#39;mmal2s&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-7" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I     44.9 8.34  2     9.04     80.8
-##  MM    90.2 2.85  2    77.92    102.5
-##  M    105.1 1.96  2    96.72    113.6
-##  SM    84.8 2.34  2    74.72     94.9
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM     -45.29 8.42 18 -5.380  0.0002 
-##  I - M      -60.25 8.16 18 -7.385  &lt;.0001 
-##  I - SM     -39.89 8.26 18 -4.830  0.0007 
-##  MM - M     -14.96 2.28 18 -6.554  &lt;.0001 
-##  MM - SM      5.39 2.62 18  2.060  0.2038 
-##  M - SM      20.35 1.60 18 12.717  &lt;.0001 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;mmal2s&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Compmals&#39; not found</code></pre>
+<pre><code>## Error in plot(Compmals, comparisons = TRUE): object &#39;Compmals&#39; not found</code></pre>
 </div>
 <div id="conclusiones-7" class="section level4">
 <h4>Conclusiones</h4>
@@ -1091,63 +910,32 @@ estado maduro se presentó el pico de concentración de ácido málico.</p>
 <h3>Ácido quínico</h3>
 <div id="modelo-y-supuestos-7" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: qui 
-##   Log-restricted-likelihood: 58.15489
-##   Fixed: CONS ~ MAD 
-## (Intercept)       MADMM        MADM       MADSM 
-##   0.3746778  24.8769430  22.2481448  22.4797612 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept)     Residual
-## StdDev:   0.6710272 1.179409e-16
-## 
-## Variance function:
-##  Structure: Different standard deviations per stratum
-##  Formula: ~1 | MAD 
-##  Parameter estimates:
-##            I            M           MM           SM 
-## 1.000000e+00 2.223316e+16 3.723258e+16 3.666682e+16 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-45-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;mqui2s&#39; not found</code></pre>
+<pre><code>## Error in residuals(mqui2s): object &#39;mqui2s&#39; not found</code></pre>
+<pre><code>## Error in quis_ajuste$CONS &lt;- qui$CONS: object &#39;quis_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(quis_ajuste): object &#39;quis_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVquis&#39; not found</code></pre>
+<pre><code>## Error in ggplot(quis_ajuste): object &#39;quis_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQquis&#39; not found</code></pre>
+<pre><code>## Error in resid(mqui2s): object &#39;mqui2s&#39; not found</code></pre>
+<pre><code>## Error in predict(mqui2s): object &#39;mqui2s&#39; not found</code></pre>
+<pre><code>## Error in ranef(mqui2s): object &#39;mqui2s&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.94578, p-value = 0.2191</code></pre>
+## W = 0.95588, p-value = 0.3613</code></pre>
 </div>
 <div id="anova-8" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18   2.42807  0.1366
-## MAD             3    18 262.20498  &lt;.0001</code></pre>
+<pre><code>## Error in anova(mqui2s): object &#39;mqui2s&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-8" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I    0.375 0.24  2    -0.66     1.41
-##  MM  25.252 1.81  2    17.47    33.03
-##  M   22.623 1.10  2    17.90    27.34
-##  SM  22.854 1.78  2    15.19    30.52
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM    -24.877 1.79 18 -13.877 &lt;.0001 
-##  I - M     -22.248 1.07 18 -20.783 &lt;.0001 
-##  I - SM    -22.480 1.77 18 -12.733 &lt;.0001 
-##  MM - M      2.629 2.09 18   1.259 0.5992 
-##  MM - SM     2.397 2.52 18   0.953 0.7772 
-##  M - SM     -0.232 2.06 18  -0.112 0.9995 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;mqui2s&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Compquis&#39; not found</code></pre>
+<pre><code>## Error in plot(Compquis, comparisons = TRUE): object &#39;Compquis&#39; not found</code></pre>
 </div>
 <div id="conclusiones-8" class="section level4">
 <h4>Conclusiones</h4>
@@ -1160,61 +948,33 @@ mantiene constante.</p>
 <h3>Ácido succinico</h3>
 <div id="modelo-y-supuestos-8" class="section level4">
 <h4>Modelo y supuestos</h4>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: suc 
-##   Log-restricted-likelihood: -72.91629
-##   Fixed: CONS ~ MAD 
-## (Intercept)       MADMM        MADM       MADSM 
-##  112.333486  -19.851894  -12.896247    3.321665 
-## 
-## Random effects:
-##  Formula: ~1 | REP
-##         (Intercept) Residual
-## StdDev:    2.089065 7.567785
-## 
-## Number of Observations: 24
-## Number of Groups: 3</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-48-1.png" width="960" style="display: block; margin: auto;" /><img src="madAcids_files/figure-html/unnamed-chunk-48-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in matrix(unlist(value), nrow = nrow(data), dimnames = list(row.names(data), : length of &#39;dimnames&#39; [2] not equal to array extent</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;msuc2s&#39; not found</code></pre>
+<pre><code>## Error in residuals(msuc2s): object &#39;msuc2s&#39; not found</code></pre>
+<pre><code>## Error in sucs_ajuste$CONS &lt;- suc$CONS: object &#39;sucs_ajuste&#39; not found</code></pre>
+<pre><code>## Error in ggplot(sucs_ajuste): object &#39;sucs_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;HVsucs&#39; not found</code></pre>
+<pre><code>## Error in ggplot(sucs_ajuste): object &#39;sucs_ajuste&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;QQsucs&#39; not found</code></pre>
+<pre><code>## Error in resid(msuc2s): object &#39;msuc2s&#39; not found</code></pre>
+<pre><code>## Error in predict(msuc2s): object &#39;msuc2s&#39; not found</code></pre>
+<pre><code>## Error in ranef(msuc2s): object &#39;msuc2s&#39; not found</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.96753, p-value = 0.6065</code></pre>
-<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value Pr(&gt;F)
-## group  3  1.4818 0.2497
-##       20</code></pre>
+## W = 0.95588, p-value = 0.3613</code></pre>
+<pre><code>## Error in `contrasts&lt;-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]): contrasts can be applied only to factors with 2 or more levels</code></pre>
 </div>
 <div id="anova-9" class="section level4">
 <h4>Anova</h4>
-<pre><code>##             numDF denDF   F-value p-value
-## (Intercept)     1    18 2869.0535  &lt;.0001
-## MAD             3    18   12.3959   1e-04</code></pre>
+<pre><code>## Error in anova(msuc2s): object &#39;msuc2s&#39; not found</code></pre>
 </div>
 <div id="test-de-tukey-9" class="section level4">
 <h4>Test de Tukey</h4>
-<pre><code>## $emmeans
-##  MAD emmean   SE df lower.CL upper.CL
-##  I    112.3 3.32  2     98.1      127
-##  MM    92.5 3.32  2     78.2      107
-##  M     99.4 3.32  2     85.2      114
-##  SM   115.7 3.32  2    101.4      130
-## 
-## Degrees-of-freedom method: containment 
-## Confidence level used: 0.95 
-## 
-## $contrasts
-##  contrast estimate   SE df t.ratio p.value
-##  I - MM      19.85 4.37 18  4.544  0.0013 
-##  I - M       12.90 4.37 18  2.952  0.0389 
-##  I - SM      -3.32 4.37 18 -0.760  0.8711 
-##  MM - M      -6.96 4.37 18 -1.592  0.4076 
-##  MM - SM    -23.17 4.37 18 -5.304  0.0003 
-##  M - SM     -16.22 4.37 18 -3.712  0.0079 
-## 
-## Degrees-of-freedom method: containment 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="madAcids_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in .chk.list(object, ...): object &#39;msuc2s&#39; not found</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;Compsucs&#39; not found</code></pre>
+<pre><code>## Error in plot(Compsucs, comparisons = TRUE): object &#39;Compsucs&#39; not found</code></pre>
 </div>
 <div id="conclusiones-9" class="section level4">
 <h4>Conclusiones</h4>
@@ -1229,31 +989,19 @@ class="section level2">
 <h2>Correlaciones ácidos orgánicos y acidez total titulable ATT.</h2>
 <div id="tabla-de-ácidos" class="section level3">
 <h3>Tabla de ácidos</h3>
-<pre><code>##          CAR MAD N        CONS          sd         se          ci
-## 1  Tartárico   I 6   0.0000000  0.00000000 0.00000000  0.00000000
-## 2  Tartárico  MM 6   0.0000000  0.00000000 0.00000000  0.00000000
-## 3  Tartárico   M 6   0.0000000  0.00000000 0.00000000  0.00000000
-## 4  Tartárico  SM 6   0.9411357  0.48306748 0.19721147  0.50694823
-## 5     Málico   I 6  44.9021340 19.15238481 7.81892835 20.09919520
-## 6     Málico  MM 6  90.1895317  4.02201511 1.64198079  4.22084600
-## 7     Málico   M 6 105.1474897  3.36357515 1.37317381  3.52985564
-## 8     Málico  SM 6  84.7945992  5.36803324 2.19149040  5.63340540
-## 9    Quínico   I 6   0.4406633  0.68267270 0.27869996  0.71642106
-## 10   Quínico  MM 6  25.3176063  3.81400139 1.55705955  4.00254899
-## 11   Quínico   M 6  22.6888082  2.24262162 0.91554644  2.35348706
-## 12   Quínico  SM 6  22.9204245  3.75680532 1.53370935  3.94252539
-## 13 Succínico   I 6 112.3334865  6.53452657 2.66770930  6.85756508
-## 14 Succínico  MM 6  92.4815923  4.78050904 1.95163464  5.01683657
-## 15 Succínico   M 6  99.4372398  4.82401388 1.96939542  5.06249209
-## 16 Succínico  SM 6 115.6551513 12.41879308 5.06995105 13.03272407
-## 17       ATT   I 3   1.7792000  0.05079843 0.02932848  0.12619028
-## 18       ATT  MM 3   1.6064000  0.02789695 0.01610631  0.06929987
-## 19       ATT   M 3   1.8282667  0.20390638 0.11772541  0.50653154
-## 20       ATT  SM 3   1.3845333  0.08352756 0.04822466  0.20749396
-## 21     ACIDS   I 6 157.6762838 24.41479565 9.96729859 25.62175670
-## 22     ACIDS  MM 6 207.9887302 11.65695733 4.75893290 12.23322648
-## 23     ACIDS   M 6 227.2735378  4.28462561 1.74919108  4.49643882
-## 24     ACIDS  SM 6 224.3113107 13.98740581 5.71033451 14.67888217</code></pre>
+<pre><code>##      CAR MAD  N       CONS          sd         se          ci
+## 1    ATT   I  3   1.779200  0.05079843 0.02932848  0.12619028
+## 2    ATT  MM  3   1.606400  0.02789695 0.01610631  0.06929987
+## 3    ATT   M  3   1.828267  0.20390638 0.11772541  0.50653154
+## 4    ATT  SM  3   1.384533  0.08352756 0.04822466  0.20749396
+## 5   &lt;NA&gt;   I 24  39.419071 47.80778177 9.75872259 20.18745575
+## 6   &lt;NA&gt;  MM 24  51.997183 41.36096715 8.44277206 17.46520468
+## 7   &lt;NA&gt;   M 24  56.818384 47.30540308 9.65617497 19.97531984
+## 8   &lt;NA&gt;  SM 24  56.077828 47.57987226 9.71220076 20.09121801
+## 9  ACIDS   I  6 157.676284 24.41479565 9.96729859 25.62175670
+## 10 ACIDS  MM  6 207.988730 11.65695733 4.75893290 12.23322648
+## 11 ACIDS   M  6 227.273538  4.28462561 1.74919108  4.49643882
+## 12 ACIDS  SM  6 224.311311 13.98740581 5.71033451 14.67888217</code></pre>
 </div>
 </div>
 <div
@@ -1299,23 +1047,23 @@ a distintos estados de Madurez.</h2>
 <div id="test-de-tukey-10" class="section level4">
 <h4>Test de Tukey</h4>
 <pre><code>## $emmeans
-##  MAD emmean     SE df lower.CL upper.CL
-##  I     1.72 0.0915  2     1.33     2.11
-##  MM    1.45 0.0915  2     1.05     1.84
-##  M     1.54 0.0915  2     1.15     1.94
-##  SM    1.91 0.0915  2     1.52     2.30
+##  MAD   emmean         SE df lower.CL upper.CL
+##  I   1.721123 0.09153149  2 1.327294 2.114951
+##  MM  1.447652 0.09153149  2 1.053824 1.841480
+##  M   1.541716 0.09153149  2 1.147888 1.935544
+##  SM  1.909504 0.09153149  2 1.515676 2.303332
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate    SE df t.ratio p.value
-##  I - MM     0.2735 0.129  6  2.113  0.2498 
-##  I - M      0.1794 0.129  6  1.386  0.5497 
-##  I - SM    -0.1884 0.129  6 -1.455  0.5142 
-##  MM - M    -0.0941 0.129  6 -0.727  0.8831 
-##  MM - SM   -0.4619 0.129  6 -3.568  0.0443 
-##  M - SM    -0.3678 0.129  6 -2.841  0.1041 
+##  contrast   estimate        SE df t.ratio p.value
+##  I - MM    0.2734708 0.1294425  6   2.113  0.2498
+##  I - M     0.1794066 0.1294425  6   1.386  0.5497
+##  I - SM   -0.1883818 0.1294425  6  -1.455  0.5142
+##  MM - M   -0.0940642 0.1294425  6  -0.727  0.8831
+##  MM - SM  -0.4618526 0.1294425  6  -3.568  0.0443
+##  M - SM   -0.3677884 0.1294425  6  -2.841  0.1041
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>

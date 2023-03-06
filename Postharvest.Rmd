@@ -1412,7 +1412,7 @@ No hay interacción. El factor DIA es significativo.
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
-Comp2<-emmeans(m2FU, pairwise ~ DIA)
+Comp2<-emmeans(m2FU, pairwise ~ DIA, mode = "df.error")
 plot(Comp2, comparisons = TRUE)+theme_classic()+
   xlab("log Force (N)")+
   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
@@ -1535,7 +1535,7 @@ There is no interaction. The days factor is significant.
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
-Comp2<-emmeans(m2GR, pairwise ~ DIA, mode = "appx-satterthwaite")
+Comp2<-emmeans(m2GR, pairwise ~ DIA, mode="df.error")
 plot(Comp2, comparisons = TRUE)+theme_classic()+
   xlab("log Gradient (N/mm)")+
   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
@@ -1653,7 +1653,7 @@ Non-significant interaction.
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
-Comp2<-emmeans(m2DI, pairwise ~ DIA, mode = "appx-satterthwaite")
+Comp2<-emmeans(m2DI, pairwise ~ DIA, mode="df.error")
 plot(Comp2, comparisons = TRUE)+theme_classic()+
   xlab("Distance F max (mm)")+
   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
@@ -2061,7 +2061,7 @@ There is no evidence of interaction. Significant differences were only found bet
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
-Comp2<-emmeans(m1PH, pairwise ~ DIA)
+Comp2<-emmeans(m1PH, pairwise ~ DIA, mode="df.error")
 plot(Comp2, comparisons = TRUE)+
   theme_classic()+
   xlab("pH")+ylab("Days")+
@@ -2628,257 +2628,3 @@ library(knitr)
 print(opts_current$get()$label)
 ```
 
-# Respiration
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-resp<-read.delim("respiracion.txt")
-resp$MAD<-as.factor(resp$MAD)
-resp$MAD<-factor(resp$MAD, levels = c("MM", "M"))
-resp$REP<-as.factor(resp$REP)
-resp$TIME<-as.POSIXct(resp$TIME,format="%H:%M:%S")
-
-```
-
-```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
-knitr::include_graphics("IMG_pos.jpg")
-```
-
-### Boxplot for CO<sub>2</sub> emission for two stages of maturity in time.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(ggplot2)
-grespbp <- ggplot(data = resp, aes(x = MAD, y = CO2, fill=MAD, group=MAD))+
-  geom_boxplot(colour="white")+
-  theme_classic()+
-  scale_fill_manual(values=c("green2","orange"))+
-  labs(y="CO2 (ml/kg.h)", x="TIME")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-grespbp
-
-```
-
-### CO<sub>2</sub> emission for two stages of maturity in time. Shapes indicate different repetitions.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(ggplot2)
-gr1<-ggplot(data=resp, aes(x=TIME, y=CO2, color=MAD, shape=REP))+
-  scale_color_manual(values=c("green2","orange"))+
-  geom_point(size=5)+
-  geom_smooth(method="gam", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
-  scale_y_continuous(breaks=seq(0,200,10))+
-  theme_classic()+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
-  ylab("CO2 (ml/kg.h)")
-gr1
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# white
-resp<-read.delim("respiracion2.txt")
-resp$Maduración<-as.factor(resp$MAD)
-resp$Repetición<-as.factor(resp$REP)
-resp$TIME<-as.POSIXct(resp$TIME,format="%H:%M:%S")
-
-library(ggplot2)
-
-gr2<-ggplot(data=resp, aes(x=TIME, y=CO2, color=Maduración, shape=Repetición))+
-  scale_color_manual(values=c("green2","orange"))+
-  scale_shape_manual(values=c(19,17))+
-  geom_point(size=15)+
-  geom_smooth(method="gam", se = FALSE, linetype="solid", lwd=1.5)+
-  scale_y_continuous(breaks=seq(0,200,10))+
-  theme_classic()+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=40, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(plot.background = element_rect(fill = "white"))+
-  theme(panel.background = element_rect(fill = "white", color = "black"))+
-  ylab("CO2 (ml/kg.h)")+
-  xlab("Tiempo")
-# gr2
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(ggplot2)
-gresp <- ggplot(data = resp, aes(x = TIME, y = CO2, colour=MAD, group=MAD))+
-  geom_smooth(method="gam", se = TRUE, linetype="dashed", lwd=0.5, size=1.5)+
-  theme_classic()+
-  scale_color_manual(values=c("green2","orange"))+
-  labs(y="CO2 (ml/kg.h)", x="TIME")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-gresp
-
-```
-
-### Correlation between the concentration of CO<sub>2</sub> and O<sub>2</sub> for mature and immature fruits.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-gresp2 <- ggplot(data = resp, aes(x = O2, y = CO2, colour=MAD, group=MAD))+
-  geom_smooth(method="lm", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
-  geom_point(size=5)+
-  theme_classic()+
-  scale_color_manual(values=c("green2","orange"))+
-  labs(y="CO2 (ml/kg.h)", x="O2 (ml/kg.h)")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-gresp2
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-# Se quitan outliers
-# g_caja<-boxplot(resp$CO2~resp$MAD, col="green3", frame.plot=F)
-# data<-data[!(resp$CO2 %in% g_caja$out),]
-#NO SE DETECTARON OUTLIERS
-
-```
-
-### Model
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(nlme)
-ctrl <- lmeControl(opt='optim');
-mresp <- lme(CO2 ~ MAD*TIME, random = ~ 1|REP,
-             # weights=varIdent(form=~1|MAD),
-             control = ctrl,
-             data = resp)
-mresp
-```
-
-### Assumptions
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-resp_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(mresp),
-  "predichos" = predict(mresp)))
-resp_ajuste$CO2 <- resp$CO2
-
-HVresp<-ggplot(resp_ajuste) +
-  aes(predichos, residuos) +
-  geom_hline(yintercept = 0, colour="white", size=2) +
-  geom_point(colour="white")+
-  theme_classic()+
-  labs(y="Residuals", x="Predicted values")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HVresp
-
-QQresp<-ggplot(resp_ajuste) +
-  aes(sample = residuos) +
-  geom_qq(shape = 1, colour="white") +
-  geom_qq_line(colour="white")+
-  theme_classic()+
-  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQresp
-
-e<-resid(mresp) # residuos de pearson
-pre<-predict(mresp) #predichos
-alfai<-ranef(mresp)$REP$'(Intercept)'
-shapiro.test(e)
-
-
-```
-Assumptions are ok.
-
-### Anova
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-anova(mresp)
-
-```
-There is no interaction or significant differences.
-
-### Conclusion for respiration
-
-There is no convincing evidence in this essay to affirm that the fruit of the ubajay is climacteric.
-
-
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(nlme)
-ctrl <- lmeControl(opt='optim');
-mresp2 <- lme(CO2 ~ MAD, random = ~ 1|REP,
-             # weights=varIdent(form=~1|MAD),
-             control = ctrl,
-             data = resp)
-mresp2
-anova(mresp2)
-
-```
-
-## Respiration essay
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-library(readxl)
-datares <- read_excel("database.xlsx", sheet = "respiration")
-datares$site<-as.factor(datares$site)
-datares$time<-as.factor(datares$time)
-
-
-resp_barplot<-ggplot(data = datares, aes(x = time, y = respiration, color=site))+
-  geom_point(size=8)+
-  theme_classic()+
-  labs(y="ml CO2 / kg.h", x="Horas desde cosecha")+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
-  theme(text = element_text(size=30, color="black"))+
-  theme(axis.text = element_text(color="black"))+
-  theme(plot.background = element_rect(fill = "white"))+
-  theme(panel.background = element_rect(fill = "white", color = "white"))+
-  scale_color_manual(values=c("blue2", "orange2"))
-resp_barplot
-```

@@ -530,7 +530,7 @@ datavqcaro <- datavq19Q[!is.na(datavq19Q$caro),]
 library(lme4)
 library(lmerTest)
 
-mcaro<- lmer((caro) ~ 1 + (1|site/phenotype), datavqcaro)
+mcaro<- lmer(caro ~ 1 + (1|site/phenotype), datavqcaro)
 
 # library(nlme)
 # mcaro2<- lme((caro) ~ 1, random =∼ 1 | site/phenotype, datavqcaro)
@@ -1218,7 +1218,7 @@ El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas significa
 ### ICC del modelo
 ```{r echo=FALSE, warning=FALSE}
 library(sjstats)
-icc(mfen)
+performance::icc(mfen)
 
 ```
 

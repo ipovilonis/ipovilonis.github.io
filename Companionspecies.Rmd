@@ -44,7 +44,8 @@ library(vegan) # vegdist
 library(data.table) # PERMITE ALGUNAS OPERACIONES CONTABLAS
 library(ggplot2)    # permite hacer graficos
 library(ggfortify)
-library (BiodiversityR) # Para calcular Shannon
+# library(BiodiversityR) # Para calcular Shannon
+# library(tcltk)
 library(dplyr) # Para hacer tabla de promedios
 library(tidyverse)
 library(patchwork)
@@ -215,7 +216,7 @@ fviz_dend(x = dendro.ward, cex = 0.8, lwd = 0.8, k = 3,
           rect = TRUE, 
           rect_border = "gray", 
           rect_fill = FALSE)
- 
+
 # Circular
 # Circ = fviz_dend(dendro.ward, cex = 0.8, lwd = 0.8, k = 3,
                  # rect = TRUE,
