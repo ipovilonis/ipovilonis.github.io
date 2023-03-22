@@ -378,9 +378,6 @@ div.tocify {
       <a href="madAcids.html">Organic Acids</a>
     </li>
     <li>
-      <a href="madAcids2.html">Organic Acids 2</a>
-    </li>
-    <li>
       <a href="madCarbohydrates.html">Carbohydrates</a>
     </li>
     <li>
@@ -414,7 +411,7 @@ div.tocify {
       <a href="Postharvest.html">Postharvest</a>
     </li>
     <li>
-      <a href="Climateric.html">Climateric</a>
+      <a href="climateric2.html">Climateric</a>
     </li>
     <li>
       <a href="Companionspecies.html">Companion species</a>
@@ -458,14 +455,15 @@ div.tocify {
 </div>
 
 
-<div class="figure">
-<img src="IMG_pos.jpg" alt="A caption" width="100%" />
-<p class="caption">
-A caption
-</p>
+<div id="respiration.-essay-1-with-co2-accumulated"
+class="section level1">
+<h1>Respiration. Essay 1 with CO<sub>2</sub> accumulated</h1>
+<div id="co2-acumulation" class="section level3">
+<h3>CO<sub>2</sub> acumulation</h3>
 </div>
-<div id="respiration.-essay-1" class="section level1">
-<h1>Respiration. Essay 1</h1>
+</div>
+<div id="respiration.-essay-1-with-ml-co2" class="section level1">
+<h1>Respiration. Essay 1 with ml CO<sub>2</sub></h1>
 <div id="boxplot-for-co2-emission-for-two-stages-of-maturity-in-time."
 class="section level3">
 <h3>Boxplot for CO<sub>2</sub> emission for two stages of maturity in
@@ -476,52 +474,26 @@ id="co2-emission-for-two-stages-of-maturity-in-time.-shapes-indicate-different-r
 class="section level3">
 <h3>CO<sub>2</sub> emission for two stages of maturity in time. Shapes
 indicate different repetitions.</h3>
-<p><img src="Climateric_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div
 id="correlation-between-the-concentration-of-co2-and-o2-for-mature-and-immature-fruits."
 class="section level3">
 <h3>Correlation between the concentration of CO<sub>2</sub> and
 O<sub>2</sub> for mature and immature fruits.</h3>
-<p><img src="Climateric_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="o2-for-mature-and-immature-fruits-over-time."
 class="section level3">
 <h3>O<sub>2</sub> for mature and immature fruits over time.</h3>
-<p><img src="Climateric_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="model" class="section level3">
 <h3>Model</h3>
-<pre><code>## Linear mixed-effects model fit by REML
-##   Data: resp 
-##   Log-restricted-likelihood: -179.985
-##   Fixed: carbon_mg ~ matu 
-## (Intercept)       matuM 
-##   120.96579    18.19196 
-## 
-## Random effects:
-##  Formula: ~1 | rep
-##         (Intercept) Residual
-## StdDev:    4.224024 25.33582
-## 
-## Number of Observations: 40
-## Number of Groups: 4</code></pre>
 </div>
 <div id="assumptions" class="section level3">
 <h3>Assumptions</h3>
-<p><img src="Climateric_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /><img src="Climateric_files/figure-html/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.94569, p-value = 0.05396</code></pre>
 <p>Assumptions are ok.</p>
 </div>
 <div id="anova" class="section level3">
 <h3>Anova</h3>
-<pre><code>##             numDF denDF  F-value p-value
-## (Intercept)     1    36 824.8442  &lt;.0001
-## matu            1     2   4.0343  0.1823</code></pre>
 <p>There is no interaction or significant differences.</p>
 </div>
 <div id="conclusion-for-respiration" class="section level3">

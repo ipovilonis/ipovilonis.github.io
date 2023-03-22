@@ -1,0 +1,308 @@
+---
+title: "Respirtion essay in Hexachlamys edulis"
+message: no
+output: pdf_document
+---
+
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("IMG_pos.jpg")
+```
+
+Immature and mature ubajay fruits were selected and randomly distributed in 4 flasks, 2 immature and 2 mature, then respiration was quantified from accumulated CO2 every 15 minutes for 150 minutes.
+
+```{r, echo=FALSE,warning = FALSE, message = FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+resp2<-read_excel("database.xlsx", sheet="respiracion2")
+resp2$time_interval <- as.numeric(resp2$time_interval)
+resp2$matu<-factor(resp2$matu, levels = c("I", "M"))
+resp2$rep<-as.factor(resp2$rep)
+# resp2$time<-as.numeric(resp2$time)
+# resp2$time<-as.POSIXct(resp2$time,format="%H:%M:%S")
+
+library(dplyr)
+resp2 <- resp2 %>% 
+  mutate(time_min = rep(seq(from = 0, to = 150, by = 15), times=4))
+
+```
+
+## CO<sub>2</sub> acumulation
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+gr0<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu, shape=rep))+
+  scale_color_manual(values=c("green2","orange"))+
+  geom_point(size=3)+
+  scale_y_continuous(breaks=seq(0,240,20))+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  ylab("CO2 (ml accumulated/Kg)")+
+  xlab("Time (min)")+
+  labs(color = "", shape = "")+
+  scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
+gr0
+
+```
+
+## Descriptive table
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(dplyr)
+# table_resp0 <- resp2 %>%
+#   group_by(matu) %>%
+#   summarise(
+#     n = n(),
+#     CO2ac_media = mean(carbon_ac),
+#     min = min(carbon_ac),
+#     max = max(carbon_ac),
+#     sd = sd(carbon_ac)
+#   )
+# 
+# 
+# table_resp0
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+library(tidyr)
+
+resp2$time_min<-as.factor(resp2$time_min)
+resp45<-resp2[,c(2:3,8:9)]
+resp_wide <- spread(resp45, time_min, carbon_ac)
+resp_tiempos <-resp_wide[,-c(1:3)]
+
+gathercols <- c("15",  "30",  "45",  "60",  "75",  "90",  "105", "120", "135", "150")
+resp2w <- gather(resp_wide, "time_min", "carbon_ac", gathercols)
+colnames(resp2w)[3]<-"basal"
+resp2w$time_min<-factor(resp2w$time_min, levels = c("15",  "30",  "45",  "60",  "75",  "90",  "105", "120", "135", "150"))
+
+library(dplyr)
+table_resp2 <- resp2w %>% 
+  group_by(time_min, matu) %>%
+  select_if(is.numeric) %>%
+  summarise_all(.funs = c(
+    n = length, 
+    Mean = mean, 
+    sd = sd, 
+    min = min, 
+    max = max
+  )
+)
+
+table_resp2<-table_resp2[,-c(3,5,7,9,11)]
+table_resp2
+```
+
+## Correlations over time
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(GGally)
+ggcor1<-ggpairs(resp_tiempos) 
+# round(cor(tiempos),2) #matriz de correlacion
+ggcorr(resp_tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 2)
+
+```
+
+## Covariance matrix
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+round(cov(resp_tiempos),2) #matriz de covarianza 
+
+```
+
+## Marginal model with first-order autoregressive structure
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# m1<-gls(carbon_ac ~ matu*time_min,  correlation = corCompSymm(form = ~ 1 | rep), resp2)
+# # getVarCov(m1) #extrae la matriz de cov estimada
+# 
+# #Modelo 2: AR1, varianzas iguales
+# m1<-gls((carbon_ac) ~ time_min*matu ,  correlation = corAR1(form = ~ 1 | rep), resp2w)
+m2<-gls((carbon_ac) ~ time_min*matu + basal ,  correlation = corAR1(form = ~ 1 | rep), resp2w)
+# m2<-gls((carbon_ac) ~ matu ,  correlation = corAR1(form = ~ 1 | rep), resp2)
+m2$call
+# 
+# 
+# m3<-gls(carbon_ac ~ matu*time_min ,  correlation = corAR1(form = ~ 1 | rep), weights=varExp(), resp2)
+# # , weights=varExp()
+
+# m3<-gls((carbon_ac) ~ matu*sqrt(time_min) + time_min,  correlation = corAR1(form = ~ 1 | rep), resp2)
+
+#Modelos marginales - GEE
+# library(geepack)
+# 
+# # Modelo marginal usando correlaci�n de trabajo intercambiable
+# # Importante: las filas del data frame tienen que estar ordenadas por repeticion y por tiempo
+# sort(resp2$rep)
+# m2 <- geeglm(carbon_ac ~ matu*time_min, family = Gamma, 
+#                   data = resp2, id = rep, corstr = "exchangeable")
+# summary(m2)
+# 
+# m3 <- geeglm(carbon_ac ~ matu, family = Gamma, data = resp2, id=rep)
+# summary(m3)
+
+```
+
+## Assumptions
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+resp_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(m2),
+  "predichos" = predict(m2)))
+resp_ajuste$carbon_ac <- resp2w$carbon_ac
+
+HVresp<-ggplot(resp_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVresp
+
+QQresp<-ggplot(resp_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQresp
+
+e<-resid(m2) # residuos de pearson
+pre<-predict(m2) #predichos
+shapiro.test(e)
+
+```
+
+## Model coefficients
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+m2$coefficients
+
+# Si hay interacción significa beta1 != beta3
+
+```
+
+## CO<sub>2</sub> acumulation
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+resp2 <- resp2 %>% 
+  mutate(time_min = rep(seq(from = 0, to = 150, by = 15), times=4))
+
+library(ggplot2)
+gr1<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu))+
+  scale_color_manual(values=c("green2","orange"))+
+  geom_point(size=3)+
+  geom_smooth(method="lm", se = TRUE, linetype="dashed", lwd=1, size=1)+
+  scale_y_continuous(breaks=seq(0,240,20))+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  ylab("CO2 (ml accumulated/Kg)")+
+  xlab("Time (min)")+
+  labs(color = "", shape = "")+
+  scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
+gr1
+
+```
+
+## Anova
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(m2)
+
+# Si hay interacción significa beta1 != beta3
+
+```
+
+## Simple effects
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+compresp<-emmeans(m2, pairwise ~ matu|time_min)
+compresp
+```
+Statistically significant differences were found in the CO2 respiration rate in each time between immature and mature Hexachlamys edulis fruits.
+
+## Comparison chart
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+complot<-plot(compresp, comparisons = TRUE)+
+  facet_wrap(~time_min, strip.position = "right", ncol = 1,
+             labeller = label_wrap_gen(width = 1))+
+  labs(x = "CO2 (ml accumulated/Kg)", y ="Maturity")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  theme(strip.text.y = element_text(angle = 0))+
+  scale_x_continuous(limits = c(0, 240), breaks = seq(0,240,20))
+complot
+#   annotate("text", x = table_resp2$carbon_ac_Mean[table_resp2$matu == "I" & table_resp2$time_min == "15"]
+# , y = 1 , label = "b")+
+#   annotate("text", x = table_resp2$carbon_ac_Mean[table_resp2$matu == "M" & table_resp2$time_min == "15"]
+# , y = 1 , label = "a")+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# vol <- c(751.2,	787.51,	795.6, 818.9)
+# peso <- c(0.1469,	0.12345,	0.12093, 0.1055)
+# ene <- c("1","2","3","4")
+# plot(peso, vol, col = ene)
+# 
+# mp<-lm(vol~peso)
+# 
+# nuevos_datos <- data.frame(peso= c(0.10558))
+# predict(mp, newdata = nuevos_datos)
+
+# vol ajustado = 818.9848
+
+```

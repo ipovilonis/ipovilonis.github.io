@@ -10,18 +10,130 @@ output:
 ---
 
 ```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
-knitr::include_graphics("IMG_pos.jpg")
+# knitr::include_graphics("IMG_pos.jpg")
 ```
 
-# Respiration. Essay 1
+# Respiration. Essay 1 with CO<sub>2</sub> accumulated
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+# library(readxl)
+# resp2<-read_excel("database.xlsx", sheet="respiracion2")
+# # resp2$time_interval <- as.numeric(resp2$time_interval)
+# resp2$matu<-factor(resp2$matu, levels = c("I", "M"))
+# resp2$rep<-as.factor(resp2$rep)
+# resp2$time<-as.POSIXct(resp2$time,format="%H:%M:%S")
+
+```
+
+### CO<sub>2</sub> acumulation
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+# library(ggplot2)
+# gr1<-ggplot(data=resp, aes(x=time, y=carbon_por, color=matu, shape=rep))+
+#   scale_color_manual(values=c("green2","orange"))+
+#   geom_point(size=5)+
+#   geom_smooth(method="gam", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
+#   scale_y_continuous(breaks=seq(0,200,10))+
+#   theme_classic()+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+#   ylab("carbon_ml (ml/kg.h)")
+# gr1
+
+```
+
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-resp<-read.delim("respiracion.txt")
-resp$time_interval <- as.factor(resp$time_interval)
-resp$matu<-factor(resp$matu, levels = c("I", "M"))
-resp$rep<-as.factor(resp$rep)
-resp$time<-as.POSIXct(resp$time,format="%H:%M:%S")
+#Correlaciones entre tiempos ####
+#para convertir long to wide (cada tiempo en una columna distinta)
+# resp3 <- resp2[,c(4,6)]
+# resp3$time_interval<-factor(resp3$time_interval,levels=c("0","1" ,   "2",    "3",    "4",    "5",    "6",    "7",    "8", "9", "10", "11"))
+# library(tidyr)
+# resp_wide <- spread(resp3, time_interval, carbon_por)
+
+
+# tiempos<-tiempos[,-c(1:3)]
+# library(ggplot2)
+# library(GGally)
+# ggcor1<-ggpairs(tiempos) 
+# # round(cov(tiempos),2) #matriz de covarianza 
+# # round(cor(tiempos),2) #matriz de correlacion
+# ggcorr(tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 2)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# 
+# m1<-gls(carbon_por ~matu*time,  correlation = corCompSymm(form = ~ 1 | rep), resp2)
+# # getVarCov(m1) #extrae la matriz de cov estimada
+# 
+# #Modelo 2: AR1, varianzas iguales
+# m2<-gls(carbon_por ~matu*time,  correlation = corAR1(form = ~ 1 | rep), resp2)
+# # getVarCov(m3)
+# 
+# library(nlme)
+# #0tra opcion equivalente a m1 que incorpora al individuo como factor aleatorio para inducir la estructura
+# m3<-lme(carbon_por ~matu*time,  random = ~1|rep, resp2)
+# 
+# #Seleccion de modelos #####
+# summary(m1)
+# summary(m2)
+# 
+# AIC(m1,m2,m3)
+# 
+# anova(m2)
+# 
+# # Si hay interacción significa beta1 != beta3
+# 
+# library(emmeans)
+# emmeans(m2, pairwise ~ matu | time)
+# 
+# 
+# #Comparaciones de interaccion
+# comp1<-emmeans(m2, pairwise ~ matu | time_interval) 
+# 
+# 
+# #grafico de predicciones del modelo ####
+# resumen_modelo<-as.data.frame(comp1$emmeans)
+# ggplot(resumen_modelo, aes(x=time_interval, y=emmean, fill=matu)) + 
+#   geom_point(aes(colour=matu))  +
+#   labs(x="Tiempo") + labs(y="CO2") +
+#   geom_errorbar(aes(ymin=emmean-SE, ymax=emmean+SE, colour=matu),  width=0.2)+
+#   geom_line(aes(x=as.integer(time_interval, colour=matu)))
+# 
+# 
+# 
+# #otra opcion:
+# library(ggeffects)
+# (a<-ggpredict(m3))
+# a <- ggpredict(m3, terms = c("time_interval", "matu"))
+# plot(a) 
+
+
+
+```
+
+# Respiration. Essay 1 with ml CO<sub>2</sub>
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+# library(readxl)
+# resp<-read_excel("database.xlsx", sheet="respiracion")
+# 
+# resp$time_interval <- as.numeric(resp$time_interval)
+# resp$matu<-factor(resp$matu, levels = c("I", "M"))
+# resp$rep<-as.factor(resp$rep)
+# resp$time<-as.POSIXct(resp$time,format="%H:%M:%S")
 
 ```
 
@@ -29,20 +141,20 @@ resp$time<-as.POSIXct(resp$time,format="%H:%M:%S")
 ```{r, echo=FALSE, fig.align='center', fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-grespbp <- ggplot(data = resp, aes(x = matu, y = carbon_mg, fill=matu, group=matu))+
-  geom_boxplot(colour="white")+
-  theme_classic()+
-  scale_fill_manual(values=c("green2","orange"))+
-  labs(y="carbon_ml (ml/kg.h)", x="time")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-grespbp
+# library(ggplot2)
+# grespbp <- ggplot(data = resp, aes(x = matu, y = carbon_ml, fill=matu, group=matu))+
+#   geom_boxplot(colour="white")+
+#   theme_classic()+
+#   scale_fill_manual(values=c("green2","orange"))+
+#   labs(y="carbon_ml (ml/kg.h)", x="maturity")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# grespbp
 
 ```
 
@@ -50,87 +162,87 @@ grespbp
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-gr1<-ggplot(data=resp, aes(x=time, y=carbon_ml, color=matu, shape=rep))+
-  scale_color_manual(values=c("green2","orange"))+
-  geom_point(size=5)+
-  geom_smooth(method="gam", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
-  scale_y_continuous(breaks=seq(0,200,10))+
-  theme_classic()+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
-  ylab("carbon_ml (ml/kg.h)")
-gr1
+# library(ggplot2)
+# gr1<-ggplot(data=resp, aes(x=time, y=carbon_ml, color=matu, shape=rep))+
+#   scale_color_manual(values=c("green2","orange"))+
+#   geom_point(size=5)+
+#   geom_smooth(method="gam", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
+#   scale_y_continuous(breaks=seq(0,200,10))+
+#   theme_classic()+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+#   ylab("carbon_ml (ml/kg.h)")
+# gr1
 
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-
-gr2<-ggplot(data=resp, aes(x=time, y=carbon_ml, color=matu, shape=rep))+
-  scale_color_manual(values=c("green2","orange"))+
-  scale_shape_manual(values=c(19,17,20,21))+
-  geom_point(size=15)+
-  geom_smooth(method="gam", se = FALSE, linetype="solid", lwd=1.5)+
-  scale_y_continuous(breaks=seq(0,200,10))+
-  theme_classic()+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=40, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(plot.background = element_rect(fill = "white"))+
-  theme(panel.background = element_rect(fill = "white", color = "black"))+
-  ylab("carbon_ml (ml/kg.h)")+
-  xlab("Tiempo")
-# gr2
+# library(ggplot2)
+# 
+# gr2<-ggplot(data=resp, aes(x=time, y=carbon_ml, color=matu, shape=rep))+
+#   scale_color_manual(values=c("green2","orange"))+
+#   scale_shape_manual(values=c(19,17,20,21))+
+#   geom_point(size=15)+
+#   geom_smooth(method="gam", se = FALSE, linetype="solid", lwd=1.5)+
+#   scale_y_continuous(breaks=seq(0,200,10))+
+#   theme_classic()+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=40, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "black"))+
+#   ylab("carbon_ml (ml/kg.h)")+
+#   xlab("Tiempo")
+# # gr2
 
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(ggplot2)
-gresp <- ggplot(data = resp, aes(x = time, y = carbon_ml, colour=matu, group=matu))+
-  geom_smooth(method="gam", se = TRUE, linetype="dashed", lwd=0.5, size=1.5)+
-  theme_classic()+
-  scale_color_manual(values=c("green2","orange"))+
-  labs(y="carbon_ml (ml/kg.h)", x="time")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-gresp
+# library(ggplot2)
+# gresp <- ggplot(data = resp, aes(x = time, y = carbon_ml, colour=matu, group=matu))+
+#   geom_smooth(method="gam", se = TRUE, linetype="dashed", lwd=0.5, size=1.5)+
+#   theme_classic()+
+#   scale_color_manual(values=c("green2","orange"))+
+#   labs(y="carbon_ml (ml/kg.h)", x="time")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# gresp
 
 ```
 
 ### Correlation between the concentration of CO<sub>2</sub> and O<sub>2</sub> for mature and immature fruits.
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-gresp2 <- ggplot(data = resp, aes(x = oxi_ml , y = carbon_ml, colour=matu, group=matu))+
-  geom_smooth(method="lm", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
-  geom_point(size=5)+
-  theme_classic()+
-  scale_color_manual(values=c("green2","orange"))+
-  labs(y="carbon_ml (ml/kg.h)", x="O2 (ml/kg.h)")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-gresp2
+# 
+# gresp2 <- ggplot(data = resp, aes(x = oxi_ml , y = carbon_ml, colour=matu, group=matu))+
+#   geom_smooth(method="lm", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
+#   geom_point(size=5)+
+#   theme_classic()+
+#   scale_color_manual(values=c("green2","orange"))+
+#   labs(y="carbon_ml (ml/kg.h)", x="O2 (ml/kg.h)")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# gresp2
 
 ```
 
@@ -139,20 +251,20 @@ gresp2
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-gresp2 <- ggplot(data = resp, aes(x = time_interval , y = oxi_ml, colour=matu, group=matu))+
-  geom_smooth(method="lm", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
-  geom_point(size=5)+
-  theme_classic()+
-  scale_color_manual(values=c("green2","orange"))+
-  labs(y="carbon_ml (ml/kg.h)", x="O2 (ml/kg.h)")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-gresp2
+# gresp2 <- ggplot(data = resp, aes(x = time_interval , y = oxi_ml, colour=matu, group=matu))+
+#   geom_smooth(method="lm", se = FALSE, linetype="dashed", lwd=0.5, size=1.5)+
+#   geom_point(size=5)+
+#   theme_classic()+
+#   scale_color_manual(values=c("green2","orange"))+
+#   labs(y="Oxigen (ml/kg.h)", x="O2 (ml/kg.h)")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# gresp2
 
 ```
 
@@ -165,62 +277,76 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Se desea ver diferencias entre beta1 y beta3
+# Tiempo como cuantitativa (menos parámetros) pero ver si hay relación lineal.
+# Se debe incluir interacción. Pero al ser estudio obervacional se puede desestimar si no la hay.
+# No hay interacción: p=0.32680
+# library(lme4)
+# model_fail <- lmer(carbon_ml ~ matu + (1| time_interval) + (1| rep), data= resp)
+# anova(model_fail)
+
+
+```
+
 ### Model
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(nlme)
-ctrl <- lmeControl(opt='optim');
-mresp <- lme(carbon_mg ~ matu, random = ~ 1|rep,
-             # weights=varIdent(form=~1|matu),
-             control = ctrl,
-             data = resp)
-mresp
+# library(nlme)
+# ctrl <- lmeControl(opt='optim');
+# mresp <- lme(carbon_ml ~ matu, random = ~ 1|rep,
+#              # weights=varIdent(form=~1|matu),
+#              control = ctrl,
+#              data = resp)
+# mresp
 ```
 
 ### Assumptions
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-resp_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(mresp),
-  "predichos" = predict(mresp)))
-resp_ajuste$carbon_ml <- resp$carbon_ml
-
-HVresp<-ggplot(resp_ajuste) +
-  aes(predichos, residuos) +
-  geom_hline(yintercept = 0, colour="white", size=2) +
-  geom_point(colour="white")+
-  theme_classic()+
-  labs(y="Residuals", x="Predicted values")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HVresp
-
-QQresp<-ggplot(resp_ajuste) +
-  aes(sample = residuos) +
-  geom_qq(shape = 1, colour="white") +
-  geom_qq_line(colour="white")+
-  theme_classic()+
-  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQresp
-
-e<-resid(mresp) # residuos de pearson
-pre<-predict(mresp) #predichos
-alfai<-ranef(mresp)$rep$'(Intercept)'
-shapiro.test(e)
-
+# 
+# resp_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mresp),
+#   "predichos" = predict(mresp)))
+# resp_ajuste$carbon_ml <- resp$carbon_ml
+# 
+# HVresp<-ggplot(resp_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVresp
+# 
+# QQresp<-ggplot(resp_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQresp
+# 
+# e<-resid(mresp) # residuos de pearson
+# pre<-predict(mresp) #predichos
+# alfai<-ranef(mresp)$rep$'(Intercept)'
+# shapiro.test(e)
+# 
 
 ```
 Assumptions are ok.
@@ -229,7 +355,7 @@ Assumptions are ok.
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-anova(mresp)
+# anova(mresp)
 
 ```
 There is no interaction or significant differences.
@@ -238,19 +364,17 @@ There is no interaction or significant differences.
 
 There is no convincing evidence in this essay to affirm that the fruit of the ubajay is climacteric.
 
-
-
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(nlme)
-ctrl <- lmeControl(opt='optim');
-mresp2 <- lme(carbon_ml ~ matu, random = ~ 1|rep,
-             # weights=varIdent(form=~1|matu),
-             control = ctrl,
-             data = resp)
-mresp2
-anova(mresp2)
+# 
+# library(nlme)
+# ctrl <- lmeControl(opt='optim');
+# mresp2 <- lme(carbon_ml ~ matu, random = ~ 1|rep,
+#              # weights=varIdent(form=~1|matu),
+#              control = ctrl,
+#              data = resp)
+# mresp2
+# anova(mresp2)
 
 ```
 
@@ -258,7 +382,7 @@ anova(mresp2)
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
+# 
 library(readxl)
 library(lattice)
 library(plyr)
@@ -287,12 +411,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # cosechas <-vid_wide[3:5]
 # ggpairs(cosechas)
 
-
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
 ```
