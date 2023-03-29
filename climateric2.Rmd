@@ -1,6 +1,5 @@
 ---
-title: "Respirtion essay in Hexachlamys edulis"
-message: no
+title: "Respiration essay in Hexachlamys edulis"
 output: pdf_document
 ---
 
@@ -8,7 +7,7 @@ output: pdf_document
 knitr::include_graphics("IMG_pos.jpg")
 ```
 
-Immature and mature ubajay fruits were selected and randomly distributed in 4 flasks, 2 immature and 2 mature, then respiration was quantified from accumulated CO2 every 15 minutes for 150 minutes.
+Immature and mature ubajay fruits were selected and randomly distributed in 4 jars, 2 immature and 2 mature, then respiration was quantified from accumulated CO2 every 15 minutes for 150 minutes.
 
 ```{r, echo=FALSE,warning = FALSE, message = FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -32,9 +31,10 @@ resp2 <- resp2 %>%
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-gr0<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu, shape=rep))+
+gr1<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu))+
   scale_color_manual(values=c("green2","orange"))+
   geom_point(size=3)+
+  geom_smooth(method="lm", se = TRUE, linetype="dashed", lwd=1, size=1)+
   scale_y_continuous(breaks=seq(0,240,20))+
   theme_classic()+
   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
@@ -48,7 +48,31 @@ gr0<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu, shape=rep))+
   xlab("Time (min)")+
   labs(color = "", shape = "")+
   scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
-gr0
+gr1
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+## CO<sub>2</sub> acumulation
+# library(ggplot2)
+# gr0<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu, shape=rep))+
+#   scale_color_manual(values=c("green2","orange"))+
+#   geom_point(size=3)+
+#   scale_y_continuous(breaks=seq(0,240,20))+
+#   theme_classic()+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+#   ylab("CO2 (ml accumulated/Kg)")+
+#   xlab("Time (min)")+
+#   labs(color = "", shape = "")+
+#   scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
+# gr0
 
 ```
 
@@ -129,33 +153,14 @@ round(cov(resp_tiempos),2) #matriz de covarianza
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# m1<-gls(carbon_ac ~ matu*time_min,  correlation = corCompSymm(form = ~ 1 | rep), resp2)
-# # getVarCov(m1) #extrae la matriz de cov estimada
-# 
+# m1<-gls(carbon_ac ~ matu*time_min + basal,  correlation = corCompSymm(form = ~ 1 | rep), resp2w)
+
+
 # #Modelo 2: AR1, varianzas iguales
-# m1<-gls((carbon_ac) ~ time_min*matu ,  correlation = corAR1(form = ~ 1 | rep), resp2w)
+
 m2<-gls((carbon_ac) ~ time_min*matu + basal ,  correlation = corAR1(form = ~ 1 | rep), resp2w)
 # m2<-gls((carbon_ac) ~ matu ,  correlation = corAR1(form = ~ 1 | rep), resp2)
 m2$call
-# 
-# 
-# m3<-gls(carbon_ac ~ matu*time_min ,  correlation = corAR1(form = ~ 1 | rep), weights=varExp(), resp2)
-# # , weights=varExp()
-
-# m3<-gls((carbon_ac) ~ matu*sqrt(time_min) + time_min,  correlation = corAR1(form = ~ 1 | rep), resp2)
-
-#Modelos marginales - GEE
-# library(geepack)
-# 
-# # Modelo marginal usando correlaci�n de trabajo intercambiable
-# # Importante: las filas del data frame tienen que estar ordenadas por repeticion y por tiempo
-# sort(resp2$rep)
-# m2 <- geeglm(carbon_ac ~ matu*time_min, family = Gamma, 
-#                   data = resp2, id = rep, corstr = "exchangeable")
-# summary(m2)
-# 
-# m3 <- geeglm(carbon_ac ~ matu, family = Gamma, data = resp2, id=rep)
-# summary(m3)
 
 ```
 
@@ -214,36 +219,6 @@ m2$coefficients
 
 ```
 
-## CO<sub>2</sub> acumulation
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(dplyr)
-resp2 <- resp2 %>% 
-  mutate(time_min = rep(seq(from = 0, to = 150, by = 15), times=4))
-
-library(ggplot2)
-gr1<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu))+
-  scale_color_manual(values=c("green2","orange"))+
-  geom_point(size=3)+
-  geom_smooth(method="lm", se = TRUE, linetype="dashed", lwd=1, size=1)+
-  scale_y_continuous(breaks=seq(0,240,20))+
-  theme_classic()+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
-  ylab("CO2 (ml accumulated/Kg)")+
-  xlab("Time (min)")+
-  labs(color = "", shape = "")+
-  scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
-gr1
-
-```
-
 ## Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -290,6 +265,83 @@ complot
 # , y = 1 , label = "a")+
 ```
 
+## Fitted model plot
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(ggplot2)
+# colores<-c("green2","orange")
+
+# # Generar un data frame con los valores de time_min y matu para predecir
+# newdata <- expand.grid(time_min = seq(0, 150, by = 15), matu = c("I", "M"), basal=resp2w$basal)
+# newdata$time_min <- as.factor(newdata$time_min)
+# 
+# # Predecir los valores de carbon_ac utilizando el modelo ajustado y los valores de newdata
+# pred <- predict(m2, newdata, type = "response")
+# 
+# # Unir los valores predecidos y los valores de newdata en un data frame
+# df_pred <- cbind(newdata, pred)
+
+# Graficar puntos y línea ajustada
+# gm_aj <- ggplot(resp2w, aes(x = time_min, y = carbon_ac)) +
+#   geom_point(c) +
+#   geom_smooth(aes(y = fitted(m2), group = matu),method="lm", se = F, linetype="dashed", lwd=1,      size=1, color="black")+
+#   labs(y = "CO2 (ml accumulated/Kg)", x = "Time (min)") +
+#   theme_classic() +
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+#   scale_color_manual(values = colores) +
+#   theme(legend.title = element_blank()) +
+#   theme(legend.position = 'bottom') +
+#   theme(panel.grid.major.y = element_line(color = 'black')) +
+#   theme(panel.grid.major.x = element_blank()) +
+#   theme(text = element_text(size = 10, color = 'black')) +
+#   theme(axis.text = element_text(color = 'black'))
+# gm_aj
+
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+## Predictions
+# nuevos_datos <- data.frame(time_min = c("15", "15", "150", "150"), matu = c("I", "M","I", "M"), basal= c(25.85474,25.85474,25.85474,25.85474))
+# predicciones <- predict(m2, newdata = nuevos_datos)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+resp2 <- resp2 %>% 
+  mutate(time_min = rep(seq(from = 0, to = 150, by = 15), times=4))
+
+colores <- c("green","orange")
+
+df_lineI <- data.frame(x = c(15,150), y = c(29.05593, 173.01033))
+df_lineM <- data.frame(x = c(15,150), y = c(53.07623, 226.12895))
+
+gm_ajust <- ggplot(resp2, aes(x = time_min, y = carbon_ac)) +
+  geom_point(aes(color = factor(matu)), size = 4)+
+  geom_line(data = df_lineI, aes(x = x, y = y), color="green2", size= 0.8, linetype = "dotdash")+
+  geom_line(data = df_lineM, aes(x = x, y = y), color="orange", size= 0.8, linetype = "dotdash")+
+  labs(y = "CO2 (ml accumulated/Kg)", x = "Time (min)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = 'bottom') +
+  theme(panel.grid.major.y = element_line(color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 10, color = 'black')) +
+  theme(axis.text = element_text(color = 'black'))+
+  scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
+gm_ajust
+
+```
+
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -304,5 +356,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # predict(mp, newdata = nuevos_datos)
 
 # vol ajustado = 818.9848
+
+
 
 ```
