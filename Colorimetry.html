@@ -251,19 +251,20 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Variability
+    Fruit Variability
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Morphological.html">Morphological</a>
+      <a href="Weight.html">Weight</a>
     </li>
     <li>
       <a href="Colorimetry.html">Colorimetry</a>
     </li>
+    <li class="divider"></li>
     <li>
-      <a href="Chemical.html">Chemical</a>
+      <a href="phenols.html">Phenols</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -379,50 +380,81 @@ $(document).ready(function () {
 </div>
 
 
-<p>Colorimetría cuantificada en 4 estados de maurez: Inmaduro (I), Medio
-Maduro (MM), Maduro (M), Sobre Maduro (SM).</p>
-<p>En 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y
+<p>Colorimetry quantified in 4 states of ripeness: Immature (I), Medium
+Ripe (MM), Ripe (M), Overripe (SM).</p>
+<p>In 3 populations of Entre Rios: Concordia, PN El Palmar, and
 Gualeguaychú.</p>
-<p>Escala CieLab: L: luminosidad +a: rojo -a: verde +b: amarillo -b:
-azul</p>
-<p>colorímetro digital 3NH NH300</p>
+<p>CieLab scale: color_L: luminosity +a: red -a: green +b: yellow -b:
+blue</p>
+<p>3NH NH300 digital colorimeter.</p>
 <div id="estadística-descriptiva" class="section level1">
 <h1>Estadística descriptiva</h1>
-<div id="l" class="section level2">
-<h2>L</h2>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="a" class="section level2">
-<h2>a</h2>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="b" class="section level2">
-<h2>b</h2>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>##            site mad   N  color_L       sd        se        ci
+## 1     concordia   I 306 55.70627 7.331983 0.4191416 0.8247752
+## 2     concordia  MM  84 61.31595 5.053207 0.5513501 1.0966131
+## 3     concordia   M 102 64.95804 4.488316 0.4444095 0.8815888
+## 4     concordia  SM 106 55.32736 6.776779 0.6582189 1.3051266
+## 5        palmar   I  72 49.26389 7.607176 0.8965142 1.7875986
+## 6        palmar  MM  80 56.03475 5.200154 0.5813949 1.1572375
+## 7        palmar   M  72 58.81667 4.848187 0.5713643 1.1392681
+## 8        palmar  SM 130 52.71785 5.884998 0.5161485 1.0212124
+## 9  gualeguaychu   I 388 46.34812 7.061905 0.3585139 0.7048788
+## 10 gualeguaychu  MM 104 55.85625 6.767078 0.6635665 1.3160277
+## 11 gualeguaychu   M  52 60.52885 5.385343 0.7468128 1.4992892
+## 12 gualeguaychu  SM  12 57.17667 4.928305 1.4226790 3.1312955</code></pre>
+<pre><code>##            site mad   N   color_a       sd        se        ci
+## 1     concordia   I 306 -6.159771 4.805075 0.2746878 0.5405231
+## 2     concordia  MM  84  1.219048 6.096628 0.6651966 1.3230493
+## 3     concordia   M 102 13.291078 8.108201 0.8028315 1.5926018
+## 4     concordia  SM 106 16.553585 3.776475 0.3668037 0.7273040
+## 5        palmar   I  72 -2.531667 6.363430 0.7499374 1.4953328
+## 6        palmar  MM  80  5.071250 5.570229 0.6227706 1.2395938
+## 7        palmar   M  72 12.211250 5.950883 0.7013183 1.3983891
+## 8        palmar  SM 130 18.040538 5.757659 0.5049801 0.9991155
+## 9  gualeguaychu   I 388 -3.955670 6.205523 0.3150377 0.6193996
+## 10 gualeguaychu  MM 104  2.273750 6.134840 0.6015706 1.1930733
+## 11 gualeguaychu   M  52 10.947692 5.677261 0.7872944 1.5805596
+## 12 gualeguaychu  SM  12 12.724167 6.429948 1.8561660 4.0853938</code></pre>
+<pre><code>##            site mad   N  color_b        sd        se        ci
+## 1     concordia   I 306 38.90843  9.216657 0.5268812 1.0367823
+## 2     concordia  MM  84 51.07631  8.644406 0.9431821 1.8759512
+## 3     concordia   M 102 57.98422  5.942601 0.5884052 1.1672376
+## 4     concordia  SM 106 46.67236  9.816968 0.9535083 1.8906307
+## 5        palmar   I  72 33.68236 10.770910 1.2693639 2.5310398
+## 6        palmar  MM  80 42.26034 10.623029 1.1876907 2.3640393
+## 7        palmar   M  72 48.77736  8.063662 0.9503117 1.8948678
+## 8        palmar  SM 130 43.39446 10.224225 0.8967239 1.7741901
+## 9  gualeguaychu   I 388 29.73510  9.220129 0.4680811 0.9203003
+## 10 gualeguaychu  MM 104 43.43865 10.368238 1.0166894 2.0163636
+## 11 gualeguaychu   M  52 52.05827  8.931949 1.2386384 2.4866704
+## 12 gualeguaychu  SM  12 47.32083  9.531829 2.7516021 6.0562355</code></pre>
+<div id="color_l" class="section level2">
+<h2>color_L</h2>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Densidad (frecuencia) de valores encontrados para los 4 estados de
 madurez con promedio.</p>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-5-3.png" width="960" style="display: block; margin: auto;" />
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" />
 Tabla de color promedio por madurez.</p>
-<pre><code>##   madurez       Lc        ac       bc
-## 1       I 49.42974 -3.428042 32.43526
-## 2      MM 56.98465  4.479208 43.99984
-## 3       M 60.77104 13.187747 52.28874
-## 4      SM 53.63335 17.423670 44.42711</code></pre>
+<pre><code>##   Lmu.mad Lmu.grp.mean amu.grp.mean bmu.grp.mean
+## 1       I     50.36056    -4.702311     33.77067
+## 2      MM     57.62078     2.778246     45.48081
+## 3       M     61.98239    12.407876     53.68757
+## 4      SM     54.04895    17.147742     44.98548</code></pre>
 <p>Densidad (frecuencia) de valores encontrados para los 4 estados de
-madurez con línea de mayor frecuencia.
-<img src="Colorimetry_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-7-2.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-7-3.png" width="960" style="display: block; margin: auto;" />
+madurez con Línea de mayor frecuencia.
+<img src="Colorimetry_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" />
 Tabla de color más frecuente por madurez.</p>
-<pre><code>##   mad      Lfc       afc      bfc
-## 1   I 49.88773 -8.821792 38.20100
-## 2  MM 57.29858  1.356885 48.71289
-## 3   M 63.01838 10.579560 52.20948
-## 4  SM 50.07214 19.193400 38.95771</code></pre>
+<pre><code>##        Lcm        acm      bcm
+## 1 51.37369 -8.7950137 38.00813
+## 2 57.55477  0.9702936 48.97375
+## 3 63.54434 11.0373012 57.95549
+## 4 49.68287 14.6332245 39.53696</code></pre>
 <div id="paleta-de-colores." class="section level3">
 <h3>Paleta de colores.</h3>
 <div class="figure">
-<img src="coloresmadREF.JPG" alt="A caption" width="100%" />
+<img src="coloresmadREF.JPG" alt="color_a caption" width="100%" />
 <p class="caption">
-A caption
+color_a caption
 </p>
 </div>
 <p>IP: inmaduro promedio, IF: inmaduro con mayor frecuencia, MMP: medio
@@ -435,162 +467,295 @@ SMF: sobre maduro con mayor frecuencia.</p>
 <div id="estadística-inferencial-estados-de-madurez."
 class="section level1">
 <h1>Estadística inferencial: estados de madurez.</h1>
-<div id="l-1" class="section level2">
-<h2>L</h2>
-<pre><code>## Denom. DF: 1022 
+<div id="color_l-1" class="section level2">
+<h2>color_L</h2>
+<pre><code>## Denom. DF: 1504 
 ##             numDF  F-value p-value
-## (Intercept)     1 74047.03  &lt;.0001
-## MAD             3   149.80  &lt;.0001</code></pre>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
+## (Intercept)     1 94763.86  &lt;.0001
+## mad             3   211.29  &lt;.0001</code></pre>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="a-1" class="section level2">
-<h2>a</h2>
-<pre><code>## Denom. DF: 1022 
-##             numDF  F-value p-value
-## (Intercept)     1 50723.88  &lt;.0001
-## MAD             3   684.81  &lt;.0001</code></pre>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="color_a" class="section level2">
+<h2>color_a</h2>
+<pre><code>## Denom. DF: 1504 
+##             numDF   F-value p-value
+## (Intercept)     1  390.2274  &lt;.0001
+## mad             3 1200.6841  &lt;.0001</code></pre>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="b-1" class="section level2">
-<h2>b</h2>
-<pre><code>## Denom. DF: 1022 
+<div id="color_b" class="section level2">
+<h2>color_b</h2>
+<pre><code>## Denom. DF: 1504 
 ##             numDF  F-value p-value
-## (Intercept)     1 18278.93  &lt;.0001
-## MAD             3   222.33  &lt;.0001</code></pre>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+## (Intercept)     1 26212.21  &lt;.0001
+## mad             3   322.90  &lt;.0001</code></pre>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="conclusión" class="section level1">
 <h1>Conclusión</h1>
 <p>Se encontraron diferencias significativas para todos los estados de
-madurez en las 3 escalas L, a y b. Sólo en la escala b no se diferencia
-MM de SM.</p>
+madurez en las 3 escalas color_L, a y b. Sólo en la escala b no se
+diferencia MM de SM.</p>
 </div>
 <div id="estadística-inferencial-poblaciones." class="section level1">
 <h1>Estadística inferencial: poblaciones.</h1>
-<div id="l-2" class="section level2">
-<h2>L</h2>
+<div id="color_l-2" class="section level2">
+<h2>color_L</h2>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
-## Formula: L ~ 1 + (1 | REG/ACC/id)
+## Formula: color_L ~ 1 + (1 | site/phenotype/id)
 ##    Data: data
 ## 
-## REML criterion at convergence: 6668.3
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -2.87068 -0.47702  0.03217  0.51644  2.16809 
-## 
-## Random effects:
-##  Groups       Name        Variance Std.Dev.
-##  id:(ACC:REG) (Intercept) 29.15    5.399   
-##  ACC:REG      (Intercept) 14.23    3.772   
-##  REG          (Intercept) 10.68    3.268   
-##  Residual                 17.14    4.140   
-## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
-## 
-## Fixed effects:
-##             Estimate Std. Error t value
-## (Intercept)    53.76       1.98   27.15</code></pre>
-</div>
-<div id="a-2" class="section level2">
-<h2>a</h2>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
-## Formula: a ~ 1 + (1 | REG/ACC/id)
-##    Data: data
-## 
-## REML criterion at convergence: 6799.7
-## 
-## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -2.86950 -0.41349 -0.00893  0.45624  2.90675 
-## 
-## Random effects:
-##  Groups       Name        Variance Std.Dev.
-##  id:(ACC:REG) (Intercept) 50.60    7.113   
-##  ACC:REG      (Intercept) 32.96    5.741   
-##  REG          (Intercept) 19.33    4.397   
-##  Residual                 14.05    3.748   
-## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
-## 
-## Fixed effects:
-##             Estimate Std. Error t value
-## (Intercept)    5.253      2.687   1.955</code></pre>
-</div>
-<div id="b-2" class="section level2">
-<h2>b</h2>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
-## Formula: b ~ 1 + (1 | REG/ACC/id)
-##    Data: data
-## 
-## REML criterion at convergence: 7609
+## REML criterion at convergence: 9954.4
 ## 
 ## Scaled residuals: 
 ##     Min      1Q  Median      3Q     Max 
-## -3.9114 -0.4641  0.0154  0.5155  3.5198 
+## -3.7816 -0.4084  0.0426  0.4553  2.1663 
 ## 
 ## Random effects:
-##  Groups       Name        Variance Std.Dev.
-##  id:(ACC:REG) (Intercept) 60.95    7.807   
-##  ACC:REG      (Intercept) 39.28    6.268   
-##  REG          (Intercept) 14.65    3.828   
-##  Residual                 47.25    6.874   
-## Number of obs: 1026, groups:  id:(ACC:REG), 513; ACC:REG, 51; REG, 3
+##  Groups              Name        Variance Std.Dev.
+##  id:(phenotype:site) (Intercept) 31.79    5.639   
+##  phenotype:site      (Intercept) 11.53    3.396   
+##  site                (Intercept) 15.62    3.952   
+##  Residual                        17.07    4.132   
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
-## (Intercept)   40.648      2.417   16.82</code></pre>
+## (Intercept)   54.096      2.342    23.1</code></pre>
+</div>
+<div id="color_a-1" class="section level2">
+<h2>color_a</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: color_a ~ 1 + (1 | site/phenotype/id)
+##    Data: data
+## 
+## REML criterion at convergence: 10261.1
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.76318 -0.35132 -0.04838  0.37788  3.05568 
+## 
+## Random effects:
+##  Groups              Name        Variance Std.Dev.
+##  id:(phenotype:site) (Intercept) 55.63    7.458   
+##  phenotype:site      (Intercept) 27.86    5.278   
+##  site                (Intercept) 33.74    5.809   
+##  Residual                        13.84    3.721   
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)    3.088      3.446   0.896</code></pre>
+</div>
+<div id="color_b-1" class="section level2">
+<h2>color_b</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: color_b ~ 1 + (1 | site/phenotype/id)
+##    Data: data
+## 
+## REML criterion at convergence: 11166.3
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.1762 -0.4497  0.0220  0.4708  3.4427 
+## 
+## Random effects:
+##  Groups              Name        Variance Std.Dev.
+##  id:(phenotype:site) (Intercept) 57.04    7.553   
+##  phenotype:site      (Intercept) 32.33    5.686   
+##  site                (Intercept) 26.19    5.118   
+##  Residual                        44.95    6.704   
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)   40.883      3.077   13.29
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## Model failed to converge with max|grad| = 0.00482897 (tol = 0.002, component 1)</code></pre>
 </div>
 </div>
 <div id="significación" class="section level1">
 <h1>Significación</h1>
 <pre><code>## Data: data
 ## Models:
-## L23: L ~ 1 + (1 | REG)
-## L2: L ~ 1 + (1 | REG/ACC/id)
-##     npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
-## L23    3 7134.8 7149.6 -3564.4   7128.8                         
-## L2     5 6681.3 6706.0 -3335.7   6671.3 457.51  2  &lt; 2.2e-16 ***
+## L23: color_L ~ 1 + (1 | site)
+## L2: color_L ~ 1 + (1 | site/phenotype/id)
+##     npar     AIC     BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
+## L23    3 10479.2 10495.1 -5236.6  10473.2                         
+## L2     5  9967.7  9994.3 -4978.9   9957.7 515.44  2  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##     df       AIC
+## L2   5  9964.411
+## L23  3 10475.799</code></pre>
+<pre><code>## Data: data
+## Models:
+## a23: color_a ~ 1 + (1 | site)
+## a2: color_a ~ 1 + (1 | site/phenotype/id)
+##     npar   AIC   BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
+## a23    3 11170 11186 -5582.0    11164                         
+## a2     5 10275 10302 -5132.6    10265 898.75  2  &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>##     df      AIC
-## L2   5 6678.331
-## L23  3 7131.846</code></pre>
+## a2   5 10271.09
+## a23  3 11166.00</code></pre>
 <pre><code>## Data: data
 ## Models:
-## a23: a ~ 1 + (1 | REG)
-## a2: a ~ 1 + (1 | REG/ACC/id)
-##     npar    AIC    BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
-## a23    3 7601.8 7616.6 -3797.9   7595.8                         
-## a2     5 6813.3 6837.9 -3401.6   6803.3 792.53  2  &lt; 2.2e-16 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>##     df      AIC
-## a2   5 6809.680
-## a23  3 7598.356</code></pre>
-<pre><code>## Data: data
-## Models:
-## b23: a ~ 1 + (1 | REG)
-## b2: b ~ 1 + (1 | REG/ACC/id)
-##     npar    AIC    BIC  logLik deviance Chisq Df Pr(&gt;Chisq)
-## b23    3 7601.8 7616.6 -3797.9   7595.8                    
-## b2     5 7622.4 7647.1 -3806.2   7612.4     0  2          1</code></pre>
-<pre><code>##     df      AIC
-## b2   5 7618.999
-## b23  3 7598.356</code></pre>
+## b23: color_a ~ 1 + (1 | site)
+## b2: color_b ~ 1 + (1 | site/phenotype/id)
+##     npar   AIC   BIC  logLik deviance Chisq Df Pr(&gt;Chisq)
+## b23    3 11170 11186 -5582.0    11164                    
+## b2     5 11180 11207 -5585.1    11170     0  2          1</code></pre>
+<pre><code>##     df     AIC
+## b2   5 11176.3
+## b23  3 11166.0</code></pre>
 </div>
 <div id="coeficientes-de-correlación-intra-clase-cci"
 class="section level1">
 <h1>Coeficientes de correlación intra clase (CCI)</h1>
 <p><em>Varianza residual sobre la varianza total</em></p>
-<div id="l-3" class="section level2">
-<h2>L</h2>
 </div>
-<div id="a-3" class="section level2">
-<h2>a</h2>
+<div id="principal-component-analysis" class="section level1">
+<h1>Principal component analysis</h1>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="b-3" class="section level2">
-<h2>b</h2>
+<div id="univariate-analysis-for-the-color-component-lab"
+class="section level1">
+<h1>Univariate analysis for the color component Lab</h1>
+<div id="descriptive-table-for-principal-color-component"
+class="section level2">
+<h2>Descriptive table for principal color component</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">mad</th>
+<th align="right">N</th>
+<th align="right">color_G</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">I</td>
+<td align="right">766</td>
+<td align="right">54.41176</td>
+<td align="right">10.908787</td>
+<td align="right">0.3941505</td>
+<td align="right">0.7737449</td>
+</tr>
+<tr class="even">
+<td align="left">MM</td>
+<td align="right">268</td>
+<td align="right">69.59369</td>
+<td align="right">10.865516</td>
+<td align="right">0.6637170</td>
+<td align="right">1.3067849</td>
+</tr>
+<tr class="odd">
+<td align="left">M</td>
+<td align="right">226</td>
+<td align="right">81.20140</td>
+<td align="right">9.467084</td>
+<td align="right">0.6297411</td>
+<td align="right">1.2409447</td>
+</tr>
+<tr class="even">
+<td align="left">SM</td>
+<td align="right">248</td>
+<td align="right">71.64590</td>
+<td align="right">10.924151</td>
+<td align="right">0.6936843</td>
+<td align="right">1.3662908</td>
+</tr>
+</tbody>
+</table>
+<p><em>Higher values indicate more advanced stages of
+maturation</em></p>
 </div>
+<div id="descriptive-graphic-sd" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model" class="section level2">
+<h2>The model</h2>
+<pre><code>## gls(model = (color_G) ~ mad, data = data_color_G, weights = varIdent(form = ~1 | 
+##     mad))</code></pre>
+</div>
+<div id="assumptions-check" class="section level2">
+<h2>Assumptions check</h2>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-25-1.png" width="960" style="display: block; margin: auto;" /><img src="Colorimetry_files/figure-html/unnamed-chunk-25-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.99518, p-value = 9.189e-05</code></pre>
+</div>
+<div id="anova-comparison-of-means" class="section level2">
+<h2>Anova (comparison of means)</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">numDF</th>
+<th align="right">F-value</th>
+<th align="right">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">1</td>
+<td align="right">55823.4665</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">mad</td>
+<td align="right">3</td>
+<td align="right">507.5049</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tukey-test" class="section level2">
+<h2>Tukey test</h2>
+<pre><code>## $emmeans
+##  mad emmean    SE  df lower.CL upper.CL
+##  I     54.4 0.394 736     53.6     55.2
+##  MM    69.6 0.664 232     68.3     70.9
+##  M     81.2 0.630 223     80.0     82.4
+##  SM    71.6 0.694 248     70.3     73.0
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the ( (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate    SE  df t.ratio p.value
+##  I - MM     -15.18 0.772 419 -19.668  &lt;.0001
+##  I - M      -26.79 0.743 411 -36.060  &lt;.0001
+##  I - SM     -17.23 0.798 419 -21.601  &lt;.0001
+##  MM - M     -11.61 0.915 465 -12.687  &lt;.0001
+##  MM - SM     -2.05 0.960 480  -2.138  0.1428
+##  M - SM       9.56 0.937 470  10.199  &lt;.0001
+## 
+## Note: contrasts are still on the ( scale 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" />
+# Color correlation</p>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="discriminant-analysis" class="section level1">
+<h1>Discriminant Analysis</h1>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

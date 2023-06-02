@@ -5,162 +5,362 @@ title: "Colorimetry"
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
-data<-read.delim("color.txt")
+library(readxl)
+data<-read_excel("database.xlsx", sheet="color")
 data$id<-as.factor(data$id)
-data$REG<-as.factor(data$REG)
-data$ACC<-as.factor(data$ACC)
-data$MAD<-as.factor(data$MAD)
-data$MAD<-factor(data$MAD,levels=c("I", "MM", "M", "SM"))
-data$REG<-factor(data$REG,levels=c("Concordia", "Palmar", "Gualeguaychu"))
-library(ggplot2)
+data$site<-as.factor(data$site)
+data$phenotype<-as.factor(data$phenotype)
+data$mad<-as.factor(data$mad)
+data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
+data$site<-factor(data$site,levels=c("concordia", "palmar", "gualeguaychu"))
+
 ```
 
-Colorimetría cuantificada en 4 estados de maurez:
-Inmaduro (I), Medio Maduro (MM), Maduro (M), Sobre Maduro (SM).
+Colorimetry quantified in 4 states of ripeness:
+Immature (I), Medium Ripe (MM), Ripe (M), Overripe (SM).
 
-En 3 poblaciones de Entre Ríos:
-Concordia, PN El Palmar y Gualeguaychú.
+In 3 populations of Entre Rios:
+Concordia, PN El Palmar, and Gualeguaychú.
 
-Escala CieLab:
-L: luminosidad
-+a: rojo
--a: verde
-+b: amarillo
--b: azul
+CieLab scale:
+color_L: luminosity
++a: red
+-a: green
++b: yellow
+-b: blue
 
-colorímetro digital 3NH NH300
+3NH NH300 digital colorimeter.
 
 # Estadística descriptiva
 
-## L
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-g1<-ggplot2::ggplot(data, aes(x=MAD, y=L, color=REG, width=1)) +
-    geom_boxplot()+
-    scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
-    labs(y="L", x="Madurez")+
-    theme(panel.grid.major.x = element_blank())
-g1
+library(Rmisc)
+table_color_L <- summarySE(data, measurevar="color_L", groupvars=c("site","mad"),na.rm = TRUE)
+table_color_a <- summarySE(data, measurevar="color_a", groupvars=c("site","mad"),na.rm = TRUE)
+table_color_b <- summarySE(data, measurevar="color_b", groupvars=c("site","mad"),na.rm = TRUE)
+
+table_color_L
+table_color_a
+table_color_b
 ```
 
-## a
+## color_L
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+g1_color_L<-ggplot2::ggplot(table_color_L, aes(x=mad, y=color_L, fill=site, width=0.8)) +
+    stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(0.8)) +
+    geom_errorbar(aes(ymin=color_L-sd, ymax=color_L+sd),
+                width=.2, position=position_dodge(1))+
+    scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
+    labs(y="color_L", x="Maturity")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
 
-g2<-ggplot2::ggplot(data, aes(x=MAD, y=a, color=REG, width=1)) +
-    geom_boxplot()+
-    scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
-    labs(y="a", x="Madurez")+
-    theme(panel.grid.major.x = element_blank())
-g2
 ```
 
-## b
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-g3<-ggplot2::ggplot(data, aes(x=MAD, y=b, color=REG, width=1)) +
-    geom_boxplot()+
-    scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
-    labs(y="b", x="Madurez")+
-    theme(panel.grid.major.x = element_blank())
-g3
+library(ggplot2)
+g1_color_a<-ggplot2::ggplot(table_color_a, aes(x=mad, y=color_a, fill=site, width=0.8)) +
+    stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(0.8)) +
+    geom_errorbar(aes(ymin=color_a-sd, ymax=color_a+sd),
+                width=.2, position=position_dodge(1))+
+    scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
+    labs(y="color_a", x="Maturity")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
 
 ```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+g1_color_b<-ggplot2::ggplot(table_color_b, aes(x=mad, y=color_b, fill=site, width=0.8)) +
+    stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(0.8)) +
+    geom_errorbar(aes(ymin=color_b-sd, ymax=color_b+sd),
+                width=.2, position=position_dodge(1))+
+    scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
+    labs(y="color_b", x="Maturity")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggpubr)
+Labgmu<- ggarrange(g1_color_L,g1_color_a,g1_color_b, ncol = 1,
+  nrow = 3)
+Labgmu
+```
+
 
 Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con promedio.
 
-```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(plyr)
-Lmu <- plyr::ddply(data, "MAD", summarise, grp.mean=mean(L))
-ggplot2::ggplot(data, aes(x=L, color=MAD)) +
-  geom_density(alpha=0.4) +
-  xlab("L")+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  geom_vline(data=Lmu, aes(xintercept=grp.mean, color=MAD),linetype="dashed")
+Lmu <- plyr::ddply(data, "mad", summarise, grp.mean=mean(color_L))
+gLmu<-ggplot2::ggplot(data, aes(x=color_L, color=mad)) +
+  geom_density(alpha=0.7) +
+  xlab("color_L")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood4"))+
+  theme_classic()+
+  geom_vline(data=Lmu, aes(xintercept=grp.mean, color=mad),linetype="dashed")+
+  theme(legend.position = "none")
 
-amu <- plyr::ddply(data, "MAD", summarise, grp.mean=mean(a))
-ggplot2::ggplot(data, aes(x=a, color=MAD)) +
-  geom_density(alpha=0.4) +
-  xlab("a")+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  geom_vline(data=amu, aes(xintercept=grp.mean, color=MAD),linetype="dashed")
+amu <- plyr::ddply(data, "mad", summarise, grp.mean=mean(color_a))
+gamu<-ggplot2::ggplot(data, aes(x=color_a, color=mad)) +
+  geom_density(alpha=0.7) +
+  xlab("color_a")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood4"))+
+  theme_classic()+
+  geom_vline(data=amu, aes(xintercept=grp.mean, color=mad),linetype="dashed")+
+  theme(legend.position = "none")
 
-bmu <- plyr::ddply(data, "MAD", summarise, grp.mean=mean(b))
-ggplot2::ggplot(data, aes(x=b, color=MAD)) +
-  geom_density(alpha=0.4) +
-  xlab("b")+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  geom_vline(data=bmu, aes(xintercept=grp.mean, color=MAD),linetype="dashed")
+bmu <- plyr::ddply(data, "mad", summarise, grp.mean=mean(color_b))
+gbmu<-ggplot2::ggplot(data, aes(x=color_b, color=mad)) +
+  geom_density(alpha=0.7) +
+  xlab("color_b")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood4"))+
+  theme_classic()+
+  geom_vline(data=bmu, aes(xintercept=grp.mean, color=mad),linetype="dashed")+
+  theme(legend.position = "bottom")
+
+library(ggpubr)
+Labgmu<- ggarrange(gLmu,gamu,gbmu, ncol = 1,
+  nrow = 3)
+Labgmu
 
 ```
 Tabla de color promedio por madurez.
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-madurez<-c("I","MM","M","SM")
-Lc<-c(49.42974,56.98465,60.77104,53.63335)
-ac<-c(-3.428042,4.479208,13.187747,17.423670)
-bc<-c(32.43526,43.99984,52.28874,44.42711)
-tc<-data.frame(madurez,Lc,ac,bc)
+tc<-data.frame(Lmu$mad, Lmu$grp.mean,amu$grp.mean,bmu$grp.mean)
 tc
+
 ```
 
-Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con línea de mayor frecuencia.
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# color_L ----
+icolor_L<-data[data$mad == "I", ]
+
+d <- density(icolor_L$color_L)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_L))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+micolor_L<-modes(d)[1:170,]
+D_i_L<-micolor_L$x[which.max(micolor_L$y)]  
+# 51.37369
+mmcolor_L<-data[data$mad == "MM", ]
+
+d <- density(mmcolor_L$color_L)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_L))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+mmcolor_L<-modes(d)
+D_mm_L<-mmcolor_L$x[which.max(mmcolor_L$y)]  
+# 57.29858
+mcolor_L<-data[data$mad == "M", ]
+
+d <- density(mcolor_L$color_L)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_L))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+mcolor_L<-modes(d)
+D_m_L<-mcolor_L$x[which.max(mcolor_L$y)]  
+# 63.01838
+smcolor_L<-data[data$mad == "SM", ]
+
+d <- density(smcolor_L$color_L)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_L))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+smcolor_L<-modes(d)
+D_sm_L<-smcolor_L$x[which.max(smcolor_L$y)]  
+# 50.07214
+
+# a ----
+
+ia<-data[data$mad == "I", ]
+
+d <- density(ia$color_a)
+
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_a))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+ia<-modes(d)
+D_i_a<-ia$x[which.max(ia$y)]  
+# -8.821792
+mma<-data[data$mad == "MM", ]
+
+d <- density(mma$color_a)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_a))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+mma<-modes(d)
+D_mm_a<-mma$x[which.max(mma$y)]  
+# 1.356885
+ma<-data[data$mad == "M", ]
+
+d <- density(ma$color_a)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_a))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+ma<-modes(d)
+D_m_a<-ma$x[which.max(ma$y)]  
+# 10.57956
+sma<-data[data$mad == "SM", ]
+
+d <- density(sma$color_a)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_a))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+sma<-modes(d)
+D_sm_a<-sma$x[which.max(sma$y)]  
+# 19.1934
+
+
+# b ----
+
+ib<-data[data$mad == "I", ]
+
+d <- density(ib$color_b)
+
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_b))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+ib<-modes(d)
+D_i_b<-ib$x[which.max(ib$y)]  
+# 38.201
+mmb<-data[data$mad == "MM", ]
+
+d <- density(mmb$color_b)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_b))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+mmb<-modes(d)
+D_mm_b<-mmb$x[which.max(mmb$y)]  
+# 48.71289
+mb<-data[data$mad == "M", ]
+
+d <- density(mb$color_b)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_b))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+mb<-modes(d)
+D_m_b<-mb$x[which.max(mb$y)]  
+# 52.20948
+smb<-data[data$mad == "SM", ]
+
+d <- density(smb$color_b)
+modes <- function(d){
+  i <- which(diff(sign(diff(data$color_b))) < 0) + 1
+  data.frame(x = d$x[i], y = d$y[i])
+}
+smb<-modes(d)
+D_sm_b<-smb$x[which.max(smb$y)]  
+# 38.95771
+
+```
+
+Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con Línea de mayor frecuencia.
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 #Color pico máximo por madurez
 
 madurezm<-c("I","MM","M","SM")
-Lcm<-c(49.88773,57.29858,63.01838,50.07214)
-mc<-data.frame(madurezm,Lcm)
+Lcm<-c(D_i_L,D_mm_L,D_m_L,D_sm_L)
+mcL<-data.frame(madurezm,Lcm)
 
-ggplot2::ggplot(data, aes(x=L, color=MAD)) +
+g2_color_L <- ggplot2::ggplot(data, aes(x=color_L, color=mad)) +
   geom_density(alpha=0.4) +
-  xlab("L")+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  geom_vline(data=mc, aes(xintercept=Lcm, color=madurez),linetype="dashed")
+  xlab("color_L")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood4"))+
+  theme_classic()+
+  geom_vline(data=mcL, aes(xintercept=Lcm, color=madurezm),linetype="dashed")+
+  theme(legend.position = "none")
 
 madurezm<-c("I","MM","M","SM")
-acm<-c(-8.821792,1.356885,10.57956,19.1934)
-mc<-data.frame(madurezm,acm)
+acm<-c(D_i_a,D_mm_a,D_m_a,D_sm_a)
+mca<-data.frame(madurezm,acm)
 
-ggplot2::ggplot(data, aes(x=a, color=MAD)) +
+g2_color_a <- ggplot2::ggplot(data, aes(x=color_a, color=mad)) +
   geom_density(alpha=0.4) +
-  xlab("a")+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  geom_vline(data=mc, aes(xintercept=acm, color=madurez),linetype="dashed")
+  xlab("color_a")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood4"))+
+  theme_classic()+
+  geom_vline(data=mca, aes(xintercept=acm, color=madurezm),linetype="dashed")+
+  theme(legend.position = "none")
 
 madurezm<-c("I","MM","M","SM")
-bcm<-c(38.201,48.71289,52.20948,38.95771)
-mc<-data.frame(madurezm,bcm)
+bcm<-c(D_i_b,D_mm_b,D_m_b,D_sm_b)
+mcb<-data.frame(madurezm,bcm)
 
-ggplot2::ggplot(data, aes(x=a, color=MAD)) +
+g2_color_b <- ggplot2::ggplot(data, aes(x=color_a, color=mad)) +
   geom_density(alpha=0.4) +
-  xlab("b")+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  geom_vline(data=mc, aes(xintercept=acm, color=madurez),linetype="dashed")
+  xlab("color_b")+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood4"))+
+  theme_classic()+
+  geom_vline(data=mcb, aes(xintercept=acm, color=madurezm),linetype="dashed")+
+  theme(legend.position = "bottom")
+
+library(ggpubr)
+Labgden<- ggarrange(g2_color_L,g2_color_a,g2_color_b, ncol = 1,
+  nrow = 3)
+Labgden
 
 ```
 Tabla de color más frecuente por madurez.
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-mad<-c("I","MM","M","SM")
-Lfc<-c(49.88773,57.29858,63.01838,50.07214)
-afc<-c(-8.821792,1.356885,10.57956,19.1934)
-bfc<-c(38.201,48.71289,52.20948,38.95771)
-fc<-data.frame(mad,Lfc,afc,bfc)
+fc<-data.frame(Lcm,acm,bcm)
 fc
+
 ```
 
 ### Paleta de colores.
 
-```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+```{r pressure, echo=FALSE, fig.cap="color_a caption", out.width = '100%'}
 knitr::include_graphics("coloresmadREF.JPG")
 ```
 
@@ -168,78 +368,77 @@ IP: inmaduro promedio, IF: inmaduro con mayor frecuencia, MMP: medio maduro prom
 
 # Estadística inferencial: estados de madurez.
 
-## L
+## color_L
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library("nlme")
-mL<-nlme::gls(L~MAD, weights=varIdent(form=~1|MAD), data)
+mL<-nlme::gls(color_L~mad, weights=varIdent(form=~1|mad), data)
 anova(mL)
 library(emmeans)
-compL<-emmeans::emmeans(mL, pairwise ~ MAD, mode = "df.error")
+compL<-emmeans::emmeans(mL, pairwise ~ mad, mode = "df.error")
 plot(compL, comparisons = TRUE)
 ```
 
-## a
+## color_a
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-#Transformación de a
-data$sa<-data$a+12.46
-attach(data)
-data$sa<-sqrt(sa)
-attach(data)
+#Transformación de color_a
+# data$sa<-data$color_a+12.46
+# 
+# data$sa<-sqrt(data$sa)
 
-ma<-nlme::gls(sa~MAD, weights=varIdent(form=~1|MAD), data)
+ma<-nlme::gls(color_a~mad, weights=varIdent(form=~1|mad), data=data)
 anova(ma)
 library(emmeans)
-compa<-emmeans::emmeans(ma, pairwise ~ MAD, mode = "df.error")
+compa<-emmeans::emmeans(ma, pairwise ~ mad, mode = "df.error")
 plot(compa, comparisons = TRUE)
 ```
 
-## b
+## color_b
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-mb<-nlme::gls(b~MAD, weights=varIdent(form=~1|MAD), data)
+mb<-nlme::gls(color_b~mad, weights=varIdent(form=~1|mad), data)
 anova(mb)
 library(emmeans)
-compb<-emmeans::emmeans(mb, pairwise ~ MAD, mode = "df.error")
+compb<-emmeans::emmeans(mb, pairwise ~ mad, mode = "df.error")
 plot(compb, comparisons = TRUE)
 ```
 
 # Conclusión
 
-Se encontraron diferencias significativas para todos los estados de madurez en las 3 escalas L, a y b. Sólo en la escala b no se diferencia MM de SM.
+Se encontraron diferencias significativas para todos los estados de madurez en las 3 escalas color_L, a y b. Sólo en la escala b no se diferencia MM de SM.
 
 # Estadística inferencial: poblaciones.
 
-## L
+## color_L
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lme4)
-L2<- lme4::lmer(L ~ 1 + (1|REG/ACC/id), data)
+L2<- lme4::lmer(color_L ~ 1 + (1|site/phenotype/id), data)
 summary(L2)
 library(sjPlot)
 # sjPlot::plot_model(L2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
-## a
+## color_a
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-a2<- lme4::lmer(a ~ 1 + (1|REG/ACC/id), data)
+a2<- lme4::lmer(color_a ~ 1 + (1|site/phenotype/id), data)
 summary(a2)
 # library(sjPlot)
 # sjPlot::plot_model(a2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
-## b
+## color_b
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-b2<- lme4::lmer(b ~ 1 + (1|REG/ACC/id), data)
+b2<- lme4::lmer(color_b ~ 1 + (1|site/phenotype/id), data)
 summary(b2)
 # library(sjPlot)
 # sjPlot::plot_model(b2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
@@ -251,15 +450,15 @@ summary(b2)
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-L23<- lme4::lmer(L ~ 1 + (1|REG), data)
+L23<- lme4::lmer(color_L ~ 1 + (1|site), data)
 anova(L2,L23)
 AIC(L2,L23)
 
-a23<- lme4::lmer(a ~ 1 + (1|REG), data)
+a23<- lme4::lmer(color_a ~ 1 + (1|site), data)
 anova(a2,a23)
 AIC(a2,a23)
 
-b23<- lme4::lmer(a ~ 1 + (1|REG), data)
+b23<- lme4::lmer(color_a ~ 1 + (1|site), data)
 anova(b2,b23)
 AIC(b2,b23)
 ```
@@ -267,23 +466,359 @@ AIC(b2,b23)
 # Coeficientes de correlación intra clase (CCI)
 *Varianza residual sobre la varianza total*
 
-## L
-```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+# Principal component analysis
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# sjPlot::tab_model(L2)
+datos <- data[,-c(1:6,10:16)]
+
+library(FactoMineR)
+pca_result <- PCA(datos, scale.unit = TRUE, graph = FALSE)
+
+# Extraer las coordenadas de las variables originales
+coordenadas <- pca_result$ind$coord[, 1:2]
+data_pca <- cbind(coordenadas,data[,6])
+
+library(ggplot2)
+colores<-c("palegreen4","green2","orange","burlywood4")
+pcag<-ggplot(data=data_pca, aes(x=Dim.1, y=Dim.2, color=mad))+
+  geom_point(size=4)+
+  theme_classic()+
+  scale_color_manual(values = colores)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_blank())+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  labs(x="D1 64,76 %", y="D2 29,92 %")+
+  geom_vline(xintercept = 0, color="black")+
+  geom_hline(yintercept = 0, color="black")+
+  stat_ellipse(aes(x=Dim.1, y=Dim.2,color=mad),type = "norm")
+
+pcag
 ```
 
-## a
-```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+# Univariate analysis for the color component Lab
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# sjPlot::tab_model(a2)
+library(readxl)
+data<-read_excel("database.xlsx", sheet="color")
+data$id<-as.factor(data$id)
+data$site<-as.factor(data$site)
+data$phenotype<-as.factor(data$phenotype)
+data$mad<-as.factor(data$mad)
+data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
+data$site<-factor(data$site,levels=c("concordia", "palmar", "gualeguaychu"))
+
+data_color_G<- data[,-c(1,3:5,7:9)]
+
 ```
 
-## b
-```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+## Descriptive table for principal color component
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# sjPlot::tab_model(b2)
+# library(dplyr)
+# table_color_G<- data_color_G %>%
+#   group_by(mad) %>%
+#   summarise(
+#     mean = mean(color_G),
+#     min = min(color_G),
+#     max = max(color_G),
+#     sd = sd(color_G)
+#   )
+
+library(Rmisc)
+table_color_G <- summarySE(data_color_G, measurevar="color_G", groupvars=c("mad"), na.rm = TRUE)
+
+library(knitr)
+kable(table_color_G, format = "markdown")
+
+# library(Rmisc)
+# table_color_G<- summarySE(data_color, measurevar="color_G", groupvars=c("mad"))
+
+
+```
+
+*Higher values indicate more advanced stages of maturation*
+
+## Descriptive graphic (sd)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("palegreen4","green2","orange","burlywood4")
+gcolor_G<-ggplot(data=table_color_G, aes(x=mad, y=color_G, fill=mad))+
+  stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(1)) +
+  geom_errorbar(aes(ymin=color_G-sd, ymax=color_G+sd),
+                width=.2, position=position_dodge(1))+
+  labs(x="", y="color_G")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gcolor_G
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Busqueda de outliers
+
+# Definir un umbral para identificar outliers (por ejemplo, 3 desviaciones estándar)
+# threshold <- mean(data_color_G$color_G) + (2 * sd(data_color_G$color_G))
+
+# max(data_color_G$color_G) > threshold
+
+# No hay outliers
+
+```
+
+## The model
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Modelo para comparación de medias
+
+# model_color_G <- aov(color_G ~ mad, data=data_color_G)
+
+library(nlme)
+model_color_G <- gls((color_G) ~ mad, weights=varIdent(form= ~ 1|mad ), data=data_color_G)
+# model_color_G <- glm((1/color_G) ~ mad, family = "Gamma", data = data_color_G)
+# AIC(model_color_G, m1, m2)
+
+# library(MASS)
+# # Aplicar la transformación de Box-Cox
+# b <- boxcox(lm(data_color_G$color_G~1))
+# lambda <- b$x[which.max(b$y)]
+# new_x_exact <- (data_color_G$color_G ^ lambda - 1) / lambda
+
+model_color_G$call
+
+```
+
+## Assumptions check
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ color_G_ajust <- as.data.frame(cbind(
+   "residuos" = residuals(model_color_G),
+   "predichos" = predict(model_color_G)))
+
+ library(ggplot2)
+ HV_color_G<-ggplot(color_G_ajust) +
+   aes(predichos, residuos) +
+   geom_hline(yintercept = 0, colour="white", size=2) +
+   geom_point(colour="white")+
+   theme_classic()+
+   labs(y="Residuals", x="Predicted values")+
+   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+   theme(panel.grid.major.x = element_blank())+
+   theme(text = element_text(size=20, color='white'))+
+   theme(axis.text = element_text(color='white'))+
+   theme(plot.background = element_rect(fill = "gray12"))+
+   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+ HV_color_G
+
+ QQ_color_G<-ggplot(color_G_ajust) +
+   aes(sample = residuos) +
+   geom_qq(shape = 1, colour="white") +
+   geom_qq_line(colour="white")+
+   theme_classic()+
+   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+   theme(panel.grid.major.x = element_blank())+
+   theme(text = element_text(size=20, color='white'))+
+   theme(axis.text = element_text(color='white'))+
+   theme(plot.background = element_rect(fill = "gray12"))+
+   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+ QQ_color_G
+
+ # Levene Test
+ # library(car)
+ # leveneTest(model_color_G)
+ 
+ ## NO hay homocedasticidad
+ 
+ # Shapiro-Wilks Test
+ e<-resid(model_color_G) # residuos de pearson
+ pre<-predict(model_color_G) #predichos
+ shapiro.test(e)
+
+# OK! con modelo gamma.
+
+```
+
+## Anova (comparison of means)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(car)
+# library(multcompView)
+# Anova(model_color_G)
+kable(anova(model_color_G), format = "markdown")
+```
+
+## Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(model_color_G, pairwise ~ mad) #Tukey  
+Comptar
+
+comp_color_G<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "color_G", y ="madment")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_color_G$color_G[table_color_G$mad == "I"]
+, y = 1.3 , label = "c")+
+  annotate("text", x = table_color_G$color_G[table_color_G$mad == "MM"]
+, y = 2.3, label = "b")+
+  annotate("text", x = table_color_G$color_G[table_color_G$mad == "M"]
+, y = 3.3, label = "a")+
+  annotate("text", x = table_color_G$color_G[table_color_G$mad == "SM"]
+, y = 4.3, label = "b")
+comp_color_G
+```
+# Color correlation
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+# Crear el gráfico con colores por población
+library(scatterplot3d)
+colors <- c("coral1","burlywood2","palegreen4")
+colors <- colors[as.numeric(data$site)]
+tdplot <-scatterplot3d(data[7:9],
+                       pch = 16,
+                       color = colors,
+                       box=FALSE,
+                       # type="h",
+                       angle = 280)
+legend("topright", legend = unique(data$site), col = unique(colors), pch = 16, title = "Sites")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear el gráfico
+library(scatterplot3d)
+colors <- c("palegreen4","green2","orange","burlywood4")
+colors <- colors[as.numeric(data$mad)]
+tdplot <-scatterplot3d(data[7:9],
+                       pch = 16,
+                       color = colors,
+                       box=FALSE,
+                       # type="h",
+                       angle = 280)
+legend("topright", legend = unique(data$mad), col = unique(colors), pch = 16, title = "Maturity")
+
+#Agregar plano
+# my.lm <- lm(color_G ~ color_L + color_a + color_b, data=data_color[,c(4:6,9)])
+#   tdplot$plane3d(my.lm, lty.box = "solid")
+
+```
+
+# Discriminant Analysis
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
+
+# Gráfico
+colores<-c("palegreen4","green2","orange","burlywood4")
+library(ggplot2)
+gcorLabmad<-ggplot(data=data, aes(x=axis_1, y=axis_2, color=mad,shape=site))+
+geom_point(size=2)+
+labs(x="axis_1", y="axis_2")+
+theme_classic()+
+scale_color_manual(values=colores)+
+  scale_x_continuous(breaks=seq(-6, 6, 1))+
+  scale_y_continuous(breaks=seq(-7, 4, 1))+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_blank())+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
+  # stat_ellipse(aes(x=axis_1, y=axis_2,color=mad),type = "norm")
+gcorLabmad
+
+#Error de clasificación total 22%
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data$site<-factor(data$site,levels=c("concordia", "palmar", "gualeguaychu"))
+# Gráfico
+colores<-c("coral1","burlywood2","palegreen4")
+library(ggplot2)
+gcorLabsite<-ggplot(data=data, aes(x=axis_3, y=axis_4, color=site, shape=mad))+
+geom_point(size=2)+
+labs(x="axis_1", y="axis_2")+
+theme_classic()+
+scale_color_manual(values=colores)+
+  scale_x_continuous(breaks=seq(-6, 6, 1))+
+  scale_y_continuous(breaks=seq(-7, 4, 1))+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_blank())+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
+  # stat_ellipse(aes(x=axis_1, y=axis_2,color=mad),type = "norm")
+gcorLabsite
+
+# Error de clasificación 41,78%
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+## Multiple Response Permutation Procedure (MRPP)
+# # Crear un vector con un numero por población.
+# nuevos_valores <- c(rep(1,48),rep(2,48),rep(3,48))
+# # Reemplazar los valores antiguos con los nuevos
+# grp <- nuevos_valores
+# data_color$mad <- factor(data_color$mad, levels = c("control","etileno", "1MCP"))
+# names(grp)<-(data_color$mad)
+# 
+# #mrpp
+# library(vegan)
+# library(lattice)
+# ubajay.mrpp<-mrpp(datos, grp, permutations = 999, distance = "bray", weight.type = 1) 
+# ubajay.mrpp
+
 ```
