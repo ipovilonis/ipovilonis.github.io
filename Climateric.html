@@ -13,7 +13,7 @@
 
 <title>Climateric</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -414,6 +414,9 @@ div.tocify {
       <a href="climateric2.html">Climacteric</a>
     </li>
     <li>
+      <a href="climateric3.html">Climacteric color</a>
+    </li>
+    <li>
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
@@ -424,6 +427,9 @@ div.tocify {
     </li>
     <li>
       <a href="Genetics.html">Genetics</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extraction methods</a>
     </li>
   </ul>
 </li>
@@ -512,6 +518,156 @@ class="section level2">
 <div id="diferencias-en-porcentaje-por-sitio" class="section level2">
 <h2>Diferencias en porcentaje por sitio</h2>
 </div>
+</div>
+<div id="colorimetry" class="section level1">
+<h1>Colorimetry</h1>
+</div>
+<div id="l-color" class="section level1">
+<h1>*L color</h1>
+<div id="filter-data-n50" class="section level2">
+<h2>Filter data n=50</h2>
+</div>
+<div id="descriptive-table-for-fresh_weight" class="section level2">
+<h2>Descriptive table for fresh_weight</h2>
+<pre><code>##       mean      min      max       sd
+## 1 63.76631 48.07935 73.52477 6.122002</code></pre>
+</div>
+<div id="descriptive-graphic-sd" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model" class="section level2">
+<h2>The model</h2>
+</div>
+<div id="assumptions-check" class="section level2">
+<h2>Assumptions check</h2>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /><img src="Climateric_files/figure-html/unnamed-chunk-30-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.92487, p-value = 6.979e-07</code></pre>
+</div>
+<div id="anova-comparison-of-means" class="section level2">
+<h2>Anova (comparison of means)</h2>
+<pre><code>## Denom. DF: 141 
+##             numDF  F-value p-value
+## (Intercept)     1 65224.55  &lt;.0001
+## treat           2     3.98  0.0209</code></pre>
+</div>
+<div id="dunnett-test" class="section level2">
+<h2>Dunnett test</h2>
+<pre><code>## 
+##   Dunnett&#39;s test for comparing several treatments with a control :  
+##     95% family-wise confidence level
+## 
+## $control
+##                      diff    lwr.ci    upr.ci   pval    
+## etileno-control  1.322778 -1.421956 4.0675115 0.4547    
+## 1MCP-control    -1.911136 -4.655870 0.8335982 0.2111    
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  treat     emmean         SE    df lower.CL upper.CL
+##  control 7.985555 0.06413881 46.77 7.856507 8.114602
+##  etileno 8.071537 0.05369191 46.87 7.963515 8.179559
+##  1MCP    7.870450 0.04778146 46.96 7.774324 7.966577
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the sqrt (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast             estimate         SE    df t.ratio p.value
+##  control - etileno -0.08598276 0.08364573 91.10  -1.028  0.5612
+##  control - 1MCP     0.11510414 0.07998034 86.66   1.439  0.3255
+##  etileno - 1MCP     0.20108690 0.07187412 92.49   2.798  0.0171
+## 
+## Note: contrasts are still on the sqrt scale 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="color" class="section level1">
+<h1>Color +</h1>
+<div id="filter-data-n50-1" class="section level2">
+<h2>Filter data n=50</h2>
+</div>
+<div id="descriptive-table-for-fresh_weight-1" class="section level2">
+<h2>Descriptive table for fresh_weight</h2>
+<pre><code>##       mean      min      max       sd
+## 1 102.0441 65.21946 139.9356 19.85394</code></pre>
+</div>
+<div id="descriptive-graphic-sd-1" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model-1" class="section level2">
+<h2>The model</h2>
+</div>
+<div id="assumptions-check-1" class="section level2">
+<h2>Assumptions check</h2>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;" /><img src="Climateric_files/figure-html/unnamed-chunk-39-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.96855, p-value = 0.002149</code></pre>
+</div>
+<div id="anova-comparison-of-means-1" class="section level2">
+<h2>Anova (comparison of means)</h2>
+<pre><code>## Denom. DF: 141 
+##             numDF   F-value p-value
+## (Intercept)     1 30648.163  &lt;.0001
+## treat           2    50.733  &lt;.0001</code></pre>
+</div>
+<div id="dunnett-test-1" class="section level2">
+<h2>Dunnett test</h2>
+<pre><code>## 
+##   Dunnett&#39;s test for comparing several treatments with a control :  
+##     95% family-wise confidence level
+## 
+## $control
+##                       diff      lwr.ci    upr.ci    pval    
+## etileno-control   8.441727   0.9405922  15.94286  0.0246 *  
+## 1MCP-control    -18.502650 -26.0037848 -11.00151 3.3e-07 ***
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  treat      emmean         SE    df  lower.CL  upper.CL
+##  control 10.215929 0.14821976 47.00  9.917749 10.514109
+##  etileno 10.635431 0.12437499 46.79 10.385191 10.885671
+##  1MCP     9.310053 0.06810562 47.01  9.173042  9.447063
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the sqrt (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast            estimate        SE    df t.ratio p.value
+##  control - etileno -0.4195022 0.1934896 91.36  -2.168  0.0822
+##  control - 1MCP     0.9058764 0.1631180 65.99   5.554  &lt;.0001
+##  etileno - 1MCP     1.3253786 0.1418010 72.56   9.347  &lt;.0001
+## 
+## Note: contrasts are still on the sqrt scale 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="color-correlation" class="section level1">
+<h1>Color correlation</h1>
+</div>
+<div id="correlation" class="section level1">
+<h1>Correlation</h1>
+<pre><code>## [1] 0.4982699</code></pre>
+<pre><code>## [1] 0.6422349</code></pre>
+<pre><code>## [1] 0.8130895</code></pre>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Climateric_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

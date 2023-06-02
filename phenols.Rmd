@@ -1,0 +1,368 @@
+---
+title: "Phenols"
+---
+
+```{r, echo=FALSE,warning = FALSE, message = FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+data_phenols<-read_excel("database.xlsx", sheet="quimico")
+
+data_phenols$year<-as.factor(data_phenols$year)
+data_phenols$site<-factor(data_phenols$site, levels = c("concordia", "palmar", "gualeguaychu"))
+data_phenols$phenotype<-as.factor(data_phenols$phenotype)
+data_phenols$bag<-as.factor(data_phenols$bag)
+
+```
+
+# Descriptive statistics
+
+## Descriptive table
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(dplyr)
+# table_phenols<- data_phenols %>%
+#   group_by(site, year) %>%
+#   summarise(
+#     mean = mean(phenols),
+#     min = min(phenols),
+#     max = max(phenols),
+#     sd = sd(phenols)
+#   )
+
+library(Rmisc)
+table_phenols <- summarySE(data_phenols, measurevar="phenols", groupvars=c("site", "year"))
+
+library(knitr)
+kable(table_phenols, format = "markdown")
+
+```
+
+## Bar Plot
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+g1_phenols<-ggplot(data=table_phenols, aes(x=site, y=phenols, form=site, fill=site))+
+  scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
+  stat_summary(fun = "phenols", size = 1, geom = "bar", position=position_dodge(0.9)) +
+  geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
+                width=.3, position=position_dodge(0.9), color="black")+
+  labs(x="", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  facet_grid(.~year)+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+g1_phenols
+
+```
+*With standar desviation
+
+## Bar Plot
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("maroon4","dodgerblue4","deeppink")
+g2_phenols<-ggplot(data=table_phenols, aes(x=year, y=phenols, form=year, fill=site))+
+  stat_summary(fun = "phenols", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~site)+
+  labs(x="", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+g2_phenols
+```
+*With standar desviation
+
+### Phenotypes from Concordia
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+concordia_phenols<-subset(data_phenols, site == "concordia")
+
+# library(dplyr)
+# estcon_phenols <- concordia_phenols %>%
+#   group_by(year, phenotype) %>%
+#   summarise(
+#     mean = mean(phenols),
+#     min = min(phenols),
+#     max = max(phenols),
+#     sd = sd(phenols)
+#   )
+# 
+# estcon_phenols
+
+library(Rmisc)
+estcon_phenols <- summarySE(concordia_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
+
+library(knitr)
+kable(estcon_phenols, format = "markdown")
+
+colorescon<-c("coral1","red2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2","red3")
+
+library(ggplot2)
+gp_concordia<-ggplot(data=estcon_phenols, aes(x=phenotype, y=phenols, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = colorescon)+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="Concordia", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+```
+
+### Phenotypes from Palmar
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+palmar_phenols<-subset(data_phenols, site == "palmar")
+
+# library(dplyr)
+# estpalmar_phenols <- palmar_phenols %>%
+#   group_by(year, phenotype) %>%
+#   summarise(
+#     mean = mean(phenols),
+#     min = min(phenols),
+#     max = max(phenols),
+#     sd = sd(phenols)
+#   )
+# 
+# estpalmar_phenols
+
+library(Rmisc)
+estpalmar_phenols <- summarySE(concordia_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
+
+library(knitr)
+kable(estpalmar_phenols, format = "markdown")
+
+colorespal<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4", "wheat3","khaki","wheat")
+
+library(ggplot2)
+gp_palmar<-ggplot(data=estpalmar_phenols, aes(x=phenotype, y=phenols, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = colorespal)+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="Palmar", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+```
+
+### Phenotypes from Gualeguaychú
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+guale_phenols<-subset(data_phenols, site == "gualeguaychu")
+
+# library(dplyr)
+# estguale_phenols <- guale_phenols %>%
+#   group_by(year, phenotype) %>%
+#   summarise(
+#     mean = mean(phenols),
+#     min = min(phenols),
+#     max = max(phenols),
+#     sd = sd(phenols)
+#   )
+# 
+# estguale_phenols
+
+library(Rmisc)
+estguale_phenols <- summarySE(guale_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
+
+library(knitr)
+kable(estguale_phenols, format = "markdown")
+
+coloresguale<-c("palegreen1","palegreen2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","seagreen","aquamarine2","seagreen3","aquamarine","springgreen3","springgreen2","springgreen1","forestgreen")
+
+library(ggplot2)
+gp_guale<-ggplot(data=estguale_phenols, aes(x=phenotype, y=phenols, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = coloresguale)+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="Gualeguaychú", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library("ggpubr")
+asd <- ggarrange(gp_concordia,gp_palmar,gp_guale, ncol = 1, nrow = 3,  common.legend = FALSE)
+asd
+```
+
+## Inferential statistics
+
+Interpopulation and intrapopulation comparison for the years 2019, 2021 and 2022.
+
+* Nested design: site(phenotype).
+* Univariate analysis of the phenol concentration variable.
+* Probability distribution: Normal.
+* Analysis of variance components.
+* random factors:year, site and phenotype
+
+```{r echo=FALSE, warning=FALSE}
+# 
+# # datavqfen <- datavq[!is.na(datavq$fen),]
+library(lme4)
+library(lmerTest) #Test de Wald
+mfen<- lmer(phenols ~ year + (1|site/phenotype), data_phenols)
+# 
+# # Cargar paquetes necesarios
+# library(lme4)
+# # Ajustar modelo GLMM con distribución gamma y función de enlace log
+# mfen_glmm <- glmer(phenols ~ year + (1|site/phenotype/bag), data = data_phenols, family = Gamma(link = "log"))
+# 
+# # Imprimir resumen del modelo
+# summary(mfen_glmm)
+# 
+# modelo <- lmer(log(phenols) ~ year + (1|site/phenotype/bag), data = data_phenols)
+
+library(lme4)
+
+modelo <- glmer(phenols ~ year + (1|site/phenotype/bag), data = data_phenols, family = "gaussian")
+
+modelo2 <- glmer(phenols ~ year + (1|site/phenotype/bag), data = data_phenols, family = Gamma(link = "identity"))
+
+modelo3 <- glmer(phenols ~ year + (1|site/phenotype/bag), data = data_phenols, family = Gamma(link = "log"))
+
+```
+
+### Resumen del modelo
+```{r echo=FALSE, warning=FALSE}
+
+summary(modelo)
+anova(modelo3)
+```
+
+### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+e<-resid(modelo3) # residuos de pearson
+pre<-predict(modelo3) #predichos
+alfai<-ranef(modelo3)$phenotype$'(Intercept)'
+par(mfrow = c(1, 3))
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+qqnorm(alfai, cex.main=.8)
+qqline(alfai)
+par(mfrow = c(1, 1))
+```
+
+Test de normalidad para muestras biológicas (frutos)
+```{r echo=FALSE, warning=FALSE}
+shapiro.test(e)
+```
+Test de normalidad para genotipos
+```{r echo=FALSE, warning=FALSE}
+shapiro.test(alfai)
+```
+
+```{r echo=FALSE, warning=FALSE}
+# ### Significacion parte fija
+# library(lme4)
+# mF0<- lmer(log(fen) ~ 1 + (1|site/phenotype), datavq)
+# round(anova(mF0,mfen),2)
+```
+
+```{r echo=FALSE, warning=FALSE}
+# Significancia parte aleatoria
+# confint(mfen, level = 0.95, method = c("profile"))
+```
+
+### Conclusiones
+
+```{r echo=FALSE, warning=FALSE}
+report::report(mfen)
+```
+
+<!-- El test de Wald (p=) arroja que no hay diferencias estadísticas significativas entre años. -->
+
+### ICC del modelo
+```{r echo=FALSE, warning=FALSE}
+library(sjstats)
+performance::icc(mfen)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+#Calculo manual ICC
+
+phenotypep<-0.13862
+sitep<-0.01395 
+FRUp<-0.15411
+
+ICCf<-FRUp/(FRUp+phenotypep+sitep)
+ICCa<-phenotypep/(FRUp+phenotypep+sitep)
+ICCr<-sitep/(FRUp+phenotypep+sitep)
+
+ICCf #0.6422508 ----> 50,3% entre muestras de una misma phenotypeesión.
+ICCa #0.2988115 ----> 45,2% entre phenotypeesiones de una misma siteión.
+ICCr #0.05893767 ----> 4,5% entre siteiones.
+
+#ICC modelo
+# ICCr+ICCa #49.8%
+
+
+```
+
+----> 50,3% entre muestras de una misma phenotypeesión.
+----> 45,2% entre phenotypeesiones de una misma siteión.
+----> 4,5% entre siteiones.
+
+ICC del modelo = 0.497
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# sjPlot::tab_model(mfen)
+
+# Próximas variables
+
+# * Actividad anti Oxidante
+# * carotenoides
+# * Clorofilas
+# * pH
+# * Sólidos solubles (°brix)
+# * Acidez total titulable (att)
+
+```

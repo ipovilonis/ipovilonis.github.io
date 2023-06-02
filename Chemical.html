@@ -13,7 +13,7 @@
 
 <title>Chemical</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
@@ -332,6 +332,9 @@ $(document).ready(function () {
       <a href="climateric2.html">Climacteric</a>
     </li>
     <li>
+      <a href="climateric3.html">Climacteric color</a>
+    </li>
+    <li>
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
@@ -342,6 +345,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="Genetics.html">Genetics</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extraction methods</a>
     </li>
   </ul>
 </li>
@@ -808,6 +814,12 @@ A caption
 ##     Adjusted ICC: 0.593
 ##   Unadjusted ICC: 0.593</code></pre>
 </div>
+<div id="carotenoids-3-years" class="section level1">
+<h1>Carotenoids 3 years</h1>
+<div id="descriptive-table" class="section level2">
+<h2>Descriptive table</h2>
+</div>
+</div>
 <div id="ratio-2019" class="section level1">
 <h1>ratio 2019</h1>
 <pre><code>##            site phenotype N     ratio         sd         se        ci
@@ -849,7 +861,7 @@ A caption
 ## 36 gualeguaychu       337 0       NaN         NA         NA       NaN
 ## 37 gualeguaychu       362 0       NaN         NA         NA       NaN
 ## 38 gualeguaychu       363 1  8.729460         NA         NA       NaN</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: log(ratio) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqratio
@@ -921,7 +933,7 @@ A caption
 ## 36 gualeguaychu       337 0       NaN        NA        NA        NaN
 ## 37 gualeguaychu       362 0       NaN        NA        NA        NaN
 ## 38 gualeguaychu       363 1  7.933333        NA        NA        NaN</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
 ## Formula: (brix) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqbrix
@@ -953,27 +965,33 @@ A caption
 ##   Unadjusted ICC: 0.459</code></pre>
 <div id="tabla-resumen" class="section level2">
 <h2>Tabla resumen</h2>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-46-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div
 id="boxplot-y-dispersión-de-concentración-de-fenoles-de-las-tres-poblaciones-para-2019-y-2021"
 class="section level3">
 <h3>Boxplot y dispersión de concentración de fenoles de las tres
 poblaciones para 2019 y 2021</h3>
-<pre><code>##   year         site  N       fen       sd        se        ci
-## 1 2019    concordia 51  659.0378 619.9453  86.80971 174.36242
-## 2 2019       palmar 64  423.2059 182.6954  22.83693  45.63596
-## 3 2019 gualeguaychu 36 1127.9322 823.4330 137.23883 278.60964
-## 4 2021    concordia 42 1007.6210 656.1493 101.24604 204.47052
-## 5 2021       palmar 68  445.3903 237.7212  28.82793  57.54080
-## 6 2021 gualeguaychu 64  528.2487 325.3744  40.67180  81.27610</code></pre>
+<pre><code>##   year         site  N       fen        sd        se        ci
+## 1 2019    concordia 51  659.0378  619.9453  86.80971 174.36242
+## 2 2019       palmar 64  423.2059  182.6954  22.83693  45.63596
+## 3 2019 gualeguaychu 36 1127.9322  823.4330 137.23883 278.60964
+## 4 2021    concordia 42 1007.6210  656.1493 101.24604 204.47052
+## 5 2021       palmar 68  445.3903  237.7212  28.82793  57.54080
+## 6 2021 gualeguaychu 64  528.2487  325.3744  40.67180  81.27610
+## 7 2022    concordia 63 1493.8053 1260.7820 158.84360 317.52384
+## 8 2022       palmar  4  951.4709  278.1539 139.07694 442.60491
+## 9 2022 gualeguaychu 38  579.9414  311.0324  50.45611 102.23379</code></pre>
 <pre><code>##   year         site  N      aao       sd       se       ci
 ## 1 2019    concordia 52 82.11404 21.50802 2.982625 5.987871
 ## 2 2019       palmar 64 73.85234 24.26006 3.032508 6.059984
 ## 3 2019 gualeguaychu 36 81.03861 20.38576 3.397627 6.897550
 ## 4 2021    concordia 44 89.96409 13.45100 2.027814 4.089477
 ## 5 2021       palmar 68 78.45574 21.23754 2.575430 5.140580
-## 6 2021 gualeguaychu 64 84.95266 18.27536 2.284420 4.565048</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" />
+## 6 2021 gualeguaychu 64 84.95266 18.27536 2.284420 4.565048
+## 7 2022    concordia  0      NaN       NA       NA      NaN
+## 8 2022       palmar  0      NaN       NA       NA      NaN
+## 9 2022 gualeguaychu  0      NaN       NA       NA      NaN</code></pre>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-49-1.png" width="960" style="display: block; margin: auto;" />
 *With standar desviation</p>
 </div>
 <div id="individuos-de-concordia-en-ambos-años." class="section level3">
@@ -1003,8 +1021,25 @@ poblaciones para 2019 y 2021</h3>
 ## 22 2021       199 4  455.6700   65.55308  32.77654  104.30957
 ## 23 2021       221 4  998.3275  114.89294  57.44647  182.82031
 ## 24 2021       222 4  355.4475   45.40550  22.70275   72.25028
-## 25 2021       223 4  969.2525  565.17813 282.58907  899.32453</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-46-1.png" width="960" style="display: block; margin: auto;" /></p>
+## 25 2021       223 4  969.2525  565.17813 282.58907  899.32453
+## 26 2022       154 4 1506.6461  122.13417  61.06708  194.34272
+## 27 2022       156 4  957.2040   29.75109  14.87554   47.34062
+## 28 2022       161 4  586.8926  132.73336  66.36668  211.20839
+## 29 2022       171 4  466.0743  167.89328  83.94664  267.15567
+## 30 2022       174 3  884.8687   87.01605  50.23874  216.15986
+## 31 2022       175 4 4390.0160  419.63159 209.81580  667.72750
+## 32 2022       178 4 3899.5233  373.72885 186.86442  594.68600
+## 33 2022       185 4 2245.4375  332.17063 166.08532  528.55760
+## 34 2022       190 4  708.3479  159.55880  79.77940  253.89366
+## 35 2022       193 4  789.8844  134.21064  67.10532  213.55908
+## 36 2022       197 4 1941.7991  301.52996 150.76498  479.80145
+## 37 2022       198 3  402.1616  206.82559 119.41081  513.78324
+## 38 2022       199 4  670.1277  136.55162  68.27581  217.28410
+## 39 2022       208 2 3712.6689  903.86190 639.12688 8120.87700
+## 40 2022       221 4 1400.5584  205.36718 102.68359  326.78501
+## 41 2022       222 3  420.8470   96.86923  55.92748  240.63651
+## 42 2022       223 4  827.6799  241.59550 120.79775  384.43235</code></pre>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="individuos-del-palmar-en-ambos-años." class="section level3">
 <h3>Individuos del palmar en ambos años.</h3>
@@ -1041,8 +1076,9 @@ poblaciones para 2019 y 2021</h3>
 ## 30 2021       287 4  851.4600 150.663774  75.331887 239.73969
 ## 31 2021       288 4  244.8225  72.430069  36.215035 115.25240
 ## 32 2021       289 4  665.2450  96.591633  48.295817 153.69884
-## 33 2021       290 4  229.5350  19.931948   9.965974  31.71618</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" />
+## 33 2021       290 4  229.5350  19.931948   9.965974  31.71618
+## 34 2022       284 4  951.4709 278.153888 139.076944 442.60491</code></pre>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-51-1.png" width="960" style="display: block; margin: auto;" />
 ### Individuos de gualeguaychu en ambos años.</p>
 <pre><code>##    year phenotype N       fen          sd         se          ci
 ## 1  2019       305 4  229.7450   41.040167  20.520083   65.304064
@@ -1069,14 +1105,25 @@ poblaciones para 2019 y 2021</h3>
 ## 22 2021       390 4  438.6850   43.291836  21.645918   68.886972
 ## 23 2021       392 4  305.7650   60.377478  30.188739   96.074041
 ## 24 2021       395 4 1293.8225  317.784055 158.892028  505.665347
-## 25 2021       396 4  519.5850   68.453826  34.226913  108.925313</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-48-1.png" width="960" style="display: block; margin: auto;" /></p>
+## 25 2021       396 4  519.5850   68.453826  34.226913  108.925313
+## 26 2022       305 4  349.7149   74.749389  37.374694  118.942958
+## 27 2022       306 4  544.8504  206.122754 103.061377  327.987299
+## 28 2022       321 4  377.3184   22.281975  11.140988   35.455595
+## 29 2022       324 4  279.0075   45.172223  22.586112   71.879087
+## 30 2022       325 4  858.8931  236.382009 118.191005  376.136526
+## 31 2022       331 4  493.4654   59.471861  29.735930   94.633002
+## 32 2022       337 4  666.0934  126.704945  63.352473  201.615842
+## 33 2022       348 4  337.6119   42.370535  21.185267   67.420976
+## 34 2022       357 2 1368.7083   76.873305  54.357635  690.679240
+## 35 2022       362 4  918.1344  215.192272 107.596136  342.418925</code></pre>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tabla-descriptiva" class="section level3">
 <h3>Tabla descriptiva</h3>
-<pre><code>##   year   N      fen       sd       se       ci
-## 1 2019 151 670.8720 613.7546 49.94665 98.68984
-## 2 2021 174 611.5778 462.5759 35.06779 69.21580</code></pre>
+<pre><code>##   year   N       fen        sd        se        ci
+## 1 2019 151  670.8720  613.7546  49.94665  98.68984
+## 2 2021 174  611.5778  462.5759  35.06779  69.21580
+## 3 2022 105 1142.4133 1084.4709 105.83353 209.87185</code></pre>
 </div>
 </div>
 <div id="estadística-inferencial" class="section level2">
@@ -1097,53 +1144,54 @@ poblaciones para 2019 y 2021</h3>
 ## Formula: log(fen) ~ 1 + (1 | site/phenotype) + (1 | year)
 ##    Data: datavqfen
 ## 
-## REML criterion at convergence: 530
+## REML criterion at convergence: 703
 ## 
 ## Scaled residuals: 
-##      Min       1Q   Median       3Q      Max 
-## -2.41669 -0.54235 -0.05945  0.61909  2.71765 
+##     Min      1Q  Median      3Q     Max 
+## -3.2328 -0.5967 -0.0358  0.5983  3.0705 
 ## 
 ## Random effects:
-##  Groups         Name        Variance  Std.Dev.
-##  phenotype:site (Intercept) 0.1975888 0.44451 
-##  site           (Intercept) 0.0508642 0.22553 
-##  year           (Intercept) 0.0001786 0.01337 
-##  Residual                   0.2199103 0.46895 
-## Number of obs: 325, groups:  phenotype:site, 50; site, 3; year, 2
+##  Groups         Name        Variance Std.Dev.
+##  phenotype:site (Intercept) 0.22450  0.4738  
+##  site           (Intercept) 0.08094  0.2845  
+##  year           (Intercept) 0.02721  0.1650  
+##  Residual                   0.22540  0.4748  
+## Number of obs: 430, groups:  phenotype:site, 51; site, 3; year, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error     df t value Pr(&gt;|t|)    
-## (Intercept)   6.2623     0.1475 2.0423   42.45 0.000486 ***
+## (Intercept)   6.3640     0.2027 3.0726   31.39 5.91e-05 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="supuestos-del-modelo" class="section level3">
 <h3>Supuestos del modelo</h3>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-55-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-59-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>Test de normalidad para muestras biológicas (frutos)</p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.99172, p-value = 0.06614</code></pre>
+## W = 0.9946, p-value = 0.1356</code></pre>
 <p>Test de normalidad para genotipos</p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  alfai
-## W = 0.97597, p-value = 0.397</code></pre>
+## W = 0.98079, p-value = 0.5726</code></pre>
 </div>
 <div id="conclusiones" class="section level3">
 <h3>Conclusiones</h3>
-<pre><code>## We fitted a constant (intercept-only) linear mixed model (estimated using REML and nloptwrap optimizer)
-## to predict fen (formula: log(fen) ~ 1). The model included phenotype as random effects (formula: list(~1
-## | phenotype:site, ~1 | site, ~1 | year)). . The model&#39;s intercept is at 6.26 (95% CI [5.97, 6.55],
-## t(320) = 42.45, p &lt; .001). Within this model:
+<pre><code>## We fitted a constant (intercept-only) linear mixed model (estimated using REML and
+## nloptwrap optimizer) to predict fen (formula: log(fen) ~ 1). The model included phenotype
+## as random effects (formula: list(~1 | phenotype:site, ~1 | site, ~1 | year)). . The model&#39;s
+## intercept is at 6.36 (95% CI [5.97, 6.76], t(425) = 31.39, p &lt; .001). Within this model:
 ## 
 ##   -  ()
 ## 
-## Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95%
-## Confidence Intervals (CIs) and p-values were computed using a Wald t-distribution approximation.</code></pre>
+## Standardized parameters were obtained by fitting the model on a standardized version of the
+## dataset. 95% Confidence Intervals (CIs) and p-values were computed using a Wald
+## t-distribution approximation.</code></pre>
 <p>El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas
 significativas entre años.</p>
 </div>
@@ -1151,8 +1199,8 @@ significativas entre años.</p>
 <h3>ICC del modelo</h3>
 <pre><code>## # Intraclass Correlation Coefficient
 ## 
-##     Adjusted ICC: 0.531
-##   Unadjusted ICC: 0.531</code></pre>
+##     Adjusted ICC: 0.596
+##   Unadjusted ICC: 0.596</code></pre>
 <pre><code>## [1] 0.5025108</code></pre>
 <pre><code>## [1] 0.4520021</code></pre>
 <pre><code>## [1] 0.04548715</code></pre>
@@ -1188,10 +1236,10 @@ p
 (Intercept)
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-6.26
+6.36
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
-5.97 – 6.55
+5.97 – 6.76
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  ">
 <strong>&lt;0.001</strong>
@@ -1207,7 +1255,7 @@ Random Effects
 σ<sup>2</sup>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.22
+0.23
 </td>
 </tr>
 <tr>
@@ -1215,35 +1263,35 @@ Random Effects
 τ<sub>00</sub> <sub>phenotype:site</sub>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.20
+0.22
 </td>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
 τ<sub>00</sub> <sub>site</sub>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.05
+0.08
 </td>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
 τ<sub>00</sub> <sub>year</sub>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.00
+0.03
 </td>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
 ICC
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.53
+0.60
 </td>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
 N <sub>phenotype</sub>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-50
+51
 </td>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;">
@@ -1257,14 +1305,14 @@ N <sub>site</sub>
 N <sub>year</sub>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-2
+3
 </td>
 <tr>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;">
 Observations
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3">
-325
+430
 </td>
 </tr>
 <tr>
@@ -1272,7 +1320,7 @@ Observations
 Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 </td>
 <td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3">
-0.000 / 0.531
+0.000 / 0.596
 </td>
 </tr>
 </table>
@@ -1288,12 +1336,12 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 ## 4 2021    concordia 20 2.515500 0.7505119 0.16781957 0.3512504
 ## 5 2021       palmar 25 2.088000 1.1008784 0.22017569 0.4544203
 ## 6 2021 gualeguaychu 21 2.038095 0.7749040 0.16909791 0.3527321</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-65-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-69-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>##           site  N       ac        sd        se        ci
 ## 1    concordia 20 2.515500 0.7505119 0.1678196 0.3512504
 ## 2       palmar 25 2.088000 1.1008784 0.2201757 0.4544203
 ## 3 gualeguaychu 21 2.038095 0.7749040 0.1690979 0.3527321</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-66-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-70-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: ac
@@ -1377,7 +1425,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 ## 71       392 2021 1  8.000000         NA         NA        NaN
 ## 72       395 2021 1 11.000000         NA         NA        NaN
 ## 73       396 2021 1 11.000000         NA         NA        NaN</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-69-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-73-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>##    phenotype N      brix         sd         se         ci
 ## 1        154 4 10.150000 2.23979166 1.11989583  3.5640083
 ## 2        156 7  5.828571 1.52458113 0.57623750  1.4100024
@@ -1427,7 +1475,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 ## 46       392 1  8.000000         NA         NA        NaN
 ## 47       395 1 11.000000         NA         NA        NaN
 ## 48       396 1 11.000000         NA         NA        NaN</code></pre>
-<p><img src="Chemical_files/figure-html/unnamed-chunk-71-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Chemical_files/figure-html/unnamed-chunk-75-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

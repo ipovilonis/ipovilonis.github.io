@@ -13,7 +13,7 @@
 
 <title>Branches</title>
 
-<script src="site_libs/header-attrs-2.20/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
@@ -332,6 +332,9 @@ $(document).ready(function () {
       <a href="climateric2.html">Climacteric</a>
     </li>
     <li>
+      <a href="climateric3.html">Climacteric color</a>
+    </li>
+    <li>
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
@@ -342,6 +345,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="Genetics.html">Genetics</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extraction methods</a>
     </li>
   </ul>
 </li>
@@ -373,7 +379,25 @@ $(document).ready(function () {
 </div>
 
 
-
+<div id="descriptive-table" class="section level2">
+<h2>Descriptive table</h2>
+<pre><code>## # A tibble: 9 × 18
+## # Groups:   year [3]
+##   year  site       length_mean node_mean NFL_mean NFR_mean FR_mean PFF_mean PSF_mean NH_mean
+##   &lt;fct&gt; &lt;fct&gt;            &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;
+## 1 2019  concordia         7.89      4.52     9.21   1.36    0.229    NaN      NaN     NaN   
+## 2 2019  palmar            8.75      3.82    14.6    1.36    0.233    NaN      NaN     NaN   
+## 3 2019  gualeguay…        6.67      3.18    11.9    1       0.0385   NaN      NaN     NaN   
+## 4 2021  concordia         9.25      3.78    12.2    0.170   0.125      5.30     1.00   11.5 
+## 5 2021  palmar            7.02      3.12    14.3    0.110   0.0395     8.01     1.67    2.81
+## 6 2021  gualeguay…        8.69      3.56    18.6    0.235   0.191      7.43     1.41    6.78
+## 7 2022  concordia         7.48      2.97     9.91   0.441   0.322      5.66     1.30    8.63
+## 8 2022  palmar            8.31      3.31     9.06   0.0323  0.0323     6.49     1.32   12.9 
+## 9 2022  gualeguay…        5.46      3       11.8    0.264   0.194      8.02     1.37    9.08
+## # ℹ 8 more variables: PSH_mean &lt;dbl&gt;, `NFR/NFL_mean` &lt;dbl&gt;, `NFL/cm_mean` &lt;dbl&gt;,
+## #   `NFR/cm_mean` &lt;dbl&gt;, `NFR/Nudo_mean` &lt;dbl&gt;, `NH/NFR_mean` &lt;dbl&gt;, `PSH/NFR_mean` &lt;dbl&gt;,
+## #   `PSH/PSFR_mean` &lt;dbl&gt;</code></pre>
+</div>
 
 
 

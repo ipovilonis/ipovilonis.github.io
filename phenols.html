@@ -1,0 +1,1745 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Phenols</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Hexachlamys edulis</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="Phenotypes2.html">Phenotypes</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Variability
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Morphological.html">Morphological</a>
+    </li>
+    <li>
+      <a href="Colorimetry.html">Colorimetry</a>
+    </li>
+    <li>
+      <a href="Chemical.html">Chemical</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Reproductive.html">Reproductive</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="Multivariate.html">Multivariate</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Maturity
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Maturity.html">Summary tables</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Physical variables</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Antioxidant Activity</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Organic Acids</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohydrates</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Dietary Fiber</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cations</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Essays
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Phenology.html">Phenology</a>
+    </li>
+    <li>
+      <a href="Polinization.html">Polinization</a>
+    </li>
+    <li>
+      <a href="Branches.html">Branches</a>
+    </li>
+    <li>
+      <a href="Yield.html">Yield</a>
+    </li>
+    <li>
+      <a href="Postharvest.html">Postharvest</a>
+    </li>
+    <li>
+      <a href="climateric2.html">Climacteric</a>
+    </li>
+    <li>
+      <a href="climateric3.html">Climacteric color</a>
+    </li>
+    <li>
+      <a href="Companionspecies.html">Companion species</a>
+    </li>
+    <li>
+      <a href="Climate.html">Climate</a>
+    </li>
+    <li>
+      <a href="Soil.html">Soil</a>
+    </li>
+    <li>
+      <a href="Genetics.html">Genetics</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extraction methods</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Academic Publications</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Phenols</h1>
+
+</div>
+
+
+<div id="descriptive-statistics" class="section level1">
+<h1>Descriptive statistics</h1>
+<div id="descriptive-table" class="section level2">
+<h2>Descriptive table</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">site</th>
+<th align="left">year</th>
+<th align="right">N</th>
+<th align="right">phenols</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">concordia</td>
+<td align="left">2019</td>
+<td align="right">51</td>
+<td align="right">659.0378</td>
+<td align="right">619.9453</td>
+<td align="right">86.80970</td>
+<td align="right">174.36241</td>
+</tr>
+<tr class="even">
+<td align="left">concordia</td>
+<td align="left">2021</td>
+<td align="right">42</td>
+<td align="right">1007.6206</td>
+<td align="right">656.1494</td>
+<td align="right">101.24606</td>
+<td align="right">204.47056</td>
+</tr>
+<tr class="odd">
+<td align="left">concordia</td>
+<td align="left">2022</td>
+<td align="right">64</td>
+<td align="right">1532.0914</td>
+<td align="right">1287.6928</td>
+<td align="right">160.96160</td>
+<td align="right">321.65608</td>
+</tr>
+<tr class="even">
+<td align="left">palmar</td>
+<td align="left">2019</td>
+<td align="right">64</td>
+<td align="right">423.2059</td>
+<td align="right">182.6957</td>
+<td align="right">22.83696</td>
+<td align="right">45.63602</td>
+</tr>
+<tr class="odd">
+<td align="left">palmar</td>
+<td align="left">2021</td>
+<td align="right">68</td>
+<td align="right">445.3904</td>
+<td align="right">237.7213</td>
+<td align="right">28.82795</td>
+<td align="right">57.54082</td>
+</tr>
+<tr class="even">
+<td align="left">palmar</td>
+<td align="left">2022</td>
+<td align="right">4</td>
+<td align="right">951.4709</td>
+<td align="right">278.1539</td>
+<td align="right">139.07694</td>
+<td align="right">442.60491</td>
+</tr>
+<tr class="odd">
+<td align="left">gualeguaychu</td>
+<td align="left">2019</td>
+<td align="right">36</td>
+<td align="right">1127.9327</td>
+<td align="right">823.4331</td>
+<td align="right">137.23886</td>
+<td align="right">278.60969</td>
+</tr>
+<tr class="even">
+<td align="left">gualeguaychu</td>
+<td align="left">2021</td>
+<td align="right">64</td>
+<td align="right">528.2485</td>
+<td align="right">325.3753</td>
+<td align="right">40.67191</td>
+<td align="right">81.27633</td>
+</tr>
+<tr class="odd">
+<td align="left">gualeguaychu</td>
+<td align="left">2022</td>
+<td align="right">38</td>
+<td align="right">579.9414</td>
+<td align="right">311.0324</td>
+<td align="right">50.45611</td>
+<td align="right">102.23379</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="bar-plot" class="section level2">
+<h2>Bar Plot</h2>
+<p><img src="phenols_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" />
+*With standar desviation</p>
+</div>
+<div id="bar-plot-1" class="section level2">
+<h2>Bar Plot</h2>
+<p><img src="phenols_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" />
+*With standar desviation</p>
+<div id="phenotypes-from-concordia" class="section level3">
+<h3>Phenotypes from Concordia</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">year</th>
+<th align="left">phenotype</th>
+<th align="right">N</th>
+<th align="right">phenols</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">154</td>
+<td align="right">4</td>
+<td align="right">330.6048</td>
+<td align="right">84.89487</td>
+<td align="right">42.44743</td>
+<td align="right">135.08668</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">156</td>
+<td align="right">4</td>
+<td align="right">266.1259</td>
+<td align="right">32.92273</td>
+<td align="right">16.46137</td>
+<td align="right">52.38741</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">161</td>
+<td align="right">4</td>
+<td align="right">308.8759</td>
+<td align="right">111.90808</td>
+<td align="right">55.95404</td>
+<td align="right">178.07074</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">171</td>
+<td align="right">4</td>
+<td align="right">369.2497</td>
+<td align="right">117.61901</td>
+<td align="right">58.80950</td>
+<td align="right">187.15809</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">174</td>
+<td align="right">4</td>
+<td align="right">299.3917</td>
+<td align="right">125.99819</td>
+<td align="right">62.99909</td>
+<td align="right">200.49123</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">175</td>
+<td align="right">3</td>
+<td align="right">1763.0135</td>
+<td align="right">1454.05849</td>
+<td align="right">839.50106</td>
+<td align="right">3612.08153</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">178</td>
+<td align="right">4</td>
+<td align="right">1284.0930</td>
+<td align="right">482.91166</td>
+<td align="right">241.45583</td>
+<td align="right">768.42021</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">185</td>
+<td align="right">4</td>
+<td align="right">973.5537</td>
+<td align="right">261.33160</td>
+<td align="right">130.66580</td>
+<td align="right">415.83689</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">193</td>
+<td align="right">4</td>
+<td align="right">850.8244</td>
+<td align="right">387.56960</td>
+<td align="right">193.78480</td>
+<td align="right">616.70973</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">197</td>
+<td align="right">4</td>
+<td align="right">492.7576</td>
+<td align="right">343.45128</td>
+<td align="right">171.72564</td>
+<td align="right">546.50762</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">198</td>
+<td align="right">4</td>
+<td align="right">215.3780</td>
+<td align="right">76.90818</td>
+<td align="right">38.45409</td>
+<td align="right">122.37808</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">199</td>
+<td align="right">4</td>
+<td align="right">190.3225</td>
+<td align="right">58.31497</td>
+<td align="right">29.15749</td>
+<td align="right">92.79213</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">208</td>
+<td align="right">4</td>
+<td align="right">1499.2940</td>
+<td align="right">338.66221</td>
+<td align="right">169.33110</td>
+<td align="right">538.88715</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">154</td>
+<td align="right">4</td>
+<td align="right">950.6216</td>
+<td align="right">69.13067</td>
+<td align="right">34.56534</td>
+<td align="right">110.00233</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">161</td>
+<td align="right">4</td>
+<td align="right">789.5022</td>
+<td align="right">89.95452</td>
+<td align="right">44.97726</td>
+<td align="right">143.13772</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">171</td>
+<td align="right">4</td>
+<td align="right">785.0007</td>
+<td align="right">149.56611</td>
+<td align="right">74.78306</td>
+<td align="right">237.99307</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">174</td>
+<td align="right">4</td>
+<td align="right">1651.4317</td>
+<td align="right">205.43021</td>
+<td align="right">102.71511</td>
+<td align="right">326.88531</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">193</td>
+<td align="right">4</td>
+<td align="right">2303.2986</td>
+<td align="right">380.39843</td>
+<td align="right">190.19921</td>
+<td align="right">605.29879</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">197</td>
+<td align="right">2</td>
+<td align="right">1990.6360</td>
+<td align="right">684.65287</td>
+<td align="right">484.12269</td>
+<td align="right">6151.36198</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">198</td>
+<td align="right">4</td>
+<td align="right">326.1458</td>
+<td align="right">53.62949</td>
+<td align="right">26.81475</td>
+<td align="right">85.33649</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">199</td>
+<td align="right">4</td>
+<td align="right">455.6699</td>
+<td align="right">65.55144</td>
+<td align="right">32.77572</td>
+<td align="right">104.30697</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">221</td>
+<td align="right">4</td>
+<td align="right">998.3261</td>
+<td align="right">114.89269</td>
+<td align="right">57.44634</td>
+<td align="right">182.81991</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">222</td>
+<td align="right">4</td>
+<td align="right">355.4480</td>
+<td align="right">45.40584</td>
+<td align="right">22.70292</td>
+<td align="right">72.25082</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">223</td>
+<td align="right">4</td>
+<td align="right">969.2540</td>
+<td align="right">565.17596</td>
+<td align="right">282.58798</td>
+<td align="right">899.32107</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">154</td>
+<td align="right">4</td>
+<td align="right">1506.6461</td>
+<td align="right">122.13417</td>
+<td align="right">61.06708</td>
+<td align="right">194.34272</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">156</td>
+<td align="right">4</td>
+<td align="right">957.2040</td>
+<td align="right">29.75109</td>
+<td align="right">14.87554</td>
+<td align="right">47.34062</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">161</td>
+<td align="right">4</td>
+<td align="right">586.8926</td>
+<td align="right">132.73336</td>
+<td align="right">66.36668</td>
+<td align="right">211.20839</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">171</td>
+<td align="right">4</td>
+<td align="right">466.0743</td>
+<td align="right">167.89328</td>
+<td align="right">83.94664</td>
+<td align="right">267.15567</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">174</td>
+<td align="right">3</td>
+<td align="right">884.8687</td>
+<td align="right">87.01605</td>
+<td align="right">50.23874</td>
+<td align="right">216.15986</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">175</td>
+<td align="right">4</td>
+<td align="right">4390.0160</td>
+<td align="right">419.63159</td>
+<td align="right">209.81580</td>
+<td align="right">667.72750</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">178</td>
+<td align="right">4</td>
+<td align="right">3899.5233</td>
+<td align="right">373.72885</td>
+<td align="right">186.86442</td>
+<td align="right">594.68600</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">185</td>
+<td align="right">4</td>
+<td align="right">2245.4375</td>
+<td align="right">332.17063</td>
+<td align="right">166.08532</td>
+<td align="right">528.55760</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">190</td>
+<td align="right">4</td>
+<td align="right">708.3479</td>
+<td align="right">159.55880</td>
+<td align="right">79.77940</td>
+<td align="right">253.89366</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">193</td>
+<td align="right">4</td>
+<td align="right">789.8844</td>
+<td align="right">134.21064</td>
+<td align="right">67.10532</td>
+<td align="right">213.55908</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">197</td>
+<td align="right">4</td>
+<td align="right">1941.7991</td>
+<td align="right">301.52996</td>
+<td align="right">150.76498</td>
+<td align="right">479.80145</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">198</td>
+<td align="right">3</td>
+<td align="right">402.1616</td>
+<td align="right">206.82559</td>
+<td align="right">119.41081</td>
+<td align="right">513.78324</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">199</td>
+<td align="right">4</td>
+<td align="right">670.1277</td>
+<td align="right">136.55162</td>
+<td align="right">68.27581</td>
+<td align="right">217.28410</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">208</td>
+<td align="right">3</td>
+<td align="right">3789.8171</td>
+<td align="right">652.94617</td>
+<td align="right">376.97865</td>
+<td align="right">1622.00822</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">221</td>
+<td align="right">4</td>
+<td align="right">1400.5584</td>
+<td align="right">205.36718</td>
+<td align="right">102.68359</td>
+<td align="right">326.78501</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">222</td>
+<td align="right">3</td>
+<td align="right">420.8470</td>
+<td align="right">96.86923</td>
+<td align="right">55.92748</td>
+<td align="right">240.63650</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">223</td>
+<td align="right">4</td>
+<td align="right">827.6799</td>
+<td align="right">241.59550</td>
+<td align="right">120.79775</td>
+<td align="right">384.43235</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="phenotypes-from-palmar" class="section level3">
+<h3>Phenotypes from Palmar</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">year</th>
+<th align="left">phenotype</th>
+<th align="right">N</th>
+<th align="right">phenols</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">154</td>
+<td align="right">4</td>
+<td align="right">330.6048</td>
+<td align="right">84.89487</td>
+<td align="right">42.44743</td>
+<td align="right">135.08668</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">156</td>
+<td align="right">4</td>
+<td align="right">266.1259</td>
+<td align="right">32.92273</td>
+<td align="right">16.46137</td>
+<td align="right">52.38741</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">161</td>
+<td align="right">4</td>
+<td align="right">308.8759</td>
+<td align="right">111.90808</td>
+<td align="right">55.95404</td>
+<td align="right">178.07074</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">171</td>
+<td align="right">4</td>
+<td align="right">369.2497</td>
+<td align="right">117.61901</td>
+<td align="right">58.80950</td>
+<td align="right">187.15809</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">174</td>
+<td align="right">4</td>
+<td align="right">299.3917</td>
+<td align="right">125.99819</td>
+<td align="right">62.99909</td>
+<td align="right">200.49123</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">175</td>
+<td align="right">3</td>
+<td align="right">1763.0135</td>
+<td align="right">1454.05849</td>
+<td align="right">839.50106</td>
+<td align="right">3612.08153</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">178</td>
+<td align="right">4</td>
+<td align="right">1284.0930</td>
+<td align="right">482.91166</td>
+<td align="right">241.45583</td>
+<td align="right">768.42021</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">185</td>
+<td align="right">4</td>
+<td align="right">973.5537</td>
+<td align="right">261.33160</td>
+<td align="right">130.66580</td>
+<td align="right">415.83689</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">193</td>
+<td align="right">4</td>
+<td align="right">850.8244</td>
+<td align="right">387.56960</td>
+<td align="right">193.78480</td>
+<td align="right">616.70973</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">197</td>
+<td align="right">4</td>
+<td align="right">492.7576</td>
+<td align="right">343.45128</td>
+<td align="right">171.72564</td>
+<td align="right">546.50762</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">198</td>
+<td align="right">4</td>
+<td align="right">215.3780</td>
+<td align="right">76.90818</td>
+<td align="right">38.45409</td>
+<td align="right">122.37808</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">199</td>
+<td align="right">4</td>
+<td align="right">190.3225</td>
+<td align="right">58.31497</td>
+<td align="right">29.15749</td>
+<td align="right">92.79213</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">208</td>
+<td align="right">4</td>
+<td align="right">1499.2940</td>
+<td align="right">338.66221</td>
+<td align="right">169.33110</td>
+<td align="right">538.88715</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">154</td>
+<td align="right">4</td>
+<td align="right">950.6216</td>
+<td align="right">69.13067</td>
+<td align="right">34.56534</td>
+<td align="right">110.00233</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">161</td>
+<td align="right">4</td>
+<td align="right">789.5022</td>
+<td align="right">89.95452</td>
+<td align="right">44.97726</td>
+<td align="right">143.13772</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">171</td>
+<td align="right">4</td>
+<td align="right">785.0007</td>
+<td align="right">149.56611</td>
+<td align="right">74.78306</td>
+<td align="right">237.99307</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">174</td>
+<td align="right">4</td>
+<td align="right">1651.4317</td>
+<td align="right">205.43021</td>
+<td align="right">102.71511</td>
+<td align="right">326.88531</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">193</td>
+<td align="right">4</td>
+<td align="right">2303.2986</td>
+<td align="right">380.39843</td>
+<td align="right">190.19921</td>
+<td align="right">605.29879</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">197</td>
+<td align="right">2</td>
+<td align="right">1990.6360</td>
+<td align="right">684.65287</td>
+<td align="right">484.12269</td>
+<td align="right">6151.36198</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">198</td>
+<td align="right">4</td>
+<td align="right">326.1458</td>
+<td align="right">53.62949</td>
+<td align="right">26.81475</td>
+<td align="right">85.33649</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">199</td>
+<td align="right">4</td>
+<td align="right">455.6699</td>
+<td align="right">65.55144</td>
+<td align="right">32.77572</td>
+<td align="right">104.30697</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">221</td>
+<td align="right">4</td>
+<td align="right">998.3261</td>
+<td align="right">114.89269</td>
+<td align="right">57.44634</td>
+<td align="right">182.81991</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">222</td>
+<td align="right">4</td>
+<td align="right">355.4480</td>
+<td align="right">45.40584</td>
+<td align="right">22.70292</td>
+<td align="right">72.25082</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">223</td>
+<td align="right">4</td>
+<td align="right">969.2540</td>
+<td align="right">565.17596</td>
+<td align="right">282.58798</td>
+<td align="right">899.32107</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">154</td>
+<td align="right">4</td>
+<td align="right">1506.6461</td>
+<td align="right">122.13417</td>
+<td align="right">61.06708</td>
+<td align="right">194.34272</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">156</td>
+<td align="right">4</td>
+<td align="right">957.2040</td>
+<td align="right">29.75109</td>
+<td align="right">14.87554</td>
+<td align="right">47.34062</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">161</td>
+<td align="right">4</td>
+<td align="right">586.8926</td>
+<td align="right">132.73336</td>
+<td align="right">66.36668</td>
+<td align="right">211.20839</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">171</td>
+<td align="right">4</td>
+<td align="right">466.0743</td>
+<td align="right">167.89328</td>
+<td align="right">83.94664</td>
+<td align="right">267.15567</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">174</td>
+<td align="right">3</td>
+<td align="right">884.8687</td>
+<td align="right">87.01605</td>
+<td align="right">50.23874</td>
+<td align="right">216.15986</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">175</td>
+<td align="right">4</td>
+<td align="right">4390.0160</td>
+<td align="right">419.63159</td>
+<td align="right">209.81580</td>
+<td align="right">667.72750</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">178</td>
+<td align="right">4</td>
+<td align="right">3899.5233</td>
+<td align="right">373.72885</td>
+<td align="right">186.86442</td>
+<td align="right">594.68600</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">185</td>
+<td align="right">4</td>
+<td align="right">2245.4375</td>
+<td align="right">332.17063</td>
+<td align="right">166.08532</td>
+<td align="right">528.55760</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">190</td>
+<td align="right">4</td>
+<td align="right">708.3479</td>
+<td align="right">159.55880</td>
+<td align="right">79.77940</td>
+<td align="right">253.89366</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">193</td>
+<td align="right">4</td>
+<td align="right">789.8844</td>
+<td align="right">134.21064</td>
+<td align="right">67.10532</td>
+<td align="right">213.55908</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">197</td>
+<td align="right">4</td>
+<td align="right">1941.7991</td>
+<td align="right">301.52996</td>
+<td align="right">150.76498</td>
+<td align="right">479.80145</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">198</td>
+<td align="right">3</td>
+<td align="right">402.1616</td>
+<td align="right">206.82559</td>
+<td align="right">119.41081</td>
+<td align="right">513.78324</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">199</td>
+<td align="right">4</td>
+<td align="right">670.1277</td>
+<td align="right">136.55162</td>
+<td align="right">68.27581</td>
+<td align="right">217.28410</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">208</td>
+<td align="right">3</td>
+<td align="right">3789.8171</td>
+<td align="right">652.94617</td>
+<td align="right">376.97865</td>
+<td align="right">1622.00822</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">221</td>
+<td align="right">4</td>
+<td align="right">1400.5584</td>
+<td align="right">205.36718</td>
+<td align="right">102.68359</td>
+<td align="right">326.78501</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">222</td>
+<td align="right">3</td>
+<td align="right">420.8470</td>
+<td align="right">96.86923</td>
+<td align="right">55.92748</td>
+<td align="right">240.63650</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">223</td>
+<td align="right">4</td>
+<td align="right">827.6799</td>
+<td align="right">241.59550</td>
+<td align="right">120.79775</td>
+<td align="right">384.43235</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="phenotypes-from-gualeguaychú" class="section level3">
+<h3>Phenotypes from Gualeguaychú</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">year</th>
+<th align="left">phenotype</th>
+<th align="right">N</th>
+<th align="right">phenols</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">305</td>
+<td align="right">4</td>
+<td align="right">229.7459</td>
+<td align="right">41.042308</td>
+<td align="right">20.521154</td>
+<td align="right">65.307470</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">306</td>
+<td align="right">4</td>
+<td align="right">2252.8692</td>
+<td align="right">1020.897031</td>
+<td align="right">510.448515</td>
+<td align="right">1624.474992</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">321</td>
+<td align="right">4</td>
+<td align="right">488.2632</td>
+<td align="right">68.352257</td>
+<td align="right">34.176128</td>
+<td align="right">108.763694</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">324</td>
+<td align="right">4</td>
+<td align="right">1071.5461</td>
+<td align="right">534.936352</td>
+<td align="right">267.468176</td>
+<td align="right">851.203108</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">325</td>
+<td align="right">4</td>
+<td align="right">1528.2776</td>
+<td align="right">140.209126</td>
+<td align="right">70.104563</td>
+<td align="right">223.104008</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">331</td>
+<td align="right">4</td>
+<td align="right">628.9348</td>
+<td align="right">91.515928</td>
+<td align="right">45.757964</td>
+<td align="right">145.622264</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">337</td>
+<td align="right">4</td>
+<td align="right">2352.1356</td>
+<td align="right">419.940820</td>
+<td align="right">209.970410</td>
+<td align="right">668.219555</td>
+</tr>
+<tr class="even">
+<td align="left">2019</td>
+<td align="left">362</td>
+<td align="right">4</td>
+<td align="right">997.4414</td>
+<td align="right">315.626401</td>
+<td align="right">157.813201</td>
+<td align="right">502.232037</td>
+</tr>
+<tr class="odd">
+<td align="left">2019</td>
+<td align="left">363</td>
+<td align="right">4</td>
+<td align="right">602.1807</td>
+<td align="right">154.223669</td>
+<td align="right">77.111834</td>
+<td align="right">245.404272</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">305</td>
+<td align="right">4</td>
+<td align="right">240.1503</td>
+<td align="right">2.006908</td>
+<td align="right">1.003454</td>
+<td align="right">3.193438</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">306</td>
+<td align="right">4</td>
+<td align="right">1002.5728</td>
+<td align="right">111.133749</td>
+<td align="right">55.566874</td>
+<td align="right">176.838594</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">321</td>
+<td align="right">4</td>
+<td align="right">269.6648</td>
+<td align="right">19.724646</td>
+<td align="right">9.862323</td>
+<td align="right">31.386313</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">324</td>
+<td align="right">4</td>
+<td align="right">335.4885</td>
+<td align="right">25.390331</td>
+<td align="right">12.695165</td>
+<td align="right">40.401682</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">325</td>
+<td align="right">4</td>
+<td align="right">409.3809</td>
+<td align="right">28.479222</td>
+<td align="right">14.239611</td>
+<td align="right">45.316798</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">331</td>
+<td align="right">4</td>
+<td align="right">422.3333</td>
+<td align="right">59.653025</td>
+<td align="right">29.826512</td>
+<td align="right">94.921274</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">337</td>
+<td align="right">4</td>
+<td align="right">509.3905</td>
+<td align="right">30.047647</td>
+<td align="right">15.023823</td>
+<td align="right">47.812511</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">348</td>
+<td align="right">4</td>
+<td align="right">272.0005</td>
+<td align="right">10.129936</td>
+<td align="right">5.064968</td>
+<td align="right">16.118989</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">357</td>
+<td align="right">4</td>
+<td align="right">1075.4743</td>
+<td align="right">302.898321</td>
+<td align="right">151.449161</td>
+<td align="right">481.978822</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">362</td>
+<td align="right">4</td>
+<td align="right">339.5229</td>
+<td align="right">31.546744</td>
+<td align="right">15.773372</td>
+<td align="right">50.197910</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">363</td>
+<td align="right">4</td>
+<td align="right">476.2663</td>
+<td align="right">122.299518</td>
+<td align="right">61.149759</td>
+<td align="right">194.605824</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">364</td>
+<td align="right">4</td>
+<td align="right">541.8777</td>
+<td align="right">74.466170</td>
+<td align="right">37.233085</td>
+<td align="right">118.492294</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">390</td>
+<td align="right">4</td>
+<td align="right">438.6831</td>
+<td align="right">43.291253</td>
+<td align="right">21.645626</td>
+<td align="right">68.886044</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">392</td>
+<td align="right">4</td>
+<td align="right">305.7617</td>
+<td align="right">60.378716</td>
+<td align="right">30.189358</td>
+<td align="right">96.076011</td>
+</tr>
+<tr class="even">
+<td align="left">2021</td>
+<td align="left">395</td>
+<td align="right">4</td>
+<td align="right">1293.8250</td>
+<td align="right">317.781638</td>
+<td align="right">158.890819</td>
+<td align="right">505.661499</td>
+</tr>
+<tr class="odd">
+<td align="left">2021</td>
+<td align="left">396</td>
+<td align="right">4</td>
+<td align="right">519.5826</td>
+<td align="right">68.456067</td>
+<td align="right">34.228034</td>
+<td align="right">108.928879</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">305</td>
+<td align="right">4</td>
+<td align="right">349.7149</td>
+<td align="right">74.749389</td>
+<td align="right">37.374694</td>
+<td align="right">118.942958</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">306</td>
+<td align="right">4</td>
+<td align="right">544.8504</td>
+<td align="right">206.122754</td>
+<td align="right">103.061377</td>
+<td align="right">327.987299</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">321</td>
+<td align="right">4</td>
+<td align="right">377.3184</td>
+<td align="right">22.281975</td>
+<td align="right">11.140988</td>
+<td align="right">35.455595</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">324</td>
+<td align="right">4</td>
+<td align="right">279.0075</td>
+<td align="right">45.172223</td>
+<td align="right">22.586112</td>
+<td align="right">71.879087</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">325</td>
+<td align="right">4</td>
+<td align="right">858.8931</td>
+<td align="right">236.382009</td>
+<td align="right">118.191005</td>
+<td align="right">376.136526</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">331</td>
+<td align="right">4</td>
+<td align="right">493.4654</td>
+<td align="right">59.471861</td>
+<td align="right">29.735930</td>
+<td align="right">94.633002</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">337</td>
+<td align="right">4</td>
+<td align="right">666.0934</td>
+<td align="right">126.704945</td>
+<td align="right">63.352473</td>
+<td align="right">201.615842</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">348</td>
+<td align="right">4</td>
+<td align="right">337.6119</td>
+<td align="right">42.370535</td>
+<td align="right">21.185267</td>
+<td align="right">67.420976</td>
+</tr>
+<tr class="even">
+<td align="left">2022</td>
+<td align="left">357</td>
+<td align="right">2</td>
+<td align="right">1368.7083</td>
+<td align="right">76.873305</td>
+<td align="right">54.357635</td>
+<td align="right">690.679239</td>
+</tr>
+<tr class="odd">
+<td align="left">2022</td>
+<td align="left">362</td>
+<td align="right">4</td>
+<td align="right">918.1344</td>
+<td align="right">215.192272</td>
+<td align="right">107.596136</td>
+<td align="right">342.418925</td>
+</tr>
+</tbody>
+</table>
+<p><img src="phenols_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="inferential-statistics" class="section level2">
+<h2>Inferential statistics</h2>
+<p>Interpopulation and intrapopulation comparison for the years 2019,
+2021 and 2022.</p>
+<ul>
+<li>Nested design: site(phenotype).</li>
+<li>Univariate analysis of the phenol concentration variable.</li>
+<li>Probability distribution: Normal.</li>
+<li>Analysis of variance components.</li>
+<li>random factors:year, site and phenotype</li>
+</ul>
+<div id="resumen-del-modelo" class="section level3">
+<h3>Resumen del modelo</h3>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: phenols ~ year + (1 | site/phenotype/bag)
+##    Data: data_phenols
+## 
+## REML criterion at convergence: 6339.9
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -5.9070 -0.2425 -0.0649  0.1306  4.1221 
+## 
+## Random effects:
+##  Groups               Name        Variance Std.Dev.
+##  bag:(phenotype:site) (Intercept) 203497   451.1   
+##  phenotype:site       (Intercept) 153566   391.9   
+##  site                 (Intercept)  40167   200.4   
+##  Residual                          48669   220.6   
+## Number of obs: 431, groups:  bag:(phenotype:site), 209; phenotype:site, 51; site, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)   539.35     140.63   3.835
+## year2021      169.20      85.27   1.984
+## year2022      426.06      98.72   4.316
+## 
+## Correlation of Fixed Effects:
+##          (Intr) yr2021
+## year2021 -0.282       
+## year2022 -0.221  0.377</code></pre>
+<pre><code>## Analysis of Variance Table
+##      npar Sum Sq Mean Sq F value
+## year    2 2.5618  1.2809  17.835</code></pre>
+</div>
+<div id="supuestos-del-modelo" class="section level3">
+<h3>Supuestos del modelo</h3>
+<p><img src="phenols_files/figure-html/unnamed-chunk-11-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>Test de normalidad para muestras biológicas (frutos)</p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.97585, p-value = 1.413e-06</code></pre>
+<p>Test de normalidad para genotipos</p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  alfai
+## W = 0.93371, p-value = 0.006929</code></pre>
+</div>
+<div id="conclusiones" class="section level3">
+<h3>Conclusiones</h3>
+<pre><code>## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer) to predict
+## phenols with year (formula: phenols ~ year). The model included phenotype as random effects
+## (formula: list(~1 | phenotype:site, ~1 | site)). The model&#39;s total explanatory power is
+## substantial (conditional R2 = 0.60) and the part related to the fixed effects alone
+## (marginal R2) is of 0.03. The model&#39;s intercept, corresponding to year = 2019, is at 640.49
+## (95% CI [269.43, 1011.55], t(425) = 3.39, p &lt; .001). Within this model:
+## 
+##   - The effect of year [2021] is statistically non-significant and positive (beta = 115.74,
+## 95% CI [-1.50, 232.98], t(425) = 1.94, p = 0.053; Std. beta = 0.15, 95% CI [-1.98e-03,
+## 0.31])
+##   - The effect of year [2022] is statistically significant and positive (beta = 351.20, 95%
+## CI [215.33, 487.07], t(425) = 5.08, p &lt; .001; Std. beta = 0.46, 95% CI [0.28, 0.64])
+## 
+## Standardized parameters were obtained by fitting the model on a standardized version of the
+## dataset. 95% Confidence Intervals (CIs) and p-values were computed using a Wald
+## t-distribution approximation.</code></pre>
+<!-- El test de Wald (p=) arroja que no hay diferencias estadísticas significativas entre años. -->
+</div>
+<div id="icc-del-modelo" class="section level3">
+<h3>ICC del modelo</h3>
+<pre><code>## # Intraclass Correlation Coefficient
+## 
+##     Adjusted ICC: 0.586
+##   Unadjusted ICC: 0.569</code></pre>
+<pre><code>## [1] 0.5025108</code></pre>
+<pre><code>## [1] 0.4520021</code></pre>
+<pre><code>## [1] 0.04548715</code></pre>
+<p>—-&gt; 50,3% entre muestras de una misma phenotypeesión. —-&gt; 45,2%
+entre phenotypeesiones de una misma siteión. —-&gt; 4,5% entre
+siteiones.</p>
+<p>ICC del modelo = 0.497</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

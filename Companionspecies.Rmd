@@ -67,9 +67,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 rownames(datos)<-datos$Censo
 datosm<-datos[,-c(1:2)]
+
+# datosm<-as.data.frame(datosm)
 rownames(datosm)<-datos$Censo
-datosm<-as.data.frame(datosm)
 mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
+mat.b<-vegdist(datosm, method = "bray", diag = T, binary = F)
 
 
 
@@ -192,13 +194,13 @@ Las barras representan el error estándar.
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-dendro.ward<-hclust(mat.j,method="ward.D")
+dendro.ward<-hclust(mat.b,method="ward.D")
 # dendro.complete<-hclust(mat.j,method="complete") 
 # dendro.average<-hclust(mat.j,method="average")
 
 
 
-# plot(dendro.ward, hang = -1, cex = 1)
+plot(dendro.ward, hang = -1, cex = 1)
 # plot(dendro.complete)
 # plot(dendro.average)
 
@@ -210,7 +212,7 @@ dendro.ward<-hclust(mat.j,method="ward.D")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(factoextra)
-fviz_dend(x = dendro.ward, cex = 0.8, lwd = 0.8, k = 3,
+fviz_dend(x = dendro.ward, cex = 0.5, lwd = 0.5, k = 3,
 # Manually selected colors
           k_colors = c("palegreen4","burlywood2","coral1"),
           rect = TRUE, 

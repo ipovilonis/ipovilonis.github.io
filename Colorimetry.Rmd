@@ -222,7 +222,7 @@ library(lme4)
 L2<- lme4::lmer(L ~ 1 + (1|REG/ACC/id), data)
 summary(L2)
 library(sjPlot)
-sjPlot::plot_model(L2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
+# sjPlot::plot_model(L2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
 ## a
@@ -232,7 +232,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 a2<- lme4::lmer(a ~ 1 + (1|REG/ACC/id), data)
 summary(a2)
 # library(sjPlot)
-sjPlot::plot_model(a2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
+# sjPlot::plot_model(a2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
 ## b
@@ -242,7 +242,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 b2<- lme4::lmer(b ~ 1 + (1|REG/ACC/id), data)
 summary(b2)
 # library(sjPlot)
-sjPlot::plot_model(b2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
+# sjPlot::plot_model(b2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
 
@@ -271,19 +271,19 @@ AIC(b2,b23)
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-sjPlot::tab_model(L2)
+# sjPlot::tab_model(L2)
 ```
 
 ## a
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-sjPlot::tab_model(a2)
+# sjPlot::tab_model(a2)
 ```
 
 ## b
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-sjPlot::tab_model(b2)
+# sjPlot::tab_model(b2)
 ```

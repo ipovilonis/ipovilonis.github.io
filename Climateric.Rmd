@@ -502,3 +502,503 @@ san_carlos <- filter(datares, datares$site == "san_carlos")
 ((100*max(san_carlos$respiration))/min(san_carlos$respiration))-100
 
 ```
+
+
+# Colorimetry
+
+# *L color
+
+## Filter data n=50
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Carga de datos
+library(readxl)
+data_color <- read_excel("database.xlsx", sheet = "climateric_color")
+
+data_color$days <- factor(data_color$days, levels = c("0D", "1D", "8D"))
+data_color$regul <- factor(data_color$regul, levels = c("T1", "T2", "T3"))
+data_color$treat <- factor(data_color$treat, levels = c("control","etileno", "1MCP"))
+
+
+# Obtener el recuento de muestras por tratamiento
+counts <- table(data_color$treat)
+
+# Determinar la cantidad mínima de muestras entre los tratamientos
+min_count <- min(counts)
+
+# Realizar el submuestreo aleatorio
+balanced_data <- data.frame()
+for (treat in names(counts)) {
+  subset <- data_color[data_color$treat == treat, ]
+  subset <- subset[sample(nrow(subset), min_count, replace = FALSE), ]
+  balanced_data <- rbind(balanced_data, subset)
+}
+
+data_color <- balanced_data
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data_color_L<- data_color[,-c(1:2,5:8)]
+
+data_color_L$treat<-factor(data_color_L$treat, levels = c("control", "etileno", "1MCP"))
+
+```
+
+## Descriptive table for fresh_weight
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_color_L<- data_color_L %>%
+  group_by(treat) %>%
+  summarise(
+    mean = mean(color_L),
+    min = min(color_L),
+    max = max(color_L),
+    sd = sd(color_L)
+  )
+
+table_color_L
+
+# library(Rmisc)
+# table_color_L<- summarySE(data_color, measurevar="color_L", groupvars=c("treat"))
+
+
+```
+
+## Descriptive graphic (sd)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("yellow","orange","#285114")
+gcolor_L<-ggplot(data=table_color_L, aes(x=treat, y=mean, fill=treat))+
+  stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(1)) +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
+                width=.2, position=position_dodge(1))+
+  labs(x="", y="color_L")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gcolor_L
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Busqueda de outliers
+
+# Definir un umbral para identificar outliers (por ejemplo, 3 desviaciones estándar)
+# threshold <- mean(data_color_L$color_L) + (2 * sd(data_color_L$color_L))
+
+# max(data_color_L$color_L) > threshold
+
+# No hay outliers
+
+```
+
+## The model
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Modelo para comparación de medias
+
+# model_color_L <- aov(color_L ~ treat, data=data_color_L)
+
+library(nlme)
+model_color_L <- gls(sqrt(color_L) ~ treat, weights=varIdent(form= ~ 1|treat ), data=data_color_L)
+# model_color_L <- glm((1/color_L) ~ treat, family = "Gamma", data = data_color_L)
+# AIC(model_color_L, m1, m2)
+
+# library(MASS)
+# # Aplicar la transformación de Box-Cox
+# b <- boxcox(lm(data_color_L$color_L~1))
+# lambda <- b$x[which.max(b$y)]
+# new_x_exact <- (data_color_L$color_L ^ lambda - 1) / lambda
+
+```
+
+## Assumptions check
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ color_L_ajust <- as.data.frame(cbind(
+   "residuos" = residuals(model_color_L),
+   "predichos" = predict(model_color_L)))
+
+ library(ggplot2)
+ HV_color_L<-ggplot(color_L_ajust) +
+   aes(predichos, residuos) +
+   geom_hline(yintercept = 0, colour="white", size=2) +
+   geom_point(colour="white")+
+   theme_classic()+
+   labs(y="Residuals", x="Predicted values")+
+   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+   theme(panel.grid.major.x = element_blank())+
+   theme(text = element_text(size=10, color='white'))+
+   theme(axis.text = element_text(color='white'))+
+   theme(plot.background = element_rect(fill = "gray12"))+
+   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+ HV_color_L
+
+ QQ_color_L<-ggplot(color_L_ajust) +
+   aes(sample = residuos) +
+   geom_qq(shape = 1, colour="white") +
+   geom_qq_line(colour="white")+
+   theme_classic()+
+   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+   theme(panel.grid.major.x = element_blank())+
+   theme(text = element_text(size=10, color='white'))+
+   theme(axis.text = element_text(color='white'))+
+   theme(plot.background = element_rect(fill = "gray12"))+
+   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+ QQ_color_L
+
+ # Levene Test
+ # library(car)
+ # leveneTest(model_color_L)
+ 
+ ## NO hay homocedasticidad
+ 
+ # Shapiro-Wilks Test
+ e<-resid(model_color_L) # residuos de pearson
+ pre<-predict(model_color_L) #predichos
+ shapiro.test(e)
+
+# OK! con modelo gamma.
+
+```
+
+## Anova (comparison of means)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(car)
+# library(multcompView)
+# Anova(model_color_L)
+anova(model_color_L)
+```
+
+## Dunnett test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(DescTools)
+DunnettTest(data_color_L$color_L, data_color_L$treat)
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(model_color_L, pairwise ~ treat) #Tukey  
+Comptar
+plot(Comptar, comparisons = TRUE)+
+  labs(x = "color_L", y ="Treatment")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_color_L$mean[table_color_L$treat == "control"]
+, y = 3.3 , label = "a")+
+  annotate("text", x = table_color_L$mean[table_color_L$treat == "etileno"]
+, y = 2.3, label = "a")+
+  annotate("text", x = table_color_L$mean[table_color_L$treat == "1MCP"]
+, y = 1.3, label = "a")
+
+```
+
+# Color +
+
+## Filter data n=50
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Carga de datos
+library(readxl)
+data_color <- read_excel("database.xlsx", sheet = "climateric_color")
+
+data_color$days <- factor(data_color$days, levels = c("0D", "1D", "8D"))
+data_color$regul <- factor(data_color$regul, levels = c("T1", "T2", "T3"))
+data_color$treat <- factor(data_color$treat, levels = c("control","etileno", "1MCP"))
+
+
+# Obtener el recuento de muestras por tratamiento
+counts <- table(data_color$treat)
+
+# Determinar la cantidad mínima de muestras entre los tratamientos
+min_count <- min(counts)
+
+# Realizar el submuestreo aleatorio
+balanced_data <- data.frame()
+for (treat in names(counts)) {
+  subset <- data_color[data_color$treat == treat, ]
+  subset <- subset[sample(nrow(subset), min_count, replace = FALSE), ]
+  balanced_data <- rbind(balanced_data, subset)
+}
+
+data_color <- balanced_data
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data_color_G<- data_color[,-c(1:2,4:8)]
+
+data_color_G$treat<-factor(data_color_G$treat, levels = c("control", "etileno", "1MCP"))
+
+```
+
+## Descriptive table for fresh_weight
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_color_G<- data_color_G %>%
+  group_by(treat) %>%
+  summarise(
+    mean = mean(color_G),
+    min = min(color_G),
+    max = max(color_G),
+    sd = sd(color_G)
+  )
+
+table_color_G
+
+# library(Rmisc)
+# table_color_G<- summarySE(data_color, measurevar="color_G", groupvars=c("treat"))
+
+
+```
+
+## Descriptive graphic (sd)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("#285114","yellow","orange")
+gcolor_G<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
+  stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(1)) +
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
+                width=.2, position=position_dodge(1))+
+  labs(x="", y="color_G")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gcolor_G
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Busqueda de outliers
+
+# Definir un umbral para identificar outliers (por ejemplo, 3 desviaciones estándar)
+# threshold <- mean(data_color_G$color_G) + (2 * sd(data_color_G$color_G))
+
+# max(data_color_G$color_G) > threshold
+
+# No hay outliers
+
+```
+
+## The model
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Modelo para comparación de medias
+
+model_color_G <- aov(color_G ~ treat, data=data_color_G)
+
+library(nlme)
+model_color_G <- gls(sqrt(color_G) ~ treat, weights=varIdent(form= ~ 1|treat ), data=data_color_G)
+# model_color_G <- glm((1/color_G) ~ treat, family = "Gamma", data = data_color_G)
+# AIC(model_color_G, m1, m2)
+
+# library(MASS)
+# # Aplicar la transformación de Box-Cox
+# b <- boxcox(lm(data_color_G$color_G~1))
+# lambda <- b$x[which.max(b$y)]
+# new_x_exact <- (data_color_G$color_G ^ lambda - 1) / lambda
+
+```
+
+## Assumptions check
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ color_G_ajust <- as.data.frame(cbind(
+   "residuos" = residuals(model_color_G),
+   "predichos" = predict(model_color_G)))
+
+ library(ggplot2)
+ HV_color_G<-ggplot(color_G_ajust) +
+   aes(predichos, residuos) +
+   geom_hline(yintercept = 0, colour="white", size=2) +
+   geom_point(colour="white")+
+   theme_classic()+
+   labs(y="Residuals", x="Predicted values")+
+   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+   theme(panel.grid.major.x = element_blank())+
+   theme(text = element_text(size=10, color='white'))+
+   theme(axis.text = element_text(color='white'))+
+   theme(plot.background = element_rect(fill = "gray12"))+
+   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+ HV_color_G
+
+ QQ_color_G<-ggplot(color_G_ajust) +
+   aes(sample = residuos) +
+   geom_qq(shape = 1, colour="white") +
+   geom_qq_line(colour="white")+
+   theme_classic()+
+   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+   theme(panel.grid.major.x = element_blank())+
+   theme(text = element_text(size=10, color='white'))+
+   theme(axis.text = element_text(color='white'))+
+   theme(plot.background = element_rect(fill = "gray12"))+
+   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+ QQ_color_G
+
+ # Levene Test
+ # library(car)
+ # leveneTest(model_color_G)
+ 
+ ## NO hay homocedasticidad
+ 
+ # Shapiro-Wilks Test
+ e<-resid(model_color_G) # residuos de pearson
+ pre<-predict(model_color_G) #predichos
+ shapiro.test(e)
+
+# OK! con modelo gamma.
+
+```
+
+## Anova (comparison of means)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(car)
+# library(multcompView)
+# Anova(model_color_G)
+anova(model_color_G)
+```
+
+## Dunnett test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(DescTools)
+DunnettTest(data_color_G$color_G, data_color_G$treat)
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(model_color_G, pairwise ~ treat) #Tukey  
+Comptar
+plot(Comptar, comparisons = TRUE)+
+  labs(x = "color_G", y ="Treatment")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_color_G$mean[table_color_G$treat == "control"]
+, y = 1.3 , label = "b")+
+  annotate("text", x = table_color_G$mean[table_color_G$treat == "etileno"]
+, y = 2.3, label = "a")+
+  annotate("text", x = table_color_G$mean[table_color_G$treat == "1MCP"]
+, y = 3.3, label = "c")
+
+```
+
+
+# Color correlation
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Carga de datos
+
+
+```
+
+# Correlation
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Calculo de la correlación
+cor(data_color$color_a,data_color$color_L)
+cor(data_color$color_a,data_color$color_b)
+cor(data_color$color_L,data_color$color_b)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Gráfico
+colores<-c("#285114","yellow","orange")
+library(ggplot2)
+gcorLab<-ggplot(data=data_color, aes(x=axis_1, y=axis_2, color=treat_disc))+
+geom_point(size=4)+
+labs(x="axis_1", y="axis_2")+
+theme_classic()+
+  scale_color_manual(values=colores)
+gcorLab
+
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear el gráfico 
+library(scatterplot3d)
+colors <- c("#285114","yellow","orange")
+colors <- colors[as.numeric(data_color$treat)]
+tdplot <-scatterplot3d(data_color[4:6],
+                       pch = 16,
+                       color=colors,
+                       box=FALSE,
+                       # type="h",
+                       angle = 45
+                       )
+#Agregar plano
+# my.lm <- lm(color_G ~ color_L + color_a + color_b, data=data_color[,c(4:6,9)])
+#   tdplot$plane3d(my.lm, lty.box = "solid")
+
+```

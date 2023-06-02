@@ -2,12 +2,9 @@
 title: "Chemical"
 ---
 
-
 ```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
 knitr::include_graphics("IMG_chem.jpg")
 ```
-
-
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -724,6 +721,70 @@ ICCatt
 
 ```
 
+# Carotenoids 3 years
+
+```{r, echo=FALSE,warning = FALSE, message = FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+dataqui<-read_excel("database.xlsx", sheet="varqui")
+
+dataqui$year<-as.factor(dataqui$year)
+dataqui$site<-factor(dataqui$site,levels=c("concordia", "palmar","gualeguaychu"))
+dataqui$phenotype<-as.factor(dataqui$phenotype)
+
+```
+
+## Descriptive table
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+dataqui<-as.data.frame(dataqui)
+dataqui<-dataqui[-c(429:436),-c(4:5,9:16)]
+dataqui<-na.omit(dataqui)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(dplyr)
+# table_hvcaro<- dataqui %>%
+#   group_by(year) %>%
+#   summarise(
+#     mean = mean(caro),
+#     min = min(caro),
+#     max = max(caro),
+#     sd = sd(caro)
+# )
+# 
+# table_hvcaro
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(ggplot2)
+# colores<-c("coral1","burlywood2","palegreen4")
+# gcaro<-ggplot(data=table_hvcaro, aes(x=site, y=mean, fill=site))+
+#   stat_summary(fun = "mean", size = 1, geom = "bar") +
+#   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
+#                 width=.2, position=position_dodge(.9))+
+#   # facet_grid(.~year)+
+#   labs(x="", y="Carotenoids [µg / g fruit fresh weight]")+
+#   theme_classic()+
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+#   scale_fill_manual(values = colores) +
+#   theme(legend.title=element_blank())+
+#   theme(legend.position='none')+
+#   theme(panel.grid.major.y = element_line(color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='black'))+
+#   theme(axis.text = element_text(color='black'))
+# gcaro
+```
+
 # ratio 2019
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -1027,7 +1088,7 @@ concordia<-subset(datavq, site == "concordia")
 concordia$year<-as.factor(concordia$year)
 concordia$phenotype<-as.factor(concordia$phenotype)
 concordia$site<-as.factor(concordia$site)
-colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2")
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2","red2")
 
 estcon <- summarySE(concordia, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
 estcon

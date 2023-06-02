@@ -1,0 +1,60 @@
+---
+title: "Fenoles 2022"
+
+---
+
+```{r, echo=FALSE,warning = FALSE, message = FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+fenolesdb<-read_excel("database.xlsx", sheet="fenoles2022")
+
+fenolesdb$sitio <-as.factor(fenolesdb$sitio)
+fenolesdb$fenotipo <-as.factor(fenolesdb$fenotipo)
+fenolesdb$rep <-as.factor(fenolesdb$rep)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+grafico_fenoles<-ggplot(data=fenolesdb, aes(x=fenotipo, y=fenoles, color=sitio))+
+  geom_boxplot(size=1)+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='white'))+
+  theme(axis.text = element_text(color='white', size=15))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  ylab("Phenols [mg Tan / 100g PF]")+
+  xlab("")+
+  labs(color = "", shape = "")
+grafico_fenoles
+```
+
+## Descriptive table
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(dplyr)
+# table_fenoles<- fenolesdb %>%
+#   group_by(sitio, fenotipo) %>%
+#   summarise(
+#     n = n(),
+#     mean = mean(fenoles),
+#     min = min(fenoles),
+#     max = max(fenoles),
+#     sd = sd(fenoles)
+#   )
+# 
+# table_fenoles
+
+
+library(Rmisc)
+table_fenoles <- summarySE(fenolesdb, measurevar="fenoles", groupvars=c("sitio","fenotipo"),na.rm = TRUE)
+
+table_fenoles
+```
