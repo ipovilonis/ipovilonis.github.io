@@ -31,7 +31,7 @@ color_L: luminosity
 
 3NH NH300 digital colorimeter.
 
-# Estadística descriptiva
+# Descriptive statistics.
 
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -46,7 +46,7 @@ table_color_a
 table_color_b
 ```
 
-## color_L
+## Bar plots
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
@@ -59,7 +59,7 @@ g1_color_L<-ggplot2::ggplot(table_color_L, aes(x=mad, y=color_L, fill=site, widt
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
+  theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20, color='black'))+
@@ -79,7 +79,7 @@ g1_color_a<-ggplot2::ggplot(table_color_a, aes(x=mad, y=color_a, fill=site, widt
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
+  theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20, color='black'))+
@@ -107,7 +107,7 @@ g1_color_b<-ggplot2::ggplot(table_color_b, aes(x=mad, y=color_b, fill=site, widt
 
 ```
 
-```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=16}
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=24}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggpubr)
@@ -116,9 +116,7 @@ Labgmu<- ggarrange(g1_color_L,g1_color_a,g1_color_b, ncol = 1,
 Labgmu
 ```
 
-
-Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con promedio.
-
+Density (frequency) of values found for the 4 maturity states with average.
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -156,7 +154,7 @@ Labgmu<- ggarrange(gLmu,gamu,gbmu, ncol = 1,
 Labgmu
 
 ```
-Tabla de color promedio por madurez.
+Table of average color by maturity.
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -301,10 +299,12 @@ D_sm_b<-smb$x[which.max(smb$y)]
 
 ```
 
-Densidad (frecuencia) de valores encontrados para los 4 estados de madurez con Línea de mayor frecuencia.
+Density (frequency) of values found for the 4 maturity states with Line of highest frequency.
+
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(ggplot2)
 #Color pico máximo por madurez
 
 madurezm<-c("I","MM","M","SM")
@@ -349,7 +349,7 @@ Labgden<- ggarrange(g2_color_L,g2_color_a,g2_color_b, ncol = 1,
 Labgden
 
 ```
-Tabla de color más frecuente por madurez.
+Table of most frequent color by maturity.
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -358,15 +358,15 @@ fc
 
 ```
 
-### Paleta de colores.
+### Color palette.
 
 ```{r pressure, echo=FALSE, fig.cap="color_a caption", out.width = '100%'}
 knitr::include_graphics("coloresmadREF.JPG")
 ```
 
-IP: inmaduro promedio, IF: inmaduro con mayor frecuencia, MMP: medio maduro promedio, MMF: medio maduro con mayor frecuencia, MP: maduro promedio, MF: maduro con mayor frecuencia, SMP: sobre maduro promedio, SMF: sobre maduro con mayor frecuencia.
+IP: Average immature, IF: Most frequent immature, MMP: Average medium mature, MMF: Most frequent medium mature, MP: Average mature, MF: Most frequent mature, SMP: Average overripe, SMF: Most frequent overripe.
 
-# Estadística inferencial: estados de madurez.
+# Inferential statistics: maturity states.
 
 ## color_L
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -407,11 +407,11 @@ compb<-emmeans::emmeans(mb, pairwise ~ mad, mode = "df.error")
 plot(compb, comparisons = TRUE)
 ```
 
-# Conclusión
+# Conclusion
 
-Se encontraron diferencias significativas para todos los estados de madurez en las 3 escalas color_L, a y b. Sólo en la escala b no se diferencia MM de SM.
+Significant differences were found for all maturity states in the three scales color_L, a, and b. Only in the b scale, there is no difference between MM and SM.
 
-# Estadística inferencial: poblaciones.
+# Inferential statistics: populations.
 
 ## color_L
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -444,8 +444,7 @@ summary(b2)
 # sjPlot::plot_model(b2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 
-
-# Significación
+# Signification
 
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -463,8 +462,8 @@ anova(b2,b23)
 AIC(b2,b23)
 ```
 
-# Coeficientes de correlación intra clase (CCI)
-*Varianza residual sobre la varianza total*
+# Intraclass correlation coefficients (ICC)
+*Residual variance over total variance.*
 
 # Principal component analysis
 
@@ -524,7 +523,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(dplyr)
 # table_color_G<- data_color_G %>%
-#   group_by(mad) %>%
+#   group_by(treat) %>%
 #   summarise(
 #     mean = mean(color_G),
 #     min = min(color_G),
@@ -719,11 +718,11 @@ tdplot <-scatterplot3d(data[7:9],
                        box=FALSE,
                        # type="h",
                        angle = 280)
-legend("topright", legend = unique(data$site), col = unique(colors), pch = 16, title = "Sites")
+legend("topleft", legend = unique(data$site), col = unique(colors), pch = 16, title = "Sites")
 
 ```
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Crear el gráfico
@@ -736,7 +735,7 @@ tdplot <-scatterplot3d(data[7:9],
                        box=FALSE,
                        # type="h",
                        angle = 280)
-legend("topright", legend = unique(data$mad), col = unique(colors), pch = 16, title = "Maturity")
+legend("topleft", legend = unique(data$mad), col = unique(colors), pch = 16, title = "Maturity")
 
 #Agregar plano
 # my.lm <- lm(color_G ~ color_L + color_a + color_b, data=data_color[,c(4:6,9)])

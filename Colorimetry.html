@@ -257,7 +257,13 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="Weight.html">Weight</a>
+      <a href="Weight.">Weight</a>
+    </li>
+    <li>
+      <a href="Diameter.html">Diameter</a>
+    </li>
+    <li>
+      <a href="Seeds.html">Seeds</a>
     </li>
     <li>
       <a href="Colorimetry.html">Colorimetry</a>
@@ -387,8 +393,8 @@ Gualeguaychú.</p>
 <p>CieLab scale: color_L: luminosity +a: red -a: green +b: yellow -b:
 blue</p>
 <p>3NH NH300 digital colorimeter.</p>
-<div id="estadística-descriptiva" class="section level1">
-<h1>Estadística descriptiva</h1>
+<div id="descriptive-statistics." class="section level1">
+<h1>Descriptive statistics.</h1>
 <pre><code>##            site mad   N  color_L       sd        se        ci
 ## 1     concordia   I 306 55.70627 7.331983 0.4191416 0.8247752
 ## 2     concordia  MM  84 61.31595 5.053207 0.5513501 1.0966131
@@ -428,46 +434,45 @@ blue</p>
 ## 10 gualeguaychu  MM 104 43.43865 10.368238 1.0166894 2.0163636
 ## 11 gualeguaychu   M  52 52.05827  8.931949 1.2386384 2.4866704
 ## 12 gualeguaychu  SM  12 47.32083  9.531829 2.7516021 6.0562355</code></pre>
-<div id="color_l" class="section level2">
-<h2>color_L</h2>
+<div id="bar-plots" class="section level2">
+<h2>Bar plots</h2>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Densidad (frecuencia) de valores encontrados para los 4 estados de
-madurez con promedio.</p>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" />
-Tabla de color promedio por madurez.</p>
+<p>Density (frequency) of values found for the 4 maturity states with
+average.
+<img src="Colorimetry_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" />
+Table of average color by maturity.</p>
 <pre><code>##   Lmu.mad Lmu.grp.mean amu.grp.mean bmu.grp.mean
 ## 1       I     50.36056    -4.702311     33.77067
 ## 2      MM     57.62078     2.778246     45.48081
 ## 3       M     61.98239    12.407876     53.68757
 ## 4      SM     54.04895    17.147742     44.98548</code></pre>
-<p>Densidad (frecuencia) de valores encontrados para los 4 estados de
-madurez con Línea de mayor frecuencia.
-<img src="Colorimetry_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" />
-Tabla de color más frecuente por madurez.</p>
+<p>Density (frequency) of values found for the 4 maturity states with
+Line of highest frequency.</p>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" />
+Table of most frequent color by maturity.</p>
 <pre><code>##        Lcm        acm      bcm
 ## 1 51.37369 -8.7950137 38.00813
 ## 2 57.55477  0.9702936 48.97375
 ## 3 63.54434 11.0373012 57.95549
 ## 4 49.68287 14.6332245 39.53696</code></pre>
-<div id="paleta-de-colores." class="section level3">
-<h3>Paleta de colores.</h3>
+<div id="color-palette." class="section level3">
+<h3>Color palette.</h3>
 <div class="figure">
 <img src="coloresmadREF.JPG" alt="color_a caption" width="100%" />
 <p class="caption">
 color_a caption
 </p>
 </div>
-<p>IP: inmaduro promedio, IF: inmaduro con mayor frecuencia, MMP: medio
-maduro promedio, MMF: medio maduro con mayor frecuencia, MP: maduro
-promedio, MF: maduro con mayor frecuencia, SMP: sobre maduro promedio,
-SMF: sobre maduro con mayor frecuencia.</p>
+<p>IP: Average immature, IF: Most frequent immature, MMP: Average medium
+mature, MMF: Most frequent medium mature, MP: Average mature, MF: Most
+frequent mature, SMP: Average overripe, SMF: Most frequent overripe.</p>
 </div>
 </div>
 </div>
-<div id="estadística-inferencial-estados-de-madurez."
+<div id="inferential-statistics-maturity-states."
 class="section level1">
-<h1>Estadística inferencial: estados de madurez.</h1>
-<div id="color_l-1" class="section level2">
+<h1>Inferential statistics: maturity states.</h1>
+<div id="color_l" class="section level2">
 <h2>color_L</h2>
 <pre><code>## Denom. DF: 1504 
 ##             numDF  F-value p-value
@@ -492,15 +497,15 @@ class="section level1">
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="conclusión" class="section level1">
-<h1>Conclusión</h1>
-<p>Se encontraron diferencias significativas para todos los estados de
-madurez en las 3 escalas color_L, a y b. Sólo en la escala b no se
-diferencia MM de SM.</p>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Significant differences were found for all maturity states in the
+three scales color_L, a, and b. Only in the b scale, there is no
+difference between MM and SM.</p>
 </div>
-<div id="estadística-inferencial-poblaciones." class="section level1">
-<h1>Estadística inferencial: poblaciones.</h1>
-<div id="color_l-2" class="section level2">
+<div id="inferential-statistics-populations." class="section level1">
+<h1>Inferential statistics: populations.</h1>
+<div id="color_l-1" class="section level2">
 <h2>color_L</h2>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
 ## Formula: color_L ~ 1 + (1 | site/phenotype/id)
@@ -575,8 +580,8 @@ diferencia MM de SM.</p>
 ## Model failed to converge with max|grad| = 0.00482897 (tol = 0.002, component 1)</code></pre>
 </div>
 </div>
-<div id="significación" class="section level1">
-<h1>Significación</h1>
+<div id="signification" class="section level1">
+<h1>Signification</h1>
 <pre><code>## Data: data
 ## Models:
 ## L23: color_L ~ 1 + (1 | site)
@@ -612,10 +617,10 @@ diferencia MM de SM.</p>
 ## b2   5 11176.3
 ## b23  3 11166.0</code></pre>
 </div>
-<div id="coeficientes-de-correlación-intra-clase-cci"
+<div id="intraclass-correlation-coefficients-icc"
 class="section level1">
-<h1>Coeficientes de correlación intra clase (CCI)</h1>
-<p><em>Varianza residual sobre la varianza total</em></p>
+<h1>Intraclass correlation coefficients (ICC)</h1>
+<p><em>Residual variance over total variance.</em></p>
 </div>
 <div id="principal-component-analysis" class="section level1">
 <h1>Principal component analysis</h1>
@@ -749,7 +754,7 @@ maturation</em></p>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" />
 # Color correlation</p>
 <p><img src="Colorimetry_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="Colorimetry_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Colorimetry_files/figure-html/unnamed-chunk-29-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="discriminant-analysis" class="section level1">
