@@ -31,10 +31,22 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # fisico %>% drop_na()
 
 variable<-c("Fresh fruit weight","Dry fruit weight","Dry seed weight","Dry pulp weight", "Dry pulp/fresh fruit weight (%)")
-means<-c(mean(fisico$pff), (mean(fisico$psf, na.rm=T)), (mean(fisico$pss, na.rm=T)),((mean(fisico$psf, na.rm=T))-(mean(fisico$pss, na.rm=T))), (0.6311753*100/18.5236420))
+means<-c(mean(na.omit(fisico$pff)), (mean(fisico$psf, na.rm=T)), (mean(fisico$pss, na.rm=T)),((mean(fisico$psf, na.rm=T))-(mean(fisico$pss, na.rm=T))), (0.6311753*100/18.5236420))
 
 fruit<-data.frame(variable,means)
 fruit
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear el gráfico utilizando ggplot y agregar el texto del número
+ggfruit<-ggplot(data, aes(x = 1, y = 1)) +
+  geom_text(aes(label = 32, size = 2, color = "green")) +
+  theme_classic()+
+  ggtitle("Dry Weight (g)")+
+  theme(legend.position='none')
+ggfruit
 ```
 
 # Maturity index

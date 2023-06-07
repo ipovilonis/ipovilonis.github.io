@@ -5,6 +5,9 @@ title: "Phenols"
 ```{r, echo=FALSE,warning = FALSE, message = FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+rm(list = ls())
+new.env()
+
 library(readxl)
 data_phenols<-read_excel("database.xlsx", sheet="quimico")
 
@@ -21,18 +24,18 @@ data_phenols$bag<-as.factor(data_phenols$bag)
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# library(dplyr)
-# table_phenols<- data_phenols %>%
-#   group_by(site, year) %>%
-#   summarise(
-#     mean = mean(phenols),
-#     min = min(phenols),
-#     max = max(phenols),
-#     sd = sd(phenols)
-#   )
+library(dplyr)
+table_phenols<- data_phenols %>%
+  dplyr::group_by(site, year) %>%
+  dplyr::summarise(
+    Mean = mean(phenols),
+    min = min(phenols),
+    max = max(phenols),
+    sd = sd(phenols)
+  )
 
-library(Rmisc)
-table_phenols <- summarySE(data_phenols, measurevar="phenols", groupvars=c("site", "year"))
+# library(Rmisc)
+# table_phenols <- summarySE(data_phenols, measurevar="phenols", groupvars=c("site", "year"))
 
 library(knitr)
 kable(table_phenols, format = "markdown")
@@ -44,15 +47,15 @@ kable(table_phenols, format = "markdown")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-g1_phenols<-ggplot(data=table_phenols, aes(x=site, y=phenols, form=site, fill=site))+
+g1_phenols<-ggplot(data=table_phenols, aes(x=site, y=Mean, fill=site))+
   scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
-  stat_summary(fun = "phenols", size = 1, geom = "bar", position=position_dodge(0.9)) +
-  geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
-                width=.3, position=position_dodge(0.9), color="black")+
-  labs(x="", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  stat_summary(fun = "mean", size = .9, geom = "bar", position=position_dodge(.9)) +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.3, position=position_dodge(.9), color="black")+
+  labs(x="", y="Phenols [mgTA/100gFW]")+
   facet_grid(.~year)+
   theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(plot.title = element_text(hjust = .5, size = rel(1.5))) +
   theme(legend.title=element_blank())+
   theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
@@ -70,12 +73,12 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 colores<-c("maroon4","dodgerblue4","deeppink")
-g2_phenols<-ggplot(data=table_phenols, aes(x=year, y=phenols, form=year, fill=site))+
-  stat_summary(fun = "phenols", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
+g2_phenols<-ggplot(data=table_phenols, aes(x=year, y=Mean, form=year, fill=year))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
                 width=.2, position=position_dodge(.9))+
   facet_grid(.~site)+
-  labs(x="", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  labs(x="", y="Phenols [mgTA/100gFW]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_fill_manual(values = colores) +
@@ -97,7 +100,7 @@ concordia_phenols<-subset(data_phenols, site == "concordia")
 
 # library(dplyr)
 # estcon_phenols <- concordia_phenols %>%
-#   group_by(year, phenotype) %>%
+#   dplyr::group_by(year, phenotype) %>%
 #   summarise(
 #     mean = mean(phenols),
 #     min = min(phenols),
@@ -121,7 +124,7 @@ gp_concordia<-ggplot(data=estcon_phenols, aes(x=phenotype, y=phenols, form=pheno
   geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
                 width=.2, position=position_dodge(.9))+
   facet_grid(.~year)+
-  labs(x="Concordia", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  labs(x="Concordia", y="")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   theme(legend.title=element_blank())+
@@ -141,7 +144,7 @@ palmar_phenols<-subset(data_phenols, site == "palmar")
 
 # library(dplyr)
 # estpalmar_phenols <- palmar_phenols %>%
-#   group_by(year, phenotype) %>%
+#   dplyr::group_by(year, phenotype) %>%
 #   summarise(
 #     mean = mean(phenols),
 #     min = min(phenols),
@@ -152,7 +155,7 @@ palmar_phenols<-subset(data_phenols, site == "palmar")
 # estpalmar_phenols
 
 library(Rmisc)
-estpalmar_phenols <- summarySE(concordia_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
+estpalmar_phenols <- summarySE(palmar_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
 
 library(knitr)
 kable(estpalmar_phenols, format = "markdown")
@@ -165,7 +168,7 @@ gp_palmar<-ggplot(data=estpalmar_phenols, aes(x=phenotype, y=phenols, form=pheno
   geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
                 width=.2, position=position_dodge(.9))+
   facet_grid(.~year)+
-  labs(x="Palmar", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  labs(x="Palmar", y="Phenols [mgTA/100gFW]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   theme(legend.title=element_blank())+
@@ -185,7 +188,7 @@ guale_phenols<-subset(data_phenols, site == "gualeguaychu")
 
 # library(dplyr)
 # estguale_phenols <- guale_phenols %>%
-#   group_by(year, phenotype) %>%
+#   dplyr::group_by(year, phenotype) %>%
 #   summarise(
 #     mean = mean(phenols),
 #     min = min(phenols),
@@ -209,7 +212,7 @@ gp_guale<-ggplot(data=estguale_phenols, aes(x=phenotype, y=phenols, form=phenoty
   geom_errorbar(aes(ymin=phenols-sd, ymax=phenols+sd),
                 width=.2, position=position_dodge(.9))+
   facet_grid(.~year)+
-  labs(x="Gualeguaychú", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  labs(x="Gualeguaychú", y="")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   theme(legend.title=element_blank())+
@@ -345,9 +348,9 @@ ICCr #0.05893767 ----> 4,5% entre siteiones.
 
 ```
 
-----> 50,3% entre muestras de una misma phenotypeesión.
-----> 45,2% entre phenotypeesiones de una misma siteión.
-----> 4,5% entre siteiones.
+* ----> 50,3% 
+* ----> 45,2% 
+* ----> 4,5% 
 
 ICC del modelo = 0.497
 

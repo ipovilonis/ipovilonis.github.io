@@ -3,7 +3,7 @@ title: "Colorimetry"
 ---
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
+new.env()
 # setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(readxl)
 data<-read_excel("database.xlsx", sheet="color")
@@ -55,7 +55,7 @@ g1_color_L<-ggplot2::ggplot(table_color_L, aes(x=mad, y=color_L, fill=site, widt
     geom_errorbar(aes(ymin=color_L-sd, ymax=color_L+sd),
                 width=.2, position=position_dodge(1))+
     scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
-    labs(y="color_L", x="Maturity")+
+    labs(y="color_L")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   theme(legend.title=element_blank())+
@@ -75,7 +75,7 @@ g1_color_a<-ggplot2::ggplot(table_color_a, aes(x=mad, y=color_a, fill=site, widt
     geom_errorbar(aes(ymin=color_a-sd, ymax=color_a+sd),
                 width=.2, position=position_dodge(1))+
     scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
-    labs(y="color_a", x="Maturity")+
+    labs(y="color_a")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   theme(legend.title=element_blank())+
@@ -95,7 +95,7 @@ g1_color_b<-ggplot2::ggplot(table_color_b, aes(x=mad, y=color_b, fill=site, widt
     geom_errorbar(aes(ymin=color_b-sd, ymax=color_b+sd),
                 width=.2, position=position_dodge(1))+
     scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
-    labs(y="color_b", x="Maturity")+
+    labs(y="color_b")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   theme(legend.title=element_blank())+
@@ -169,42 +169,44 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # color_L ----
 icolor_L<-data[data$mad == "I", ]
 
-d <- density(icolor_L$color_L)
-modes <- function(d){
-  i <- which(diff(sign(diff(data$color_L))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
-}
-micolor_L<-modes(d)[1:170,]
-D_i_L<-micolor_L$x[which.max(micolor_L$y)]  
-# 51.37369
-mmcolor_L<-data[data$mad == "MM", ]
+icolor_L$color_L <- as.numeric(na.omit(icolor_L$color_L))
 
-d <- density(mmcolor_L$color_L)
-modes <- function(d){
+diL <- stats::density(icolor_L$color_L)
+modes <- function(diL){
   i <- which(diff(sign(diff(data$color_L))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = diL$x[i], y = diL$y[i])
 }
-mmcolor_L<-modes(d)
+icolor_L<-modes(diL)[1:170,]
+D_i_L<-icolor_L$x[which.max(icolor_L$y)]  
+# 51.37369
+
+mmcolor_L<-data[data$mad == "MM", ]
+dmmL <- stats::density(mmcolor_L$color_L)
+modes <- function(dmmL){
+  i <- which(diff(sign(diff(data$color_L))) < 0) + 1
+  data.frame(x = dmmL$x[i], y = dmmL$y[i])
+}
+mmcolor_L<-modes(dmmL)
 D_mm_L<-mmcolor_L$x[which.max(mmcolor_L$y)]  
 # 57.29858
-mcolor_L<-data[data$mad == "M", ]
 
-d <- density(mcolor_L$color_L)
-modes <- function(d){
+mcolor_L<-data[data$mad == "M", ]
+dmL <- stats::density(mcolor_L$color_L)
+modes <- function(dmL){
   i <- which(diff(sign(diff(data$color_L))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dmL$x[i], y = dmL$y[i])
 }
-mcolor_L<-modes(d)
+mcolor_L<-modes(dmL)
 D_m_L<-mcolor_L$x[which.max(mcolor_L$y)]  
 # 63.01838
 smcolor_L<-data[data$mad == "SM", ]
 
-d <- density(smcolor_L$color_L)
-modes <- function(d){
+dsmL <- stats::density(smcolor_L$color_L)
+modes <- function(dsmL){
   i <- which(diff(sign(diff(data$color_L))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dsmL$x[i], y = dsmL$y[i])
 }
-smcolor_L<-modes(d)
+smcolor_L<-modes(dsmL)
 D_sm_L<-smcolor_L$x[which.max(smcolor_L$y)]  
 # 50.07214
 
@@ -212,43 +214,43 @@ D_sm_L<-smcolor_L$x[which.max(smcolor_L$y)]
 
 ia<-data[data$mad == "I", ]
 
-d <- density(ia$color_a)
+dia <- stats::density(ia$color_a)
 
-modes <- function(d){
+modes <- function(dia){
   i <- which(diff(sign(diff(data$color_a))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dia$x[i], y = dia$y[i])
 }
-ia<-modes(d)
+ia<-modes(dia)
 D_i_a<-ia$x[which.max(ia$y)]  
 # -8.821792
 mma<-data[data$mad == "MM", ]
 
-d <- density(mma$color_a)
-modes <- function(d){
+dmma <- stats::density(mma$color_a)
+modes <- function(dmma){
   i <- which(diff(sign(diff(data$color_a))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dmma$x[i], y = dmma$y[i])
 }
-mma<-modes(d)
+mma<-modes(dmma)
 D_mm_a<-mma$x[which.max(mma$y)]  
 # 1.356885
 ma<-data[data$mad == "M", ]
 
-d <- density(ma$color_a)
-modes <- function(d){
+dma <- stats::density(ma$color_a)
+modes <- function(dma){
   i <- which(diff(sign(diff(data$color_a))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dma$x[i], y = dma$y[i])
 }
-ma<-modes(d)
+ma<-modes(dma)
 D_m_a<-ma$x[which.max(ma$y)]  
 # 10.57956
 sma<-data[data$mad == "SM", ]
 
-d <- density(sma$color_a)
-modes <- function(d){
+dsma <- stats::density(sma$color_a)
+modes <- function(dsma){
   i <- which(diff(sign(diff(data$color_a))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dsma$x[i], y = dsma$y[i])
 }
-sma<-modes(d)
+sma<-modes(dsma)
 D_sm_a<-sma$x[which.max(sma$y)]  
 # 19.1934
 
@@ -257,43 +259,43 @@ D_sm_a<-sma$x[which.max(sma$y)]
 
 ib<-data[data$mad == "I", ]
 
-d <- density(ib$color_b)
+dib <- stats::density(ib$color_b)
 
-modes <- function(d){
+modes <- function(dib){
   i <- which(diff(sign(diff(data$color_b))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dib$x[i], y = dib$y[i])
 }
-ib<-modes(d)
+ib<-modes(dib)
 D_i_b<-ib$x[which.max(ib$y)]  
 # 38.201
 mmb<-data[data$mad == "MM", ]
 
-d <- density(mmb$color_b)
-modes <- function(d){
+dmmb <- stats::density(mmb$color_b)
+modes <- function(dmmb){
   i <- which(diff(sign(diff(data$color_b))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dmmb$x[i], y = dmmb$y[i])
 }
-mmb<-modes(d)
+mmb<-modes(dmmb)
 D_mm_b<-mmb$x[which.max(mmb$y)]  
 # 48.71289
 mb<-data[data$mad == "M", ]
 
-d <- density(mb$color_b)
-modes <- function(d){
+dmb <- stats::density(mb$color_b)
+modes <- function(dmb){
   i <- which(diff(sign(diff(data$color_b))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dmb$x[i], y = dmb$y[i])
 }
-mb<-modes(d)
+mb<-modes(dmb)
 D_m_b<-mb$x[which.max(mb$y)]  
 # 52.20948
 smb<-data[data$mad == "SM", ]
 
-d <- density(smb$color_b)
-modes <- function(d){
+dsmb <- stats::density(smb$color_b)
+modes <- function(dsmb){
   i <- which(diff(sign(diff(data$color_b))) < 0) + 1
-  data.frame(x = d$x[i], y = d$y[i])
+  data.frame(x = dsmb$x[i], y = dsmb$y[i])
 }
-smb<-modes(d)
+smb<-modes(dsmb)
 D_sm_b<-smb$x[which.max(smb$y)]  
 # 38.95771
 
@@ -523,7 +525,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # library(dplyr)
 # table_color_G<- data_color_G %>%
-#   group_by(treat) %>%
+#   dplyr::group_by(treat) %>%
 #   summarise(
 #     mean = mean(color_G),
 #     min = min(color_G),
@@ -718,7 +720,7 @@ tdplot <-scatterplot3d(data[7:9],
                        box=FALSE,
                        # type="h",
                        angle = 280)
-legend("topleft", legend = unique(data$site), col = unique(colors), pch = 16, title = "Sites")
+legend("topleft", legend = unique(data$site), col = unique(colors), pch = 16)
 
 ```
 
@@ -735,7 +737,7 @@ tdplot <-scatterplot3d(data[7:9],
                        box=FALSE,
                        # type="h",
                        angle = 280)
-legend("topleft", legend = unique(data$mad), col = unique(colors), pch = 16, title = "Maturity")
+legend("topleft", legend = unique(data$mad), col = unique(colors), pch = 16)
 
 #Agregar plano
 # my.lm <- lm(color_G ~ color_L + color_a + color_b, data=data_color[,c(4:6,9)])
@@ -752,7 +754,7 @@ data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
 # Gráfico
 colores<-c("palegreen4","green2","orange","burlywood4")
 library(ggplot2)
-gcorLabmad<-ggplot(data=data, aes(x=axis_1, y=axis_2, color=mad,shape=site))+
+gcorLabmad<-ggplot(data=data, aes(x=axis_1, y=axis_2, color=mad))+
 geom_point(size=2)+
 labs(x="axis_1", y="axis_2")+
 theme_classic()+
@@ -781,7 +783,7 @@ data$site<-factor(data$site,levels=c("concordia", "palmar", "gualeguaychu"))
 # Gráfico
 colores<-c("coral1","burlywood2","palegreen4")
 library(ggplot2)
-gcorLabsite<-ggplot(data=data, aes(x=axis_3, y=axis_4, color=site, shape=mad))+
+gcorLabsite<-ggplot(data=data, aes(x=axis_3, y=axis_4, color=site))+
 geom_point(size=2)+
 labs(x="axis_1", y="axis_2")+
 theme_classic()+

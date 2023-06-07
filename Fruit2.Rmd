@@ -1,0 +1,103 @@
+---
+title: "The average fruit"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+    theme:
+      version: 4
+      bg: "#101010"
+      fg: "#FDF7F7" 
+      primary: "#ED79F9"
+      navbar-bg: "#3ADAC6"
+      base_font: 
+        google: Prompt
+      heading_font:
+        google: Sen
+      code_font:
+        google: 
+          # arguments to sass::font_google() 
+          family: JetBrains Mono
+          local: false
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Table
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+fisico<- read_excel("database.xlsx", sheet="fisico")
+
+fisico$year<-as.factor(fisico$year)
+fisico$phenotype<-as.factor(fisico$phenotype)
+fisico$site<-factor(fisico$site,levels=c("concordia", "palmar","gualeguaychu"))
+fisico$n<-as.factor(fisico$n)
+fisico$pss<-as.numeric(fisico$pss)
+fisico$mad<-as.numeric(fisico$mad)
+
+library(tidyr)
+fisico %>% drop_na()
+
+# variable<-c("Fresh fruit weight","Dry fruit weight","Dry seed weight","Dry pulp weight", "Dry pulp/fresh fruit weight (%)")
+# means<-c(mean(na.omit(fisico$pff)), (mean(fisico$psf, na.rm=T)), (mean(fisico$pss, na.rm=T)),((mean(fisico$psf, na.rm=T))-(mean(fisico$pss, na.rm=T))), (0.6311753*100/18.5236420))
+# fruit<-data.frame(variable,means)
+
+library(Rmisc)
+estcon_phenols <- summarySE(fisico, measurevar="var", groupvars=c("phenotype"))
+
+library(knitr)
+kable(fruit, format = "markdown")
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data<-read_excel("database.xlsx", sheet="varqui")
+data$year<-as.factor(data$year)
+data$phenotype<-as.factor(data$phenotype)
+data$site<-factor(data$site,levels=c("concordia", "palmar","gualeguaychu"))
+data19Q<-subset(data, year == "2019")
+
+library(Rmisc)
+resindmad <- summarySE(data19Q, measurevar="indmad", groupvars=c("site","phenotype"), na.rm = TRUE)
+resindmad
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gindmad<-ggplot(data=resindmad, aes(x=phenotype, y=indmad, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=indmad-sd, ymax=indmad+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="Fruit Maturity Index")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gindmad
+```
+
+### Chart C
+
+```{r}
+
+```
+
