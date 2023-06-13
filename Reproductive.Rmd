@@ -13,14 +13,6 @@ output:
 knitr::include_graphics("DSCN6196.jpg")
 ```
 
-# N° óvulos
-
-## Metodología
-Se muestrearon 10 fores por genotipo de *Hexachlamys edulis* en 3 poblaciones de Entre Ríos: Concordia, PN el Palmar y Gualeguaychú.
-Se procedío al corte del ovario infero en lupa y se contaron los óvulos presentes en total en cada flor.
-
-## Estadística descriptiva
-
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -247,4 +239,33 @@ g2g
 
 ```
 
+# polen_germination
 
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+polen_ger<- read_excel("database.xlsx", sheet="polen_ger")
+polen_ger$site<-factor(polen_ger$site,levels=c("concordia", "palmar","gualeguaychu"))
+polen_ger$phenotype<-as.factor(polen_ger$phenotype)
+polen_ger$polen_ratio<-(polen_ger$germinated/(polen_ger$not_germinated+polen_ger$aborted))
+
+
+colores<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","palegreen1","yellow4","palegreen2","green2","palegreen3","palegreen4","palegreen")
+
+pol_gg<-ggplot(data=polen_ger, aes(x=phenotype, y=polen_ratio, form=site,     colour=phenotype)) +  
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  +   geom_jitter(width=0.3) +        labs(y="polen_ratio") +
+  scale_color_manual(values = colores) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+
+pol_gg
+```
