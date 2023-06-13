@@ -316,3 +316,178 @@ RODRÍGUEZ, N.; RUÍZ, R.; ARMENTERAS PASCUAL, D.; MENDOZA CIFUENTES, H.; UMAÑA
 VIGLIZZO, E.F.; JOBBÁGY, E. 2010. Expansión de la Frontera Agropecuaria en Argentina y su Impacto Ecológico-Ambiental. Ediciones INTA. P: 9-16
 
 VIGNALE, B.; BISIO, L. 2005. Selección de frutales nativos en Uruguay. Agrociencia 9(1-2):41- 51
+
+## Materiales y métodos
+Se seleccionaron 40 ejemplares de ubajay crecidos en forma espontánea en 3 poblaciones de la selva en galería del río Uruguay, dentro de la provincia de Entre Ríos. 
+
+Las poblaciones bajo estudio son:
+
+* Concordia
+* El Palmar
+* Gualeguaychú
+
+Las mismas son cosideradas como niveles de una variable categórica de clasificación a priori.
+
+Se propone responder al objetivo mediante la comparación de la heterogeneidad de la vegetación acompañante a partir de métodos complementarios de clasificación (cluster), MRPP, ordenamiento(EMD o PCoA) y un análisis discriminante.
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+library(labdsv)
+library(vegan) # vegdist
+library(data.table) # PERMITE ALGUNAS OPERACIONES CONTABLAS
+library(ggplot2)    # permite hacer graficos
+library(ggfortify)
+library(dplyr) # Para hacer tabla de promedios
+library(tidyverse)
+library(patchwork)
+library(lme4)
+
+```
+
+## Base de datos
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+
+datos<-read_excel("companion.xlsx",sheet="R")
+datos[is.na(datos)] <-  0
+
+datosm<-datos[,-c(1:2)]
+
+# Convertir el tibble a un data frame
+datosm_df <- as.data.frame(datosm)
+
+# Asignar los nombres de fila
+rownames(datosm_df) <- datos$Censo
+
+```
+
+
+```{r, echo=FALSE, include=TRUE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datosm <- datosm_df
+
+# mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
+mat.b<-vegdist(datosm, method = "bray", diag = T, binary = F)
+
+```
+
+## Clasificación
+
+Se construye una matríz de similitudes por el método de Bray-Curtis teniendo en cuenta que otorga el doble de peso a las coincidencias y es ampliamente utilizado en estudios ecológicos.
+
+### Agrupamiento jerárquico de los censos a través de la distancia de Bray-Curtis y método de Ward.
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+dendro.wardb<-hclust(mat.b,method="ward.D")
+
+
+library(factoextra)
+fviz_dend(x = dendro.wardb, cex = 0.5, lwd = 0.5, k = 3,
+# Manually selected colors
+          k_colors = c("coral1","burlywood2","palegreen4"),
+          rect = TRUE, 
+          rect_border = "gray", 
+          rect_fill = FALSE)
+
+```
+
+Los agrupamientos en tres grupos principales incluyen mayoritariamente a censos de las mismas poblaciones. En rojo se observan
+
+## MRPP
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = TRUE)
+
+# Crear un vector con un numero por población.
+nuevos_valores <- c(rep(1,12),rep(2,14),rep(3,13))
+# Reemplazar los valores antiguos con los nuevos
+grp <- nuevos_valores
+datos$Censo<-as.factor(datos$Censo)
+names(grp)<-(datos$Censo)
+
+#mrpp
+library(vegan)
+library(lattice)
+ubajay.mrpp<-mrpp(datosm, grp, permutations = 999, distance = "bray", weight.type = 1) 
+ubajay.mrpp
+
+```
+El análisis MRPP de los cambios en la composición de especies mostró diferencias significativas entre las poblaciones bajo muestreo (delta = 0.001).
+
+## Ordenamiento
+
+### Escalamiento multi dimensional (EMD) o Análisis de coordenadas principales (PCoA)
+
+La elección de este método se justifica por la siguiente cita textual de Palacio *et al,*. (2020): *"En Biología es común el uso de datos cualitativos o con exceso de dobles ceros (presencia-ausencia, abundancia). En tales casos, la distancia euclideana entre las UE no es apropiada conceptualmente, por lo que el PCA no es adecuado (ver en este capítulo Efecto arco). Tanto el PCA como el CA imponen la distancia que se conserva entre las UE: distancia euclideana y chi-cuadrado, respectivamente. Si el investigador está interesado en ordenar las UE de acuerdo a otra medida de similitud, entonces puede utilizar el análisis de coordenadas principales (PCoA)."*
+
+Realizado a partir de la matriz de similitudes por Bray-Curtis.
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(FactoMineR)
+library(factoextra)
+
+# MULTIDIMENSINAL SCALING - PRINCIPAL COORDINATE ANALYSIS
+mds.ALT <- pco(mat.b, k=2) # k es n-1 censos
+
+# mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
+
+# sum(mds.eig[1:1])
+
+df.mds<-data.frame(mds.ALT$points) #posici?n de cada punto en los ejes. 
+
+df.todo <- cbind(df.mds, datos)
+
+library(ggplot2)
+library(ggrepel)
+
+ggplot(df.todo, aes(-X1, -X2))+
+  geom_hline(yintercept=0, col="black")+
+  geom_vline(xintercept=0, col="black")+
+  geom_point(size=4,aes(col=REG, pch=as.factor(REG)))+
+  theme_classic()+
+  scale_color_manual(values = c("coral1","palegreen4","burlywood2"))+
+  theme(panel.grid.major.y = element_blank())+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
+  theme(legend.direction = "horizontal")+
+  theme(legend.position = "bottom")+
+  theme(legend.title = element_blank())+
+  labs(x = "X 1", y = "X 2",colour = "REG",pch="REG",
+                    groups = "REG")+
+  stat_ellipse(aes(x=-X1, y=-X2,color=REG,type = "norm"))+
+  geom_text_repel(
+    data = df.todo,
+    aes(label = Censo),
+    size = 4,
+    box.padding = unit(0.0001, "lines"),
+    point.padding = unit(1, "lines"))
+
+
+```
+Se observa un ordenamiento muy marcado de las poblaciones en concordancia con los resultados anteriores. Los dos ejes principales explican un 27.19% de la variación total de los datos.
+
+## Análisis discriminante
+
+```{r discriminante, echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+
+
+```
+
+| Grupo        | CONCORDIA | GUALEGUAYCHU | PALMAR | Total | Error(%) |
+|--------------|----------|--------------|--------|-------|----------|
+| CONCORDIA    | 12       | 0            | 0      | 12    | 0,00     |
+| GUALEGUAYCHU | 0        | 13           | 0      | 13    | 0,00     |
+| PALMAR       | 0        | 0            | 14     | 14    | 0,00     |
+| Total        | 12       | 13           | 14     | 39    | 0,00     |
+
+
+El análisis discriminante (figure 4) muestra las separaciones maximizadas y tasa de error calculada total es de 0%. De todas formas, si se quisiera usar, por ejemplo a estas especies vegetales para inferir a que población pertenece un censo no sería recomendable ya que posiblemente no se cumplen los supuestos de matrices similares de varianza covarianza dentro de grupos.
+
+Finalmente, todos los resultados llevan a la conclusión de que las poblaciones de ubajay en cada sitio se encuentran en distintas comunidades vegetales con respecto a las especies leñosas y semileñosas acompañantes.

@@ -22,8 +22,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
 table_hv<- datahv %>%
-  group_by(species, method) %>%
-  summarise(
+  dplyr::group_by(species, method) %>%
+  dplyr::summarise(
     mean = mean(phenols),
     min = min(phenols),
     max = max(phenols),

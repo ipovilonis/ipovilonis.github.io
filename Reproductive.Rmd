@@ -24,12 +24,51 @@ Se procedío al corte del ovario infero en lupa y se contaron los óvulos presen
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-data<-read.delim("co.txt")
-data$A<-as.factor(data$A)
-data$ACC<-as.factor(data$ACC)
-data$REG<-as.factor(data$REG)
-data$O<-as.numeric(data$O)
-data$REG<-factor(data$REG,levels=c("Concordia", "Palmar","Gualeguaychu"))
+library(readxl)
+repvars<- read_excel("database.xlsx", sheet="repvars")
+repvars$year<-as.factor(repvars$year)
+repvars$site<-factor(repvars$site,levels=c("concordia", "palmar","gualeguaychu"))
+repvars$phenotype<-as.factor(repvars$phenotype)
+repvars$rep<-as.factor(repvars$rep)
+
+tabla_2019<-repvars[1:400,]
+tabla_psf<-repvars[401:886,c(1:5)]
+tabla_ovulos<-repvars[887:1310,c(1:4,8)]
+tabla_polen<-repvars[1311:1672,c(1:4,6:7)]
+
+# Combinar las tablas
+tabla_2021a<-merge(x=tabla_psf, y=tabla_ovulos, by = c("phenotype","site","year","rep"), all.x = TRUE)
+tabla_2021<-merge(x=tabla_2021a, y=tabla_polen, by = c("phenotype","site","year","rep"), all.x = TRUE)
+
+tabla_2022<-repvars[1673:2096,]
+
+repvars2<-rbind(x=tabla_2019, y=tabla_2021)
+repvars2<-rbind(x=repvars2, y=tabla_2022)
+
+
+```
+# flower_dry_weight
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#En mg
+repvars2$flower_dry_weight<-(repvars2$flower_dry_weight)*1000
+
+library(dplyr)
+table_flower_dry_weight <- repvars2 %>%
+  dplyr::group_by(site,year) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(na.omit(flower_dry_weight)),
+    min = min(na.omit(flower_dry_weight)),
+    max = max(na.omit(flower_dry_weight)),
+    sd = sd(na.omit(flower_dry_weight))
+  )
+
+
+library(knitr)
+kable(table_flower_dry_weight, format = "markdown")
+
 
 ```
 
@@ -40,143 +79,172 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-ggplot(data=data, aes(x=A, y=O, form=A, colour=REG))+
-  geom_jitter(width=0.2)+ geom_boxplot(width=0.05) +
-  facet_grid(.~REG)+
-  labs(x="Población", y="Número de óvulos", fill='A')+
+ggplot(data=table_flower_dry_weight, aes(x=year, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.5))+
+  facet_grid(.~site)+
+  theme_classic()+
+  labs(y="flower_dry_weight",x=NULL)+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_color_manual(values = colores) +
-  theme(legend.position = "none")+
-  theme(text = element_text(size=20))+
+  scale_fill_manual(values = colores) +
   theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme_classic()
-
-```
-N° óvulos entre individuos de Concordia en ambos años.
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-concordia<-subset(data[1:146,])
-concordia$A<-as.factor(concordia$A)
-concordia$ACC<-as.factor(concordia$ACC)
-concordia$REG<-as.factor(concordia$REG)
-colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1")
-library(ggplot2)
-g2<-ggplot(data=concordia, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
-  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
-  scale_color_manual(values = colorescon) +
-  facet_grid(.~A) + theme(legend.position = "none")+
-  theme(text = element_text(size=20))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme_classic()
-g2
-```
-N° óvulos entre individuos del Palmar en ambos años.
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-palmar<-subset(data[147:446,])
-palmar$A<-as.factor(palmar$A)
-palmar$ACC<-as.factor(palmar$ACC)
-palmar$REG<-as.factor(palmar$REG)
-colorespalmar<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4")
-library(ggplot2)
-g3<-ggplot(palmar, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
-  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
-  scale_color_manual(values = colorespalmar) +
-  facet_grid(.~A) + theme(legend.position = "none")+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme_classic()
-g3
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+
 ```
-N° óvulos entre individuos de Gualeguaychú en ambos años.
+
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-guale<-subset(data[447:686,])
-guale$A<-as.factor(guale$A)
-guale$ACC<-as.factor(guale$ACC)
-guale$REG<-as.factor(guale$REG)
-coloresguale<-c("palegreen1","palegreen2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","aquamarine2","aquamarine","springgreen3","springgreen2","springgreen1")
+
+concordia_bd<- repvars2 %>% dplyr::filter(repvars2$site == "concordia")
+
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","orange","red3","tan","orange2","red4","tan2","orange3")
 library(ggplot2)
-g4<-ggplot(guale, aes(x=ACC, y=O, form=ACC, colour=ACC)) +  
-  geom_boxplot(width=0.2)  + geom_jitter(width=0.3) +labs(y="O") +
-  scale_color_manual(values = coloresguale) +
-  facet_grid(.~A) + theme(legend.position = "none")+
-  theme(text = element_text(size=20))+
+g2c<-ggplot(data=concordia_bd, aes(x=phenotype, y=flower_dry_weight, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="flower_dry_weight") +
+  scale_color_manual(values = colorescon) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="flower_dry_weight",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
   theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  theme_classic()
-g4
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g2c
 ```
 
-## Estadística inferencial
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.
+palmar_bd<- repvars2 %>% dplyr::filter(repvars2$site == "palmar")
 
-Diseño anidado: Población(Genotipo)
-Análisis univariado de la variable N° de óvulos.
-Distribución de probabilidades: Poisson.
-Análisis de componentes de varianza.
-factores aleatorios: Población y Genotipo
-factores fijos: año
+colorespalmar<-c("burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4","yellow3","yellow2")
+library(ggplot2)
+
+g2p<-ggplot(data=palmar_bd, aes(x=phenotype, y=flower_dry_weight, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="flower_dry_weight") +
+  scale_color_manual(values = colorespalmar) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="flower_dry_weight",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g2p
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+guale_bd<- repvars2 %>% dplyr::filter(repvars2$site == "gualeguaychu")
+
+coloresguale<-c("palegreen1","yellow4","palegreen2","green2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","aquamarine2","aquamarine","springgreen3","springgreen2","springgreen1","green3","#345532","#345511")
+
+library(ggplot2)
+g2g<-ggplot(data=guale_bd, aes(x=phenotype, y=flower_dry_weight, form=site, colour=phenotype)) +  
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +        labs(y="flower_dry_weight") +
+  scale_color_manual(values = coloresguale) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="flower_dry_weight",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g2g
+```
+
+
 
 
 ```{r echo=FALSE, warning=FALSE}
-library(lme4)
-m1 <- glmer(O ~  1 + (1|REG/ACC), data =data, family = poisson)
-m2 <- glmer(O ~  A + (1|REG/ACC), data=data, family = poisson)
-#Supuestos
-e1 <- resid(m2, type = "pearson")
-n  <- nrow(data)
-k  <- length(fixef(m2)) + 1 #parametros estimados; se suma varianza(colmenas)
-dispersion <- sum(e1^2) / (n - k)
-#df.residual(m2)
-library(lattice)
-#dotplot(ranef(m2, condVar = TRUE))
 
-anova(m2)
 
-library(emmeans)
-Comp2<-emmeans(m2, pairwise ~ A, type = "response") 
-confint(Comp2)
-plot(Comp2)
+## Estadística inferencial
 
-#summary(m2)
-# RA<-0.13101
-# A<-0.04313
-# ICCRA<-RA/(RA+A)
-# ICCA<-A/(RA+A)
-library(sjstats)
-performance::icc(m2)
-1-0.089
+# Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.
+# 
+# Diseño anidado: Población(Genotipo)
+# Análisis univariado de la variable N° de óvulos.
+# Distribución de probabilidades: Poisson.
+# Análisis de componentes de varianza.
+# factores aleatorios: Población y Genotipo
+# factores fijos: año
+
+# library(lme4)
+# m1 <- glmer(O ~  1 + (1|REG/site), data =data, family = poisson)
+# m2 <- glmer(O ~  A + (1|REG/site), data=data, family = poisson)
+# #Supuestos
+# e1 <- resid(m2, type = "pearson")
+# n  <- nrow(data)
+# k  <- length(fixef(m2)) + 1 #parametros estimados; se suma varianza(colmenas)
+# dispersion <- sum(e1^2) / (n - k)
+# #df.residual(m2)
+# library(lattice)
+# #dotplot(ranef(m2, condVar = TRUE))
+# 
+# anova(m2)
+# 
+# library(emmeans)
+# Comp2<-emmeans(m2, pairwise ~ A, type = "response") 
+# confint(Comp2)
+# plot(Comp2)
+# 
+# #summary(m2)
+# # RA<-0.13101
+# # A<-0.04313
+# # ICCRA<-RA/(RA+A)
+# # ICCA<-A/(RA+A)
+# library(sjstats)
+# performance::icc(m2)
+# 1-0.089
+
+
+# Conclusiones:
+# 
+# Se observan diferencias significativas entre años p = 0.000243 ***
+# El año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo 4,37
+# 
+# Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)
+# 
+# # Próximas variables
+# 
+# * Conteo de polen
+# 
+# * Diámetro polen
+# 
+# * Peso seco de la flor
+# 
+# * N° semillas
+# 
+# * **S/O** ratio semillas óvulos
+# 
+# * **Fr/Fl** ratio flores frutos
+# 
+# * **F** ratio frutos óvulos
+
 ```
 
-Conclusiones:
 
-Se observan diferencias significativas entre años p = 0.000243 ***
-El año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo 4,37
-
-Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)
-
-# Próximas variables
-
-* Conteo de polen
-
-* Diámetro polen
-
-* Peso seco de la flor
-
-* N° semillas
-
-* **S/O** ratio semillas óvulos
-
-* **Fr/Fl** ratio flores frutos
-
-* **F** ratio frutos óvulos

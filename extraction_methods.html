@@ -392,8 +392,14 @@ Hexachlamys edulis. The methods were: potter homogenizer and another
 manual with glass rod.</p>
 <div id="descriptive-table" class="section level2">
 <h2>Descriptive table</h2>
-<pre><code>##       mean     min      max      sd
-## 1 675.5953 417.662 1008.589 267.102</code></pre>
+<pre><code>## # A tibble: 4 × 6
+## # Groups:   species [2]
+##   species method  mean   min   max    sd
+##   &lt;fct&gt;   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 sauco   potter  421.  418.  423.  2.56
+## 2 sauco   rod     420.  419.  424.  2.36
+## 3 ubajay  potter  944.  853. 1009. 65.8 
+## 4 ubajay  rod     917.  813.  966. 70.1</code></pre>
 </div>
 <div id="plot" class="section level2">
 <h2>Plot</h2>
@@ -455,18 +461,18 @@ glass rod.</p>
 <div id="tukey" class="section level2">
 <h2>Tukey</h2>
 <pre><code>## $emmeans
-##  method     emmean       SE df lower.CL upper.CL
-##  potter_A 49.23467 6.476597  9 34.58359 63.88575
-##  potter_B 48.40514 6.476597  9 33.75405 63.05622
-##  rod      15.50710 6.476597  9  0.85602 30.15818
+##  method   emmean   SE df lower.CL upper.CL
+##  potter_A   49.2 6.48  9   34.584     63.9
+##  potter_B   48.4 6.48  9   33.754     63.1
+##  rod        15.5 6.48  9    0.856     30.2
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast            estimate       SE df t.ratio p.value
-##  potter_A - potter_B  0.82953 9.159292  9   0.091  0.9955
-##  potter_A - rod      33.72757 9.159292  9   3.682  0.0126
-##  potter_B - rod      32.89804 9.159292  9   3.592  0.0145
+##  contrast            estimate   SE df t.ratio p.value
+##  potter_A - potter_B     0.83 9.16  9   0.091  0.9955
+##  potter_A - rod         33.73 9.16  9   3.682  0.0126
+##  potter_B - rod         32.90 9.16  9   3.592  0.0145
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="extraction_methods_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>

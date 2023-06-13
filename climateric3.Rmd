@@ -93,18 +93,18 @@ data_color_G$treat<-factor(data_color_G$treat, levels = c("control", "etileno", 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# library(dplyr)
-# table_color_G<- data_color_G %>%
-#   group_by(treat) %>%
-#   summarise(
-#     mean = mean(color_G),
-#     min = min(color_G),
-#     max = max(color_G),
-#     sd = sd(color_G)
-#   )
+library(dplyr)
+table_color_G<- data_color_G %>%
+  dplyr::group_by(treat) %>%
+  dplyr::summarise(
+    mean = mean(color_G),
+    min = min(color_G),
+    max = max(color_G),
+    sd = sd(color_G)
+  )
 
-library(Rmisc)
-table_color_G <- summarySE(data_color_G, measurevar="color_G", groupvars=c("treat"), na.rm = TRUE)
+# library(Rmisc)
+# table_color_G <- summarySE(data_color_G, measurevar="color_G", groupvars=c("treat"), na.rm = TRUE)
 
 library(knitr)
 kable(table_color_G, format = "markdown")
@@ -123,9 +123,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 colores<-c("yellow","orange","#285114")
-gcolor_G<-ggplot(data=table_color_G, aes(x=treat, y=color_G, fill=treat))+
+gcolor_G<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
   stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(1)) +
-  geom_errorbar(aes(ymin=color_G-sd, ymax=color_G+sd),
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
                 width=.2, position=position_dodge(1))+
   labs(x="", y="color_G")+
   theme_classic()+

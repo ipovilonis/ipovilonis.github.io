@@ -514,6 +514,151 @@ Agropecuaria en Argentina y su Impacto Ecológico-Ambiental. Ediciones
 INTA. P: 9-16</p>
 <p>VIGNALE, B.; BISIO, L. 2005. Selección de frutales nativos en
 Uruguay. Agrociencia 9(1-2):41- 51</p>
+<div id="materiales-y-métodos-1" class="section level2">
+<h2>Materiales y métodos</h2>
+<p>Se seleccionaron 40 ejemplares de ubajay crecidos en forma espontánea
+en 3 poblaciones de la selva en galería del río Uruguay, dentro de la
+provincia de Entre Ríos.</p>
+<p>Las poblaciones bajo estudio son:</p>
+<ul>
+<li>Concordia</li>
+<li>El Palmar</li>
+<li>Gualeguaychú</li>
+</ul>
+<p>Las mismas son cosideradas como niveles de una variable categórica de
+clasificación a priori.</p>
+<p>Se propone responder al objetivo mediante la comparación de la
+heterogeneidad de la vegetación acompañante a partir de métodos
+complementarios de clasificación (cluster), MRPP, ordenamiento(EMD o
+PCoA) y un análisis discriminante.</p>
+</div>
+<div id="base-de-datos" class="section level2">
+<h2>Base de datos</h2>
+</div>
+<div id="clasificación-1" class="section level2">
+<h2>Clasificación</h2>
+<p>Se construye una matríz de similitudes por el método de Bray-Curtis
+teniendo en cuenta que otorga el doble de peso a las coincidencias y es
+ampliamente utilizado en estudios ecológicos.</p>
+<div
+id="agrupamiento-jerárquico-de-los-censos-a-través-de-la-distancia-de-bray-curtis-y-método-de-ward."
+class="section level3">
+<h3>Agrupamiento jerárquico de los censos a través de la distancia de
+Bray-Curtis y método de Ward.</h3>
+<p><img src="Companionspecies_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Los agrupamientos en tres grupos principales incluyen
+mayoritariamente a censos de las mismas poblaciones. En rojo se
+observan</p>
+</div>
+</div>
+<div id="mrpp" class="section level2">
+<h2>MRPP</h2>
+<pre><code>## 
+## Call:
+## mrpp(dat = datosm, grouping = grp, permutations = 999, distance = &quot;bray&quot;,      weight.type = 1) 
+## 
+## Dissimilarity index: bray 
+## Weights for groups:  n 
+## 
+## Class means and counts:
+## 
+##       1      2      3     
+## delta 0.7978 0.8028 0.7147
+## n     12     14     13    
+## 
+## Chance corrected within-group agreement A: 0.1136 
+## Based on observed delta 0.7719 and expected delta 0.8709 
+## 
+## Significance of delta: 0.001 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+<p>El análisis MRPP de los cambios en la composición de especies mostró
+diferencias significativas entre las poblaciones bajo muestreo (delta =
+0.001).</p>
+</div>
+<div id="ordenamiento-1" class="section level2">
+<h2>Ordenamiento</h2>
+<div
+id="escalamiento-multi-dimensional-emd-o-análisis-de-coordenadas-principales-pcoa"
+class="section level3">
+<h3>Escalamiento multi dimensional (EMD) o Análisis de coordenadas
+principales (PCoA)</h3>
+<p>La elección de este método se justifica por la siguiente cita textual
+de Palacio <em>et al,</em>. (2020): <em>“En Biología es común el uso de
+datos cualitativos o con exceso de dobles ceros (presencia-ausencia,
+abundancia). En tales casos, la distancia euclideana entre las UE no es
+apropiada conceptualmente, por lo que el PCA no es adecuado (ver en este
+capítulo Efecto arco). Tanto el PCA como el CA imponen la distancia que
+se conserva entre las UE: distancia euclideana y chi-cuadrado,
+respectivamente. Si el investigador está interesado en ordenar las UE de
+acuerdo a otra medida de similitud, entonces puede utilizar el análisis
+de coordenadas principales (PCoA).”</em></p>
+<p>Realizado a partir de la matriz de similitudes por Bray-Curtis.
+<img src="Companionspecies_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" />
+Se observa un ordenamiento muy marcado de las poblaciones en
+concordancia con los resultados anteriores. Los dos ejes principales
+explican un 27.19% de la variación total de los datos.</p>
+</div>
+</div>
+<div id="análisis-discriminante" class="section level2">
+<h2>Análisis discriminante</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>CONCORDIA</th>
+<th>GUALEGUAYCHU</th>
+<th>PALMAR</th>
+<th>Total</th>
+<th>Error(%)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CONCORDIA</td>
+<td>12</td>
+<td>0</td>
+<td>0</td>
+<td>12</td>
+<td>0,00</td>
+</tr>
+<tr class="even">
+<td>GUALEGUAYCHU</td>
+<td>0</td>
+<td>13</td>
+<td>0</td>
+<td>13</td>
+<td>0,00</td>
+</tr>
+<tr class="odd">
+<td>PALMAR</td>
+<td>0</td>
+<td>0</td>
+<td>14</td>
+<td>14</td>
+<td>0,00</td>
+</tr>
+<tr class="even">
+<td>Total</td>
+<td>12</td>
+<td>13</td>
+<td>14</td>
+<td>39</td>
+<td>0,00</td>
+</tr>
+</tbody>
+</table>
+<p>El análisis discriminante (figure 4) muestra las separaciones
+maximizadas y tasa de error calculada total es de 0%. De todas formas,
+si se quisiera usar, por ejemplo a estas especies vegetales para inferir
+a que población pertenece un censo no sería recomendable ya que
+posiblemente no se cumplen los supuestos de matrices similares de
+varianza covarianza dentro de grupos.</p>
+<p>Finalmente, todos los resultados llevan a la conclusión de que las
+poblaciones de ubajay en cada sitio se encuentran en distintas
+comunidades vegetales con respecto a las especies leñosas y semileñosas
+acompañantes.</p>
+</div>
 </div>
 
 

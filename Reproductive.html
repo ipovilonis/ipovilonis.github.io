@@ -485,66 +485,112 @@ presentes en total en cada flor.</p>
 </div>
 <div id="estadística-descriptiva" class="section level2">
 <h2>Estadística descriptiva</h2>
+</div>
+</div>
+<div id="flower_dry_weight" class="section level1">
+<h1>flower_dry_weight</h1>
+<table>
+<thead>
+<tr class="header">
+<th align="left">site</th>
+<th align="left">year</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">concordia</td>
+<td align="left">2019</td>
+<td align="right">120</td>
+<td align="right">27.92667</td>
+<td align="right">10.0</td>
+<td align="right">97</td>
+<td align="right">27.51359</td>
+</tr>
+<tr class="even">
+<td align="left">concordia</td>
+<td align="left">2021</td>
+<td align="right">156</td>
+<td align="right">39.55263</td>
+<td align="right">11.2</td>
+<td align="right">99</td>
+<td align="right">27.84771</td>
+</tr>
+<tr class="odd">
+<td align="left">concordia</td>
+<td align="left">2022</td>
+<td align="right">168</td>
+<td align="right">31.76739</td>
+<td align="right">11.0</td>
+<td align="right">98</td>
+<td align="right">29.04828</td>
+</tr>
+<tr class="even">
+<td align="left">palmar</td>
+<td align="left">2019</td>
+<td align="right">150</td>
+<td align="right">20.65667</td>
+<td align="right">10.0</td>
+<td align="right">98</td>
+<td align="right">21.71863</td>
+</tr>
+<tr class="odd">
+<td align="left">palmar</td>
+<td align="left">2021</td>
+<td align="right">174</td>
+<td align="right">51.86954</td>
+<td align="right">10.0</td>
+<td align="right">99</td>
+<td align="right">36.25188</td>
+</tr>
+<tr class="even">
+<td align="left">palmar</td>
+<td align="left">2022</td>
+<td align="right">80</td>
+<td align="right">26.71000</td>
+<td align="right">10.0</td>
+<td align="right">97</td>
+<td align="right">26.90793</td>
+</tr>
+<tr class="odd">
+<td align="left">gualeguaychu</td>
+<td align="left">2019</td>
+<td align="right">130</td>
+<td align="right">28.37846</td>
+<td align="right">11.0</td>
+<td align="right">97</td>
+<td align="right">26.44723</td>
+</tr>
+<tr class="even">
+<td align="left">gualeguaychu</td>
+<td align="left">2021</td>
+<td align="right">166</td>
+<td align="right">49.00064</td>
+<td align="right">11.0</td>
+<td align="right">99</td>
+<td align="right">30.83776</td>
+</tr>
+<tr class="odd">
+<td align="left">gualeguaychu</td>
+<td align="left">2022</td>
+<td align="right">176</td>
+<td align="right">25.17181</td>
+<td align="right">10.0</td>
+<td align="right">92</td>
+<td align="right">23.23095</td>
+</tr>
+</tbody>
+</table>
 <p>Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y
 2021
-<img src="Reproductive_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" />
-N° óvulos entre individuos de Concordia en ambos años.
-<img src="Reproductive_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" />
-N° óvulos entre individuos del Palmar en ambos años.
-<img src="Reproductive_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" />
-N° óvulos entre individuos de Gualeguaychú en ambos años.
-<img src="Reproductive_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="estadística-inferencial" class="section level2">
-<h2>Estadística inferencial</h2>
-<p>Comparación interpoblacional e intrapoblacional para los años 2019 y
-2021.</p>
-<p>Diseño anidado: Población(Genotipo) Análisis univariado de la
-variable N° de óvulos. Distribución de probabilidades: Poisson. Análisis
-de componentes de varianza. factores aleatorios: Población y Genotipo
-factores fijos: año</p>
-<pre><code>## Analysis of Variance Table
-##   npar Sum Sq Mean Sq F value
-## A    1 13.187  13.187  13.187</code></pre>
-<pre><code>## $emmeans
-##  A        rate        SE  df asymp.LCL asymp.UCL
-##  2019 4.367776 0.1818379 Inf  4.025533  4.739116
-##  2021 4.969390 0.2116835 Inf  4.571345  5.402093
-## 
-## Confidence level used: 0.95 
-## Intervals are back-transformed from the log scale 
-## 
-## $contrasts
-##  contrast          ratio         SE  df asymp.LCL asymp.UCL
-##  A2019 / A2021 0.8789362 0.03122882 Inf 0.8198114 0.9423251
-## 
-## Confidence level used: 0.95 
-## Intervals are back-transformed from the log scale</code></pre>
-<p><img src="Reproductive_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<pre><code>## # Intraclass Correlation Coefficient
-## 
-##     Adjusted ICC: 0.089
-##   Unadjusted ICC: 0.087</code></pre>
-<pre><code>## [1] 0.911</code></pre>
-<p>Conclusiones:</p>
-<p>Se observan diferencias significativas entre años p = 0.000243 *** El
-año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo
-4,37</p>
-<p>Un 91,1% de la variabilidad está explicada por flores dentro de un
-mismo genotipo (ICC=8,9%)</p>
-</div>
-</div>
-<div id="próximas-variables" class="section level1">
-<h1>Próximas variables</h1>
-<ul>
-<li><p>Conteo de polen</p></li>
-<li><p>Diámetro polen</p></li>
-<li><p>Peso seco de la flor</p></li>
-<li><p>N° semillas</p></li>
-<li><p><strong>S/O</strong> ratio semillas óvulos</p></li>
-<li><p><strong>Fr/Fl</strong> ratio flores frutos</p></li>
-<li><p><strong>F</strong> ratio frutos óvulos</p></li>
-</ul>
+<img src="Reproductive_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Reproductive_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Reproductive_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Reproductive_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 
