@@ -64,7 +64,6 @@ kable(table_flower_dry_weight, format = "markdown")
 
 ```
 
-Boxplot y dispersión de N° óvulos de las tres poblaciones para 2019 y 2021
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -250,6 +249,48 @@ polen_ger$site<-factor(polen_ger$site,levels=c("concordia", "palmar","gualeguayc
 polen_ger$phenotype<-as.factor(polen_ger$phenotype)
 polen_ger$polen_ratio<-(polen_ger$germinated/(polen_ger$not_germinated+polen_ger$aborted))
 
+library(dplyr)
+table_polen_ger <- polen_ger %>%
+  dplyr::group_by(site) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(na.omit(polen_ratio)),
+    min = min(na.omit(polen_ratio)),
+    max = max(na.omit(polen_ratio)),
+    sd = sd(na.omit(polen_ratio))
+  )
+
+
+library(knitr)
+kable(table_polen_ger, format = "markdown")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+ggplot(data=table_polen_ger, aes(x=site, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  # geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+  #               width=.2, position=position_dodge(.5))+
+  theme_classic()+
+  labs(y="polen_ratio",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 colores<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","palegreen1","yellow4","palegreen2","green2","palegreen3","palegreen4","palegreen")
 
