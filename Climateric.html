@@ -537,7 +537,7 @@ class="section level2">
 <div id="descriptive-table-for-fresh_weight" class="section level2">
 <h2>Descriptive table for fresh_weight</h2>
 <pre><code>##       mean      min      max       sd
-## 1 63.68399 48.07935 73.52477 6.143828</code></pre>
+## 1 63.60714 48.07935 73.52477 6.119168</code></pre>
 </div>
 <div id="descriptive-graphic-sd" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
@@ -553,14 +553,14 @@ class="section level2">
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.92864, p-value = 1.244e-06</code></pre>
+## W = 0.92829, p-value = 1.177e-06</code></pre>
 </div>
 <div id="anova-comparison-of-means" class="section level2">
 <h2>Anova (comparison of means)</h2>
 <pre><code>## Denom. DF: 141 
 ##             numDF  F-value p-value
-## (Intercept)     1 64472.80  &lt;.0001
-## treat           2     4.36  0.0146</code></pre>
+## (Intercept)     1 65128.28  &lt;.0001
+## treat           2     4.83  0.0094</code></pre>
 </div>
 <div id="dunnett-test" class="section level2">
 <h2>Dunnett test</h2>
@@ -569,17 +569,17 @@ class="section level2">
 ##     95% family-wise confidence level
 ## 
 ## $control
-##                      diff   lwr.ci    upr.ci   pval    
-## etileno-control  1.399278 -1.34840 4.1469564 0.4174    
-## 1MCP-control    -2.005082 -4.75276 0.7425962 0.1838    
+##                      diff    lwr.ci    upr.ci   pval    
+## etileno-control  1.467652 -1.260996 4.1963008 0.3801    
+## 1MCP-control    -2.098885 -4.827534 0.6297633 0.1550    
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
 ##  treat   emmean     SE   df lower.CL upper.CL
-##  control   7.98 0.0637 47.5     7.85     8.11
+##  control   7.98 0.0631 47.1     7.85     8.10
 ##  etileno   8.07 0.0537 47.0     7.96     8.18
-##  1MCP      7.86 0.0486 47.1     7.76     7.96
+##  1MCP      7.85 0.0482 47.0     7.75     7.95
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the sqrt (not the response) scale. 
@@ -587,9 +587,9 @@ class="section level2">
 ## 
 ## $contrasts
 ##  contrast          estimate     SE   df t.ratio p.value
-##  control - etileno  -0.0906 0.0833 91.7  -1.087  0.5242
-##  control - 1MCP      0.1215 0.0801 88.0   1.517  0.2880
-##  etileno - 1MCP      0.2121 0.0724 93.5   2.930  0.0117
+##  control - etileno  -0.0947 0.0828 91.7  -1.143  0.4904
+##  control - 1MCP      0.1277 0.0794 88.0   1.609  0.2472
+##  etileno - 1MCP      0.2224 0.0721 93.0   3.082  0.0075
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -604,8 +604,8 @@ class="section level2">
 </div>
 <div id="descriptive-table-for-fresh_weight-1" class="section level2">
 <h2>Descriptive table for fresh_weight</h2>
-<pre><code>##       mean      min      max       sd
-## 1 102.4533 65.21946 139.9356 19.75375</code></pre>
+<pre><code>##       mean      min      max      sd
+## 1 102.1296 65.21946 139.9356 19.8983</code></pre>
 </div>
 <div id="descriptive-graphic-sd-1" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
@@ -621,14 +621,14 @@ class="section level2">
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.96447, p-value = 0.0008685</code></pre>
+## W = 0.96749, p-value = 0.001692</code></pre>
 </div>
 <div id="anova-comparison-of-means-1" class="section level2">
 <h2>Anova (comparison of means)</h2>
 <pre><code>## Denom. DF: 141 
-##             numDF   F-value p-value
-## (Intercept)     1 31108.302  &lt;.0001
-## treat           2    48.123  &lt;.0001</code></pre>
+##             numDF  F-value p-value
+## (Intercept)     1 30730.18  &lt;.0001
+## treat           2    50.70  &lt;.0001</code></pre>
 </div>
 <div id="dunnett-test-1" class="section level2">
 <h2>Dunnett test</h2>
@@ -637,17 +637,17 @@ class="section level2">
 ##     95% family-wise confidence level
 ## 
 ## $control
-##                       diff      lwr.ci    upr.ci    pval    
-## etileno-control   7.957064   0.4222311  15.49190  0.0367 *  
-## 1MCP-control    -18.244293 -25.7791256 -10.70946 5.2e-07 ***
+##                       diff      lwr.ci    upr.ci   pval    
+## etileno-control   8.243531   0.7156788  15.77138 0.0294 *  
+## 1MCP-control    -18.642549 -26.1704014 -11.11470  3e-07 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
 ##  treat   emmean     SE   df lower.CL upper.CL
-##  control  10.24 0.1497 47.3     9.94    10.54
-##  etileno  10.64 0.1244 47.0    10.39    10.89
-##  1MCP      9.35 0.0675 47.0     9.21     9.49
+##  control  10.22 0.1492 47.4     9.92    10.53
+##  etileno  10.64 0.1244 47.3    10.39    10.89
+##  1MCP      9.31 0.0679 47.0     9.18     9.45
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the sqrt (not the response) scale. 
@@ -655,9 +655,9 @@ class="section level2">
 ## 
 ## $contrasts
 ##  contrast          estimate    SE   df t.ratio p.value
-##  control - etileno   -0.397 0.195 91.2  -2.039  0.1088
-##  control - 1MCP       0.889 0.164 65.7   5.412  &lt;.0001
-##  etileno - 1MCP       1.285 0.141 72.4   9.084  &lt;.0001
+##  control - etileno   -0.410 0.194 91.2  -2.113  0.0928
+##  control - 1MCP       0.912 0.164 66.2   5.561  &lt;.0001
+##  etileno - 1MCP       1.322 0.142 73.1   9.331  &lt;.0001
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -670,9 +670,9 @@ class="section level2">
 </div>
 <div id="correlation" class="section level1">
 <h1>Correlation</h1>
-<pre><code>## [1] 0.4881491</code></pre>
-<pre><code>## [1] 0.6478276</code></pre>
-<pre><code>## [1] 0.8000729</code></pre>
+<pre><code>## [1] 0.4990218</code></pre>
+<pre><code>## [1] 0.6565073</code></pre>
+<pre><code>## [1] 0.8077659</code></pre>
 <p><img src="Climateric_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><img src="Climateric_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>

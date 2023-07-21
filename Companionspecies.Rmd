@@ -2,6 +2,8 @@
 title: "Companion species"
 ---
 
+
+
 # Introducción
 Las superficies de bosques nativos han disminuido en las últimas décadas en la Argentina por el avance de la frontera agrícola y ganadera (Viglizzo y Jobbágy, 2010). Sin embargo, aún se conservan áreas con menor efecto antrópico como ocurre en la selva en galería del río Uruguay en la provincia de Entre Ríos. Estas áreas son fuentes de biodiversidad por el fenómeno de intrusión de vegetación por el cual especies de la Provincia Paranaense se desplazan hacia el sur por los ríos Uruguay y Paraná y se adaptan al microclima ribereño que toma un aspecto selvático (Bertucci et al., 2008). Esta adaptación da origen a una gran variabilidad fenotípica con potenciales servicios ecosistémicos para la humanidad. Este es el caso de Hexachlamys edulis (O. Berg) Kausel & D. Legrand, “ubajay”, especie que ha sido observada en áreas cercanas a cursos de agua y selvas o bosques en galería de los ríos Paraná y Uruguay (Proença, 2006). Esta especie se destaca por su fruto comestible y su potencial como recurso forestal no maderable de importancia para la salud y la nutrición (Vignale y Bisio, 2005).
 En el marco de un estudio de variabilidad fenotípica del ubajay se genera la necesidad de conocer el estado de conservación entre los sitios de muestreo. Para esto, la riqueza y abundancia de las diversas especies registradas es un importante indicador de la biodiversidad y del avance antrópico junto con la cuantificación de especies nativas y exóticas. No obstante, cabe aclarar que se entiende por riqueza a la cantidad de especies diferentes por superficie o punto de muestreo, mientras que la abundancia es el número de individuos por superficie o punto de muestreo (Rodríguez et al., 2005).
@@ -54,6 +56,46 @@ library(lme4)
 ```
 
 
+# Argentinian forest
+
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+# https://data.worldbank.org/indicator/AG.LND.FRST.K2?end=2020&locations=AR&start=1990&view=chart
+forest_arg <- read_excel("database.xlsx",sheet="forest")
+forest_arg$year<-as.numeric(forest_arg$year)
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+scale = 0.000085
+
+pkpd <- ggplot(forest_arg, aes(x = year, y = area)) +
+  geom_point(aes(color = "Forest area km2")) +
+  geom_point(aes(y = percentage/scale, color = "Forest % of total territory")) +
+  geom_line(aes(color = "Forest area km2")) +
+  geom_line(aes(y = percentage/scale, color = "Forest % of total territory")) +
+  scale_x_continuous(breaks = seq(1990, 2020, 1)) +
+  scale_y_continuous(sec.axis = sec_axis(~.*scale, name="Percentage %")) +
+  labs(x = "year", y = "Forest area km2", color = "") +
+  scale_color_manual(values = c("coral", "gold2"))+
+  theme_classic()+
+theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
+theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+theme(panel.grid.major.x = element_blank())+
+theme(text = element_text(size=14, color='black'))+
+theme(axis.text = element_text(color='black'))+
+theme(panel.border = element_rect(fill = "transparent"))+
+theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))
+
+print(pkpd)
+
+```
+
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -70,10 +112,8 @@ datosm<-datos[,-c(1:2)]
 
 # datosm<-as.data.frame(datosm)
 rownames(datosm)<-datos$Censo
-mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
+# mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
 mat.b<-vegdist(datosm, method = "bray", diag = T, binary = F)
-
-
 
 ```
 
@@ -84,7 +124,1020 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-# Indicadores de riqueza
+# Indicadores de biodiversidad
+
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+## Antropic index
+# ia_db<-read_excel("database.xlsx",sheet="companion2")
+# 
+# ia_db$site<-factor(ia_db$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+# 
+# ia_db$census<-as.factor(ia_db$census)
+# ia_db$native<-as.factor(ia_db$native)
+# 
+# library(dplyr)
+# table_ia <- ia_db %>% dplyr::group_by(site, census, native) %>% dplyr::summarise(n=n(), Mean = mean(abundancy), sd = sd(abundancy))
+# antro<-read_excel("database.xlsx",sheet="antro")
+# 
+# antro$site<-factor(antro$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+# 
+# antro_tab <- antro %>% 
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(readxl)
+biod<-read_excel("database.xlsx",sheet="bio_index2")
+
+biod$site<-factor(biod$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+biod$variable<-as.factor(biod$variable)
+
+biod$variable<-factor(biod$variable, levels = levels(biod$variable), labels = levels(biod$variable))
+
+# Add 2 variables
+
+biod3<-read_excel("database.xlsx",sheet="bio_index3")
+
+biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+biod3$censo<-as.factor(biod3$censo)
+
+library(dplyr)
+table_Taxa_S<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(n= n(), Mean = mean(Richness), sd = sd(Richness),min=min(Richness),max=max(Richness))
+
+table_Individuals<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(n= n(),Mean = mean(Abundance), sd = sd(Abundance),min=min(Abundance),max=max(Abundance))
+
+table_anthropic_Ia<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(n= n(),Mean = mean(anthropic_Ia), sd = sd(anthropic_Ia),min=min(anthropic_Ia),max=max(anthropic_Ia))
+
+tsi<-rbind(table_Taxa_S,table_Individuals,table_anthropic_Ia)
+
+tsi$variable<-as.factor(c(rep("Richness",3),rep("Abundance",3),rep("anthropic_Ia",3)))
+
+biod<-rbind(biod, tsi)
+
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+gg_bioindex<-ggplot(biod, aes(x=site, y=(Mean), color=site, fill=site)) + 
+  geom_bar(stat="identity", size=.05, color="black") +
+  labs(y="", x= "")+
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),width=.05, color="black")+
+  facet_grid(.~variable)+
+  facet_wrap(~ variable, ncol = 4, scales = "free")+
+  theme_classic() +
+  theme(
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "white"),
+    legend.title = element_blank(),
+    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 20, color = 'black'),
+    plot.background = element_rect(fill = "white"),
+    panel.background = element_rect(fill = "white", color = "white"),
+    panel.border = element_rect(fill = "transparent"),
+    axis.text.x = element_blank(),
+    axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+  )+
+  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
+  # scale_y_continuous(breaks=seq(0, 50, 5))+
+  geom_text(aes(label = round(Mean,2)), vjust = -0.5, hjust = -0.1, size=5)
+
+gg_bioindex
+```
+
+## ANOVA BIO INDEX
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(readxl)
+biod3<-read_excel("database.xlsx",sheet="bio_index3")
+
+biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+biod3$censo<-as.factor(biod3$censo)
+
+# biod3 %>% group_by(site) %>% dplyr::summarise(sd = sd(Richness))
+
+```
+
+#### Richness
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mbi_Richness<- lm(Richness ~ site, biod3)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Richness_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Richness),
+  "predichos" = predict(mbi_Richness)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Richness_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Richness<-ggplot(mbi_Richness_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Richness
+
+e<-resid(mbi_Richness) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mbi_Richness)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Taxa_S<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Richness))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Richness, pairwise ~ site) #Tukey  
+Comptar
+colores<-c("coral4","burlywood2","palegreen4")
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "N° species", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Taxa_S$Mean[table_Taxa_S$site == "Concordia"]
+, y = 1.3 , label = "ab")+
+  annotate("text", x = table_Taxa_S$Mean[table_Taxa_S$site == "Palmar"]
+, y = 2.3, label = "b")+
+  annotate("text", x = table_Taxa_S$Mean[table_Taxa_S$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+
+# sigma(mbi_Richness)
+# 1.764476
+```
+
+#### Abundance
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mbi_Abundance<- lm(Abundance ~ site, biod3)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Abundance_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Abundance),
+  "predichos" = predict(mbi_Abundance)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Abundance_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Abundance<-ggplot(mbi_Abundance_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Abundance
+
+e<-resid(mbi_Abundance) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mbi_Abundance)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Abundance<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Abundance))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Abundance, pairwise ~ site) #Tukey 
+Comptar
+# round(table_Abundance$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "N° species", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Abundance$Mean[table_Abundance$site == "Concordia"]
+, y = 1.3 , label = "ab")+
+  annotate("text", x = table_Abundance$Mean[table_Abundance$site == "Palmar"]
+, y = 2.3, label = "b")+
+  annotate("text", x = table_Abundance$Mean[table_Abundance$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+```
+
+
+#### Dominance_D
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(readxl)
+mbi_Dominance_D<- lm(sqrt(Dominance_D) ~ site, biod3)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Modelo para comparación de medias
+
+m1 <- lm(Dominance_D ~ site, data=biod3)
+
+library(nlme)
+m2 <- gls(Dominance_D ~ site, varIdent(site), data=biod3)
+mbi_Dominance_D <- glm(Dominance_D ~ site, family = "Gamma", data = biod3)
+AIC(mbi_Dominance_D, m1, m2)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Dominance_D_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Dominance_D),
+  "predichos" = predict(mbi_Dominance_D)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Dominance_D_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Dominance_D<-ggplot(mbi_Dominance_D_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Dominance_D
+
+e<-resid(mbi_Dominance_D) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(mbi_Dominance_D)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Dominance_D<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Dominance_D))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Dominance_D, pairwise ~ site, type = "response") #Tukey 
+Comptar
+# round(table_Dominance_D$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "Dominance_D", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Dominance_D$Mean[table_Dominance_D$site == "Concordia"]
+, y = 1.3 , label = "ab")+
+  annotate("text", x = table_Dominance_D$Mean[table_Dominance_D$site == "Palmar"]
+, y = 2.3, label = "b")+
+  annotate("text", x = table_Dominance_D$Mean[table_Dominance_D$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+```
+
+#### Simpson_1D
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data_simpson<-biod3 %>% dplyr::mutate(SD100 = Simpson_1D*100) %>% filter(SD100 > 40)
+
+hist(1/(log(data_simpson$SD100)))
+
+data_simpson$Simpson_1D<-(data_simpson$Simpson_1D)*100
+data_simpson$Simpson_1D<-1/(log(data_simpson$Simpson_1D))
+
+mbi_Simpson_1D<- lm((SD100) ~ site, data_simpson)
+
+# Modelo para comparación de medias
+
+m1 <- lm(log(Simpson_1D) ~ site, biod3)
+
+library(nlme)
+mbi_Simpson_1D <- gls(SD100 ~ site, varIdent(site), data=data_simpson)
+mbi_Simpson_1D <- glm(1/log(SD100) ~ site, family = "Gamma", data = data_simpson)
+AIC(mbi_Simpson_1D, m1, m2)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Simpson_1D_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Simpson_1D),
+  "predichos" = predict(mbi_Simpson_1D)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Simpson_1D_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Simpson_1D<-ggplot(mbi_Simpson_1D_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Simpson_1D
+
+e<-resid(mbi_Simpson_1D) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(mbi_Simpson_1D)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Simpson_1D<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Simpson_1D))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Simpson_1D, pairwise ~ site) #Tukey 
+Comptar
+# round(table_Simpson_1D$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "N° species", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Simpson_1D$Mean[table_Simpson_1D$site == "Concordia"]
+, y = 1.3 , label = "ab")+
+  annotate("text", x = table_Simpson_1D$Mean[table_Simpson_1D$site == "Palmar"]
+, y = 2.3, label = "b")+
+  annotate("text", x = table_Simpson_1D$Mean[table_Simpson_1D$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+```
+
+#### Shannon_H
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mbi_Shannon_H <- lm(sqrt(Shannon_H) ~ site, biod3)
+
+mbi_Shannon_H2 <- glm(Shannon_H ~ site, family = "Gamma", data = biod3)
+
+mbi_Shannon_H3 <- gls(sqrt(Shannon_H) ~ site, varIdent(site), data = biod3)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Shannon_H_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Shannon_H),
+  "predichos" = predict(mbi_Shannon_H)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Shannon_H_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Shannon_H<-ggplot(mbi_Shannon_H_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Shannon_H
+
+e<-resid(mbi_Shannon_H) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mbi_Shannon_H)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Shannon_H<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Shannon_H))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Shannon_H, pairwise ~ site) #Tukey 
+Comptar
+# round(table_Shannon_H$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "Shannon H", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Shannon_H$Mean[table_Shannon_H$site == "Concordia"]
+, y = 1.3 , label = "ab")+
+  annotate("text", x = table_Shannon_H$Mean[table_Shannon_H$site == "Palmar"]
+, y = 2.3, label = "b")+
+  annotate("text", x = table_Shannon_H$Mean[table_Shannon_H$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+```
+
+
+#### Evenness_eHS
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mbi_Evenness_eHS<- lm(Evenness_eHS ~ site, biod3)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Evenness_eHS_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Evenness_eHS),
+  "predichos" = predict(mbi_Evenness_eHS)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Evenness_eHS_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Evenness_eHS<-ggplot(mbi_Evenness_eHS_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Evenness_eHS
+
+e<-resid(mbi_Evenness_eHS) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mbi_Evenness_eHS)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Evenness_eHS<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Evenness_eHS))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Evenness_eHS, pairwise ~ site) #Tukey 
+Comptar
+# round(table_Evenness_eHS$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "N° species", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Evenness_eHS$Mean[table_Evenness_eHS$site == "Concordia"]
+, y = 1.3 , label = "a")+
+  annotate("text", x = table_Evenness_eHS$Mean[table_Evenness_eHS$site == "Palmar"]
+, y = 2.3, label = "a")+
+  annotate("text", x = table_Evenness_eHS$Mean[table_Evenness_eHS$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+```
+
+#### Margalef
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mbi_Margalef<- lm(Margalef ~ site, biod3)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Margalef_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Margalef),
+  "predichos" = predict(mbi_Margalef)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Margalef_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Margalef<-ggplot(mbi_Margalef_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Margalef
+
+e<-resid(mbi_Margalef) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mbi_Margalef)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Margalef<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Margalef),sd=sd(Margalef))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Margalef, pairwise ~ site) #Tukey 
+Comptar
+# round(table_Margalef$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "N° species", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Margalef$Mean[table_Margalef$site == "Concordia"]
+, y = 1.3 , label = "ab")+
+  annotate("text", x = table_Margalef$Mean[table_Margalef$site == "Palmar"]
+, y = 2.3, label = "b")+
+  annotate("text", x = table_Margalef$Mean[table_Margalef$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+```
+
+#### Equitability_J
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+biod32<-biod3[-26,]
+
+mbi_Equitability_J<- lm(Equitability_J ~ site, biod32)
+
+library(nlme)
+mbi_Equitability_J <- gls(Equitability_J ~ site, varIdent(form=~1|site), data=biod32)
+
+mbi_Equitability_J3 <- glm(Equitability_J ~ site, family = "Gamma", data = biod32)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_Equitability_J_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Equitability_J),
+  "predichos" = predict(mbi_Equitability_J)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_Equitability_J_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_Equitability_J<-ggplot(mbi_Equitability_J_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_Equitability_J
+
+e<-resid(mbi_Equitability_J) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mbi_Equitability_J)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_Equitability_J<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Equitability_J))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_Equitability_J, pairwise ~ site) #Tukey 
+Comptar
+# round(table_Equitability_J$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "N° species", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_Equitability_J$Mean[table_Equitability_J$site == "Concordia"]
+, y = 1.3 , label = "a")+
+  annotate("text", x = table_Equitability_J$Mean[table_Equitability_J$site == "Palmar"]
+, y = 2.3, label = "a")+
+  annotate("text", x = table_Equitability_J$Mean[table_Equitability_J$site == "Gualeguaychu"]
+, y = 3.3, label = "a")
+complot
+```
+
+
+#### anthropic_Ia
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+mbi_anthropic_Ia<- lm(anthropic_Ia ~ site, biod3)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+mbi_anthropic_Ia_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_anthropic_Ia),
+  "predichos" = predict(mbi_anthropic_Ia)))
+
+library(ggplot2)
+HVpff<-ggplot(mbi_anthropic_Ia_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQmbi_anthropic_Ia<-ggplot(mbi_anthropic_Ia_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQmbi_anthropic_Ia
+
+e<-resid(mbi_anthropic_Ia) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mbi_anthropic_Ia)
+
+```
+
+##### Tukey test
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_anthropic_Ia<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(anthropic_Ia))
+
+library(emmeans)
+# library(multcompView)
+Comptar<-emmeans(mbi_anthropic_Ia, pairwise ~ site) #Tukey 
+Comptar
+# round(table_anthropic_Ia$Mean, digits = 5)
+complot<-plot(Comptar, comparisons = TRUE)+
+  labs(x = "N° species", y ="")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = colores) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=14, color='black'))+
+  theme(axis.text = element_text(color='black', size=14))+
+  annotate("text", x = table_anthropic_Ia$Mean[table_anthropic_Ia$site == "Concordia"]
+, y = 1.3 , label = "a")+
+  annotate("text", x = table_anthropic_Ia$Mean[table_anthropic_Ia$site == "Palmar"]
+, y = 2.3, label = "ab")+
+  annotate("text", x = table_anthropic_Ia$Mean[table_anthropic_Ia$site == "Gualeguaychu"]
+, y = 3.3, label = "b")
+complot
+```
+
+## formula
+
+\[
+H = -\sum_{i=1}^{n} p_i \log_{2}(p_i)
+\]
+
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -94,9 +1147,9 @@ N.esp<-specnumber(datosm[,1:39])
 div<-cbind(div,N.esp)
 H<-diversity(datosm[,1:39], index="shannon")  #base ln (logaritmo neperiano)
 div<-cbind(div, H)
-div$REG<-as.factor(div$REG)
 div$REG<-factor(div$REG,levels = c("CONCORDIA", "PALMAR", "GUALEGUAYCHU"))
 div$expH<-exp(div$H)
+
 
 library(Rmisc)
 estN <- summarySE(div, measurevar="N.esp", groupvars=c("REG"))
@@ -122,8 +1175,8 @@ grafestN<-ggplot(estN, aes(x=REG, y=N.esp, color=REG, fill=REG)) +
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
   theme(panel.border = element_rect(fill = "transparent"))+
-  scale_color_manual(values = c("coral1","burlywood2","palegreen4"))+
-  scale_fill_manual(values = c("coral1","burlywood2","palegreen4"))+
+  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
   ylim(0,10)+
   # scale_y_continuous(breaks=seq(0, 50, 5))+
   geom_text(aes(label = round(N.esp,2)), vjust = -3, size=5)
@@ -151,8 +1204,8 @@ grafestH<-ggplot(estH, aes(x=REG, y=H, color=REG, fill=REG)) +
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
   theme(panel.border = element_rect(fill = "transparent"))+
-  scale_color_manual(values = c("coral1","burlywood2","palegreen4"))+
-  scale_fill_manual(values = c("coral1","burlywood2","palegreen4"))+
+  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
   ylim(0,5)+
   # scale_y_continuous(breaks=seq(0, 50, 5))+
   geom_text(aes(label = round(H,2)), vjust = -3, size=5)
@@ -178,8 +1231,8 @@ grafestH2<-ggplot(estH2, aes(x=REG, y=expH, color=REG, fill=REG)) +
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
   theme(panel.border = element_rect(fill = "transparent"))+
-  scale_color_manual(values = c("coral1","burlywood2","palegreen4"))+
-  scale_fill_manual(values = c("coral1","burlywood2","palegreen4"))+
+  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
   ylim(0,10)+
   # scale_y_continuous(breaks=seq(0, 50, 5))+
   geom_text(aes(label = round(expH,2)), vjust = -3, size=5)
@@ -238,9 +1291,9 @@ Agrupamiento jerárquico de los censos a través de la distancia de Jaccard y m�
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # MULTIDIMENSINAL SCALING - PRINCIPAL COORDINATE ANALYSIS
-mds.ALT <- pco(mat.j, k=38) # k es n-1 censos
+mds.ALT <- pco(mat.b, k=38) # k es n-1 censos
 
-mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
+# mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
 
 # sum(mds.eig[1:1])
 
@@ -248,15 +1301,17 @@ df.mds<-data.frame(mds.ALT$points) #posici?n de cada punto en los ejes.
 
 df.todo <- cbind(df.mds, datos)
 
+# df.todo$REG<-factor(df.todo$REG,labels = c("Concordia","Palmar","Gualeguaychu"),levels=c("CONCORDIA","PALMAR","GUALEGUAYCHU"), )
+
 library(ggplot2)
 library(ggrepel)
 
-ggplot(df.todo, aes(-X5, -X3))+
+acoorp<-ggplot(df.todo, aes(-X1, -X2))+
   geom_hline(yintercept=0, col="black")+
   geom_vline(xintercept=0, col="black")+
-  geom_point(size=4,aes(col=REG, pch=as.factor(REG)))+
+  geom_point(size=5,aes(col=REG, pch=as.factor(REG)))+
   theme_classic()+
-  scale_color_manual(values = c("coral1","palegreen4","burlywood2"))+
+  scale_color_manual(values = c("coral4","palegreen4","burlywood2"))+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20, color='black'))+
@@ -265,13 +1320,13 @@ ggplot(df.todo, aes(-X5, -X3))+
   theme(legend.direction = "horizontal")+
   theme(legend.position = "bottom")+
   theme(legend.title = element_blank())+
-  labs(x = "MDS 1", y = "MDS 2",colour = "REG",pch="REG",
+  labs(x = "Principal coordinate 1", y = "Principal coordinate 2",colour = "REG",pch="REG",
                     groups = "REG")+
   stat_ellipse(aes(x=-X1, y=-X2,color=REG),type = "norm")+
   geom_text_repel(
     data = df.todo,
     aes(label = Censo),
-    size = 4,
+    size = 5,
     box.padding = unit(0.001, "lines"),
     point.padding = unit(1, "lines"))
 
@@ -294,7 +1349,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #   # theme(legend.direction = "horizontal") +
 #   theme(legend.position = "bottom")+
 #   labs(x = "MDS 1", y = "MDS 2", ellipse = TRUE)
-#              
+
 
 ```
 
@@ -386,13 +1441,15 @@ dendro.wardb<-hclust(mat.b,method="ward.D")
 
 
 library(factoextra)
-fviz_dend(x = dendro.wardb, cex = 0.5, lwd = 0.5, k = 3,
+cluster_dend<-fviz_dend(x = dendro.wardb, cex = 1.5, lwd = 1, k = 3,
 # Manually selected colors
-          k_colors = c("coral1","burlywood2","palegreen4"),
+          k_colors = c("coral4","burlywood2","palegreen4"),
           rect = TRUE, 
-          rect_border = "gray", 
-          rect_fill = FALSE)
-
+          rect_border = "gray4", 
+          rect_fill = FALSE)+
+  scale_y_continuous(breaks = 0:4, labels = 0:4)+
+  theme(axis.text.y = element_text(size = 12))
+cluster_dend
 ```
 
 Los agrupamientos en tres grupos principales incluyen mayoritariamente a censos de las mismas poblaciones. En rojo se observan
@@ -432,25 +1489,41 @@ library(FactoMineR)
 library(factoextra)
 
 # MULTIDIMENSINAL SCALING - PRINCIPAL COORDINATE ANALYSIS
-mds.ALT <- pco(mat.b, k=2) # k es n-1 censos
+mds.ALT <- pco(mat.b, k=38) # k es n-1 censos
 
-# mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
+mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
 
 # sum(mds.eig[1:1])
 
 df.mds<-data.frame(mds.ALT$points) #posici?n de cada punto en los ejes. 
 
-df.todo <- cbind(df.mds, datos)
+df.todo <- cbind(df.mds[,c(1:2)], datos)
+
+df.todo$REG <- factor(df.todo$REG,
+                   levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
+                   labels = c("Conconrdia" ,"Palmar" ,"Gualeguaychu"))
+
+
+data_disc<-read_excel("database.xlsx",sheet="discriminant")
+
+data_disc$census<-as.factor(data_disc$census)
+data_disc$axis_1<-as.numeric(data_disc$axis_1)
+data_disc$axis_2<-as.numeric(data_disc$axis_2)
+data_disc$site <- factor(data_disc$site,
+                   levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
+                   labels = c("Conconrdia" ,"Palmar" ,"Gualeguaychu"))
+data_disc$species<-as.factor(data_disc$species)
 
 library(ggplot2)
 library(ggrepel)
 
-ggplot(df.todo, aes(-X1, -X2))+
+ggPCoA<-ggplot(df.todo, aes(X1, -X2))+
   geom_hline(yintercept=0, col="black")+
   geom_vline(xintercept=0, col="black")+
-  geom_point(size=4,aes(col=REG, pch=as.factor(REG)))+
+  geom_point(size=5,aes(col=REG, pch=as.factor(REG)))+
   theme_classic()+
-  scale_color_manual(values = c("coral1","palegreen4","burlywood2"))+
+  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_shape_manual(values=c(16,15,17))+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20, color='black'))+
@@ -459,24 +1532,103 @@ ggplot(df.todo, aes(-X1, -X2))+
   theme(legend.direction = "horizontal")+
   theme(legend.position = "bottom")+
   theme(legend.title = element_blank())+
-  labs(x = "X 1", y = "X 2",colour = "REG",pch="REG",
+  labs(x = "Principal coordinate 1 (18.64%)", y = "Principal coordinate 2 (14.08%)",colour = "REG",pch="REG",
                     groups = "REG")+
   stat_ellipse(aes(x=-X1, y=-X2,color=REG,type = "norm"))+
+  # geom_polygon(data = data_disc, aes(x = axis_1, y = axis_2, group = site, fill = site), alpha = 0.2) +
+  # stat_chull(aes(x = axis_1, y = axis_2, group = site), geom = "path", col = "black", fill = NA)+
   geom_text_repel(
     data = df.todo,
     aes(label = Censo),
-    size = 4,
+    size = 5,
     box.padding = unit(0.0001, "lines"),
     point.padding = unit(1, "lines"))
-
+ggPCoA
 
 ```
 Se observa un ordenamiento muy marcado de las poblaciones en concordancia con los resultados anteriores. Los dos ejes principales explican un 27.19% de la variación total de los datos.
 
+
+
+```{r, echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+
+sum(mds.eig[1:1])
+sum(mds.eig[1:2])-sum(mds.eig[1:1])
+
+```
+
+## Base de datos
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE)
+
+data_disc<-read_excel("database.xlsx",sheet="discriminant")
+
+data_disc$census<-as.factor(data_disc$census)
+data_disc$axis_1<-as.numeric(data_disc$axis_1)
+data_disc$axis_2<-as.numeric(data_disc$axis_2)
+data_disc$site <- factor(data_disc$site,
+                   levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
+                   labels = c("Conconrdia" ,"Palmar" ,"Gualeguaychu"))
+data_disc$species<-as.factor(data_disc$species)
+```
+
 ## Análisis discriminante
 
 ```{r discriminante, echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+# knitr::include_graphics("discriminante.jpg")
 
+# Se crearon los ejes canónicos en infostat
+
+```
+
+```{r , echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+
+
+ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
+  geom_hline(yintercept=0, col="black")+
+  geom_vline(xintercept=0, col="black")+
+  geom_point(size=5,aes(col=site, pch=(site)))+
+  theme_classic()+
+  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_shape_manual(values = c(16,15,17))+
+  theme(panel.grid.major.y = element_blank())+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
+  theme(legend.direction = "horizontal")+
+  theme(legend.position = "bottom")+
+  theme(legend.title = element_blank())+
+  labs(x = "Canonical axis 1", y = "Canonical axis 2",colour = "site",pch="site", groups = "site")+
+  # stat_ellipse(aes(x=axis_1, y=axis_2,color=site,type = "norm"))+
+  geom_text_repel(
+    data = data_disc,
+    aes(label = census),
+    size = 5,
+    box.padding = unit(0.0001, "lines"),
+    point.padding = unit(1, "lines"))+
+  geom_point(size=1,aes(x=axis_sp1,y=axis_sp2))+
+  geom_text_repel(aes(x = axis_sp1, y = axis_sp2, label = species), hjust = -0.1, vjust = 0.5, size = 5, color = "black") 
+
+# library(dplyr)
+# # Calcular los contornos manualmente
+# contour_data <- data_disc %>%
+#   group_by(site) %>%
+#   summarise(axis_1_contour = mean(axis_1),
+#             axis_2_contour = mean(axis_2))
+# 
+# # Obtener los índices de los puntos que forman los contornos
+# contour_points <- contour_data %>%
+#   slice(chull(axis_1_contour, axis_2_contour))
+# 
+# # Agregar los contornos al gráfico
+# ggdisc <- ggdisc +
+#   geom_polygon(data = contour_data, aes(x = axis_1_contour, y = axis_2_contour, group = site),
+#                alpha = 0.2, fill = NA, color = "black") +
+#   geom_path(data = contour_points, aes(x = axis_1_contour, y = axis_2_contour, group = site),
+#             color = "black", size = 1)
+# 
+# ggdisc
 
 ```
 
@@ -491,3 +1643,315 @@ Se observa un ordenamiento muy marcado de las poblaciones en concordancia con lo
 El análisis discriminante (figure 4) muestra las separaciones maximizadas y tasa de error calculada total es de 0%. De todas formas, si se quisiera usar, por ejemplo a estas especies vegetales para inferir a que población pertenece un censo no sería recomendable ya que posiblemente no se cumplen los supuestos de matrices similares de varianza covarianza dentro de grupos.
 
 Finalmente, todos los resultados llevan a la conclusión de que las poblaciones de ubajay en cada sitio se encuentran en distintas comunidades vegetales con respecto a las especies leñosas y semileñosas acompañantes.
+
+# Especies y familias
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(readxl)
+data_ahv<-read_excel("database.xlsx",sheet="companion2")
+# datos[is.na(datos)] <-  0
+data_ahv$site<-factor(data_ahv$site, levels=c("concordia","palmar","gualeguaychu"))
+
+data_ahv$census<-as.factor(data_ahv$census)
+data_ahv$species<-as.factor(data_ahv$species)
+data_ahv$family<-as.factor(data_ahv$family)
+
+
+data_ahv_conc<-data_ahv[1:79,]
+data_ahv_pal<-data_ahv[80:152,]
+data_ahv_guale<-data_ahv[153:238,]
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+family_conc <- data_ahv_conc %>%
+  dplyr::group_by(family) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-n)
+
+family_conc<-family_conc[1:10,]
+
+family_pal <- data_ahv_pal %>%
+  dplyr::group_by(family) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-n)
+
+family_pal<-family_pal[1:10,]
+
+family_guale <- data_ahv_guale %>%
+  dplyr::group_by(family) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-n)
+
+family_guale<-family_guale[1:10,]
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# ggfam_con<-ggplot(family_conc, aes(x=family, y=n)) + 
+#   geom_bar(stat="identity", size=.4, fill="coral4") +
+#   labs(y="", x= "")+
+#   theme_classic()+
+#   theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=14, color='white'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "white"))+
+#   theme(panel.border = element_rect(fill = "transparent"))+
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+#   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+#   scale_y_continuous(breaks = seq(1,16, 2))
+# 
+# ggfam_pal<-ggplot(family_pal, aes(x=family, y=n)) + 
+#   geom_bar(stat="identity", size=.4, fill="burlywood2") +
+#   labs(y="Abundance", x= "")+
+#   theme_classic()+
+#   theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=14, color='white'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "white"))+
+#   theme(panel.border = element_rect(fill = "transparent"))+
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+#   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+#   scale_y_continuous(breaks = seq(1,16, 2))
+# 
+# ggfam_guale<-ggplot(family_guale, aes(x=family, y=n)) + 
+#   geom_bar(stat="identity", size=.4, fill="palegreen4") +
+#   labs(y="", x= "")+
+#   theme_classic()+
+#   theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=14, color='white'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "white"))+
+#   theme(panel.border = element_rect(fill = "transparent"))+
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+#   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+#   scale_y_continuous(breaks = seq(1,16, 2))
+# 
+# ggfam<-ggarrange(ggfam_con,ggfam_pal,ggfam_guale, ncol = 3, nrow = 1)
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data_family<-rbind(family_conc,family_pal,family_guale)
+data_family$site<-c(rep("Concordia",10),rep("Palmar",10),rep("Gualeguaychu",10))
+data_family$site<-factor(data_family$site, levels = c("Concordia","Palmar","Gualeguaychu"))
+```
+
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ggfam_total<-ggplot(data_family, aes(x=family, y=n, fill=site)) + 
+  geom_bar(stat="identity", size=.4) +
+  labs(y="Abundance", x= "")+
+  facet_grid(.~site)+
+  facet_wrap(~ site, ncol = 3, scales = "free") +
+  scale_fill_manual(values=c("coral4","burlywood2","palegreen4"))+
+  theme_classic()+
+  theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
+  theme(legend.title = element_blank())+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=25, color='black'))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  theme(panel.border = element_rect(fill = "transparent"))+
+  theme(axis.text.x = element_text(angle = 50, hjust = 1, color='black'))+
+  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+  scale_y_continuous(breaks = seq(1,16, 2), limits = c(0, 16))
+
+ggfam_total
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+family_n_conc_nat <- data_ahv_conc %>%
+  dplyr::group_by(family, native, site) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-native, -n)
+
+family_n_conc_exo <- data_ahv_conc %>%
+  dplyr::group_by(family, native, site) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(native, -n)
+
+family_n_conc1<-family_n_conc_nat[1:5,]
+family_n_conc2<-family_n_conc_exo[1:5,]
+
+t1_conc<-rbind(family_n_conc1,family_n_conc2)
+
+family_n_pal_nat <- data_ahv_pal %>%
+  dplyr::group_by(family, native, site) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-native, -n)
+
+family_n_pal_exo <- data_ahv_pal %>%
+  dplyr::group_by(family, native, site) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(native, -n)
+
+family_n_pal1<-family_n_pal_nat[1:5,]
+family_n_pal2<-family_n_pal_exo[1:5,]
+
+t1_pal<-rbind(family_n_pal1,family_n_pal2)
+
+family_n_guale_nat <- data_ahv_guale %>%
+  dplyr::group_by(family, native, site) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-native, -n)
+
+family_n_guale_exo <- data_ahv_guale %>%
+  dplyr::group_by(family, native, site) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(native, -n)
+
+family_n_guale1<-family_n_guale_nat[1:5,]
+family_n_guale2<-family_n_guale_exo[1:5,]
+
+t1_guale<-rbind(family_n_guale1,family_n_guale2)
+
+  
+t1_natexo<-rbind(t1_conc,t1_pal,t1_guale)
+
+t1_natexo<-as.data.frame(t1_natexo)
+t1_natexo$native <- factor(t1_natexo$native, levels = c("1", "0"), labels = c("Native", "Exotic"))
+t1_natexo$site <- factor(t1_natexo$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+library(forcats)
+
+ggfam_total2 <- ggplot(t1_natexo, aes(x = fct_reorder2(family, site, n), y = n, fill = native)) +
+  geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
+  labs(y = "Richness", x = "") +
+  facet_grid(. ~ site) +
+  facet_wrap(~site, ncol = 3, scales = "free") +
+  scale_fill_manual(values = c("palegreen4", "coral4")) +
+  theme_classic() +
+  theme(
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "white"),
+    legend.title = element_blank(),
+    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 25, color = 'black'),
+    plot.background = element_rect(fill = "white"),
+    panel.background = element_rect(fill = "white", color = "white"),
+    panel.border = element_rect(fill = "transparent"),
+    axis.text.x = element_text(angle = 50, hjust = 1, color = 'black'),
+    axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+  ) +
+  scale_y_continuous(breaks = seq(1, 16, 2), limits = c(0, 16))
+
+ggfam_total2
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+sp_n_conc_nat <- data_ahv_conc %>%
+  dplyr::group_by(species, native) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-native, -n)
+
+sp_n_conc_exo <- data_ahv_conc %>%
+  dplyr::group_by(species, native) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(native, -n)
+
+sp_conc<-rbind(sp_n_conc_exo[1:5,],sp_n_conc_nat[1:5,])
+
+sp_n_pal_nat <- data_ahv_pal %>%
+  dplyr::group_by(species, native) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-native, -n)
+
+sp_n_pal_exo <- data_ahv_pal %>%
+  dplyr::group_by(species, native) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(native, -n)
+
+sp_pal<-rbind(sp_n_pal_exo[1:5,],sp_n_pal_nat[1:5,])
+
+sp_n_guale_nat <- data_ahv_guale %>%
+  dplyr::group_by(species, native) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(-native, -n)
+
+sp_n_guale_exo <- data_ahv_guale %>%
+  dplyr::group_by(species, native) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(native, -n)
+
+sp_guale<-rbind(sp_n_guale_exo[1:5,],sp_n_guale_nat[1:5,])
+
+sp_ahv<-rbind(sp_conc,sp_pal,sp_guale)
+
+sp_ahv$site<-c(rep("Concordia",10),rep("Palmar",10),rep("Gualeguaychu",10))
+sp_ahv<-as.data.frame(sp_ahv)
+sp_ahv$site <- factor(sp_ahv$site, levels = c("Concordia", "Palmar", "Gualeguaychu"))
+sp_ahv$native <- factor(sp_ahv$native, levels = c("1", "0"), labels = c("Native", "Exotic"))
+sp_ahv$n<-as.numeric(sp_ahv$n)
+
+
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(ggplot2)
+library(forcats)
+
+ggsp_total <- ggplot(sp_ahv, aes(x = fct_reorder2(species, site, n), y = n, fill = native)) +
+  geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
+  labs(y = "Species frequency", x = "") +
+  facet_grid(. ~ site) +
+  facet_wrap(~site, ncol = 3, scales = "free") +
+  scale_fill_manual(values = c("palegreen4", "coral4")) +
+  theme_classic() +
+  theme(
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "white"),
+    legend.title = element_blank(),
+    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 20, color = 'black'),
+    plot.background = element_rect(fill = "white"),
+    panel.background = element_rect(fill = "white", color = "white"),
+    panel.border = element_rect(fill = "transparent"),
+    axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
+    axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+  ) +
+  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 10))
+
+ggsp_total
+
+# sp frec total
+sp_n<- data_ahv %>%
+  dplyr::group_by(species, native) %>%
+  dplyr::summarise(n = n()) %>%
+  dplyr::arrange(native, -n)
+
+```
