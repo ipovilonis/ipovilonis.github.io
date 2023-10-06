@@ -286,7 +286,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-ggplot(data=table_n_ovu, aes(x=year, y=Mean, fill=site))+
+gg_novu <- ggplot(data=table_n_ovu, aes(x=year, y=Mean, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
   geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
                 width=.2, position=position_dodge(.5))+
@@ -302,7 +302,7 @@ ggplot(data=table_n_ovu, aes(x=year, y=Mean, fill=site))+
   theme(text = element_text(size=15, color='black'))+
   theme(axis.text = element_text(color='black'))
 
-
+gg_novu
 ```
 
 ## N° Óvulos Concordia
@@ -427,7 +427,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-ggplot(data=table_pol_mean, aes(x=year, y=Mean, fill=site))+
+gg_polger <- ggplot(data=table_pol_mean, aes(x=year, y=Mean, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
   geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
                 width=.2, position=position_dodge(.5))+
@@ -442,7 +442,7 @@ ggplot(data=table_pol_mean, aes(x=year, y=Mean, fill=site))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=15, color='black'))+
   theme(axis.text = element_text(color='black'))
-
+gg_polger
 
 ```
 
