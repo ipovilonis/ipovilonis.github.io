@@ -1,0 +1,216 @@
+---
+title: "Modelo para peso seco"
+output: pdf_document
+---
+
+# Carga de datos y conversión de variables
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# datospeso <-read_excel("nombre.xlsx", sheet="indicarhoja")
+library(readxl)
+datospeso <- read_excel("database.xlsx", sheet="fisico")
+
+datospeso$year<-factor(datospeso$year,levels=c("2019","2021","2022"))
+datospeso$site<-factor(datospeso$site,levels=c("concordia", "palmar","gualeguaychu"))
+datospeso$mad<-factor(datospeso$mad,levels=c("I", "MM","M","SM"))
+datospeso$phenotype<-as.factor(datospeso$phenotype)
+datospeso$n <-as.factor(datospeso$n)
+datospeso$mad <-as.factor(datospeso$mad)
+datospeso$pff <- as.numeric(datospeso$pff)
+datospeso$pss <- as.numeric(datospeso$pss)
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Se quitan filas sin datos de peso seco (en este caso no hay)
+library(dplyr)
+datospeso_sna <- datospeso %>% filter(!is.na(psf))
+
+```
+
+# Gráfico de dispersión
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=psf, y=pff, color=mad))+
+  geom_point(size=5)+
+  # facet_grid(.~year)+
+  labs(x="Peso seco fruto (g)", y="Peso fresco fruto (g)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = c("blue","green3","gold","orange4")) +
+  # scale_color_manual(values = c("coral1","burlywood2","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gg_pesoseco_3a
+
+```
+
+# Se ajusta el modelo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_ps <- lm(psf ~ pff, data=datospeso)
+
+```
+
+# Predicciones del modelo
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear un nuevo data frame con los valores para pff, site y phenotype
+nuevos_datos <- data.frame(
+  pff = datospeso$pff  # Valores de pff
+)
+
+# Hacer predicciones
+predicciones1 <- predict(modelo_ps, newdata = nuevos_datos)
+
+# Ver las predicciones
+# print(predicciones1)
+
+modelo_ps
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_ps)
+
+```
+
+#----------
+
+# Se filtran datos para 2022
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# datospeso<-read_excel("database.xlsx", sheet="datospeso")
+library(dplyr)
+
+datospeso2022 <- datospeso %>% filter(year == 2022)
+datospeso2022 <- datospeso2022 %>% filter(site == "concordia" | site == "gualeguaychu")
+
+
+```
+
+# Nueva variable peso seco de pulpa
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datospeso2022$psp <- datospeso2022$psf * 0.4842
+
+```
+
+# Se quita valores negativos
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datospeso2022 <- datospeso2022 %>% filter(psp >= 0)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gg_pesoseco <- ggplot(data=datospeso2022, aes(x=psp, y=pff, color=site, shape=mad))+
+  geom_point(size=5)+
+  # facet_grid(.~year)+
+  labs(x="Peso seco pulpa (g)", y="Peso fresco fruto (g)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = c("coral1","palegreen4")) +
+  # scale_color_manual(values = c("coral1","burlywood2","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+```
+
+# Ajuste del modelo
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+library(lmerTest)
+
+modelo_psp <- lmer(psp ~ pff + (1|site/phenotype) + (1|mad), datospeso2022)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# datospeso<-read_excel("database.xlsx", sheet="datospeso")
+library(readxl)
+datospeso3 <- read_excel("database.xlsx", sheet="psp")
+
+datospeso3$year<-factor(datospeso3$year,levels=c("2019","2021","2022"))
+datospeso3$site<-factor(datospeso3$site,levels=c("concordia", "palmar","gualeguaychu"))
+datospeso3$phenotype<-as.factor(datospeso3$phenotype)
+datospeso3$mad <-as.factor(datospeso3$mad)
+
+datospeso3$pff <- as.numeric(datospeso3$pff)
+
+```
+
+# Predicciones del modelo
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear un nuevo data frame con los valores para pff, site y phenotype
+nuevos_datos <- data.frame(
+  pff = datospeso3$pff,  # Valores de pff
+  site = datospeso3$site,  # Valores de site
+  phenotype = datospeso3$phenotype,  # Valores de phenotype
+  mad = datospeso3$mad
+)
+
+# Hacer predicciones
+predicciones3 <- predict(modelo_psp, newdata = nuevos_datos)
+
+# Ver las predicciones
+print(predicciones3)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datospeso3$predichos <- predicciones
+
+datospeso3$f_psp <- datospeso3$predichos / datospeso3$pff
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tabla_ps <- datospeso3 %>%
+  dplyr::group_by(phenotype) %>%
+  dplyr::summarise(mean=mean(f_psp))
+
+tabla_ps
+
+```

@@ -427,6 +427,9 @@ div.tocify {
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
+      <a href="Meteorological.html">Meteorological</a>
+    </li>
+    <li>
       <a href="Climate.html">Climate</a>
     </li>
     <li>
@@ -471,7 +474,7 @@ div.tocify {
 <p>The aim of this work was to study the evolution of fruit size and
 weight together with the soluble solid and total titratable acidity
 contents with the patterns of accumulation of chlorophylls, carotenoids,
-phenols and antioxidant activity during ripening of <em>Hexachlamys
+color_L and antioxidant activity during ripening of <em>Hexachlamys
 edulis</em> fruits, to understand the optimal time and conditions needed
 to obtain maximum nutraceutical characteristics. Fruits were harvested
 from H. edulis plants growing at the experimental field of the
@@ -681,10 +684,8 @@ A caption
 ## lm(formula = H ~ MADUREZ, data = data)
 ## 
 ## Coefficients:
-##         (Intercept)  MADUREZMedio Maduro        MADUREZMaduro  
-##             0.79370              0.04170              0.08100  
-##  MADUREZSobreMaduro  
-##             0.03944</code></pre>
+##         (Intercept)  MADUREZMedio Maduro        MADUREZMaduro   MADUREZSobreMaduro  
+##             0.79370              0.04170              0.08100              0.03944</code></pre>
 <p>Se elije el modelo M0sH</p>
 </div>
 <div id="verificación-de-supuestos-2" class="section level3">
@@ -755,6 +756,39 @@ growing in the experimental field of the University of Morón in Moreno
 </div>
 <div id="colorimetría" class="section level2">
 <h2>Colorimetría</h2>
+<div id="descriptive-table-color_l" class="section level3">
+<h3>Descriptive table color_L</h3>
+<pre><code>## # A tibble: 4 × 5
+##   MADUREZ       Mean   min   max    sd
+##   &lt;fct&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Inmaduro      68.7  67.6  69.9 0.941
+## 2 Medio Maduro  67.7  65.5  71.2 2.15 
+## 3 Maduro        72.3  71.9  72.7 0.422
+## 4 SobreMaduro   71.5  70.7  72.1 0.611</code></pre>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="descriptive-table-color_a" class="section level3">
+<h3>Descriptive table color_a</h3>
+<pre><code>## # A tibble: 4 × 5
+##   MADUREZ       Mean   min   max    sd
+##   &lt;fct&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Inmaduro      1.26  0.82  1.5  0.312
+## 2 Medio Maduro  4.24  2.69  6.79 1.51 
+## 3 Maduro        5.68  1.66  8.37 2.87 
+## 4 SobreMaduro   4.32  2.92  5.72 1.16</code></pre>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="descriptive-table-color_b" class="section level3">
+<h3>Descriptive table color_b</h3>
+<pre><code>## # A tibble: 4 × 5
+##   MADUREZ       Mean   min   max    sd
+##   &lt;fct&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Inmaduro      6.8   4.54  8.49  1.65
+## 2 Medio Maduro  5.43  0.86 10.9   4.32
+## 3 Maduro       12.3  10.8  14.2   1.49
+## 4 SobreMaduro   6.79  2.9  12.7   4.65</code></pre>
+<p><img src="madPhysical_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 </div>
 

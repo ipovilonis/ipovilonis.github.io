@@ -794,12 +794,12 @@ table_color_G
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-colores<-c("#285114","yellow","orange")
+colores<-c("yellow","orange","#285114")
 gcolor_G<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
   stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(1)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
-                width=.2, position=position_dodge(1))+
-  labs(x="", y="color_G")+
+                width=.1, position=position_dodge(1), size=0.1)+
+  labs(x="", y="color_CP1")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   scale_fill_manual(values = colores) +
@@ -830,7 +830,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ## The model
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
 
 # Modelo para comparación de medias
 
@@ -944,6 +943,44 @@ plot(Comptar, comparisons = TRUE)+
 
 ```
 
+## Descriptive graphic (sd)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data_to_plot <- data.frame(
+  treat = factor(c("control", "etileno","1MCP")),
+  mean = c(107, 114, 87.4),  # Estimados del modelo
+  SE = c(0.1441, 0.1244, 0.0671)  # Errores estándar del modelo
+)
+
+data_to_plot$treat<-factor(data_to_plot$treat, levels = c("control", "etileno", "1MCP"))
+
+library(ggplot2)
+colores<-c("yellow","orange","#285114")
+gcolor_G2<-ggplot(data=data_to_plot, aes(x=treat, y=mean, fill=treat))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(1), width = 0.6) +
+  geom_errorbar(aes(ymin=mean-SE, ymax=mean+SE),
+                width=.1, position=position_dodge(1), size=0.01)+
+  labs(x="", y="color_CP1")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=50, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  annotate("text", y = table_color_G$mean[table_color_G$treat == "control"]+5
+, x = 1.1 , label = "a",size=20)+
+  annotate("text", y = table_color_G$mean[table_color_G$treat == "etileno"]+5
+, x = 2.1, label = "a",size=20)+
+  annotate("text", y = table_color_G$mean[table_color_G$treat == "1MCP"]+5
+, x = 3.1, label = "c",size=20)+
+  ylim(0, 120) +  # Establece los límites del eje Y
+  scale_y_continuous(breaks = seq(0, 120, by = 20)) 
+gcolor_G2
+```
 
 # Color correlation
 

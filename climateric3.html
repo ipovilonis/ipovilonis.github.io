@@ -29,9 +29,6 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
-<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
-<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -223,75 +220,6 @@ $(document).ready(function () {
 
 
 
-<style type="text/css">
-
-#TOC {
-  margin: 25px 0px 20px 0px;
-}
-@media (max-width: 768px) {
-#TOC {
-  position: relative;
-  width: 100%;
-}
-}
-
-@media print {
-.toc-content {
-  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
-  float: right;
-}
-}
-
-.toc-content {
-  padding-left: 30px;
-  padding-right: 40px;
-}
-
-div.main-container {
-  max-width: 1200px;
-}
-
-div.tocify {
-  width: 20%;
-  max-width: 260px;
-  max-height: 85%;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  div.tocify {
-    width: 25%;
-  }
-}
-
-@media (max-width: 767px) {
-  div.tocify {
-    width: 100%;
-    max-width: none;
-  }
-}
-
-.tocify ul, .tocify li {
-  line-height: 20px;
-}
-
-.tocify-subheader .tocify-item {
-  font-size: 0.90em;
-}
-
-.tocify .list-group-item {
-  border-radius: 0px;
-}
-
-.tocify-subheader {
-  display: inline;
-}
-.tocify-subheader .tocify-item {
-  font-size: 0.95em;
-}
-
-</style>
-
-
 
 </head>
 
@@ -299,16 +227,6 @@ div.tocify {
 
 
 <div class="container-fluid main-container">
-
-
-<!-- setup 3col/9col grid for toc_float and main content  -->
-<div class="row">
-<div class="col-xs-12 col-sm-4 col-md-3">
-<div id="TOC" class="tocify">
-</div>
-</div>
-
-<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -427,6 +345,9 @@ div.tocify {
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
+      <a href="Meteorological.html">Meteorological</a>
+    </li>
+    <li>
       <a href="Climate.html">Climate</a>
     </li>
     <li>
@@ -470,7 +391,7 @@ div.tocify {
 
 <div id="principal-component-analysis" class="section level1">
 <h1>Principal component analysis</h1>
-<p><img src="climateric3_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="climateric3_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-analysis-for-the-color-component-lab"
 class="section level1">
@@ -491,24 +412,24 @@ class="section level2">
 <tbody>
 <tr class="odd">
 <td align="left">control</td>
-<td align="right">105.66220</td>
+<td align="right">105.65361</td>
 <td align="right">65.21946</td>
 <td align="right">139.9356</td>
-<td align="right">20.81702</td>
+<td align="right">20.813732</td>
 </tr>
 <tr class="even">
 <td align="left">etileno</td>
 <td align="right">113.83946</td>
 <td align="right">66.92551</td>
 <td align="right">133.8905</td>
-<td align="right">17.62301</td>
+<td align="right">17.623015</td>
 </tr>
 <tr class="odd">
 <td align="left">1MCP</td>
-<td align="right">87.12983</td>
+<td align="right">86.83898</td>
 <td align="right">68.07181</td>
 <td align="right">102.2095</td>
-<td align="right">8.59436</td>
+<td align="right">8.562197</td>
 </tr>
 </tbody>
 </table>
@@ -517,7 +438,7 @@ maturation</em></p>
 </div>
 <div id="descriptive-graphic-sd" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
-<p><img src="climateric3_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="climateric3_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-model" class="section level2">
 <h2>The model</h2>
@@ -526,12 +447,15 @@ maturation</em></p>
 </div>
 <div id="assumptions-check" class="section level2">
 <h2>Assumptions check</h2>
-<p><img src="climateric3_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /><img src="climateric3_files/figure-html/unnamed-chunk-8-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="climateric3_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /><img src="climateric3_files/figure-html/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.97752, p-value = 0.01802</code></pre>
+## W = 0.9781, p-value = 0.02082</code></pre>
+</div>
+<div id="descriptive-graphic-sd-1" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
 </div>
 <div id="anova-comparison-of-means" class="section level2">
 <h2>Anova (comparison of means)</h2>
@@ -548,13 +472,13 @@ maturation</em></p>
 <tr class="odd">
 <td align="left">(Intercept)</td>
 <td align="right">1</td>
-<td align="right">8066.43493</td>
+<td align="right">8067.8506</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">treat</td>
 <td align="right">2</td>
-<td align="right">53.27906</td>
+<td align="right">54.6684</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -568,8 +492,8 @@ maturation</em></p>
 ## 
 ## $control
 ##                       diff      lwr.ci    upr.ci    pval    
-## etileno-control   8.177266   0.6464925  15.70804  0.0310 *  
-## 1MCP-control    -18.532366 -26.0631389 -11.00159 3.5e-07 ***
+## etileno-control   8.185849   0.6582482  15.71345  0.0307 *  
+## 1MCP-control    -18.814631 -26.3422322 -11.28703 2.3e-07 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -577,20 +501,20 @@ maturation</em></p>
 <div id="tukey-test" class="section level2">
 <h2>Tukey test</h2>
 <pre><code>## $emmeans
-##  treat   emmean   SE df lower.CL upper.CL
-##  control  105.7 3.00 47     99.6    111.7
-##  etileno  113.8 2.54 47    108.7    119.0
-##  1MCP      87.1 1.24 47     84.6     89.6
+##  treat      emmean       SE    df  lower.CL  upper.CL
+##  control 105.65361 3.004204 46.96  99.60979 111.69744
+##  etileno 113.83946 2.543663 46.97 108.72218 118.95674
+##  1MCP     86.83898 1.235846 46.98  84.35276  89.32521
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast          estimate   SE   df t.ratio p.value
-##  control - etileno    -8.18 3.94 91.5  -2.077  0.1003
-##  control - 1MCP       18.53 3.25 62.6   5.701  &lt;.0001
-##  etileno - 1MCP       26.71 2.83 68.2   9.438  &lt;.0001
+##  contrast           estimate       SE    df t.ratio p.value
+##  control - etileno -8.185849 3.936428 91.49  -2.080  0.0998
+##  control - 1MCP    18.814631 3.248470 62.42   5.792  &lt;.0001
+##  etileno - 1MCP    27.000480 2.827992 67.97   9.548  &lt;.0001
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -601,24 +525,24 @@ maturation</em></p>
 <h1>Lab coordinates Correlations</h1>
 <div id="a-vs.-l" class="section level2">
 <h2><em>a</em> vs. <em>L</em></h2>
-<pre><code>## [1] 0.4876984</code></pre>
+<pre><code>## [1] 0.4952311</code></pre>
 </div>
 <div id="a-vs.-b" class="section level2">
 <h2><em>a</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.6497344</code></pre>
+<pre><code>## [1] 0.6498622</code></pre>
 </div>
 <div id="l-vs.-b" class="section level2">
 <h2><em>L</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.8071149</code></pre>
+<pre><code>## [1] 0.8020751</code></pre>
 </div>
 </div>
 <div id="color-correlation" class="section level1">
 <h1>Color correlation</h1>
-<p><img src="climateric3_files/figure-html/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="climateric3_files/figure-html/unnamed-chunk-19-1.png" width="1920" style="display: block; margin: auto;" /></p>
 </div>
 <div id="discriminant-analysis" class="section level1">
 <h1>Discriminant Analysis</h1>
-<p><img src="climateric3_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="climateric3_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div id="multiple-response-permutation-procedure-mrpp"
 class="section level2">
 <h2>Multiple Response Permutation Procedure (MRPP)</h2>
@@ -632,11 +556,11 @@ class="section level2">
 ## Class means and counts:
 ## 
 ##       1      2      3      
-## delta 0.1391 0.1047 0.08626
+## delta 0.1393 0.1047 0.08649
 ## n     48     48     48     
 ## 
-## Chance corrected within-group agreement A: 0.1769 
-## Based on observed delta 0.11 and expected delta 0.1337 
+## Chance corrected within-group agreement A: 0.1793 
+## Based on observed delta 0.1102 and expected delta 0.1343 
 ## 
 ## Significance of delta: 0.001 
 ## Permutation: free
@@ -646,8 +570,6 @@ class="section level2">
 
 
 
-</div>
-</div>
 
 </div>
 
@@ -680,35 +602,6 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
-<script>
-$(document).ready(function ()  {
-
-    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
-    $('.unlisted.unnumbered').addClass('toc-ignore')
-
-    // move toc-ignore selectors from section div to header
-    $('div.section.toc-ignore')
-        .removeClass('toc-ignore')
-        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
-
-    // establish options
-    var options = {
-      selectors: "h1,h2,h3,h4,h5",
-      theme: "bootstrap3",
-      context: '.toc-content',
-      hashGenerator: function (text) {
-        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
-      },
-      ignoreSelector: ".toc-ignore",
-      scrollTo: 0
-    };
-    options.showAndHide = false;
-    options.smoothScroll = true;
-
-    // tocify
-    var toc = $("#TOC").tocify(options).data("toc-tocify");
-});
-</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

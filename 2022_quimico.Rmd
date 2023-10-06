@@ -1,0 +1,423 @@
+---
+output: pdf_document
+---
+
+# Peso seco
+
+## Carga de datos y conversión de variables
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# datospeso <-read_excel("nombre.xlsx", sheet="indicarhoja")
+library(readxl)
+datospeso <- read_excel("database.xlsx", sheet="fisico")
+
+datospeso$year<-factor(datospeso$year,levels=c("2019","2021","2022"))
+datospeso$site<-factor(datospeso$site,levels=c("concordia", "palmar","gualeguaychu"))
+datospeso$mad<-factor(datospeso$mad,levels=c("I", "MM","M","SM"))
+datospeso$phenotype<-as.factor(datospeso$phenotype)
+datospeso$n <-as.factor(datospeso$n)
+datospeso$mad <-as.factor(datospeso$mad)
+datospeso$pff <- as.numeric(datospeso$pff)
+datospeso$pss <- as.numeric(datospeso$pss)
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Se quitan filas sin datos de peso seco (en este caso no hay)
+library(dplyr)
+datospeso_sna <- datospeso %>% filter(!is.na(psf))
+
+```
+
+## Gráfico de dispersión
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=psf, y=pff, color=mad))+
+  geom_point(size=5)+
+  # facet_grid(.~year)+
+  labs(x="Peso seco fruto (g)", y="Peso fresco fruto (g)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = c("blue","green3","gold","orange4")) +
+  # scale_color_manual(values = c("coral1","burlywood2","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gg_pesoseco_3a
+
+```
+
+## Se ajusta el modelo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_ps <- lm(psf ~ pff, data=datospeso)
+
+```
+
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+## Predicciones del modelo
+
+# Crear un nuevo data frame con los valores para pff
+nuevos_datos <- data.frame(
+  pff = datospeso$pff  # Valores de pff
+)
+
+# Hacer predicciones
+predicciones1 <- predict(modelo_ps, newdata = nuevos_datos)
+
+# Ver las predicciones
+# print(predicciones1)
+
+modelo_ps
+
+```
+
+## Modelo
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_ps)
+
+```
+
+# Análisis univariado
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+database <- read_excel("database.xlsx", sheet = "2022_quimico")
+# View(database)
+
+database$phenotype <- as.factor(database$phenotype)
+database$site<-factor(database$site,levels=c("Concordia", "Gualeguaychu"))
+database$mad<-factor(database$mad, levels=c("I", "MM","M","SM"))
+database$phenotype<-as.factor(database$phenotype)
+# database$id <-as.factor(database$id)
+database$mad <-as.factor(database$mad)
+database$maturity <-as.factor(database$maturity)
+
+# database$pss <- as.numeric(database$pss)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Se quitan filas sin datos
+library(dplyr)
+database2 <- database %>% filter(!is.na(phenols_ps))
+
+```
+
+## Fenoles
+
+## Tabla descriptiva Acidez Total Titulable (ATT)
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+table_phenols_ps <- database2 %>% 
+  dplyr::group_by(site, phenotype) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(phenols_ps),
+    min = min(phenols_ps),
+    max = max(phenols_ps),
+    sd = sd(phenols_ps),
+    )
+
+table_phenols_ps
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gphenols<-ggplot(data=table_phenols_ps, aes(x=phenotype, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~year)+
+  labs(x="", y="Fenoles [eq Ac. Tan/100g PS]")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = c("coral1","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gphenols
+
+```
+
+## AAO
+
+### 0.025
+### 0.050
+### 0.100
+### 0.250
+
+## Clorofila a
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Se quitan filas sin datos
+library(dplyr)
+database_cloa <- database %>% filter(!is.na(Clo_a_ps))
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+table_Clo_a_ps<- database_cloa %>% 
+  dplyr::group_by(site, phenotype) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(Clo_a_ps),
+    min = min(Clo_a_ps),
+    max = max(Clo_a_ps),
+    sd = sd(Clo_a_ps),
+    )
+
+table_Clo_a_ps
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gphenols<-ggplot(data=table_Clo_a_ps, aes(x=phenotype, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.9))+
+  # geom_point()+
+  # facet_grid(.~year)+
+  labs(x="", y="Clorofila a")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = c("coral1","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gphenols
+
+```
+
+## Clorofila b
+
+## Carotenoides
+
+## Acidez Total Titulable (ATT)
+
+``` {r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Cargar la base de datos
+library(readxl)
+
+ATTSS <- read_excel("muestrasquimica.xlsx", sheet="Hoja7")
+
+ATTSS$year<-factor(ATTSS$year,levels=c("2022"))
+
+ATTSS$site<-factor(ATTSS$site,levels=c("concordia","gualeguaychu"))
+
+ATTSS$phenotype<-as.factor(ATTSS$phenotype)
+
+# ATTSS$id <-factor(ATTSS$id,levels=c("1", "2","3","4"))
+
+ATTSS$mad <- as.factor(ATTSS$mad)
+
+```
+
+## Tabla descriptiva Acidez Total Titulable (ATT)
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+table_acidity <- ATTSS %>% 
+  dplyr::group_by(site, phenotype) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(acidity),
+    min = min(acidity),
+    max = max(acidity),
+    sd = sd(acidity),
+    )
+
+table_acidity
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gATT<-ggplot(data=table_acidity, aes(x=phenotype, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~year)+
+  labs(x="", y="ATT (%)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = c("coral1","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gATT
+
+```
+
+## Sólidos solubles
+
+### Tabla descriptiva sólidos solubles (SS)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+table_brix <- ATTSS %>% 
+  dplyr::group_by(site) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(brix),
+    min = min(brix),
+    max = max(brix),
+    sd = sd(brix),
+    )
+
+table_brix
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gATT_brix<-ggplot(data=table_brix, aes(x=site, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~year)+
+  labs(x="", y="°Brix")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  # scale_fill_manual(values = c("coral1","burlywood2","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+
+```
+
+## Relación ATT y SS
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gATT_brix_dispersion<-ggplot(data=ATTSS, aes(x=acidity, y=brix, color=site))+
+  geom_point(size=5)+
+  # facet_grid(.~year)+
+  labs(x="ATT (%)", y="°Brix")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = c("coral1","burlywood2","palegreen4")) +
+  # scale_color_manual(values = c("coral1","burlywood2","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gATT_brix_dispersion
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gATT_phi_dispersion<-ggplot(data=ATTSS, aes(x=pHi, y=brix, color=site, shape=mad))+
+  geom_point(size=5)+
+  # facet_grid(.~year)+
+  labs(x="pHi", y="Brix")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = c("coral1","palegreen4")) +
+  # scale_color_manual(values = c("coral1","burlywood2","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gATT_phi_dispersion
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+gATT_phi_dispersion<-ggplot(data=ATTSS, aes(x=pH81, y=acidity, color=site, shape=mad))+
+  geom_point(size=5)+
+  # facet_grid(.~year)+
+  labs(x="pH 8.1", y="ATT (%)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  # scale_fill_manual(values = c("coral1","burlywood2","palegreen4")) +
+  scale_color_manual(values = c("coral1","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gATT_phi_dispersion
+```
+
+
+# Análisis multivariado

@@ -345,6 +345,9 @@ $(document).ready(function () {
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
+      <a href="Meteorological.html">Meteorological</a>
+    </li>
+    <li>
       <a href="Climate.html">Climate</a>
     </li>
     <li>
@@ -404,29 +407,28 @@ quantified from accumulated CO2 every 15 minutes for 150 minutes.</p>
 <h2>Descriptive table</h2>
 <pre><code>## # A tibble: 20 × 7
 ## # Groups:   time_min [10]
-##    time_min matu  carbon_ac_n carbon_ac_Mean carbon_ac_sd carbon_ac_min
-##    &lt;fct&gt;    &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;
-##  1 15       I               2           42.5        4.97           39.0
-##  2 15       M               2           39.6        1.86           38.3
-##  3 30       I               2           62.2        5.13           58.5
-##  4 30       M               2           59.4        2.79           57.4
-##  5 45       I               2           75.2        5.23           71.5
-##  6 45       M               2           76.6        0.110          76.6
-##  7 60       I               2           94.9        5.39           91.1
-##  8 60       M               2           99.0        4.66           95.7
-##  9 75       I               2          108.         5.50          104. 
-## 10 75       M               2          116.         1.97          115. 
-## 11 90       I               2          124.        10.3           117. 
-## 12 90       M               2          136.         2.91          134. 
-## 13 105      I               2          137.        10.4           130. 
-## 14 105      M               2          153.         0.221         153. 
-## 15 120      I               2          157.        10.5           150. 
-## 16 120      M               2          176.         4.77          172. 
-## 17 135      I               2          170.        10.6           163. 
-## 18 135      M               2          190.         6.59          185. 
-## 19 150      I               2          186.        15.4           176. 
-## 20 150      M               2          213.         3.02          211. 
-## # ℹ 1 more variable: carbon_ac_max &lt;dbl&gt;</code></pre>
+##    time_min matu  carbon_ac_n carbon_ac_Mean carbon_ac_sd carbon_ac_min carbon_ac_max
+##    &lt;fct&gt;    &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 15       I               2           42.5        4.97           39.0          46.1
+##  2 15       M               2           39.6        1.86           38.3          40.9
+##  3 30       I               2           62.2        5.13           58.5          65.8
+##  4 30       M               2           59.4        2.79           57.4          61.4
+##  5 45       I               2           75.2        5.23           71.5          78.9
+##  6 45       M               2           76.6        0.110          76.6          76.7
+##  7 60       I               2           94.9        5.39           91.1          98.7
+##  8 60       M               2           99.0        4.66           95.7         102. 
+##  9 75       I               2          108.         5.50          104.          112. 
+## 10 75       M               2          116.         1.97          115.          118. 
+## 11 90       I               2          124.        10.3           117.          132. 
+## 12 90       M               2          136.         2.91          134.          138. 
+## 13 105      I               2          137.        10.4           130.          145. 
+## 14 105      M               2          153.         0.221         153.          153. 
+## 15 120      I               2          157.        10.5           150.          164. 
+## 16 120      M               2          176.         4.77          172.          179. 
+## 17 135      I               2          170.        10.6           163.          178. 
+## 18 135      M               2          190.         6.59          185.          194. 
+## 19 150      I               2          186.        15.4           176.          197. 
+## 20 150      M               2          213.         3.02          211.          215.</code></pre>
 </div>
 <div id="correlations-over-time" class="section level2">
 <h2>Correlations over time</h2>
@@ -463,18 +465,12 @@ class="section level2">
 </div>
 <div id="model-coefficients" class="section level2">
 <h2>Model coefficients</h2>
-<pre><code>##       (Intercept)        time_min30        time_min45        time_min60 
-##     -1088.3098591        19.6250543        32.7084238        52.3334782 
-##        time_min75        time_min90       time_min105       time_min120 
-##        65.4168477        81.7897236        94.8730931       114.4981474 
-##       time_min135       time_min150             matuM             basal 
-##       127.5815169       143.9543928        24.0203019        43.2170578 
-##  time_min30:matuM  time_min45:matuM  time_min60:matuM  time_min75:matuM 
-##         0.1712202         4.3272497         7.0553453        11.2113748 
-##  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM 
-##        14.6347734        18.7908030        21.5188986        22.4853372 
-## time_min150:matuM 
-##        29.0983267</code></pre>
+<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75        time_min90       time_min105 
+##     -1088.3098591        19.6250543        32.7084238        52.3334782        65.4168477        81.7897236        94.8730931 
+##       time_min120       time_min135       time_min150             matuM             basal  time_min30:matuM  time_min45:matuM 
+##       114.4981474       127.5815169       143.9543928        24.0203019        43.2170578         0.1712202         4.3272497 
+##  time_min60:matuM  time_min75:matuM  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM time_min150:matuM 
+##         7.0553453        11.2113748        14.6347734        18.7908030        21.5188986        22.4853372        29.0983267</code></pre>
 </div>
 <div id="anova" class="section level2">
 <h2>Anova</h2>
@@ -490,54 +486,54 @@ class="section level2">
 <h2>Simple effects</h2>
 <pre><code>## $emmeans
 ## time_min = 15:
-##  matu emmean SE   df lower.CL upper.CL
-##  I      29.1  4 4.38     18.3     39.8
-##  M      53.1  4 4.26     42.2     63.9
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     29.05593 3.996413 4.38  18.32747  39.78439
+##  M     53.07623 3.996413 4.26  42.24267  63.90980
 ## 
 ## time_min = 30:
-##  matu emmean SE   df lower.CL upper.CL
-##  I      48.7  4 4.37     37.9     59.4
-##  M      72.9  4 4.38     62.1     83.6
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     48.68099 3.996413 4.37  37.94735  59.41462
+##  M     72.87251 3.996413 4.38  62.14744  83.59757
 ## 
 ## time_min = 45:
-##  matu emmean SE   df lower.CL upper.CL
-##  I      61.8  4 4.23     50.9     72.6
-##  M      90.1  4 4.30     79.3    100.9
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     61.76435 3.996413 4.23  50.90664  72.62207
+##  M     90.11191 3.996413 4.30  79.31519 100.90863
 ## 
 ## time_min = 60:
-##  matu emmean SE   df lower.CL upper.CL
-##  I      81.4  4 4.35     70.6     92.1
-##  M     112.5  4 4.37    101.7    123.2
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     81.38941 3.996413 4.35  70.64128  92.13754
+##  M    112.46506 3.996413 4.37 101.73142 123.19869
 ## 
 ## time_min = 75:
-##  matu emmean SE   df lower.CL upper.CL
-##  I      94.5  4 4.28     83.7    105.3
-##  M     129.7  4 4.31    118.9    140.5
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     94.47278 3.996413 4.28  83.65659 105.28897
+##  M    129.70446 3.996413 4.31 118.91264 140.49627
 ## 
 ## time_min = 90:
-##  matu emmean SE   df lower.CL upper.CL
-##  I     110.8  4 4.38    100.1    121.6
-##  M     149.5  4 4.26    138.7    160.3
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    110.84565 3.996413 4.38 100.11719 121.57412
+##  M    149.50073 3.996413 4.26 138.66717 160.33429
 ## 
 ## time_min = 105:
-##  matu emmean SE   df lower.CL upper.CL
-##  I     123.9  4 4.37    113.2    134.7
-##  M     166.7  4 4.38    156.0    177.5
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    123.92902 3.996413 4.37 113.19539 134.66266
+##  M    166.74013 3.996413 4.38 156.01506 177.46520
 ## 
 ## time_min = 120:
-##  matu emmean SE   df lower.CL upper.CL
-##  I     143.6  4 4.23    132.7    154.4
-##  M     189.1  4 4.30    178.3    199.9
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    143.55408 3.996413 4.23 132.69637 154.41179
+##  M    189.09328 3.996413 4.30 178.29656 199.89000
 ## 
 ## time_min = 135:
-##  matu emmean SE   df lower.CL upper.CL
-##  I     156.6  4 4.35    145.9    167.4
-##  M     203.1  4 4.37    192.4    213.9
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    156.63745 3.996413 4.35 145.88932 167.38558
+##  M    203.14309 3.996413 4.37 192.40945 213.87672
 ## 
 ## time_min = 150:
-##  matu emmean SE   df lower.CL upper.CL
-##  I     173.0  4 4.28    162.2    183.8
-##  M     226.1  4 4.31    215.3    236.9
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    173.01032 3.996413 4.28 162.19413 183.82652
+##  M    226.12895 3.996413 4.31 215.33714 236.92077
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
@@ -545,44 +541,44 @@ class="section level2">
 ## 
 ## $contrasts
 ## time_min = 15:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -24.0 7.2 6.29  -3.337  0.0146
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -24.02030 7.197624 6.29  -3.337  0.0146
 ## 
 ## time_min = 30:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -24.2 7.2 6.30  -3.361  0.0141
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -24.19152 7.197624 6.30  -3.361  0.0141
 ## 
 ## time_min = 45:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -28.3 7.2 4.51  -3.938  0.0135
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -28.34755 7.197624 4.51  -3.938  0.0135
 ## 
 ## time_min = 60:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -31.1 7.2 6.28  -4.317  0.0045
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -31.07565 7.197624 6.28  -4.317  0.0045
 ## 
 ## time_min = 75:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -35.2 7.2 6.24  -4.895  0.0024
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -35.23168 7.197624 6.24  -4.895  0.0024
 ## 
 ## time_min = 90:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -38.7 7.2 6.29  -5.371  0.0015
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -38.65508 7.197624 6.29  -5.371  0.0015
 ## 
 ## time_min = 105:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -42.8 7.2 6.30  -5.948  0.0008
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -42.81110 7.197624 6.30  -5.948  0.0008
 ## 
 ## time_min = 120:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -45.5 7.2 4.51  -6.327  0.0021
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -45.53920 7.197624 4.51  -6.327  0.0021
 ## 
 ## time_min = 135:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -46.5 7.2 6.28  -6.461  0.0005
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -46.50564 7.197624 6.28  -6.461  0.0005
 ## 
 ## time_min = 150:
-##  contrast estimate  SE   df t.ratio p.value
-##  I - M       -53.1 7.2 6.24  -7.380  0.0003
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -53.11863 7.197624 6.24  -7.380  0.0003
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite</code></pre>

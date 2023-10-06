@@ -247,15 +247,15 @@ library(emmeans)
 complot<-plot(compresp, comparisons = TRUE)+
   facet_wrap(~time_min, strip.position = "right", ncol = 1,
              labeller = label_wrap_gen(width = 1))+
-  labs(x = "CO2 (ml accumulated/Kg)", y ="Maturity")+
+  labs(x = "CO2 (ml acumulados/Kg)", y ="Madurez")+
   theme_classic()+
   ggtitle("Mean Contrast")+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
   theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color="grey", size=4))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=14, color='black'))+
-  theme(axis.text = element_text(color='black', size=14))+
+  theme(text = element_text(size=35, color='black'))+
+  theme(axis.text = element_text(color='black', size=25))+
   theme(strip.text.y = element_text(angle = 0))+
   scale_x_continuous(limits = c(0, 240), breaks = seq(0,240,20))
 complot
@@ -324,10 +324,10 @@ df_lineI <- data.frame(x = c(15,150), y = c(29.05593, 173.01033))
 df_lineM <- data.frame(x = c(15,150), y = c(53.07623, 226.12895))
 
 gm_ajust <- ggplot(resp2, aes(x = time_min, y = carbon_ac)) +
-  geom_point(aes(color = factor(matu)), size = 4)+
-  geom_line(data = df_lineI, aes(x = x, y = y), color="green2", size= 0.8, linetype = "dotdash")+
-  geom_line(data = df_lineM, aes(x = x, y = y), color="orange", size= 0.8, linetype = "dotdash")+
-  labs(y = "CO2 (ml accumulated/Kg)", x = "Time (min)") +
+  geom_point(aes(color = factor(matu)), size = 10)+
+  geom_line(data = df_lineI, aes(x = x, y = y), color="green2", size= 2, linetype = "dotdash")+
+  geom_line(data = df_lineM, aes(x = x, y = y), color="orange", size= 2, linetype = "dotdash")+
+  labs(y = "CO2 (ml acumulado/Kg)", x = "Tiempo (min)") +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   scale_color_manual(values = colores) +
@@ -335,7 +335,7 @@ gm_ajust <- ggplot(resp2, aes(x = time_min, y = carbon_ac)) +
   theme(legend.position = 'bottom') +
   theme(panel.grid.major.y = element_line(color = 'black')) +
   theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 10, color = 'black')) +
+  theme(text = element_text(size = 40, color = 'black')) +
   theme(axis.text = element_text(color = 'black'))+
   scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
 gm_ajust

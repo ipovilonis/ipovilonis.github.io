@@ -152,7 +152,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 biod<-read_excel("database.xlsx",sheet="bio_index2")
 
-biod$site<-factor(biod$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+biod$site<-factor(biod$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychu"))
 biod$variable<-as.factor(biod$variable)
 
 biod$variable<-factor(biod$variable, levels = levels(biod$variable), labels = levels(biod$variable))
@@ -161,7 +161,7 @@ biod$variable<-factor(biod$variable, levels = levels(biod$variable), labels = le
 
 biod3<-read_excel("database.xlsx",sheet="bio_index3")
 
-biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychu"))
 biod3$censo<-as.factor(biod3$censo)
 
 library(dplyr)
@@ -179,6 +179,9 @@ tsi<-rbind(table_Taxa_S,table_Individuals,table_anthropic_Ia)
 tsi$variable<-as.factor(c(rep("Richness",3),rep("Abundance",3),rep("anthropic_Ia",3)))
 
 biod<-rbind(biod, tsi)
+
+letters <- c("ab","a","ab","a","a","b","a","a","a","a","a","a","b","a","a","ab","b","a","ab","b","a","a","ab","b")
+biod<-cbind(biod, letters)
 
 ```
 
@@ -199,7 +202,7 @@ gg_bioindex<-ggplot(biod, aes(x=site, y=(Mean), color=site, fill=site)) +
     legend.title = element_blank(),
     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
     panel.grid.major.x = element_blank(),
-    text = element_text(size = 20, color = 'black'),
+    text = element_text(size = 25, color = 'black'),
     plot.background = element_rect(fill = "white"),
     panel.background = element_rect(fill = "white", color = "white"),
     panel.border = element_rect(fill = "transparent"),
@@ -209,7 +212,8 @@ gg_bioindex<-ggplot(biod, aes(x=site, y=(Mean), color=site, fill=site)) +
   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
   scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
   # scale_y_continuous(breaks=seq(0, 50, 5))+
-  geom_text(aes(label = round(Mean,2)), vjust = -0.5, hjust = -0.1, size=5)
+  geom_text(aes(label = round(Mean,2)), vjust = -0.5, hjust = -0.1, size=5, color="black")+
+  geom_text(aes(label = letters, group = letters), vjust = 1.5, hjust = -0.8, size = 5, color="black", position = position_dodge(width = 0.8))
 
 gg_bioindex
 ```
@@ -221,7 +225,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 biod3<-read_excel("database.xlsx",sheet="bio_index3")
 
-biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychu"))
 biod3$censo<-as.factor(biod3$censo)
 
 # biod3 %>% group_by(site) %>% dplyr::summarise(sd = sd(Richness))
@@ -1147,7 +1151,7 @@ N.esp<-specnumber(datosm[,1:39])
 div<-cbind(div,N.esp)
 H<-diversity(datosm[,1:39], index="shannon")  #base ln (logaritmo neperiano)
 div<-cbind(div, H)
-div$REG<-factor(div$REG,levels = c("CONCORDIA", "PALMAR", "GUALEGUAYCHU"))
+div$REG<-factor(div$REG,levels = c("CONCORDIA", "PALMAR", "GUALEGUAYCHU"),labels = c("Concordia", "NP El Palmar", "Gualeguaychú"))
 div$expH<-exp(div$H)
 
 
@@ -1177,7 +1181,7 @@ grafestN<-ggplot(estN, aes(x=REG, y=N.esp, color=REG, fill=REG)) +
   theme(panel.border = element_rect(fill = "transparent"))+
   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
   scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
-  ylim(0,10)+
+  
   # scale_y_continuous(breaks=seq(0, 50, 5))+
   geom_text(aes(label = round(N.esp,2)), vjust = -3, size=5)
 
@@ -1265,7 +1269,7 @@ plot(dendro.ward, hang = -1, cex = 1)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(factoextra)
-fviz_dend(x = dendro.ward, cex = 0.5, lwd = 0.5, k = 3,
+dendro<-fviz_dend(x = dendro.ward, cex = 2, lwd = 0.5, k = 3,
 # Manually selected colors
           k_colors = c("palegreen4","burlywood2","coral1"),
           rect = TRUE, 
@@ -1283,7 +1287,7 @@ fviz_dend(x = dendro.ward, cex = 0.5, lwd = 0.5, k = 3,
 
 ```
 
-Agrupamiento jerárquico de los censos a través de la distancia de Jaccard y método de Ward.
+Agrupamiento jerárquico de los censos a través de la distancia de Bray y método de Ward.
 
 # Ordenamiento
 
@@ -1405,6 +1409,7 @@ library(lme4)
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE)
 
+library(readxl)
 datos<-read_excel("companion.xlsx",sheet="R")
 datos[is.na(datos)] <-  0
 
@@ -1422,10 +1427,10 @@ rownames(datosm_df) <- datos$Censo
 ```{r, echo=FALSE, include=TRUE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datosm <- datosm_df
+datosm <- decostand(datosm_df, "normalize")
 
 # mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
-mat.b<-vegdist(datosm, method = "bray", diag = T, binary = F)
+mat.b<-vegdist(datosm, method = "bray", diag = T, binary = T)
 
 ```
 
@@ -1439,7 +1444,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 dendro.wardb<-hclust(mat.b,method="ward.D")
 
-
 library(factoextra)
 cluster_dend<-fviz_dend(x = dendro.wardb, cex = 1.5, lwd = 1, k = 3,
 # Manually selected colors
@@ -1448,8 +1452,9 @@ cluster_dend<-fviz_dend(x = dendro.wardb, cex = 1.5, lwd = 1, k = 3,
           rect_border = "gray4", 
           rect_fill = FALSE)+
   scale_y_continuous(breaks = 0:4, labels = 0:4)+
-  theme(axis.text.y = element_text(size = 12))
+  theme(axis.text.y = element_text(size = 20))
 cluster_dend
+
 ```
 
 Los agrupamientos en tres grupos principales incluyen mayoritariamente a censos de las mismas poblaciones. En rojo se observan
@@ -1489,35 +1494,34 @@ library(FactoMineR)
 library(factoextra)
 
 # MULTIDIMENSINAL SCALING - PRINCIPAL COORDINATE ANALYSIS
-mds.ALT <- pco(mat.b, k=38) # k es n-1 censos
+mds.ALT <- pco(mat.b, k=4) # k es n-1 censos como máximo
 
-mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
-
+# mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
 # sum(mds.eig[1:1])
 
 df.mds<-data.frame(mds.ALT$points) #posici?n de cada punto en los ejes. 
 
-df.todo <- cbind(df.mds[,c(1:2)], datos)
+df.todo <- cbind(df.mds[,c(1:4)], datos)
 
 df.todo$REG <- factor(df.todo$REG,
                    levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
-                   labels = c("Conconrdia" ,"Palmar" ,"Gualeguaychu"))
+                   labels = c("Conconrdia" ,"NP El Palmar" ,"Gualeguaychu"))
 
 
-data_disc<-read_excel("database.xlsx",sheet="discriminant")
-
-data_disc$census<-as.factor(data_disc$census)
-data_disc$axis_1<-as.numeric(data_disc$axis_1)
-data_disc$axis_2<-as.numeric(data_disc$axis_2)
-data_disc$site <- factor(data_disc$site,
-                   levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
-                   labels = c("Conconrdia" ,"Palmar" ,"Gualeguaychu"))
-data_disc$species<-as.factor(data_disc$species)
+# data_disc<-read_excel("database.xlsx",sheet="discriminant")
+# 
+# data_disc$census<-as.factor(data_disc$census)
+# data_disc$axis_1<-as.numeric(data_disc$axis_1)
+# data_disc$axis_2<-as.numeric(data_disc$axis_2)
+# data_disc$site <- factor(data_disc$site,
+#                    levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
+#                    labels = c("Conconrdia" ,"NP El Palmar" ,"Gualeguaychu"))
+# data_disc$species<-as.factor(data_disc$species)
 
 library(ggplot2)
 library(ggrepel)
 
-ggPCoA<-ggplot(df.todo, aes(X1, -X2))+
+ggPCoA<-ggplot(df.todo, aes(-X1, -X2))+
   geom_hline(yintercept=0, col="black")+
   geom_vline(xintercept=0, col="black")+
   geom_point(size=5,aes(col=REG, pch=as.factor(REG)))+
@@ -1526,13 +1530,13 @@ ggPCoA<-ggplot(df.todo, aes(X1, -X2))+
   scale_shape_manual(values=c(16,15,17))+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
+  theme(text = element_text(size=25, color='black'))+
   theme(axis.text = element_text(color='black'))+
   # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
   theme(legend.direction = "horizontal")+
   theme(legend.position = "bottom")+
   theme(legend.title = element_blank())+
-  labs(x = "Principal coordinate 1 (18.64%)", y = "Principal coordinate 2 (14.08%)",colour = "REG",pch="REG",
+  labs(x = "Principal coordinate 1 (22.5%)", y = "Principal coordinate 2 (14.2%)",colour = "REG",pch="REG",
                     groups = "REG")+
   stat_ellipse(aes(x=-X1, y=-X2,color=REG,type = "norm"))+
   # geom_polygon(data = data_disc, aes(x = axis_1, y = axis_2, group = site, fill = site), alpha = 0.2) +
@@ -1552,8 +1556,8 @@ Se observa un ordenamiento muy marcado de las poblaciones en concordancia con lo
 
 ```{r, echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
 
-sum(mds.eig[1:1])
-sum(mds.eig[1:2])-sum(mds.eig[1:1])
+# sum(mds.eig[1:1])
+# sum(mds.eig[1:2])-sum(mds.eig[1:1])
 
 ```
 
@@ -1604,11 +1608,11 @@ ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
   geom_text_repel(
     data = data_disc,
     aes(label = census),
-    size = 5,
+    size = 3,
     box.padding = unit(0.0001, "lines"),
     point.padding = unit(1, "lines"))+
   geom_point(size=1,aes(x=axis_sp1,y=axis_sp2))+
-  geom_text_repel(aes(x = axis_sp1, y = axis_sp2, label = species), hjust = -0.1, vjust = 0.5, size = 5, color = "black") 
+  geom_text_repel(aes(x = axis_sp1, y = axis_sp2, label = species), hjust = -0.1, vjust = 0.5, size = 3, color = "black") 
 
 # library(dplyr)
 # # Calcular los contornos manualmente
@@ -1644,13 +1648,56 @@ El análisis discriminante (figure 4) muestra las separaciones maximizadas y tas
 
 Finalmente, todos los resultados llevan a la conclusión de que las poblaciones de ubajay en cada sitio se encuentran en distintas comunidades vegetales con respecto a las especies leñosas y semileñosas acompañantes.
 
+# Observado vs esperado
+
+```{r , echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+
+esperadocor <- c("Sambucus australis", "Schinus longifolius", "Butia yatay", "Celtis ehrenbergiana", "Vitex megapotamica", "Erythrina crista-galli", "Senegalia bonariensis", "Abutilon grandifolium", "Myrcianthes pungens", "Scutia buxifolia", "Zanthoxylum fagara", "Jodina rhombifolia", "Lycium boerhaviifolium", "Vassobia breviflora", "Celtis chichape", "Ocotea acutifolia", "Salix humboldtiana", "Albizia inundata", "Allophylus edulis", "Bauhinia forficata", "Blepharocalyx salicifolius", "Celtis iguanaea", "Chrysophyllum gonocarpum", "Chrysophyllum marginatum", "Citharexylum montevidense", "Cupania vernalis", "Diospyros inconstans", "Enterolobium contortisiliquum", "Eugenia mansoi", "Eugenia myrcianthes", "Eugenia repanda", "Eugenia uruguayensis", "Ficus luschnathiana", "Gleditsia amorphoides", "Guadua trinii", "Guettarda uruguensis", "Handroanthus heptaphyllus", "Inga vera", "Lonchocarpus nitidus", "Luehea divaricata", "Manihot grahamii", "Maytenus ilicifolia", "Myrceugenia glaucescens", "Myrsine laetevirens", "Myrsine parvula", "Nectandra angustifolia", "Nectandra megapotamica", "Peltophorum dubium", "Phytolacca dioica", "Poecilanthe parviflora", "Pouteria gardneriana", "Pouteria salicifolia", "Ruprechtia laxiflora", "Ruprechtia salicifolia", "Sebastiania brasiliensis", "Gymnanthes schottiana", "Solanum granuloso-leprosum", "Strychnos brasiliensis", "Syagrus romanzoffiana", "Symplocos uniflora", "Tabernaemontana catharinensis", "Terminalia australis", "Trema micrantha", "Vachellia astringens", "Xylosma venosa", "Cereus uruguayanus", "Lithrea brasiliensis", "Eugenia hiemalis", "Plinia rivularis", "Myrsine coriacea", "Urera aurantiaca", "Machaerium paraguariense", "Aloysia virgata", "Schinus molle", "Gymnanthes klotzschiana")
+
+observadocor <- c("Acacia caven", "Allophylus edulis", "Blepharocalyx salicifolius", "Butia yatay", "Celtis tala", "Cephalanthus glabrotus", "Cissus verticilata", "Clematis montevidensis", "Cyclanthera hystrix", "Erythrina crista galli", "Eugenia uniflora", "Eugenia uruguayensis", "Heterothalamus alienus", "Luehea divaricata", "Mimosa pilulifera", "Mimosa sp", "Muehlenbeckia sagittifolia", "Myrtus mucronatum", "Ocotea acutifolia", "Pavonia malvacea", "Poecilanthe parviflora", "Sebastiania brasiliensis", "Sesbania punicea", "Solanum amygdalifolium", "Stigmaphyllon bonarense", "Terminalia australis", "Tessaria integrifolia", "Anredera cordifolia", "Citharexylum montevidense", "Eucalyptus grandis", "Ipomea sp", "Ipomoea cairica", "Juncus acutus", "Pavonia hastata", "Phoenix canariensis")
+
+comunescor <- intersect(observadocor, esperadocor)
+
+porcentajecor <- (length(comunescor)+1)/length(observadocor)
+
+esperadopal <- c("Stachyarrhena penduliflora", "Quiina rhytidopus", "Guadua paraguayana", "Myrsine loefgrenii", "Sambucus australis", "Lithrea molleoides", "Schinus molle", "Annona emarginata", "Tabernaemontana catharinensis", "Butia yatay", "Syagrus romanzoffiana", "Trithrinax campestris", "Austroeupatorium inulaefolium", "Cereus uruguayanus", "Celtis iguanaea", "Celtis ehrenbergiana", "Trema micrantha", "Maytenus ilicifolia", "Terminalia australis", "Diospyros inconstans", "Erythroxylum cuneifolium", "Croton urucurana", "Sebastiania brasiliensis", "Gymnanthes schottiana", "Nectandra angustifolia", "Ocotea acutifolia", "Bauhinia forficata", "Enterolobium contortisiliquum", "Gleditsia amorphoides", "Inga vera", "Machaerium paraguariense", "Peltophorum dubium", "Prosopis affinis", "Pterogyne nitens", "Sesbania punicea", "Vachellia caven", "Strychnos brasiliensis", "Abutilon grandifolium", "Luehea divaricata", "Blepharocalyx salicifolius", "Eugenia myrcianthes", "Eugenia repanda", "Eugenia uniflora", "Eugenia uruguayensis", "Myrcia selloi", "Myrcianthes cisplatensis", "Myrrhinium atropurpureum", "Guadua chacoensis", "Coccoloba argentinensis", "Ruprechtia laxiflora", "Myrsine laetevirens", "Myrsine parvula", "Guettarda uruguensis", "Casearia sylvestris", "Salix humboldtiana", "Xylosma tweediana", "Xylosma venosa", "Acanthosyris spinescens", "Jodina rhombifolia", "Allophylus edulis", "Cupania vernalis", "Chrysophyllum marginatum", "Pouteria gardneriana", "Castela tweediei", "Lycium boerhaviifolium", "Solanum granuloso-leprosum", "Solanum mauritianum", "Symplocos uniflora", "Aloysia virgata", "Citharexylum montevidense", "Gymnanthes klotzschiana")
+observadopal <- c("Acacia caven", "Allophylus edulis", "Blepharocalyx salicifolius", "Butia yatay", "Celtis tala", "Cephalanthus glabrotus", "Cissus verticilata", "Clematis montevidensis", "Cyclanthera hystrix", "Erythrina crista galli", "Eugenia uniflora", "Eugenia uruguayensis", "Heterothalamus alienus", "Luehea divaricata", "Mimosa pilulifera", "Mimosa sp", "Muehlenbeckia sagittifolia", "Myrtus mucronatum", "Ocotea acutifolia", "Pavonia malvacea", "Poecilanthe parviflora", "Sebastiania brasiliensis", "Sesbania punicea", "Solanum amygdalifolium", "Stigmaphyllon bonarense", "Terminalia australis", "Tessaria integrifolia", "Anredera cordifolia", "Citharexylum montevidense", "Eucalyptus grandis", "Ipomea sp", "Ipomoea cairica", "Juncus acutus", "Pavonia hastata", "Phoenix canariensis")
+
+comunespal <- intersect(observadopal, esperadopal)
+
+porcentajepal <- (length(comunespal)+1)/length(observadopal)
+
+esperadogua <- c("Schinus molle", "Tabernaemontana catharinensis", "Butia yatay", "Syagrus romanzoffiana", "Austroeupatorium inulaefolium", "Handroanthus heptaphyllus", "Celtis chichape", "Celtis iguanaea", "Trema micrantha", "Maytenus ilicifolia", "Terminalia australis", "Erythroxylum cuneifolium", "Croton urucurana", "Manihot grahamii", "Sapium haematospermum", "Sebastiania brasiliensis", "Gymnanthes schottiana", "Vitex megapotamica", "Nectandra angustifolia", "Nectandra megapotamica", "Ocotea acutifolia", "Albizia inundata", "Enterolobium contortisiliquum", "Erythrina crista-galli", "Inga vera", "Lonchocarpus nitidus", "Peltophorum dubium", "Poecilanthe parviflora", "Senegalia bonariensis", "Vachellia caven", "Luehea divaricata", "Ficus luschnathiana", "Blepharocalyx salicifolius", "Eugenia uniflora", "Eugenia uruguayensis", "Myrceugenia glaucescens", "Myrcia selloi", "Myrcianthes cisplatensis", "Myrrhinium atropurpureum", "Phytolacca dioica", "Guadua trinii", "Coccoloba argentinensis", "Ruprechtia salicifolia", "Myrsine laetevirens", "Guettarda uruguensis", "Zanthoxylum fagara", "Banara umbraticola", "Salix humboldtiana", "Xylosma tweediana", "Acanthosyris spinescens", "Allophylus edulis", "Pouteria gardneriana", "Pouteria salicifolia", "Lycium boerhaviifolium", "Solanum mauritianum", "Vassobia breviflora", "Symplocos uniflora", "Aloysia virgata", "Citharexylum montevidense", "Gymnanthes klotzschiana")
+
+observadogua <- c("Asparagus setaceus", "Bauhinia forficata", "Buddleja globosa", "Celtis iguanaea", "Celtis tala", "Cestrum parqui", "Erythrina crista galli", "Eugenia uniflora", "Eugenia uruguayensis", "Fuchsia magellanica", "Hexachlamys edulis", "Maytenus ilicifolius", "Muehlenbeckia sagittifolia", "Myrsine laetevirens", "Pouteria salicifolia", "Schinus longifolius", "Scutia buxifolia", "Sebastiania brasiliensis", "Solanum mauritianum", "Ephedra twediana", "Juncus acutus", "Lantana camara", "Persea americana", "Populus nigra")
+
+comunesgua <- intersect(observadogua, esperadogua)
+
+porcentajegua <- (length(comunesgua)+1)/length(observadogua)
+
+
+porcentajecor
+porcentajepal
+porcentajegua
+
+mean(porcentajecor,
+porcentajepal,
+porcentajegua)
+
+length(esperadocor)
+length(esperadopal)
+length(esperadogua)
+
+```
+
+
 # Especies y familias
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 data_ahv<-read_excel("database.xlsx",sheet="companion2")
 # datos[is.na(datos)] <-  0
-data_ahv$site<-factor(data_ahv$site, levels=c("concordia","palmar","gualeguaychu"))
+data_ahv$site<-factor(data_ahv$site, levels=c("concordia","palmar","gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychú"))
 
 data_ahv$census<-as.factor(data_ahv$census)
 data_ahv$species<-as.factor(data_ahv$species)
@@ -1661,6 +1708,34 @@ data_ahv_conc<-data_ahv[1:79,]
 data_ahv_pal<-data_ahv[80:152,]
 data_ahv_guale<-data_ahv[153:238,]
 
+```
+
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# especies dominantes
+library(ggplot2)
+ggdom_total<-ggplot(data_ahv, aes(x=species, y=abundancy, fill=site)) + 
+  geom_bar(stat="identity", size=.4) +
+  labs(y="Abundance", x= "")+
+  facet_grid(.~species)+
+  facet_wrap(~ site, ncol = 3, scales = "free") +
+  scale_fill_manual(values=c("coral4","burlywood2","palegreen4"))+
+  theme_classic()+
+  theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
+  theme(legend.title = element_blank())+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  theme(panel.border = element_rect(fill = "transparent"))+
+  theme(axis.text.x = element_text(angle = 65, hjust = 1, color='black'))+
+  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+  scale_y_continuous(breaks = seq(0,40, 2), limits = c(0, 40))
+
+ggdom_total
 ```
 
 ```{r, echo=FALSE, include=FALSE}
@@ -1746,8 +1821,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data_family<-rbind(family_conc,family_pal,family_guale)
-data_family$site<-c(rep("Concordia",10),rep("Palmar",10),rep("Gualeguaychu",10))
-data_family$site<-factor(data_family$site, levels = c("Concordia","Palmar","Gualeguaychu"))
+data_family$site<-c(rep("Concordia",10),rep("NP El Palmar",10),rep("Gualeguaychú",10))
+# data_family$site<-factor(data_family$site, levels = c("Concordia","El Palmar","Gualeguaychú"))
 ```
 
 
@@ -1831,7 +1906,7 @@ t1_natexo<-rbind(t1_conc,t1_pal,t1_guale)
 
 t1_natexo<-as.data.frame(t1_natexo)
 t1_natexo$native <- factor(t1_natexo$native, levels = c("1", "0"), labels = c("Native", "Exotic"))
-t1_natexo$site <- factor(t1_natexo$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "Palmar", "Gualeguaychu"))
+t1_natexo$site <- factor(t1_natexo$site, levels = c("Concordia", "NP El Palmar", "gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychú"))
 
 ```
 
@@ -1840,29 +1915,29 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
 library(forcats)
 
-ggfam_total2 <- ggplot(t1_natexo, aes(x = fct_reorder2(family, site, n), y = n, fill = native)) +
-  geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
-  labs(y = "Richness", x = "") +
-  facet_grid(. ~ site) +
-  facet_wrap(~site, ncol = 3, scales = "free") +
-  scale_fill_manual(values = c("palegreen4", "coral4")) +
-  theme_classic() +
-  theme(
-    legend.position = "bottom",
-    legend.background = element_rect(fill = "white"),
-    legend.title = element_blank(),
-    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
-    panel.grid.major.x = element_blank(),
-    text = element_text(size = 25, color = 'black'),
-    plot.background = element_rect(fill = "white"),
-    panel.background = element_rect(fill = "white", color = "white"),
-    panel.border = element_rect(fill = "transparent"),
-    axis.text.x = element_text(angle = 50, hjust = 1, color = 'black'),
-    axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
-  ) +
-  scale_y_continuous(breaks = seq(1, 16, 2), limits = c(0, 16))
-
-ggfam_total2
+# ggfam_total2 <- ggplot(t1_natexo, aes(x = fct_reorder2(family, site, n), y = n, fill = native)) +
+#   geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
+#   labs(y = "Richness", x = "") +
+#   facet_grid(. ~ site) +
+#   facet_wrap(~site, ncol = 3, scales = "free") +
+#   scale_fill_manual(values = c("palegreen4", "coral4")) +
+#   theme_classic() +
+#   theme(
+#     legend.position = "bottom",
+#     legend.background = element_rect(fill = "white"),
+#     legend.title = element_blank(),
+#     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+#     panel.grid.major.x = element_blank(),
+#     text = element_text(size = 25, color = 'black'),
+#     plot.background = element_rect(fill = "white"),
+#     panel.background = element_rect(fill = "white", color = "white"),
+#     panel.border = element_rect(fill = "transparent"),
+#     axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
+#     axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+#   ) +
+#   scale_y_continuous(breaks = seq(1, 16, 2), limits = c(0, 16))
+# 
+# ggfam_total2
 
 ```
 
@@ -1909,9 +1984,10 @@ sp_guale<-rbind(sp_n_guale_exo[1:5,],sp_n_guale_nat[1:5,])
 
 sp_ahv<-rbind(sp_conc,sp_pal,sp_guale)
 
-sp_ahv$site<-c(rep("Concordia",10),rep("Palmar",10),rep("Gualeguaychu",10))
+sp_ahv$site<-c(rep("Concordia",10),rep("NP El Palmar",10),rep("Gualeguaychú",10))
+sp_ahv$site<-factor(sp_ahv$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"))
 sp_ahv<-as.data.frame(sp_ahv)
-sp_ahv$site <- factor(sp_ahv$site, levels = c("Concordia", "Palmar", "Gualeguaychu"))
+# sp_ahv$site <- factor(sp_ahv$site, levels = c("Concordia", "Palmar", "Gualeguaychu"))
 sp_ahv$native <- factor(sp_ahv$native, levels = c("1", "0"), labels = c("Native", "Exotic"))
 sp_ahv$n<-as.numeric(sp_ahv$n)
 
@@ -1937,7 +2013,7 @@ ggsp_total <- ggplot(sp_ahv, aes(x = fct_reorder2(species, site, n), y = n, fill
     legend.title = element_blank(),
     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
     panel.grid.major.x = element_blank(),
-    text = element_text(size = 20, color = 'black'),
+    text = element_text(size = 25, color = 'black'),
     plot.background = element_rect(fill = "white"),
     panel.background = element_rect(fill = "white", color = "white"),
     panel.border = element_rect(fill = "transparent"),

@@ -345,6 +345,9 @@ $(document).ready(function () {
       <a href="Companionspecies.html">Companion species</a>
     </li>
     <li>
+      <a href="Meteorological.html">Meteorological</a>
+    </li>
+    <li>
       <a href="Climate.html">Climate</a>
     </li>
     <li>
@@ -386,7 +389,7 @@ $(document).ready(function () {
 </div>
 
 
-<pre><code>## &lt;environment: 0x00000227b3b6ce88&gt;</code></pre>
+<pre><code>## &lt;environment: 0x0000022f16334b48&gt;</code></pre>
 <p>Colorimetry quantified in 4 states of ripeness: Immature (I), Medium
 Ripe (MM), Ripe (M), Overripe (SM).</p>
 <p>In 3 populations of Entre Rios: Concordia, PN El Palmar, and
@@ -524,8 +527,7 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 11.53    3.396   
 ##  site                (Intercept) 15.62    3.952   
 ##  Residual                        17.07    4.132   
-## Number of obs: 1508, groups:  
-## id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -549,8 +551,7 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 27.86    5.278   
 ##  site                (Intercept) 33.74    5.809   
 ##  Residual                        13.84    3.721   
-## Number of obs: 1508, groups:  
-## id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -574,14 +575,13 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 32.33    5.686   
 ##  site                (Intercept) 26.19    5.118   
 ##  Residual                        44.95    6.704   
-## Number of obs: 1508, groups:  
-## id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
 ## (Intercept)   40.883      3.077   13.29
 ## optimizer (nloptwrap) convergence code: 0 (OK)
-## Model failed to converge with max|grad| = 0.00482897 (tol = 0.002, component 1)</code></pre>
+## Model failed to converge with max|grad| = 0.00482898 (tol = 0.002, component 1)</code></pre>
 </div>
 </div>
 <div id="signification" class="section level1">
@@ -733,24 +733,24 @@ maturation</em></p>
 <div id="tukey-test" class="section level2">
 <h2>Tukey test</h2>
 <pre><code>## $emmeans
-##  mad emmean    SE  df lower.CL upper.CL
-##  I     54.4 0.394 736     53.6     55.2
-##  MM    69.6 0.664 232     68.3     70.9
-##  M     81.2 0.630 223     80.0     82.4
-##  SM    71.6 0.694 248     70.3     73.0
+##  mad   emmean        SE     df lower.CL upper.CL
+##  I   54.41176 0.3941528 736.36 53.63796 55.18555
+##  MM  69.59369 0.6637083 231.91 68.28602 70.90136
+##  M   81.20140 0.6297373 222.65 79.96040 82.44241
+##  SM  71.64590 0.6936856 248.03 70.27964 73.01217
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate    SE  df t.ratio p.value
-##  I - MM     -15.18 0.772 419 -19.668  &lt;.0001
-##  I - M      -26.79 0.743 411 -36.060  &lt;.0001
-##  I - SM     -17.23 0.798 419 -21.601  &lt;.0001
-##  MM - M     -11.61 0.915 465 -12.687  &lt;.0001
-##  MM - SM     -2.05 0.960 480  -2.138  0.1428
-##  M - SM       9.56 0.937 470  10.199  &lt;.0001
+##  contrast   estimate        SE     df t.ratio p.value
+##  I - MM   -15.181937 0.7719230 419.39 -19.668  &lt;.0001
+##  I - M    -26.789648 0.7429169 410.62 -36.060  &lt;.0001
+##  I - SM   -17.234146 0.7978447 419.00 -21.601  &lt;.0001
+##  MM - M   -11.607711 0.9149195 465.02 -12.687  &lt;.0001
+##  MM - SM   -2.052209 0.9600564 479.96  -2.138  0.1428
+##  M - SM     9.555502 0.9368931 469.82  10.199  &lt;.0001
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 

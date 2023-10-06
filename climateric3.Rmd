@@ -1,13 +1,25 @@
 ---
 title: "Colorimtric Analysis"
-output:
- html_document:
-   toc: true
-   toc_depth: 5
-   toc_float:
-     collapsed: false
-     smooth_scroll: true
+
 ---
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# output:
+#  html_document:
+#    toc: true
+#    toc_depth: 5
+#    toc_float:
+#      collapsed: false
+#      smooth_scroll: true
+#   pdf_document:
+#     latex_engine: xelatex
+# header-includes:
+#   - \usepackage{amsmath}
+
+
+```
 
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -61,7 +73,7 @@ data_pca <- cbind(coordenadas,data_color[,3])
 library(ggplot2)
 colores<-c("yellow","orange","#285114")
 pcag<-ggplot(data=data_pca, aes(x=Dim.1, y=Dim.2, color=treat))+
-  geom_point(size=4)+
+  geom_point(size=10)+
   theme_classic()+
   scale_color_manual(values = colores)+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
@@ -69,12 +81,14 @@ pcag<-ggplot(data=data_pca, aes(x=Dim.1, y=Dim.2, color=treat))+
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
+  theme(text = element_text(size=40, color='black'))+
   theme(axis.text = element_text(color='black'))+
-  labs(x="D1 76.7 %", y="D2 17,6 %")+
+  labs(x="Componente Principal 1 76.7 %", y="Componente Principal 2 17,6 %")+
   geom_vline(xintercept = 0, color="black")+
   geom_hline(yintercept = 0, color="black")+
-  stat_ellipse(aes(x=Dim.1, y=Dim.2,color=treat),type = "norm")
+  stat_ellipse(aes(x=Dim.1, y=Dim.2,color=treat),type = "norm")+
+  scale_y_continuous(limits = c(-3, 3))
+  
 
 pcag
 ```
@@ -121,13 +135,15 @@ kable(table_color_G, format = "markdown")
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+
 library(ggplot2)
+
 colores<-c("yellow","orange","#285114")
 gcolor_G<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
-  stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(1)) +
+  stat_summary(fun = "mean", size = 0.05, geom = "bar", position=position_dodge(1)) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
                 width=.2, position=position_dodge(1))+
-  labs(x="", y="color_G")+
+  labs(x="", y="Componente Principal de Color")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   scale_fill_manual(values = colores) +
@@ -135,9 +151,13 @@ gcolor_G<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))
+  theme(text = element_text(size=40, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))+
+  scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))
+
 gcolor_G
+
 ```
 
 
@@ -165,6 +185,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # model_color_G <- aov(color_G ~ treat, data=data_color_G)
 
 library(nlme)
+
 model_color_G <- gls((color_G) ~ treat, weights=varIdent(form= ~ 1|treat ), data=data_color_G)
 # model_color_G <- glm((1/color_G) ~ treat, family = "Gamma", data = data_color_G)
 # AIC(model_color_G, m1, m2)
@@ -177,7 +198,19 @@ model_color_G <- gls((color_G) ~ treat, weights=varIdent(form= ~ 1|treat ), data
 
 model_color_G$call
 
+
 ```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# El modelo GLS con la estructura de correlación de varianzas distintas se puede expresar de la siguiente manera:
+
+library(lattice)
+
+```
+
+
 
 ## Assumptions check
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -233,10 +266,44 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-## Anova (comparison of means)
+## Descriptive graphic (sd)
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+# # Calcular los desvíos estándar del modelo ajustado
+#  sd_model <- sqrt(diag(vcov(model_color_G)))
+# 
+# # Agregar los desvíos estándar calculados a la tabla resumen
+# table_color_G <- table_color_G %>% mutate(sd_model = sd_model)
+# 
+# library(ggplot2)
+# 
+# colores<-c("yellow","orange","#285114")
+# gcolor_G2<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
+#   stat_summary(fun = "mean", size = 0.05, geom = "bar", position=position_dodge(1)) +
+#   geom_errorbar(aes(ymin=mean-sd_model, ymax=mean+sd_model),
+#                 width=.2, position=position_dodge(1))+
+#   labs(x="", y="Componente Principal de Color")+
+#   theme_classic()+
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+#   scale_fill_manual(values = colores) +
+#   theme(legend.title=element_blank())+
+#   theme(legend.position='bottom')+
+#   theme(panel.grid.major.y = element_line(color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=40, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))+
+#   scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))
+# 
+# gcolor_G2
+
+```
+
+## Anova (comparison of means)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(knitr)
 # library(car)
 # library(multcompView)
 # Anova(model_color_G)
@@ -262,7 +329,7 @@ Comptar<-emmeans(model_color_G, pairwise ~ treat) #Tukey
 Comptar
 
 asd<-plot(Comptar, comparisons = TRUE)+
-  labs(x = "color_G", y ="Treatment")+
+  labs(x = "Componente principal 1 de color", y ="Tratamiento")+
   theme_classic()+
   ggtitle("Mean Contrast")+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
@@ -317,8 +384,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 
 # Crear el gráfico 
 library(scatterplot3d)
@@ -329,12 +397,19 @@ tdplot <-scatterplot3d(data_color[4:6],
                        color = colors,
                        box=FALSE,
                        # type="h",
-                       angle = 65)
-legend("topright", legend = unique(data_color$treat), col = unique(colors), pch = 16)
+                       angle = 125)
+legend("topleft", legend = unique(data_color$treat), col = unique(colors), pch = 16)
 
 #Agregar plano
 # my.lm <- lm(color_G ~ color_L + color_a + color_b, data=data_color[,c(4:6,9)])
 #   tdplot$plane3d(my.lm, lty.box = "solid")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
 
 ```
 
@@ -347,8 +422,8 @@ data_color$treat <- factor(data_color$treat, levels = c("control","etileno", "1M
 colores<-c("yellow","orange","#285114")
 library(ggplot2)
 gcorLab<-ggplot(data=data_color, aes(x=axis_1, y=axis_2, color=treat))+
-geom_point(size=4)+
-labs(x="axis_1", y="axis_2")+
+geom_point(size=10)+
+labs(x="Eje 1", y="Eje 2")+
 theme_classic()+
 scale_color_manual(values=colores)+
   scale_x_continuous(breaks=seq(-3, 3, 1))+
@@ -359,7 +434,7 @@ scale_color_manual(values=colores)+
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
+  theme(text = element_text(size=40, color='black'))+
   theme(axis.text = element_text(color='black'))+
   stat_ellipse(aes(x=axis_1, y=axis_2,color=treat),type = "norm")
 gcorLab
