@@ -157,7 +157,7 @@ g2p<-ggplot(data=palmar_bd, aes(x=phenotype, y=ps_flor, form=site, colour=phenot
 g2p
 ```
 
-# PSF Gualeguaychu
+## PSF Gualeguaychu
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -531,7 +531,7 @@ g3g<-ggplot(data=guale_bd, aes(x=phenotype, y=pol_mean, form=site, colour=phenot
 g3g
 ```
 
-## Correlación Dmax y Dmin polen
+# Correlación Dmax y Dmin polen
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -624,7 +624,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 colores<-c("coral1","burlywood2","palegreen4")
-ggplot(data=table_polen_ger, aes(x=site, y=Mean, fill=site))+
+gg_polenr <- ggplot(data=table_polen_ger, aes(x=site, y=Mean, fill=site))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
   # geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
   #               width=.2, position=position_dodge(.5))+
@@ -639,6 +639,7 @@ ggplot(data=table_polen_ger, aes(x=site, y=Mean, fill=site))+
   theme(text = element_text(size=15, color='black'))+
   theme(axis.text = element_text(color='black'))
 
+gg_polenr 
 
 ```
 

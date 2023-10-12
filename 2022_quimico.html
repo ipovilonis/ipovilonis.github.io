@@ -359,6 +359,9 @@ $(document).ready(function () {
     <li>
       <a href="extraction_methods.html">Extraction methods</a>
     </li>
+    <li>
+      <a href="q2022_químico.html">Químico 2022</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -393,10 +396,12 @@ $(document).ready(function () {
 <div id="carga-de-datos-y-conversión-de-variables"
 class="section level2">
 <h2>Carga de datos y conversión de variables</h2>
+<pre><code>## New names:
+## • `` -&gt; `...15`</code></pre>
 </div>
 <div id="gráfico-de-dispersión" class="section level2">
 <h2>Gráfico de dispersión</h2>
-<p><img src="2022_quimico_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="se-ajusta-el-modelo" class="section level2">
 <h2>Se ajusta el modelo</h2>
@@ -434,107 +439,399 @@ class="section level2">
 <h1>Análisis univariado</h1>
 <div id="fenoles" class="section level2">
 <h2>Fenoles</h2>
+<div id="tabla-descriptiva-por-población" class="section level3">
+<h3>Tabla descriptiva por población</h3>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean   min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       64  522.  66.1 1666.  439.
+## 2 Gualeguaychu    38  198.  79.7  485.  106.</code></pre>
 </div>
-<div id="tabla-descriptiva-acidez-total-titulable-att"
-class="section level2">
-<h2>Tabla descriptiva Acidez Total Titulable (ATT)</h2>
+<div id="gráfico-por-población" class="section level3">
+<h3>Gráfico por población</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-por-fenotipo" class="section level3">
+<h3>Tabla descriptiva por fenotipo</h3>
 <pre><code>## # A tibble: 27 × 7
 ## # Groups:   site [2]
 ##    site      phenotype     n  Mean   min   max    sd
 ##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Concordia 154           4 250.  226.   271. 20.2 
-##  2 Concordia 156           4 159.  153.   165.  4.93
-##  3 Concordia 161           4  97.4  70.3  120. 22.0 
-##  4 Concordia 171           4  77.4  54.1  118. 27.8 
-##  5 Concordia 174           3 147.  136.   163. 14.4 
-##  6 Concordia 175           4 728.  660.   811. 69.5 
-##  7 Concordia 178           4 646.  606.   739. 61.9 
-##  8 Concordia 185           4 372.  298.   424. 55.0 
-##  9 Concordia 190           4 118.   88.9  153. 26.4 
-## 10 Concordia 193           4 131.  102.   154. 22.2 
+##  1 Concordia 154           4  513.  464.  557.  41.6
+##  2 Concordia 156           4  326.  315.  339.  10.1
+##  3 Concordia 161           4  200.  144.  246.  45.2
+##  4 Concordia 171           4  159.  111.  242.  57.2
+##  5 Concordia 174           3  301.  278.  335.  29.6
+##  6 Concordia 175           4 1495. 1357. 1666. 143. 
+##  7 Concordia 178           4 1328. 1245. 1518. 127. 
+##  8 Concordia 185           4  765.  613.  871. 113. 
+##  9 Concordia 190           4  241.  182.  314.  54.3
+## 10 Concordia 193           4  269.  208.  316.  45.7
 ## # ℹ 17 more rows</code></pre>
-<p><img src="2022_quimico_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="gráficos-por-fenotipo" class="section level3">
+<h3>Gráficos por fenotipo</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="aao" class="section level2">
 <h2>AAO</h2>
 <div id="section" class="section level3">
 <h3>0.025</h3>
+<p>####Tabla descriptiva por población</p>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean   min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       65  78.7  17.5 100.   22.8
+## 2 Gualeguaychu    38  72.6  19.5  97.1  24.7</code></pre>
+<div id="gráfico-por-población-1" class="section level4">
+<h4>Gráfico por población</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-por-fenotipo-1" class="section level4">
+<h4>Tabla descriptiva por fenotipo</h4>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
+##    site      phenotype     n  Mean   min   max     sd
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Concordia 154           4  70.4  61.2  86.5 11.1  
+##  2 Concordia 156           4  87.9  56.2  98.8 21.1  
+##  3 Concordia 161           4  82.7  74.1  92.9  7.72 
+##  4 Concordia 171           4  55.8  33.6  81.4 19.9  
+##  5 Concordia 174           3  45.2  36.9  54.2  8.70 
+##  6 Concordia 175           4  94.8  94.7  95.1  0.187
+##  7 Concordia 178           4  95.1  95.0  95.3  0.160
+##  8 Concordia 185           4  95.8  95.6  95.9  0.114
+##  9 Concordia 190           4  87.4  76.1  95.3  8.81 
+## 10 Concordia 193           4  90.5  84.5  95.9  5.72 
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráficos-por-fenotipo-1" class="section level4">
+<h4>Gráficos por fenotipo</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-17-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="section-1" class="section level3">
 <h3>0.050</h3>
+<div id="tabla-descriptiva-por-población-1" class="section level4">
+<h4>Tabla descriptiva por población</h4>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean   min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       64  90.5  34.2 100.   12.7
+## 2 Gualeguaychu    38  84.6  39.7  97.1  15.7</code></pre>
+</div>
+<div id="gráfico-por-población-2" class="section level4">
+<h4>Gráfico por población</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-por-fenotipo-2" class="section level4">
+<h4>Tabla descriptiva por fenotipo</h4>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
+##    site      phenotype     n  Mean   min   max      sd
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1 Concordia 154           4  95.0  94.7  95.4  0.315 
+##  2 Concordia 156           4  91.4  74.9  97.7 11.1   
+##  3 Concordia 161           4  95.7  95.4  96.1  0.312 
+##  4 Concordia 171           4  82.3  68.7  95.5 10.9   
+##  5 Concordia 174           3  74.7  68.1  85.5  9.47  
+##  6 Concordia 175           4  95.4  95.2  95.6  0.145 
+##  7 Concordia 178           4  97.0  96.9  97.1  0.0801
+##  8 Concordia 185           3  96.7  96.5  96.8  0.139 
+##  9 Concordia 190           4  94.9  91.2  96.3  2.46  
+## 10 Concordia 193           4  96.1  96.0  96.2  0.108 
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráficos-por-fenotipo-2" class="section level4">
+<h4>Gráficos por fenotipo</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="section-2" class="section level3">
 <h3>0.100</h3>
+<div id="tabla-descriptiva-por-población-2" class="section level4">
+<h4>Tabla descriptiva por población</h4>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean   min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       64  94.5  60.3 100.   6.24
+## 2 Gualeguaychu    38  92.3  56.1  96.6  7.10</code></pre>
+</div>
+<div id="gráfico-por-población-3" class="section level4">
+<h4>Gráfico por población</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-25-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-por-fenotipo-3" class="section level4">
+<h4>Tabla descriptiva por fenotipo</h4>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
+##    site      phenotype     n  Mean   min   max     sd
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Concordia 154           4  95.3  95.1  95.6 0.249 
+##  2 Concordia 156           4  93.4  82.3  97.7 7.44  
+##  3 Concordia 161           4  95.7  95.4  96.1 0.312 
+##  4 Concordia 171           4  94.4  91.1  95.8 2.22  
+##  5 Concordia 174           3  94.4  94.0  95.1 0.650 
+##  6 Concordia 175           4  95.4  95.2  95.6 0.145 
+##  7 Concordia 178           4  97.0  96.9  97.1 0.0801
+##  8 Concordia 185           3  96.2  96.0  96.4 0.182 
+##  9 Concordia 190           4  96.2  96.1  96.3 0.0858
+## 10 Concordia 193           4  96.1  96.0  96.2 0.106 
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráficos-por-fenotipo-3" class="section level4">
+<h4>Gráficos por fenotipo</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-27-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="section-3" class="section level3">
 <h3>0.250</h3>
+<p>####Tabla descriptiva por población</p>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean   min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       64  95.5  82.7 101.  1.93 
+## 2 Gualeguaychu    38  95.6  94.0  97.3 0.901</code></pre>
+<div id="gráfico-por-población-4" class="section level4">
+<h4>Gráfico por población</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-por-fenotipo-4" class="section level4">
+<h4>Tabla descriptiva por fenotipo</h4>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
+##    site      phenotype     n  Mean   min   max     sd
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Concordia 154           4  95.3  95.1  95.6 0.249 
+##  2 Concordia 156           4  93.0  82.7  96.7 6.92  
+##  3 Concordia 161           4  95.3  94.9  95.9 0.417 
+##  4 Concordia 171           4  95.6  95.2  95.8 0.280 
+##  5 Concordia 174           3  95.1  94.0  96.2 1.12  
+##  6 Concordia 175           4  95.0  94.9  95.1 0.0922
+##  7 Concordia 178           4  95.7  95.6  95.8 0.113 
+##  8 Concordia 185           3  94.9  94.6  95.2 0.277 
+##  9 Concordia 190           4  96.1  96.1  96.1 0.0429
+## 10 Concordia 193           4  96.0  95.8  96.1 0.145 
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráficos-por-fenotipo-4" class="section level4">
+<h4>Gráficos por fenotipo</h4>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-32-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 </div>
 <div id="clorofila-a" class="section level2">
 <h2>Clorofila a</h2>
+<div id="tabla-descriptiva-por-población-3" class="section level3">
+<h3>Tabla descriptiva por población</h3>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean    min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       63  6.42  0.386  16.3  4.50
+## 2 Gualeguaychu    37 25.8  10.2    62.8 12.5</code></pre>
+</div>
+<div id="gráfico-por-población-5" class="section level3">
+<h3>Gráfico por población</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-35-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-resumen-por-fenotipo" class="section level3">
+<h3>Tabla resumen por fenotipo</h3>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
+##    site      phenotype     n  Mean    min   max    sd
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Concordia 154           4  2.36  1.38   3.22 0.798
+##  2 Concordia 156           4  7.29  2.54  10.8  3.46 
+##  3 Concordia 161           4  7.51  5.35  10.3  2.22 
+##  4 Concordia 171           4  2.38  0.851  4.76 1.79 
+##  5 Concordia 174           3  2.86  0.688  6.18 2.92 
+##  6 Concordia 175           4 12.9   9.31  16.2  2.91 
+##  7 Concordia 178           4 14.3  12.3   16.3  1.74 
+##  8 Concordia 185           4 11.3   8.25  14.8  3.50 
+##  9 Concordia 190           4  9.85  8.08  10.8  1.29 
+## 10 Concordia 193           4  3.30  2.42   4.71 0.992
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráfico-resumen-por-fenotipo" class="section level3">
+<h3>Gráfico resumen por fenotipo</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-37-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="clorofila-b" class="section level2">
+<h2>Clorofila b</h2>
+<div id="tabla-descriptiva-por-población-4" class="section level3">
+<h3>Tabla descriptiva por población</h3>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean    min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       63  10.9  0.659  27.8  7.66
+## 2 Gualeguaychu    37  44.0 17.4   107.  21.4</code></pre>
+</div>
+<div id="gráfico-por-población-6" class="section level3">
+<h3>Gráfico por población</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-resumen-por-fenotipo-1" class="section level3">
+<h3>Tabla resumen por fenotipo</h3>
 <pre><code>## # A tibble: 27 × 7
 ## # Groups:   site [2]
 ##    site      phenotype     n  Mean   min   max    sd
 ##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 Concordia 154           4  1.32 0.846  1.74 0.388
-##  2 Concordia 156           4  3.72 1.41   5.42 1.68 
-##  3 Concordia 161           4  3.83 2.78   5.17 1.08 
-##  4 Concordia 171           4  1.33 0.589  2.49 0.870
-##  5 Concordia 174           3  1.57 0.509  3.18 1.42 
-##  6 Concordia 175           4  6.46 4.71   8.07 1.42 
-##  7 Concordia 178           4  7.13 6.18   8.12 0.846
-##  8 Concordia 185           4  5.69 4.19   7.35 1.70 
-##  9 Concordia 190           4  4.97 4.11   5.43 0.626
-## 10 Concordia 193           4  1.78 1.35   2.47 0.482
+##  1 Concordia 154           4  4.02  2.35  5.50  1.37
+##  2 Concordia 156           4 12.1   4.24 17.6   5.63
+##  3 Concordia 161           4 12.8   9.14 17.4   3.73
+##  4 Concordia 171           4  3.93  1.46  7.66  2.84
+##  5 Concordia 174           3  4.87  1.18 10.5   4.97
+##  6 Concordia 175           4 22.1  15.9  27.7   4.97
+##  7 Concordia 178           4 24.4  21.1  27.8   2.96
+##  8 Concordia 185           4 19.3  14.1  25.1   5.97
+##  9 Concordia 190           4 16.8  13.8  18.5   2.20
+## 10 Concordia 193           4  5.62  4.12  8.04  1.70
 ## # ℹ 17 more rows</code></pre>
-<p><img src="2022_quimico_files/figure-html/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="clorofila-b" class="section level2">
-<h2>Clorofila b</h2>
+<div id="gráfico-resumen-por-fenotipo-1" class="section level3">
+<h3>Gráfico resumen por fenotipo</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-42-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="carotenoides" class="section level2">
 <h2>Carotenoides</h2>
+<div id="tabla-descriptiva-por-población-5" class="section level3">
+<h3>Tabla descriptiva por población</h3>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean   min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       63  15.5  6.59  29.3  6.32
+## 2 Gualeguaychu    37  15.4  9.08  27.7  4.64</code></pre>
+</div>
+<div id="gráfico-por-población-7" class="section level3">
+<h3>Gráfico por población</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-de-carotenoides" class="section level3">
+<h3>Tabla de carotenoides</h3>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
+##    site      phenotype     n  Mean   min   max    sd
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 Concordia 154           4 26.4  22.7  29.3   2.86
+##  2 Concordia 156           4 16.8   9.14 26.0   7.32
+##  3 Concordia 161           4 19.3  13.3  24.1   4.49
+##  4 Concordia 171           4 23.3  15.7  28.8   5.85
+##  5 Concordia 174           3 13.1  11.3  14.5   1.62
+##  6 Concordia 175           4  9.83  7.33 12.2   2.20
+##  7 Concordia 178           4 10.6   9.03 12.4   1.42
+##  8 Concordia 185           4  8.45  6.59  9.96  1.71
+##  9 Concordia 190           4 20.9  17.4  25.2   3.35
+## 10 Concordia 193           4 17.8  13.2  23.8   4.50
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráfico-de-carotenoides" class="section level3">
+<h3>Gráfico de carotenoides</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /><img src="2022_quimico_files/figure-html/unnamed-chunk-47-2.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="acidez-total-titulable-att" class="section level2">
 <h2>Acidez Total Titulable (ATT)</h2>
+<pre><code>## # A tibble: 2 × 6
+##   site             n  Mean   min   max    sd
+##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 Concordia       29 1.41   0.29  2.59 0.678
+## 2 Gualeguaychu    15 0.353  0.15  0.88 0.235</code></pre>
+<div id="gráfico-por-población-8" class="section level3">
+<h3>Gráfico por población</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
-<div id="tabla-descriptiva-acidez-total-titulable-att-1"
-class="section level2">
-<h2>Tabla descriptiva Acidez Total Titulable (ATT)</h2>
-<pre><code>## # A tibble: 29 × 7
-## # Groups:   site [3]
+<div id="tabla-descriptiva" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
 ##    site      phenotype     n  Mean   min   max     sd
 ##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-##  1 concordia 154           1 1.37  1.37  1.37  NA    
-##  2 concordia 156           1 0.794 0.794 0.794 NA    
-##  3 concordia 161           1 1.48  1.48  1.48  NA    
-##  4 concordia 171           4 2.25  1.84  2.59   0.345
-##  5 concordia 174           3 1.98  1.85  2.23   0.218
-##  6 concordia 175           1 0.762 0.762 0.762 NA    
-##  7 concordia 178           1 0.521 0.521 0.521 NA    
-##  8 concordia 185           1 0.727 0.727 0.727 NA    
-##  9 concordia 190           1 0.96  0.96  0.96  NA    
-## 10 concordia 193           1 1.74  1.74  1.74  NA    
-## # ℹ 19 more rows</code></pre>
-<p><img src="2022_quimico_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
+##  1 Concordia 154           1  1.37  1.37  1.37 NA    
+##  2 Concordia 156           1  0.79  0.79  0.79 NA    
+##  3 Concordia 161           1  1.48  1.48  1.48 NA    
+##  4 Concordia 171           4  2.25  1.84  2.59  0.345
+##  5 Concordia 174           3  1.98  1.85  2.23  0.217
+##  6 Concordia 175           1  0.76  0.76  0.76 NA    
+##  7 Concordia 178           1  0.52  0.52  0.52 NA    
+##  8 Concordia 185           1  0.73  0.73  0.73 NA    
+##  9 Concordia 190           1  0.96  0.96  0.96 NA    
+## 10 Concordia 193           1  1.74  1.74  1.74 NA    
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráfico-por-fenotipo" class="section level3">
+<h3>Gráfico por fenotipo</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 <div id="sólidos-solubles" class="section level2">
 <h2>Sólidos solubles</h2>
-<div id="tabla-descriptiva-sólidos-solubles-ss" class="section level3">
-<h3>Tabla descriptiva sólidos solubles (SS)</h3>
-<pre><code>## # A tibble: 3 × 6
+<div id="tabla-descriptiva-1" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>## # A tibble: 2 × 6
 ##   site             n  Mean   min   max    sd
 ##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 concordia       29  9.56  5.93 13.1   2.14
-## 2 gualeguaychu    15  6.69  5.33  9.33  1.22
-## 3 &lt;NA&gt;            81 NA    NA    NA    NA</code></pre>
+## 1 Concordia       29  9.58   5.9  13.1  2.15
+## 2 Gualeguaychu    15  6.69   5.3   9.3  1.21</code></pre>
+</div>
+<div id="gráfico-por-población-9" class="section level3">
+<h3>Gráfico por población</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-55-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="tabla-descriptiva-2" class="section level3">
+<h3>Tabla descriptiva</h3>
+<pre><code>## # A tibble: 27 × 7
+## # Groups:   site [2]
+##    site      phenotype     n  Mean   min   max     sd
+##    &lt;fct&gt;     &lt;fct&gt;     &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Concordia 154           1   8.3   8.3   8.3 NA    
+##  2 Concordia 156           1   8.2   8.2   8.2 NA    
+##  3 Concordia 161           1   8.3   8.3   8.3 NA    
+##  4 Concordia 171           4  11.1  10.1  11.9  0.75 
+##  5 Concordia 174           3  10.4   9.7  11.3  0.833
+##  6 Concordia 175           1  13.1  13.1  13.1 NA    
+##  7 Concordia 178           1  13    13    13   NA    
+##  8 Concordia 185           1  12.1  12.1  12.1 NA    
+##  9 Concordia 190           1  10.9  10.9  10.9 NA    
+## 10 Concordia 193           1   8.4   8.4   8.4 NA    
+## # ℹ 17 more rows</code></pre>
+</div>
+<div id="gráfico-por-fenotipo-1" class="section level3">
+<h3>Gráfico por fenotipo</h3>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-57-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="relación-att-y-ss" class="section level2">
 <h2>Relación ATT y SS</h2>
-<p><img src="2022_quimico_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="2022_quimico_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="2022_quimico_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-58-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-59-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="2022_quimico_files/figure-html/unnamed-chunk-60-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="análisis-de-cci" class="section level2">
+<h2>Análisis de CCI</h2>
+<div id="resumen-del-modelo" class="section level3">
+<h3>Resumen del modelo</h3>
+</div>
+<div id="supuestos-del-modelo" class="section level3">
+<h3>Supuestos del modelo</h3>
+<p>Test de normalidad para muestras biológicas (frutos)</p>
+<p>Test de normalidad para genotipos</p>
+</div>
+<div id="conclusiones" class="section level3">
+<h3>Conclusiones</h3>
+<!-- El test de Wald (p=) arroja que no hay diferencias estadísticas significativas entre años. -->
+</div>
+<div id="icc-del-modelo" class="section level3">
+<h3>ICC del modelo</h3>
+<ul>
+<li>—-&gt; %</li>
+<li>—-&gt; %</li>
+<li>—-&gt; %</li>
+</ul>
+<p>ICC del modelo =</p>
+</div>
 </div>
 </div>
 <div id="análisis-multivariado" class="section level1">

@@ -359,6 +359,9 @@ $(document).ready(function () {
     <li>
       <a href="extraction_methods.html">Extraction methods</a>
     </li>
+    <li>
+      <a href="q2022_químico.html">Químico 2022</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -389,7 +392,7 @@ $(document).ready(function () {
 </div>
 
 
-<pre><code>## &lt;environment: 0x0000022f25c6d0f8&gt;</code></pre>
+<pre><code>## &lt;environment: 0x000001dc8280eaa0&gt;</code></pre>
 <p>Colorimetry quantified in 4 states of ripeness: Immature (I), Medium
 Ripe (MM), Ripe (M), Overripe (SM).</p>
 <p>In 3 populations of Entre Rios: Concordia, PN El Palmar, and
@@ -581,7 +584,7 @@ difference between MM and SM.</p>
 ##             Estimate Std. Error t value
 ## (Intercept)   40.883      3.077   13.29
 ## optimizer (nloptwrap) convergence code: 0 (OK)
-## Model failed to converge with max|grad| = 0.00482898 (tol = 0.002, component 1)</code></pre>
+## Model failed to converge with max|grad| = 0.00482897 (tol = 0.002, component 1)</code></pre>
 </div>
 </div>
 <div id="signification" class="section level1">
@@ -733,24 +736,24 @@ maturation</em></p>
 <div id="tukey-test" class="section level2">
 <h2>Tukey test</h2>
 <pre><code>## $emmeans
-##  mad   emmean        SE     df lower.CL upper.CL
-##  I   54.41176 0.3941528 736.36 53.63796 55.18555
-##  MM  69.59369 0.6637083 231.91 68.28602 70.90136
-##  M   81.20140 0.6297373 222.65 79.96040 82.44241
-##  SM  71.64590 0.6936856 248.03 70.27964 73.01217
+##  mad emmean    SE  df lower.CL upper.CL
+##  I     54.4 0.394 736     53.6     55.2
+##  MM    69.6 0.664 232     68.3     70.9
+##  M     81.2 0.630 223     80.0     82.4
+##  SM    71.6 0.694 248     70.3     73.0
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast   estimate        SE     df t.ratio p.value
-##  I - MM   -15.181937 0.7719230 419.39 -19.668  &lt;.0001
-##  I - M    -26.789648 0.7429169 410.62 -36.060  &lt;.0001
-##  I - SM   -17.234146 0.7978447 419.00 -21.601  &lt;.0001
-##  MM - M   -11.607711 0.9149195 465.02 -12.687  &lt;.0001
-##  MM - SM   -2.052209 0.9600564 479.96  -2.138  0.1428
-##  M - SM     9.555502 0.9368931 469.82  10.199  &lt;.0001
+##  contrast estimate    SE  df t.ratio p.value
+##  I - MM     -15.18 0.772 419 -19.668  &lt;.0001
+##  I - M      -26.79 0.743 411 -36.060  &lt;.0001
+##  I - SM     -17.23 0.798 419 -21.601  &lt;.0001
+##  MM - M     -11.61 0.915 465 -12.687  &lt;.0001
+##  MM - SM     -2.05 0.960 480  -2.138  0.1428
+##  M - SM       9.56 0.937 470  10.199  &lt;.0001
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 

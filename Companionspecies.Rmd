@@ -192,7 +192,8 @@ library(ggplot2)
 gg_bioindex<-ggplot(biod, aes(x=site, y=(Mean), color=site, fill=site)) + 
   geom_bar(stat="identity", size=.05, color="black") +
   labs(y="", x= "")+
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),width=.05, color="black")+
+  geom_point(size=1, color="black")+
+  # geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),width=.05, color="black")+
   facet_grid(.~variable)+
   facet_wrap(~ variable, ncol = 4, scales = "free")+
   theme_classic() +
