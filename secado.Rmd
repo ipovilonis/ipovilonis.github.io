@@ -1,0 +1,146 @@
+---
+title: "secado"
+---
+
+## Carga de datos y conversión de variables
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Cargar de base de datos
+
+library(readxl)
+datospeso <- read_excel("database.xlsx", sheet="fisico")
+
+# Se asigna correctamente la clase de cada variable
+
+datospeso$year<-factor(datospeso$year,levels=c("2019","2021","2022"))
+datospeso$site<-factor(datospeso$site,levels=c("concordia", "palmar","gualeguaychu"))
+datospeso$mad<-factor(datospeso$mad,levels=c("I", "MM","M","SM"))
+datospeso$phenotype<-as.factor(datospeso$phenotype)
+datospeso$n <-as.factor(datospeso$n)
+datospeso$pff <- as.numeric(datospeso$pff)
+datospeso$pss <- as.numeric(datospeso$pss)
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Se quitan filas sin datos de peso seco (en este caso no hay)
+library(dplyr)
+datospeso_sna2 <- datospeso %>% filter(!is.na(psf))
+datospeso_sna3 <- datospeso_sna2 %>% filter(datospeso$mad == "SM")
+datospeso_sna4 <- datospeso_sna2 %>% filter(datospeso$mad == "M")
+datospeso_sna <- full_join(datospeso_sna3, datospeso_sna4)
+
+
+```
+
+## Gráfico de dispersión
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+tps <- datospeso_sna %>%
+  dplyr::summarise(n=n(),
+            mean=mean(psf),
+            sd=sd(psf))
+
+library(ggplot2)
+
+gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=psf, y=pff, color=mad))+
+  geom_point(size=5)+
+  # facet_grid(.~year)+
+  labs(x="Peso seco fruto (g)", y="Peso fresco fruto (g)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = c("green3","red")) +
+  # scale_color_manual(values = c("coral1","burlywood2","palegreen4")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gg_pesoseco_3a
+
+```
+
+## Se ajusta el modelo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_ps <- lm(psf ~ pff, data=datospeso_sna)
+
+```
+
+## Cantidad de gramos de PS por 6 gramos de PF
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+## Predicciones del modelo
+
+# Crear un nuevo data frame con los valores para pff
+nuevos_datos <- data.frame(
+  pff = datospeso$pff  # Valores de pff
+)
+
+nuevos_datos<- data.frame(pff = 50)
+
+# Hacer predicciones
+predicciones1 <- predict(modelo_ps, newdata = nuevos_datos)
+
+# Ver las predicciones
+print(predicciones1)
+
+```
+
+## Modelo
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_ps)
+
+```
+
+## Calculo de n
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar el paquete pwr
+library(pwr)
+
+# Especificar los parámetros
+alfa <- 0.05  # Nivel de significancia (alfa) Error tipo I
+beta <- 0.8  # Potencia estadística deseada (beta) Error tipo II
+tamaño_efecto <- 1  # Tamaño del efecto esperado (debe especificarse si ya se sabe)
+
+# Cálculo de magnitud del efecto
+media_1 <-35.1 #Estimado en fruto fresco
+media_2 <-32.3  #Estimado en fruto secado
+w1 <- 1 # Modifica el peso del DE al grupo 1
+w2 <- 1 # Modifica el peso del DE al grupo 2
+desviacion_estandar1 <- 2.5
+desviacion_estandar2 <- 0.1
+desviacion_estandar_ponderada = sqrt((w1^2 * desviacion_estandar1^2 + w2^2 * desviacion_estandar2^2) / (w1^2 + w2^2))
+
+tamaño_efecto <- (media_1-media_2)/desviacion_estandar_ponderada
+
+# Calcular el número mínimo de repeticiones
+resultado <- pwr.t.test(
+   d=tamaño_efecto,
+   n=NULL,
+   sig.level=0.05,
+   type="one.sample",
+   alternative="two.sided",
+   power = beta
+  )
+
+# Imprimir el resultado o mensaje de error
+print(resultado)
+
+
+```

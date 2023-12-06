@@ -110,42 +110,110 @@ database$phenotype <- as.factor(database$phenotype)
 database$site<-factor(database$site,levels=c("Concordia", "Gualeguaychu"))
 database$maturity<-factor(database$maturity, levels=c("I", "MM","M","SM"))
 database$phenotype<-as.factor(database$phenotype)
+database$acidity.ss_brix<-database$acidity/database$ss_brix
 # database$id <-as.factor(database$id)
 
 # database$pss <- as.numeric(database$pss)
 
 ```
 
-
-## Fenoles
-
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Se quitan filas sin datos
+# Crea un vector con las variables respuesta
+variables_respuesta_q22 <- names(database[,-c(1:3,20)])
+
+# Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+tablas_list <- list()
+graficos_list <- list()
+database_list <- list()
+tablas_list_phen <- list()
+graficos_list_phen <- list()
+
+
 library(dplyr)
-database_phenols <- database %>% filter(!is.na(phenols_ps))
+
+# Crea un bucle que recorre cada variable respuesta
+for(variable in variables_respuesta_q22) {
+  # Filtra na
+  assign(paste0("db_q22_", variable), database %>% filter(!is.na(!!sym(variable))))
+
+  # Agrega la nueva database a la lista
+database_list[[variable]] <- get(paste0("db_q22_", variable))
+  
+  # Crea la tabla resumen para sitio
+assign(paste0("table_q22_", variable), database_list[[variable]] %>%
+  dplyr::group_by(site) %>%
+  dplyr::summarise(n = n(),
+            Mean = mean(.data[[variable]]),
+            sd = sd(.data[[variable]]))
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list[[variable]] <- get(paste0("table_q22_", variable))
+
+  # Crea el gráfico de sitios
+  library(ggplot2)
+gg_plot <- ggplot(tablas_list[[variable]], aes(x = site, y = Mean, fill = site)) +
+  scale_fill_manual(values = c("coral1","palegreen4")) +
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.9))+
+    theme_classic() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "none") +
+    theme(text = element_text(size = 15, color = 'black')) +
+    theme(axis.text = element_text(color = 'black'))
+
+  assign(paste0("q22_gg_", variable), gg_plot)
+  
+  # Agrega el gráfico a la lista
+  graficos_list[[variable]] <- get(paste0("q22_gg_", variable))
+  
+   # Crea la tabla resumen de phenotipos
+  assign(paste0("table_q22_phen_", variable), database_list[[variable]] %>%
+           dplyr::group_by(site, phenotype) %>%
+           dplyr::summarise(n = n(),
+                     Mean = mean(.data[[variable]]),
+                     sd = sd(.data[[variable]]))
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_phen[[variable]] <- get(paste0("table_q22_phen_", variable))
+  
+  # Crea el gráfico de phenotipos
+  library(ggplot2)
+  gg_plot_phen <- ggplot(tablas_list_phen[[variable]], aes(x = phenotype, y = Mean, fill = site)) +
+    scale_fill_manual(values = c("coral1","palegreen4")) +
+    stat_summary(fun = "mean", size = 1, geom = "bar") +
+    geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                  width=.2, position=position_dodge(.9))+
+    geom_point()+
+    theme_classic() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "none") +
+    theme(text = element_text(size = 15, color = 'black')) +
+    theme(axis.text = element_text(color = 'black'))
+  
+  assign(paste0("q22_gg_phen_", variable), gg_plot_phen)
+  
+  # Agrega el gráfico a la lista
+  graficos_list_phen[[variable]] <- get(paste0("q22_gg_phen_", variable))
+}
+
+# acceder a las tablas y gráficos individuales con tablas_list$ y graficos_list$
 
 ```
+
+## Fenoles
 
 ### Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list$Fenoles
 
-table_phenols_ps <- database_phenols %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(phenols_ps),
-    min = min(phenols_ps),
-    max = max(phenols_ps),
-    sd = sd(phenols_ps),
-    )
-
-table_phenols_ps
 ```
 
 ### Gráfico por población
@@ -153,18 +221,10 @@ table_phenols_ps
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-colores<-c("coral1","palegreen4")
-
-gráfico_phen_site <- ggplot(data=table_phenols_ps, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
+graficos_list$Fenoles+
   labs(x="", y="Fenoles [eq Ac. Tan/100g PS]")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = colores) +
   theme(legend.title=element_blank())+
   theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
@@ -172,7 +232,7 @@ gráfico_phen_site <- ggplot(data=table_phenols_ps, aes(x=site, y=Mean, fill=sit
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))+
   scale_fill_manual(values=c(colores))
-gráfico_phen_site
+
 ```
 
 ### Tabla descriptiva por fenotipo
@@ -180,19 +240,8 @@ gráfico_phen_site
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list_phen$Fenoles
 
-table_phenols_ps_phenotype <- database_phenols %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(phenols_ps),
-    min = min(phenols_ps),
-    max = max(phenols_ps),
-    sd = sd(phenols_ps),
-    )
-
-table_phenols_ps_phenotype
 ```
 
 ### Gráficos por fenotipo
@@ -202,12 +251,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 
-gphenols<-ggplot(data=table_phenols_ps_phenotype, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
+graficos_list_phen$Fenoles+
   labs(x="", y="Fenoles [eq Ac. Tan/100g PS]")+
+  geom_point()+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_fill_manual(values = c("coral1","palegreen4")) +
@@ -217,56 +263,35 @@ gphenols<-ggplot(data=table_phenols_ps_phenotype, aes(x=phenotype, y=Mean, fill=
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gphenols
 
-gphenols2<-ggplot(data=database_phenols, aes(x=phenotype, y=Fenoles, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="Fenoles [eq Ac. Tan/100g PS]")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gphenols2
+# gphenols2<-ggplot(data=database_phenols, aes(x=phenotype, y=Fenoles, fill=phenotype))+
+#   geom_point()+
+#   geom_boxplot()+
+#   # facet_grid(.~year)+
+#   labs(x="", y="Fenoles [eq Ac. Tan/100g PS]")+
+#   theme_classic()+
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+#   # scale_fill_manual(values = c("coral1","palegreen4")) +
+#   theme(legend.title=element_blank())+
+#   theme(legend.position='none')+
+#   theme(panel.grid.major.y = element_line(color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='black'))+
+#   theme(axis.text = element_text(color='black'))
+# gphenols2
 
 ```
 
 ## AAO
 ### 0.025
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_aao_0.025 <- database %>% filter(!is.na(aao_0.025))
-
-```
-
 ####Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list$aao_0.025
 
-table_aao_0.025 <- database_aao_0.025 %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.025),
-    min = min(aao_0.025),
-    max = max(aao_0.025),
-    sd = sd(aao_0.025),
-    )
-
-table_aao_0.025
 ```
 
 #### Gráfico por población
@@ -277,11 +302,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
 colores<-c("coral1","palegreen4")
 
-gráfico_aao_0.025_site <- ggplot(data=table_aao_0.025, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
+graficos_list$aao_0.025+
   labs(x="", y="% Inh aao_0.025")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
@@ -293,7 +314,7 @@ gráfico_aao_0.025_site <- ggplot(data=table_aao_0.025, aes(x=site, y=Mean, fill
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))+
   scale_fill_manual(values=c(colores))
-gráfico_aao_0.025_site
+
 ```
 
 #### Tabla descriptiva por fenotipo
@@ -301,19 +322,8 @@ gráfico_aao_0.025_site
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list_phen$aao_0.025
 
-table_aao_0.025_phenotype <- database_aao_0.025 %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.025),
-    min = min(aao_0.025),
-    max = max(aao_0.025),
-    sd = sd(aao_0.025),
-    )
-
-table_aao_0.025_phenotype
 ```
 
 #### Gráficos por fenotipo
@@ -323,11 +333,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 
-gphenols<-ggplot(data=table_phenols_ps_phenotype, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
+graficos_list_phen$aao_0.025+
   labs(x="", y="% Inh aao_0.025")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
@@ -338,56 +344,18 @@ gphenols<-ggplot(data=table_phenols_ps_phenotype, aes(x=phenotype, y=Mean, fill=
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-gphenols
-
-gphenols2<-ggplot(data=database_aao_0.025, aes(x=phenotype, y=aao_0.025, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="% inh aao_0.025")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gphenols2
 
 ```
 
 ### 0.050
-
-
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_aao_0.05 <- database %>% filter(!is.na(aao_0.05))
-
-```
 
 #### Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list$aao_0.05
 
-table_aao_0.05 <- database_aao_0.05 %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.05),
-    min = min(aao_0.05),
-    max = max(aao_0.05),
-    sd = sd(aao_0.05),
-    )
-
-table_aao_0.05
 ```
 
 #### Gráfico por población
@@ -395,26 +363,17 @@ table_aao_0.05
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-colores<-c("coral1","palegreen4")
-
-grafico_aao_0.05_site <- ggplot(data=table_aao_0.05, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
+graficos_list$aao_0.05+
   labs(x="", y="% Inh aao_0.05")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = colores) +
   theme(legend.title=element_blank())+
   theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  scale_fill_manual(values=c(colores))
-grafico_aao_0.05_site
+  theme(axis.text = element_text(color='black'))
+
 ```
 
 #### Tabla descriptiva por fenotipo
@@ -422,19 +381,8 @@ grafico_aao_0.05_site
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list_phen$aao_0.05
 
-table_aao_0.05_phenotype <- database_aao_0.05 %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.05),
-    min = min(aao_0.05),
-    max = max(aao_0.05),
-    sd = sd(aao_0.05),
-    )
-
-table_aao_0.05_phenotype
 ```
 
 #### Gráficos por fenotipo
@@ -442,13 +390,7 @@ table_aao_0.05_phenotype
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-
-grafico_aao_0.05_phenotype<-ggplot(data=table_aao_0.05_phenotype, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
+graficos_list_phen$aao_0.05+
   labs(x="", y="%inh aao_0.05")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
@@ -459,54 +401,18 @@ grafico_aao_0.05_phenotype<-ggplot(data=table_aao_0.05_phenotype, aes(x=phenotyp
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=10, color='black'))+
   theme(axis.text = element_text(color='black'))
-grafico_aao_0.05_phenotype
 
-grafico_aao_0.05_phenotype_2<-ggplot(data=database_aao_0.05, aes(x=phenotype, y=aao_0.05, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="% inh aao_0.05")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
- theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-grafico_aao_0.05_phenotype_2
 ```
 
 ### 0.100
-
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_aao_0.1 <- database %>% filter(!is.na(aao_0.1))
-
-```
 
 #### Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list$aao_0.1
 
-table_aao_0.1 <- database_aao_0.1 %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.1),
-    min = min(aao_0.1),
-    max = max(aao_0.1),
-    sd = sd(aao_0.1),
-    )
-
-table_aao_0.1
 ```
 
 #### Gráfico por población
@@ -514,26 +420,8 @@ table_aao_0.1
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-colores<-c("coral1","palegreen4")
+graficos_list$aao_0.1
 
-grafico_aao_0.1_site <- ggplot(data=table_aao_0.1, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="% Inh aao_0.1")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = colores) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  scale_fill_manual(values=c(colores))
-grafico_aao_0.1_site
 ```
 
 #### Tabla descriptiva por fenotipo
@@ -541,19 +429,8 @@ grafico_aao_0.1_site
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list_phen$aao_0.1
 
-table_aao_0.1_phenotype <- database_aao_0.1 %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.1),
-    min = min(aao_0.1),
-    max = max(aao_0.1),
-    sd = sd(aao_0.1),
-    )
-
-table_aao_0.1_phenotype
 ```
 
 #### Gráficos por fenotipo
@@ -561,71 +438,18 @@ table_aao_0.1_phenotype
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
+graficos_list_phen$aao_0.1
 
-grafico_aao_0.1_phenotype<-ggplot(data=table_aao_0.1_phenotype, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="%inh aao_0.1")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-grafico_aao_0.1_phenotype
-
-grafico_aao_0.1_phenotype_2<-ggplot(data=database_aao_0.1, aes(x=phenotype, y=aao_0.1, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="% inh aao_0.1")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
- theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-grafico_aao_0.1_phenotype_2
 ```
 
 ### 0.250
-
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_aao_0.25 <- database %>% filter(!is.na(aao_0.25))
-
-```
 
 ####Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-
-table_aao_0.25 <- database_aao_0.25 %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.25),
-    min = min(aao_0.25),
-    max = max(aao_0.25),
-    sd = sd(aao_0.25),
-    )
-
-table_aao_0.25
+tablas_list$aao_0.25
 ```
 
 #### Gráfico por población
@@ -633,26 +457,8 @@ table_aao_0.25
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-colores<-c("coral1","palegreen4")
+graficos_list_phen$aao_0.25
 
-gráfico_phen_site <- ggplot(data=table_aao_0.25, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="% Inh aao_0.25")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = colores) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  scale_fill_manual(values=c(colores))
-gráfico_phen_site
 ```
 
 #### Tabla descriptiva por fenotipo
@@ -660,90 +466,27 @@ gráfico_phen_site
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list_phen$aao_0.25
 
-table_aao_0.25_phenotype <- database_aao_0.25 %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(aao_0.25),
-    min = min(aao_0.25),
-    max = max(aao_0.25),
-    sd = sd(aao_0.25),
-    )
-
-table_aao_0.25_phenotype
 ```
 
 #### Gráficos por fenotipo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
+graficos_list_phen$aao_0.25
 
-grafico_aao_0.25_phenotype<-ggplot(data=table_aao_0.25_phenotype, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="%inh aao_0.25")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-grafico_aao_0.25_phenotype
-
-grafico_aao_0.25_phenotype_2<-ggplot(data=database_aao_0.25, aes(x=phenotype, y=aao_0.1, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="% inh aao_0.25")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
- theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-grafico_aao_0.25_phenotype_2
 ```
 
 ## Clorofila a
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_Clo_a_ps <- database %>% filter(!is.na(Clo_a_ps))
-
-```
-
 ### Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list$Clo_a_ps
 
-table_Clo_a_ps <- database_Clo_a_ps %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(Clo_a_ps),
-    min = min(Clo_a_ps),
-    max = max(Clo_a_ps),
-    sd = sd(Clo_a_ps),
-    )
-
-table_Clo_a_ps
 ```
 
 ### Gráfico por población
@@ -751,26 +494,8 @@ table_Clo_a_ps
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-colores<-c("coral1","palegreen4")
+graficos_list$Clo_a_ps
 
-gráfico_Clo_a_ps <- ggplot(data=table_Clo_a_ps, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 0.5, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="Clo_a_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = colores) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  scale_fill_manual(values=c(colores))
-gráfico_Clo_a_ps
 ```
 
 ### Tabla resumen por fenotipo
@@ -778,90 +503,27 @@ gráfico_Clo_a_ps
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+graficos_list_phen$Clo_a_ps
 
-table_Clo_a_ps<- database_Clo_a_ps %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(Clo_a_ps),
-    min = min(Clo_a_ps),
-    max = max(Clo_a_ps),
-    sd = sd(Clo_a_ps),
-    )
-
-table_Clo_a_ps
 ```
 
 ### Gráfico resumen por fenotipo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
+graficos_list_phen$Clo_a_ps
 
-gráfico_clo_a_ps<-ggplot(data=table_Clo_a_ps, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="Clo_a_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gráfico_clo_a_ps
-
-gráfico_clo_a_ps<-ggplot(data=database_Clo_a_ps, aes(x=phenotype, y=aao_0.1, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="Clo_a_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
- theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gráfico_clo_a_ps
 ```
 
 ## Clorofila b
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_Clo_b_ps <- database %>% filter(!is.na(Clo_b_ps))
-
-```
-
 ### Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list$clo_b_ps
 
-table_Clo_b_ps <- database_Clo_b_ps %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(Clo_b_ps),
-    min = min(Clo_b_ps),
-    max = max(Clo_b_ps),
-    sd = sd(Clo_b_ps),
-    )
-
-table_Clo_b_ps
 ```
 
 ### Gráfico por población
@@ -869,26 +531,8 @@ table_Clo_b_ps
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-colores<-c("coral1","palegreen4")
+graficos_list$clo_b_ps
 
-gráfico_clob_site <- ggplot(data=table_Clo_b_ps, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 0.5, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="Clo_b_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = colores) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  scale_fill_manual(values=c(colores))
-gráfico_clob_site
 ```
 
 ### Tabla resumen por fenotipo
@@ -896,90 +540,27 @@ gráfico_clob_site
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+graficos_list_phen$clo_b_ps
 
-table_Clo_b_ps<- database_Clo_b_ps %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(Clo_b_ps),
-    min = min(Clo_b_ps),
-    max = max(Clo_b_ps),
-    sd = sd(Clo_b_ps),
-    )
-
-table_Clo_b_ps
 ```
 
 ### Gráfico resumen por fenotipo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
+graficos_list_phen$clo_b_ps
 
-gráfico_clo_b_ps<-ggplot(data=table_Clo_b_ps, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="Clo_b_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gráfico_clo_b_ps
-
-gráfico_clo_b_ps<-ggplot(data=database_Clo_b_ps, aes(x=phenotype, y=aao_0.1, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="Clo_b_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
- theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gráfico_clo_b_ps
 ```
 
 ## Carotenoides
-
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_Caro_ps <- database %>% filter(!is.na(Caro_ps))
-
-```
 
 ### Tabla descriptiva por población
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+tablas_list$Caro_ps
 
-table_Caro_ps <- database_Caro_ps %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(Caro_ps),
-    min = min(Caro_ps),
-    max = max(Caro_ps),
-    sd = sd(Caro_ps),
-    )
-
-table_Caro_ps
 ```
 
 ### Gráfico por población
@@ -987,297 +568,146 @@ table_Caro_ps
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-colores<-c("coral1","palegreen4")
+graficos_list$Caro_ps
 
-gráfico_clob_site <- ggplot(data=table_Caro_ps, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 0.5, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="Caro_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = colores) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  scale_fill_manual(values=c(colores))
-gráfico_clob_site
 ```
 
-### Tabla de carotenoides
+### Tabla resumen por fenotipo
+
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+graficos_list_phen$Caro_ps
 
-table_carotenoides <- database_Caro_ps %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(Caro_ps),
-    min = min(Caro_ps),
-    max = max(Caro_ps),
-    sd = sd(Caro_ps),
-    )
-
-table_carotenoides
 ```
 
-### Gráfico de carotenoides
+### Gráfico resumen por fenotipo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-
-gCAROTENOIDES<-ggplot(data=table_carotenoides, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="Caro_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gCAROTENOIDES
-
-gCAROTENOIDES2<-ggplot(data=database_Caro_ps, aes(x=phenotype, y=Caro_ps, fill=phenotype))+
-  geom_point()+
-  geom_boxplot()+
-  # facet_grid(.~year)+
-  labs(x="", y="Caro_ps")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  # scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
- theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gCAROTENOIDES2
+graficos_list_phen$Caro_ps
 
 ```
+
 
 ## Acidez Total Titulable (ATT)
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Se quitan filas sin datos
-library(dplyr)
-database_acidity <- database %>% filter(!is.na(acidity))
-
-```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-
-table_acidity <- database_acidity %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(acidity),
-    min = min(acidity),
-    max = max(acidity),
-    sd = sd(acidity),
-    )
-
-table_acidity
+tablas_list$acidity
 
 ```
 
 ### Gráfico por población
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-
-gAacidity<-ggplot(data=table_acidity, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="°Brix")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gAacidity
+graficos_list$acidity
 
 ```
 
-### Tabla descriptiva 
+### Tabla resumen por fenotipo
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+graficos_list_phen$acidity
 
-table_acidity2 <- database_acidity %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(acidity),
-    min = min(acidity),
-    max = max(acidity),
-    sd = sd(acidity),
-    )
-
-table_acidity2
 ```
 
-### Gráfico por fenotipo
+### Gráfico resumen por fenotipo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-
-gATT<-ggplot(data=table_acidity2, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="ATT (%)")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gATT
+graficos_list_phen$acidity
 
 ```
 
 ## Sólidos solubles
 
+### Tabla descriptiva por población
+
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Se quitan filas sin datos
-library(dplyr)
-database_ss_brix <- database %>% filter(!is.na(ss_brix))
-
-```
-
-### Tabla descriptiva
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(dplyr)
-
-table_brix <- database_ss_brix %>% 
-  dplyr::group_by(site) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(ss_brix),
-    min = min(ss_brix),
-    max = max(ss_brix),
-    sd = sd(ss_brix),
-    )
-
-table_brix
+tablas_list$ss_brix
 
 ```
 
 ### Gráfico por población
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-
-gATT_brix<-ggplot(data=table_brix, aes(x=site, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="°Brix")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gATT_brix
+graficos_list$ss_brix
 
 ```
 
-### Tabla descriptiva 
+### Tabla resumen por fenotipo
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
+graficos_list_phen$ss_brix
 
-table_ss_brix <- database_ss_brix %>% 
-  dplyr::group_by(site, phenotype) %>%
-  dplyr::summarise(
-    n = n(),
-    Mean = mean(ss_brix),
-    min = min(ss_brix),
-    max = max(ss_brix),
-    sd = sd(ss_brix),
-    )
-
-table_ss_brix
 ```
 
-### Gráfico por fenotipo
+### Gráfico resumen por fenotipo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-
-gss_brix<-ggplot(data=table_ss_brix, aes(x=phenotype, y=Mean, fill=site))+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  # facet_grid(.~year)+
-  labs(x="", y="ss_brix")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","palegreen4")) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black'))
-gss_brix
+graficos_list_phen$ss_brix
 
 ```
 
 ## Relación ATT y SS
 
+### Tabla descriptiva por población
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tablas_list$acidity.ss_brix
+  
+```
+
+### Gráfico por población
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$acidity.ss_brix
+
+```
+
+### Tabla resumen por fenotipo
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_phen$acidity.ss_brix
+
+```
+
+### Gráfico resumen por fenotipo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_phen$acidity.ss_brix
+
+```
+
+### Dispersión Acidez y Sólidos Solubles
+
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 
-gATT_brix_dispersion<-ggplot(data=database_ss_brix,aes(x=acidity, y=ss_brix, color=site))+
+gATT_brix_dispersion<-ggplot(data=database,aes(x=acidity, y=ss_brix, color=site))+
   geom_point(size=5)+
   # facet_grid(.~year)+
   labs(x="ATT (%)", y="°Brix")+
@@ -1300,7 +730,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 
-gATT_phi_dispersion<-ggplot(data= database_ss_brix, aes(x=pHi, y=ss_brix, color=site, shape=maturity))+
+gATT_phi_dispersion<-ggplot(data= database, aes(x=pHi, y=ss_brix, color=site, shape=maturity))+
   geom_point(size=5)+
   # facet_grid(.~year)+
   labs(x="pHi", y="Brix")+
@@ -1323,7 +753,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 
-gATT_phi_dispersion<-ggplot(data=database_ss_brix, aes(x=pH81, y=acidity, color=site, shape=maturity))+
+gATT_phi_dispersion<-ggplot(data=database, aes(x=pH81, y=acidity, color=site, shape=maturity))+
   geom_point(size=5)+
   # facet_grid(.~year)+
   labs(x="pH 8.1", y="ATT (%)")+
@@ -1342,12 +772,488 @@ gATT_phi_dispersion
 
 ## Análisis de CCI
 
+# Estadística inferencial
+
+### Fenoles
 ```{r echo=FALSE, warning=FALSE}
 
-# library(lme4)
-# library(lmerTest) #Test de Wald
-# modelo_fenoles1 <- lmer(Fenoles ~ (1|site/phenotype), database)
+library(lme4)
+library(lmerTest) #Test de Wald
+
+# modelo <- lm(Fenoles ~ site, data = database)
+ 
+# modelo2 <- lmer(Fenoles ~ (1|site), data = database)
+
+# modelo_fenoles <- lmer(Fenoles ~ (1|site/phenotype/id), database)
+
+# modelo_fenoles2 <- glmer(Fenoles ~ (1|site/phenotype), data = database, family = "gaussian")
+ 
+modelo_fenoles <- glmer(sqrt(Fenoles) ~ (1|site/phenotype/id), data = database, family = Gamma(link = "identity"))
+ 
+# modelo_fenoles4 <- glmer(Fenoles ~ (1|site/phenotype), data = database, family = Gamma(link = "log"))
+
+```
+
+#### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_fenoles_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_fenoles),
+  "predichos" = predict(modelo_fenoles)))
+
+HV_modelo_fenoles<-ggplot(modelo_fenoles_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="green")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  geom_hline(yintercept = 0, colour = "black", size = 0.1)+
+  geom_hline(yintercept = 0.2, colour = "red", size = 0.5)+
+  geom_hline(yintercept = -0.2, colour = "red", size = 0.5)
+HV_modelo_fenoles
 # 
+# QQresp<-ggplot(resp_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQresp
+# 
+# e<-resid(modelo_fenoles) # residuos de pearson
+# pre<-predict(modelo_fenoles) #predichos
+# alfai<-ranef(modelo_fenoles)$phenotype$'(Intercept)'
+# shapiro.test(e)
+
+# library(car)
+# car::leveneTest(database$Fenoles, database$site)
+
+# hist(database$Fenoles, 50)
+# hist(e, 20)
+
+```
+
+#### Resumen del modelo
+```{r echo=FALSE, warning=FALSE}
+
+summary(modelo_fenoles)
+
+```
+
+### Componentes de varianza (%)
+
+```{r echo=FALSE, warning=FALSE}
+#Calculo manual ICC
+
+site<-2.173e-06
+phenotype<-8.372e+00
+MB<-4.371e+00
+RES<-1.446e-01
+
+ICC_RES<-RES/(site+phenotype+MB+RES)
+ICC_MB<-MB/(site+phenotype+MB+RES)
+ICC_phenotype<-phenotype/(site+phenotype+MB+RES)
+ICC_site<-site/(site+phenotype+MB+RES)
+#
+ICC_RES*100 # ----> 1,12% residual.
+ICC_MB*100  # ----> 33,91% entre muestras biológicas de un mismo fenotipo.
+ICC_phenotype*100  # ----> 64,96% entre individuos de un mismo sitio.
+ICC_site*100  # ----> <0,001% entre sitios.
+
+```
+
+#### AAO
+
+##### .025
+
+```{r echo=FALSE, warning=FALSE}
+
+
+library(glmmTMB)
+
+modelo_aao_0.025 <- glmmTMB(aao_0.025 ~ (1|site/phenotype/id), family = beta_family(), data = database)
+
+```
+
+###### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_aao_0.025_ajustado <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_aao_0.025),
+  "predichos" = predict(modelo_aao_0.025)))
+
+HV_modelo_aao_0.025<-ggplot(modelo_aao_0.025_ajustado) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="green")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  geom_hline(yintercept = 0, colour = "black", size = 0.1)+
+  geom_hline(yintercept = 0.2, colour = "red", size = 0.5)+
+  geom_hline(yintercept = -0.2, colour = "red", size = 0.5)
+HV_modelo_aao_0.025
+# 
+# QQresp<-ggplot(resp_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQresp
+# 
+# e<-resid(modelo_fenoles) # residuos de pearson
+# pre<-predict(modelo_fenoles) #predichos
+# alfai<-ranef(modelo_fenoles)$phenotype$'(Intercept)'
+# shapiro.test(e)
+
+# library(car)
+# car::leveneTest(database$Fenoles, database$site)
+
+# hist(database$Fenoles, 50)
+# hist(e, 20)
+
+```
+
+###### Resumen del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_aao_0.025)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Modelo gráficado
+
+# library(ggplot2)
+# 
+# library(dplyr)
+# database_aao_0.025 <- database %>% filter(!is.na(aao_0.025))
+# 
+# # Extraer los valores ajustados por el modelo
+# valores_ajustados <- predict(modelo_aao_0.025, type = "response")
+# 
+# # Crear un data frame con los valores observados y ajustados
+# data_grafico <- data.frame(ValoresObservados = database_aao_0.025$aao_0.025,
+#                            ValoresAjustados = valores_ajustados)
+# 
+# # Crear un gráfico de dispersión
+# gg_ef_response <- ggplot(data_grafico, aes(x = ValoresAjustados, y = ValoresObservados)) +
+#   geom_point(shape = 16, size = 3, color = "blue") +  # Puntos de datos observados
+#   geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +  # Línea de referencia
+#   labs(x = "Valores Ajustados", y = "Valores Observados") +
+#   theme_minimal()
+# 
+# library(ggplot2)
+# 
+# # Supongamos que tienes un modelo llamado "modelo_aao_0.025" con una función de enlace logit
+# 
+# # Extraer los valores ajustados por el modelo
+# valores_ajustados <- predict(modelo_aao_0.025, type = "link")
+# 
+# # Aplicar la función de enlace inversa (logit)
+# valores_en_escala_de_enlace <- plogis(valores_ajustados)
+# 
+# # Crear un data frame con los valores observados y en la escala de enlace
+# data_grafico <- data.frame(ValoresObservados = database_aao_0.025$aao_0.025,
+#                            ValoresEnEscalaDeEnlace = valores_en_escala_de_enlace)
+# 
+# # Crear un gráfico de dispersión en la escala de la función de enlace
+# gg_ef_link <- ggplot(data_grafico, aes(x = ValoresEnEscalaDeEnlace, y = ValoresObservados)) +
+#   geom_point(shape = 16, size = 3, color = "blue") +  # Puntos de datos observados
+#   geom_abline(intercept = 0, slope = 1, color = "red", linetype = "dashed") +  # Línea de referencia
+#   labs(x = "Valores en Escala de Enlace", y = "Valores Observados") +
+#   theme_minimal()
+# 
+# dispef <- ggplot(database, aes(x=phenotype, y=aao_0.025, color=site))+
+#   geom_point()
+
+```
+
+###### Componentes de varianza (%)
+
+```{r echo=FALSE, warning=FALSE}
+#Calculo manual ICC
+
+site<-2.173e-06
+phenotype<-8.372e+00
+MB<-4.371e+00
+RES<-1.446e-01
+
+ICC_RES<-RES/(site+phenotype+MB+RES)
+ICC_MB<-MB/(site+phenotype+MB+RES)
+ICC_phenotype<-phenotype/(site+phenotype+MB+RES)
+ICC_site<-site/(site+phenotype+MB+RES)
+#
+ICC_RES*100 # ----> 1,12% residual.
+ICC_MB*100  # ----> 33,91% entre muestras biológicas de un mismo fenotipo.
+ICC_phenotype*100  # ----> 64,96% entre individuos de un mismo sitio.
+ICC_site*100  # ----> <0,001% entre sitios.
+
+```
+
+##### .05
+
+```{r echo=FALSE, warning=FALSE}
+
+library(glmmTMB)
+
+modelo_aao_0.05 <- glmmTMB(aao_0.05 ~ (1|site/phenotype/id), family = beta_family(), data = database)
+
+```
+
+###### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_aao_0.05_ajustado <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_aao_0.05),
+  "predichos" = predict(modelo_aao_0.05)))
+
+HV_modelo_aao_0.05<-ggplot(modelo_aao_0.05_ajustado) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="green")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  geom_hline(yintercept = 0, colour = "black", size = 0.1)+
+  geom_hline(yintercept = 0.2, colour = "red", size = 0.5)+
+  geom_hline(yintercept = -0.2, colour = "red", size = 0.5)
+HV_modelo_aao_0.05
+
+```
+
+###### Resumen del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_aao_0.05)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+```
+
+###### Componentes de varianza (%)
+
+```{r echo=FALSE, warning=FALSE}
+#Calculo manual ICC
+
+site<-2.173e-06
+phenotype<-8.372e+00
+MB<-4.371e+00
+RES<-1.446e-01
+
+ICC_RES<-RES/(site+phenotype+MB+RES)
+ICC_MB<-MB/(site+phenotype+MB+RES)
+ICC_phenotype<-phenotype/(site+phenotype+MB+RES)
+ICC_site<-site/(site+phenotype+MB+RES)
+#
+ICC_RES*100 # ----> 1,12% residual.
+ICC_MB*100  # ----> 33,91% entre muestras biológicas de un mismo fenotipo.
+ICC_phenotype*100  # ----> 64,96% entre individuos de un mismo sitio.
+ICC_site*100  # ----> <0,001% entre sitios.
+
+```
+
+##### 0.1
+
+```{r echo=FALSE, warning=FALSE}
+
+library(glmmTMB)
+
+modelo_aao_0.1 <- glmmTMB(aao_0.1 ~ (1|site/phenotype/id), family = beta_family(), data = database)
+
+```
+
+###### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_aao_0.1_ajustado <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_aao_0.1),
+  "predichos" = predict(modelo_aao_0.1)))
+
+HV_modelo_aao_0.1<-ggplot(modelo_aao_0.1_ajustado) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="green")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  geom_hline(yintercept = 0, colour = "black", size = 0.1)+
+  geom_hline(yintercept = 0.2, colour = "red", size = 0.5)+
+  geom_hline(yintercept = -0.2, colour = "red", size = 0.5)
+HV_modelo_aao_0.1
+
+```
+
+###### Resumen del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_aao_0.1)
+
+```
+
+##### .25
+
+```{r echo=FALSE, warning=FALSE}
+
+library(glmmTMB)
+
+modelo_aao_0.25 <- glmmTMB(aao_0.25 ~ (1|site/phenotype/id), family = beta_family(), data = database)
+
+```
+
+###### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_aao_0.25_ajustado <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_aao_0.25),
+  "predichos" = predict(modelo_aao_0.25)))
+
+HV_modelo_aao_0.25<-ggplot(modelo_aao_0.25_ajustado) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="green")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))+
+  geom_hline(yintercept = 0, colour = "black", size = 0.1)+
+  geom_hline(yintercept = 0.2, colour = "red", size = 0.5)+
+  geom_hline(yintercept = -0.2, colour = "red", size = 0.5)
+HV_modelo_aao_0.25
+
+```
+
+###### Resumen del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_aao_0.25)
+
+```
+
+##### Modelos de aao
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+# Parámetros de los cuatro modelos beta
+beta <- c(1.391, 2.1893, 2.7310, 3.054)
+alfa <- c(15.1, 75.3, 94.4, 378)
+
+# Crear una secuencia de valores entre 0 y 1 para el eje x
+x <- seq(0, 1, by = 0.01)
+
+# Crear un dataframe con las densidades de probabilidad de los cuatro modelos
+df <- data.frame(x = rep(x, 4), densidad = rep(NA, length(x) * 4), 
+                 modelo = factor(rep(1:4, each = length(x)),
+                                 labels = c("modelo_0.025", "modelo_0.05", "modelo_0.100", "modelo_0.250")))
+
+for (i in 1:4) {
+  df$densidad[df$modelo == levels(df$modelo)[i]] <- dbeta(x, alfa[i], beta[i])
+}
+
+# Colores para cada modelo
+colores <- c("grey", "skyblue", "#269989", "#315999")
+
+# Graficar las curvas de densidad de probabilidad
+gg_aao_modelos <- ggplot(df, aes(x = x, y = densidad, color = modelo)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = colores) +
+  labs(title = "Distribuciones Beta", color = "Modelo")+
+  theme_classic()+
+  theme(legend.position = "bottom")+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  geom_hline(yintercept = 0, colour = "black", size = 0.1)
+gg_aao_modelos
+
+```
+
+##### Clorofila a
+
+##### Clorofila b
+
+##### Carotenoides
+
+```{r echo=FALSE, warning=FALSE}
+
+library(lme4)
+library(lmerTest) #Test de Wald
+
+# modelo <- lm(Fenoles ~ site, data = database)
+# 
+# modelo2 <- lmer(Fenoles ~ (1|site), data = database)
+
+modelo_Carotenoids <- lmer(Carotenoids ~ (1|site/phenotype/id), database)
+
 # modelo_fenoles2 <- glmer(Fenoles ~ (1|site/phenotype), data = database, family = "gaussian")
 # 
 # modelo_fenoles3 <- glmer(Fenoles ~ (1|site/phenotype), data = database, family = Gamma(link = "identity"))
@@ -1356,92 +1262,10 @@ gATT_phi_dispersion
 
 ```
 
-### Resumen del modelo
-```{r echo=FALSE, warning=FALSE}
+#####
 
-# summary(modelo_fenoles1)
+#####
 
-```
-
-### Supuestos del modelo
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-# e<-resid(modelo_fenoles) # residuos de pearson
-# pre<-predict(modelo_fenoles) #predichos
-# alfai<-ranef(modelo_fenoles)$phenotype$'(Intercept)'
-# par(mfrow = c(1, 3))
-# plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
-# abline(0,0)
-# qqnorm(e, cex.main=.8)
-# qqline(e)
-# qqnorm(alfai, cex.main=.8)
-# qqline(alfai)
-# par(mfrow = c(1, 1))
-```
-
-Test de normalidad para muestras biológicas (frutos)
-```{r echo=FALSE, warning=FALSE}
-# shapiro.test(e)
-```
-Test de normalidad para genotipos
-```{r echo=FALSE, warning=FALSE}
-# shapiro.test(alfai)
-```
-
-```{r echo=FALSE, warning=FALSE}
-# ### Significacion parte fija
-# library(lme4)
-# mF0<- lmer(log(fen) ~ 1 + (1|site/phenotype), datavq)
-# round(anova(mF0,mfen),2)
-```
-
-```{r echo=FALSE, warning=FALSE}
-# Significancia parte aleatoria
-# confint(mfen, level = 0.95, method = c("profile"))
-```
-
-### Conclusiones
-
-```{r echo=FALSE, warning=FALSE}
-# report::report(modelo_fenoles4)
-```
-
-<!-- El test de Wald (p=) arroja que no hay diferencias estadísticas significativas entre años. -->
-
-### ICC del modelo
-```{r echo=FALSE, warning=FALSE}
-# library(sjstats)
-# performance::icc(modelo_fenoles1)
-# performance::icc(modelo_fenoles2)
-# performance::icc(modelo_fenoles3)
-# performance::icc(modelo_fenoles4)
-```
-
-```{r echo=FALSE, warning=FALSE}
-#Calculo manual ICC
-
-# phenotypep<-0.13862
-# sitep<-0.01395 
-# FRUp<-0.15411
-# 
-# ICCf<-FRUp/(FRUp+phenotypep+sitep)
-# ICCa<-phenotypep/(FRUp+phenotypep+sitep)
-# ICCr<-sitep/(FRUp+phenotypep+sitep)
-# 
-# ICCf #0.6422508 ----> 50,3% entre muestras de una misma phenotypeesión.
-# ICCa #0.2988115 ----> 45,2% entre phenotypeesiones de una misma siteión.
-# ICCr #0.05893767 ----> 4,5% entre siteiones.
-# 
-# #ICC modelo
-# # ICCr+ICCa #49.8%
-
-
-```
-
-* ----> % 
-* ----> % 
-* ----> % 
-
-ICC del modelo = 
+#####
 
 # Análisis multivariado

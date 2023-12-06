@@ -40,10 +40,10 @@ tabla_psf<-tabla_psf2[,c(2:4,9:10)]
 tabla_ovulos<-tabla_ovulos2[,c(2:4,8,10)]
 tabla_polen<-tabla_polen2[,c(2:7,10)]
 
-# Usamos la función para fusionar los datos
+# Usamos una función para fusionar los datos (full_join)
 # tabla_2<- dplyr::full_join(tabla_ovulos, tabla_psf,  by = c("year","site", "phenotype","id"))
 # database<- dplyr::full_join(tabla_polen, tabla_2, by = c("year","site", "phenotype","id"))
-# Como se pierden datos usamos otra opción para combinar las tablas
+# Como se pierden datos usamos otra opción para combinar las tablas (merge())
 tabla_3<-merge(x=tabla_psf, y=tabla_ovulos, by = c("year","site","phenotype","id"), all.x = TRUE, all.y = TRUE, type = "outer")
 database<-merge(x=tabla_3, y=tabla_polen, by = c("year","site","phenotype","id"), all.x = TRUE, all.y = TRUE, type = "outer")
 
@@ -51,6 +51,7 @@ database<-merge(x=tabla_3, y=tabla_polen, by = c("year","site","phenotype","id")
 # write.table(database, file = "++completa.csv", sep = ",", row.names = FALSE)
 
 ```
+
 # Peso seco de la flor
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -69,10 +70,8 @@ table_ps_flor <- database %>%
     sd = sd(na.omit(ps_flor))
   )
 
-
 library(knitr)
 kable(table_ps_flor, format = "markdown")
-
 
 ```
 
@@ -185,7 +184,70 @@ g2g<-ggplot(data=guale_bd, aes(x=phenotype, y=ps_flor, form=site, colour=phenoty
 g2g
 ```
 
+## Estadística inferencial ps_flor
 
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+library(lmerTest)
+
+modelo_psf2 <- lmer(ps_flor ~ year + (1|site/phenotype), database)
+
+library(nlme)
+
+modelo_psf <- glm((ps_flor) ~ year, family = "Gamma", data = database)
+
+
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+pff_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_psf),
+  "predichos" = predict(modelo_psf)))
+
+library(ggplot2)
+HVpff<-ggplot(pff_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQpff<-ggplot(pff_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQpff
+
+e<-resid(modelo_psf) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
 
 
 ```{r echo=FALSE, warning=FALSE}
@@ -238,21 +300,8 @@ g2g
 # 
 # Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)
 # 
-# # Próximas variables
-# 
-# * Conteo de polen
-# 
-# * Diámetro polen
-# 
-# * Peso seco de la flor
-# 
-# * N° semillas
-# 
-# * **S/O** ratio semillas óvulos
-# 
-# * **Fr/Fl** ratio flores frutos
-# 
-# * **F** ratio frutos óvulos
+
+summary(modelo_psf)
 
 ```
 
@@ -273,10 +322,8 @@ table_n_ovu <- tabla_ovulos %>%
     sd = sd(na.omit(n_ovu))
   )
 
-
 library(knitr)
 kable(table_n_ovu, format = "markdown")
-
 
 ```
 
@@ -390,6 +437,90 @@ g3g<-ggplot(data=guale_bd, aes(x=phenotype, y=n_ovu, form=site, colour=phenotype
 g3g
 ```
 
+## Estadística inferencial Conteo de óvulos
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Eliminar NA del conjunto de datos
+database2 <- database[,-c(5,7:9)]
+database2_ovu <- na.omit(database2)
+
+library(nlme)
+f1 <- formula(n_ovu ~ 1)
+modelo_n_ovu <- lme(f1, random =~1 | site / phenotype, data = database2_ovu)
+# , family = poisson
+library(nlme)
+
+modelo_n_ovu2 <- glmer(n_ovu ~ (1|site/phenotype/id), data =database, family = poisson)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+pff_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_n_ovu2),
+  "predichos" = predict(modelo_n_ovu2)))
+
+library(ggplot2)
+HVpff<-ggplot(pff_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQpff<-ggplot(pff_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQpff
+
+# e<-resid(modelo_psf) # residuos de pearson
+# # pre<-predict(mpff) #predichos
+# # alfai<-ranef(mpff)$REP$'(Intercept)'
+# shapiro.test(e)
+
+#Supuestos
+#parametro de sobredispersion
+e1 <- resid(modelo_n_ovu2, type = "pearson")
+n  <- nrow(database)
+k  <- length(fixef(modelo_n_ovu2)) + 1 #parametros estimados; se suma varianza(colmenas)
+dispersion <- sum(e1^2) / (n - k)
+dispersion
+# df.residual(modelo_n_ovu)
+
+# OK
+
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_n_ovu2
+
+```
+
+
 # Diámetro de polen
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -450,7 +581,6 @@ gg_polger
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
 
 concordia_bd<- database %>% dplyr::filter(database$site == "concordia")
 
@@ -589,6 +719,30 @@ disp_polen2<-ggplot(data=tabla_pheno, aes(x=Mean_psf, y=Mean_polen, color=year, 
   theme(axis.text = element_text(color='black'))+
   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
 disp_polen2
+```
+
+
+# Multivariado
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Creamos una nueva base de datos sin lo que no es numérico
+
+data_pca <- database[,-c(1:4,7:9)]
+
+library(FactoMineR)
+
+pca <- PCA(data_pca)
+
+# • fviz_pca_ind() -> Representación de observaciones sobre componentes principales.
+# 
+# • fviz_pca_var() -> Representación de variables sobre componentes principales.
+# 
+# • fviz_screeplot() -> Representación (gráfico barras) de eigenvalores.
+# 
+# • fviz_contrib() -> Representa la contribución de filas/columnas de los resultados de un pca.
+
 ```
 
 # Germiación de polen (2019)
