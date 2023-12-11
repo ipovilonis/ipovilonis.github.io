@@ -618,6 +618,16 @@ Anova(modelo_DP_mad_gamma)
 
 ```
 
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(emmeans)
+# library(multcompView)
+# Comp_DP_mad<-emmeans(modelo_DP_mad_gamma, pairwise ~ madurez, type = "response") 
+# Comp_DP_mad
+# plot(Comp_DP_mad, comparisons = TRUE)
+```
+
 ## Peso seco semillas
 
 Tabla descriptiva
@@ -689,6 +699,16 @@ Anova(modelo_PSS_mad_gamma)
 
 ```
 
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(emmeans)
+# library(multcompView)
+# Comp_PSS_mad<-emmeans(modelo_PSS_mad_gamma, pairwise ~ madurez, type = "response")
+# Comp_PSS_mad
+# plot(Comp_PSS_mad, comparisons = TRUE)
+```
+
 ## PSSPSF
 
 Tabla descriptiva
@@ -758,8 +778,17 @@ library(car)
 Anova(modelo_PSSPSF_mad_gamma)
 
 ```
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-## color *L
+# library(emmeans)
+# library(multcompView)
+# Comp_PSSPSF_mad<-emmeans(modelo_PSSPSF_mad_gamma, pairwise ~ madurez, type = "response")
+# Comp_PSSPSF_mad
+# plot(Comp_PSSPSF_mad, comparisons = TRUE)
+```
+
+## Color *L
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)

@@ -1,5 +1,5 @@
 ---
-title: "secado"
+title: "Secado"
 ---
 
 ## Carga de datos y conversión de variables
@@ -38,7 +38,7 @@ datospeso_sna <- full_join(datospeso_sna3, datospeso_sna4)
 
 ```
 
-## Gráfico de dispersión
+Gráfico de dispersión
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -52,7 +52,7 @@ tps <- datospeso_sna %>%
 library(ggplot2)
 
 gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=psf, y=pff, color=mad))+
-  geom_point(size=5)+
+  geom_point(size=0.8)+
   # facet_grid(.~year)+
   labs(x="Peso seco fruto (g)", y="Peso fresco fruto (g)")+
   theme_classic()+
@@ -69,7 +69,7 @@ gg_pesoseco_3a
 
 ```
 
-## Se ajusta el modelo
+Modelo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -77,7 +77,14 @@ modelo_ps <- lm(psf ~ pff, data=datospeso_sna)
 
 ```
 
-## Cantidad de gramos de PS por 6 gramos de PF
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_ps)
+
+```
+
+Cantidad de gramos de PS por 1 gramos de PF
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -98,14 +105,6 @@ print(predicciones1)
 
 ```
 
-## Modelo
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-summary(modelo_ps)
-
-```
-
 ## Calculo de n
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -116,9 +115,9 @@ library(pwr)
 # Especificar los parámetros
 alfa <- 0.05  # Nivel de significancia (alfa) Error tipo I
 beta <- 0.8  # Potencia estadística deseada (beta) Error tipo II
-tamaño_efecto <- 1  # Tamaño del efecto esperado (debe especificarse si ya se sabe)
-
-# Cálculo de magnitud del efecto
+tamaño <- 1  # Tamaño del efecto esperado (debe especificarse si ya se sabe)
+# 
+# # Cálculo de magnitud del efecto
 media_1 <-35.1 #Estimado en fruto fresco
 media_2 <-32.3  #Estimado en fruto secado
 w1 <- 1 # Modifica el peso del DE al grupo 1
@@ -127,11 +126,11 @@ desviacion_estandar1 <- 2.5
 desviacion_estandar2 <- 0.1
 desviacion_estandar_ponderada = sqrt((w1^2 * desviacion_estandar1^2 + w2^2 * desviacion_estandar2^2) / (w1^2 + w2^2))
 
-tamaño_efecto <- (media_1-media_2)/desviacion_estandar_ponderada
+efecto <- (media_1-media_2)/desviacion_estandar_ponderada
 
 # Calcular el número mínimo de repeticiones
 resultado <- pwr.t.test(
-   d=tamaño_efecto,
+   d=efecto,
    n=NULL,
    sig.level=0.05,
    type="one.sample",
@@ -141,6 +140,5 @@ resultado <- pwr.t.test(
 
 # Imprimir el resultado o mensaje de error
 print(resultado)
-
 
 ```
