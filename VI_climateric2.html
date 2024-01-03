@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Respiration essay in Hexachlamys edulis</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">I Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    II Sitios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_Companionspecies.html">Especies asociadas</a>
+    </li>
+    <li>
+      <a href="II_Meteorological.html">Meteorologia</a>
+    </li>
+    <li>
+      <a href="II_Climate.html">Clima</a>
+    </li>
+    <li>
+      <a href="II_Soil.html">Suelos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    III Fenología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="III_Phenology.html">Fenología</a>
+    </li>
+    <li>
+      <a href="III_Yield.html">Rendimiento</a>
+    </li>
+    <li>
+      <a href="III_Polinization.html">Polinización</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    IV Maduración
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mad_resume.html">Tablas resumen</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Atributos físicos</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Actividad antioxidante</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Ácidos orgánicos</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohidratos</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Fibra dietaria</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cationes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    V Variabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V_Weight.html">Peso</a>
+    </li>
+    <li>
+      <a href="V_Diameter.html">Diámetro</a>
+    </li>
+    <li>
+      <a href="V_Seeds.html">Semillas</a>
+    </li>
+    <li>
+      <a href="V_Colorimetry.html">Colorimetría</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_phenols.html">Fenoles</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Reproductive.html">Variables reproductivas</a>
+    </li>
+    <li>
+      <a href="V_Branches.html">Eficiencia reproductiva</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Multivariate.html">Multivariado</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Otros ensayos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Genetics.html">Extracción de ADN</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extración química</a>
+    </li>
+    <li>
+      <a href="q2022_quimico.html">Variables químicas 2022</a>
+    </li>
+    <li>
+      <a href="secado.html">Secado</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Publicaciones</a>
+</li>
+<li>
+  <a href="about.html">Sobre el sitio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Respiration essay in Hexachlamys
+edulis</h1>
+
+</div>
+
+
+<div class="figure">
+<img src="IMG_pos.jpg" alt="A caption" width="100%" />
+<p class="caption">
+A caption
+</p>
+</div>
+<p>Immature and mature ubajay fruits were selected and randomly
+distributed in 4 jars, 2 immature and 2 mature, then respiration was
+quantified from accumulated CO2 every 15 minutes for 150 minutes.</p>
+<div id="co2-acumulation" class="section level2">
+<h2>CO<sub>2</sub> acumulation</h2>
+<p><img src="VI_climateric2_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="descriptive-table" class="section level2">
+<h2>Descriptive table</h2>
+<pre><code>## # A tibble: 20 × 7
+## # Groups:   time_min [10]
+##    time_min matu  carbon_ac_n carbon_ac_Mean carbon_ac_sd carbon_ac_min carbon_ac_max
+##    &lt;fct&gt;    &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 15       I               2           42.5        4.97           39.0          46.1
+##  2 15       M               2           39.6        1.86           38.3          40.9
+##  3 30       I               2           62.2        5.13           58.5          65.8
+##  4 30       M               2           59.4        2.79           57.4          61.4
+##  5 45       I               2           75.2        5.23           71.5          78.9
+##  6 45       M               2           76.6        0.110          76.6          76.7
+##  7 60       I               2           94.9        5.39           91.1          98.7
+##  8 60       M               2           99.0        4.66           95.7         102. 
+##  9 75       I               2          108.         5.50          104.          112. 
+## 10 75       M               2          116.         1.97          115.          118. 
+## 11 90       I               2          124.        10.3           117.          132. 
+## 12 90       M               2          136.         2.91          134.          138. 
+## 13 105      I               2          137.        10.4           130.          145. 
+## 14 105      M               2          153.         0.221         153.          153. 
+## 15 120      I               2          157.        10.5           150.          164. 
+## 16 120      M               2          176.         4.77          172.          179. 
+## 17 135      I               2          170.        10.6           163.          178. 
+## 18 135      M               2          190.         6.59          185.          194. 
+## 19 150      I               2          186.        15.4           176.          197. 
+## 20 150      M               2          213.         3.02          211.          215.</code></pre>
+</div>
+<div id="correlations-over-time" class="section level2">
+<h2>Correlations over time</h2>
+<p><img src="VI_climateric2_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="covariance-matrix" class="section level2">
+<h2>Covariance matrix</h2>
+<pre><code>##        15    30    45    60     75     90    105    120    135    150
+## 15  12.28 12.95  7.38  7.79   2.21   7.31   1.73   2.14   2.50   1.66
+## 30  12.95 13.93  7.77  9.75   3.59   9.42   3.25   5.23   6.22   4.90
+## 45   7.38  7.77  9.77 11.46  13.46  23.37  25.37  27.07  27.76  38.97
+## 60   7.79  9.75 11.46 22.55  24.26  38.94  40.66  51.74  56.09  68.14
+## 75   2.21  3.59 13.46 24.26  34.14  52.90  62.77  73.57  77.63 102.21
+## 90   7.31  9.42 23.37 38.94  52.90  83.40  97.35 112.92 118.82 157.38
+## 105  1.73  3.25 25.37 40.66  62.77  97.35 119.47 134.76 140.36 191.45
+## 120  2.14  5.23 27.07 51.74  73.57 112.92 134.76 159.43 168.68 220.61
+## 135  2.50  6.22 27.76 56.09  77.63 118.82 140.36 168.68 179.37 231.42
+## 150  1.66  4.90 38.97 68.14 102.21 157.38 191.45 220.61 231.42 309.86</code></pre>
+</div>
+<div id="marginal-model-with-first-order-autoregressive-structure"
+class="section level2">
+<h2>Marginal model with first-order autoregressive structure</h2>
+<pre><code>## gls(model = (carbon_ac) ~ time_min * matu + basal, data = resp2w, 
+##     correlation = corAR1(form = ~1 | rep))</code></pre>
+</div>
+<div id="assumptions" class="section level2">
+<h2>Assumptions</h2>
+<p><img src="VI_climateric2_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="VI_climateric2_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.97616, p-value = 0.5498</code></pre>
+</div>
+<div id="model-coefficients" class="section level2">
+<h2>Model coefficients</h2>
+<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75        time_min90       time_min105 
+##     -1088.3098591        19.6250543        32.7084238        52.3334782        65.4168477        81.7897236        94.8730931 
+##       time_min120       time_min135       time_min150             matuM             basal  time_min30:matuM  time_min45:matuM 
+##       114.4981474       127.5815169       143.9543928        24.0203019        43.2170578         0.1712202         4.3272497 
+##  time_min60:matuM  time_min75:matuM  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM time_min150:matuM 
+##         7.0553453        11.2113748        14.6347734        18.7908030        21.5188986        22.4853372        29.0983267</code></pre>
+</div>
+<div id="anova" class="section level2">
+<h2>Anova</h2>
+<pre><code>## Denom. DF: 19 
+##               numDF   F-value p-value
+## (Intercept)       1 12422.598  &lt;.0001
+## time_min          9   497.680  &lt;.0001
+## matu              1    23.524  0.0001
+## basal             1    18.306  0.0004
+## time_min:matu     9     4.645  0.0024</code></pre>
+</div>
+<div id="simple-effects" class="section level2">
+<h2>Simple effects</h2>
+<pre><code>## $emmeans
+## time_min = 15:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     29.05593 3.996413 4.38  18.32747  39.78439
+##  M     53.07623 3.996413 4.26  42.24267  63.90980
+## 
+## time_min = 30:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     48.68099 3.996413 4.37  37.94735  59.41462
+##  M     72.87251 3.996413 4.38  62.14744  83.59757
+## 
+## time_min = 45:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     61.76435 3.996413 4.23  50.90664  72.62207
+##  M     90.11191 3.996413 4.30  79.31519 100.90863
+## 
+## time_min = 60:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     81.38941 3.996413 4.35  70.64128  92.13754
+##  M    112.46506 3.996413 4.37 101.73142 123.19869
+## 
+## time_min = 75:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I     94.47278 3.996413 4.28  83.65659 105.28897
+##  M    129.70446 3.996413 4.31 118.91264 140.49627
+## 
+## time_min = 90:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    110.84565 3.996413 4.38 100.11719 121.57412
+##  M    149.50073 3.996413 4.26 138.66717 160.33429
+## 
+## time_min = 105:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    123.92902 3.996413 4.37 113.19539 134.66266
+##  M    166.74013 3.996413 4.38 156.01506 177.46520
+## 
+## time_min = 120:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    143.55408 3.996413 4.23 132.69637 154.41179
+##  M    189.09328 3.996413 4.30 178.29656 199.89000
+## 
+## time_min = 135:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    156.63745 3.996413 4.35 145.88932 167.38558
+##  M    203.14309 3.996413 4.37 192.40945 213.87672
+## 
+## time_min = 150:
+##  matu    emmean       SE   df  lower.CL  upper.CL
+##  I    173.01032 3.996413 4.28 162.19413 183.82652
+##  M    226.12895 3.996413 4.31 215.33714 236.92077
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the ( (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+## time_min = 15:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -24.02030 7.197624 6.29  -3.337  0.0146
+## 
+## time_min = 30:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -24.19152 7.197624 6.30  -3.361  0.0141
+## 
+## time_min = 45:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -28.34755 7.197624 4.51  -3.938  0.0135
+## 
+## time_min = 60:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -31.07565 7.197624 6.28  -4.317  0.0045
+## 
+## time_min = 75:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -35.23168 7.197624 6.24  -4.895  0.0024
+## 
+## time_min = 90:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -38.65508 7.197624 6.29  -5.371  0.0015
+## 
+## time_min = 105:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -42.81110 7.197624 6.30  -5.948  0.0008
+## 
+## time_min = 120:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -45.53920 7.197624 4.51  -6.327  0.0021
+## 
+## time_min = 135:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -46.50564 7.197624 6.28  -6.461  0.0005
+## 
+## time_min = 150:
+##  contrast  estimate       SE   df t.ratio p.value
+##  I - M    -53.11863 7.197624 6.24  -7.380  0.0003
+## 
+## Note: contrasts are still on the ( scale 
+## Degrees-of-freedom method: satterthwaite</code></pre>
+<p>Statistically significant differences were found in the CO2
+respiration rate in each time between immature and mature Hexachlamys
+edulis fruits.</p>
+</div>
+<div id="comparison-chart" class="section level2">
+<h2>Comparison chart</h2>
+<p><img src="VI_climateric2_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fitted-model-plot" class="section level2">
+<h2>Fitted model plot</h2>
+<p><img src="VI_climateric2_files/figure-html/unnamed-chunk-16-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

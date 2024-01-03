@@ -15,7 +15,8 @@ output:
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
-datap<-read.delim("CHac.txt")
+library(readxl)
+datap<-read_excel("database.xlsx", sheet = "mad_CHac")
 datap$CAR <- factor(datap$CAR,
                    levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
                               "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru", "ATT"),

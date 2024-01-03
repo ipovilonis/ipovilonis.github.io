@@ -13,8 +13,9 @@ output:
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
- 
-dataf<-read.delim("fibras.txt")
+
+library(readxl)
+dataf<-read_excel("database.xlsx", sheet = "mad_Fibras")
 dataf$MAD<-factor(dataf$MAD,levels=c("I", "MM", "M", "SM"))
 FDSdata<-subset(dataf, CAR == "FDS")
 FDIdata<-subset(dataf, CAR == "FDI")

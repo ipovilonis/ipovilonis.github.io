@@ -4,77 +4,77 @@ runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
-library(tidyverse)
-library(flexdashboard)
+# library(tidyverse)
+# library(flexdashboard)
 ```
 
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(readxl)
-sh_sugaci<-read_excel("database.xlsx", sheet = "madAcids")
-
-sh_sugaci$REP<-as.factor(sh_sugaci$REP)
-sh_sugaci$MAD<-factor(sh_sugaci$MAD,levels=c("I", "MM", "M", "SM"))
+# library(readxl)
+# sh_sugaci<-read_excel("database.xlsx", sheet = "mad_Acids")
+# 
+# sh_sugaci$REP<-as.factor(sh_sugaci$REP)
+# sh_sugaci$MAD<-factor(sh_sugaci$MAD,levels=c("I", "MM", "M", "SM"))
 
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(shiny)
-library(dplyr)
-library(knitr)
-
-# Define la UI
-ui <- fluidPage(
-  # Define un título para la app
-  titlePanel("Seleccionar variable respuesta"),
-  
-  # Define un selectInput para que el usuario seleccione la variable respuesta
-  sidebarLayout(
-    sidebarPanel(
-      selectInput("variable_respuesta", "Selecciona una variable respuesta:", choices = sh_sugaci %>% select_if(is.numeric) %>% names(),
-                  selected = "sucrose")
-    ),
-    
-    # Muestra la variable respuesta seleccionada por el usuario
-    mainPanel(
-      plotOutput("plot_point"),
-      tableOutput("tabla_descriptiva")
-    )
-  )
-)
-
-# Define el servidor
-server <- function(input, output) {
-  # Muestra la variable respuesta seleccionada por el usuario
-  output$plot_point <- renderPlot({
-    ggplot(sh_sugaci, aes(x=MAD, y=get(input$variable_respuesta), color=MAD, width=1, shape=REP)) +
-  geom_point(size=3)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
-  labs(y="mg/g dry fruit", x="")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='black'))+
-  theme(axis.text = element_text(color='black', size=2))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")
-  })
-  # Muestra la tabla descriptiva de la variable respuesta seleccionada por el usuario
-  output$tabla_descriptiva <- renderTable({
-    sh_sugaci %>% 
-      group_by(MAD) %>% 
-      summarise(count = n(), mean = mean(!!sym(input$variable_respuesta)), sd = sd(!!sym(input$variable_respuesta))) %>% 
-      as.data.frame(kable())
-  })
-}
-
-# Ejecuta la aplicación
-shinyApp(ui = ui, server = server)
-
+# library(shiny)
+# library(dplyr)
+# library(knitr)
+# 
+# # Define la UI
+# ui <- fluidPage(
+#   # Define un título para la app
+#   titlePanel("Seleccionar variable respuesta"),
+#   
+#   # Define un selectInput para que el usuario seleccione la variable respuesta
+#   sidebarLayout(
+#     sidebarPanel(
+#       selectInput("variable_respuesta", "Selecciona una variable respuesta:", choices = sh_sugaci %>% select_if(is.numeric) %>% names(),
+#                   selected = "sucrose")
+#     ),
+#     
+#     # Muestra la variable respuesta seleccionada por el usuario
+#     mainPanel(
+#       plotOutput("plot_point"),
+#       tableOutput("tabla_descriptiva")
+#     )
+#   )
+# )
+# 
+# # Define el servidor
+# server <- function(input, output) {
+#   # Muestra la variable respuesta seleccionada por el usuario
+#   output$plot_point <- renderPlot({
+#     ggplot(sh_sugaci, aes(x=MAD, y=get(input$variable_respuesta), color=MAD, width=1, shape=REP)) +
+#   geom_point(size=3)+
+#   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
+#   labs(y="mg/g dry fruit", x="")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='black'))+
+#   theme(axis.text = element_text(color='black', size=2))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")
+#   })
+#   # Muestra la tabla descriptiva de la variable respuesta seleccionada por el usuario
+#   output$tabla_descriptiva <- renderTable({
+#     sh_sugaci %>% 
+#       group_by(MAD) %>% 
+#       summarise(count = n(), mean = mean(!!sym(input$variable_respuesta)), sd = sd(!!sym(input$variable_respuesta))) %>% 
+#       as.data.frame(kable())
+#   })
+# }
+# 
+# # Ejecuta la aplicación
+# shinyApp(ui = ui, server = server)
+# 
 
 ```
 

@@ -20,7 +20,7 @@ knitr::include_graphics("IMG_mat.jpg")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(readxl)
-data<-read_excel("database.xlsx", sheet="madurez")
+data<-read_excel("database.xlsx", sheet="IV madurez")
 data <- data[,-c(12)]
 data$madurez<-as.factor(data$madurez)
 data$madurez<-factor(data$madurez,levels=c("Inmaduro", "Medio Maduro", "Maduro", "SobreMaduro"))
@@ -621,11 +621,11 @@ Anova(modelo_DP_mad_gamma)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# library(emmeans)
-# library(multcompView)
-# Comp_DP_mad<-emmeans(modelo_DP_mad_gamma, pairwise ~ madurez, type = "response") 
-# Comp_DP_mad
-# plot(Comp_DP_mad, comparisons = TRUE)
+library(emmeans)
+library(multcompView)
+Comp_DP_mad<-emmeans(modelo_DP_mad_gamma, pairwise ~ madurez, type = "response")
+Comp_DP_mad
+plot(Comp_DP_mad, comparisons = TRUE)
 ```
 
 ## Peso seco semillas
@@ -702,11 +702,11 @@ Anova(modelo_PSS_mad_gamma)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# library(emmeans)
-# library(multcompView)
-# Comp_PSS_mad<-emmeans(modelo_PSS_mad_gamma, pairwise ~ madurez, type = "response")
-# Comp_PSS_mad
-# plot(Comp_PSS_mad, comparisons = TRUE)
+library(emmeans)
+library(multcompView)
+Comp_PSS_mad<-emmeans(modelo_PSS_mad_gamma, pairwise ~ madurez, type = "response")
+Comp_PSS_mad
+plot(Comp_PSS_mad, comparisons = TRUE)
 ```
 
 ## PSSPSF
@@ -778,14 +778,15 @@ library(car)
 Anova(modelo_PSSPSF_mad_gamma)
 
 ```
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# library(emmeans)
-# library(multcompView)
-# Comp_PSSPSF_mad<-emmeans(modelo_PSSPSF_mad_gamma, pairwise ~ madurez, type = "response")
-# Comp_PSSPSF_mad
-# plot(Comp_PSSPSF_mad, comparisons = TRUE)
+library(emmeans)
+library(multcompView)
+Comp_PSSPSF_mad<-emmeans(modelo_PSSPSF_mad_gamma, pairwise ~ madurez, type = "response")
+Comp_PSSPSF_mad
+plot(Comp_PSSPSF_mad, comparisons = TRUE)
 ```
 
 ## Color *L
@@ -799,32 +800,65 @@ data$madurez<-factor(data$madurez,levels=c("Inmaduro", "Medio Maduro", "Maduro",
 
 ```
 
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crea un vector con las variables respuesta
+variables_respuesta <- c("color_L", "color_a", "color_b")
+
+# Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+tablas_list_color <- list()
+graficos_list_color <- list()
+
+library(dplyr)
+
+# Crea un bucle que recorre cada variable respuesta
+for(variable in variables_respuesta) {
+  # Crea la tabla resumen
+  assign(paste0("color_mad_", variable), data %>%
+    dplyr::group_by(madurez) %>%
+    dplyr::summarise(n = n(),
+              Mean = mean(.data[[variable]]),
+              sd = sd(.data[[variable]]))
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_color[[variable]] <- get(paste0("color_mad_", variable))
+
+  # Crea el gráfico
+  library(ggplot2)
+  gg_plot <- ggplot(tablas_list_color[[variable]], aes(x = madurez, y = Mean, color = madurez)) +
+    scale_color_manual(values = c("palegreen4", "yellowgreen", "gold", "gold4")) +
+    stat_summary(fun = "mean", size = 6, geom = "point") +
+    geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.2, position = position_dodge(0.9)) +
+    theme_classic() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "none") +
+    theme(text = element_text(size = 15, color = 'black')) +
+    theme(axis.text = element_text(color = 'black'))
+
+  assign(paste0("mad_gg_color_", variable), gg_plot)
+  
+  # Agrega el gráfico a la lista
+  graficos_list_color[[variable]] <- get(paste0("mad_gg_color_", variable))
+}
+
+# acceder a las tablas y gráficos individuales con tablas_list$ y graficos_list$
+
+```
+
  Descriptive table color_L
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-table_color_L<- data %>%
-  dplyr::group_by(madurez) %>%
-  dplyr::summarise(
-    n =n(),
-    Mean = mean(color_L),
-    min = min(color_L),
-    max = max(color_L),
-    sd = sd(color_L)
-  )
-
-table_color_L
+tablas_list_color$color_L
 
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
-gg_mad_color_L<-ggplot(table_color_L, aes(x=madurez, y=(Mean), color=madurez, fill=madurez)) + 
-  geom_bar(stat="identity", size=.05, color="black",width=.5) +
-  labs(y="", x= "")+
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),width=.05, color="black")+
+graficos_list_color$color_L+
   theme_classic() +
   theme(
     legend.position = "bottom",
@@ -844,24 +878,7 @@ gg_mad_color_L<-ggplot(table_color_L, aes(x=madurez, y=(Mean), color=madurez, fi
   # scale_y_continuous(breaks=seq(0, 50, 5))+
   geom_text(aes(label = round(Mean,2)), vjust = -0.5, hjust = -0.1, size=5)+
   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
-  scale_y_continuous(breaks = seq(0,90, 30), limits = c(0, 90))
-
-gg_mad_color_L
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
- # Relacion media-varianza
-
-# table_color_L$var <- table_color_L$sd^2 #agrego varianza
-# vs<-ggplot(table_color_L, aes(x=Mean, y=var))+geom_point(size=4) +
-#   geom_smooth(method="lm", se = FALSE, color="red", linetype="dashed") + xlab("Media") +
-#   ylab("Varianza") +  ggtitle("Relaci?n media - varianza")+
-#   theme_classic()+
-#   theme(legend.title=element_blank())+
-#   theme(legend.position = "none" )
-# vs
+  scale_y_continuous(breaks = seq(65,75, 2), limits = c(65, 75))
 
 ```
 
@@ -951,27 +968,14 @@ plot(Comp_color_L_mad, comparisons = TRUE) + theme_classic() +
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-table_color_a<- data %>%
-  dplyr::group_by(madurez) %>%
-  dplyr::summarise(
-    Mean = mean(color_a),
-    min = min(color_a),
-    max = max(color_a),
-    sd = sd(color_a)
-  )
-
-table_color_a
+tablas_list_color$color_a
 
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(ggplot2)
-gg_mad_color_a<-ggplot(table_color_a, aes(x=madurez, y=(Mean), color=madurez, fill=madurez)) + 
-  geom_bar(stat="identity", size=.05, color="black",width=.5) +
-  labs(y="", x= "")+
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),width=.05, color="black")+
+
+graficos_list_color$color_a+
   theme_classic() +
   theme(
     legend.position = "bottom",
@@ -993,7 +997,6 @@ gg_mad_color_a<-ggplot(table_color_a, aes(x=madurez, y=(Mean), color=madurez, fi
   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
   scale_y_continuous(breaks = seq(0,10, 2), limits = c(0, 10))
 
-gg_mad_color_a
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -1048,6 +1051,9 @@ QQ_color_a_mad
 
 shapiro.test(color_a_mad_ajuste$residuos)
 
+library(car)
+leveneTest(data$color_a~data$madurez)
+
 ```
 
 Anova
@@ -1071,33 +1077,19 @@ plot(Comp_color_a_mad, comparisons = TRUE) + theme_classic() +
 
 ```
 
-
 ## Color *b
  Descriptive table color_b
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-table_color_b<- data %>%
-  dplyr::group_by(madurez) %>%
-  dplyr::summarise(
-    Mean = mean(color_b),
-    min = min(color_b),
-    max = max(color_b),
-    sd = sd(color_b)
-  )
-
-table_color_b
+tablas_list_color$color_b
 
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
-gg_mad_color_b<-ggplot(table_color_b, aes(x=madurez, y=(Mean), color=madurez, fill=madurez)) + 
-  geom_bar(stat="identity", size=.05, color="black",width=.5) +
-  labs(y="", x= "")+
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),width=.05, color="black")+
+graficos_list_color$color_b+
   theme_classic() +
   theme(
     legend.position = "bottom",
@@ -1119,7 +1111,6 @@ gg_mad_color_b<-ggplot(table_color_b, aes(x=madurez, y=(Mean), color=madurez, fi
   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
   scale_y_continuous(breaks = seq(0,20, 2), limits = c(0, 14))
 
-gg_mad_color_b
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}

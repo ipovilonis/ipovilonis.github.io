@@ -1,0 +1,1474 @@
+---
+title: "Chemical"
+---
+
+```{r pressure, echo=FALSE, fig.cap="A caption", out.width = '100%'}
+knitr::include_graphics("IMG_chem.jpg")
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# fenoles
+
+## Metodología
+# Se muestrearon 10 frutos por genotipo de *Hexachlamys edulis* en 3 poblaciones de Entre Ríos: concordia, PN El palmar y gualeguaychu.
+# La cuantificación de compuestos fenólicos se realizó según la metodología de Makkar *et al*., (1993). Se pesaron 5 gramos de fruta fresca, se homogeneizó la muestra y se diluyó en 50ml de solución extractante metanol 80%. Luego de 24hs la solución fue transferida a tubos conicos para su centrifugado durante 5 minutos a 2500rpm. El tubo queda separado por dos fases marcadas, una líquida y otra sólida en el fondo del tubo.
+# Luego las muestras son transferidas a tubos de ensayo y el volumen llevado a 500 μl con agua desionizada. Se adicionan 250 μl de reactivo Folin-Ciocalteu (1N) y 1,25 ml de solución acuosa de carbonato de sodio decahidratado al 20%.
+# Luego de 40 minutos en oscuridad la absorbancia es medida por espectrofotometría a 725 nm. El contenido de fenoles totales es expresado en mg ácido tánico/100g de peso fresco.
+library(readxl)
+datavq<-read_excel("database.xlsx", sheet="V varqui")
+datavq$year<-as.factor(datavq$year)
+datavq$phenotype<-as.factor(datavq$phenotype)
+datavq$site<-factor(datavq$site,levels=c("concordia", "palmar","gualeguaychu"))
+datavq19Q<-subset(datavq, year == "2019")
+
+```
+
+# ACTIVIDAD ANTI OXIDANTE (aao %) 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resaao25 <- summarySE(datavq19Q, measurevar="aao25", groupvars=c("site","phenotype"), na.rm = TRUE)
+resaao25
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gaao25<-ggplot(data=resaao25, aes(x=phenotype, y=aao25, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=aao25-sd, ymax=aao25+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="Anti Oxidant Activity (0.025)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gaao25
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqaao25 <- datavq19Q[!is.na(datavq19Q$aao25),]
+
+library(lme4)
+library(lmerTest) #Test de Wald
+
+maao25<- lmer(aao25 ~ 1 + (1|site/phenotype), datavqaao25)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# aao25_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(maao25),
+#   "predichos" = predict(maao25)))
+# 
+# aao25_ajuste$aao25 <- datavqaao25$aao25
+# 
+# library(ggplot2)
+# HVaao25<-ggplot(aao25_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVaao25
+# 
+# QQaao25<-ggplot(aao25_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQaao25
+# 
+# e<-resid(maao25) # residuos de pearson
+# # pre<-predict(maao25) #predichos
+# # alfai<-ranef(maao25)$REP$'(Intercept)'
+# shapiro.test(e)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(maao25)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpaao25<-(summary(maao25)$sigma)^2
+phenotypepaao25<-as.numeric(VarCorr(maao25)$"phenotype:site")
+sitepaao25<-as.numeric(VarCorr(maao25)$"site")
+
+ICCfaao25<-FRUpaao25/(FRUpaao25+phenotypepaao25+sitepaao25)
+ICCaaao25<-(phenotypepaao25)/(FRUpaao25+phenotypepaao25+sitepaao25)
+ICCraao25<-sitepaao25/(FRUpaao25+phenotypepaao25+sitepaao25)
+ICCaao25<-performance::icc(maao25)
+  
+ICCfaao25*100
+ICCaaao25*100
+ICCraao25*100
+ICCaao25
+
+# ICCf ----> % entre muestras de una misma phenotypeesión.
+# ICCa ----> % entre phenotypeesiones de una misma siteión.
+# ICCr ----> % entre siteiones.
+# ICC (sitep+phenotypep)/(FRUp+phenotypep+sitep)
+
+#ICC modelo
+#ICCr+ICCa
+
+```
+
+# fenOLES 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resfen <- summarySE(datavq19Q, measurevar="fen", groupvars=c("site","phenotype"), na.rm = TRUE)
+resfen
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gfen<-ggplot(data=resfen, aes(x=phenotype, y=fen, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="PHENOLS")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gfen
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqfen <- datavq19Q[!is.na(datavq19Q$fen),]
+
+library(lme4)
+library(lmerTest)
+
+mfen<- lmer(log(fen) ~ 1 + (1|site/phenotype), datavqfen)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# fen_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mfen),
+#   "predichos" = predict(mfen)))
+# 
+# fen_ajuste$fen <- datavqfen$fen
+# 
+# library(ggplot2)
+# HVfen<-ggplot(fen_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVfen
+# 
+# QQfen<-ggplot(fen_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQfen
+# 
+# e<-resid(mfen) # residuos de pearson
+# # pre<-predict(mfen) #predichos
+# # alfai<-ranef(mfen)$REP$'(Intercept)'
+# shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(mfen)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpfen<-(summary(mfen)$sigma)^2
+phenotypepfen<-as.numeric(VarCorr(mfen)$"phenotype:site")
+sitepfen<-as.numeric(VarCorr(mfen)$"site")
+
+ICCffen<-FRUpfen/(FRUpfen+phenotypepfen+sitepfen)
+ICCafen<-(phenotypepfen)/(FRUpfen+phenotypepfen+sitepfen)
+ICCrfen<-sitepfen/(FRUpfen+phenotypepfen+sitepfen)
+ICCfen<-performance::icc(mfen)
+  
+ICCffen*100
+ICCafen*100
+ICCrfen*100
+ICCfen
+
+```
+
+# CLOROFILA A 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+rescloa <- summarySE(datavq19Q, measurevar="cloa", groupvars=c("site","phenotype"), na.rm = TRUE)
+rescloa
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gcloa<-ggplot(data=rescloa, aes(x=phenotype, y=cloa, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=cloa-sd, ymax=cloa+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="CHLOROPHYLL a")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gcloa
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqcloa <- datavq19Q[!is.na(datavq19Q$cloa),]
+
+library(lme4)
+library(lmerTest)
+
+mcloa<- lmer(sqrt(cloa) ~ 1 + (1|site/phenotype), datavqcloa)
+# library(nlme)
+# mcloa<-lme(sqrt(cloa) ~ 1, random = ~ 1|site/phenotype,
+#             weights=varPower(), datavqcloa)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+# cloa_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mcloa),
+#   "predichos" = predict(mcloa)))
+# 
+# cloa_ajuste$cloa <- datavqcloa$cloa
+# 
+# library(ggplot2)
+# HVcloa<-ggplot(cloa_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVcloa
+# 
+# QQcloa<-ggplot(cloa_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQcloa
+# 
+# e<-resid(mcloa) # residuos de pearson
+# # pre<-predict(mcloa) #predichos
+# # alfai<-ranef(mcloa)$REP$'(Intercept)'
+# shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(mcloa)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpcloa<-(summary(mcloa)$sigma)^2
+phenotypepcloa<-as.numeric(VarCorr(mcloa)$"phenotype:site")
+sitepcloa<-as.numeric(VarCorr(mcloa)$"site")
+
+ICCfcloa<-FRUpcloa/(FRUpcloa+phenotypepcloa+sitepcloa)
+ICCacloa<-(phenotypepcloa)/(FRUpcloa+phenotypepcloa+sitepcloa)
+ICCrcloa<-sitepcloa/(FRUpcloa+phenotypepcloa+sitepcloa)
+ICCcloa<-performance::icc(mcloa)
+  
+ICCfcloa*100
+ICCacloa*100
+ICCrcloa*100
+ICCcloa
+
+```
+
+# CLOROFILA B 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resclob <- summarySE(datavq19Q, measurevar="clob", groupvars=c("site","phenotype"), na.rm = TRUE)
+resclob
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gclob<-ggplot(data=resclob, aes(x=phenotype, y=clob, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=clob-sd, ymax=clob+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="CHLOROPHYLL b")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gclob
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqclob <- datavq19Q[!is.na(datavq19Q$clob),]
+
+library(lme4)
+library(lmerTest)
+
+mclob<- lmer(sqrt(clob) ~ 1 + (1|site/phenotype), datavqclob)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# clob_ajuste <- as.datavq.frame(cbind(
+#   "residuos" = residuals(mclob),
+#   "predichos" = predict(mclob)))
+# 
+# clob_ajuste$clob <- datavqclob$clob
+# 
+# library(ggplot2)
+# HVclob<-ggplot(clob_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVclob
+# 
+# QQclob<-ggplot(clob_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQclob
+# 
+# e<-resid(mclob) # residuos de pearson
+# # pre<-predict(mclob) #predichos
+# # alfai<-ranef(mclob)$REP$'(Intercept)'
+# shapiro.test(e)
+
+# NO OK
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(mclob)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpclob<-(summary(mclob)$sigma)^2
+phenotypepclob<-as.numeric(VarCorr(mclob)$"phenotype:site")
+sitepclob<-as.numeric(VarCorr(mclob)$"site")
+
+ICCfclob<-FRUpclob/(FRUpclob+phenotypepclob+sitepclob)
+ICCaclob<-(phenotypepclob)/(FRUpclob+phenotypepclob+sitepclob)
+ICCrclob<-sitepclob/(FRUpclob+phenotypepclob+sitepclob)
+ICCclob<-performance::icc(mclob)
+  
+ICCfclob*100
+ICCaclob*100
+ICCrclob*100
+ICCclob
+
+```
+
+# CAROTENOIDES 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+rescaro <- summarySE(datavq19Q, measurevar="caro", groupvars=c("site","phenotype"), na.rm = TRUE)
+rescaro
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gcaro<-ggplot(data=rescaro, aes(x=phenotype, y=caro, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=caro-sd, ymax=caro+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="caroTENOIDS")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gcaro
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqcaro <- datavq19Q[!is.na(datavq19Q$caro),]
+
+library(lme4)
+library(lmerTest)
+
+mcaro<- lmer(caro ~ 1 + (1|site/phenotype), datavqcaro)
+
+# library(nlme)
+# mcaro2<- lme((caro) ~ 1, random =∼ 1 | site/phenotype, datavqcaro)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+# caro_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mcaro),
+#   "predichos" = predict(mcaro)))
+# 
+# caro_ajuste$caro <- datavqcaro$caro
+# 
+# library(ggplot2)
+# HVcaro<-ggplot(caro_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVcaro
+# 
+# QQcaro<-ggplot(caro_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQcaro
+# 
+# e<-resid(mcaro) # residuos de pearson
+# # pre<-predict(mcaro) #predichos
+# # alfai<-ranef(mcaro)$REP$'(Intercept)'
+# shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(mcaro)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpcaro<-(0.3869878)^2
+phenotypepcaro<-as.numeric(0.4562013)^2
+sitepcaro<-as.numeric(3.049956e-05)^2
+
+ICCfcaro<-FRUpcaro/(FRUpcaro+phenotypepcaro+sitepcaro)
+ICCacaro<-(phenotypepcaro)/(FRUpcaro+phenotypepcaro+sitepcaro)
+ICCrcaro<-sitepcaro/(FRUpcaro+phenotypepcaro+sitepcaro)
+ICCcaro<-(sitepcaro+phenotypepcaro)/(FRUpcaro+phenotypepcaro+sitepcaro)
+  
+ICCfcaro*100
+ICCacaro*100
+ICCrcaro*100
+ICCcaro
+
+```
+
+# att 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resatt <- summarySE(datavq19Q, measurevar="att", groupvars=c("site","phenotype"), na.rm = TRUE)
+resatt
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gatt<-ggplot(data=resatt, aes(x=phenotype, y=att, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=att-sd, ymax=att+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="TTA")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gatt
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqatt <- datavq19Q[!is.na(datavq19Q$att),]
+
+library(lme4)
+library(lmerTest)
+
+matt<- lmer(log(att) ~ 1 + (1|site/phenotype), datavqatt)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# att_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(matt),
+#   "predichos" = predict(matt)))
+# 
+# att_ajuste$att <- datavqatt$att
+# 
+# library(ggplot2)
+# HVatt<-ggplot(att_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVatt
+# 
+# QQatt<-ggplot(att_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQatt
+# 
+# e<-resid(matt) # residuos de pearson
+# # pre<-predict(matt) #predichos
+# # alfai<-ranef(matt)$REP$'(Intercept)'
+# shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(matt)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpatt<-(summary(matt)$sigma)^2
+phenotypepatt<-as.numeric(VarCorr(matt)$"phenotype:site")
+sitepatt<-as.numeric(VarCorr(matt)$"site")
+
+ICCfatt<-FRUpatt/(FRUpatt+phenotypepatt+sitepatt)
+ICCaatt<-(phenotypepatt)/(FRUpatt+phenotypepatt+sitepatt)
+ICCratt<-sitepatt/(FRUpatt+phenotypepatt+sitepatt)
+ICCatt<-performance::icc(matt)
+  
+ICCfatt*100
+ICCaatt*100
+ICCratt*100
+ICCatt
+
+```
+
+# Carotenoids 3 years
+
+```{r, echo=FALSE,warning = FALSE, message = FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+dataqui<-read_excel("database.xlsx", sheet="V varqui")
+
+dataqui$year<-as.factor(dataqui$year)
+dataqui$site<-factor(dataqui$site,levels=c("concordia", "palmar","gualeguaychu"))
+dataqui$phenotype<-as.factor(dataqui$phenotype)
+
+```
+
+## Descriptive table
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+dataqui<-as.data.frame(dataqui)
+dataqui<-dataqui[-c(429:436),-c(4:5,9:16)]
+dataqui<-na.omit(dataqui)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(dplyr)
+# table_hvcaro<- dataqui %>%
+#   group_by(year) %>%
+#   summarise(
+#     mean = mean(caro),
+#     min = min(caro),
+#     max = max(caro),
+#     sd = sd(caro)
+# )
+# 
+# table_hvcaro
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(ggplot2)
+# colores<-c("coral1","burlywood2","palegreen4")
+# gcaro<-ggplot(data=table_hvcaro, aes(x=site, y=mean, fill=site))+
+#   stat_summary(fun = "mean", size = 1, geom = "bar") +
+#   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
+#                 width=.2, position=position_dodge(.9))+
+#   # facet_grid(.~year)+
+#   labs(x="", y="Carotenoids [µg / g fruit fresh weight]")+
+#   theme_classic()+
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+#   scale_fill_manual(values = colores) +
+#   theme(legend.title=element_blank())+
+#   theme(legend.position='none')+
+#   theme(panel.grid.major.y = element_line(color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='black'))+
+#   theme(axis.text = element_text(color='black'))
+# gcaro
+```
+
+# ratio 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resratio <- summarySE(datavq19Q, measurevar="ratio", groupvars=c("site","phenotype"), na.rm = TRUE)
+resratio
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gratio<-ggplot(data=resratio, aes(x=phenotype, y=ratio, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=ratio-sd, ymax=ratio+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="TTA/TSS")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gratio
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqratio <- datavq19Q[!is.na(datavq19Q$ratio),]
+
+library(lme4)
+library(lmerTest)
+
+mratio<- lmer(log(ratio) ~ 1 + (1|site/phenotype), datavqratio)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# ratio_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mratio),
+#   "predichos" = predict(mratio)))
+# 
+# ratio_ajuste$ratio <- dataratio$ratio
+# 
+# library(ggplot2)
+# HVratio<-ggplot(ratio_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVratio
+# 
+# QQratio<-ggplot(ratio_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQratio
+# 
+# e<-resid(mratio) # residuos de pearson
+# # pre<-predict(mratio) #predichos
+# # alfai<-ranef(mratio)$REP$'(Intercept)'
+# shapiro.test(e)
+
+# NO OK
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(mratio)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpratio<-(summary(mratio)$sigma)^2
+phenotypepratio<-as.numeric(VarCorr(mratio)$"phenotype:site")
+sitepratio<-as.numeric(VarCorr(mratio)$"site")
+
+ICCfratio<-FRUpratio/(FRUpratio+phenotypepratio+sitepratio)
+ICCaratio<-(phenotypepratio)/(FRUpratio+phenotypepratio+sitepratio)
+ICCrratio<-sitepratio/(FRUpratio+phenotypepratio+sitepratio)
+ICCratio<-performance::icc(mratio)
+  
+ICCfratio*100
+ICCaratio*100
+ICCrratio*100
+ICCratio
+
+```
+
+# brix 2019
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resbrix <- summarySE(datavq19Q, measurevar="brix", groupvars=c("site","phenotype"), na.rm = TRUE)
+resbrix
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gbrix<-ggplot(data=resbrix, aes(x=phenotype, y=brix, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=brix-sd, ymax=brix+sd),
+                width=.2, position=position_dodge(.9))+
+  # facet_grid(.~site)+
+  labs(x="", y="TTA/TSS")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gbrix
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datavqbrix <- datavq19Q[!is.na(datavq19Q$brix),]
+
+library(lme4)
+library(lmerTest)
+
+mbrix<- lmer((brix) ~ 1 + (1|site/phenotype), datavqbrix)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+# brix_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mbrix),
+#   "predichos" = predict(mbrix)))
+# 
+# brix_ajuste$brix <- datavqbrix$brix
+# 
+# library(ggplot2)
+# HVbrix<-ggplot(brix_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVbrix
+# 
+# QQbrix<-ggplot(brix_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQbrix
+# 
+# e<-resid(mbrix) # residuos de pearson
+# # pre<-predict(mbrix) #predichos
+# # alfai<-ranef(mbrix)$REP$'(Intercept)'
+# shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+summary(mbrix)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUpbrix<-(summary(mbrix)$sigma)^2
+phenotypepbrix<-as.numeric(VarCorr(mbrix)$"phenotype:site")
+sitepbrix<-as.numeric(VarCorr(mbrix)$"site")
+
+ICCfbrix<-FRUpbrix/(FRUpbrix+phenotypepbrix+sitepbrix)
+ICCabrix<-(phenotypepbrix)/(FRUpbrix+phenotypepbrix+sitepbrix)
+ICCrbrix<-sitepbrix/(FRUpbrix+phenotypepbrix+sitepbrix)
+ICCbrix<-performance::icc(mbrix)
+  
+ICCfbrix*100
+ICCabrix*100
+ICCrbrix*100
+ICCbrix
+
+```
+
+
+## Tabla resumen
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(png)
+library(grid)
+img <- readPNG("varquiICC.png")
+grid.raster(img)
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+```
+
+### Boxplot y dispersión de concentración de fenoles de las tres poblaciones para 2019 y 2021
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estfenvar <- summarySE(datavq, measurevar="fen", groupvars=c("year","site"), na.rm = TRUE)
+estfenvar
+
+estaaovar <- summarySE(datavq, measurevar="aao", groupvars=c("year","site"), na.rm = TRUE)
+estaaovar
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gfen<-ggplot(data=estfenvar, aes(x=year, y=fen, form=year, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~site)+
+  labs(x="Población", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gfen
+```
+*With standar desviation
+
+### Individuos de concordia en ambos años.
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+concordia<-subset(datavq, site == "concordia")
+concordia$year<-as.factor(concordia$year)
+concordia$phenotype<-as.factor(concordia$phenotype)
+concordia$site<-as.factor(concordia$site)
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2","red2")
+
+estcon <- summarySE(concordia, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
+estcon
+
+library(ggplot2)
+g2<-ggplot(data=estcon, aes(x=phenotype, y=fen, form=phenotype, fill=phenotype)) +  
+  scale_fill_manual(values = colorescon)+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="concordia", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+g2
+```
+
+### Individuos del palmar en ambos años.
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+palmar<-subset(datavq, site == "palmar")
+palmar$year<-as.factor(palmar$year)
+palmar$phenotype<-as.factor(palmar$phenotype)
+palmar$site<-as.factor(palmar$site)
+colorespal<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4", "wheat3","khaki","wheat")
+
+estpal <- summarySE(palmar, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
+estpal
+
+library(ggplot2)
+g3<-ggplot(data=estpal, aes(x=phenotype, y=fen, form=phenotype, fill=phenotype)) +  
+  scale_fill_manual(values = colorespal)+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="palmar", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+g3
+```
+### Individuos de gualeguaychu en ambos años.
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+guale<-subset(datavq, site == "gualeguaychu")
+guale$year<-as.factor(guale$year)
+guale$phenotype<-as.factor(guale$phenotype)
+guale$site<-as.factor(guale$site)
+coloresguale<-c("palegreen1","palegreen2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","seagreen","aquamarine2","seagreen3","aquamarine","springgreen3","springgreen2","springgreen1","forestgreen")
+
+estgua <- summarySE(guale, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
+estgua
+
+library(ggplot2)
+g4<-ggplot(data=estgua, aes(x=phenotype, y=fen, fill=phenotype)) +  
+  scale_fill_manual(values = coloresguale)+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="gualeguaychu", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+g4
+```
+
+### Tabla descriptiva
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estF <- summarySE(datavq, measurevar="fen", groupvars=c("year"), na.rm = T)
+estF
+```
+
+## Estadística inferencial
+
+Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.
+
+* Diseño anidado: Población(Genotipo).
+* Análisis univariado de la variable concentración de fenoles.
+* Distribución de probabilidades: Normal.
+* Análisis de componentes de varianza.
+* factores aleatorios: Población y Genotipo
+* factores fijos: año
+
+```{r, echo=FALSE, include = FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Se quitan outliers
+g_caja<-boxplot(datavq$fen, col="green3", frame.plot=F)
+# datavq<-datavq[!(datavq$fen %in% g_caja$out),]
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+
+datavqfen <- datavq[!is.na(datavq$fen),]
+library(lme4)
+library(lmerTest) #Test de Wald
+
+mfen<- lmer(log(fen) ~ 1 + (1|site/phenotype) + (1|year), datavqfen)
+
+```
+
+### Resumen del modelo
+```{r echo=FALSE, warning=FALSE}
+
+summary(mfen)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+# library(nlme)
+# ctrl <- lmeControl(opt='optim');
+# modidentfen <- lme(logb(fen) ~ year, random= ~1 | site/phenotype, weights=varIdent(form=~1|site),control = ctrl, data = datavq)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+```
+
+### Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+e<-resid(mfen) # residuos de pearson
+pre<-predict(mfen) #predichos
+alfai<-ranef(mfen)$phenotype$'(Intercept)'
+par(mfrow = c(1, 3))
+plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gr?fico de dispersi?n de RE vs PRED",cex.main=.8 )
+abline(0,0)
+qqnorm(e, cex.main=.8)
+qqline(e)
+qqnorm(alfai, cex.main=.8)
+qqline(alfai)
+par(mfrow = c(1, 1))
+```
+
+Test de normalidad para muestras biológicas (frutos)
+```{r echo=FALSE, warning=FALSE}
+shapiro.test(e)
+```
+Test de normalidad para genotipos
+```{r echo=FALSE, warning=FALSE}
+shapiro.test(alfai)
+```
+
+```{r echo=FALSE, warning=FALSE}
+# ### Significacion parte fija
+# library(lme4)
+# mF0<- lmer(log(fen) ~ 1 + (1|site/phenotype), datavq)
+# round(anova(mF0,mfen),2)
+```
+
+```{r echo=FALSE, warning=FALSE}
+# Significancia parte aleatoria
+# confint(mfen, level = 0.95, method = c("profile"))
+```
+
+### Conclusiones
+
+```{r echo=FALSE, warning=FALSE}
+report::report(mfen)
+```
+
+El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas significativas entre años.
+
+### ICC del modelo
+```{r echo=FALSE, warning=FALSE}
+library(sjstats)
+performance::icc(mfen)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+#Calculo manual ICC
+
+phenotypep<-0.13862
+sitep<-0.01395 
+FRUp<-0.15411
+
+ICCf<-FRUp/(FRUp+phenotypep+sitep)
+ICCa<-phenotypep/(FRUp+phenotypep+sitep)
+ICCr<-sitep/(FRUp+phenotypep+sitep)
+
+ICCf #0.6422508 ----> 50,3% entre muestras de una misma phenotypeesión.
+ICCa #0.2988115 ----> 45,2% entre phenotypeesiones de una misma siteión.
+ICCr #0.05893767 ----> 4,5% entre siteiones.
+
+#ICC modelo
+# ICCr+ICCa #49.8%
+
+
+```
+
+----> 50,3% entre muestras de una misma phenotypeesión.
+----> 45,2% entre phenotypeesiones de una misma siteión.
+----> 4,5% entre siteiones.
+
+ICC del modelo = 0.497
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+sjPlot::tab_model(mfen)
+
+# Próximas variables
+
+# * Actividad anti Oxidante
+# * carotenoides
+# * Clorofilas
+# * pH
+# * Sólidos solubles (°brix)
+# * Acidez total titulable (att)
+
+```
+
+# Acidez total titulable (att)
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+dataacso<-read_excel("database.xlsx", sheet="V acidezsolidos")
+dataacso$year<-as.factor(dataacso$year)
+dataacso$phenotype<-as.factor(dataacso$phenotype)
+dataacso$site<-factor(dataacso$site,levels=c("concordia", "palmar","gualeguaychu"))
+dataacso$ph7=as.numeric(dataacso$ph7)
+dataacso$mad<-as.factor(dataacso$mad)
+dataacso21<-subset(dataacso, year == "2021")
+dataacso19<-subset(dataacso, year == "2019")
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resatt <- summarySE(dataacso, measurevar="ac", groupvars=c("year","site"), na.rm = TRUE)
+resatt
+
+library(ggplot2)
+colores<-c("coral1","burlywood2")
+gatt<-ggplot(data=resatt, aes(x=year, y=ac, fill=year))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=ac-sd, ymax=ac+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~site)+
+  labs(x="Población", y="att %")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gatt
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resatt21 <- summarySE(dataacso21, measurevar="ac", groupvars=c("site"), na.rm = TRUE)
+resatt21
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","green2")
+gatt<-ggplot(data=resatt21, aes(x=site, y=ac, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=ac-sd, ymax=ac+sd),
+                width=.2, position=position_dodge(.9))+
+  #facet_grid(.~site)+
+  labs(x="Población", y="att %")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gatt
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo<-lm(data=dataacso, ac~site)
+anova(modelo)
+
+```
+
+```{r echo=FALSE, warning=FALSE}
+
+# datafen <- dataacso[!is.na(data$fen),]
+library(lme4)
+library(lmerTest) #Test de Wald
+
+modelo2<- lmer(ac ~ 1 + (1|site/phenotype) + (1|year), dataacso)
+
+```
+
+# brix
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resbrix <- summarySE(dataacso, measurevar="brix", groupvars=c("phenotype", "year"), na.rm = TRUE)
+resbrix
+
+library(ggplot2)
+
+gbrix<-ggplot(data=resbrix, aes(x=phenotype, y=brix, fill=year))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar") +
+  geom_errorbar(aes(ymin=brix-sd, ymax=brix+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(year~.)+
+  labs(x="phenotype", y="° brix")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = c("coral1","burlywood2")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gbrix
+
+```
+
+
+```{r echo=FALSE, warning=FALSE}
+
+# dataacsofen <- dataacso[!is.na(dataacso$fen),]
+library(lme4)
+library(lmerTest) #Test de Wald
+
+modelo2<- lmer(brix ~ year + (1|site/phenotype), dataacso)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+resbrix <- summarySE(dataacso, measurevar="brix", groupvars=c("phenotype"), na.rm = TRUE)
+resbrix
+
+library(ggplot2)
+
+gcor<-ggplot(data=dataacso, aes(x=ac, y=brix, color=year, shape=phenotype))+
+  geom_point()+
+  # facet_grid(.~site)+
+  labs(x="Acidez %", y="° brix")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = c("coral1","green2")) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gcor
+
+```

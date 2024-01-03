@@ -17,7 +17,7 @@ output:
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
-datap<-read.delim("CHac.txt")
+datap<-read_excel("database.xlsx", sheet = "mad_CHac")
 datap$CAR <- factor(datap$CAR,
                    levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
                               "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru", "ATT"),
@@ -912,7 +912,7 @@ agua destilada y 2,0 g de yodo llevados a 1 litro.
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-ALMI<-read.delim("ALMI.txt")
+ALMI<-read_excel("database.xlsx", sheet = "mad_Almi")
 ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
 
 library(ggplot2)
@@ -1082,7 +1082,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-ALMI<-read.delim("ALMI.txt")
+ALMI<-read_excel("database.xlsx", sheet = "mad_Almi")
 ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
 
 library(ggplot2)

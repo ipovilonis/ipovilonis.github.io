@@ -1,0 +1,820 @@
+---
+title: "Reproductive"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+```{r pressure, echo=FALSE, fig.cap="Flor de Ubajay", out.width = '100%'}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+knitr::include_graphics("DSCN6196.jpg")
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Importamos la base de datos desde excel
+library(readxl)
+repvars<- read_excel("database.xlsx", sheet="V repvars")
+
+# Asignamos correctamente a cada variable la clase que le corresponde y ordenamos niveles.
+repvars$year<-as.factor(repvars$year)
+repvars$site<-factor(repvars$site,levels=c("concordia", "palmar","gualeguaychu"))
+repvars$phenotype<-as.factor(repvars$phenotype)
+repvars$id<-as.factor(repvars$id)
+repvars$polen_type<-as.factor(repvars$polen_type)
+
+# Creamos una tabla por cada variable. Filtrado de filas.
+library(dplyr)
+tabla_psf2<-repvars %>% dplyr::filter(variable == "data_psf")
+tabla_ovulos2<-repvars %>% dplyr::filter(variable == "data_novu")
+tabla_polen2<-repvars %>% dplyr::filter(variable == "data_pole")
+
+# Creamos una tabla por cada variable. Filtrado de columnas.
+tabla_psf<-tabla_psf2[,c(2:4,9:10)]
+tabla_ovulos<-tabla_ovulos2[,c(2:4,8,10)]
+tabla_polen<-tabla_polen2[,c(2:7,10)]
+
+# Usamos una función para fusionar los datos (full_join)
+# tabla_2<- dplyr::full_join(tabla_ovulos, tabla_psf,  by = c("year","site", "phenotype","id"))
+# database<- dplyr::full_join(tabla_polen, tabla_2, by = c("year","site", "phenotype","id"))
+# Como se pierden datos usamos otra opción para combinar las tablas (merge())
+tabla_3<-merge(x=tabla_psf, y=tabla_ovulos, by = c("year","site","phenotype","id"), all.x = TRUE, all.y = TRUE, type = "outer")
+database<-merge(x=tabla_3, y=tabla_polen, by = c("year","site","phenotype","id"), all.x = TRUE, all.y = TRUE, type = "outer")
+
+# Exportar tabla:
+# write.table(database, file = "++completa.csv", sep = ",", row.names = FALSE)
+
+```
+
+# Peso seco de la flor
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#En mg
+database$ps_flor<-(database$ps_flor)*1000
+
+library(dplyr)
+table_ps_flor <- database %>%
+  dplyr::group_by(site,year) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(na.omit(ps_flor)),
+    min = min(na.omit(ps_flor)),
+    max = max(na.omit(ps_flor)),
+    sd = sd(na.omit(ps_flor))
+  )
+
+library(knitr)
+kable(table_ps_flor, format = "markdown")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+ggplot(data=table_ps_flor, aes(x=year, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.5))+
+  facet_grid(.~site)+
+  theme_classic()+
+  labs(y="ps_flor mg",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+
+```
+
+## PSF Concordia
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+concordia_bd<- database %>% dplyr::filter(database$site == "concordia")
+
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","orange","red3","tan","orange2","red4","tan2","orange3")
+library(ggplot2)
+g2c<-ggplot(data=concordia_bd, aes(x=phenotype, y=ps_flor, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="ps_flor") +
+  scale_color_manual(values = colorescon) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="ps_flor",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g2c
+```
+
+## PSF Palmar
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+palmar_bd<- database %>% dplyr::filter(database$site == "palmar")
+
+colorespalmar<-c("burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4","yellow3","yellow2")
+library(ggplot2)
+
+g2p<-ggplot(data=palmar_bd, aes(x=phenotype, y=ps_flor, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="ps_flor") +
+  scale_color_manual(values = colorespalmar) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="ps_flor",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g2p
+```
+
+## PSF Gualeguaychu
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+guale_bd<- database %>% dplyr::filter(database$site == "gualeguaychu")
+
+coloresguale<-c("palegreen1","yellow4","palegreen2","green2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","aquamarine2","aquamarine","springgreen3","springgreen2","springgreen1","green3","#345532","#345511")
+
+library(ggplot2)
+g2g<-ggplot(data=guale_bd, aes(x=phenotype, y=ps_flor, form=site, colour=phenotype)) +  
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +        labs(y="ps_flor") +
+  scale_color_manual(values = coloresguale) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="ps_flor",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g2g
+```
+
+## Estadística inferencial ps_flor
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+library(lmerTest)
+
+modelo_psf2 <- lmer(ps_flor ~ year + (1|site/phenotype), database)
+
+library(nlme)
+
+modelo_psf <- glm((ps_flor) ~ year, family = "Gamma", data = database)
+
+
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+pff_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_psf),
+  "predichos" = predict(modelo_psf)))
+
+library(ggplot2)
+HVpff<-ggplot(pff_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQpff<-ggplot(pff_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQpff
+
+e<-resid(modelo_psf) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+
+```{r echo=FALSE, warning=FALSE}
+
+
+## Estadística inferencial
+
+# Comparación interpoblacional e intrapoblacional para los años 2019 y 2021.
+# 
+# Diseño anidado: Población(Genotipo)
+# Análisis univariado de la variable N° de óvulos.
+# Distribución de probabilidades: Poisson.
+# Análisis de componentes de varianza.
+# factores aleatorios: Población y Genotipo
+# factores fijos: año
+
+# library(lme4)
+# m1 <- glmer(O ~  1 + (1|REG/site), data =data, family = poisson)
+# m2 <- glmer(O ~  A + (1|REG/site), data=data, family = poisson)
+# #Supuestos
+# e1 <- resid(m2, type = "pearson")
+# n  <- nrow(data)
+# k  <- length(fixef(m2)) + 1 #parametros estimados; se suma varianza(colmenas)
+# dispersion <- sum(e1^2) / (n - k)
+# #df.residual(m2)
+# library(lattice)
+# #dotplot(ranef(m2, condVar = TRUE))
+# 
+# anova(m2)
+# 
+# library(emmeans)
+# Comp2<-emmeans(m2, pairwise ~ A, type = "response") 
+# confint(Comp2)
+# plot(Comp2)
+# 
+# #summary(m2)
+# # RA<-0.13101
+# # A<-0.04313
+# # ICCRA<-RA/(RA+A)
+# # ICCA<-A/(RA+A)
+# library(sjstats)
+# performance::icc(m2)
+# 1-0.089
+
+
+# Conclusiones:
+# 
+# Se observan diferencias significativas entre años p = 0.000243 ***
+# El año 2021 tuvo 4.97 óvulos/flor en promedio mientras que el 2019 tuvo 4,37
+# 
+# Un 91,1% de la variabilidad está explicada por flores dentro de un mismo genotipo (ICC=8,9%)
+# 
+
+summary(modelo_psf)
+
+```
+
+
+# Conteo de óvulos
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_n_ovu <- tabla_ovulos %>%
+  dplyr::group_by(site,year) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(na.omit(n_ovu)),
+    min = min(na.omit(n_ovu)),
+    max = max(na.omit(n_ovu)),
+    sd = sd(na.omit(n_ovu))
+  )
+
+library(knitr)
+kable(table_n_ovu, format = "markdown")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gg_novu <- ggplot(data=table_n_ovu, aes(x=year, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.5))+
+  facet_grid(.~site)+
+  theme_classic()+
+  labs(y="n_ovu",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+gg_novu
+```
+
+## N° Óvulos Concordia
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+concordia_bd<- database %>% dplyr::filter(database$site == "concordia")
+
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","orange","red3","tan","orange2","red4","tan2","orange3")
+library(ggplot2)
+g3c<-ggplot(data=concordia_bd, aes(x=phenotype, y=n_ovu, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="n_ovu") +
+  scale_color_manual(values = colorescon) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="n_ovu",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g3c
+```
+
+## N° Óvulos Palmar
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+palmar_bd<- database %>% dplyr::filter(database$site == "palmar")
+
+colorespalmar<-c("burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4","yellow3","yellow2")
+library(ggplot2)
+
+g3p<-ggplot(data=palmar_bd, aes(x=phenotype, y=n_ovu, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="n_ovu") +
+  scale_color_manual(values = colorespalmar) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="n_ovu",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+  expand_limits(y = 0) 
+g3p
+```
+
+## N° Óvulos Gualeguaychú
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+guale_bd<- database %>% dplyr::filter(database$site == "gualeguaychu")
+
+coloresguale<-c("palegreen1","yellow4","palegreen2","green2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","aquamarine2","aquamarine","springgreen3","springgreen2","springgreen1","green3","#345532","#345511")
+
+library(ggplot2)
+g3g<-ggplot(data=guale_bd, aes(x=phenotype, y=n_ovu, form=site, colour=phenotype)) +  
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +        labs(y="n_ovu") +
+  scale_color_manual(values = coloresguale) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="n_ovu",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g3g
+```
+
+## Estadística inferencial Conteo de óvulos
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Eliminar NA del conjunto de datos
+database2 <- database[,-c(5,7:9)]
+database2_ovu <- na.omit(database2)
+
+library(nlme)
+f1 <- formula(n_ovu ~ 1)
+modelo_n_ovu <- lme(f1, random =~1 | site / phenotype, data = database2_ovu)
+# , family = poisson
+library(nlme)
+
+modelo_n_ovu2 <- glmer(n_ovu ~ (1|site/phenotype/id), data =database, family = poisson)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+pff_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_n_ovu2),
+  "predichos" = predict(modelo_n_ovu2)))
+
+library(ggplot2)
+HVpff<-ggplot(pff_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQpff<-ggplot(pff_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQpff
+
+# e<-resid(modelo_psf) # residuos de pearson
+# # pre<-predict(mpff) #predichos
+# # alfai<-ranef(mpff)$REP$'(Intercept)'
+# shapiro.test(e)
+
+#Supuestos
+#parametro de sobredispersion
+e1 <- resid(modelo_n_ovu2, type = "pearson")
+n  <- nrow(database)
+k  <- length(fixef(modelo_n_ovu2)) + 1 #parametros estimados; se suma varianza(colmenas)
+dispersion <- sum(e1^2) / (n - k)
+dispersion
+# df.residual(modelo_n_ovu)
+
+# OK
+
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_n_ovu2
+
+```
+
+
+# Diámetro de polen
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Creamos una nueva variable de diámetro medio de polen
+database$pol_mean <- (database$max_polen+database$min_polen)/2
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_pol_mean <- database %>%
+  dplyr::group_by(site,year) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(na.omit(pol_mean)),
+    min = min(na.omit(pol_mean)),
+    max = max(na.omit(pol_mean)),
+    sd = sd(na.omit(pol_mean))
+  )
+
+
+library(knitr)
+kable(table_pol_mean, format = "markdown")
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gg_polger <- ggplot(data=table_pol_mean, aes(x=year, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.5))+
+  facet_grid(.~site)+
+  theme_classic()+
+  labs(y="pol_mean",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gg_polger
+
+```
+
+## Díametro de polen Concordia
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+concordia_bd<- database %>% dplyr::filter(database$site == "concordia")
+
+colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","orange","red3","tan","orange2","red4","tan2","orange3")
+library(ggplot2)
+g3c<-ggplot(data=concordia_bd, aes(x=phenotype, y=pol_mean, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="pol_mean") +
+  scale_color_manual(values = colorescon) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="pol_mean",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g3c
+```
+
+## Díametro de polen Palmar
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+palmar_bd<- database %>% dplyr::filter(database$site == "palmar")
+
+colorespalmar<-c("burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4","yellow3","yellow2")
+library(ggplot2)
+
+g3p<-ggplot(data=palmar_bd, aes(x=phenotype, y=pol_mean, form=site, colour=phenotype))+
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +       labs(y="pol_mean") +
+  scale_color_manual(values = colorespalmar) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="pol_mean",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+  expand_limits(y = 0) 
+g3p
+```
+
+## Díametro de polen Gualeguaychú
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+guale_bd<- database %>% dplyr::filter(database$site == "gualeguaychu")
+
+coloresguale<-c("palegreen1","yellow4","palegreen2","green2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","aquamarine2","aquamarine","springgreen3","springgreen2","springgreen1","green3","#345532","#345511")
+
+library(ggplot2)
+g3g<-ggplot(data=guale_bd, aes(x=phenotype, y=pol_mean, form=site, colour=phenotype)) +  
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  + geom_jitter(width=0.3) +        labs(y="pol_mean") +
+  scale_color_manual(values = coloresguale) +
+  facet_grid(.~year)+
+  theme_classic()+
+  labs(y="pol_mean",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+g3g
+```
+
+# Correlación Dmax y Dmin polen
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# colores_dp<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","orange","red3","tan","orange2","red4","tan2","orange3","burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4","yellow3","yellow2","palegreen1","yellow4","palegreen2","green2","palegreen3","green","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","aquamarine2","aquamarine","springgreen3","springgreen2","springgreen1","green3","#345532","#345511")
+
+library(ggplot2)
+disp_polen<-ggplot(data=database, aes(x=min_polen, y=max_polen, color=polen_type, shape=polen_type)) +   geom_point(size=5)+
+  scale_color_manual(values = c("green","blue")) +
+  # facet_grid(.~year)+
+  theme_classic()+
+  labs(y="polen_max",x="polen_min")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position="bottom")+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+disp_polen
+```
+
+# Correlación PSF y DP
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Crear taba resumen psf y polen_mean
+
+tabla_pheno_psf <- database %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(Mean_psf = mean(na.omit(ps_flor)))
+
+tabla_pheno_polen <- database %>%
+  dplyr::group_by(year,site,phenotype) %>%
+  dplyr::summarise(Mean_polen=mean(na.omit(pol_mean)))
+
+tabla_pheno <- tabla_pheno_psf
+tabla_pheno$Mean_polen <- tabla_pheno_polen$Mean_polen
+tabla_pheno$Mean_psf <- tabla_pheno$Mean_psf*1000
+
+library(ggplot2)
+disp_polen2<-ggplot(data=tabla_pheno, aes(x=Mean_psf, y=Mean_polen, color=year, shape=site)) +
+  geom_point(size=5)+
+  scale_color_manual(values = c("maroon4","dodgerblue4","deeppink")) +
+  # facet_grid(.~year)+
+  theme_classic()+
+  labs(x="Peso seco flor (mg)",y="Diámetro medio de polen")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  theme(legend.title=element_blank())+
+  theme(legend.position="bottom")+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+disp_polen2
+```
+
+
+# Multivariado
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Creamos una nueva base de datos sin lo que no es numérico
+
+data_pca <- database[,-c(1:4,7:9)]
+
+library(FactoMineR)
+
+pca <- PCA(data_pca)
+
+# • fviz_pca_ind() -> Representación de observaciones sobre componentes principales.
+# 
+# • fviz_pca_var() -> Representación de variables sobre componentes principales.
+# 
+# • fviz_screeplot() -> Representación (gráfico barras) de eigenvalores.
+# 
+# • fviz_contrib() -> Representa la contribución de filas/columnas de los resultados de un pca.
+
+```
+
+# Germiación de polen (2019)
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+polen_ger<- read_excel("database.xlsx", sheet="V polen_ger")
+polen_ger$site<-factor(polen_ger$site,levels=c("concordia", "palmar","gualeguaychu"))
+polen_ger$phenotype<-as.factor(polen_ger$phenotype)
+polen_ger$polen_ratio<-(polen_ger$germinated/(polen_ger$not_germinated+polen_ger$aborted))
+
+library(dplyr)
+table_polen_ger <- polen_ger %>%
+  dplyr::group_by(site) %>%
+  dplyr::summarise(
+    n = n(),
+    Mean = mean(na.omit(polen_ratio)),
+    min = min(na.omit(polen_ratio)),
+    max = max(na.omit(polen_ratio)),
+    sd = sd(na.omit(polen_ratio))
+  )
+
+
+library(knitr)
+kable(table_polen_ger, format = "markdown")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gg_polenr <- ggplot(data=table_polen_ger, aes(x=site, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  # geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+  #               width=.2, position=position_dodge(.5))+
+  theme_classic()+
+  labs(y="polen_ratio",x=NULL)+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+gg_polenr 
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+colores<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","burlywood1","yellow","burlywood2","yellow4","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","palegreen1","yellow4","palegreen2","green2","palegreen3","palegreen4","palegreen")
+
+pol_gg<-ggplot(data=polen_ger, aes(x=phenotype, y=polen_ratio, form=site,     colour=phenotype)) +  
+  stat_summary(fun = "mean", size = 1, geom = "bar", fill="lightgrey", lwd = 1.5)  +   geom_jitter(width=0.3) +        labs(y="polen_ratio") +
+  scale_color_manual(values = colores) +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+
+pol_gg
+```

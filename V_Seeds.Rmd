@@ -1,0 +1,218 @@
+---
+title: "Seeds"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+# Seed number per fruit
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+fisico<- read_excel("database.xlsx", sheet="V fisico")
+
+fisico$year<-as.factor(fisico$year)
+fisico$phenotype<-as.factor(fisico$phenotype)
+fisico$site<-factor(fisico$site,levels=c("concordia", "palmar","gualeguaychu"))
+fisico$n<-as.factor(fisico$n)
+fisico$pss<-as.numeric(fisico$pss)
+fisico$mad<-factor(fisico$mad,levels=c("I", "MM","M","SM"))
+# data19F<-subset(fisico, year == "2019")
+
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Se eliminan filas vacias (NAs)
+fisicosn<-na.omit(fisico[,c(1:4,9,11)])
+fisicosnm<-subset(fisicosn, mad == c("M","SM"))
+
+library(Rmisc)
+resns <- summarySE(fisicosn, measurevar="ns", groupvars=c("year","site"), na.rm = TRUE)
+resns
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gns<-ggplot(data=resns, aes(x=site, y=ns, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=ns-sd, ymax=ns+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="", y="Seed number")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gns
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# datans <- data19F[!is.na(data19F$ns),]
+# 
+# 
+# library(glmmTMB)
+# mns<- glmmTMB((ns) ~ 1 + (1|site/phenotype), data19F, family="compois")
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# summary(mns)
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+# FRUpns<-(summary(mns)$sigma)^2
+# phenotypepns<-0.01333
+# sitepns<-1.199e-10
+# 
+# ICCfns<-FRUpns/(FRUpns+phenotypepns+sitepns)
+# ICCans<-(phenotypepns)/(FRUpns+phenotypepns+sitepns)
+# ICCrns<-sitepns/(FRUpns+phenotypepns+sitepns)
+# ICCns<-ICCans-ICCrns
+#   
+# ICCfns*100
+# ICCans*100
+# ICCrns*100
+# ICCns
+
+```
+
+# Dry seed weight
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Se eliminan filas vacias (NAs)
+fisicopss<-na.omit(fisico[,c(1:4,9,12)])
+fisicopssm<-subset(fisicopff, mad == c("M","SM"))
+
+library(Rmisc)
+respss <- summarySE(fisicopss, measurevar="pss", groupvars=c("year","site"), na.rm = TRUE)
+respss
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gpss<-ggplot(data=respss, aes(x=site, y=pss, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=pss-sd, ymax=pss+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="", y="Dry seed weight [g]")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gpss
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+library(lmerTest)
+
+mpss<- lmer(sqrt(pss) ~ 1 + (1|site/phenotype)*year, fisicopss)
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+pss_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mpss),
+  "predichos" = predict(mpss)))
+
+pss_ajuste$pss <- fisicopss$pss
+
+library(ggplot2)
+HVpss<-ggplot(pss_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpss
+
+QQpss<-ggplot(pss_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQpss
+
+e<-resid(mpss) # residuos de pearson
+# pre<-predict(mpss) #predichos
+# alfai<-ranef(mpss)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(mpss)
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUppss<-(summary(mpss)$sigma)^2
+phenotypeppss<-as.numeric(VarCorr(mpss)$"phenotype:site")
+siteppss<-as.numeric(VarCorr(mpss)$"site")
+
+ICCfpss<-FRUppss/(FRUppss+phenotypeppss+siteppss)
+ICCapss<-(phenotypeppss)/(FRUppss+phenotypeppss+siteppss)
+ICCrpss<-siteppss/(FRUppss+phenotypeppss+siteppss)
+ICCpss<-performance::icc(mpss)
+
+ICCfpss*100
+ICCapss*100
+ICCrpss*100
+ICCpss
+
+```

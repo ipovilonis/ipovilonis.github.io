@@ -1,0 +1,79 @@
+---
+title: "Phenotypes"
+output: html_document
+---
+
+## Cast
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(readxl)
+library(ggplot2)
+
+dataCAR<-read_excel("database.xlsx", sheet = "II caracterizacion")
+dataCAR$phenotype<-as.factor(dataCAR$phenotype)
+dataCAR$site<-factor(dataCAR$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+
+datashow<-dataCAR[,-c(1,2)]
+
+dataCAR
+```
+
+```{r, echo=FALSE}
+
+# library(shiny)
+# 
+# inputPanel(
+#   selectInput("variable", label = "Variable: ",
+#               choices = colnames(datashow), selected = "dbh")
+# )
+# 
+# renderPlot({
+#   plot0<-ggplot(dataCAR, aes_string(x=dataCAR$phenotype, y=input$variable, color=dataCAR$site))+
+#     geom_point(size=5)+
+#     theme_classic()+
+#     scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
+#     theme(plot.margin = margin(0.25, 0.5, 0.25, 0.5, "cm"), #ajustar los margenes del gráfico
+#         panel.background = element_rect(fill = "gray100", colour = "gray100", size = 2, linetype = "solid"), #fondo del gráfico
+#         panel.grid.major = element_line(size = 0.25, linetype = 'solid', colour = "gray80"), #lineas del gráfico
+#         panel.grid.minor = element_line(size = 0.25, linetype = 'solid', colour = "gray90"), #líneas auxiliares
+#         title=element_text(size=25, face = "bold"), #tamaño de titulo del mapa
+#         legend.key.size = unit(0.4, "cm"), #alto de cuadrados de referencia
+#         legend.key.width = unit(0.5,"cm"), #ancho de cuadrados de referencia 
+#         legend.position="top", #ubicacion de leyenda
+#         legend.direction = "horizontal", #dirección de la leyenda
+#         legend.title=element_text(size=10, face = "bold"), #tamaño de titulo de leyenda
+#         legend.text=element_text(size=8), #tamaño de texto de leyenda
+#         plot.caption=element_text("none"), #tamaño de nota al pie: face = "italic", colour = "gray35",size=6
+#         axis.title = element_text("none"), #tamaño y color de referencias de ejes X e Y
+#         panel.grid.major.x = element_blank(),
+#         axis.text.x = element_text(colour = "black",size = 20, angle = 90), #tamaño y color del texto de eje X
+#         axis.text.y = element_text(colour = "black",size = 20)) #tamaño y color del texto de eje Y
+#   plot0
+#     
+
+# })
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE}
+
+# library(shiny)
+# 
+# inputPanel(
+#   selectInput("accesion", label = "Phenotype: ",
+#               choices = dataCAR$phenotype, selected = "290")
+# )
+# 
+# renderPrint({
+#     
+# 
+# })
+
+```

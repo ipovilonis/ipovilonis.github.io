@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Colorimetry</title>
+
+<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">I Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    II Sitios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_Companionspecies.html">Especies asociadas</a>
+    </li>
+    <li>
+      <a href="II_Meteorological.html">Meteorologia</a>
+    </li>
+    <li>
+      <a href="II_Climate.html">Clima</a>
+    </li>
+    <li>
+      <a href="II_Soil.html">Suelos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    III Fenología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="III_Phenology.html">Fenología</a>
+    </li>
+    <li>
+      <a href="III_Yield.html">Rendimiento</a>
+    </li>
+    <li>
+      <a href="III_Polinization.html">Polinización</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    IV Maduración
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mad_resume.html">Tablas resumen</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Atributos físicos</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Actividad antioxidante</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Ácidos orgánicos</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohidratos</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Fibra dietaria</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cationes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    V Variabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V_Weight.html">Peso</a>
+    </li>
+    <li>
+      <a href="V_Diameter.html">Diámetro</a>
+    </li>
+    <li>
+      <a href="V_Seeds.html">Semillas</a>
+    </li>
+    <li>
+      <a href="V_Colorimetry.html">Colorimetría</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_phenols.html">Fenoles</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Reproductive.html">Variables reproductivas</a>
+    </li>
+    <li>
+      <a href="V_Branches.html">Eficiencia reproductiva</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Multivariate.html">Multivariado</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Otros ensayos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Genetics.html">Extracción de ADN</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extración química</a>
+    </li>
+    <li>
+      <a href="q2022_quimico.html">Variables químicas 2022</a>
+    </li>
+    <li>
+      <a href="secado.html">Secado</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Publicaciones</a>
+</li>
+<li>
+  <a href="about.html">Sobre el sitio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Colorimetry</h1>
+
+</div>
+
+
+<pre><code>## &lt;environment: 0x0000022c2636c2e0&gt;</code></pre>
+<p>Colorimetry quantified in 4 states of ripeness: Immature (I), Medium
+Ripe (MM), Ripe (M), Overripe (SM).</p>
+<p>In 3 populations of Entre Rios: Concordia, PN El Palmar, and
+Gualeguaychú.</p>
+<p>CieLab scale: color_L: luminosity +a: red -a: green +b: yellow -b:
+blue</p>
+<p>3NH NH300 digital colorimeter.</p>
+<div id="descriptive-statistics." class="section level1">
+<h1>Descriptive statistics.</h1>
+<pre><code>##            site mad   N  color_L       sd        se        ci
+## 1     concordia   I 306 55.70627 7.331983 0.4191416 0.8247752
+## 2     concordia  MM  84 61.31595 5.053207 0.5513501 1.0966131
+## 3     concordia   M 102 64.95804 4.488316 0.4444095 0.8815888
+## 4     concordia  SM 106 55.32736 6.776779 0.6582189 1.3051266
+## 5        palmar   I  72 49.26389 7.607176 0.8965142 1.7875986
+## 6        palmar  MM  80 56.03475 5.200154 0.5813949 1.1572375
+## 7        palmar   M  72 58.81667 4.848187 0.5713643 1.1392681
+## 8        palmar  SM 130 52.71785 5.884998 0.5161485 1.0212124
+## 9  gualeguaychu   I 388 46.34812 7.061905 0.3585139 0.7048788
+## 10 gualeguaychu  MM 104 55.85625 6.767078 0.6635665 1.3160277
+## 11 gualeguaychu   M  52 60.52885 5.385343 0.7468128 1.4992892
+## 12 gualeguaychu  SM  12 57.17667 4.928305 1.4226790 3.1312955</code></pre>
+<pre><code>##            site mad   N   color_a       sd        se        ci
+## 1     concordia   I 306 -6.159771 4.805075 0.2746878 0.5405231
+## 2     concordia  MM  84  1.219048 6.096628 0.6651966 1.3230493
+## 3     concordia   M 102 13.291078 8.108201 0.8028315 1.5926018
+## 4     concordia  SM 106 16.553585 3.776475 0.3668037 0.7273040
+## 5        palmar   I  72 -2.531667 6.363430 0.7499374 1.4953328
+## 6        palmar  MM  80  5.071250 5.570229 0.6227706 1.2395938
+## 7        palmar   M  72 12.211250 5.950883 0.7013183 1.3983891
+## 8        palmar  SM 130 18.040538 5.757659 0.5049801 0.9991155
+## 9  gualeguaychu   I 388 -3.955670 6.205523 0.3150377 0.6193996
+## 10 gualeguaychu  MM 104  2.273750 6.134840 0.6015706 1.1930733
+## 11 gualeguaychu   M  52 10.947692 5.677261 0.7872944 1.5805596
+## 12 gualeguaychu  SM  12 12.724167 6.429948 1.8561660 4.0853938</code></pre>
+<pre><code>##            site mad   N  color_b        sd        se        ci
+## 1     concordia   I 306 38.90843  9.216657 0.5268812 1.0367823
+## 2     concordia  MM  84 51.07631  8.644406 0.9431821 1.8759512
+## 3     concordia   M 102 57.98422  5.942601 0.5884052 1.1672376
+## 4     concordia  SM 106 46.67236  9.816968 0.9535083 1.8906307
+## 5        palmar   I  72 33.68236 10.770910 1.2693639 2.5310398
+## 6        palmar  MM  80 42.26034 10.623029 1.1876907 2.3640393
+## 7        palmar   M  72 48.77736  8.063662 0.9503117 1.8948678
+## 8        palmar  SM 130 43.39446 10.224225 0.8967239 1.7741901
+## 9  gualeguaychu   I 388 29.73510  9.220129 0.4680811 0.9203003
+## 10 gualeguaychu  MM 104 43.43865 10.368238 1.0166894 2.0163636
+## 11 gualeguaychu   M  52 52.05827  8.931949 1.2386384 2.4866704
+## 12 gualeguaychu  SM  12 47.32083  9.531829 2.7516021 6.0562355</code></pre>
+<div id="bar-plots" class="section level2">
+<h2>Bar plots</h2>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Density (frequency) of values found for the 4 maturity states with
+average.
+<img src="V_Colorimetry_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" />
+Table of average color by maturity.</p>
+<pre><code>##   Lmu.mad Lmu.grp.mean amu.grp.mean bmu.grp.mean
+## 1       I     50.36056    -4.702311     33.77067
+## 2      MM     57.62078     2.778246     45.48081
+## 3       M     61.98239    12.407876     53.68757
+## 4      SM     54.04895    17.147742     44.98548</code></pre>
+<p>Density (frequency) of values found for the 4 maturity states with
+Line of highest frequency.</p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" />
+Table of most frequent color by maturity.</p>
+<pre><code>##        Lcm        acm      bcm
+## 1 51.37369 -8.7950137 38.00813
+## 2 57.55477  0.9702936 48.97375
+## 3 63.54434 11.0373012 57.95549
+## 4 49.68287 14.6332245 39.53696</code></pre>
+<div id="color-palette." class="section level3">
+<h3>Color palette.</h3>
+<div class="figure">
+<img src="coloresmadREF.JPG" alt="color_a caption" width="100%" />
+<p class="caption">
+color_a caption
+</p>
+</div>
+<p>IP: Average immature, IF: Most frequent immature, MMP: Average medium
+mature, MMF: Most frequent medium mature, MP: Average mature, MF: Most
+frequent mature, SMP: Average overripe, SMF: Most frequent overripe.</p>
+</div>
+</div>
+</div>
+<div id="inferential-statistics-maturity-states."
+class="section level1">
+<h1>Inferential statistics: maturity states.</h1>
+<div id="color_l" class="section level2">
+<h2>color_L</h2>
+<pre><code>## Denom. DF: 1504 
+##             numDF  F-value p-value
+## (Intercept)     1 94763.86  &lt;.0001
+## mad             3   211.29  &lt;.0001</code></pre>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="color_a" class="section level2">
+<h2>color_a</h2>
+<pre><code>## Denom. DF: 1504 
+##             numDF   F-value p-value
+## (Intercept)     1  390.2274  &lt;.0001
+## mad             3 1200.6841  &lt;.0001</code></pre>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="color_b" class="section level2">
+<h2>color_b</h2>
+<pre><code>## Denom. DF: 1504 
+##             numDF  F-value p-value
+## (Intercept)     1 26212.21  &lt;.0001
+## mad             3   322.90  &lt;.0001</code></pre>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>Significant differences were found for all maturity states in the
+three scales color_L, a, and b. Only in the b scale, there is no
+difference between MM and SM.</p>
+</div>
+<div id="inferential-statistics-populations." class="section level1">
+<h1>Inferential statistics: populations.</h1>
+<div id="color_l-1" class="section level2">
+<h2>color_L</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: color_L ~ 1 + (1 | site/phenotype/id)
+##    Data: data
+## 
+## REML criterion at convergence: 9954.4
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -3.7816 -0.4084  0.0426  0.4553  2.1663 
+## 
+## Random effects:
+##  Groups              Name        Variance Std.Dev.
+##  id:(phenotype:site) (Intercept) 31.79    5.639   
+##  phenotype:site      (Intercept) 11.53    3.396   
+##  site                (Intercept) 15.62    3.952   
+##  Residual                        17.07    4.132   
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)   54.096      2.342    23.1</code></pre>
+</div>
+<div id="color_a-1" class="section level2">
+<h2>color_a</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: color_a ~ 1 + (1 | site/phenotype/id)
+##    Data: data
+## 
+## REML criterion at convergence: 10261.1
+## 
+## Scaled residuals: 
+##      Min       1Q   Median       3Q      Max 
+## -2.76318 -0.35132 -0.04838  0.37788  3.05568 
+## 
+## Random effects:
+##  Groups              Name        Variance Std.Dev.
+##  id:(phenotype:site) (Intercept) 55.63    7.458   
+##  phenotype:site      (Intercept) 27.86    5.278   
+##  site                (Intercept) 33.74    5.809   
+##  Residual                        13.84    3.721   
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)    3.088      3.446   0.896</code></pre>
+</div>
+<div id="color_b-1" class="section level2">
+<h2>color_b</h2>
+<pre><code>## Linear mixed model fit by REML [&#39;lmerMod&#39;]
+## Formula: color_b ~ 1 + (1 | site/phenotype/id)
+##    Data: data
+## 
+## REML criterion at convergence: 11166.3
+## 
+## Scaled residuals: 
+##     Min      1Q  Median      3Q     Max 
+## -4.1762 -0.4497  0.0220  0.4708  3.4427 
+## 
+## Random effects:
+##  Groups              Name        Variance Std.Dev.
+##  id:(phenotype:site) (Intercept) 57.04    7.553   
+##  phenotype:site      (Intercept) 32.33    5.686   
+##  site                (Intercept) 26.19    5.118   
+##  Residual                        44.95    6.704   
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## 
+## Fixed effects:
+##             Estimate Std. Error t value
+## (Intercept)   40.883      3.077   13.29
+## optimizer (nloptwrap) convergence code: 0 (OK)
+## Model failed to converge with max|grad| = 0.00482898 (tol = 0.002, component 1)</code></pre>
+</div>
+</div>
+<div id="signification" class="section level1">
+<h1>Signification</h1>
+<pre><code>## Data: data
+## Models:
+## L23: color_L ~ 1 + (1 | site)
+## L2: color_L ~ 1 + (1 | site/phenotype/id)
+##     npar     AIC     BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
+## L23    3 10479.2 10495.1 -5236.6  10473.2                         
+## L2     5  9967.7  9994.3 -4978.9   9957.7 515.44  2  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##     df       AIC
+## L2   5  9964.411
+## L23  3 10475.799</code></pre>
+<pre><code>## Data: data
+## Models:
+## a23: color_a ~ 1 + (1 | site)
+## a2: color_a ~ 1 + (1 | site/phenotype/id)
+##     npar   AIC   BIC  logLik deviance  Chisq Df Pr(&gt;Chisq)    
+## a23    3 11170 11186 -5582.0    11164                         
+## a2     5 10275 10302 -5132.6    10265 898.75  2  &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>##     df      AIC
+## a2   5 10271.09
+## a23  3 11166.00</code></pre>
+<pre><code>## Data: data
+## Models:
+## b23: color_a ~ 1 + (1 | site)
+## b2: color_b ~ 1 + (1 | site/phenotype/id)
+##     npar   AIC   BIC  logLik deviance Chisq Df Pr(&gt;Chisq)
+## b23    3 11170 11186 -5582.0    11164                    
+## b2     5 11180 11207 -5585.1    11170     0  2          1</code></pre>
+<pre><code>##     df     AIC
+## b2   5 11176.3
+## b23  3 11166.0</code></pre>
+</div>
+<div id="intraclass-correlation-coefficients-icc"
+class="section level1">
+<h1>Intraclass correlation coefficients (ICC)</h1>
+<p><em>Residual variance over total variance.</em></p>
+</div>
+<div id="principal-component-analysis" class="section level1">
+<h1>Principal component analysis</h1>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="univariate-analysis-for-the-color-component-lab"
+class="section level1">
+<h1>Univariate analysis for the color component Lab</h1>
+<div id="descriptive-table-for-principal-color-component"
+class="section level2">
+<h2>Descriptive table for principal color component</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">mad</th>
+<th align="right">N</th>
+<th align="right">color_G</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">I</td>
+<td align="right">766</td>
+<td align="right">54.41176</td>
+<td align="right">10.908787</td>
+<td align="right">0.3941505</td>
+<td align="right">0.7737449</td>
+</tr>
+<tr class="even">
+<td align="left">MM</td>
+<td align="right">268</td>
+<td align="right">69.59369</td>
+<td align="right">10.865516</td>
+<td align="right">0.6637170</td>
+<td align="right">1.3067849</td>
+</tr>
+<tr class="odd">
+<td align="left">M</td>
+<td align="right">226</td>
+<td align="right">81.20140</td>
+<td align="right">9.467084</td>
+<td align="right">0.6297411</td>
+<td align="right">1.2409447</td>
+</tr>
+<tr class="even">
+<td align="left">SM</td>
+<td align="right">248</td>
+<td align="right">71.64590</td>
+<td align="right">10.924151</td>
+<td align="right">0.6936843</td>
+<td align="right">1.3662908</td>
+</tr>
+</tbody>
+</table>
+<p><em>Higher values indicate more advanced stages of
+maturation</em></p>
+</div>
+<div id="descriptive-graphic-sd" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model" class="section level2">
+<h2>The model</h2>
+<pre><code>## gls(model = (color_G) ~ mad, data = data_color_G, weights = varIdent(form = ~1 | 
+##     mad))</code></pre>
+</div>
+<div id="assumptions-check" class="section level2">
+<h2>Assumptions check</h2>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-25-1.png" width="960" style="display: block; margin: auto;" /><img src="V_Colorimetry_files/figure-html/unnamed-chunk-25-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.99518, p-value = 9.189e-05</code></pre>
+</div>
+<div id="anova-comparison-of-means" class="section level2">
+<h2>Anova (comparison of means)</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">numDF</th>
+<th align="right">F-value</th>
+<th align="right">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">1</td>
+<td align="right">55823.4665</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">mad</td>
+<td align="right">3</td>
+<td align="right">507.5049</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tukey-test" class="section level2">
+<h2>Tukey test</h2>
+<pre><code>## $emmeans
+##  mad   emmean        SE     df lower.CL upper.CL
+##  I   54.41176 0.3941528 736.36 53.63796 55.18555
+##  MM  69.59369 0.6637083 231.91 68.28602 70.90136
+##  M   81.20140 0.6297373 222.65 79.96040 82.44241
+##  SM  71.64590 0.6936856 248.03 70.27964 73.01217
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the ( (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast   estimate        SE     df t.ratio p.value
+##  I - MM   -15.181937 0.7719230 419.39 -19.668  &lt;.0001
+##  I - M    -26.789648 0.7429169 410.62 -36.060  &lt;.0001
+##  I - SM   -17.234146 0.7978447 419.00 -21.601  &lt;.0001
+##  MM - M   -11.607711 0.9149195 465.02 -12.687  &lt;.0001
+##  MM - SM   -2.052209 0.9600564 479.96  -2.138  0.1428
+##  M - SM     9.555502 0.9368931 469.82  10.199  &lt;.0001
+## 
+## Note: contrasts are still on the ( scale 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" />
+# Color correlation</p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-29-1.png" width="1152" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="discriminant-analysis" class="section level1">
+<h1>Discriminant Analysis</h1>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

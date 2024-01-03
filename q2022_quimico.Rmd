@@ -17,7 +17,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Cargar de base de datos
 
 library(readxl)
-datospeso <- read_excel("database.xlsx", sheet="fisico")
+datospeso <- read_excel("database.xlsx", sheet="V fisico")
 
 # Se asigna correctamente la clase de cada variable
 datospeso$year<-factor(datospeso$year,levels=c("2019","2021","2022"))

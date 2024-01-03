@@ -1,0 +1,77 @@
+---
+title: "Maturity"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+## Tablas resumen
+
+### Variables Físicas
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(png)
+library(grid)
+img <- readPNG("mad_fis.png")
+grid.raster(img)
+```
+
+### Color
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(png)
+library(grid)
+img <- readPNG("mad_color.png")
+grid.raster(img)
+```
+
+### Fenoles cuantificados por HPLC
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(png)
+library(grid)
+img <- readPNG("mad_fen_hplc.png")
+grid.raster(img)
+```
+
+### Ácidos
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(png)
+library(grid)
+img <- readPNG("acidos.png")
+grid.raster(img)
+```
+
+### Carbohidratos
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(png)
+library(grid)
+img <- readPNG("azucares.png")
+grid.raster(img)
+```
+
+### Fibras dietarias
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+
+library(png)
+library(grid)
+img <- readPNG("fibras.png")
+grid.raster(img)
+```
+
+### Cationes
+```{r,fig.align='center',echo=FALSE, error=TRUE}
+#setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(png)
+library(grid)
+img <- readPNG("cationes.png")
+grid.raster(img)
+```
+
+Nota: *Se ajustaron modelos lineales mixtos (estimaciones por máxima verosimilitud restringida REML) para predecir las concentraciones (CON) de ácidos y sacáridos en función del estado de madurez (MAD). Las repeticiones (REP) fueron incluidas como efectos aleatorios.*

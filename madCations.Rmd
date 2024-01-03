@@ -19,7 +19,8 @@ Se ajustaron modelos lineales (estimaciones por mínimos cuarados ordinarios OLS
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
-data<-read.delim("cationes.txt")
+library(readxl)
+data<-read_excel("database.xlsx", sheet = "mad_Cationes")
 data$MAD<-as.factor(data$MAD)
 data$CAR<-as.factor(data$CAR)
 data$MAD<-factor(data$MAD,levels=c("I", "MM", "M", "SM"))

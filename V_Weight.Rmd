@@ -1,0 +1,154 @@
+---
+title: "Weight"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+fisico<- read_excel("database.xlsx", sheet="V fisico")
+
+fisico$year<-as.factor(fisico$year)
+fisico$phenotype<-as.factor(fisico$phenotype)
+fisico$site<-factor(fisico$site,levels=c("concordia", "palmar","gualeguaychu"))
+fisico$n<-as.factor(fisico$n)
+fisico$pss<-as.numeric(fisico$pss)
+fisico$mad<-factor(fisico$mad,levels=c("I", "MM","M","SM"))
+# data19F<-subset(fisico, year == "2019")
+
+
+```
+
+# Fresh weight
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Se eliminan filas vacias (NAs)
+fisicopff<-na.omit(fisico[,c(1:5,9)])
+fisicopffm<-subset(fisicopff, mad == c("M","SM"))
+
+
+library(Rmisc)
+respff <- summarySE(fisicopff, measurevar="pff", groupvars=c("year","site"), na.rm = FALSE)
+respff
+
+library(ggplot2)
+colores<-c("coral1","burlywood2","palegreen4")
+gpff<-ggplot(data=respff, aes(x=site, y=pff, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=pff-sd, ymax=pff+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(.~year)+
+  labs(x="", y="Fresh fruit weight [g]")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text = element_text(color='black'))
+gpff
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+library(lmerTest)
+
+mpff<- lmer(sqrt(pff) ~ 1 + (1|site/phenotype)*year, fisicopff)
+# 
+# library(nlme)
+# mpff2<- lme(sqrt(pff) ~ 1, random = 1 | site/phenotype, datapff)
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# 
+pff_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mpff),
+  "predichos" = predict(mpff)))
+
+pff_ajuste$pff <- fisicopff$pff
+
+library(ggplot2)
+HVpff<-ggplot(pff_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVpff
+
+QQpff<-ggplot(pff_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQpff
+
+e<-resid(mpff) # residuos de pearson
+# pre<-predict(mpff) #predichos
+# alfai<-ranef(mpff)$REP$'(Intercept)'
+shapiro.test(e)
+
+# OK
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+anova(mpff)
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# summary(mpff2)
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+#Calculo manual ICC
+
+FRUppff<-(summary(mpff)$sigma)^2 #Ruido/error aleatorio
+phenotypeppff<-as.numeric(VarCorr(mpff)$"phenotype:site") #Variación entre ind de una misma siteión
+siteppff<-as.numeric(VarCorr(mpff)$"site") #Variación entre siteiones
+
+ICCfpff<-FRUppff/(FRUppff+phenotypeppff+siteppff)
+ICCapff<-(phenotypeppff)/(FRUppff+phenotypeppff+siteppff)
+ICCrpff<-siteppff/(FRUppff+phenotypeppff+siteppff)
+ICCpff<-performance::icc(mpff)
+ICCphenotypepff<-(phenotypeppff+siteppff)/(FRUppff+phenotypeppff+siteppff)
+  
+ICCfpff*100
+ICCapff*100
+ICCrpff*100
+ICCpff
+ICCphenotypepff
+```

@@ -10,7 +10,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # datospeso <-read_excel("nombre.xlsx", sheet="indicarhoja")
 library(readxl)
-datospeso <- read_excel("database.xlsx", sheet="fisico")
+datospeso <- read_excel("database.xlsx", sheet="V fisico")
 
 datospeso$year<-factor(datospeso$year,levels=c("2019","2021","2022"))
 datospeso$site<-factor(datospeso$site,levels=c("concordia", "palmar","gualeguaychu"))
@@ -98,7 +98,7 @@ summary(modelo_ps)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
-# datospeso<-read_excel("database.xlsx", sheet="datospeso")
+# datospeso<-read_excel("database.xlsx", sheet="V datospeso")
 library(dplyr)
 
 datospeso2022 <- datospeso %>% filter(year == 2022)
@@ -162,9 +162,9 @@ modelo_psp <- lmer(psp ~ pff + (1|site/phenotype) + (1|mad), datospeso2022)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
-# datospeso<-read_excel("database.xlsx", sheet="datospeso")
+# datospeso<-read_excel("database.xlsx", sheet="V datospeso")
 library(readxl)
-datospeso3 <- read_excel("database.xlsx", sheet="psp")
+datospeso3 <- read_excel("database.xlsx", sheet="V psp")
 
 datospeso3$year<-factor(datospeso3$year,levels=c("2019","2021","2022"))
 datospeso3$site<-factor(datospeso3$site,levels=c("concordia", "palmar","gualeguaychu"))

@@ -2,91 +2,99 @@ name: "Visualización Web de Datos"
 output_dir: "."
 
 navbar:
-  title: "Hexachlamys edulis"
+  title: "Inicio"
+  style: "background-color: yellow; color: black;"  # Agregar estilo para el fondo amarillo y texto negro
   right:
     - href: https://github.com/ipovilonis/ubajay.github.io
       icon: favicon.ico
   left:
-    - text: "Home"
+    - text: "I Introducción"
       href: index.html
-    - text: "Phenotypes"
-      href: Phenotypes2.html
-    - text: "Fruit Variability"
+    - text: "II Sitios"
       menu:
-        - text: "Weight"
-          href: Weight.html
-        - text: "Diameter"
-          href: Diameter.html
-        - text: "Seeds"
-          href: Seeds.html
-        - text: "Colorimetry"
-          href: Colorimetry.html
-        - text: "---"
-        - text: "Phenols"
-          href: phenols.html
-        - text: "---"
-        - text: "Reproductive"
-          href: Reproductive.html
-        - text: "---"
-        - text: "Multivariate"
-          href: Multivariate.html
-        - text: "---"
-    - text: "Maturity"
+        - text: "Fenotipos"
+          href: II_Phenotypes2.html
+        - text: "Especies asociadas"
+          href: II_Companionspecies.html
+        - text: "Meteorologia"
+          href: II_Meteorological.html
+        - text: "Clima"
+          href: II_Climate.html
+        - text: "Suelos"
+          href: II_Soil.html
+    - text: "III Fenología"
       menu:
-        - text: "Summary tables"
-          href: Maturity.html
-        - text: "Physical variables"
+        - text: "Fenología"
+          href: III_Phenology.html
+        - text: "Rendimiento"
+          href: III_Yield.html
+        - text: "Polinización"
+          href: III_Polinization.html
+    - text: "IV Maduración"
+      menu:
+        - text: "Tablas resumen"
+          href: mad_resume.html
+        - text: "Atributos físicos"
           href: madPhysical.html
-        - text: "Antioxidant Activity"
+        - text: "Actividad antioxidante"
           href: madAntioxidant.html
-        - text: "Organic Acids"
+        - text: "Ácidos orgánicos"
           href: madAcids.html
-        - text: "Carbohydrates"
+        - text: "Carbohidratos"
           href: madCarbohydrates.html
-        - text: "Dietary Fiber"
+        - text: "Fibra dietaria"
           href: madFiber.html
-        - text: "Cations"
+        - text: "Cationes"
           href: madCations.html
-    - text: "Essays"
+    - text: "V Variabilidad"
+      menu:
+        - text: "Peso"
+          href: V_Weight.html
+        - text: "Diámetro"
+          href: V_Diameter.html
+        - text: "Semillas"
+          href: V_Seeds.html
+        - text: "Colorimetría"
+          href: V_Colorimetry.html
+        - text: "---"
+        - text: "Fenoles"
+          href: V_phenols.html
+        - text: "---"
+        - text: "Variables reproductivas"
+          href: V_Reproductive.html
+        - text: "Eficiencia reproductiva"
+          href: V_Branches.html
+        - text: "---"
+        - text: "Multivariado"
+          href: V_Multivariate.html
+        - text: "---"
+    - text: "VI Postcosecha"
+      menu:
+        - text: "Postcosecha"
+          href: VI_Postharvest.html
+        - text: "Climacterio 2"
+          href: VI_climateric2.html
+        - text: "Climacterio 3"
+          href: VI_climateric3.html
+    - text: "Otros ensayos"
       menu: 
-      - text: "Phenology"
-        href: Phenology.html
-      - text: "Polinization"
-        href: Polinization.html
-      - text: "Branches"
-        href: Branches.html
-      - text: "Yield"
-        href: Yield.html
-      - text: "Postharvest"
-        href: Postharvest.html
-      - text: "Climacteric"
-        href: climateric2.html
-      - text: "Climacteric color"
-        href: climateric3.html
-      - text: "Companion species"
-        href: Companionspecies.html
-      - text: "Meteorological"
-        href: Meteorological.html
-      - text: "Climate"
-        href: Climate.html
-      - text: "Soil"
-        href: Soil.html
-      - text: "Genetics"
-        href: Genetics.html
-      - text: "Extraction methods"
-        href: extraction_methods.html
-      - text: "Chemical 2022"
-        href: q2022_quimico.html
-      - text: "Drying"
-        href: secado.html
-    - text: "Academic Publications"
+        - text: "Extracción de ADN"
+          href: Genetics.html
+        - text: "Extración química"
+          href: extraction_methods.html
+        - text: "Variables químicas 2022"
+          href: q2022_quimico.html
+        - text: "Secado"
+          href: secado.html
+    - text: "Publicaciones"
       href: publications.html
-    - text: "About"
+    - text: "Sobre el sitio"
       href: about.html
 output:
   html_document:
     includes:
       in_header: header.html
     theme: darkly
+    css: styles.css
     highlight: textmate
     runtime: shiny
