@@ -13,10 +13,10 @@
 
 <title>Phenols</title>
 
-<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,7 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
   <link rel="icon" type="image/png" href="fruto.jpg"/>
 
@@ -306,6 +306,9 @@ $(document).ready(function () {
       <a href="madAntioxidant.html">Actividad antioxidante</a>
     </li>
     <li>
+      <a href="madPhenols.html">Fenoles</a>
+    </li>
+    <li>
       <a href="madAcids.html">Ácidos orgánicos</a>
     </li>
     <li>
@@ -423,7 +426,7 @@ $(document).ready(function () {
 </div>
 
 
-<pre><code>## &lt;environment: 0x0000022c2a436e58&gt;</code></pre>
+<pre><code>## &lt;environment: 0x0000013e27bcd850&gt;</code></pre>
 <div id="descriptive-statistics" class="section level1">
 <h1>Descriptive statistics</h1>
 <div id="descriptive-table" class="section level2">
@@ -1633,18 +1636,18 @@ $(document).ready(function () {
 </div>
 <div id="conclusiones" class="section level3">
 <h3>Conclusiones</h3>
-<pre><code>## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer) to predict phenols with year (formula: phenols ~ year). The
-## model included phenotype as random effects (formula: list(~1 | phenotype:site, ~1 | site)). The model&#39;s total explanatory power is
-## substantial (conditional R2 = 0.60) and the part related to the fixed effects alone (marginal R2) is of 0.03. The model&#39;s intercept,
-## corresponding to year = 2019, is at 640.49 (95% CI [269.43, 1011.55], t(425) = 3.39, p &lt; .001). Within this model:
+<pre><code>## We fitted a linear mixed model (estimated using REML and nloptwrap optimizer) to predict phenols with year (formula: phenols ~ year). The model included
+## phenotype as random effects (formula: list(~1 | phenotype:site, ~1 | site)). The model&#39;s total explanatory power is substantial (conditional R2 = 0.60) and the
+## part related to the fixed effects alone (marginal R2) is of 0.03. The model&#39;s intercept, corresponding to year = 2019, is at 640.49 (95% CI [269.43, 1011.55],
+## t(425) = 3.39, p &lt; .001). Within this model:
 ## 
-##   - The effect of year [2021] is statistically non-significant and positive (beta = 115.74, 95% CI [-1.50, 232.98], t(425) = 1.94, p = 0.053;
-## Std. beta = 0.15, 95% CI [-1.98e-03, 0.31])
-##   - The effect of year [2022] is statistically significant and positive (beta = 351.20, 95% CI [215.33, 487.07], t(425) = 5.08, p &lt; .001; Std.
-## beta = 0.46, 95% CI [0.28, 0.64])
+##   - The effect of year [2021] is statistically non-significant and positive (beta = 115.74, 95% CI [-1.50, 232.98], t(425) = 1.94, p = 0.053; Std. beta = 0.15,
+## 95% CI [-1.98e-03, 0.31])
+##   - The effect of year [2022] is statistically significant and positive (beta = 351.20, 95% CI [215.33, 487.07], t(425) = 5.08, p &lt; .001; Std. beta = 0.46, 95% CI
+## [0.28, 0.64])
 ## 
-## Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95% Confidence Intervals (CIs) and
-## p-values were computed using a Wald t-distribution approximation.</code></pre>
+## Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95% Confidence Intervals (CIs) and p-values were computed
+## using a Wald t-distribution approximation.</code></pre>
 <!-- El test de Wald (p=) arroja que no hay diferencias estadísticas significativas entre años. -->
 </div>
 <div id="icc-del-modelo" class="section level3">

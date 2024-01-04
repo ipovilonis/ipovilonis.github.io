@@ -9,21 +9,24 @@ output:
      smooth_scroll: true
 ---
 
-
-
 ## Actividad anti oxidante (DPPH)
 
 ### Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-Datos0 <- read.delim("AA_r0.txt")
+library(readxl)
+Datos0 <- read_excel("database.xlsx", sheet = "mad_aaox")
 Datos0$Muestra<-factor(Datos0$Muestra)
 Datos0$Conc<-factor(Datos0$Conc)
 Datos0$Trata<-factor(Datos0$Trata,levels=c("I","MM", "M","SM"))
 
-library(psych)
-describeBy(Datos0$In,Datos0$Trata)
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
 
 ```
 

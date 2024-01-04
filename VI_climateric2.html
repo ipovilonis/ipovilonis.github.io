@@ -13,10 +13,10 @@
 
 <title>Respiration essay in Hexachlamys edulis</title>
 
-<script src="site_libs/header-attrs-2.22/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/darkly.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
@@ -30,7 +30,7 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
   <link rel="icon" type="image/png" href="fruto.jpg"/>
 
@@ -306,6 +306,9 @@ $(document).ready(function () {
       <a href="madAntioxidant.html">Actividad antioxidante</a>
     </li>
     <li>
+      <a href="madPhenols.html">Fenoles</a>
+    </li>
+    <li>
       <a href="madAcids.html">Ácidos orgánicos</a>
     </li>
     <li>
@@ -499,12 +502,12 @@ class="section level2">
 </div>
 <div id="model-coefficients" class="section level2">
 <h2>Model coefficients</h2>
-<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75        time_min90       time_min105 
-##     -1088.3098591        19.6250543        32.7084238        52.3334782        65.4168477        81.7897236        94.8730931 
-##       time_min120       time_min135       time_min150             matuM             basal  time_min30:matuM  time_min45:matuM 
-##       114.4981474       127.5815169       143.9543928        24.0203019        43.2170578         0.1712202         4.3272497 
-##  time_min60:matuM  time_min75:matuM  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM time_min150:matuM 
-##         7.0553453        11.2113748        14.6347734        18.7908030        21.5188986        22.4853372        29.0983267</code></pre>
+<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75        time_min90       time_min105       time_min120 
+##     -1088.3098591        19.6250543        32.7084238        52.3334782        65.4168477        81.7897236        94.8730931       114.4981474 
+##       time_min135       time_min150             matuM             basal  time_min30:matuM  time_min45:matuM  time_min60:matuM  time_min75:matuM 
+##       127.5815169       143.9543928        24.0203019        43.2170578         0.1712202         4.3272497         7.0553453        11.2113748 
+##  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM time_min150:matuM 
+##        14.6347734        18.7908030        21.5188986        22.4853372        29.0983267</code></pre>
 </div>
 <div id="anova" class="section level2">
 <h2>Anova</h2>

@@ -1,0 +1,52 @@
+---
+title: "Fenoles"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+## Concentración de fenoles expresados en mg equivalente de ácido tánico cada 100g PF
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+data_mad_phenols <- read_excel("database.xlsx", sheet = "mad_phenols")
+data_mad_phenols$madurez <- factor(data_mad_phenols$madurez, levels=c("I", "MM", "M", "SM"))
+
+```
+
+### Tabla descriptiva
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_fenoles <- data_mad_phenols %>% 
+  dplyr::group_by(madurez) %>% 
+  dplyr::summarise(n=n(),
+                   Mean = mean(fenoles),
+                   sd = sd(fenoles))
+tabla_fenoles
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+plot_mad_fenoles <- ggplot(tabla_fenoles, aes(x = madurez, y = Mean, color = madurez)) +
+    scale_color_manual(values = c("palegreen4", "yellowgreen", "gold", "gold4")) +
+    stat_summary(fun = "mean", size = 6, geom = "point") +
+    geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.2, position = position_dodge(0.9)) +
+    theme_classic() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "none") +
+    theme(text = element_text(size = 15, color = 'black')) +
+    theme(axis.text = element_text(color = 'black'))
+plot_mad_fenoles
+
+```
+

@@ -1,12 +1,12 @@
 ---
 title: "Acids"
 output:
- html_document:
-   toc: true
-   toc_depth: 5
-   toc_float:
-     collapsed: false
-     smooth_scroll: true
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 ## Acidos orgánicos en peso fresco
@@ -19,14 +19,16 @@ library(readxl)
 datap<-read_excel("database.xlsx", sheet = "mad_CHac")
 datap$CAR <- factor(datap$CAR,
                    levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru", "ATT"),
+                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru", "ATT","TOTALac"),
                    labels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru", "ATT"))
+                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru", "ATT","TOTALac"))
 datap$REP<-as.factor(datap$REP)
 datap$CONF<-as.numeric(datap$CONF)
 datap$MAD<-factor(datap$MAD,levels=c("I", "MM", "M", "SM"))
 
 data3<-datap[-c(1:72,169:192),]
+
+
 
 ```
 
@@ -41,10 +43,10 @@ datamal <- filter(data3, data3$CAR == "Málico")
 dataqui <- filter(data3, data3$CAR == "Quínico")
 datasuc <- filter(data3, data3$CAR == "Succínico")
 dataatt <- filter(data3, data3$CAR == "ATT")
-dataato <- dataAT
+dataato <- filter(data3, data3$CAR == "TOTALac")
 
 library(ggplot2)
-aci1s<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+aci1s<-ggplot(datatar, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Tartaric mg/g fresh fruit", x="")+
@@ -56,7 +58,7 @@ aci1s<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci2s<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+aci2s<-ggplot(datamal, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Malic mg/g fresh fruit", x="")+
@@ -68,7 +70,7 @@ aci2s<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci3s<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+aci3s<-ggplot(dataqui, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Quinic mg/g fresh fruit", x="")+
@@ -80,7 +82,7 @@ aci3s<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci4s<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+aci4s<-ggplot(datasuc, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Succinic mg/g fresh fruit", x="")+
@@ -92,7 +94,7 @@ aci4s<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci5s<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
+aci5s<-ggplot(dataatt, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="TTA %", x="")+
@@ -103,7 +105,7 @@ aci5s<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())
 
-aci6s<-ggplot2::ggplot(dataato, aes(x=MAD, y=TOTALF, color=MAD, width=1, shape=REP)) +
+aci6s<-ggplot(dataato, aes(x=MAD, y=CONF, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Total organic acids mg/g fresh fruit", x="")+
@@ -202,7 +204,7 @@ dataSTAT<-filter(dataSACT, CAR == "STAT")
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-gAT<-ggplot2::ggplot(dataAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
+gAT<-ggplot(dataAT, aes(x=MAD, y=TOTALF, fill=MAD)) +
   geom_boxplot(width = 0.50)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="Totales (mg/g fruta fresca)", x="Maturity")+
@@ -695,7 +697,7 @@ dataatt <- filter(data3, data3$CAR == "ATT")
 dataato <- dataAT
 
 library(ggplot2)
-aci1<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+aci1<-ggplot(datatar, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Tartaric mg/g dry fruit", x="")+
@@ -707,7 +709,7 @@ aci1<-ggplot2::ggplot(datatar, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci2<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+aci2<-ggplot(datamal, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Malic mg/g dry fruit", x="")+
@@ -719,7 +721,7 @@ aci2<-ggplot2::ggplot(datamal, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci3<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+aci3<-ggplot(dataqui, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Quinic mg/g dry fruit", x="")+
@@ -731,7 +733,7 @@ aci3<-ggplot2::ggplot(dataqui, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci4<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+aci4<-ggplot(datasuc, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Succinic mg/g dry fruit", x="")+
@@ -743,7 +745,7 @@ aci4<-ggplot2::ggplot(datasuc, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
   theme(legend.title=element_blank())+
   theme(legend.position = "none")
 
-aci5<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
+aci5<-ggplot(dataatt, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="TTA %", x="")+
@@ -754,7 +756,7 @@ aci5<-ggplot2::ggplot(dataatt, aes(x=MAD, y=CONS, color=MAD, width=1, shape=REP)
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())
 
-aci6<-ggplot2::ggplot(dataato, aes(x=MAD, y=TOTALS, color=MAD, width=1, shape=REP)) +
+aci6<-ggplot(dataato, aes(x=MAD, y=TOTALS, color=MAD, width=1, shape=REP)) +
   geom_point(size=3)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2", "blue"))+
   labs(y="Total organic acids mg/g dry fruit", x="")+
@@ -833,7 +835,7 @@ grid.arrange(SI, SMM, SM, SSM, ncol = 2)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-gAT<-ggplot2::ggplot(dataSACT, aes(x=MAD, y=TOTALS, fill=MAD)) +
+gAT<-ggplot(dataSACT, aes(x=MAD, y=TOTALS, fill=MAD)) +
   geom_boxplot(width = 0.50)+
   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
   labs(y="Totales (mg/g fruto seca)", x="Maturity")+
@@ -1483,8 +1485,8 @@ library(ggplot2)
 library(GGally)
 GCORfaco <- ggpairs(FACO, columns = 2:7,lower = list(continuous = "points"))
 GCORfaco
-# ggplot2::aes(colour=MAD)) + ggplot2::scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-#   ggplot2::theme_classic()
+# aes(colour=MAD)) + scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   theme_classic()
 
 ```
 
