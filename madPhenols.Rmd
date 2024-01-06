@@ -9,7 +9,7 @@ output:
      smooth_scroll: true
 ---
 
-## Concentración de fenoles expresados en mg equivalente de ácido tánico cada 100g PF
+Análisis sobre la concentración de fenoles expresados en mg equivalente de ácido tánico cada 100g PF
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -19,7 +19,7 @@ data_mad_phenols$madurez <- factor(data_mad_phenols$madurez, levels=c("I", "MM",
 
 ```
 
-### Tabla descriptiva
+Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -29,10 +29,13 @@ tabla_fenoles <- data_mad_phenols %>%
   dplyr::summarise(n=n(),
                    Mean = mean(fenoles),
                    sd = sd(fenoles))
-tabla_fenoles
+
+library(knitr)
+kable(tabla_fenoles, format = "markdown")
 
 ```
 
+Gráfico de puntos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -50,3 +53,81 @@ plot_mad_fenoles
 
 ```
 
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+modelos_mad_fenoles <- gls(fenoles ~ madurez, weights=varIdent(form=~1|madurez), data=data_mad_phenols)
+modelos_mad_fenoles
+
+```
+
+Supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+fenoles_mad_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelos_mad_fenoles),
+  "predichos" = predict(modelos_mad_fenoles)))
+
+HV_fenoles_mad<-ggplot(fenoles_mad_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_fenoles_mad
+
+QQ_fenoles_mad<-ggplot(fenoles_mad_ajuste) +
+aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_fenoles_mad
+
+shapiro.test(fenoles_mad_ajuste$residuos)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(modelos_mad_fenoles)
+
+```
+
+Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp_mad_fenoles<-emmeans(modelos_mad_fenoles, pairwise ~ madurez) #Tukey por default  
+Comp_mad_fenoles
+plot(Comp_mad_fenoles, comparisons = F) + theme_classic() + 
+  labs(x = "mg Fenoles / 100g PF)", y ="Madurez" )
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```

@@ -9,67 +9,65 @@ output:
      smooth_scroll: true
 ---
 
-
-
 ## Carbohidratos en peso fresco
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
+library(readxl)
 datap<-read_excel("database.xlsx", sheet = "mad_CHac")
 datap$CAR <- factor(datap$CAR,
                    levels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru", "ATT"),
+                              "TartÃ¡rico","MÃ¡lico","QuÃ­nico",  "SuccÃ­nico", "glufru", "ATT","TOTALac","TOTALaz"),
                    labels = c("Sacarosa" ,"Glucosa" ,"Fructosa" ,
-                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru", "ATT"))
+                              "Tartárico","Málico","Quínico" ,"Succínico", "glufru", "ATT","TOTALac","TOTALaz"))
 datap$REP<-as.factor(datap$REP)
 datap$CONF<-as.numeric(datap$CONF)
 datap$MAD<-factor(datap$MAD,levels=c("I", "MM", "M", "SM"))
 
-data2<-datap[-c(73:168, 193:204),]
-
+data2<-datap[-c(73:168, 193:229),]
 
 ```
 
 ### Concentración de sacáridos a distintos estados de madurez
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
-g1<-ggplot(data2, aes(x=MAD, y=CONF, fill=MAD, width=1)) +
- geom_boxplot()+
-  facet_grid(CAR~.)+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="mg/g fruta fresca", x="Madurez")+
+g1<-ggplot(data2[-c(73:96),], aes(x=MAD, y=CONF, color=MAD, width=1)) +
+ geom_point(size=5)+
+  facet_grid(.~CAR)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g PF", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=20, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  geom_point(aes(colour=REP))
+  theme(legend.position = "none")+
+  theme(axis.line.y = element_blank())
 g1
 
 ```
 
-#### Tabla descriptiva
+ Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estadcar <- summarySE(data2, measurevar="CONF", groupvars=c("CAR", "MAD"))
-estadcar
+library(knitr)
+kable(estadcar, format = "markdown")
 
 ```
 
-#### Evolución del perfíl de sacáridos en la maduración
+ Evolución del perfíl de sacáridos en la maduración
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data4<-data2
-data4<-data4[-c(73:96),]
+data4<-data4[-c(73:119),]
 dataSI<-subset(data4, MAD == "I")
 dataSMM<-subset(data4, MAD == "MM")
 dataM<-subset(data4, MAD == "M")
@@ -119,7 +117,7 @@ sac<-subset(datap, CAR == "Sacarosa")
 glu<-subset(datap, CAR == "Glucosa")
 fru<-subset(datap, CAR == "Fructosa")
 glufru<-subset(datap, CAR == "glufru")
-
+dataST<-subset(datap, CAR == "TOTALaz")
 ```
 
 ### Carbohidratos Totales
@@ -127,30 +125,31 @@ glufru<-subset(datap, CAR == "glufru")
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-gST<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
-  geom_boxplot(width = 0.50)+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="Totales (mg/g fruta fresca)", x="Madurez")+
-  # facet_grid(CAR~.)+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(legend.position = "none")
-gST
+# gST<-ggplot2::ggplot(dataST, aes(x=MAD, y=CONF, fill=MAD)) +
+#   geom_boxplot(width = 0.50)+
+#   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   labs(y="Totales (mg/g PF)", x="Madurez")+
+#   # facet_grid(CAR~.)+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+# theme(axis.line.y = element_blank())
+
+# gST
 
 ```
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
 ctrl <- lmeControl(opt='optim');
-mST1 <- lme(TOTALF~ MAD, random = ~ 1|REP,
+mST1 <- lme(CONF~ MAD, random = ~ 1|REP,
              control = ctrl, data = dataST)
 
 mST1
@@ -160,7 +159,7 @@ ST_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(mST1),
   "predichos" = predict(mST1)))
 
-ST_ajuste$CONF <- dataST$TOTALF
+ST_ajuste$CONF <- dataST$CONF
 
 library(ggplot2)
 HVST<-ggplot(ST_ajuste) +
@@ -198,7 +197,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -206,7 +205,7 @@ anova(mST1)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -215,13 +214,9 @@ library(multcompView)
 CompmST1<-emmeans(mST1, pairwise ~ MAD) #Tukey  
 CompmST1
 plot(CompmST1, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+  labs(x = "Concentración mg/g PF", y ="Madurez" )
 
 ```
-
-#### Conclusiones
-
-La concentración de azúcares totales es significativamente superior durante la fructificación en frutos inmaduros, luego decae y durante la maduración aumentan nuevamente. Los frutos sobre maduros se diferenciaron singnificativamente de los maduro y medio maduros en su contenido de azúcares totales.
 
 ### Sacarosa
 
@@ -278,7 +273,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -287,7 +282,7 @@ anova(msac2)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -300,7 +295,7 @@ plot(Compsac, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+ Conclusiones
 
 Los frutos inmaduros tuvieron una concentración de sacarosa significativamente menor.
 
@@ -359,7 +354,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -368,7 +363,7 @@ anova(mglu2)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -381,7 +376,7 @@ plot(Compglu, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+ Conclusiones
 
 ### Fructosa
 
@@ -438,7 +433,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -447,7 +442,7 @@ anova(mfru2)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -460,7 +455,7 @@ plot(Compfru, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+ Conclusiones
 
 
 ## Carbohidratos en peso seco
@@ -470,11 +465,12 @@ plot(Compfru, comparisons = TRUE) + theme_classic() +
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-gSTs<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
-  geom_boxplot(width = 0.50)+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="Totales (mg/g fruto seco)", x="Madurez")+
-  # facet_grid(CAR~.)+
+library(ggplot2)
+gSTs<-ggplot(data2[-c(73:96),], aes(x=MAD, y=CONS, color=MAD, width=1)) +
+ geom_point(size=5)+
+  facet_grid(.~CAR)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="mg/g PS", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -482,19 +478,18 @@ gSTs<-ggplot2::ggplot(dataST, aes(x=MAD, y=TOTALF, fill=MAD)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  scale_colour_manual(values = c("cyan4", "coral1","green3"))+
-  theme(legend.position = "none")
+  theme(axis.line.y = element_blank())
 gSTs
 
 ```
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
 ctrl <- lmeControl(opt='optim');
-mST1s <- lme(TOTALS~ MAD, random = ~ 1|REP,
+mST1s <- lme(CONS~ MAD, random = ~ 1|REP,
              control = ctrl, data = dataST)
 
 mST1s
@@ -504,7 +499,7 @@ STs_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(mST1),
   "predichos" = predict(mST1)))
 
-STs_ajuste$ST <- dataST$TOTALS
+STs_ajuste$ST <- dataST$CONS
 
 library(ggplot2)
 HVSTs<-ggplot(STs_ajuste) +
@@ -542,7 +537,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -550,7 +545,7 @@ anova(mST1s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -559,16 +554,16 @@ library(multcompView)
 CompmST1s<-emmeans(mST1s, pairwise ~ MAD) #Tukey  
 CompmST1s
 plot(CompmST1s, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Madurez" )
+  labs(x = "Concentración mg/g PF", y ="Madurez" )
 
 ```
 
-#### Conclusiones
+ Conclusiones
 
 
 ### Sacarosa
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -622,7 +617,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -631,7 +626,7 @@ anova(msac2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -645,12 +640,12 @@ plot(Compsacs, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+ Conclusiones
 Se encontraron diferencias significativas entre estados de madurez. Los frutos maduros tendrían mayor concentración de sacarosa, no se diferenciaron de los frutos medios maduros.
 
 ### Glucosa
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -706,7 +701,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -715,7 +710,7 @@ anova(mglu2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -727,9 +722,6 @@ plot(Compglus, comparisons = TRUE) + theme_classic() +
   labs(x = "Concentración", y ="Madurez" )
 
 ```
-
-#### Conclusiones
-Se encontraron diferencias significativas entre estados de madurez.
 
 ### Fructosa
 
@@ -786,7 +778,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -795,7 +787,7 @@ anova(mfru2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -808,11 +800,7 @@ plot(Compfrus, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-Se encontraron diferencias significativas entre estados de madurez. Los frutos sobre maduros tendrían mayor concentración de fructosa.
-
 ### Glucosa/Fructosa
-
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -868,7 +856,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -877,7 +865,7 @@ anova(mglufru2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -890,13 +878,7 @@ plot(Compglufrus, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-La relación glucosa/fructosa es significativamente mayor en frutos sobre maduros.
-
-
-
-## Almidón en peso seco
+## Alimdón en peso fresco
 
 M&M: se cuantificó almidón por el método del YODO según [Lage *et al.*, (1983)](https://www.researchgate.net/profile/Jesus-Simal-Lozano/publication/235700249_Determinacion_de_almidon_en_alimentos/links/02bfe513dc78894e15000000/Determinacion-de-almidon-en-alimentos.pdf)
 
@@ -908,197 +890,26 @@ agua destilada y 2,0 g de yodo llevados a 1 litro.
 
 +Lectura en espectrofotómetro a 600nm
 
-
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ALMI<-read_excel("database.xlsx", sheet = "mad_Almi")
 ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
 
-library(ggplot2)
-galmi2s<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, fill=MAD, width=1)) +
-  geom_boxplot()+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g/100 g fruta seca", x="Madurez")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(legend.position = "none")
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(Rmisc)
-estalmi <- summarySE(ALMI, measurevar="STARCHs", groupvars=c("MAD"))
-
-library(ggplot2)
-galmi3s<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
-  stat_summary(fun = "mean", size = 6, geom = "point") +
-  geom_errorbar(aes(ymin=STARCHs-sd, ymax=STARCHs+sd),
-                width=0, position=position_dodge(0))+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g fruta seca", x="Madurez")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(legend.position = "none")
-galmi3s
-
-```
-
-Las barras indican desvío estándar.
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(ggplot2)
-galmi4s<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
-  geom_point(size=9)+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g fruta seca", x="Madurez")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(legend.position = "none")
-#galmi4s
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-mSTARCHs <- lm(STARCHs ~ MAD,
-              data = ALMI)
-
-library(nlme)
-mSTARCHs2 <- gls(STARCHs ~ MAD,
-              weights = varIdent(form=~1|MAD),
-              data = ALMI)
-
-# AIC(mSTARCHs,mSTARCHs2)
-
-STARCHs_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(mSTARCHs),
-  "predichos" = predict(mSTARCHs)))
-
-STARCHs_ajuste$STARCHs <- ALMI$STARCHs
-
-library(ggplot2)
-HVSTARCHs<-ggplot(STARCHs_ajuste) +
-  aes(predichos, residuos) +
-  geom_hline(yintercept = 0, colour="white", size=2) +
-  geom_point(colour="white")+
-  theme_classic()+
-  labs(y="Residuals", x="Predicted values")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HVSTARCHs
-
-QQSTARCHs<-ggplot(STARCHs_ajuste) +
-  aes(sample = residuos) +
-  geom_qq(shape = 1, colour="white") +
-  geom_qq_line(colour="white")+
-  theme_classic()+
-  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQSTARCHs
-
-e<-resid(mSTARCHs) # residuos de pearson
-pre<-predict(mSTARCHs) #predichos
-shapiro.test(e)
-# leveneTest(mSTARCHs)
-
-```
-
-#### Anova
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-anova(mSTARCHs)
-
-```
-
-#### Test de Tukey
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(emmeans)
-library(multcompView)
-CompSTARCHs<-emmeans(mSTARCHs, pairwise ~ MAD) #Tukey  
-CompSTARCHs
-plot(CompSTARCHs, comparisons = T) + theme_classic() +
-  labs(x = "Concentración", y ="Madurez" )+
-  theme_classic()+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='green'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-```
-
-## Alimdón en peso fresco
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-ALMI<-read_excel("database.xlsx", sheet = "mad_Almi")
-ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
-
-library(ggplot2)
-galmi2<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, fill=MAD, width=1)) +
-  geom_boxplot()+
-  scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g/100 g fruta fresca", x="Madurez")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(legend.position = "none")
-galmi2
+# library(ggplot2)
+# galmi2<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, fill=MAD, width=1)) +
+#   geom_point()+
+#   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   labs(y="g/100 g PF", x="Madurez")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   theme(axis.line.y = element_blank())
+# galmi2
 
 ```
 
@@ -1107,26 +918,25 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estalmi <- summarySE(ALMI, measurevar="STARCH", groupvars=c("MAD"))
-
-library(ggplot2)
-galmi2<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCH, color=MAD, width=1))+
-  stat_summary(fun = "mean", size = 6, geom = "point") +
-  geom_errorbar(aes(ymin=STARCH-sd, ymax=STARCH+sd),
-                width=0, position=position_dodge(0))+
-  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(legend.position = "none")
-galmi2
+library(knitr)
+kable(estalmi, format = "markdown")brary(ggplot2)
+# galmi2<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCH, color=MAD, width=1))+
+#   stat_summary(fun = "mean", size = 6, geom = "point") +
+#   geom_errorbar(aes(ymin=STARCH-sd, ymax=STARCH+sd),
+#                 width=0, position=position_dodge(0))+
+#   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   labs(y="g almidon/100 g PF", x="Madurez")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   theme(axis.line.y = element_blank())
+# galmi2
 
 ```
-
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1135,7 +945,7 @@ library(ggplot2)
 galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, color=MAD, width=1))+
   geom_point(size=9)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g fruta fresca", x="Madurez")+
+  labs(y="g almidon/100 g PF", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -1143,9 +953,9 @@ galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, color=MAD, width=1))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "none")+
-  theme(legend.position = "none")+
+  theme(axis.line.y = element_blank())+
   ylim(0,4)
-#galmi3
+galmi3
 
 ```
 
@@ -1207,7 +1017,7 @@ leveneTest(mSTARCH)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1215,7 +1025,7 @@ anova(mSTARCH)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1233,5 +1043,165 @@ plot(CompSTARCH, comparisons = TRUE) + theme_classic() +
   theme(axis.text = element_text(color='white'))+
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+
+```
+
+## Almidón en peso seco
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ALMI<-read_excel("database.xlsx", sheet = "mad_Almi")
+ALMI$MAD<-factor(ALMI$MAD,levels=c("I", "MM", "M", "SM"))
+
+# library(ggplot2)
+# galmi2s<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, fill=MAD, width=1)) +
+#   geom_boxplot()+
+#   scale_fill_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   labs(y="g/100 g fruta seca", x="Madurez")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   theme(axis.line.y = element_blank())
+# galmi2s
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estalmis <- summarySE(ALMI, measurevar="STARCHs", groupvars=c("MAD"))
+library(knitr)
+kable(estalmis, format = "markdown")brary(ggplot2)
+# library(ggplot2)
+# galmi3s<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
+#   stat_summary(fun = "mean", size = 6, geom = "point") +
+#   geom_errorbar(aes(ymin=STARCHs-sd, ymax=STARCHs+sd),
+#                 width=0, position=position_dodge(0))+
+#   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+#   labs(y="g almidon/100 g fruta seca", x="Madurez")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   theme(axis.line.y = element_blank())
+# galmi3s
+
+```
+
+Las barras indican desvío estándar.
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+galmi4s<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
+  geom_point(size=9)+
+  scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
+  labs(y="g almidon/100 g fruta seca", x="Madurez")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(axis.line.y = element_blank())
+galmi4s
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+mSTARCHs <- lm(STARCHs ~ MAD,
+              data = ALMI)
+
+library(nlme)
+mSTARCHs2 <- gls(STARCHs ~ MAD,
+              weights = varIdent(form=~1|MAD),
+              data = ALMI)
+
+# AIC(mSTARCHs,mSTARCHs2)
+
+STARCHs_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mSTARCHs),
+  "predichos" = predict(mSTARCHs)))
+
+STARCHs_ajuste$STARCHs <- ALMI$STARCHs
+
+library(ggplot2)
+HVSTARCHs<-ggplot(STARCHs_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVSTARCHs
+
+QQSTARCHs<-ggplot(STARCHs_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQSTARCHs
+
+e<-resid(mSTARCHs) # residuos de pearson
+pre<-predict(mSTARCHs) #predichos
+shapiro.test(e)
+# leveneTest(mSTARCHs)
+
+```
+
+ Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mSTARCHs)
+
+```
+
+ Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+CompSTARCHs<-emmeans(mSTARCHs, pairwise ~ MAD) #Tukey  
+CompSTARCHs
+plot(CompSTARCHs, comparisons = T) + theme_classic() +
+  labs(x = "Concentración", y ="Madurez" )+
+  theme_classic()+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='green'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+
 
 ```

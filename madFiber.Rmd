@@ -26,7 +26,7 @@ DSTdata<-subset(dataf, CAR == "DT")
 
 ```
 
-### Concentración de Fibras dietarias a distintos estados de madurez
+Concentración de Fibras dietarias a distintos estados de madurez
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -49,22 +49,26 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-### Tabla descriptiva
+Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estadfib <- summarySE(dataf, measurevar="CONF", groupvars=c("CAR", "MAD"))
-estadfib
 
 estadfibs <- summarySE(dataf, measurevar="CONS", groupvars=c("CAR", "MAD"))
-estadfibs
+
+library(knitr)
+kable(estadfib, format = "markdown")
+
+library(knitr)
+kable(estadfibs, format = "markdown")
 
 ```
 
 ### Fibra Dietaria Soluble
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -118,7 +122,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -126,7 +130,7 @@ anova(mFDS2)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -139,13 +143,9 @@ plot(CompFDS, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-Hay diferencias significativas.
-
 ### Fibra Dietaria Insoluble
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -199,7 +199,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -207,7 +207,7 @@ anova(mFDI2)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -220,16 +220,9 @@ plot(CompFDI, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-No hay diferencias significativas.
-
-
-
-
 ### Fibra Dietaria Total
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -283,7 +276,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -291,7 +284,7 @@ anova(mFDT2)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -304,14 +297,10 @@ plot(CompFDT, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-Hay diferencias significativas.
-
 ## Fibra Dietaria en peso seco
 ### Fibra Dietaria Soluble
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -365,7 +354,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -373,7 +362,7 @@ anova(mFDS2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -386,13 +375,9 @@ plot(CompFDSs, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-Hay diferencias significativas.
-
 ### Fibra Dietaria Insoluble
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -446,7 +431,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -454,7 +439,7 @@ anova(mFDI2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -467,13 +452,9 @@ plot(CompFDIs, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-No hay diferencias significativas.
-
 ### Fibra Dietaria Total
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -527,7 +508,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -535,7 +516,7 @@ anova(mFDT2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -548,13 +529,13 @@ plot(CompFDTs, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+ Conclusiones
 
 Hay diferencias significativas.
 
 ### Fibra Dietaria Insoluble/Soluble
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -609,7 +590,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -618,7 +599,7 @@ anova(mID2s)
 # Anova(mID2s, type="3")
 
 ```
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -631,13 +612,9 @@ plot(CompmID2s, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-Se encontraron diferencias significativas.
-
 ### Fibra Dietaria Soluble/Total %
 
-#### Modelo y supuestos
+ Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -691,10 +668,7 @@ shapiro.test(e)
 
 ```
 
-
-
-
-#### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -702,7 +676,7 @@ anova(mDST2s)
 
 ```
 
-#### Test de Tukey
+ Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -715,6 +689,3 @@ plot(CompmDST2s, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-Se encontraron diferencias significativas.

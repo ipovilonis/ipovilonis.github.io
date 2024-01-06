@@ -1,0 +1,426 @@
+---
+title: "Sólidos solubles y acidez"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+data_mad_quimico <- read_excel("database.xlsx", sheet = "mad_phenols")
+data_mad_quimico$madurez <- factor(data_mad_quimico$madurez, levels=c("I", "MM", "M", "SM"))
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crea un vector con las variables respuesta
+variables_respuesta <- c("brix", "ph", "acidez", "ratio")
+
+# Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+tablas_list_quimico <- list()
+graficos_list_quimico <- list()
+
+library(dplyr)
+library(ggplot2)
+
+# Crea un bucle que recorre cada variable respuesta
+for (variable in variables_respuesta) {
+  # Crea la tabla resumen
+  tabla_resumen <- data_mad_quimico %>%
+    group_by(madurez) %>%
+    summarise(n = n(),
+              Mean = mean(.data[[variable]]),  # Corregido aquí
+              sd = sd(.data[[variable]]))  # Corregido aquí
+  
+  # Agrega la tabla a la lista
+  tablas_list_quimico[[variable]] <- tabla_resumen
+
+  # Crea el gráfico
+  gg_plot <- ggplot(tabla_resumen, aes(x = madurez, y = Mean, color = madurez)) +
+    scale_color_manual(values = c("palegreen4", "yellowgreen", "gold", "gold4")) +
+    stat_summary(fun = "mean", size = 6, geom = "point") +
+    geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.2, position = position_dodge(0.9)) +
+    theme_classic() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "none") +
+    theme(text = element_text(size = 15, color = 'black')) +
+    theme(axis.text = element_text(color = 'black'))
+
+  assign(paste0("mad_gg_", variable), gg_plot)
+  
+  # Agrega el gráfico a la lista
+  graficos_list_quimico[[variable]] <- get(paste0("mad_gg_", variable))
+}
+
+```
+
+## Sólidos Solubles
+Tabla resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(knitr)
+kable(tablas_list_quimico$brix, format = "markdown")
+
+```
+
+Gráfico de puntos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_quimico$brix
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+modelos_mad_brix <- gls(brix ~ madurez, data=data_mad_quimico)
+modelos_mad_brix
+
+```
+
+Supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+brix_mad_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelos_mad_brix),
+  "predichos" = predict(modelos_mad_brix)))
+
+HV_brix_mad<-ggplot(brix_mad_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_brix_mad
+
+QQ_brix_mad<-ggplot(brix_mad_ajuste) +
+aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_brix_mad
+
+shapiro.test(brix_mad_ajuste$residuos)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(modelos_mad_brix)
+
+```
+
+Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp_mad_brix<-emmeans(modelos_mad_brix, pairwise ~ madurez) #Tukey por default  
+Comp_mad_brix
+plot(Comp_mad_brix, comparisons = T) + theme_classic() + 
+  labs(x = "°brix)", y ="Madurez" )
+
+```
+
+## pH inicial
+
+Tabla resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(knitr)
+kable(tablas_list_quimico$ph, format = "markdown")
+
+```
+
+Gráfico de puntos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_quimico$ph
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+modelos_mad_ph <- gls(ph ~ madurez, data=data_mad_quimico)
+modelos_mad_ph
+
+```
+
+Supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ph_mad_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelos_mad_ph),
+  "predichos" = predict(modelos_mad_ph)))
+
+HV_ph_mad<-ggplot(ph_mad_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_ph_mad
+
+QQ_ph_mad<-ggplot(ph_mad_ajuste) +
+aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_ph_mad
+
+shapiro.test(ph_mad_ajuste$residuos)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(modelos_mad_ph)
+
+```
+
+Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp_mad_ph<-emmeans(modelos_mad_ph, pairwise ~ madurez) #Tukey por default  
+Comp_mad_ph
+plot(Comp_mad_ph, comparisons = T) + theme_classic() + 
+  labs(x = "°ph)", y ="Madurez" )
+
+```
+
+## Acidez Total Titulable (%)
+
+Tabla resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(knitr)
+kable(tablas_list_quimico$acidez, format = "markdown")
+```
+
+Gráfico de puntos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_quimico$acidez
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+modelos_mad_acidez <- gls(acidez ~ madurez, data=data_mad_quimico)
+modelos_mad_acidez
+
+```
+
+Supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+acidez_mad_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelos_mad_acidez),
+  "predichos" = predict(modelos_mad_acidez)))
+
+HV_acidez_mad<-ggplot(acidez_mad_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_acidez_mad
+
+QQ_acidez_mad<-ggplot(acidez_mad_ajuste) +
+aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_acidez_mad
+
+shapiro.test(acidez_mad_ajuste$residuos)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(modelos_mad_acidez)
+
+```
+
+Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp_mad_acidez<-emmeans(modelos_mad_acidez, pairwise ~ madurez) #Tukey por default  
+Comp_mad_acidez
+plot(Comp_mad_acidez, comparisons = T) + theme_classic() + 
+  labs(x = "°acidez)", y ="Madurez" )
+
+```
+
+## Ratio brix/ATT
+
+Tabla resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(knitr)
+kable(tablas_list_quimico$ratio, format = "markdown")
+
+```
+
+Gráfico de puntos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_quimico$ratio
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+modelos_mad_ratio <- gls(ratio ~ madurez, data=data_mad_quimico)
+modelos_mad_ratio
+
+```
+
+Supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ratio_mad_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelos_mad_ratio),
+  "predichos" = predict(modelos_mad_ratio)))
+
+HV_ratio_mad<-ggplot(ratio_mad_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_ratio_mad
+
+QQ_ratio_mad<-ggplot(ratio_mad_ajuste) +
+aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_ratio_mad
+
+shapiro.test(ratio_mad_ajuste$residuos)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(modelos_mad_ratio)
+
+```
+
+Test de Tukey
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+Comp_mad_ratio<-emmeans(modelos_mad_ratio, pairwise ~ madurez) #Tukey por default  
+Comp_mad_ratio
+plot(Comp_mad_ratio, comparisons = T) + theme_classic() + 
+  labs(x = "°ratio)", y ="Madurez" )
+
+```

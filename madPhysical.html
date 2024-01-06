@@ -391,6 +391,9 @@ div.tocify {
       <a href="madPhenols.html">Fenoles</a>
     </li>
     <li>
+      <a href="madSSyAcidez.html">Sólidos Solubles y Acidez</a>
+    </li>
+    <li>
       <a href="madAcids.html">Ácidos orgánicos</a>
     </li>
     <li>
@@ -528,13 +531,42 @@ A caption
 <div id="peso-fresco-del-fruto-pff" class="section level2">
 <h2>Peso fresco del fruto (PFF)</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro        10  19.5  8.37
-## 2 Medio Maduro    10  40.1  7.61
-## 3 Maduro          10  39.6 17.7 
-## 4 SobreMaduro     10  39.5  8.88</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">19.4659</td>
+<td align="right">8.371828</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">40.1207</td>
+<td align="right">7.611044</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">39.5526</td>
+<td align="right">17.661441</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">39.4895</td>
+<td align="right">8.879537</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -574,13 +606,42 @@ A caption
 <div id="peso-seco-de-fruto-psf" class="section level2">
 <h2>Peso seco de fruto (PSF)</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro        10  4.14  2.19
-## 2 Medio Maduro    10  6.62  2.35
-## 3 Maduro          10  5.00  2.84
-## 4 SobreMaduro     10  7.10  2.21</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">4.1405</td>
+<td align="right">2.194326</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">6.6225</td>
+<td align="right">2.345851</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">4.9979</td>
+<td align="right">2.840011</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">7.0983</td>
+<td align="right">2.206626</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -620,13 +681,42 @@ A caption
 <div id="humedad" class="section level2">
 <h2>Humedad</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean     sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1 Inmaduro        10 0.794 0.0231
-## 2 Medio Maduro    10 0.835 0.0383
-## 3 Maduro          10 0.875 0.0256
-## 4 SobreMaduro     10 0.822 0.0263</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">0.7937000</td>
+<td align="right">0.0231039</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">0.8354000</td>
+<td align="right">0.0382803</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">0.8747000</td>
+<td align="right">0.0255563</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">0.8224037</td>
+<td align="right">0.0263065</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -666,13 +756,42 @@ A caption
 <div id="diámetro-ecuatorial-menor" class="section level2">
 <h2>Diámetro ecuatorial menor</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro        10  31.4  4.67
-## 2 Medio Maduro    10  41.4  3.82
-## 3 Maduro          10  42.4  8.75
-## 4 SobreMaduro     10  44.4  3.77</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">31.406</td>
+<td align="right">4.670635</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">41.432</td>
+<td align="right">3.822424</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">42.369</td>
+<td align="right">8.751597</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">44.414</td>
+<td align="right">3.771802</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -712,13 +831,42 @@ A caption
 <div id="diámetro-ecuatorial-mayor" class="section level2">
 <h2>Diámetro ecuatorial mayor</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro        10  34.3  5.09
-## 2 Medio Maduro    10  47.6  4.40
-## 3 Maduro          10  48.5  8.22
-## 4 SobreMaduro     10  48.7  4.78</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">34.306</td>
+<td align="right">5.090388</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">47.610</td>
+<td align="right">4.403236</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">48.469</td>
+<td align="right">8.223086</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">48.732</td>
+<td align="right">4.775762</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-33-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -758,13 +906,42 @@ A caption
 <div id="diámetro-polar" class="section level2">
 <h2>Diámetro polar</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro        10  36.3  6.09
-## 2 Medio Maduro    10  43.8  7.58
-## 3 Maduro          10  38.6  5.65
-## 4 SobreMaduro     10  35.7  9.32</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">36.293</td>
+<td align="right">6.094608</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">43.792</td>
+<td align="right">7.583152</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">38.611</td>
+<td align="right">5.647301</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">35.731</td>
+<td align="right">9.319649</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -803,13 +980,42 @@ A caption
 <div id="peso-seco-semillas" class="section level2">
 <h2>Peso seco semillas</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro        10  2.19  1.19
-## 2 Medio Maduro    10  3.55  1.56
-## 3 Maduro          10  3.00  1.55
-## 4 SobreMaduro     10  3.82  1.46</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">2.19380</td>
+<td align="right">1.190871</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">3.54620</td>
+<td align="right">1.563295</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">3.00080</td>
+<td align="right">1.550241</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">3.81729</td>
+<td align="right">1.461397</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-47-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -848,13 +1054,42 @@ A caption
 <div id="psspsf" class="section level2">
 <h2>PSSPSF</h2>
 <p>Tabla descriptiva</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro        10 0.546 0.219
-## 2 Medio Maduro    10 0.531 0.149
-## 3 Maduro          10 0.635 0.221
-## 4 SobreMaduro     10 0.562 0.110</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">10</td>
+<td align="right">0.5456000</td>
+<td align="right">0.2189369</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">10</td>
+<td align="right">0.5311000</td>
+<td align="right">0.1488970</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">10</td>
+<td align="right">0.6347000</td>
+<td align="right">0.2207019</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">10</td>
+<td align="right">0.5617307</td>
+<td align="right">0.1097075</td>
+</tr>
+</tbody>
+</table>
 <p>Gráfico con desvío estándar
 <img src="madPhysical_files/figure-html/unnamed-chunk-54-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
@@ -891,13 +1126,42 @@ A caption
 <div id="color-l" class="section level2">
 <h2>Color *L</h2>
 <p>Descriptive table color_L</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro         4  68.7 0.941
-## 2 Medio Maduro     4  67.4 1.47 
-## 3 Maduro           4  72.3 0.422
-## 4 SobreMaduro      4  71.5 0.611</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">4</td>
+<td align="right">68.6750</td>
+<td align="right">0.9408684</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">4</td>
+<td align="right">67.3650</td>
+<td align="right">1.4662992</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">4</td>
+<td align="right">72.2825</td>
+<td align="right">0.4222460</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">4</td>
+<td align="right">71.4525</td>
+<td align="right">0.6112487</td>
+</tr>
+</tbody>
+</table>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-63-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
 <img src="madPhysical_files/figure-html/unnamed-chunk-66-1.png" width="960" style="display: block; margin: auto;" /><img src="madPhysical_files/figure-html/unnamed-chunk-66-2.png" width="960" style="display: block; margin: auto;" /></p>
@@ -940,13 +1204,42 @@ A caption
 <div id="color-a" class="section level2">
 <h2>Color *a</h2>
 <p>Descriptive table color_a</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro         4  1.26 0.312
-## 2 Medio Maduro     4  3.82 1.07 
-## 3 Maduro           4  5.68 2.87 
-## 4 SobreMaduro      4  4.32 1.16</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">4</td>
+<td align="right">1.2600</td>
+<td align="right">0.3115552</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">4</td>
+<td align="right">3.8175</td>
+<td align="right">1.0677195</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">4</td>
+<td align="right">5.6775</td>
+<td align="right">2.8721580</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">4</td>
+<td align="right">4.3225</td>
+<td align="right">1.1633966</td>
+</tr>
+</tbody>
+</table>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-70-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
 <img src="madPhysical_files/figure-html/unnamed-chunk-72-1.png" width="960" style="display: block; margin: auto;" /><img src="madPhysical_files/figure-html/unnamed-chunk-72-2.png" width="960" style="display: block; margin: auto;" /></p>
@@ -991,13 +1284,42 @@ A caption
 <div id="color-b" class="section level2">
 <h2>Color *b</h2>
 <p>Descriptive table color_b</p>
-<pre><code>## # A tibble: 4 × 4
-##   madurez          n  Mean    sd
-##   &lt;fct&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 Inmaduro         4  6.8   1.65
-## 2 Medio Maduro     4  4.68  4.30
-## 3 Maduro           4 12.3   1.49
-## 4 SobreMaduro      4  6.79  4.65</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmaduro</td>
+<td align="right">4</td>
+<td align="right">6.80</td>
+<td align="right">1.647645</td>
+</tr>
+<tr class="even">
+<td align="left">Medio Maduro</td>
+<td align="right">4</td>
+<td align="right">4.68</td>
+<td align="right">4.297480</td>
+</tr>
+<tr class="odd">
+<td align="left">Maduro</td>
+<td align="right">4</td>
+<td align="right">12.33</td>
+<td align="right">1.489586</td>
+</tr>
+<tr class="even">
+<td align="left">SobreMaduro</td>
+<td align="right">4</td>
+<td align="right">6.79</td>
+<td align="right">4.652290</td>
+</tr>
+</tbody>
+</table>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-76-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Verificación de supuestos
 <img src="madPhysical_files/figure-html/unnamed-chunk-78-1.png" width="960" style="display: block; margin: auto;" /><img src="madPhysical_files/figure-html/unnamed-chunk-78-2.png" width="960" style="display: block; margin: auto;" /></p>

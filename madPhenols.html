@@ -391,6 +391,9 @@ div.tocify {
       <a href="madPhenols.html">Fenoles</a>
     </li>
     <li>
+      <a href="madSSyAcidez.html">Sólidos Solubles y Acidez</a>
+    </li>
+    <li>
       <a href="madAcids.html">Ácidos orgánicos</a>
     </li>
     <li>
@@ -508,23 +511,100 @@ div.tocify {
 </div>
 
 
-<div
-id="concentración-de-fenoles-expresados-en-mg-equivalente-de-ácido-tánico-cada-100g-pf"
-class="section level2">
-<h2>Concentración de fenoles expresados en mg equivalente de ácido
-tánico cada 100g PF</h2>
-<div id="tabla-descriptiva" class="section level3">
-<h3>Tabla descriptiva</h3>
-<pre><code>## # A tibble: 4 × 4
-##   madurez     n  Mean     sd
-##   &lt;fct&gt;   &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;
-## 1 I           3 187.  36.4  
-## 2 MM          3  70.2  7.63 
-## 3 M           3  42.3  2.96 
-## 4 SM          3  16.3  0.718</code></pre>
-<p><img src="madPhenols_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-</div>
+<p>Análisis sobre la concentración de fenoles expresados en mg
+equivalente de ácido tánico cada 100g PF</p>
+<p>Tabla descriptiva</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">madurez</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">I</td>
+<td align="right">3</td>
+<td align="right">905.8190</td>
+<td align="right">176.169582</td>
+</tr>
+<tr class="even">
+<td align="left">MM</td>
+<td align="right">3</td>
+<td align="right">426.1554</td>
+<td align="right">46.312294</td>
+</tr>
+<tr class="odd">
+<td align="left">M</td>
+<td align="right">3</td>
+<td align="right">337.3995</td>
+<td align="right">23.633127</td>
+</tr>
+<tr class="even">
+<td align="left">SM</td>
+<td align="right">3</td>
+<td align="right">130.4088</td>
+<td align="right">5.734342</td>
+</tr>
+</tbody>
+</table>
+<p>Gráfico de puntos
+<img src="madPhenols_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## Generalized least squares fit by REML
+##   Model: fenoles ~ madurez 
+##   Data: data_mad_phenols 
+##   Log-restricted-likelihood: -41.38069
+## 
+## Coefficients:
+## (Intercept)   madurezMM    madurezM   madurezSM 
+##    905.8190   -479.6637   -568.4195   -775.4102 
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | madurez 
+##  Parameter estimates:
+##          I         MM          M         SM 
+## 1.00000000 0.26288472 0.13414987 0.03255013 
+## Degrees of freedom: 12 total; 8 residual
+## Residual standard error: 176.1696</code></pre>
+<p>Supuestos
+<img src="madPhenols_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /><img src="madPhenols_files/figure-html/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  fenoles_mad_ajuste$residuos
+## W = 0.85288, p-value = 0.03985</code></pre>
+<p>Anova</p>
+<pre><code>## Denom. DF: 8 
+##             numDF   F-value p-value
+## (Intercept)     1 2111.8634  &lt;.0001
+## madurez         3  128.1613  &lt;.0001</code></pre>
+<p>Test de Tukey</p>
+<pre><code>## $emmeans
+##  madurez   emmean        SE df lower.CL  upper.CL
+##  I       905.8190 101.71156  2 468.3030 1343.3351
+##  MM      426.1554  26.73842  2 311.0614  541.2493
+##  M       337.3995  13.64459  2 278.6833  396.1157
+##  SM      130.4088   3.31072  2 116.1636  144.6540
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast estimate        SE   df t.ratio p.value
+##  I - MM   479.6637 105.16741 2.28   4.561  0.0905
+##  I - M    568.4195 102.62269 2.07   5.539  0.0717
+##  I - SM   775.4102 101.76543 2.00   7.620  0.0414
+##  MM - M    88.7558  30.01862 2.97   2.957  0.1671
+##  MM - SM  295.7466  26.94260 2.06  10.977  0.0187
+##  M - SM   206.9908  14.04051 2.23  14.742  0.0077
+## 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madPhenols_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
 
 
 

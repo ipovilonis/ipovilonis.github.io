@@ -1,20 +1,22 @@
 ---
-title: "Acids"
+title: "Ácidos orgánicos"
 output:
   html_document:
-    toc: true
+    toc: yes
     toc_depth: 5
     toc_float:
-      collapsed: false
-      smooth_scroll: true
+      collapsed: no
+      smooth_scroll: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '5'
 ---
 
-## Acidos orgánicos en peso fresco
+# Acidos orgánicos en peso fresco
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 library(readxl)
 datap<-read_excel("database.xlsx", sheet = "mad_CHac")
 datap$CAR <- factor(datap$CAR,
@@ -28,11 +30,9 @@ datap$MAD<-factor(datap$MAD,levels=c("I", "MM", "M", "SM"))
 
 data3<-datap[-c(1:72,169:192),]
 
-
-
 ```
 
-### Concentración del perfíl de ácidos orgánicos a distintos estados de Maturity
+Concentración del perfíl de ácidos orgánicos a distintos estados de Madurez
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=14}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -121,17 +121,19 @@ library(ggpubr)
 ggarrange(aci1s, aci2s, aci3s, aci4s, aci5s, aci6s, common.legend = TRUE, legend = "bottom")
 ```
 
-### Tabla descriptiva
+Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estadac <- summarySE(data3, measurevar="CONF", groupvars=c("CAR", "MAD"))
-estadac
+
+library(knitr)
+kable(estadac, format = "markdown")
 
 ```
 
-### Evolución del perfíl de ácidos orgánicos en la maduración
+Evolución del perfíl de ácidos orgánicos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -140,7 +142,6 @@ dataSI<-subset(data5, MAD == "I")
 dataSMM<-subset(data5, MAD == "MM")
 dataM<-subset(data5, MAD == "M")
 dataSSM<-subset(data5, MAD == "SM")
-
 
 SI<-ggplot(dataSI, aes(x = "CAR", y = CONF, fill = CAR)) +
   geom_col(width = 1) +
@@ -179,7 +180,7 @@ grid.arrange(SI, SMM, SM, SSM, ncol = 2)
 
 ```
 
-### Acidos orgánicos Totales
+## Acidos orgánicos Totales
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -200,7 +201,7 @@ dataSTAT<-filter(dataSACT, CAR == "STAT")
 
 ```
 
-#### Concentración de ácidos orgánicos totales a distintos estados de Maturity.
+Concentración de ácidos orgánicos totales
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -221,13 +222,15 @@ gAT
 
 ```
 
-#### Tabla descriptiva totales
+Tabla descriptiva totales
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estadSACT <- summarySE(dataSACT, measurevar="TOTALF", groupvars=c("CAR", "MAD"))
-estadSACT
+
+library(knitr)
+kable(estadSACT, format = "markdown")
 
 ```
 
@@ -285,7 +288,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -293,7 +296,7 @@ anova(mAT1)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -306,12 +309,7 @@ plot(CompAT, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-Existen diferencias significativas entre estados de Maturity para los ácidos totales detectados en este trabajo.
-
-### Ácido Tartárico
-
+## Ácido Tartárico
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -326,7 +324,7 @@ tar<-subset(datap, CAR == "Tartárico")
 
 ```
 
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -380,7 +378,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -388,7 +386,7 @@ anova(mtar2)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -401,12 +399,8 @@ plot(Comptar, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
 
-Existen diferencias significativas entre estados de Maturity. El estado sobre maduro es el único que presenta ácido tartárico detectable.
-
-
-### Ácido málico
+## Ácido málico
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -421,7 +415,7 @@ mal<-subset(datap, CAR == "Málico")
 
 ```
 
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -476,7 +470,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -484,7 +478,7 @@ anova(mmal2)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -497,13 +491,9 @@ plot(Compmal, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+## Ácido quínico
 
-Existen diferencias significativas entre estados de Maturity. En el estado maduro se presentó el pico de concentración de ácido málico.
-
-### Ácido quínico
-
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -574,7 +564,7 @@ leveneTest(CONF~MAD, qui)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -582,7 +572,7 @@ anova(mqui2)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -595,13 +585,9 @@ plot(Compqui, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+## Ácido succinico
 
-Se observa un marcado aumento de ácido quínico con la maduración hasta frutos maduros. Luego en frutos sobre maduros Frutos medio maduros presentan gran variabiliad.
-
-### Ácido succinico
-
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -656,7 +642,7 @@ leveneTest(CONF~MAD, suc)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=7}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -664,7 +650,7 @@ anova(msuc2)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -677,13 +663,9 @@ plot(Compsuc, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+# Acidos orgánicos en peso seco
 
-Se encontraron diferencias entre estados de Maturity, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
-
-## Acidos orgánicos en peso seco
-
-### Concentración del perfíl de ácidos orgánicos a distintos estados de Maturity
+Concentración del perfíl de ácidos orgánicos 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=14}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -773,7 +755,7 @@ ggarrange(aci1, aci2, aci3, aci4, aci5, aci6, common.legend = TRUE, legend = "bo
 
 ```
 
-#### Tabla descriptiva
+Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -783,7 +765,7 @@ estadacs
 
 ```
 
-#### Evolución del perfíl de ácidos orgánicos en la maduración
+Evolución del perfíl de ácidos orgánicos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -831,7 +813,7 @@ grid.arrange(SI, SMM, SM, SSM, ncol = 2)
 
 ```
 
-### Ácidos orgánicos totales
+## Ácidos orgánicos totales
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -853,7 +835,7 @@ gAT
 
 ```
 
-#### Tabla descriptiva totales
+Tabla descriptiva totales
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -863,7 +845,7 @@ estadSACTS
 
 ```
 
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -918,7 +900,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -926,7 +908,7 @@ anova(mAT1s)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -939,11 +921,7 @@ plot(CompATs, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-La menor concentración de ácidos totales en frutos inmaduros es significativa.
-
-### Ácido tartárico
+Ácido tartárico
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -958,7 +936,7 @@ tar<-subset(datap, CAR == "Tartárico")
 
 ```
 
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1013,7 +991,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1021,7 +999,7 @@ anova(mtar2s)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1034,11 +1012,7 @@ plot(Comptars, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
-
-Existen diferencias significativas entre estados de Maturity. Sólo el estado sobre maduro presentó ácido málico detectable.
-
-### Ácido málico
+## Ácido málico
 
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1053,7 +1027,7 @@ mal<-subset(datap, CAR == "Málico")
 
 ```
 
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1108,7 +1082,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1116,7 +1090,7 @@ anova(mmal2s)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1129,13 +1103,9 @@ plot(Compmals, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+## Ácido quínico
 
-Existen diferencias significativas entre estados de Maturity. En el estado maduro se presentó el pico de concentración de ácido málico.
-
-### Ácido quínico
-
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1208,7 +1178,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1216,7 +1186,7 @@ anova(mqui2s)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1229,13 +1199,9 @@ plot(Compquis, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+## Ácido succinico
 
-El estado inmaduro se diferenció significativamente por sus bajas concentraciones de quínico. Luego durante la maduración el ácido se mantiene constante.
-
-### Ácido succinico
-
-#### Modelo y supuestos
+Modelo y supuestos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1291,7 +1257,7 @@ leveneTest(CONS~MAD, suc)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=7}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1299,7 +1265,7 @@ anova(msuc2s)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1312,14 +1278,8 @@ plot(Compsucs, comparisons = TRUE) + theme_classic() +
 
 ```
 
-#### Conclusiones
+## Relación de ácidos orgánicos y acidez total titulable ATT.
 
-Se encontraron diferencias significativas entre estados de Maturity, los frutos inmaduros y sobre maduros presentaron las mayores concentraciones de ácido succínico.
-
-
-## Correlaciones ácidos orgánicos y acidez total titulable ATT.
-
-### Tabla de ácidos
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1335,7 +1295,7 @@ CTac
 
 ```
 
-## Concentración del ratio azúcares totales / ácidos orgánicos totales a distintos estados de Madurez.
+Concentración del ratio azúcares totales / ácidos orgánicos totales a distintos estados.
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
@@ -1356,7 +1316,7 @@ gSTAT
 
 ```
 
-#### Tabla descriptiva totales
+Tabla descriptiva totales
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1368,6 +1328,7 @@ estadSACT2
 
 ```
 
+Relación ST/AT (azúcares totales / ácidos totales)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1422,7 +1383,7 @@ shapiro.test(e)
 
 ```
 
-#### Anova
+Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1430,7 +1391,7 @@ anova(mSTAT1)
 
 ```
 
-#### Test de Tukey
+Test de Tukey
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1439,13 +1400,9 @@ library(multcompView)
 CompSTAT<-emmeans(mSTAT1, pairwise ~ MAD) #Tukey  
 CompSTAT
 plot(CompSTAT, comparisons = TRUE) + theme_classic() + 
-  labs(x = "Concentración mg/g fruta fresca", y ="Maturity")
+  labs(x = "Concentración mg/g", y ="")
 
 ```
-
-#### Conclusiones
-
-Existen diferencias significativas entre estados de Maturity para la relación azúcares totales / ácidos totales. La diferencia está dada únicamente entre los niveles MM y SM.
 
 ## Correlaciones
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -1459,7 +1416,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # GCOR
 ```
 
-### Correlaciones de Pearson.
+ Correlaciones de Pearson.
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=10}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1501,7 +1458,7 @@ cor.test(FACO$ACIDS, FACO$Málico)
 
 ```
 
-### Gráficos de correlación detallados por estados de madurez
+ Gráficos de correlación detallados por estado.
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=10}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1648,9 +1605,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-#### Conclusión
-
-Linear relationships between organic acids became evident between Malic and Quinic acid with an r=0.8600213 and a p-value=0.000333, and between Tartaric and Succinic acid with an r=0.6869819 and a p-value=0.01358. Total titratable acidity (TTA) showed a significant linear association only with Tartaric acid with an r=-0.7187027 and a p-value=0.00845. However, this inverse association is linked to the fact that Tartaric acid only appears in trace amounts in overripe fruits. Total acids with Quinic acid presented a correlation of 0.8557676 with a p-value=0.0003839. Meanwhile, Malic acid  an r=0.9300893 and a p-value=1.169e-05. In both cases, these acids explain the increase in total acid concentration throughout fruit ripening.
+* Correlaciones:
+Se evidenciaron relaciones lineales entre los ácidos orgánicos, entre el ácido málico y el ácido quínico con un coeficiente de correlación (r) de 0.8600213 y un valor de p=0.000333, y entre el ácido tartárico y el ácido succínico con un r=0.6869819 y un p-valor=0.01358. La acidez titulable total (TTA) mostró una asociación lineal significativa únicamente con el ácido tartárico, con un r=-0.7187027 y un p-valor=0.00845. Sin embargo, esta asociación inversa está vinculada al hecho de que el ácido tartárico solo aparece en cantidades mínimas en frutas muy maduras. La concentración total de ácidos con ácido quínico presentó una correlación de 0.8557676 con un p-valor=0.0003839. Mientras tanto, el ácido málico mostró un r=0.9300893 y un p-valor=1.169e-05. En ambos casos, estos ácidos explican el aumento en la concentración total de ácidos a lo largo del proceso de maduración de la fruta.
 
 
 

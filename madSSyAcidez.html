@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Sólidos solubles y acidez</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">I Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    II Sitios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_Companionspecies.html">Especies asociadas</a>
+    </li>
+    <li>
+      <a href="II_Meteorological.html">Meteorologia</a>
+    </li>
+    <li>
+      <a href="II_Climate.html">Clima</a>
+    </li>
+    <li>
+      <a href="II_Soil.html">Suelos</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    III Fenología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="III_Phenology.html">Fenología</a>
+    </li>
+    <li>
+      <a href="III_Yield.html">Rendimiento</a>
+    </li>
+    <li>
+      <a href="III_Polinization.html">Polinización</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    IV Maduración
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mad_resume.html">Tablas resumen</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Atributos físicos</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Actividad antioxidante</a>
+    </li>
+    <li>
+      <a href="madPhenols.html">Fenoles</a>
+    </li>
+    <li>
+      <a href="madSSyAcidez.html">Sólidos Solubles y Acidez</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Ácidos orgánicos</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohidratos</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Fibra dietaria</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cationes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    V Variabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V_Weight.html">Peso</a>
+    </li>
+    <li>
+      <a href="V_Diameter.html">Diámetro</a>
+    </li>
+    <li>
+      <a href="V_Seeds.html">Semillas</a>
+    </li>
+    <li>
+      <a href="V_Colorimetry.html">Colorimetría</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_phenols.html">Fenoles</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Reproductive.html">Variables reproductivas</a>
+    </li>
+    <li>
+      <a href="V_Branches.html">Eficiencia reproductiva</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Multivariate.html">Multivariado</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Otros ensayos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Genetics.html">Extracción de ADN</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extración química</a>
+    </li>
+    <li>
+      <a href="q2022_quimico.html">Variables químicas 2022</a>
+    </li>
+    <li>
+      <a href="secado.html">Secado</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Publicaciones</a>
+</li>
+<li>
+  <a href="about.html">Sobre el sitio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Sólidos solubles y acidez</h1>
+
+</div>
+
+
+<pre><code>## Error in `n()`:
+## ! Must only be used inside data-masking verbs like `mutate()`, `filter()`, and `group_by()`.</code></pre>
+<div id="sólidos-solubles" class="section level2">
+<h2>Sólidos Solubles</h2>
+<p>Tabla resumen</p>
+<p>Gráfico de puntos</p>
+<pre><code>## NULL</code></pre>
+<p>Modelo</p>
+<pre><code>## Generalized least squares fit by REML
+##   Model: brix ~ madurez 
+##   Data: data_mad_quimico 
+##   Log-restricted-likelihood: 8.373823
+## 
+## Coefficients:
+## (Intercept)   madurezMM    madurezM   madurezSM 
+##    7.566667   -1.566667    0.600000    2.533333 
+## 
+## Degrees of freedom: 12 total; 8 residual
+## Residual standard error: 0.06454972</code></pre>
+<p>Supuestos
+<img src="madSSyAcidez_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-6-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  brix_mad_ajuste$residuos
+## W = 0.91429, p-value = 0.242</code></pre>
+<p>Anova</p>
+<pre><code>## Denom. DF: 8 
+##             numDF   F-value p-value
+## (Intercept)     1 182405.00  &lt;.0001
+## madurez         3   2068.47  &lt;.0001</code></pre>
+<p>Test de Tukey</p>
+<pre><code>## $emmeans
+##  madurez    emmean        SE df  lower.CL  upper.CL
+##  I        7.566667 0.0372678  8  7.480727  7.652606
+##  MM       6.000000 0.0372678  8  5.914060  6.085940
+##  M        8.166667 0.0372678  8  8.080727  8.252606
+##  SM      10.100000 0.0372678  8 10.014060 10.185940
+## 
+## Degrees-of-freedom method: df.error 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate         SE df t.ratio p.value
+##  I - MM    1.566667 0.05270463  8  29.725  &lt;.0001
+##  I - M    -0.600000 0.05270463  8 -11.384  &lt;.0001
+##  I - SM   -2.533333 0.05270463  8 -48.067  &lt;.0001
+##  MM - M   -2.166667 0.05270463  8 -41.110  &lt;.0001
+##  MM - SM  -4.100000 0.05270463  8 -77.792  &lt;.0001
+##  M - SM   -1.933333 0.05270463  8 -36.682  &lt;.0001
+## 
+## Degrees-of-freedom method: df.error 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madSSyAcidez_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ph-inicial" class="section level2">
+<h2>pH inicial</h2>
+<p>Tabla resumen</p>
+<p>Gráfico de puntos</p>
+<pre><code>## NULL</code></pre>
+<p>Modelo</p>
+<pre><code>## Generalized least squares fit by REML
+##   Model: ph ~ madurez 
+##   Data: data_mad_quimico 
+##   Log-restricted-likelihood: -1.353607
+## 
+## Coefficients:
+## (Intercept)   madurezMM    madurezM   madurezSM 
+##  3.41000000 -0.24000000 -1.07666667 -0.05666667 
+## 
+## Degrees of freedom: 12 total; 8 residual
+## Residual standard error: 0.2177537</code></pre>
+<p>Supuestos
+<img src="madSSyAcidez_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  ph_mad_ajuste$residuos
+## W = 0.91632, p-value = 0.2568</code></pre>
+<p>Anova</p>
+<pre><code>## Denom. DF: 8 
+##             numDF   F-value p-value
+## (Intercept)     1 2380.0351  &lt;.0001
+## madurez         3   15.7858   0.001</code></pre>
+<p>Test de Tukey</p>
+<pre><code>## $emmeans
+##  madurez   emmean        SE df lower.CL upper.CL
+##  I       3.410000 0.1257202  8 3.120089 3.699911
+##  MM      3.170000 0.1257202  8 2.880089 3.459911
+##  M       2.333333 0.1257202  8 2.043422 2.623245
+##  SM      3.353333 0.1257202  8 3.063422 3.643245
+## 
+## Degrees-of-freedom method: df.error 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast   estimate        SE df t.ratio p.value
+##  I - MM    0.2400000 0.1777951  8   1.350  0.5602
+##  I - M     1.0766667 0.1777951  8   6.056  0.0014
+##  I - SM    0.0566667 0.1777951  8   0.319  0.9880
+##  MM - M    0.8366667 0.1777951  8   4.706  0.0067
+##  MM - SM  -0.1833333 0.1777951  8  -1.031  0.7371
+##  M - SM   -1.0200000 0.1777951  8  -5.737  0.0019
+## 
+## Degrees-of-freedom method: df.error 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madSSyAcidez_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="acidez-total-titulable" class="section level2">
+<h2>Acidez Total Titulable (%)</h2>
+<p>Tabla resumen</p>
+<p>Gráfico de puntos</p>
+<pre><code>## NULL</code></pre>
+<p>Modelo</p>
+<pre><code>## Generalized least squares fit by REML
+##   Model: acidez ~ madurez 
+##   Data: data_mad_quimico 
+##   Log-restricted-likelihood: 3.829159
+## 
+## Coefficients:
+## (Intercept)   madurezMM    madurezM   madurezSM 
+##  1.77920000 -0.17280000  0.04906667 -0.39466667 
+## 
+## Degrees of freedom: 12 total; 8 residual
+## Residual standard error: 0.1139225</code></pre>
+<p>Supuestos
+<img src="madSSyAcidez_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-18-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  acidez_mad_ajuste$residuos
+## W = 0.93162, p-value = 0.3975</code></pre>
+<p>Anova</p>
+<pre><code>## Denom. DF: 8 
+##             numDF   F-value p-value
+## (Intercept)     1 2516.0494  &lt;.0001
+## madurez         3    9.3112  0.0055</code></pre>
+<p>Test de Tukey</p>
+<pre><code>## $emmeans
+##  madurez   emmean         SE df lower.CL upper.CL
+##  I       1.779200 0.06577321  8 1.627527 1.930873
+##  MM      1.606400 0.06577321  8 1.454727 1.758073
+##  M       1.828267 0.06577321  8 1.676593 1.979940
+##  SM      1.384533 0.06577321  8 1.232860 1.536207
+## 
+## Degrees-of-freedom method: df.error 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast   estimate         SE df t.ratio p.value
+##  I - MM    0.1728000 0.09301737  8   1.858  0.3163
+##  I - M    -0.0490667 0.09301737  8  -0.527  0.9500
+##  I - SM    0.3946667 0.09301737  8   4.243  0.0121
+##  MM - M   -0.2218667 0.09301737  8  -2.385  0.1576
+##  MM - SM   0.2218667 0.09301737  8   2.385  0.1576
+##  M - SM    0.4437333 0.09301737  8   4.770  0.0061
+## 
+## Degrees-of-freedom method: df.error 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madSSyAcidez_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ratio-brixatt" class="section level2">
+<h2>Ratio brix/ATT</h2>
+<p>Tabla resumen</p>
+<p>Gráfico de puntos</p>
+<pre><code>## NULL</code></pre>
+<p>Modelo</p>
+<pre><code>## Generalized least squares fit by REML
+##   Model: ratio ~ madurez 
+##   Data: data_mad_quimico 
+##   Log-restricted-likelihood: -4.340227
+## 
+## Coefficients:
+## (Intercept)   madurezMM    madurezM   madurezSM 
+##   4.2555991  -0.5197952   0.2451678   3.0555734 
+## 
+## Degrees of freedom: 12 total; 8 residual
+## Residual standard error: 0.3163003</code></pre>
+<p>Supuestos
+<img src="madSSyAcidez_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-24-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  ratio_mad_ajuste$residuos
+## W = 0.92287, p-value = 0.3106</code></pre>
+<p>Anova</p>
+<pre><code>## Denom. DF: 8 
+##             numDF   F-value p-value
+## (Intercept)     1 2939.9441  &lt;.0001
+## madurez         3   77.2986  &lt;.0001</code></pre>
+<p>Test de Tukey</p>
+<pre><code>## $emmeans
+##  madurez   emmean        SE df lower.CL upper.CL
+##  I       4.255599 0.1826161  8 3.834486 4.676712
+##  MM      3.735804 0.1826161  8 3.314690 4.156917
+##  M       4.500767 0.1826161  8 4.079654 4.921880
+##  SM      7.311172 0.1826161  8 6.890059 7.732286
+## 
+## Degrees-of-freedom method: df.error 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast  estimate        SE df t.ratio p.value
+##  I - MM    0.519795 0.2582581  8   2.013  0.2597
+##  I - M    -0.245168 0.2582581  8  -0.949  0.7804
+##  I - SM   -3.055573 0.2582581  8 -11.831  &lt;.0001
+##  MM - M   -0.764963 0.2582581  8  -2.962  0.0702
+##  MM - SM  -3.575369 0.2582581  8 -13.844  &lt;.0001
+##  M - SM   -2.810406 0.2582581  8 -10.882  &lt;.0001
+## 
+## Degrees-of-freedom method: df.error 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="madSSyAcidez_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

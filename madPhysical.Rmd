@@ -80,7 +80,9 @@ Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$PFF
+library(knitr)
+kable(tablas_list$PFF, format = "markdown")
+
 ```
 
 Gráfico con desvío estándar
@@ -205,7 +207,7 @@ plot(Comp_PFF_mad, comparisons = TRUE) + theme_classic() +
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$PSF
+kable(tablas_list$PSF, format = "markdown")
 
 ```
 
@@ -289,7 +291,7 @@ plot(Comp_PSF_mad, comparisons = TRUE) + theme_classic() +
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$H
+kable(tablas_list$H, format = "markdown")
 
 ```
 
@@ -377,7 +379,7 @@ plot(Comp2H, comparisons = TRUE)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$Dem
+kable(tablas_list$Dem, format = "markdown")
 
 ```
 
@@ -460,7 +462,7 @@ plot(Comp_Dem_mad, comparisons = TRUE)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$DeM
+kable(tablas_list$DeM, format = "markdown")
 
 ```
 
@@ -551,7 +553,7 @@ plot(Comp_DeM_mad, comparisons = TRUE)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$DP
+kable(tablas_list$DP, format = "markdown")
 
 ```
 
@@ -634,7 +636,7 @@ Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$PSS
+kable(tablas_list$PSS, format = "markdown")
 
 ```
 
@@ -715,7 +717,8 @@ Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list$PSSPSF
+kable(tablas_list$PSSPSF, format = "markdown")
+
 ```
 
 Gráfico con desvío estándar
@@ -851,7 +854,7 @@ for(variable in variables_respuesta) {
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list_color$color_L
+kable(tablas_list_color$color_L, format = "markdown")
 
 ```
 
@@ -968,7 +971,7 @@ plot(Comp_color_L_mad, comparisons = TRUE) + theme_classic() +
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list_color$color_a
+kable(tablas_list_color$color_a, format = "markdown")
 
 ```
 
@@ -1082,7 +1085,7 @@ plot(Comp_color_a_mad, comparisons = TRUE) + theme_classic() +
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tablas_list_color$color_b
+kable(tablas_list_color$color_b, format = "markdown")
 
 ```
 
