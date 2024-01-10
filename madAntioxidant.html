@@ -514,44 +514,49 @@ div.tocify {
 </div>
 
 
-<div id="actividad-anti-oxidante-dpph" class="section level2">
-<h2>Actividad anti oxidante (DPPH)</h2>
-<div id="tabla-descriptiva" class="section level3">
-<h3>Tabla descriptiva</h3>
-</div>
-<div
-id="boxplot-de-capacidad-anti-oxidante-para-distintos-grados-de-madurez"
-class="section level3">
-<h3>Boxplot de capacidad anti oxidante para distintos grados de
-madurez</h3>
-<p><img src="madAntioxidant_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="modelo" class="section level3">
-<h3>Modelo</h3>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
-## Formula: In ~ Trata + (1 | Conc)
-##    Data: Datos0
-## REML criterion at convergence: 375.4531
-## Random effects:
-##  Groups   Name        Std.Dev.
-##  Conc     (Intercept) 18.47   
-##  Residual             13.86   
-## Number of obs: 48, groups:  Conc, 4
-## Fixed Effects:
-## (Intercept)      TrataMM       TrataM      TrataSM  
-##       94.66       -32.67       -14.59       -72.37</code></pre>
-</div>
-<div id="supuestos" class="section level3">
-<h3>Supuestos</h3>
-<p><img src="madAntioxidant_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.98371, p-value = 0.7371</code></pre>
-</div>
-<div id="anova" class="section level3">
-<h3>Anova</h3>
+<p>Tabla descriptiva</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Trata</th>
+<th align="right">n</th>
+<th align="right">Mean</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">I</td>
+<td align="right">12</td>
+<td align="right">94.66000</td>
+<td align="right">6.712351</td>
+</tr>
+<tr class="even">
+<td align="left">MM</td>
+<td align="right">12</td>
+<td align="right">61.98917</td>
+<td align="right">24.924052</td>
+</tr>
+<tr class="odd">
+<td align="left">M</td>
+<td align="right">12</td>
+<td align="right">80.07250</td>
+<td align="right">17.774921</td>
+</tr>
+<tr class="even">
+<td align="left">SM</td>
+<td align="right">12</td>
+<td align="right">22.29442</td>
+<td align="right">30.037903</td>
+</tr>
+</tbody>
+</table>
+<p>Boxplot de capacidad anti oxidante para distintos grados de madurez
+<img src="madAntioxidant_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<p>Supuestos del modelo
+<img src="madAntioxidant_files/figure-html/unnamed-chunk-5-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p>Anova</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: In
@@ -559,38 +564,32 @@ madurez</h3>
 ## Trata 183.72  3  &lt; 2.2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-</div>
-<div id="comparaciones-a-posteriori" class="section level3">
-<h3>Comparaciones a posteriori</h3>
+<p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Trata   emmean       SE   df lower.CL  upper.CL
-##  I     94.66000 10.06418 3.86 66.29939 123.02061
-##  MM    61.98917 10.06418 3.86 33.62856  90.34978
-##  M     80.07250 10.06418 3.86 51.71189 108.43311
-##  SM    22.29417 10.06418 3.86 -6.06644  50.65478
+##  Trata emmean    SE   df lower.CL upper.CL
+##  I      0.947 0.101 3.86   0.6630    1.230
+##  MM     0.620 0.101 3.86   0.3363    0.903
+##  M      0.801 0.101 3.86   0.5171    1.084
+##  SM     0.223 0.101 3.86  -0.0607    0.507
 ## 
 ## Degrees-of-freedom method: kenward-roger 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate      SE df t.ratio p.value
-##  I - MM    32.67083 5.65688 41   5.775  &lt;.0001
-##  I - M     14.58750 5.65688 41   2.579  0.0628
-##  I - SM    72.36583 5.65688 41  12.793  &lt;.0001
-##  MM - M   -18.08333 5.65688 41  -3.197  0.0137
-##  MM - SM   39.69500 5.65688 41   7.017  &lt;.0001
-##  M - SM    57.77833 5.65688 41  10.214  &lt;.0001
+##  contrast estimate     SE df t.ratio p.value
+##  I - MM      0.327 0.0566 41   5.775  &lt;.0001
+##  I - M       0.146 0.0566 41   2.579  0.0628
+##  I - SM      0.724 0.0566 41  12.793  &lt;.0001
+##  MM - M     -0.181 0.0566 41  -3.197  0.0137
+##  MM - SM     0.397 0.0566 41   7.017  &lt;.0001
+##  M - SM      0.578 0.0566 41  10.214  &lt;.0001
 ## 
 ## Degrees-of-freedom method: kenward-roger 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madAntioxidant_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
-</div>
-<div id="evolución-de-la-avtividad-anti-oxidante-en-la-maduración"
-class="section level3">
-<h3>Evolución de la Avtividad anti oxidante en la maduración</h3>
-<p><img src="madAntioxidant_files/figure-html/unnamed-chunk-9-1.png" width="1440" style="display: block; margin: auto;" /></p>
-</div>
-</div>
+<p>Evolución de la Actividad anti oxidante en la maduración
+<img src="madAntioxidant_files/figure-html/unnamed-chunk-9-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="madAntioxidant_files/figure-html/unnamed-chunk-10-1.png" width="1920" style="display: block; margin: auto;" /></p>
 
 
 

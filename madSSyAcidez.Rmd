@@ -9,7 +9,6 @@ output:
      smooth_scroll: true
 ---
 
-
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -36,8 +35,8 @@ library(ggplot2)
 for (variable in variables_respuesta) {
   # Crea la tabla resumen
   tabla_resumen <- data_mad_quimico %>%
-    group_by(madurez) %>%
-    summarise(n = n(),
+    dplyr::group_by(madurez) %>%
+    dplyr::summarise(n = n(),
               Mean = mean(.data[[variable]]),  # Corregido aquí
               sd = sd(.data[[variable]]))  # Corregido aquí
   

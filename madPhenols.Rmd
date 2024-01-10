@@ -120,14 +120,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
 Comp_mad_fenoles<-emmeans(modelos_mad_fenoles, pairwise ~ madurez) #Tukey por default  
 Comp_mad_fenoles
-plot(Comp_mad_fenoles, comparisons = F) + theme_classic() + 
-  labs(x = "mg Fenoles / 100g PF)", y ="Madurez" )
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
+plot(Comp_mad_fenoles, comparisons = FALSE, arrow.type = "none") + theme_classic() +
+  labs(x = "mg Fenoles / 100g PF)", y ="Madurez")
 
 ```

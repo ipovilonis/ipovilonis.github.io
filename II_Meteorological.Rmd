@@ -1,5 +1,5 @@
 ---
-title: "Meteorological"
+title: "Meteorología"
 
 ---
 
@@ -151,7 +151,7 @@ estadmet_prec <- datamet[,c(1:3,9)] %>%
   dplyr::group_by(site, year, month) %>%
   dplyr::mutate(acumulado = cumsum(prec))
 
- pp_table  <- estadmet_prec %>%
+pp_table  <- estadmet_prec %>%
    dplyr::group_by(site,year,month) %>%
    dplyr::summarise(acum=max(acumulado))
  

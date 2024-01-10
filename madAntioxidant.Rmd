@@ -9,9 +9,6 @@ output:
      smooth_scroll: true
 ---
 
-## Actividad anti oxidante (DPPH)
-
-### Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -23,14 +20,23 @@ Datos0$Trata<-factor(Datos0$Trata,levels=c("I","MM", "M","SM"))
 
 ```
 
+ Tabla descriptiva
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(dplyr)
+tabla_aao <- Datos0 %>% 
+  dplyr::group_by(Trata) %>% 
+  dplyr::summarise(n=n(),
+                   Mean = mean(In),
+                   sd = sd(In))
 
+library(knitr)
+kable(tabla_aao, format = "markdown")
 
 ```
 
-### Boxplot de capacidad anti oxidante para distintos grados de madurez
+ Boxplot de capacidad anti oxidante para distintos grados de madurez
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -49,41 +55,55 @@ box
 
 ```
 
-### Modelo
+ Modelo
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+Datos0$In <- Datos0$In/100
 
 library(lme4)
 maoo<-lmer(In~Trata + (1|Conc), data=Datos0)
-maoo
+
+# library(glmmTMB)
+# maoo <- glmmTMB(In ~ Trata + (1|Conc), family = beta_family(), data = Datos0)
 
 ```
 
-### Supuestos
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+ Supuestos del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-e<-resid(maoo) # residuos de pearson
-pre<-predict(maoo) #predichos
-par(mfrow = c(1, 2))
-plot(pre, e, xlab="Predichos", ylab="Residuos de pearson",main="Gráfico de dispersión de Residuos vs Predichos",cex.main=.8 )
-abline(0,0)
-qqnorm(e)
-qqline(e)
-shapiro.test(e)
+maoo_ajustado <- as.data.frame(cbind(
+  "residuos" = residuals(maoo),
+  "predichos" = predict(maoo)))
+
+HV_maoo<-ggplot(maoo_ajustado) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_maoo
 
 ```
 
-### Anova
+ Anova
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(car)
-Anova(maoo)
+Anova(maoo, test.statistic=c("Chisq"))
 
 ```
 
-### Comparaciones a posteriori
+ Comparaciones a posteriori
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -101,18 +121,18 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-### Evolución de la Avtividad anti oxidante en la maduración
+ Evolución de la Actividad anti oxidante en la maduración
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=10}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data<-read.delim("tablaAAO.txt")
 data$T<-as.factor(data$T)
 data$T<-factor(data$T,levels=c("Unripe", "Medium ripe","Ripe", "Overripe"))
-colores<-c("palegreen4","green2","orange","burlywood2")
+colores<-c("palegreen4", "yellowgreen", "gold", "gold4")
 Taao<-ggplot(data=data, aes(Conc, inh, color=data$T)) +
   geom_point(lwd=5, show.legend = FALSE, shape=data$T) +
   (scale_color_manual(values = colores)) +
-  geom_smooth(method="loess", lwd=1.2) + labs(y="inh %", x="Concentration mg fruit/Ml") +
+  geom_smooth(method="loess", lwd=1.2) + labs(y="inh %", x="Concentración mg fruta fresca / ml") +
   geom_errorbar(aes(ymin=inh-DS, ymax=inh+DS), width=.9, position=position_dodge(.01))+
   theme_classic()+
   theme(legend.title=element_blank())+
@@ -124,3 +144,37 @@ Taao<-ggplot(data=data, aes(Conc, inh, color=data$T)) +
 Taao
 
 ```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=15}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_aao2 <- Datos0 %>%
+  dplyr::group_by(Conc, Trata) %>%
+  dplyr::summarise(n=n(),
+                   Mean=mean(In),
+                   sd=sd(In))
+
+colores<-c("palegreen4", "yellowgreen", "gold", "gold4")
+
+library(ggplot2)
+gg_aao2<-ggplot(data=tabla_aao2, aes(x=Conc, y=Mean, fill=Trata, color=Trata)) +
+  stat_summary(fun = "mean", size = .2, width = .4, geom = "bar",position=position_dodge(0.4))+
+  geom_errorbar(aes(ymin= Mean-0, ymax=Mean+sd), width=.2, position=position_dodge(.4))+
+  scale_fill_manual(values = colores)+
+  scale_color_manual(values = c("black","black","black","black"))+
+  theme_classic()+
+  theme(legend.title=element_blank())+
+  theme(legend.position = c(0.85, 0.25),
+        legend.background = element_rect(fill = "white"))+
+  theme(legend.position = "bottom")+
+  theme(text = element_text(size = 25, color = 'black')) +
+  theme(axis.text = element_text(color = 'black'))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  labs(y="Inh (%)", x="Extractos en metanol de frutos (mg/mL)")
+
+gg_aao2
+
+```
+
+
