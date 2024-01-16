@@ -477,24 +477,24 @@ class="section level2">
 <tbody>
 <tr class="odd">
 <td align="left">control</td>
-<td align="right">105.2480</td>
+<td align="right">106.53540</td>
 <td align="right">65.21946</td>
 <td align="right">139.9356</td>
-<td align="right">20.453064</td>
+<td align="right">20.21791</td>
 </tr>
 <tr class="even">
 <td align="left">etileno</td>
-<td align="right">113.8395</td>
+<td align="right">113.83946</td>
 <td align="right">66.92551</td>
 <td align="right">133.8905</td>
-<td align="right">17.623015</td>
+<td align="right">17.62301</td>
 </tr>
 <tr class="odd">
 <td align="left">1MCP</td>
-<td align="right">87.4358</td>
+<td align="right">87.42591</td>
 <td align="right">68.07181</td>
 <td align="right">102.2095</td>
-<td align="right">8.499335</td>
+<td align="right">8.81464</td>
 </tr>
 </tbody>
 </table>
@@ -517,7 +517,7 @@ maturation</em></p>
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9775, p-value = 0.01793</code></pre>
+## W = 0.97473, p-value = 0.009111</code></pre>
 </div>
 <div id="descriptive-graphic-sd-1" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
@@ -537,13 +537,13 @@ maturation</em></p>
 <tr class="odd">
 <td align="left">(Intercept)</td>
 <td align="right">1</td>
-<td align="right">8249.81460</td>
+<td align="right">7951.84053</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">treat</td>
 <td align="right">2</td>
-<td align="right">51.99057</td>
+<td align="right">52.86457</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -557,8 +557,8 @@ maturation</em></p>
 ## 
 ## $control
 ##                       diff     lwr.ci    upr.ci    pval    
-## etileno-control   8.591423   1.137684  16.04516  0.0209 *  
-## 1MCP-control    -17.812242 -25.265981 -10.35850 7.3e-07 ***
+## etileno-control   7.304064  -0.130555  14.73868  0.0549 .  
+## 1MCP-control    -19.109487 -26.544106 -11.67487 1.1e-07 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -566,10 +566,10 @@ maturation</em></p>
 <div id="tukey-test" class="section level2">
 <h2>Tukey test</h2>
 <pre><code>## $emmeans
-##  treat     emmean       SE    df  lower.CL  upper.CL
-##  control 105.2480 2.952147 47.19  99.30973 111.18635
-##  etileno 113.8395 2.543663 47.21 108.72288 118.95604
-##  1MCP     87.4358 1.226773 47.01  84.96787  89.90373
+##  treat      emmean       SE    df  lower.CL upper.CL
+##  control 106.53540 2.918208 47.26 100.66558 112.4052
+##  etileno 113.83946 2.543663 47.32 108.72318 118.9557
+##  1MCP     87.42591 1.272282 47.01  84.86642  89.9854
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
@@ -577,9 +577,9 @@ maturation</em></p>
 ## 
 ## $contrasts
 ##  contrast           estimate       SE    df t.ratio p.value
-##  control - etileno -8.591423 3.896844 92.01  -2.205  0.0757
-##  control - 1MCP    17.812242 3.196896 63.02   5.572  &lt;.0001
-##  etileno - 1MCP    26.403665 2.824039 68.02   9.350  &lt;.0001
+##  control - etileno -7.304064 3.871196 92.30  -1.887  0.1483
+##  control - 1MCP    19.109487 3.183495 64.60   6.003  &lt;.0001
+##  etileno - 1MCP    26.413551 2.844103 69.55   9.287  &lt;.0001
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -590,15 +590,15 @@ maturation</em></p>
 <h1>Lab coordinates Correlations</h1>
 <div id="a-vs.-l" class="section level2">
 <h2><em>a</em> vs. <em>L</em></h2>
-<pre><code>## [1] 0.4772185</code></pre>
+<pre><code>## [1] 0.4774622</code></pre>
 </div>
 <div id="a-vs.-b" class="section level2">
 <h2><em>a</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.6346763</code></pre>
+<pre><code>## [1] 0.6413739</code></pre>
 </div>
 <div id="l-vs.-b" class="section level2">
 <h2><em>L</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.8043031</code></pre>
+<pre><code>## [1] 0.8001237</code></pre>
 </div>
 </div>
 <div id="color-correlation" class="section level1">
@@ -620,12 +620,12 @@ class="section level2">
 ## 
 ## Class means and counts:
 ## 
-##       1      2      3      
-## delta 0.1381 0.1047 0.08613
-## n     48     48     48     
+##       1     2      3     
+## delta 0.135 0.1047 0.0876
+## n     48    48     48    
 ## 
-## Chance corrected within-group agreement A: 0.1738 
-## Based on observed delta 0.1096 and expected delta 0.1327 
+## Chance corrected within-group agreement A: 0.1765 
+## Based on observed delta 0.1091 and expected delta 0.1325 
 ## 
 ## Significance of delta: 0.001 
 ## Permutation: free

@@ -919,7 +919,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
 estalmi <- summarySE(ALMI, measurevar="STARCH", groupvars=c("MAD"))
 library(knitr)
-kable(estalmi, format = "markdown")brary(ggplot2)
+kable(estalmi, format = "markdown")
+# library(ggplot2)
 # galmi2<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCH, color=MAD, width=1))+
 #   stat_summary(fun = "mean", size = 6, geom = "point") +
 #   geom_errorbar(aes(ymin=STARCH-sd, ymax=STARCH+sd),
@@ -945,7 +946,7 @@ library(ggplot2)
 galmi3<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCH, color=MAD, width=1))+
   geom_point(size=9)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g PF", x="Madurez")+
+  labs(y="mg almidón/g PF", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -1076,7 +1077,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(Rmisc)
 estalmis <- summarySE(ALMI, measurevar="STARCHs", groupvars=c("MAD"))
 library(knitr)
-kable(estalmis, format = "markdown")brary(ggplot2)
+kable(estalmis, format = "markdown")
 # library(ggplot2)
 # galmi3s<-ggplot2::ggplot(estalmi, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
 #   stat_summary(fun = "mean", size = 6, geom = "point") +
@@ -1105,7 +1106,7 @@ library(ggplot2)
 galmi4s<-ggplot2::ggplot(ALMI, aes(x=MAD, y=STARCHs, color=MAD, width=1))+
   geom_point(size=9)+
   scale_color_manual(values=c("palegreen4","green2","orange","burlywood2"))+
-  labs(y="g almidon/100 g fruta seca", x="Madurez")+
+  labs(y="mg almidón/ g PS", x="Madurez")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -1125,10 +1126,10 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 mSTARCHs <- lm(STARCHs ~ MAD,
               data = ALMI)
 
-library(nlme)
-mSTARCHs2 <- gls(STARCHs ~ MAD,
-              weights = varIdent(form=~1|MAD),
-              data = ALMI)
+# library(nlme)
+# mSTARCHs2 <- gls(STARCHs ~ MAD,
+#               weights = varIdent(form=~1|MAD),
+#               data = ALMI)
 
 # AIC(mSTARCHs,mSTARCHs2)
 

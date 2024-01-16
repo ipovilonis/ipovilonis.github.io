@@ -1,5 +1,65 @@
 ---
 title: "DL ER (Data loggers - Entre Ríos)"
-
 ---
 
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Load library
+library(readxl)
+
+#Create object "data_dl" which contains climate data
+data_dl <- read_excel("database.xlsx", sheet = "II_ER_DL")
+
+data_dl$year<-as.factor(data_dl$year)
+data_dl$date<-as.POSIXct(data_dl$date,format="%m-%d-%Y")
+data_dl$site<-factor(data_dl$site,levels=c("concordia", "palmar","gualeguaychu"))
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# # Crea un vector con las variables respuesta
+# variables_respuesta_DL <- c("temp", "hr", "temp_soil")
+# 
+# # Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+# tablas_list_ER_DL <- list()
+# graficos_list_ER_DL <- list()
+# 
+# library(dplyr)
+# 
+# # Crea un bucle que recorre cada variable respuesta
+# for(variable in variables_respuesta_DL) {
+#   # Crea la tabla resumen
+#   assign(paste0("ER_DL_", variable), data %>%
+#     dplyr::group_by(year, site, date) %>%
+#     dplyr::summarise(n = n(),
+#               Mean = mean(.data[[variable]]),
+#               sd = sd(.data[[variable]]))
+#   )
+#   
+#   # Agrega la tabla a la lista
+#   tablas_list_ER_DL[[variable]] <- get(paste0("ER_DL_", variable))
+# 
+#   # Crea el gráfico
+#   library(ggplot2)
+#   gg_plot <- ggplot(tablas_list_ER_DL[[variable]], aes(x = date, y = Mean, color = site)) +
+#     scale_color_manual(values = c("coral4","burlywood2","palegreen4")) +
+#     stat_summary(fun = "mean", size = 6, geom = "point") +
+#     geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.2, position = position_dodge(0.9)) +
+#     theme_classic() +
+#     theme(legend.title = element_blank()) +
+#     theme(legend.position = "none") +
+#     theme(text = element_text(size = 15, color = 'black')) +
+#     theme(axis.text = element_text(color = 'black'))
+# 
+#   assign(paste0("ER_DL_gg_", variable), gg_plot)
+#   
+#   # Agrega el gráfico a la lista
+#   graficos_list_ER_DL[[variable]] <- get(paste0("ER_DL_gg_", variable))
+# }
+
+# acceder a las tablas y gráficos individuales con tablas_list_ER_DL$ y graficos_list_ER_DL$
+
+```

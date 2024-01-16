@@ -1,6 +1,5 @@
 ---
 title: "SMN ER (Servicio Meteorológico Nacional - Entre Ríos"
-
 ---
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -10,7 +9,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 
 #Create object "datamet" which contains climate data
-datamet <- read_excel("database.xlsx", sheet = "II datamet")
+datamet <- read_excel("database.xlsx", sheet = "II_ER_SMN")
 #Delete unnecessary columns
 datamet<-datamet[,-c(11:28)]
 #

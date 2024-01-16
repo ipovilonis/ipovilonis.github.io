@@ -41,7 +41,7 @@ aqua_phenotype<-ggplot(aqua, aes(x=phenotype, y=moisture, color=site)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))+
   ylim(0,100)
 aqua_phenotype
 
@@ -63,7 +63,7 @@ aqua_site<-ggplot(aqua, aes(x=site, y=moisture, color=site, width=1)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))+
   ylim(0,100)
 aqua_site
 
@@ -117,7 +117,8 @@ aqua_date<-ggplot(aqua, aes(x=phenotype, y=moisture, color=date, width=1)) +
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
   geom_hline(yintercept =56.06952, color = "violet")+
-  geom_hline(yintercept =68.12500, color= "green")
+  geom_hline(yintercept =68.12500, color= "green")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))
 aqua_date
 
 ```

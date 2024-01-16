@@ -1231,14 +1231,56 @@ potásico: 20 g de yoduro potásico, disueltos en 20 ml de agua destilada
 y 2,0 g de yodo llevados a 1 litro. - Muestras de fruto de ubajay
 inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)</p>
 <p>+Lectura en espectrofotómetro a 600nm</p>
-<pre><code>## Error: &lt;text&gt;:6:36: unexpected symbol
-## 5: library(knitr)
-## 6: kable(estalmi, format = &quot;markdown&quot;)brary
-##                                       ^</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">MAD</th>
+<th align="right">N</th>
+<th align="right">STARCH</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">I</td>
+<td align="right">3</td>
+<td align="right">28.671751</td>
+<td align="right">4.766946</td>
+<td align="right">2.7521976</td>
+<td align="right">11.841750</td>
+</tr>
+<tr class="even">
+<td align="left">MM</td>
+<td align="right">3</td>
+<td align="right">19.680194</td>
+<td align="right">5.990679</td>
+<td align="right">3.4587200</td>
+<td align="right">14.881671</td>
+</tr>
+<tr class="odd">
+<td align="left">M</td>
+<td align="right">3</td>
+<td align="right">4.538284</td>
+<td align="right">1.162893</td>
+<td align="right">0.6713966</td>
+<td align="right">2.888786</td>
+</tr>
+<tr class="even">
+<td align="left">SM</td>
+<td align="right">3</td>
+<td align="right">8.205086</td>
+<td align="right">1.655201</td>
+<td align="right">0.9556310</td>
+<td align="right">4.111748</td>
+</tr>
+</tbody>
+</table>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-37-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>##          df      AIC
-## mSTARCH   5 16.95248
-## mSTARCH2  8 22.28308</code></pre>
+## mSTARCH   5 72.21452
+## mSTARCH2  8 59.12444</code></pre>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-38-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
@@ -1254,38 +1296,80 @@ inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)</p>
 ## 
 ## Response: STARCH
 ##           Df  Sum Sq Mean Sq F value    Pr(&gt;F)    
-## MAD        3 10.9242  3.6414  23.229 0.0002651 ***
-## Residuals  8  1.2541  0.1568                      
+## MAD        3 1092.42  364.14  23.229 0.0002651 ***
+## Residuals  8  125.41   15.68                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD    emmean        SE df   lower.CL upper.CL
-##  I   2.8671751 0.2285899  8  2.3400458 3.394304
-##  MM  1.9680194 0.2285899  8  1.4408901 2.495149
-##  M   0.4538284 0.2285899  8 -0.0733009 0.980958
-##  SM  0.8205086 0.2285899  8  0.2933793 1.347638
+##  MAD    emmean       SE df  lower.CL upper.CL
+##  I   28.671751 2.285899  8 23.400458 33.94304
+##  MM  19.680194 2.285899  8 14.408901 24.95149
+##  M    4.538284 2.285899  8 -0.733009  9.80958
+##  SM   8.205086 2.285899  8  2.933793 13.47638
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast   estimate       SE df t.ratio p.value
-##  I - MM    0.8991557 0.323275  8   2.781  0.0906
-##  I - M     2.4133467 0.323275  8   7.465  0.0003
-##  I - SM    2.0466665 0.323275  8   6.331  0.0010
-##  MM - M    1.5141910 0.323275  8   4.684  0.0068
-##  MM - SM   1.1475108 0.323275  8   3.550  0.0308
-##  M - SM   -0.3666802 0.323275  8  -1.134  0.6804
+##  contrast  estimate      SE df t.ratio p.value
+##  I - MM    8.991557 3.23275  8   2.781  0.0906
+##  I - M    24.133467 3.23275  8   7.465  0.0003
+##  I - SM   20.466665 3.23275  8   6.331  0.0010
+##  MM - M   15.141910 3.23275  8   4.684  0.0068
+##  MM - SM  11.475108 3.23275  8   3.550  0.0308
+##  M - SM   -3.666802 3.23275  8  -1.134  0.6804
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="almidón-en-peso-seco" class="section level2">
 <h2>Almidón en peso seco</h2>
-<pre><code>## Error: &lt;text&gt;:6:37: unexpected symbol
-## 5: library(knitr)
-## 6: kable(estalmis, format = &quot;markdown&quot;)brary
-##                                        ^</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">MAD</th>
+<th align="right">N</th>
+<th align="right">STARCHs</th>
+<th align="right">sd</th>
+<th align="right">se</th>
+<th align="right">ci</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">I</td>
+<td align="right">3</td>
+<td align="right">171.39127</td>
+<td align="right">45.974358</td>
+<td align="right">26.543308</td>
+<td align="right">114.20664</td>
+</tr>
+<tr class="even">
+<td align="left">MM</td>
+<td align="right">3</td>
+<td align="right">161.19342</td>
+<td align="right">46.269029</td>
+<td align="right">26.713436</td>
+<td align="right">114.93864</td>
+</tr>
+<tr class="odd">
+<td align="left">M</td>
+<td align="right">3</td>
+<td align="right">40.45539</td>
+<td align="right">9.671028</td>
+<td align="right">5.583571</td>
+<td align="right">24.02417</td>
+</tr>
+<tr class="even">
+<td align="left">SM</td>
+<td align="right">3</td>
+<td align="right">65.96480</td>
+<td align="right">12.278265</td>
+<td align="right">7.088860</td>
+<td align="right">30.50090</td>
+</tr>
+</tbody>
+</table>
 <p>Las barras indican desvío estándar.</p>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-43-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /><img src="madCarbohydrates_files/figure-html/unnamed-chunk-44-2.png" width="960" style="display: block; margin: auto;" /></p>
@@ -1299,28 +1383,28 @@ inmaduras (I), medio maduras (MM), maduras(M) y sobremaduras (SM)</p>
 ## 
 ## Response: STARCHs
 ##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
-## MAD        3 394.95 131.650  11.705 0.002691 **
-## Residuals  8  89.97  11.247                    
+## MAD        3  39495 13165.0  11.705 0.002691 **
+## Residuals  8   8997  1124.7                    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
 ##  MAD    emmean       SE df  lower.CL  upper.CL
-##  I   17.139127 1.936222  8 12.674189 21.604064
-##  MM  16.119342 1.936222  8 11.654405 20.584279
-##  M    4.045539 1.936222  8 -0.419399  8.510476
-##  SM   6.596480 1.936222  8  2.131543 11.061417
+##  I   171.39127 19.36222  8 126.74189 216.04064
+##  MM  161.19342 19.36222  8 116.54405 205.84279
+##  M    40.45539 19.36222  8  -4.19399  85.10476
+##  SM   65.96480 19.36222  8  21.31543 110.61417
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
 ##  contrast  estimate       SE df t.ratio p.value
-##  I - MM    1.019784 2.738232  8   0.372  0.9811
-##  I - M    13.093588 2.738232  8   4.782  0.0061
-##  I - SM   10.542647 2.738232  8   3.850  0.0204
-##  MM - M   12.073804 2.738232  8   4.409  0.0097
-##  MM - SM   9.522862 2.738232  8   3.478  0.0340
-##  M - SM   -2.550941 2.738232  8  -0.932  0.7895
+##  I - MM    10.19784 27.38232  8   0.372  0.9811
+##  I - M    130.93588 27.38232  8   4.782  0.0061
+##  I - SM   105.42647 27.38232  8   3.850  0.0204
+##  MM - M   120.73804 27.38232  8   4.409  0.0097
+##  MM - SM   95.22862 27.38232  8   3.478  0.0340
+##  M - SM   -25.50941 27.38232  8  -0.932  0.7895
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madCarbohydrates_files/figure-html/unnamed-chunk-46-1.png" width="960" style="display: block; margin: auto;" /></p>

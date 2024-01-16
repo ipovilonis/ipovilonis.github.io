@@ -3,14 +3,14 @@ title: "Phenotypes"
 output: html_document
 ---
 
-## Cast
+## Elenco
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 library(ggplot2)
 
-dataCAR<-read_excel("database.xlsx", sheet = "II caracterizacion")
+dataCAR<-read_excel("database.xlsx", sheet = "II_ER_caracterizacion")
 dataCAR$phenotype<-as.factor(dataCAR$phenotype)
 dataCAR$site<-factor(dataCAR$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
 
