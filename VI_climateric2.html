@@ -285,9 +285,6 @@ $(document).ready(function () {
       <a href="II_M_SMN.html">SMN M</a>
     </li>
     <li>
-      <a href="II_M_DL.html">DL M</a>
-    </li>
-    <li>
       <a href="II_M_Soil.html">Suelos M</a>
     </li>
     <li class="divider"></li>
@@ -526,79 +523,81 @@ class="section level2">
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.97616, p-value = 0.5498</code></pre>
+## W = 0.9761627, p-value = 0.549824</code></pre>
 </div>
 <div id="model-coefficients" class="section level2">
 <h2>Model coefficients</h2>
-<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75        time_min90       time_min105 
-##     -1088.3098591        19.6250543        32.7084238        52.3334782        65.4168477        81.7897236        94.8730931 
-##       time_min120       time_min135       time_min150             matuM             basal  time_min30:matuM  time_min45:matuM 
-##       114.4981474       127.5815169       143.9543928        24.0203019        43.2170578         0.1712202         4.3272497 
-##  time_min60:matuM  time_min75:matuM  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM time_min150:matuM 
-##         7.0553453        11.2113748        14.6347734        18.7908030        21.5188986        22.4853372        29.0983267</code></pre>
+<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75        time_min90 
+##   -1088.309859117      19.625054307      32.708423844      52.333478151      65.416847689      81.789723552 
+##       time_min105       time_min120       time_min135       time_min150             matuM             basal 
+##      94.873093090     114.498147397     127.581516934     143.954392798      24.020301930      43.217057762 
+##  time_min30:matuM  time_min45:matuM  time_min60:matuM  time_min75:matuM  time_min90:matuM time_min105:matuM 
+##       0.171220178       4.327249699       7.055345302      11.211374823      14.634773444      18.790802965 
+## time_min120:matuM time_min135:matuM time_min150:matuM 
+##      21.518898568      22.485337162      29.098326710</code></pre>
 </div>
 <div id="anova" class="section level2">
 <h2>Anova</h2>
 <pre><code>## Denom. DF: 19 
-##               numDF   F-value p-value
-## (Intercept)       1 12422.598  &lt;.0001
-## time_min          9   497.680  &lt;.0001
-## matu              1    23.524  0.0001
-## basal             1    18.306  0.0004
-## time_min:matu     9     4.645  0.0024</code></pre>
+##               numDF     F-value p-value
+## (Intercept)       1 12422.59816  &lt;.0001
+## time_min          9   497.67981  &lt;.0001
+## matu              1    23.52445  0.0001
+## basal             1    18.30623  0.0004
+## time_min:matu     9     4.64451  0.0024</code></pre>
 </div>
 <div id="simple-effects" class="section level2">
 <h2>Simple effects</h2>
 <pre><code>## $emmeans
 ## time_min = 15:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I     29.05593 3.996413 4.38  18.32747  39.78439
-##  M     53.07623 3.996413 4.26  42.24267  63.90980
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I     29.0559310 3.99641289 4.38  18.3274684  39.7843936
+##  M     53.0762329 3.99641289 4.26  42.2426703  63.9097956
 ## 
 ## time_min = 30:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I     48.68099 3.996413 4.37  37.94735  59.41462
-##  M     72.87251 3.996413 4.38  62.14744  83.59757
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I     48.6809853 3.99641289 4.37  37.9473496  59.4146210
+##  M     72.8725074 3.99641289 4.38  62.1474410  83.5975738
 ## 
 ## time_min = 45:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I     61.76435 3.996413 4.23  50.90664  72.62207
-##  M     90.11191 3.996413 4.30  79.31519 100.90863
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I     61.7643548 3.99641289 4.23  50.9066429  72.6220667
+##  M     90.1119065 3.99641289 4.30  79.3151857 100.9086272
 ## 
 ## time_min = 60:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I     81.38941 3.996413 4.35  70.64128  92.13754
-##  M    112.46506 3.996413 4.37 101.73142 123.19869
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I     81.3894091 3.99641289 4.35  70.6412810  92.1375372
+##  M    112.4650564 3.99641289 4.37 101.7314207 123.1986921
 ## 
 ## time_min = 75:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I     94.47278 3.996413 4.28  83.65659 105.28897
-##  M    129.70446 3.996413 4.31 118.91264 140.49627
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I     94.4727787 3.99641289 4.28  83.6565866 105.2889707
+##  M    129.7044554 3.99641289 4.31 118.9126401 140.4962708
 ## 
 ## time_min = 90:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I    110.84565 3.996413 4.38 100.11719 121.57412
-##  M    149.50073 3.996413 4.26 138.66717 160.33429
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I    110.8456545 3.99641289 4.38 100.1171919 121.5741172
+##  M    149.5007299 3.99641289 4.26 138.6671673 160.3342926
 ## 
 ## time_min = 105:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I    123.92902 3.996413 4.37 113.19539 134.66266
-##  M    166.74013 3.996413 4.38 156.01506 177.46520
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I    123.9290241 3.99641289 4.37 113.1953884 134.6626598
+##  M    166.7401290 3.99641289 4.38 156.0150626 177.4651953
 ## 
 ## time_min = 120:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I    143.55408 3.996413 4.23 132.69637 154.41179
-##  M    189.09328 3.996413 4.30 178.29656 199.89000
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I    143.5540784 3.99641289 4.23 132.6963665 154.4117903
+##  M    189.0932789 3.99641289 4.30 178.2965581 199.8899996
 ## 
 ## time_min = 135:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I    156.63745 3.996413 4.35 145.88932 167.38558
-##  M    203.14309 3.996413 4.37 192.40945 213.87672
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I    156.6374479 3.99641289 4.35 145.8893198 167.3855760
+##  M    203.1430870 3.99641289 4.37 192.4094513 213.8767227
 ## 
 ## time_min = 150:
-##  matu    emmean       SE   df  lower.CL  upper.CL
-##  I    173.01032 3.996413 4.28 162.19413 183.82652
-##  M    226.12895 3.996413 4.31 215.33714 236.92077
+##  matu      emmean         SE   df    lower.CL    upper.CL
+##  I    173.0103238 3.99641289 4.28 162.1941317 183.8265159
+##  M    226.1289524 3.99641289 4.31 215.3371371 236.9207678
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
@@ -606,44 +605,44 @@ class="section level2">
 ## 
 ## $contrasts
 ## time_min = 15:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -24.02030 7.197624 6.29  -3.337  0.0146
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -24.0203019 7.19762359 6.29  -3.337  0.0146
 ## 
 ## time_min = 30:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -24.19152 7.197624 6.30  -3.361  0.0141
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -24.1915221 7.19762359 6.30  -3.361  0.0141
 ## 
 ## time_min = 45:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -28.34755 7.197624 4.51  -3.938  0.0135
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -28.3475516 7.19762359 4.51  -3.938  0.0135
 ## 
 ## time_min = 60:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -31.07565 7.197624 6.28  -4.317  0.0045
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -31.0756472 7.19762359 6.28  -4.317  0.0045
 ## 
 ## time_min = 75:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -35.23168 7.197624 6.24  -4.895  0.0024
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -35.2316768 7.19762359 6.24  -4.895  0.0024
 ## 
 ## time_min = 90:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -38.65508 7.197624 6.29  -5.371  0.0015
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -38.6550754 7.19762359 6.29  -5.371  0.0015
 ## 
 ## time_min = 105:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -42.81110 7.197624 6.30  -5.948  0.0008
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -42.8111049 7.19762359 6.30  -5.948  0.0008
 ## 
 ## time_min = 120:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -45.53920 7.197624 4.51  -6.327  0.0021
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -45.5392005 7.19762359 4.51  -6.327  0.0021
 ## 
 ## time_min = 135:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -46.50564 7.197624 6.28  -6.461  0.0005
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -46.5056391 7.19762359 6.28  -6.461  0.0005
 ## 
 ## time_min = 150:
-##  contrast  estimate       SE   df t.ratio p.value
-##  I - M    -53.11863 7.197624 6.24  -7.380  0.0003
+##  contrast    estimate         SE   df t.ratio p.value
+##  I - M    -53.1186286 7.19762359 6.24  -7.380  0.0003
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite</code></pre>

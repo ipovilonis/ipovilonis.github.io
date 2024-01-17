@@ -367,9 +367,6 @@ div.tocify {
       <a href="II_M_SMN.html">SMN M</a>
     </li>
     <li>
-      <a href="II_M_DL.html">DL M</a>
-    </li>
-    <li>
       <a href="II_M_Soil.html">Suelos M</a>
     </li>
     <li class="divider"></li>
@@ -552,51 +549,51 @@ equivalente de ácido tánico cada 100g PF</p>
 <pre><code>## Generalized least squares fit by REML
 ##   Model: fenoles ~ madurez 
 ##   Data: data_mad_phenols 
-##   Log-restricted-likelihood: -41.38069
+##   Log-restricted-likelihood: -41.3806869
 ## 
 ## Coefficients:
 ## (Intercept)   madurezMM    madurezM   madurezSM 
-##    905.8190   -479.6637   -568.4195   -775.4102 
+##  905.819027 -479.663662 -568.419488 -775.410248 
 ## 
 ## Variance function:
 ##  Structure: Different standard deviations per stratum
 ##  Formula: ~1 | madurez 
 ##  Parameter estimates:
-##          I         MM          M         SM 
-## 1.00000000 0.26288472 0.13414987 0.03255013 
+##            I           MM            M           SM 
+## 1.0000000000 0.2628847249 0.1341498651 0.0325501269 
 ## Degrees of freedom: 12 total; 8 residual
-## Residual standard error: 176.1696</code></pre>
+## Residual standard error: 176.169587</code></pre>
 <p>Supuestos
 <img src="SSyAcidez_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /><img src="SSyAcidez_files/figure-html/unnamed-chunk-5-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  fenoles_mad_ajuste$residuos
-## W = 0.85288, p-value = 0.03985</code></pre>
+## W = 0.8528754, p-value = 0.0398472</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 8 
-##             numDF   F-value p-value
-## (Intercept)     1 2111.8634  &lt;.0001
-## madurez         3  128.1613  &lt;.0001</code></pre>
+##             numDF    F-value p-value
+## (Intercept)     1 2111.86338  &lt;.0001
+## madurez         3  128.16127  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez   emmean        SE df lower.CL  upper.CL
-##  I       905.8190 101.71156  2 468.3030 1343.3351
-##  MM      426.1554  26.73842  2 311.0614  541.2493
-##  M       337.3995  13.64459  2 278.6833  396.1157
-##  SM      130.4088   3.31072  2 116.1636  144.6540
+##  madurez     emmean          SE df   lower.CL    upper.CL
+##  I       905.819027 101.7115585  2 468.302973 1343.335081
+##  MM      426.155365  26.7384151  2 311.061381  541.249350
+##  M       337.399539  13.6445918  2 278.683347  396.115731
+##  SM      130.408779   3.3107241  2 116.163584  144.653975
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast estimate        SE   df t.ratio p.value
-##  I - MM   479.6637 105.16741 2.28   4.561  0.0905
-##  I - M    568.4195 102.62269 2.07   5.539  0.0717
-##  I - SM   775.4102 101.76543 2.00   7.620  0.0414
-##  MM - M    88.7558  30.01862 2.97   2.957  0.1671
-##  MM - SM  295.7466  26.94260 2.06  10.977  0.0187
-##  M - SM   206.9908  14.04051 2.23  14.742  0.0077
+##  contrast   estimate          SE   df t.ratio p.value
+##  I - MM   479.663662 105.1674093 2.28   4.561  0.0905
+##  I - M    568.419488 102.6226876 2.07   5.539  0.0717
+##  I - SM   775.410248 101.7654265 2.00   7.620  0.0414
+##  MM - M    88.755826  30.0186230 2.97   2.957  0.1671
+##  MM - SM  295.746586  26.9426007 2.06  10.977  0.0187
+##  M - SM   206.990760  14.0405050 2.23  14.742  0.0077
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>

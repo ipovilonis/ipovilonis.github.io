@@ -367,9 +367,6 @@ div.tocify {
       <a href="II_M_SMN.html">SMN M</a>
     </li>
     <li>
-      <a href="II_M_DL.html">DL M</a>
-    </li>
-    <li>
       <a href="II_M_Soil.html">Suelos M</a>
     </li>
     <li class="divider"></li>
@@ -552,26 +549,26 @@ div.tocify {
 <tr class="odd">
 <td align="left">I</td>
 <td align="right">3</td>
-<td align="right">7.566667</td>
-<td align="right">0.057735</td>
+<td align="right">7.56666667</td>
+<td align="right">0.057735027</td>
 </tr>
 <tr class="even">
 <td align="left">MM</td>
 <td align="right">3</td>
-<td align="right">6.000000</td>
-<td align="right">0.000000</td>
+<td align="right">6.00000000</td>
+<td align="right">0.000000000</td>
 </tr>
 <tr class="odd">
 <td align="left">M</td>
 <td align="right">3</td>
-<td align="right">8.166667</td>
-<td align="right">0.057735</td>
+<td align="right">8.16666667</td>
+<td align="right">0.057735027</td>
 </tr>
 <tr class="even">
 <td align="left">SM</td>
 <td align="right">3</td>
-<td align="right">10.100000</td>
-<td align="right">0.100000</td>
+<td align="right">10.10000000</td>
+<td align="right">0.100000000</td>
 </tr>
 </tbody>
 </table>
@@ -581,45 +578,45 @@ div.tocify {
 <pre><code>## Generalized least squares fit by REML
 ##   Model: brix ~ madurez 
 ##   Data: data_mad_quimico 
-##   Log-restricted-likelihood: 8.373823
+##   Log-restricted-likelihood: 8.37382285
 ## 
 ## Coefficients:
 ## (Intercept)   madurezMM    madurezM   madurezSM 
-##    7.566667   -1.566667    0.600000    2.533333 
+##  7.56666667 -1.56666667  0.60000000  2.53333333 
 ## 
 ## Degrees of freedom: 12 total; 8 residual
-## Residual standard error: 0.06454972</code></pre>
+## Residual standard error: 0.0645497224</code></pre>
 <p>Supuestos
 <img src="madSSyAcidez_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-6-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  brix_mad_ajuste$residuos
-## W = 0.91429, p-value = 0.242</code></pre>
+## W = 0.9142881, p-value = 0.242045</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 8 
-##             numDF   F-value p-value
-## (Intercept)     1 182405.00  &lt;.0001
-## madurez         3   2068.47  &lt;.0001</code></pre>
+##             numDF     F-value p-value
+## (Intercept)     1 182405.0000  &lt;.0001
+## madurez         3   2068.4667  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez    emmean        SE df  lower.CL  upper.CL
-##  I        7.566667 0.0372678  8  7.480727  7.652606
-##  MM       6.000000 0.0372678  8  5.914060  6.085940
-##  M        8.166667 0.0372678  8  8.080727  8.252606
-##  SM      10.100000 0.0372678  8 10.014060 10.185940
+##  madurez      emmean           SE df    lower.CL    upper.CL
+##  I        7.56666667 0.0372677996  8  7.48072697  7.65260637
+##  MM       6.00000000 0.0372677996  8  5.91406030  6.08593970
+##  M        8.16666667 0.0372677996  8  8.08072697  8.25260637
+##  SM      10.10000000 0.0372677996  8 10.01406030 10.18593970
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate         SE df t.ratio p.value
-##  I - MM    1.566667 0.05270463  8  29.725  &lt;.0001
-##  I - M    -0.600000 0.05270463  8 -11.384  &lt;.0001
-##  I - SM   -2.533333 0.05270463  8 -48.067  &lt;.0001
-##  MM - M   -2.166667 0.05270463  8 -41.110  &lt;.0001
-##  MM - SM  -4.100000 0.05270463  8 -77.792  &lt;.0001
-##  M - SM   -1.933333 0.05270463  8 -36.682  &lt;.0001
+##  contrast    estimate           SE df t.ratio p.value
+##  I - MM    1.56666667 0.0527046277  8  29.725  &lt;.0001
+##  I - M    -0.60000000 0.0527046277  8 -11.384  &lt;.0001
+##  I - SM   -2.53333333 0.0527046277  8 -48.067  &lt;.0001
+##  MM - M   -2.16666667 0.0527046277  8 -41.110  &lt;.0001
+##  MM - SM  -4.10000000 0.0527046277  8 -77.792  &lt;.0001
+##  M - SM   -1.93333333 0.0527046277  8 -36.682  &lt;.0001
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -641,26 +638,26 @@ div.tocify {
 <tr class="odd">
 <td align="left">I</td>
 <td align="right">3</td>
-<td align="right">3.410000</td>
-<td align="right">0.3377869</td>
+<td align="right">3.41000000</td>
+<td align="right">0.337786915</td>
 </tr>
 <tr class="even">
 <td align="left">MM</td>
 <td align="right">3</td>
-<td align="right">3.170000</td>
-<td align="right">0.0173205</td>
+<td align="right">3.17000000</td>
+<td align="right">0.017320508</td>
 </tr>
 <tr class="odd">
 <td align="left">M</td>
 <td align="right">3</td>
-<td align="right">2.333333</td>
-<td align="right">0.2650157</td>
+<td align="right">2.33333333</td>
+<td align="right">0.265015723</td>
 </tr>
 <tr class="even">
 <td align="left">SM</td>
 <td align="right">3</td>
-<td align="right">3.353333</td>
-<td align="right">0.0709460</td>
+<td align="right">3.35333333</td>
+<td align="right">0.070945989</td>
 </tr>
 </tbody>
 </table>
@@ -670,45 +667,45 @@ div.tocify {
 <pre><code>## Generalized least squares fit by REML
 ##   Model: ph ~ madurez 
 ##   Data: data_mad_quimico 
-##   Log-restricted-likelihood: -1.353607
+##   Log-restricted-likelihood: -1.35360686
 ## 
 ## Coefficients:
-## (Intercept)   madurezMM    madurezM   madurezSM 
-##  3.41000000 -0.24000000 -1.07666667 -0.05666667 
+##   (Intercept)     madurezMM      madurezM     madurezSM 
+##  3.4100000000 -0.2400000000 -1.0766666667 -0.0566666667 
 ## 
 ## Degrees of freedom: 12 total; 8 residual
-## Residual standard error: 0.2177537</code></pre>
+## Residual standard error: 0.217753683</code></pre>
 <p>Supuestos
 <img src="madSSyAcidez_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-12-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  ph_mad_ajuste$residuos
-## W = 0.91632, p-value = 0.2568</code></pre>
+## W = 0.9163154, p-value = 0.256845</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 8 
-##             numDF   F-value p-value
-## (Intercept)     1 2380.0351  &lt;.0001
-## madurez         3   15.7858   0.001</code></pre>
+##             numDF     F-value p-value
+## (Intercept)     1 2380.035149  &lt;.0001
+## madurez         3   15.785823   0.001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez   emmean        SE df lower.CL upper.CL
-##  I       3.410000 0.1257202  8 3.120089 3.699911
-##  MM      3.170000 0.1257202  8 2.880089 3.459911
-##  M       2.333333 0.1257202  8 2.043422 2.623245
-##  SM      3.353333 0.1257202  8 3.063422 3.643245
+##  madurez     emmean          SE df   lower.CL   upper.CL
+##  I       3.41000000 0.125720148  8 3.12008882 3.69991118
+##  MM      3.17000000 0.125720148  8 2.88008882 3.45991118
+##  M       2.33333333 0.125720148  8 2.04342215 2.62324451
+##  SM      3.35333333 0.125720148  8 3.06342215 3.64324451
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast   estimate        SE df t.ratio p.value
-##  I - MM    0.2400000 0.1777951  8   1.350  0.5602
-##  I - M     1.0766667 0.1777951  8   6.056  0.0014
-##  I - SM    0.0566667 0.1777951  8   0.319  0.9880
-##  MM - M    0.8366667 0.1777951  8   4.706  0.0067
-##  MM - SM  -0.1833333 0.1777951  8  -1.031  0.7371
-##  M - SM   -1.0200000 0.1777951  8  -5.737  0.0019
+##  contrast     estimate          SE df t.ratio p.value
+##  I - MM    0.240000000 0.177795138  8   1.350  0.5602
+##  I - M     1.076666667 0.177795138  8   6.056  0.0014
+##  I - SM    0.056666667 0.177795138  8   0.319  0.9880
+##  MM - M    0.836666667 0.177795138  8   4.706  0.0067
+##  MM - SM  -0.183333333 0.177795138  8  -1.031  0.7371
+##  M - SM   -1.020000000 0.177795138  8  -5.737  0.0019
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -730,26 +727,26 @@ div.tocify {
 <tr class="odd">
 <td align="left">I</td>
 <td align="right">3</td>
-<td align="right">1.779200</td>
-<td align="right">0.0507984</td>
+<td align="right">1.77920000</td>
+<td align="right">0.050798425</td>
 </tr>
 <tr class="even">
 <td align="left">MM</td>
 <td align="right">3</td>
-<td align="right">1.606400</td>
-<td align="right">0.0278970</td>
+<td align="right">1.60640000</td>
+<td align="right">0.027896953</td>
 </tr>
 <tr class="odd">
 <td align="left">M</td>
 <td align="right">3</td>
-<td align="right">1.828267</td>
-<td align="right">0.2039064</td>
+<td align="right">1.82826667</td>
+<td align="right">0.203906384</td>
 </tr>
 <tr class="even">
 <td align="left">SM</td>
 <td align="right">3</td>
-<td align="right">1.384533</td>
-<td align="right">0.0835276</td>
+<td align="right">1.38453333</td>
+<td align="right">0.083527560</td>
 </tr>
 </tbody>
 </table>
@@ -759,45 +756,45 @@ div.tocify {
 <pre><code>## Generalized least squares fit by REML
 ##   Model: acidez ~ madurez 
 ##   Data: data_mad_quimico 
-##   Log-restricted-likelihood: 3.829159
+##   Log-restricted-likelihood: 3.82915896
 ## 
 ## Coefficients:
-## (Intercept)   madurezMM    madurezM   madurezSM 
-##  1.77920000 -0.17280000  0.04906667 -0.39466667 
+##   (Intercept)     madurezMM      madurezM     madurezSM 
+##  1.7792000000 -0.1728000000  0.0490666667 -0.3946666667 
 ## 
 ## Degrees of freedom: 12 total; 8 residual
-## Residual standard error: 0.1139225</code></pre>
+## Residual standard error: 0.113922547</code></pre>
 <p>Supuestos
 <img src="madSSyAcidez_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-18-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  acidez_mad_ajuste$residuos
-## W = 0.93162, p-value = 0.3975</code></pre>
+## W = 0.9316151, p-value = 0.397546</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 8 
-##             numDF   F-value p-value
-## (Intercept)     1 2516.0494  &lt;.0001
-## madurez         3    9.3112  0.0055</code></pre>
+##             numDF     F-value p-value
+## (Intercept)     1 2516.049444  &lt;.0001
+## madurez         3    9.311241  0.0055</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez   emmean         SE df lower.CL upper.CL
-##  I       1.779200 0.06577321  8 1.627527 1.930873
-##  MM      1.606400 0.06577321  8 1.454727 1.758073
-##  M       1.828267 0.06577321  8 1.676593 1.979940
-##  SM      1.384533 0.06577321  8 1.232860 1.536207
+##  madurez     emmean           SE df   lower.CL   upper.CL
+##  I       1.77920000 0.0657732131  8 1.62752670 1.93087330
+##  MM      1.60640000 0.0657732131  8 1.45472670 1.75807330
+##  M       1.82826667 0.0657732131  8 1.67659337 1.97993997
+##  SM      1.38453333 0.0657732131  8 1.23286003 1.53620664
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast   estimate         SE df t.ratio p.value
-##  I - MM    0.1728000 0.09301737  8   1.858  0.3163
-##  I - M    -0.0490667 0.09301737  8  -0.527  0.9500
-##  I - SM    0.3946667 0.09301737  8   4.243  0.0121
-##  MM - M   -0.2218667 0.09301737  8  -2.385  0.1576
-##  MM - SM   0.2218667 0.09301737  8   2.385  0.1576
-##  M - SM    0.4437333 0.09301737  8   4.770  0.0061
+##  contrast     estimate           SE df t.ratio p.value
+##  I - MM    0.172800000 0.0930173699  8   1.858  0.3163
+##  I - M    -0.049066667 0.0930173699  8  -0.528  0.9500
+##  I - SM    0.394666667 0.0930173699  8   4.243  0.0121
+##  MM - M   -0.221866667 0.0930173699  8  -2.385  0.1576
+##  MM - SM   0.221866667 0.0930173699  8   2.385  0.1576
+##  M - SM    0.443733333 0.0930173699  8   4.770  0.0061
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -819,26 +816,26 @@ div.tocify {
 <tr class="odd">
 <td align="left">I</td>
 <td align="right">3</td>
-<td align="right">4.255599</td>
-<td align="right">0.1463545</td>
+<td align="right">4.25559907</td>
+<td align="right">0.146354455</td>
 </tr>
 <tr class="even">
 <td align="left">MM</td>
 <td align="right">3</td>
-<td align="right">3.735804</td>
-<td align="right">0.0642711</td>
+<td align="right">3.73580385</td>
+<td align="right">0.064271127</td>
 </tr>
 <tr class="odd">
 <td align="left">M</td>
 <td align="right">3</td>
-<td align="right">4.500767</td>
-<td align="right">0.4557708</td>
+<td align="right">4.50076690</td>
+<td align="right">0.455770799</td>
 </tr>
 <tr class="even">
 <td align="left">SM</td>
 <td align="right">3</td>
-<td align="right">7.311172</td>
-<td align="right">0.4085414</td>
+<td align="right">7.31117249</td>
+<td align="right">0.408541393</td>
 </tr>
 </tbody>
 </table>
@@ -848,45 +845,45 @@ div.tocify {
 <pre><code>## Generalized least squares fit by REML
 ##   Model: ratio ~ madurez 
 ##   Data: data_mad_quimico 
-##   Log-restricted-likelihood: -4.340227
+##   Log-restricted-likelihood: -4.34022701
 ## 
 ## Coefficients:
 ## (Intercept)   madurezMM    madurezM   madurezSM 
-##   4.2555991  -0.5197952   0.2451678   3.0555734 
+##  4.25559907 -0.51979522  0.24516783  3.05557342 
 ## 
 ## Degrees of freedom: 12 total; 8 residual
-## Residual standard error: 0.3163003</code></pre>
+## Residual standard error: 0.316300291</code></pre>
 <p>Supuestos
 <img src="madSSyAcidez_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /><img src="madSSyAcidez_files/figure-html/unnamed-chunk-24-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  ratio_mad_ajuste$residuos
-## W = 0.92287, p-value = 0.3106</code></pre>
+## W = 0.9228741, p-value = 0.310626</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 8 
-##             numDF   F-value p-value
-## (Intercept)     1 2939.9441  &lt;.0001
-## madurez         3   77.2986  &lt;.0001</code></pre>
+##             numDF     F-value p-value
+## (Intercept)     1 2939.944083  &lt;.0001
+## madurez         3   77.298621  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez   emmean        SE df lower.CL upper.CL
-##  I       4.255599 0.1826161  8 3.834486 4.676712
-##  MM      3.735804 0.1826161  8 3.314690 4.156917
-##  M       4.500767 0.1826161  8 4.079654 4.921880
-##  SM      7.311172 0.1826161  8 6.890059 7.732286
+##  madurez     emmean          SE df   lower.CL   upper.CL
+##  I       4.25559907 0.182616058  8 3.83448569 4.67671246
+##  MM      3.73580385 0.182616058  8 3.31469047 4.15691724
+##  M       4.50076690 0.182616058  8 4.07965352 4.92188029
+##  SM      7.31117249 0.182616058  8 6.89005910 7.73228587
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate        SE df t.ratio p.value
-##  I - MM    0.519795 0.2582581  8   2.013  0.2597
-##  I - M    -0.245168 0.2582581  8  -0.949  0.7804
-##  I - SM   -3.055573 0.2582581  8 -11.831  &lt;.0001
-##  MM - M   -0.764963 0.2582581  8  -2.962  0.0702
-##  MM - SM  -3.575369 0.2582581  8 -13.844  &lt;.0001
-##  M - SM   -2.810406 0.2582581  8 -10.882  &lt;.0001
+##  contrast    estimate          SE df t.ratio p.value
+##  I - MM    0.51979522 0.258258106  8   2.013  0.2597
+##  I - M    -0.24516783 0.258258106  8  -0.949  0.7804
+##  I - SM   -3.05557342 0.258258106  8 -11.831  &lt;.0001
+##  MM - M   -0.76496305 0.258258106  8  -2.962  0.0702
+##  MM - SM  -3.57536864 0.258258106  8 -13.844  &lt;.0001
+##  M - SM   -2.81040559 0.258258106  8 -10.882  &lt;.0001
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>

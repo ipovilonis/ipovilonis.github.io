@@ -367,9 +367,6 @@ div.tocify {
       <a href="II_M_SMN.html">SMN M</a>
     </li>
     <li>
-      <a href="II_M_DL.html">DL M</a>
-    </li>
-    <li>
       <a href="II_M_Soil.html">Suelos M</a>
     </li>
     <li class="divider"></li>
@@ -549,7 +546,7 @@ div.tocify {
 ## 
 ## Coefficients:
 ## (Intercept)          pff  
-##      0.1749       0.1657</code></pre>
+##    0.174913     0.165712</code></pre>
 </div>
 <div id="modelo" class="section level2">
 <h2>Modelo</h2>
@@ -558,19 +555,19 @@ div.tocify {
 ## lm(formula = psf ~ pff, data = datospeso)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -2.68401 -0.26222 -0.07354  0.22012  2.85114 
+##       Min        1Q    Median        3Q       Max 
+## -2.684008 -0.262224 -0.073540  0.220119  2.851142 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.17491    0.03283   5.328 1.19e-07 ***
-## pff          0.16571    0.00281  58.983  &lt; 2e-16 ***
+##               Estimate Std. Error t value   Pr(&gt;|t|)    
+## (Intercept) 0.17491331 0.03282967  5.3279 1.1921e-07 ***
+## pff         0.16571249 0.00280952 58.9826 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.6162 on 1164 degrees of freedom
-## Multiple R-squared:  0.7493, Adjusted R-squared:  0.7491 
-## F-statistic:  3479 on 1 and 1164 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 0.616231 on 1164 degrees of freedom
+## Multiple R-squared:  0.749297,   Adjusted R-squared:  0.749082 
+## F-statistic: 3478.94 on 1 and 1164 DF,  p-value: &lt; 2.22e-16</code></pre>
 </div>
 </div>
 <div id="descriptiva" class="section level1">
@@ -918,29 +915,29 @@ div.tocify {
 ##    569.2    582.3   -279.6    559.2       97 
 ## 
 ## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.8645 -0.3543 -0.1128  0.3094  1.3945 
+##       Min        1Q    Median        3Q       Max 
+## -1.864527 -0.354259 -0.112751  0.309394  1.394469 
 ## 
 ## Random effects:
-##  Groups              Name        Variance  Std.Dev. 
-##  id:(phenotype:site) (Intercept) 1.911e+01 4.371e+00
-##  phenotype:site      (Intercept) 7.009e+01 8.372e+00
-##  site                (Intercept) 4.721e-12 2.173e-06
-##  Residual                        2.091e-02 1.446e-01
+##  Groups              Name        Variance    Std.Dev.   
+##  id:(phenotype:site) (Intercept) 1.91073e+01 4.37119e+00
+##  phenotype:site      (Intercept) 7.00901e+01 8.37198e+00
+##  site                (Intercept) 4.72096e-12 2.17278e-06
+##  Residual                        2.09059e-02 1.44589e-01
 ## Number of obs: 102, groups:  id:(phenotype:site), 40; phenotype:site, 27; site, 2
 ## 
 ## Fixed effects:
-##             Estimate Std. Error t value Pr(&gt;|z|)    
-## (Intercept)   39.354      4.071   9.667   &lt;2e-16 ***
+##             Estimate Std. Error t value   Pr(&gt;|z|)    
+## (Intercept)  39.3543     4.0710   9.667 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## optimizer (Nelder_Mead) convergence code: 0 (OK)
 ## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <p>Componentes de varianza (%)</p>
-<pre><code>## [1] 1.122009</code></pre>
-<pre><code>## [1] 33.91632</code></pre>
-<pre><code>## [1] 64.96166</code></pre>
-<pre><code>## [1] 1.686117e-05</code></pre>
+<pre><code>## [1] 1.12200856</code></pre>
+<pre><code>## [1] 33.9163169</code></pre>
+<pre><code>## [1] 64.9616576</code></pre>
+<pre><code>## [1] 1.6861166e-05</code></pre>
 </div>
 <div id="section-4" class="section level2">
 <h2>.025</h2>
@@ -957,24 +954,24 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance  Std.Dev. 
-##  id:phenotype:site (Intercept) 1.654e-01 4.067e-01
-##  phenotype:site    (Intercept) 1.241e+00 1.114e+00
-##  site              (Intercept) 7.648e-10 2.765e-05
+##  Groups            Name        Variance    Std.Dev.   
+##  id:phenotype:site (Intercept) 1.65393e-01 4.06685e-01
+##  phenotype:site    (Intercept) 1.24125e+00 1.11412e+00
+##  site              (Intercept) 7.64777e-10 2.76546e-05
 ## Number of obs: 102, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family (): 15.1 
 ## 
 ## Conditional model:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   1.3919     0.2386   5.834 5.41e-09 ***
+##             Estimate Std. Error z value   Pr(&gt;|z|)    
+## (Intercept) 1.391943   0.238595 5.83391 5.4143e-09 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Componentes de varianza (%)</p>
-<pre><code>## [1] 1.122009</code></pre>
-<pre><code>## [1] 33.91632</code></pre>
-<pre><code>## [1] 64.96166</code></pre>
-<pre><code>## [1] 1.686117e-05</code></pre>
+<pre><code>## [1] 1.12200856</code></pre>
+<pre><code>## [1] 33.9163169</code></pre>
+<pre><code>## [1] 64.9616576</code></pre>
+<pre><code>## [1] 1.6861166e-05</code></pre>
 </div>
 <div id="section-5" class="section level2">
 <h2>.05</h2>
@@ -991,24 +988,24 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance  Std.Dev. 
-##  id:phenotype:site (Intercept) 1.009e+00 1.004e+00
-##  phenotype:site    (Intercept) 2.404e-01 4.903e-01
-##  site              (Intercept) 1.799e-09 4.242e-05
+##  Groups            Name        Variance    Std.Dev.   
+##  id:phenotype:site (Intercept) 1.00899e+00 1.00448e+00
+##  phenotype:site    (Intercept) 2.40421e-01 4.90327e-01
+##  site              (Intercept) 1.79930e-09 4.24182e-05
 ## Number of obs: 101, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family (): 75.3 
 ## 
 ## Conditional model:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   2.1893     0.2188   10.01   &lt;2e-16 ***
+##             Estimate Std. Error z value   Pr(&gt;|z|)    
+## (Intercept) 2.189318   0.218761 10.0078 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Componentes de varianza (%)</p>
-<pre><code>## [1] 1.122009</code></pre>
-<pre><code>## [1] 33.91632</code></pre>
-<pre><code>## [1] 64.96166</code></pre>
-<pre><code>## [1] 1.686117e-05</code></pre>
+<pre><code>## [1] 1.12200856</code></pre>
+<pre><code>## [1] 33.9163169</code></pre>
+<pre><code>## [1] 64.9616576</code></pre>
+<pre><code>## [1] 1.6861166e-05</code></pre>
 </div>
 <div id="section-6" class="section level2">
 <h2>0.1</h2>
@@ -1025,17 +1022,17 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance  Std.Dev. 
-##  id:phenotype:site (Intercept) 3.711e-01 6.092e-01
-##  phenotype:site    (Intercept) 2.288e-02 1.513e-01
-##  site              (Intercept) 4.274e-11 6.537e-06
+##  Groups            Name        Variance    Std.Dev.   
+##  id:phenotype:site (Intercept) 3.71086e-01 6.09168e-01
+##  phenotype:site    (Intercept) 2.28809e-02 1.51264e-01
+##  site              (Intercept) 4.27356e-11 6.53725e-06
 ## Number of obs: 101, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family (): 94.4 
 ## 
 ## Conditional model:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   2.7310     0.1181   23.13   &lt;2e-16 ***
+##             Estimate Std. Error z value   Pr(&gt;|z|)    
+## (Intercept) 2.730981   0.118068 23.1306 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
@@ -1054,17 +1051,17 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance  Std.Dev. 
-##  id:phenotype:site (Intercept) 8.909e-10 2.985e-05
-##  phenotype:site    (Intercept) 1.606e-02 1.267e-01
-##  site              (Intercept) 4.370e-24 2.091e-12
+##  Groups            Name        Variance    Std.Dev.   
+##  id:phenotype:site (Intercept) 8.90922e-10 2.98483e-05
+##  phenotype:site    (Intercept) 1.60585e-02 1.26722e-01
+##  site              (Intercept) 4.37042e-24 2.09055e-12
 ## Number of obs: 101, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family ():  378 
 ## 
 ## Conditional model:
 ##             Estimate Std. Error z value Pr(&gt;|z|)
-## (Intercept)    3.054        NaN     NaN      NaN</code></pre>
+## (Intercept)  3.05358        NaN     NaN      NaN</code></pre>
 </div>
 <div id="modelos-de-aao" class="section level2">
 <h2>Modelos de aao</h2>

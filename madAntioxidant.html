@@ -367,9 +367,6 @@ div.tocify {
       <a href="II_M_SMN.html">SMN M</a>
     </li>
     <li>
-      <a href="II_M_DL.html">DL M</a>
-    </li>
-    <li>
       <a href="II_M_Soil.html">Suelos M</a>
     </li>
     <li class="divider"></li>
@@ -550,26 +547,26 @@ div.tocify {
 <tr class="odd">
 <td align="left">I</td>
 <td align="right">12</td>
-<td align="right">94.66000</td>
-<td align="right">6.712351</td>
+<td align="right">94.6600000</td>
+<td align="right">6.7123509</td>
 </tr>
 <tr class="even">
 <td align="left">MM</td>
 <td align="right">12</td>
-<td align="right">61.98917</td>
-<td align="right">24.924052</td>
+<td align="right">61.9891667</td>
+<td align="right">24.9240521</td>
 </tr>
 <tr class="odd">
 <td align="left">M</td>
 <td align="right">12</td>
-<td align="right">80.07250</td>
-<td align="right">17.774921</td>
+<td align="right">80.0725000</td>
+<td align="right">17.7749206</td>
 </tr>
 <tr class="even">
 <td align="left">SM</td>
 <td align="right">12</td>
-<td align="right">22.29442</td>
-<td align="right">30.037903</td>
+<td align="right">22.2944167</td>
+<td align="right">30.0379035</td>
 </tr>
 </tbody>
 </table>
@@ -582,29 +579,29 @@ div.tocify {
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: In
-##        Chisq Df Pr(&gt;Chisq)    
-## Trata 183.72  3  &lt; 2.2e-16 ***
+##          Chisq Df Pr(&gt;Chisq)    
+## Trata 183.7191  3 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Trata    emmean        SE   df   lower.CL  upper.CL
-##  I     0.9466000 0.1006418 3.86  0.6629936 1.2302064
-##  MM    0.6198917 0.1006418 3.86  0.3362853 0.9034981
-##  M     0.8007250 0.1006418 3.86  0.5171186 1.0843314
-##  SM    0.2229442 0.1006418 3.86 -0.0606622 0.5065506
+##  Trata emmean    SE   df lower.CL upper.CL
+##  I      0.947 0.101 3.86   0.6630    1.230
+##  MM     0.620 0.101 3.86   0.3363    0.903
+##  M      0.801 0.101 3.86   0.5171    1.084
+##  SM     0.223 0.101 3.86  -0.0607    0.507
 ## 
 ## Degrees-of-freedom method: kenward-roger 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast   estimate         SE df t.ratio p.value
-##  I - MM    0.3267083 0.05656835 41   5.775  &lt;.0001
-##  I - M     0.1458750 0.05656835 41   2.579  0.0628
-##  I - SM    0.7236558 0.05656835 41  12.793  &lt;.0001
-##  MM - M   -0.1808333 0.05656835 41  -3.197  0.0137
-##  MM - SM   0.3969475 0.05656835 41   7.017  &lt;.0001
-##  M - SM    0.5777808 0.05656835 41  10.214  &lt;.0001
+##  contrast estimate     SE df t.ratio p.value
+##  I - MM      0.327 0.0566 41   5.775  &lt;.0001
+##  I - M       0.146 0.0566 41   2.579  0.0628
+##  I - SM      0.724 0.0566 41  12.793  &lt;.0001
+##  MM - M     -0.181 0.0566 41  -3.197  0.0137
+##  MM - SM     0.397 0.0566 41   7.017  &lt;.0001
+##  M - SM      0.578 0.0566 41  10.214  &lt;.0001
 ## 
 ## Degrees-of-freedom method: kenward-roger 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>

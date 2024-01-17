@@ -1,65 +1,478 @@
 ---
 title: "DL ER (Data loggers - Entre Ríos)"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
 ---
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+# Tabla resumen
+
+| Año  | Sitio         | Temperatura (°C)   | Humedad Relativa (%) |
+|------|---------------|--------------------|----------------------|
+|    2019 | Concordia     |      19,7±1,6b     | 69,2±2,5ab           |
+|    2019 | Palmar        |      22,2±1,7a     | 68,5±2,6b           |
+|    2019 | Gualeguaychu  |      20,0±1,6b     | 70,3±2,5a           |
+|    2021 | Concordia     |      23,8±1,8a     | 53,1±3,0b           |
+|    2021 | Palmar        |      21,7±1,7b     | 63,2±2,8a           |
+|    2021 | Gualeguaychu  |      21,7±1,7b     | 54,3±3,0b           |
+|    2021 | Concordia     |      22,8±1,7a     | 51,7±3,0b           |
+|    2022 | Palmar        |      21,5±1,6b     | 56,2±2,9a           |
+|    2022 | Gualeguaychu  |      19,9±1,5c     | 56,1±2,9a           |
+
+
+| Two-way ANOVA p value | Temperatura | Humedad Relativa|
+|-----------------------|-------------|-----------------|
+| Sitio                 |      <0,001      |      <0,001          |
+| Año                   |      <0,001      |      <0,001          |
+| Sitio*Año             |      <0,001      |      <0,001          |
+
+
+```{r, echo=FALSE,warning = FALSE, message = FALSE,attr.warning= FALSE,fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-#Load library
 library(readxl)
-
-#Create object "data_dl" which contains climate data
 data_dl <- read_excel("database.xlsx", sheet = "II_ER_DL")
 
 data_dl$year<-as.factor(data_dl$year)
-data_dl$date<-as.POSIXct(data_dl$date,format="%m-%d-%Y")
-data_dl$site<-factor(data_dl$site,levels=c("concordia", "palmar","gualeguaychu"))
+data_dl$site<-factor(data_dl$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+
+data_dl$date_complete <- as.POSIXct(data_dl$date_complete, format = "%d-%m-%Y")
+data_dl$date <- as.POSIXct(data_dl$date, format = "%d-%m-%Y")
+
+data_dl$number<-as.numeric(data_dl$number)
+
+data_dl$temp<-as.numeric(data_dl$temp)
+data_dl$hr<-as.numeric(data_dl$hr)
+data_dl$temp_soil<-as.numeric(data_dl$temp_soil)
+
+```
+
+# Temperatura
+```{r, message = FALSE, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crea un vector con las variables respuesta
+variables_respuesta_DL <- c("temp", "hr")
+
+# Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+tablas_list_ER_DL <- list()
+graficos_list_ER_DL <- list()
+
+library(dplyr)
+
+# Crea un bucle que recorre cada variable respuesta
+for(variable in variables_respuesta_DL) {
+  # Crea la tabla resumen
+  assign(paste0("ER_DL_", variable), data_dl %>%
+    dplyr::group_by(year, site, date) %>%
+    dplyr::summarise(n = n(),
+              Mean = mean(.data[[variable]]),
+              sd = sd(.data[[variable]]),
+              min = min(.data[[variable]]),
+              max = max(.data[[variable]]))
+  )
+
+  # Agrega la tabla a la lista
+  tablas_list_ER_DL[[variable]] <- get(paste0("ER_DL_", variable))
+
+  # Crea el gráfico
+  library(ggplot2)
+  gg_plot <- ggplot(tablas_list_ER_DL[[variable]], aes(x = date, y = Mean, color = site)) +
+    scale_color_manual(values = c("coral4","burlywood2","palegreen4")) +
+    stat_summary(fun = "mean", size = 1.5, geom = "line") +
+    geom_errorbar(aes(ymin = min, ymax = max), width = 0.8) +
+    facet_grid(year~.)+
+    theme_classic() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "bottom") +
+    theme(text = element_text(size = 15, color = 'black')) +
+    theme(axis.text = element_text(color = 'black'))
+
+  assign(paste0("ER_DL_gg_", variable), gg_plot)
+
+  # Agrega el gráfico a la lista
+  graficos_list_ER_DL[[variable]] <- get(paste0("ER_DL_gg_", variable))
+}
+
+# acceder a las tablas y gráficos individuales con tablas_list_ER_DL$ y graficos_list_ER_DL$
+
+```
+
+Gráfico de temperaturas
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_ER_DL$temp+
+  labs(y="Temperatura (°C)", x="Fecha")+
+  scale_x_datetime(labels = scales::date_format("%d-%m"), breaks = "7 days")
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# graficos_list_ER_DL$temp_soil+
+#   labs(y="Temperatura suelo (°C)", x="Fecha")+
+#   scale_x_datetime(labels = scales::date_format("%d-%m"), breaks = "7 days")
+```
+
+Tabla resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+data_dl2 <- na.omit(data_dl[,-c(9)])
+data_dl <- data_dl2 %>% dplyr::filter(number>193 & number<1407)
+
+library(dplyr)
+tabla_dl_mean <- data_dl %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(n=n(),
+                  Mean=mean(temp))
+
+options(digits = 9)
+library(knitr)
+kable(tabla_dl_mean, format = "markdown")
+
+```
+
+Análisis factorial mixto
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+data_dl$temp2<-data_dl$temp+2 # to avoid negaive numbers in gamma models
+
+library(lme4)
+modelo_dl_temp <- lmer(temp~year*site+(1|hour), data = data_dl)
+
+library(nlme)
+modelo_dl_temp_gamma_ide <- glm(temp2~year*site, data = data_dl, family = Gamma(link = "identity"))
+modelo_dl_temp_gamma_log <- glm(temp2~year*site, data = data_dl, family = Gamma(link = "log"))
+
+library(glmmTMB)
+modelo_dl_temp_gamma_ide_mixto <- glmmTMB(temp2~year*site+(1|hour), family = Gamma(link = "identity"), data = data_dl)
+modelo_dl_temp_gamma_log_mixto <- glmmTMB(temp2~year*site+(1|hour), family = Gamma(link = "log"), data = data_dl)
+
+```
+
+Comparación de modelos por AIC
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+aic_table <- AIC(modelo_dl_temp, modelo_dl_temp_gamma_ide, modelo_dl_temp_gamma_log, modelo_dl_temp_gamma_ide_mixto, modelo_dl_temp_gamma_log_mixto)
+
+library(knitr)
+kable(aic_table, format = "markdown")
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_dl_temp_gamma_log_mixto
+
+```
+
+Gráfico de residuos vs. predichos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_dl_temp_gamma_log_mixto_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_dl_temp_gamma_log_mixto),
+  "predichos" = predict(modelo_dl_temp_gamma_log_mixto)))
+
+library(ggplot2)
+HV_dl_temp<-ggplot(modelo_dl_temp_gamma_log_mixto_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_dl_temp
+
+# QQ_dl_temp<-ggplot(modelo_dl_temp_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQ_dl_temp
+
+# e<-resid(modelo_dl_temp) # residuos de pearson
+# e_sample <- sample(e, 5000)
+# shapiro.test(e_sample)
+
+
+
+```
+
+Gráfico de perfiles
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Graficos de perfiles
+
+colores<-c("coral1","burlywood2","palegreen4")
+(medias.bd<-aggregate(temp~year+site, data_dl,mean))
+
+gg_perfiles_temp <- ggplot(medias.bd, aes(x=year, y=temp, colour=site, group=site))+
+  geom_line(aes(linetype=site), size=2) +geom_point(aes(shape=site), size=3)+
+  scale_color_manual(values=c(colores))+
+  theme_classic()+
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  theme(text = element_text(size = 15, color = 'black')) +
+  theme(axis.text = element_text(color = 'black'))
+gg_perfiles_temp
+  
+```
+
+Análisis de varianza
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(modelo_dl_temp_gamma_log_mixto)
 
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# # Crea un vector con las variables respuesta
-# variables_respuesta_DL <- c("temp", "hr", "temp_soil")
+# # Comparaciones de Interaccion
+# ##todos contra todos 
+# library(emmeans)
+# library(multcompView)
 # 
-# # Inicializa una lista para almacenar las tablas y otra lista para los gráficos
-# tablas_list_ER_DL <- list()
-# graficos_list_ER_DL <- list()
-# 
-# library(dplyr)
-# 
-# # Crea un bucle que recorre cada variable respuesta
-# for(variable in variables_respuesta_DL) {
-#   # Crea la tabla resumen
-#   assign(paste0("ER_DL_", variable), data %>%
-#     dplyr::group_by(year, site, date) %>%
-#     dplyr::summarise(n = n(),
-#               Mean = mean(.data[[variable]]),
-#               sd = sd(.data[[variable]]))
-#   )
-#   
-#   # Agrega la tabla a la lista
-#   tablas_list_ER_DL[[variable]] <- get(paste0("ER_DL_", variable))
-# 
-#   # Crea el gráfico
-#   library(ggplot2)
-#   gg_plot <- ggplot(tablas_list_ER_DL[[variable]], aes(x = date, y = Mean, color = site)) +
-#     scale_color_manual(values = c("coral4","burlywood2","palegreen4")) +
-#     stat_summary(fun = "mean", size = 6, geom = "point") +
-#     geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.2, position = position_dodge(0.9)) +
-#     theme_classic() +
-#     theme(legend.title = element_blank()) +
-#     theme(legend.position = "none") +
-#     theme(text = element_text(size = 15, color = 'black')) +
-#     theme(axis.text = element_text(color = 'black'))
-# 
-#   assign(paste0("ER_DL_gg_", variable), gg_plot)
-#   
-#   # Agrega el gráfico a la lista
-#   graficos_list_ER_DL[[variable]] <- get(paste0("ER_DL_gg_", variable))
-# }
+# #Tukey por default
+# comp1<-emmeans(modelo_dl_temp_gamma_log_mixto, pairwise ~ site*year, type="response")
+# comp1
+# plot(comp1, comparisons = TRUE)
 
-# acceder a las tablas y gráficos individuales con tablas_list_ER_DL$ y graficos_list_ER_DL$
+```
 
+Efectos simples
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Efectos simples
+library(emmeans)
+library(multcompView)
+
+efsimple_dl<-emmeans(modelo_dl_temp_gamma_log_mixto, pairwise ~ site | year,  type="response") #Tukey por default
+efsimple_dl
+
+gg_comp_temp <- plot(efsimple_dl, comparisons = TRUE,  type="response")+theme_minimal()
+gg_comp_temp
+```
+
+# Humedad Relativa
+
+```{r, echo=FALSE,warning = FALSE, message = FALSE,attr.warning= FALSE,fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+data_dl <- read_excel("database.xlsx", sheet = "II_ER_DL")
+
+data_dl$year<-as.factor(data_dl$year)
+data_dl$site<-factor(data_dl$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+
+data_dl$date_complete <- as.POSIXct(data_dl$date_complete, format = "%d-%m-%Y")
+data_dl$date <- as.POSIXct(data_dl$date, format = "%d-%m-%Y")
+
+data_dl$number<-as.numeric(data_dl$number)
+
+data_dl$temp<-as.numeric(data_dl$temp)
+data_dl$hr<-as.numeric(data_dl$hr)
+data_dl$temp_soil<-as.numeric(data_dl$temp_soil)
+
+```
+
+Gráfico de humedad relativa
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list_ER_DL$hr+
+  labs(y="HR (%)", x="Fecha")+
+  scale_x_datetime(labels = scales::date_format("%d-%m"), breaks = "7 days")
+```
+
+Tabla resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+data_dl2 <- na.omit(data_dl[,-c(9)])
+data_dl <- data_dl2 %>% dplyr::filter(number>193 & number<1407)
+
+library(dplyr)
+tabla_dl_meanhr <- data_dl %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(n=n(),
+                  Mean=mean(hr))
+
+options(digits = 9)
+library(knitr)
+kable(tabla_dl_meanhr, format = "markdown")
+
+```
+
+Análisis factorial mixto
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data_dl$hr<-data_dl$hr/100
+
+library(lme4)
+modelo_dl_hr <- lmer(hr~year*site+(1|hour), data = data_dl)
+
+library(nlme)
+modelo_dl_hr_beta <- glm(hr~year*site, family = beta_family(), data = data_dl)
+
+library(glmmTMB)
+modelo_dl_hr_beta_mixto <- glmmTMB(hr~year*site+(1|hour), family = beta_family(), data = data_dl)
+
+```
+
+Comparación de modelos por AIC
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+aic_table_hr <- AIC(modelo_dl_hr, modelo_dl_hr_beta, modelo_dl_hr_beta_mixto)
+
+library(knitr)
+kable(aic_table_hr, format = "markdown")
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_dl_hr_beta_mixto
+
+```
+
+Gráfico de residuos vs. predichos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_dl_hr_beta_mixto_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_dl_hr_beta_mixto),
+  "predichos" = predict(modelo_dl_hr_beta_mixto)))
+
+library(ggplot2)
+HV_dl_hr<-ggplot(modelo_dl_hr_beta_mixto_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_dl_hr
+
+# QQ_dl_hr<-ggplot(modelo_dl_hr_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQ_dl_hr
+
+# e<-resid(modelo_dl_hr) # residuos de pearson
+# e_sample <- sample(e, 5000)
+# shapiro.test(e_sample)
+
+```
+
+Gráfico de perfiles
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Graficos de perfiles
+
+colores<-c("coral1","burlywood2","palegreen4")
+(medias.bd<-aggregate(hr~year+site, data_dl,mean))
+
+gg_perfiles_hr <- ggplot(medias.bd, aes(x=year, y=hr, colour=site, group=site))+
+  geom_line(aes(linetype=site), size=2) +geom_point(aes(shape=site), size=3)+
+  scale_color_manual(values=c(colores))+
+  theme_classic()+
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  theme(text = element_text(size = 15, color = 'black')) +
+  theme(axis.text = element_text(color = 'black'))
+gg_perfiles_hr
+
+```
+
+Análisis de varianza
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(modelo_dl_hr_beta_mixto)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# # Comparaciones de Interaccion
+# ##todos contra todos 
+# library(emmeans)
+# library(multcompView)
+# 
+# #Tukey por default
+# comp1<-emmeans(modelo_dl_hr_beta_mixto, pairwise ~ site*year, type="response")
+# comp1
+# plot(comp1, comparisons = TRUE)
+
+```
+
+Efectos simples
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Efectos simples
+library(emmeans)
+library(multcompView)
+
+efsimple_dl<-emmeans(modelo_dl_hr_beta_mixto, pairwise ~ site | year,  type="response") #Tukey por default
+efsimple_dl
+
+gg_comp_hr <- plot(efsimple_dl, comparisons = TRUE,  type="response")+theme_minimal()
+gg_comp_hr
 ```

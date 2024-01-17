@@ -285,9 +285,6 @@ $(document).ready(function () {
       <a href="II_M_SMN.html">SMN M</a>
     </li>
     <li>
-      <a href="II_M_DL.html">DL M</a>
-    </li>
-    <li>
       <a href="II_M_Soil.html">Suelos M</a>
     </li>
     <li class="divider"></li>
@@ -479,10 +476,10 @@ between years by ANOVA.</p>
 </div>
 <div id="decriptive-table-for-years" class="section level1">
 <h1>Decriptive table for years</h1>
-<pre><code>##   YEAR  N        P       sd       se       ci
-## 1 2019 15 551.6452 452.3572 116.7981 250.5071
-## 2 2020 15 739.8667 568.8946 146.8880 315.0433
-## 3 2021 15 937.7800 430.5466 111.1666 238.4287</code></pre>
+<pre><code>##   YEAR  N          P         sd         se         ci
+## 1 2019 15 551.645200 452.357201 116.798127 250.507068
+## 2 2020 15 739.866667 568.894618 146.887959 315.043339
+## 3 2021 15 937.780000 430.546573 111.166647 238.428745</code></pre>
 </div>
 <div id="average-plant-fresh-weight-g-per-year." class="section level1">
 <h1>Average plant fresh weight (g) per year.</h1>
@@ -499,22 +496,22 @@ The bars indicate standard deviation.</p>
 ## 
 ## Coefficients:
 ## (Intercept)     YEAR2020     YEAR2021  
-##      21.219        4.338        8.459</code></pre>
+##    21.21873      4.33768      8.45927</code></pre>
 <p><img src="III_Yield_files/figure-html/unnamed-chunk-12-1.png" width="1920" style="display: block; margin: auto;" /><img src="III_Yield_files/figure-html/unnamed-chunk-12-2.png" width="1920" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.98352, p-value = 0.7628</code></pre>
+## W = 0.9835233, p-value = 0.76283</code></pre>
 </div>
 <div id="anova" class="section level2">
 <h2>ANOVA</h2>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: sqrt(P)
-##           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-## YEAR       2  536.8 268.405  3.0657 0.05718 .
-## Residuals 42 3677.1  87.551                  
+##           Df   Sum Sq   Mean Sq F value   Pr(&gt;F)  
+## YEAR       2  536.811 268.40546  3.0657 0.057179 .
+## Residuals 42 3677.149  87.55117                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>There is no significant difference between years</p>
