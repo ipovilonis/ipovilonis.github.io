@@ -124,3 +124,100 @@ plot(Comp_mad_fenoles, comparisons = FALSE, arrow.type = "none") + theme_classic
   labs(x = "mg Fenoles / 100g PF)", y ="Madurez")
 
 ```
+
+Correlación Fenoles - DPPH
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+library(dplyr)
+
+Datos0 <- read_excel("database.xlsx", sheet = "mad_aaox")
+Datos0$Muestra <- factor(Datos0$Muestra)
+Datos0$Conc <- factor(Datos0$Conc)
+Datos0$Pip <- factor(Datos0$Pip)
+Datos0$Trata <- factor(Datos0$Trata, levels = c("I", "MM", "M", "SM"))
+
+# Datos0 %>% dplyr::filter(Conc == extract_Conc)
+
+filter_list <- c("1.25", "2.5", "5", "12.5")
+names_Conc<- c("ext_1.25", "ext_2.5", "ext_5", "ext_12.5")
+list_Conc <- list()
+for (extract_Conc in filter_list) {
+  temp_table <- Datos0 %>% filter(Conc == extract_Conc)
+
+  # Cambia el nombre de la columna Conc
+  colnames(temp_table)[which(colnames(temp_table) == "In")] <- names_Conc
+  # Selecciona las columnas 1 y 4
+  temp_table <- temp_table %>% select(1, 4)
+  # Agrega la tabla a la lista
+  list_Conc[[paste0("extract_", extract_Conc)]] <- temp_table
+  
+}
+# Une las tablas por columna
+all_conc <- bind_cols(list_Conc)
+# Elimina las columnas duplicadas
+all_conc <- all_conc[,-c(3,5,7)]
+# Se agrega columna de fenoles
+all_conc <-cbind(all_conc, data_mad_phenols[,-c(1)]) 
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=14}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(GGally)
+GCORmad <- ggpairs(all_conc, columns = 2:9, lower = list(continuous = "points"))
+GCORmad + theme_minimal()
+
+```
+
+Valores p para H0: beta1=beta0
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# new names
+all_conc <- rename(all_conc, ext_1.25=ext_1.25...2)
+all_conc <- rename(all_conc, ext_2.5=ext_1.25...4)
+all_conc <- rename(all_conc, ext_5=ext_1.25...6)
+all_conc <- rename(all_conc, ext_12.5=ext_1.25...8)
+
+# models
+mod_1.25<- lm(ext_1.25~fenoles, data=all_conc)
+mod_2.5<- lm(ext_2.5~fenoles, data=all_conc)
+mod_5<- lm(ext_5~fenoles, data=all_conc)
+mod_12.5<- lm(ext_12.5~fenoles, data=all_conc)
+
+```
+
+Concentración 1,25
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(knitr)
+kable(summary(mod_1.25)$coefficients[2,4], format = "markdown", col.names = "p-valor")
+
+```
+Concentración 2,5
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+kable(summary(mod_2.5)$coefficients[2,4], format = "markdown", col.names = "p-valor")
+
+```
+Concentración 5
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+kable(summary(mod_5)$coefficients[2,4], format = "markdown", col.names = "p-valor")
+
+```
+Concentración 12,5
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+kable(summary(mod_12.5)$coefficients[2,4], format = "markdown", col.names = "p-valor")
+
+```

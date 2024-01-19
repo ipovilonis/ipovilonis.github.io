@@ -3,8 +3,7 @@ title: "Soil"
 
 ---
 
-Relative difference of % soil moisture in spring 2022
-
+Diferencia relativa de la humedad de suelo en % durante la primavera de 2022
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -63,7 +62,7 @@ aqua_site<-ggplot(aqua, aes(x=site, y=moisture, color=site, width=1)) +
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1))+
+  theme(axis.text.x = element_text(angle = 0, vjust = 1, hjust=1))+
   ylim(0,100)
 aqua_site
 
