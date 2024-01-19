@@ -169,10 +169,10 @@ Valores p para H0: beta1=beta0
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # new names
-all_conc <- rename(all_conc, ext_1.25=ext_1.25...2)
-all_conc <- rename(all_conc, ext_2.5=ext_1.25...4)
-all_conc <- rename(all_conc, ext_5=ext_1.25...6)
-all_conc <- rename(all_conc, ext_12.5=ext_1.25...8)
+all_conc <- dplyr::rename(all_conc, ext_1.25=ext_1.25...2)
+all_conc <- dplyr::rename(all_conc, ext_2.5=ext_1.25...4)
+all_conc <- dplyr::rename(all_conc, ext_5=ext_1.25...6)
+all_conc <- dplyr::rename(all_conc, ext_12.5=ext_1.25...8)
 
 # models
 mod_1.25<- lm(ext_1.25~fenoles, data=all_conc)
