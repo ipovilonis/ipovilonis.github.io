@@ -10,7 +10,7 @@ output:
 ---
 
 Análisis sobre la concentración de fenoles expresados en mg equivalente de ácido tánico cada 100g PF
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
@@ -20,7 +20,7 @@ data_mad_phenols$madurez <- factor(data_mad_phenols$madurez, levels=c("I", "MM",
 ```
 
 Tabla descriptiva
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
@@ -36,7 +36,7 @@ kable(tabla_fenoles, format = "markdown")
 ```
 
 Gráfico de puntos
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -54,7 +54,7 @@ plot_mad_fenoles
 ```
 
 Modelo
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
@@ -64,7 +64,7 @@ modelos_mad_fenoles
 ```
 
 Supuestos
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 fenoles_mad_ajuste <- as.data.frame(cbind(
@@ -106,7 +106,7 @@ shapiro.test(fenoles_mad_ajuste$residuos)
 ```
 
 Anova
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 anova(modelos_mad_fenoles)
@@ -114,7 +114,7 @@ anova(modelos_mad_fenoles)
 ```
 
 Test de Tukey
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -127,7 +127,7 @@ plot(Comp_mad_fenoles, comparisons = FALSE, arrow.type = "none") + theme_classic
 
 Correlación Fenoles - DPPH
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
@@ -164,18 +164,8 @@ all_conc <-cbind(all_conc, data_mad_phenols[,-c(1)])
 
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=14}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(ggplot2)
-library(GGally)
-GCORmad <- ggpairs(all_conc, columns = 2:9, lower = list(continuous = "points"))
-GCORmad + theme_minimal()
-
-```
-
 Valores p para H0: beta1=beta0
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # new names
@@ -193,7 +183,7 @@ mod_12.5<- lm(ext_12.5~fenoles, data=all_conc)
 ```
 
 Concentración 1,25
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(knitr)
@@ -201,23 +191,34 @@ kable(summary(mod_1.25)$coefficients[2,4], format = "markdown", col.names = "p-v
 
 ```
 Concentración 2,5
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 kable(summary(mod_2.5)$coefficients[2,4], format = "markdown", col.names = "p-valor")
 
 ```
 Concentración 5
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 kable(summary(mod_5)$coefficients[2,4], format = "markdown", col.names = "p-valor")
 
 ```
 Concentración 12,5
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 kable(summary(mod_12.5)$coefficients[2,4], format = "markdown", col.names = "p-valor")
+
+```
+
+Gráfico de correlaciones
+```{r, echo=FALSE, error=FALSE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=14}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(GGally)
+GCORmad <- ggpairs(all_conc, columns = 2:9, lower = list(continuous = "points"))
+GCORmad + theme_minimal()
 
 ```
