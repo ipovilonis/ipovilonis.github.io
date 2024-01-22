@@ -264,7 +264,7 @@ $(document).ready(function () {
       <a href="II_ER_Climate.html">Clima ER</a>
     </li>
     <li>
-      <a href="II_ER_SMN.html">SMN ER</a>
+      <a href="II_ER_SMN.html">MET ER</a>
     </li>
     <li>
       <a href="II_ER_DL.html">DL ER</a>
@@ -282,7 +282,7 @@ $(document).ready(function () {
       <a href="II_M_Climate.html">Clima M</a>
     </li>
     <li>
-      <a href="II_M_SMN.html">SMN M</a>
+      <a href="II_M_inta.html">MET M</a>
     </li>
     <li>
       <a href="II_M_Soil.html">Suelos M</a>
@@ -480,17 +480,17 @@ manual with glass rod.</p>
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.847944, p-value = 0.0127094</code></pre>
+## W = 0.84794, p-value = 0.01271</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value  Pr(&gt;F)
-## group  3 1.46166 0.27426
+##       Df F value Pr(&gt;F)
+## group  3  1.4617 0.2743
 ##       12</code></pre>
 </div>
 <div id="mean-comparison" class="section level2">
 <h2>Mean comparison</h2>
 <pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
-##          Sum Sq  Mean Sq NumDF    DenDF F value  Pr(&gt;F)
-## method 761.9525 761.9525     1 12.99997 0.34823 0.56523</code></pre>
+##        Sum Sq Mean Sq NumDF DenDF F value Pr(&gt;F)
+## method 761.95  761.95     1    13  0.3482 0.5652</code></pre>
 </div>
 <div id="carotenoids" class="section level1">
 <h1>Carotenoids</h1>
@@ -500,10 +500,10 @@ potter homogenizer with 9ml solution (potter_B) and another manual with
 glass rod.</p>
 <div id="descriptive-table-1" class="section level2">
 <h2>Descriptive table</h2>
-<pre><code>##     method N    caroten          sd          se          ci
-## 1 potter_A 4 49.2346672 21.49908294 10.74954147 34.20983853
-## 2 potter_B 4 48.4051359  5.62548136  2.81274068  8.95139618
-## 3      rod 4 15.5070973  3.08206931  1.54103466  4.90426004</code></pre>
+<pre><code>##     method N  caroten        sd        se        ci
+## 1 potter_A 4 49.23467 21.499083 10.749541 34.209839
+## 2 potter_B 4 48.40514  5.625481  2.812741  8.951396
+## 3      rod 4 15.50710  3.082069  1.541035  4.904260</code></pre>
 </div>
 <div id="plot-1" class="section level2">
 <h2>Plot</h2>
@@ -517,27 +517,27 @@ glass rod.</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: caroten
-##           Df   Sum Sq   Mean Sq F value    Pr(&gt;F)   
-## method     2 2960.691 1480.3454 8.82286 0.0075643 **
-## Residuals  9 1510.067  167.7853                     
+##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
+## method     2 2960.7 1480.35  8.8229 0.007564 **
+## Residuals  9 1510.1  167.79                    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="tukey" class="section level2">
 <h2>Tukey</h2>
 <pre><code>## $emmeans
-##  method       emmean         SE df   lower.CL   upper.CL
-##  potter_A 49.2346672 6.47659735  9 34.5835861 63.8857483
-##  potter_B 48.4051359 6.47659735  9 33.7540548 63.0562170
-##  rod      15.5070973 6.47659735  9  0.8560162 30.1581784
+##  method   emmean   SE df lower.CL upper.CL
+##  potter_A   49.2 6.48  9   34.584     63.9
+##  potter_B   48.4 6.48  9   33.754     63.1
+##  rod        15.5 6.48  9    0.856     30.2
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast              estimate         SE df t.ratio p.value
-##  potter_A - potter_B  0.8295313 9.15929181  9   0.091  0.9955
-##  potter_A - rod      33.7275699 9.15929181  9   3.682  0.0126
-##  potter_B - rod      32.8980385 9.15929181  9   3.592  0.0145
+##  contrast            estimate   SE df t.ratio p.value
+##  potter_A - potter_B     0.83 9.16  9   0.091  0.9955
+##  potter_A - rod         33.73 9.16  9   3.682  0.0126
+##  potter_B - rod         32.90 9.16  9   3.592  0.0145
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="extraction_methods_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>

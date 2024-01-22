@@ -346,7 +346,7 @@ div.tocify {
       <a href="II_ER_Climate.html">Clima ER</a>
     </li>
     <li>
-      <a href="II_ER_SMN.html">SMN ER</a>
+      <a href="II_ER_SMN.html">MET ER</a>
     </li>
     <li>
       <a href="II_ER_DL.html">DL ER</a>
@@ -364,7 +364,7 @@ div.tocify {
       <a href="II_M_Climate.html">Clima M</a>
     </li>
     <li>
-      <a href="II_M_SMN.html">SMN M</a>
+      <a href="II_M_inta.html">MET M</a>
     </li>
     <li>
       <a href="II_M_Soil.html">Suelos M</a>
@@ -539,15 +539,15 @@ div.tocify {
 Madurez
 <img src="madAcids_files/figure-html/unnamed-chunk-2-1.png" width="1536" style="display: block; margin: auto;" /></p>
 <p>Tabla descriptiva</p>
-<table>
+<table style="width:100%;">
 <colgroup>
-<col width="15%" />
-<col width="6%" />
+<col width="16%" />
+<col width="5%" />
 <col width="4%" />
 <col width="19%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1008,23 +1008,23 @@ Madurez
 ## MAD             3    18    4.45443  0.0165</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean          SE df   lower.CL   upper.CL
-##  I   26.6378330 0.642202482  2 23.8746587 29.4010073
-##  MM  25.3039855 0.642202482  2 22.5408112 28.0671598
-##  M   25.4177998 0.642202482  2 22.6546256 28.1809741
-##  SM  27.8187827 0.642202482  2 25.0556084 30.5819569
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     26.6 0.642  2     23.9     29.4
+##  MM    25.3 0.642  2     22.5     28.1
+##  M     25.4 0.642  2     22.7     28.2
+##  SM    27.8 0.642  2     25.1     30.6
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate         SE df t.ratio p.value
-##  I - MM    1.333847500 0.79198912 18   1.684  0.3602
-##  I - M     1.220033167 0.79198912 18   1.540  0.4354
-##  I - SM   -1.180949667 0.79198912 18  -1.491  0.4629
-##  MM - M   -0.113814333 0.79198912 18  -0.144  0.9989
-##  MM - SM  -2.514797167 0.79198912 18  -3.175  0.0246
-##  M - SM   -2.400982833 0.79198912 18  -3.032  0.0331
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM      1.334 0.792 18   1.684  0.3602
+##  I - M       1.220 0.792 18   1.540  0.4354
+##  I - SM     -1.181 0.792 18  -1.491  0.4629
+##  MM - M     -0.114 0.792 18  -0.144  0.9989
+##  MM - SM    -2.515 0.792 18  -3.175  0.0246
+##  M - SM     -2.401 0.792 18  -3.032  0.0331
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1059,23 +1059,23 @@ Madurez
 ## MAD             3    18 28.3248543  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean           SE df      lower.CL     upper.CL
-##  I   0.000000000 0.0124963707  2 -0.0537675433 0.0537675433
-##  MM  0.000000000 0.0124963707  2 -0.0537675433 0.0537675433
-##  M   0.000000000 0.0124963707  2 -0.0537675433 0.0537675433
-##  SM  0.115256167 0.0124963707  2  0.0614886233 0.1690237100
+##  MAD emmean     SE df lower.CL upper.CL
+##  I    0.000 0.0125  2  -0.0538   0.0538
+##  MM   0.000 0.0125  2  -0.0538   0.0538
+##  M    0.000 0.0125  2  -0.0538   0.0538
+##  SM   0.115 0.0125  2   0.0615   0.1690
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate          SE df t.ratio p.value
-##  I - MM    0.000000000 0.015313178 18   0.000  1.0000
-##  I - M     0.000000000 0.015313178 18   0.000  1.0000
-##  I - SM   -0.115256167 0.015313178 18  -7.527  &lt;.0001
-##  MM - M    0.000000000 0.015313178 18   0.000  1.0000
-##  MM - SM  -0.115256167 0.015313178 18  -7.527  &lt;.0001
-##  M - SM   -0.115256167 0.015313178 18  -7.527  &lt;.0001
+##  contrast estimate     SE df t.ratio p.value
+##  I - MM      0.000 0.0153 18   0.000  1.0000
+##  I - M       0.000 0.0153 18   0.000  1.0000
+##  I - SM     -0.115 0.0153 18  -7.527  &lt;.0001
+##  MM - M      0.000 0.0153 18   0.000  1.0000
+##  MM - SM    -0.115 0.0153 18  -7.527  &lt;.0001
+##  M - SM     -0.115 0.0153 18  -7.527  &lt;.0001
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1116,23 +1116,23 @@ Madurez
 ## MAD             3    18   12.960439   1e-04</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean          SE df    lower.CL   upper.CL
-##  I    7.38748867 1.114288120  2  2.59309384 12.1818835
-##  MM  10.97554617 0.363141046  2  9.41307635 12.5380160
-##  M   11.75953867 0.219357531  2 10.81571939 12.7033579
-##  SM  10.53686683 0.354175189  2  9.01297399 12.0607597
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     7.39 1.114  2     2.59     12.2
+##  MM   10.98 0.363  2     9.41     12.5
+##  M    11.76 0.219  2    10.82     12.7
+##  SM   10.54 0.354  2     9.01     12.1
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast    estimate          SE df t.ratio p.value
-##  I - MM   -3.58805750 1.133396383 18  -3.166  0.0251
-##  I - M    -4.37205000 1.095825564 18  -3.990  0.0043
-##  I - SM   -3.14937817 1.130555618 18  -2.786  0.0542
-##  MM - M   -0.78399250 0.301773212 18  -2.598  0.0780
-##  MM - SM   0.43867933 0.410352787 18   1.069  0.7121
-##  M - SM    1.22267183 0.290922183 18   4.203  0.0027
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     -3.588 1.133 18  -3.166  0.0251
+##  I - M      -4.372 1.096 18  -3.990  0.0043
+##  I - SM     -3.149 1.131 18  -2.786  0.0542
+##  MM - M     -0.784 0.302 18  -2.598  0.0780
+##  MM - SM     0.439 0.410 18   1.069  0.7121
+##  M - SM      1.223 0.291 18   4.203  0.0027
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1173,23 +1173,23 @@ Madurez
 ## MAD             3    18  98.4765528  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean          SE df     lower.CL   upper.CL
-##  I   0.066569333 0.175056877  2 -0.686639616 0.81977828
-##  MM  3.076024167 0.175056877  2  2.322815217 3.82923312
-##  M   2.545536167 0.175056877  2  1.792327217 3.29874512
-##  SM  2.849149333 0.175056877  2  2.095940384 3.60235828
+##  MAD emmean    SE df lower.CL upper.CL
+##  I   0.0666 0.175  2   -0.687     0.82
+##  MM  3.0760 0.175  2    2.323     3.83
+##  M   2.5455 0.175  2    1.792     3.30
+##  SM  2.8491 0.175  2    2.096     3.60
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate          SE df t.ratio p.value
-##  I - MM   -3.009454833 0.198877907 18 -15.132  &lt;.0001
-##  I - M    -2.478966833 0.198877907 18 -12.465  &lt;.0001
-##  I - SM   -2.782580000 0.198877907 18 -13.991  &lt;.0001
-##  MM - M    0.530488000 0.198877907 18   2.667  0.0683
-##  MM - SM   0.226874833 0.198877907 18   1.141  0.6700
-##  M - SM   -0.303613167 0.198877907 18  -1.527  0.4431
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     -3.009 0.199 18 -15.132  &lt;.0001
+##  I - M      -2.479 0.199 18 -12.465  &lt;.0001
+##  I - SM     -2.783 0.199 18 -13.991  &lt;.0001
+##  MM - M      0.530 0.199 18   2.667  0.0683
+##  MM - SM     0.227 0.199 18   1.141  0.6700
+##  M - SM     -0.304 0.199 18  -1.527  0.4431
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1214,23 +1214,23 @@ Madurez
 ## MAD             3    18  97.574430  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean          SE df    lower.CL   upper.CL
-##  I   19.1837748 0.634030365  2 16.45576235 21.9117873
-##  MM  11.2524155 0.634030365  2  8.52440302 13.9804280
-##  M   11.1127248 0.634030365  2  8.38471235 13.8407373
-##  SM  14.3175103 0.634030365  2 11.58949785 17.0455228
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     19.2 0.634  2    16.46     21.9
+##  MM    11.3 0.634  2     8.52     14.0
+##  M     11.1 0.634  2     8.38     13.8
+##  SM    14.3 0.634  2    11.59     17.0
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast    estimate          SE df t.ratio p.value
-##  I - MM    7.93135933 0.541102157 18  14.658  &lt;.0001
-##  I - M     8.07105000 0.541102157 18  14.916  &lt;.0001
-##  I - SM    4.86626450 0.541102157 18   8.993  &lt;.0001
-##  MM - M    0.13969067 0.541102157 18   0.258  0.9938
-##  MM - SM  -3.06509483 0.541102157 18  -5.665  0.0001
-##  M - SM   -3.20478550 0.541102157 18  -5.923  0.0001
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM       7.93 0.541 18  14.658  &lt;.0001
+##  I - M        8.07 0.541 18  14.916  &lt;.0001
+##  I - SM       4.87 0.541 18   8.993  &lt;.0001
+##  MM - M       0.14 0.541 18   0.258  0.9938
+##  MM - SM     -3.07 0.541 18  -5.665  0.0001
+##  M - SM      -3.20 0.541 18  -5.923  0.0001
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1242,7 +1242,7 @@ Madurez
 <p>Concentración del perfíl de ácidos orgánicos
 <img src="madAcids_files/figure-html/unnamed-chunk-27-1.png" width="1536" style="display: block; margin: auto;" /></p>
 <p>Tabla descriptiva</p>
-<pre><code>##          CAR MAD N          CONS            sd            se            ci
+<pre><code>##           CAR MAD N          CONS            sd            se            ci
 ## 1  Tartárico   I 6   0.000000000  0.0000000000  0.0000000000  0.0000000000
 ## 2  Tartárico  MM 6   0.000000000  0.0000000000  0.0000000000  0.0000000000
 ## 3  Tartárico   M 6   0.000000000  0.0000000000  0.0000000000  0.0000000000
@@ -1259,18 +1259,18 @@ Madurez
 ## 14 Succínico  MM 6  92.481592333  4.7805090422  1.9516346440  5.0168365657
 ## 15 Succínico   M 6  99.437239833  4.8240138759  1.9693954180  5.0624920887
 ## 16 Succínico  SM 6 115.655151333 12.4187930831  5.0699510458 13.0327240659
-## 17       ATT   I 3   1.779200000  0.0507984252  0.0293284844  0.1261902837
-## 18       ATT  MM 3   1.606400000  0.0278969532  0.0161063135  0.0692998736
-## 19       ATT   M 3   1.828266667  0.2039063837  0.1177254055  0.5065315375
-## 20       ATT  SM 3   1.384533333  0.0835275603  0.0482246594  0.2074939626
-## 21   TOTALac   I 6 157.676283833 24.4147956495  9.9672985859 25.6217566954
-## 22   TOTALac  MM 6 207.988730333 11.6569574255  4.7589329410 12.2332265750
-## 23   TOTALac   M 6 227.273537667  4.2846255274  1.7491910468  4.4964387320
-## 24   TOTALac  SM 6 224.311310667 13.9874059778  5.7103345784 14.6788823428
-## 25      &lt;NA&gt;   I 6 266.880791667  8.4819431471  3.4627387896  8.9012534341
-## 26      &lt;NA&gt;  MM 6 301.680354667 34.6167224669 14.1322177686 36.3280222931
-## 27      &lt;NA&gt;   M 6 350.625756167 31.1823867560 12.7301560857 32.7239079987
-## 28      &lt;NA&gt;  SM 6 428.368083167 26.7527791069 10.9217763355 28.0753198610</code></pre>
+## 17        ATT   I 3   1.779200000  0.0507984252  0.0293284844  0.1261902837
+## 18        ATT  MM 3   1.606400000  0.0278969532  0.0161063135  0.0692998736
+## 19        ATT   M 3   1.828266667  0.2039063837  0.1177254055  0.5065315375
+## 20        ATT  SM 3   1.384533333  0.0835275603  0.0482246594  0.2074939626
+## 21    TOTALac   I 6 157.676283833 24.4147956495  9.9672985859 25.6217566954
+## 22    TOTALac  MM 6 207.988730333 11.6569574255  4.7589329410 12.2332265750
+## 23    TOTALac   M 6 227.273537667  4.2846255274  1.7491910468  4.4964387320
+## 24    TOTALac  SM 6 224.311310667 13.9874059778  5.7103345784 14.6788823428
+## 25       &lt;NA&gt;   I 6 266.880791667  8.4819431471  3.4627387896  8.9012534341
+## 26       &lt;NA&gt;  MM 6 301.680354667 34.6167224669 14.1322177686 36.3280222931
+## 27       &lt;NA&gt;   M 6 350.625756167 31.1823867560 12.7301560857 32.7239079987
+## 28       &lt;NA&gt;  SM 6 428.368083167 26.7527791069 10.9217763355 28.0753198610</code></pre>
 <p>Evolución del perfíl de ácidos orgánicos</p>
 <pre><code>## Error in `palette()`:
 ## ! Insufficient values in manual scale. 6 needed but only 4 provided.</code></pre>
@@ -1322,23 +1322,23 @@ Madurez
 ## MAD             3    18   26.34856  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean         SE df   lower.CL   upper.CL
-##  I   157.676284 6.27853875  2 130.661912 184.690656
-##  MM  207.988730 6.27853875  2 180.974358 235.003102
-##  M   227.273538 6.27853875  2 200.259166 254.287910
-##  SM  224.311311 6.27853875  2 197.296939 251.325683
+##  MAD emmean   SE df lower.CL upper.CL
+##  I      158 6.28  2      131      185
+##  MM     208 6.28  2      181      235
+##  M      227 6.28  2      200      254
+##  SM     224 6.28  2      197      251
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast    estimate         SE df t.ratio p.value
-##  I - MM   -50.3124463 8.87866525 18  -5.667  0.0001
-##  I - M    -69.5972540 8.87866525 18  -7.839  &lt;.0001
-##  I - SM   -66.6350268 8.87866525 18  -7.505  &lt;.0001
-##  MM - M   -19.2848077 8.87866525 18  -2.172  0.1689
-##  MM - SM  -16.3225805 8.87866525 18  -1.838  0.2886
-##  M - SM     2.9622272 8.87866525 18   0.334  0.9868
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM     -50.31 8.88 18  -5.667  0.0001
+##  I - M      -69.60 8.88 18  -7.839  &lt;.0001
+##  I - SM     -66.64 8.88 18  -7.505  &lt;.0001
+##  MM - M     -19.28 8.88 18  -2.172  0.1689
+##  MM - SM    -16.32 8.88 18  -1.838  0.2886
+##  M - SM       2.96 8.88 18   0.334  0.9868
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1371,23 +1371,23 @@ Madurez
 ## MAD             3    18 26.0396084  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean          SE df     lower.CL    upper.CL
-##  I   0.000000000 0.107480774  2 -0.462452447 0.462452447
-##  MM  0.000000000 0.107480774  2 -0.462452447 0.462452447
-##  M   0.000000000 0.107480774  2 -0.462452447 0.462452447
-##  SM  0.941135667 0.107480774  2  0.478683220 1.403588114
+##  MAD emmean    SE df lower.CL upper.CL
+##  I    0.000 0.107  2   -0.462    0.462
+##  MM   0.000 0.107  2   -0.462    0.462
+##  M    0.000 0.107  2   -0.462    0.462
+##  SM   0.941 0.107  2    0.479    1.404
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate          SE df t.ratio p.value
-##  I - MM    0.000000000 0.130412737 18   0.000  1.0000
-##  I - M     0.000000000 0.130412737 18   0.000  1.0000
-##  I - SM   -0.941135667 0.130412737 18  -7.217  &lt;.0001
-##  MM - M    0.000000000 0.130412737 18   0.000  1.0000
-##  MM - SM  -0.941135667 0.130412737 18  -7.217  &lt;.0001
-##  M - SM   -0.941135667 0.130412737 18  -7.217  &lt;.0001
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      0.000 0.13 18   0.000  1.0000
+##  I - M       0.000 0.13 18   0.000  1.0000
+##  I - SM     -0.941 0.13 18  -7.217  &lt;.0001
+##  MM - M      0.000 0.13 18   0.000  1.0000
+##  MM - SM    -0.941 0.13 18  -7.217  &lt;.0001
+##  M - SM     -0.941 0.13 18  -7.217  &lt;.0001
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1428,23 +1428,23 @@ Madurez
 ## MAD             3    18   77.88670  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean         SE df   lower.CL    upper.CL
-##  I    44.9021340 8.33530189  2  9.0382246  80.7660434
-##  MM   90.1895317 2.85183436  2 77.9190788 102.4599846
-##  M   105.1474897 1.95843141  2 96.7210394 113.5739399
-##  SM   84.7945992 2.34229505  2 74.7165170  94.8726813
+##  MAD emmean   SE df lower.CL upper.CL
+##  I     44.9 8.34  2     9.04     80.8
+##  MM    90.2 2.85  2    77.92    102.5
+##  M    105.1 1.96  2    96.72    113.6
+##  SM    84.8 2.34  2    74.72     94.9
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast    estimate         SE df t.ratio p.value
-##  I - MM   -45.2873977 8.41723952 18  -5.380  0.0002
-##  I - M    -60.2453557 8.15796638 18  -7.385  &lt;.0001
-##  I - SM   -39.8924652 8.25852940 18  -4.830  0.0007
-##  MM - M   -14.9579580 2.28212995 18  -6.554  &lt;.0001
-##  MM - SM    5.3949325 2.61897110 18   2.060  0.2038
-##  M - SM    20.3528905 1.60046992 18  12.717  &lt;.0001
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM     -45.29 8.42 18  -5.380  0.0002
+##  I - M      -60.25 8.16 18  -7.385  &lt;.0001
+##  I - SM     -39.89 8.26 18  -4.830  0.0007
+##  MM - M     -14.96 2.28 18  -6.554  &lt;.0001
+##  MM - SM      5.39 2.62 18   2.060  0.2038
+##  M - SM      20.35 1.60 18  12.717  &lt;.0001
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1485,23 +1485,23 @@ Madurez
 ## MAD             3    18 262.2049802  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean          SE df    lower.CL   upper.CL
-##  I    0.37467776 0.240451435  2 -0.65990127  1.4092568
-##  MM  25.25162076 1.808770981  2 17.46910736 33.0341342
-##  M   22.62282259 1.097180084  2 17.90203771 27.3436075
-##  SM  22.85443892 1.781775553  2 15.18807748 30.5208004
+##  MAD emmean   SE df lower.CL upper.CL
+##  I    0.375 0.24  2    -0.66     1.41
+##  MM  25.252 1.81  2    17.47    33.03
+##  M   22.623 1.10  2    17.90    27.34
+##  SM  22.854 1.78  2    15.19    30.52
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate         SE df t.ratio p.value
-##  I - MM   -24.87694300 1.79271737 18 -13.877  &lt;.0001
-##  I - M    -22.24814483 1.07050794 18 -20.783  &lt;.0001
-##  I - SM   -22.47976117 1.76547649 18 -12.733  &lt;.0001
-##  MM - M     2.62879817 2.08801887 18   1.259  0.5992
-##  MM - SM    2.39718183 2.51609674 18   0.953  0.7772
-##  M - SM    -0.23161633 2.06467781 18  -0.112  0.9995
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM    -24.877 1.79 18 -13.877  &lt;.0001
+##  I - M     -22.248 1.07 18 -20.783  &lt;.0001
+##  I - SM    -22.480 1.77 18 -12.733  &lt;.0001
+##  MM - M      2.629 2.09 18   1.259  0.5992
+##  MM - SM     2.397 2.52 18   0.953  0.7772
+##  M - SM     -0.232 2.06 18  -0.112  0.9995
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1540,23 +1540,23 @@ Madurez
 ## MAD             3    18   12.395896   1e-04</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean        SE df    lower.CL   upper.CL
-##  I   112.3334865 3.3166186  2  98.0632284 126.603745
-##  MM   92.4815923 3.3166186  2  78.2113343 106.751850
-##  M    99.4372398 3.3166186  2  85.1669818 113.707498
-##  SM  115.6551513 3.3166186  2 101.3848933 129.925409
+##  MAD emmean   SE df lower.CL upper.CL
+##  I    112.3 3.32  2     98.1      127
+##  MM    92.5 3.32  2     78.2      107
+##  M     99.4 3.32  2     85.2      114
+##  SM   115.7 3.32  2    101.4      130
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate         SE df t.ratio p.value
-##  I - MM    19.85189417 4.36926268 18   4.544  0.0013
-##  I - M     12.89624667 4.36926268 18   2.952  0.0389
-##  I - SM    -3.32166483 4.36926268 18  -0.760  0.8711
-##  MM - M    -6.95564750 4.36926268 18  -1.592  0.4076
-##  MM - SM  -23.17355900 4.36926268 18  -5.304  0.0003
-##  M - SM   -16.21791150 4.36926268 18  -3.712  0.0079
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      19.85 4.37 18   4.544  0.0013
+##  I - M       12.90 4.37 18   2.952  0.0389
+##  I - SM      -3.32 4.37 18  -0.760  0.8711
+##  MM - M      -6.96 4.37 18  -1.592  0.4076
+##  MM - SM    -23.17 4.37 18  -5.304  0.0003
+##  M - SM     -16.22 4.37 18  -3.712  0.0079
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1565,7 +1565,7 @@ Madurez
 <div id="relación-de-ácidos-orgánicos-y-acidez-total-titulable-att."
 class="section level2">
 <h2>Relación de ácidos orgánicos y acidez total titulable ATT.</h2>
-<pre><code>##          CAR MAD N          CONS            sd            se            ci
+<pre><code>##           CAR MAD N          CONS            sd            se            ci
 ## 1  Tartárico   I 6   0.000000000  0.0000000000  0.0000000000  0.0000000000
 ## 2  Tartárico  MM 6   0.000000000  0.0000000000  0.0000000000  0.0000000000
 ## 3  Tartárico   M 6   0.000000000  0.0000000000  0.0000000000  0.0000000000
@@ -1582,22 +1582,22 @@ class="section level2">
 ## 14 Succínico  MM 6  92.481592333  4.7805090422  1.9516346440  5.0168365657
 ## 15 Succínico   M 6  99.437239833  4.8240138759  1.9693954180  5.0624920887
 ## 16 Succínico  SM 6 115.655151333 12.4187930831  5.0699510458 13.0327240659
-## 17       ATT   I 3   1.779200000  0.0507984252  0.0293284844  0.1261902837
-## 18       ATT  MM 3   1.606400000  0.0278969532  0.0161063135  0.0692998736
-## 19       ATT   M 3   1.828266667  0.2039063837  0.1177254055  0.5065315375
-## 20       ATT  SM 3   1.384533333  0.0835275603  0.0482246594  0.2074939626
-## 21   TOTALac   I 6 157.676283833 24.4147956495  9.9672985859 25.6217566954
-## 22   TOTALac  MM 6 207.988730333 11.6569574255  4.7589329410 12.2332265750
-## 23   TOTALac   M 6 227.273537667  4.2846255274  1.7491910468  4.4964387320
-## 24   TOTALac  SM 6 224.311310667 13.9874059778  5.7103345784 14.6788823428
-## 25      &lt;NA&gt;   I 6 266.880791667  8.4819431471  3.4627387896  8.9012534341
-## 26      &lt;NA&gt;  MM 6 301.680354667 34.6167224669 14.1322177686 36.3280222931
-## 27      &lt;NA&gt;   M 6 350.625756167 31.1823867560 12.7301560857 32.7239079987
-## 28      &lt;NA&gt;  SM 6 428.368083167 26.7527791069 10.9217763355 28.0753198610
-## 29     ACIDS   I 6 157.676283833 24.4147956495  9.9672985859 25.6217566954
-## 30     ACIDS  MM 6 207.988730167 11.6569573346  4.7589329039 12.2332264797
-## 31     ACIDS   M 6 227.273537833  4.2846256099  1.7491910805  4.4964388186
-## 32     ACIDS  SM 6 224.311310667 13.9874058096  5.7103345098 14.6788821663</code></pre>
+## 17        ATT   I 3   1.779200000  0.0507984252  0.0293284844  0.1261902837
+## 18        ATT  MM 3   1.606400000  0.0278969532  0.0161063135  0.0692998736
+## 19        ATT   M 3   1.828266667  0.2039063837  0.1177254055  0.5065315375
+## 20        ATT  SM 3   1.384533333  0.0835275603  0.0482246594  0.2074939626
+## 21    TOTALac   I 6 157.676283833 24.4147956495  9.9672985859 25.6217566954
+## 22    TOTALac  MM 6 207.988730333 11.6569574255  4.7589329410 12.2332265750
+## 23    TOTALac   M 6 227.273537667  4.2846255274  1.7491910468  4.4964387320
+## 24    TOTALac  SM 6 224.311310667 13.9874059778  5.7103345784 14.6788823428
+## 25       &lt;NA&gt;   I 6 266.880791667  8.4819431471  3.4627387896  8.9012534341
+## 26       &lt;NA&gt;  MM 6 301.680354667 34.6167224669 14.1322177686 36.3280222931
+## 27       &lt;NA&gt;   M 6 350.625756167 31.1823867560 12.7301560857 32.7239079987
+## 28       &lt;NA&gt;  SM 6 428.368083167 26.7527791069 10.9217763355 28.0753198610
+## 29      ACIDS   I 6 157.676283833 24.4147956495  9.9672985859 25.6217566954
+## 30      ACIDS  MM 6 207.988730167 11.6569573346  4.7589329039 12.2332264797
+## 31      ACIDS   M 6 227.273537833  4.2846256099  1.7491910805  4.4964388186
+## 32      ACIDS  SM 6 224.311310667 13.9874058096  5.7103345098 14.6788821663</code></pre>
 <p>Concentración del ratio azúcares totales / ácidos orgánicos totales a
 distintos estados.
 <img src="madAcids_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -1634,23 +1634,23 @@ distintos estados.
 ## MAD             3     6    4.972388  0.0457</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean           SE df   lower.CL   upper.CL
-##  I   1.72112247 0.0915314854  2 1.32729428 2.11495067
-##  MM  1.44765169 0.0915314854  2 1.05382350 1.84147989
-##  M   1.54171591 0.0915314854  2 1.14788771 1.93554410
-##  SM  1.90950427 0.0915314854  2 1.51567607 2.30333246
+##  MAD emmean     SE df lower.CL upper.CL
+##  I     1.72 0.0915  2     1.33     2.11
+##  MM    1.45 0.0915  2     1.05     1.84
+##  M     1.54 0.0915  2     1.15     1.94
+##  SM    1.91 0.0915  2     1.52     2.30
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate          SE df t.ratio p.value
-##  I - MM    0.273470784 0.129442495  6   2.113  0.2498
-##  I - M     0.179406567 0.129442495  6   1.386  0.5497
-##  I - SM   -0.188381795 0.129442495  6  -1.455  0.5142
-##  MM - M   -0.094064217 0.129442495  6  -0.727  0.8831
-##  MM - SM  -0.461852579 0.129442495  6  -3.568  0.0443
-##  M - SM   -0.367788362 0.129442495  6  -2.841  0.1041
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     0.2735 0.129  6   2.113  0.2498
+##  I - M      0.1794 0.129  6   1.386  0.5497
+##  I - SM    -0.1884 0.129  6  -1.455  0.5142
+##  MM - M    -0.0941 0.129  6  -0.727  0.8831
+##  MM - SM   -0.4619 0.129  6  -3.568  0.0443
+##  M - SM    -0.3678 0.129  6  -2.841  0.1041
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1663,7 +1663,7 @@ distintos estados.
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
-## data:  FACO$Málico and FACO$Quínico
+## data:  FACO$`Málico` and FACO$`Quínico`
 ## t = 5.329902, df = 10, p-value = 0.000333007
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
@@ -1674,7 +1674,7 @@ distintos estados.
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
-## data:  FACO$Tartárico and FACO$Succínico
+## data:  FACO$`Tartárico` and FACO$`Succínico`
 ## t = 2.989547, df = 10, p-value = 0.0135842
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
@@ -1685,7 +1685,7 @@ distintos estados.
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
-## data:  FACO$ATT and FACO$Tartárico
+## data:  FACO$ATT and FACO$`Tartárico`
 ## t = -3.268633, df = 10, p-value = 0.00844982
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
@@ -1696,7 +1696,7 @@ distintos estados.
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
-## data:  FACO$ACIDS and FACO$Quínico
+## data:  FACO$ACIDS and FACO$`Quínico`
 ## t = 5.230734, df = 10, p-value = 0.000383888
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
@@ -1707,7 +1707,7 @@ distintos estados.
 <pre><code>## 
 ##  Pearson&#39;s product-moment correlation
 ## 
-## data:  FACO$ACIDS and FACO$Málico
+## data:  FACO$ACIDS and FACO$`Málico`
 ## t = 8.006896, df = 10, p-value = 1.16864e-05
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:

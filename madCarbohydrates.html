@@ -346,7 +346,7 @@ div.tocify {
       <a href="II_ER_Climate.html">Clima ER</a>
     </li>
     <li>
-      <a href="II_ER_SMN.html">SMN ER</a>
+      <a href="II_ER_SMN.html">MET ER</a>
     </li>
     <li>
       <a href="II_ER_DL.html">DL ER</a>
@@ -364,7 +364,7 @@ div.tocify {
       <a href="II_M_Climate.html">Clima M</a>
     </li>
     <li>
-      <a href="II_M_SMN.html">SMN M</a>
+      <a href="II_M_inta.html">MET M</a>
     </li>
     <li>
       <a href="II_M_Soil.html">Suelos M</a>
@@ -776,23 +776,23 @@ class="section level3">
 ## MAD             3    18  30.309626  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean         SE df   lower.CL   upper.CL
-##  I   45.6298478 1.88791629  2 37.5067997 53.7528960
-##  MM  36.7682227 1.88791629  2 28.6451745 44.8912708
-##  M   39.1592535 1.88791629  2 31.0362053 47.2823017
-##  SM  53.1196428 1.88791629  2 44.9965947 61.2426910
+##  MAD emmean   SE df lower.CL upper.CL
+##  I     45.6 1.89  2     37.5     53.8
+##  MM    36.8 1.89  2     28.6     44.9
+##  M     39.2 1.89  2     31.0     47.3
+##  SM    53.1 1.89  2     45.0     61.2
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate         SE df t.ratio p.value
-##  I - MM     8.86162517 1.88250555 18   4.707  0.0009
-##  I - M      6.47059433 1.88250555 18   3.437  0.0142
-##  I - SM    -7.48979500 1.88250555 18  -3.979  0.0045
-##  MM - M    -2.39103083 1.88250555 18  -1.270  0.5925
-##  MM - SM  -16.35142017 1.88250555 18  -8.686  &lt;.0001
-##  M - SM   -13.96038933 1.88250555 18  -7.416  &lt;.0001
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM       8.86 1.88 18   4.707  0.0009
+##  I - M        6.47 1.88 18   3.437  0.0142
+##  I - SM      -7.49 1.88 18  -3.979  0.0045
+##  MM - M      -2.39 1.88 18  -1.270  0.5925
+##  MM - SM    -16.35 1.88 18  -8.686  &lt;.0001
+##  M - SM     -13.96 1.88 18  -7.416  &lt;.0001
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -826,23 +826,23 @@ class="section level3">
 ## MAD             3    18  19.155664  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean          SE df   lower.CL    upper.CL
-##  I   3.43431200 0.637368958  2 0.69193471  6.17668929
-##  MM  9.47765767 0.637368958  2 6.73528038 12.22003496
-##  M   9.21585900 0.637368958  2 6.47348171 11.95823629
-##  SM  7.40171867 0.637368958  2 4.65934138 10.14409596
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     3.43 0.637  2    0.692     6.18
+##  MM    9.48 0.637  2    6.735    12.22
+##  M     9.22 0.637  2    6.473    11.96
+##  SM    7.40 0.637  2    4.659    10.14
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast    estimate          SE df t.ratio p.value
-##  I - MM   -6.04334567 0.901261992 18  -6.705  &lt;.0001
-##  I - M    -5.78154700 0.901261992 18  -6.415  &lt;.0001
-##  I - SM   -3.96740667 0.901261992 18  -4.402  0.0018
-##  MM - M    0.26179867 0.901261992 18   0.290  0.9912
-##  MM - SM   2.07593900 0.901261992 18   2.303  0.1343
-##  M - SM    1.81414033 0.901261992 18   2.013  0.2200
+##  contrast estimate    SE df t.ratio p.value
+##  I - MM     -6.043 0.901 18  -6.705  &lt;.0001
+##  I - M      -5.782 0.901 18  -6.415  &lt;.0001
+##  I - SM     -3.967 0.901 18  -4.402  0.0018
+##  MM - M      0.262 0.901 18   0.290  0.9912
+##  MM - SM     2.076 0.901 18   2.303  0.1343
+##  M - SM      1.814 0.901 18   2.013  0.2200
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -879,23 +879,23 @@ significativamente menor.</p>
 ## MAD             3    18  78.790724  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean          SE df    lower.CL   upper.CL
-##  I   16.3587182 0.696056825  2 13.36382737 19.3536090
-##  MM  10.9123023 0.696056825  2  7.91741153 13.9071931
-##  M   11.7245048 0.696056825  2  8.72961403 14.7193956
-##  SM  20.2149135 0.696056825  2 17.22002270 23.2098043
+##  MAD emmean    SE df lower.CL upper.CL
+##  I     16.4 0.696  2    13.36     19.4
+##  MM    10.9 0.696  2     7.92     13.9
+##  M     11.7 0.696  2     8.73     14.7
+##  SM    20.2 0.696  2    17.22     23.2
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast    estimate          SE df t.ratio p.value
-##  I - MM    5.44641583 0.690339173 18   7.889  &lt;.0001
-##  I - M     4.63421333 0.690339173 18   6.713  &lt;.0001
-##  I - SM   -3.85619533 0.690339173 18  -5.586  0.0001
-##  MM - M   -0.81220250 0.690339173 18  -1.177  0.6487
-##  MM - SM  -9.30261117 0.690339173 18 -13.475  &lt;.0001
-##  M - SM   -8.49040867 0.690339173 18 -12.299  &lt;.0001
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      5.446 0.69 18   7.889  &lt;.0001
+##  I - M       4.634 0.69 18   6.713  &lt;.0001
+##  I - SM     -3.856 0.69 18  -5.586  0.0001
+##  MM - M     -0.812 0.69 18  -1.177  0.6487
+##  MM - SM    -9.303 0.69 18 -13.475  &lt;.0001
+##  M - SM     -8.490 0.69 18 -12.299  &lt;.0001
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -930,23 +930,23 @@ significativamente menor.</p>
 ## MAD             3    18  29.839250  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean         SE df   lower.CL   upper.CL
-##  I   25.8368177 1.30427331  2 20.2249825 31.4486528
-##  MM  16.3782627 1.30427331  2 10.7664275 21.9900978
-##  M   18.2188897 1.30427331  2 12.6070545 23.8307248
-##  SM  25.5030107 1.30427331  2 19.8911755 31.1148458
+##  MAD emmean  SE df lower.CL upper.CL
+##  I     25.8 1.3  2     20.2     31.4
+##  MM    16.4 1.3  2     10.8     22.0
+##  M     18.2 1.3  2     12.6     23.8
+##  SM    25.5 1.3  2     19.9     31.1
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast  estimate         SE df t.ratio p.value
-##  I - MM    9.458555 1.26680635 18   7.466  &lt;.0001
-##  I - M     7.617928 1.26680635 18   6.013  0.0001
-##  I - SM    0.333807 1.26680635 18   0.264  0.9934
-##  MM - M   -1.840627 1.26680635 18  -1.453  0.4846
-##  MM - SM  -9.124748 1.26680635 18  -7.203  &lt;.0001
-##  M - SM   -7.284121 1.26680635 18  -5.750  0.0001
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      9.459 1.27 18   7.466  &lt;.0001
+##  I - M       7.618 1.27 18   6.013  0.0001
+##  I - SM      0.334 1.27 18   0.264  0.9934
+##  MM - M     -1.841 1.27 18  -1.453  0.4846
+##  MM - SM    -9.125 1.27 18  -7.203  &lt;.0001
+##  M - SM     -7.284 1.27 18  -5.750  0.0001
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -986,23 +986,23 @@ significativamente menor.</p>
 ## MAD             3    18   39.99800  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD     emmean         SE df   lower.CL   upper.CL
-##  I   266.880792 11.1556718  2 218.881810 314.879773
-##  MM  301.680355 11.1556718  2 253.681373 349.679336
-##  M   350.625756 11.1556718  2 302.626775 398.624738
-##  SM  428.368083 11.1556718  2 380.369102 476.367065
+##  MAD emmean   SE df lower.CL upper.CL
+##  I      267 11.2  2      219      315
+##  MM     302 11.2  2      254      350
+##  M      351 11.2  2      303      399
+##  SM     428 11.2  2      380      476
 ## 
 ## Degrees-of-freedom method: containment 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate         SE df t.ratio p.value
-##  I - MM    -34.7995630 15.6517601 18  -2.223  0.1546
-##  I - M     -83.7449645 15.6517601 18  -5.351  0.0002
-##  I - SM   -161.4872915 15.6517601 18 -10.318  &lt;.0001
-##  MM - M    -48.9454015 15.6517601 18  -3.127  0.0272
-##  MM - SM  -126.6877285 15.6517601 18  -8.094  &lt;.0001
-##  M - SM    -77.7423270 15.6517601 18  -4.967  0.0005
+##  contrast estimate   SE df t.ratio p.value
+##  I - MM      -34.8 15.7 18  -2.223  0.1546
+##  I - M       -83.7 15.7 18  -5.351  0.0002
+##  I - SM     -161.5 15.7 18 -10.318  &lt;.0001
+##  MM - M      -48.9 15.7 18  -3.127  0.0272
+##  MM - SM    -126.7 15.7 18  -8.094  &lt;.0001
+##  M - SM      -77.7 15.7 18  -4.967  0.0005
 ## 
 ## Degrees-of-freedom method: containment 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
