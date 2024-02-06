@@ -150,7 +150,7 @@ for (extract_Conc in filter_list) {
   # Cambia el nombre de la columna Conc
   colnames(temp_table)[which(colnames(temp_table) == "In")] <- names_Conc
   # Selecciona las columnas 1 y 4
-  temp_table <- temp_table %>% select(1, 4)
+  temp_table <- temp_table %>% dplyr::select(1, 4) #temp_table[,c(1,4)]
   # Agrega la tabla a la lista
   list_Conc[[paste0("extract_", extract_Conc)]] <- temp_table
   

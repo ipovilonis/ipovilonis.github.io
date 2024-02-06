@@ -197,7 +197,7 @@ library(multcompView)
 Comp_PFF_mad<-emmeans(modelo_PFF_mad_gamma, pairwise ~ madurez, mode = "df.error", type= "response") #Tukey por default
 Comp_PFF_mad
 plot(Comp_PFF_mad, comparisons = TRUE) + theme_classic() + 
-  labs(y = "Peso fresco del fruto (g)", x ="madurez" )
+  labs(x = "Peso fresco del fruto (g)", y ="madurez" )
 
 ```
 
@@ -282,7 +282,7 @@ library(multcompView)
 Comp_PSF_mad<-emmeans(modelo_PSF_mad_gamma, pairwise ~ madurez, type = "response") 
 Comp_PSF_mad
 plot(Comp_PSF_mad, comparisons = TRUE) + theme_classic() + 
-  labs(y = "Peso seco del fruto (g)", x ="madurez" )
+  labs(x = "Peso seco del fruto (g)", y ="madurez" )
 ```
 
 ## Humedad
@@ -300,7 +300,7 @@ kable(tablas_list$H, format = "markdown")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 graficos_list$H+ 
-  ylab("Humedad del fruto (%)")+
+  ylab("Humedad del fruto (%/100)")+
   xlab("")+
   ylim(0,1)+
   scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, by = 0.1))+
@@ -368,7 +368,8 @@ library(multcompView)
 emm_options(opt.digits = FALSE)
 Comp2H<-emmeans(modelo_H_beta, pairwise ~ madurez, type="response") 
 Comp2H
-plot(Comp2H, comparisons = TRUE)
+plot(Comp2H, comparisons = TRUE)+ 
+  labs(x = "Humedad", y ="madurez" )
 
 ```
 
@@ -452,7 +453,8 @@ library(emmeans)
 library(multcompView)
 Comp_Dem_mad<-emmeans(modelo_Dem_mad_gamma, pairwise ~ madurez, type = "response") 
 Comp_Dem_mad
-plot(Comp_Dem_mad, comparisons = TRUE)
+plot(Comp_Dem_mad, comparisons = TRUE)+ 
+  labs(x = "Diámetro ecuatorial menor (mm)", y ="madurez" )
 ```
 
 ## Diámetro ecuatorial mayor
@@ -543,7 +545,8 @@ library(emmeans)
 library(multcompView)
 Comp_DeM_mad<-emmeans(modelo_DeM_mad_gamma, pairwise ~ madurez, type = "response") 
 Comp_DeM_mad
-plot(Comp_DeM_mad, comparisons = TRUE)
+plot(Comp_DeM_mad, comparisons = TRUE)+ 
+  labs(x = "Diámetro ecuatorial mayor (mm)", y ="madurez" )
 ```
 
 ## Diámetro polar
@@ -561,7 +564,7 @@ kable(tablas_list$DP, format = "markdown")
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 graficos_list$DP+ 
-  ylab("Diámetro ecuatorial menor (mm)")+
+  ylab("Diámetro polar (mm)")+
   xlab("")+
   ylim(0,13)+
   scale_y_continuous(limits = c(0, 60), breaks = seq(0, 60, by = 5))
@@ -627,7 +630,8 @@ library(emmeans)
 library(multcompView)
 Comp_DP_mad<-emmeans(modelo_DP_mad_gamma, pairwise ~ madurez, type = "response")
 Comp_DP_mad
-plot(Comp_DP_mad, comparisons = TRUE)
+plot(Comp_DP_mad, comparisons = TRUE)+ 
+  labs(x = "Diámetro polar (mm)", y ="madurez" )
 ```
 
 ## Peso seco semillas
@@ -708,7 +712,8 @@ library(emmeans)
 library(multcompView)
 Comp_PSS_mad<-emmeans(modelo_PSS_mad_gamma, pairwise ~ madurez, type = "response")
 Comp_PSS_mad
-plot(Comp_PSS_mad, comparisons = TRUE)
+plot(Comp_PSS_mad, comparisons = TRUE)+ 
+  labs(x = "Peso seco semillas (g)", y ="madurez" )
 ```
 
 ## PSSPSF
@@ -726,7 +731,7 @@ Gráfico con desvío estándar
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 graficos_list$PSSPSF +
-  ylab(" Peso fresco fruto (g) ")
+  ylab("Peso seco semilla/Peso seco fruto")
 
 ```
 
@@ -790,7 +795,8 @@ library(emmeans)
 library(multcompView)
 Comp_PSSPSF_mad<-emmeans(modelo_PSSPSF_mad_gamma, pairwise ~ madurez, type = "response")
 Comp_PSSPSF_mad
-plot(Comp_PSSPSF_mad, comparisons = TRUE)
+plot(Comp_PSSPSF_mad, comparisons = TRUE)+ 
+  labs(x = "Peso seco semilla/Peso seco fruto", y ="madurez" )
 ```
 
 ## Color *L
@@ -963,7 +969,7 @@ library(multcompView)
 Comp_color_L_mad<-emmeans(modelo_color_L_mad, pairwise ~ madurez, mode = "df.error", type= "response") #Tukey por default
 Comp_color_L_mad
 plot(Comp_color_L_mad, comparisons = TRUE) + theme_classic() + 
-  labs(y = "Peso fresco del fruto (g)", x ="madurez" )
+  labs(x = "*L", y ="madurez" )
 
 ```
 
@@ -1077,7 +1083,7 @@ library(multcompView)
 Comp_color_a_mad<-emmeans(modelo_color_a_mad_var, pairwise ~ madurez, mode = "df.error", type= "response") #Tukey por default
 Comp_color_a_mad
 plot(Comp_color_a_mad, comparisons = TRUE) + theme_classic() + 
-  labs(y = "Peso fresco del fruto (g)", x ="madurez" )
+  labs(x = "*a", y ="madurez" )
 
 ```
 
@@ -1188,6 +1194,6 @@ library(multcompView)
 Comp_color_b_mad<-emmeans(modelo_color_b_mad, pairwise ~ madurez, mode = "df.error", type= "response") #Tukey por default
 Comp_color_b_mad
 plot(Comp_color_b_mad, comparisons = TRUE) + theme_classic() + 
-  labs(y = "Peso fresco del fruto (g)", x ="madurez" )
+  labs(x = "*b", y ="madurez" )
 
 ```

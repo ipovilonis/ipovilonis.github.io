@@ -1,7 +1,89 @@
 ---
-title: "Soil"
+title: "Suelo en Entre Ríos"
 
 ---
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Load library
+library(readxl)
+
+#Create object "aqua" which contains aquaterr data
+suelo <- read_excel("database.xlsx", sheet = "II suelo")
+
+suelo$Sitio<-as.factor(suelo$Sitio)
+suelo$Micrositio<-as.factor(suelo$Micrositio)
+suelo$CE<-as.numeric(suelo$CE)
+suelo$H2O_saturacion<-as.numeric(suelo$H2O_saturacion)
+suelo$pH_agua<-as.numeric(suelo$pH_agua)
+suelo$pH_CaCl2<-as.numeric(suelo$pH_CaCl2)
+suelo$pH_KCl<-as.numeric(suelo$pH_KCl)
+suelo$MO<-as.numeric(suelo$MO)
+suelo$CO<-as.numeric(suelo$CO)
+suelo$NO<-as.numeric(suelo$NO)
+suelo$C_N<-as.numeric(suelo$C_N)
+suelo$Sitio<-factor(suelo$Sitio,levels=c("Concordia", "Palmar","Gualeguaychu"))
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crea un vector con las variables respuesta
+variables_respuesta_suelo <- c("CE", "H2O_saturacion","pH_agua", "pH_CaCl2","pH_KCl", "MO","CO", "NO","C_N")
+
+# Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+tablas_ER_suelo <- list()
+graficos_ER_suelo <- list()
+
+library(dplyr)
+
+for(variable in variables_respuesta_suelo) {
+  # Crea la tabla resumen
+  assign(paste0("ER_suelo_", variable), suelo %>%
+    dplyr::group_by(Sitio) %>%
+    dplyr::summarise(n = n(),
+                      Mean = mean(.data[[variable]]),
+                      sd = sd(.data[[variable]]),
+                      min = min(.data[[variable]]),
+                      max = max(.data[[variable]]))
+  )
+
+  # Agrega la tabla a la lista
+  tablas_ER_suelo[[variable]] <- get(paste0("ER_suelo_", variable))
+
+  # Crea el gráfico
+  library(ggplot2)
+gg_plot <- ggplot(tablas_ER_suelo[[variable]], aes(x = Sitio, y = Mean, fill = Sitio)) +
+  scale_fill_manual(values = c("coral4","burlywood2","palegreen4")) +
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin = min, ymax = max), width = 0.5) +
+  theme_classic() +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size = 15, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  labs(y=paste0("", variable), x="")
+
+assign(paste0("ER_suelo_gg_", variable), gg_plot)
+
+    # Agrega el gráfico a la lista
+graficos_ER_suelo[[variable]] <- get(paste0("ER_suelo_gg_", variable))
+
+}
+
+
+```
+
+Gráficos de suelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggpubr)
+ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3)
+ER_gg_soil
+```
 
 Diferencia relativa de la humedad de suelo en % durante la primavera de 2022
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}

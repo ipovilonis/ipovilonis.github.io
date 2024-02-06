@@ -1,4 +1,184 @@
-.navbar {
-    background-color: #292;
-    color: black;
-  }
+/* Colores */
+
+body {
+  background-color: #F5F5DC;
+  color: #000000;
+}
+
+a {
+  color: #000080;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #FF8C00;
+}
+
+/* Tipografía */
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Lato", serif;
+}
+
+/* Encabezado */
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000080;
+  color: #F5F5DC;
+  z-index: 10;
+}
+
+header .logo {
+  float: left;
+  margin: 10px;
+}
+
+header .logo img {
+  height: 50px;
+}
+
+header nav {
+  float: right;
+  margin: 10px;
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+header nav ul li {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+header nav ul li a {
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+header nav ul li a:hover {
+  background-color: #32CD32;
+}
+
+header .subtitulo {
+  text-align: center;
+  margin: 10px;
+  font-size: 18px;
+  color: #32CD32;
+}
+
+/* Menú */
+
+header nav ul li ul {
+  position: absolute;
+  display: none;
+  background-color: #F5F5DC;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+header nav ul li:hover ul {
+  display: block;
+}
+
+header nav ul li ul li {
+  display: block;
+  width: 150px;
+}
+
+header nav ul li ul li a {
+  padding: 5px;
+  text-align: left;
+}
+
+/* Contenido */
+
+main {
+  margin-top: 80px;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Pie de página */
+
+footer {
+  background-color: #088877;
+  color: #F5F5DC;
+  text-align: center;
+  padding: 10px;
+}
+
+footer a {
+  color: #FFFF00;
+}
+
+/* Efectos */
+
+.animacion-suave {
+  transition: all 0.5s ease-in-out;
+}
+
+.transicion-fundido {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.transicion-fundido.activo {
+  opacity: 1;
+}
+
+/* Ejemplos de mejoras */
+
+/* Página de inicio */
+
+#inicio {
+  background-image: url("img_fondo.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#inicio .resumen {
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 50px auto;
+  width: 80%;
+}
+
+#inicio .resumen h1 {
+  text-align: center;
+}
+
+#inicio .resumen p {
+  text-align: justify;
+}
+
+#inicio .botones {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#inicio .botones a {
+  padding: 10px 20px;
+  background-color: #32
