@@ -337,14 +337,14 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="II_ER_Phenotypes.html">Fenotipos</a>
+      <a href="II_Phenotypes.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_ER_Climate.html">Clima ER</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">ENTRE RÍOS</li>
     <li class="divider"></li>
-    <li>
-      <a href="II_ER_Climate.html">Clima ER</a>
-    </li>
     <li>
       <a href="II_ER_SMN.html">MET ER</a>
     </li>
@@ -360,9 +360,6 @@ div.tocify {
     <li class="divider"></li>
     <li class="dropdown-header">MORENO</li>
     <li class="divider"></li>
-    <li>
-      <a href="II_M_Climate.html">Clima M</a>
-    </li>
     <li>
       <a href="II_M_inta.html">MET M</a>
     </li>
@@ -602,7 +599,7 @@ class="section level2">
 <div id="descriptive-table-for-fresh_weight" class="section level2">
 <h2>Descriptive table for fresh_weight</h2>
 <pre><code>##         mean        min        max         sd
-## 1 63.7279912 48.0793481 73.5247655 6.11019491</code></pre>
+## 1 63.8272917 48.0793481 73.5247655 6.08168898</code></pre>
 </div>
 <div id="descriptive-graphic-sd" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
@@ -618,14 +615,14 @@ class="section level2">
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9256336, p-value = 7.83223e-07</code></pre>
+## W = 0.9175494, p-value = 2.37662e-07</code></pre>
 </div>
 <div id="anova-comparison-of-means" class="section level2">
 <h2>Anova (comparison of means)</h2>
 <pre><code>## Denom. DF: 141 
 ##             numDF    F-value p-value
-## (Intercept)     1 66036.2984  &lt;.0001
-## treat           2     4.3472  0.0147</code></pre>
+## (Intercept)     1 66311.7330  &lt;.0001
+## treat           2     4.0843  0.0189</code></pre>
 </div>
 <div id="dunnett-test" class="section level2">
 <h2>Dunnett test</h2>
@@ -635,16 +632,16 @@ class="section level2">
 ## 
 ## $control
 ##                        diff      lwr.ci      upr.ci   pval    
-## etileno-control  1.32272953 -1.41122833 4.056687396 0.4521    
-## 1MCP-control    -2.02618803 -4.76014590 0.707769829 0.1751    
+## etileno-control  1.14529285 -1.57953964 3.870125344 0.5439    
+## 1MCP-control    -2.08315973 -4.80799222 0.641672767 0.1582    
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
 ##  treat       emmean           SE    df   lower.CL   upper.CL
-##  control 7.98555749 0.0641389548 47.00 7.85652691 8.11458806
-##  etileno 8.07153729 0.0536919221 47.07 7.96352725 8.17954734
-##  1MCP    7.86335126 0.0470391861 47.01 7.76872130 7.95798123
+##  control 7.99683068 0.0636835643 47.30 7.86873709 8.12492427
+##  etileno 8.07153729 0.0536919260 47.08 7.96352768 8.17954691
+##  1MCP    7.87099648 0.0470781820 47.24 7.77630007 7.96569289
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the sqrt (not the response) scale. 
@@ -652,9 +649,9 @@ class="section level2">
 ## 
 ## $contrasts
 ##  contrast               estimate           SE    df t.ratio p.value
-##  control - etileno -0.0859798061 0.0836458489 91.17  -1.028  0.5613
-##  control - 1MCP     0.1222062238 0.0795392391 86.26   1.536  0.2791
-##  etileno - 1MCP     0.2081860299 0.0713828238 92.43   2.916  0.0122
+##  control - etileno -0.0747066142 0.0832971745 91.70  -0.897  0.6437
+##  control - 1MCP     0.1258342009 0.0791956538 86.73   1.589  0.2559
+##  etileno - 1MCP     0.2005408151 0.0714085299 92.66   2.808  0.0166
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -669,8 +666,8 @@ class="section level2">
 </div>
 <div id="descriptive-table-for-fresh_weight-1" class="section level2">
 <h2>Descriptive table for fresh_weight</h2>
-<pre><code>##        mean        min        max         sd
-## 1 102.51521 65.2194586 139.935557 19.7370374</code></pre>
+<pre><code>##         mean        min        max         sd
+## 1 102.447177 65.2194586 139.935557 19.8015136</code></pre>
 </div>
 <div id="descriptive-graphic-sd-1" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
@@ -686,14 +683,14 @@ class="section level2">
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9622276, p-value = 0.000537572</code></pre>
+## W = 0.9618082, p-value = 0.000491986</code></pre>
 </div>
 <div id="anova-comparison-of-means-1" class="section level2">
 <h2>Anova (comparison of means)</h2>
 <pre><code>## Denom. DF: 141 
 ##             numDF     F-value p-value
-## (Intercept)     1 31039.46123  &lt;.0001
-## treat           2    50.36398  &lt;.0001</code></pre>
+## (Intercept)     1 31000.05616  &lt;.0001
+## treat           2    50.12378  &lt;.0001</code></pre>
 </div>
 <div id="dunnett-test-1" class="section level2">
 <h2>Dunnett test</h2>
@@ -702,17 +699,17 @@ class="section level2">
 ##     95% family-wise confidence level
 ## 
 ## $control
-##                         diff         lwr.ci      upr.ci    pval    
-## etileno-control   7.43854804  -0.0218840638  14.8989802  0.0508 .  
-## 1MCP-control    -19.09565852 -26.5560906260 -11.6352264 1.2e-07 ***
+##                         diff        lwr.ci      upr.ci    pval    
+## etileno-control   7.62074513   0.120902654  15.1205876  0.0458 *  
+## 1MCP-control    -18.93536411 -26.435206590 -11.4355216 1.8e-07 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
 ##  treat        emmean           SE    df    lower.CL    upper.CL
-##  control 10.26597636 0.1466400585 47.15  9.97100000 10.56095271
-##  etileno 10.63543129 0.1243752116 46.96 10.38521492 10.88564765
-##  1MCP     9.33214841 0.0678330231 47.00  9.19568576  9.46861105
+##  control 10.25592403 0.1483781966 47.33  9.95748124 10.55436681
+##  etileno 10.63543129 0.1243752557 47.07 10.38523038 10.88563219
+##  1MCP     9.33102852 0.0676755101 47.01  9.19488400  9.46717304
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the sqrt (not the response) scale. 
@@ -720,9 +717,9 @@ class="section level2">
 ## 
 ## $contrasts
 ##  contrast              estimate          SE    df t.ratio p.value
-##  control - etileno -0.369454928 0.192282345 91.70  -1.921  0.1384
-##  control - 1MCP     0.933827951 0.161569260 66.42   5.780  &lt;.0001
-##  etileno - 1MCP     1.303282879 0.141670435 72.66   9.199  &lt;.0001
+##  control - etileno -0.379507258 0.193611192 91.41  -1.960  0.1280
+##  control - 1MCP     0.924895506 0.163082997 66.18   5.671  &lt;.0001
+##  etileno - 1MCP     1.304402764 0.141595123 72.69   9.212  &lt;.0001
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -739,9 +736,9 @@ class="section level2">
 </div>
 <div id="correlation" class="section level1">
 <h1>Correlation</h1>
-<pre><code>## [1] 0.474143562</code></pre>
-<pre><code>## [1] 0.647568627</code></pre>
-<pre><code>## [1] 0.814554033</code></pre>
+<pre><code>## [1] 0.476033612</code></pre>
+<pre><code>## [1] 0.639084817</code></pre>
+<pre><code>## [1] 0.799947658</code></pre>
 <p><img src="VI_Climateric_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><img src="VI_Climateric_files/figure-html/unnamed-chunk-46-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>

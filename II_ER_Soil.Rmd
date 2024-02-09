@@ -6,11 +6,10 @@ title: "Suelo en Entre Ríos"
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-#Load library
 library(readxl)
-
 #Create object "aqua" which contains aquaterr data
 suelo <- read_excel("database.xlsx", sheet = "II suelo")
+# suelo <- suelo[c(1:9),] #sin Moreno
 
 suelo$Sitio<-as.factor(suelo$Sitio)
 suelo$Micrositio<-as.factor(suelo$Micrositio)
@@ -23,7 +22,7 @@ suelo$MO<-as.numeric(suelo$MO)
 suelo$CO<-as.numeric(suelo$CO)
 suelo$NO<-as.numeric(suelo$NO)
 suelo$C_N<-as.numeric(suelo$C_N)
-suelo$Sitio<-factor(suelo$Sitio,levels=c("Concordia", "Palmar","Gualeguaychu"))
+suelo$Sitio<-factor(suelo$Sitio,levels=c("Concordia", "Palmar","Gualeguaychu","Moreno"))
 
 ```
 
@@ -56,7 +55,7 @@ for(variable in variables_respuesta_suelo) {
   # Crea el gráfico
   library(ggplot2)
 gg_plot <- ggplot(tablas_ER_suelo[[variable]], aes(x = Sitio, y = Mean, fill = Sitio)) +
-  scale_fill_manual(values = c("coral4","burlywood2","palegreen4")) +
+  scale_fill_manual(values = c("coral4","burlywood2","palegreen4","#293487")) +
   stat_summary(fun = "mean", size = 1, geom = "bar") +
   geom_errorbar(aes(ymin = min, ymax = max), width = 0.5) +
   theme_classic() +

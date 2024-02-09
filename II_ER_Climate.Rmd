@@ -12,7 +12,7 @@ library(readxl)
 #Create object "dataclim" which contains climate data
 dataclim <- read_excel("database.xlsx", sheet = "II_ER_clima")
 
-dataclim$site<-factor(dataclim$site,levels=c("Concordia", "Palmar","Gualeguaychu"),labels = c("Concordia", "PN El Palmar","Gualeguaychu"))
+dataclim$site<-factor(dataclim$site,levels=c("Concordia", "Palmar","Gualeguaychu","Moreno"),labels = c("Concordia", "PN El Palmar","Gualeguaychu","Moreno"))
 
 # months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 # dataclim$month<-factor(dataclim$month,levels=months)
@@ -24,25 +24,29 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
 
-
+table_clim <- dataclim %>%
+  dplyr::group_by(site) %>%
+  dplyr::summarise(n=n(),
+                   Mean=mean(T_mean),
+                   sd=sd(T_mean))
 
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=10}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 temp_month_clim<-ggplot(dataclim, aes(x=month, y=T_mean, color=site)) +
-  geom_point(size=2)+
+  geom_point(size=3)+
   geom_smooth(method = "gam",se=F,size=1.5)+
   # geom_errorbar(aes(ymin=T_min, ymax=T_max),
   #               width=0.2, position=position_dodge(0))+
-  scale_color_manual(values=c("coral4","burlywood2","palegreen4"))+
+  scale_color_manual(values=c("coral4","burlywood2","palegreen4","#293487"))+
   labs(y="Temperatura (°C)", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=28, color='black'))+
+  theme(text = element_text(size=32, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
@@ -50,7 +54,8 @@ temp_month_clim<-ggplot(dataclim, aes(x=month, y=T_mean, color=site)) +
    scale_y_continuous(breaks = seq(0, max(28), by = 2))+
   geom_hline(yintercept = 19.09166667, color = "coral4", linetype = "dashed", size = 1.5)+
   geom_hline(yintercept = 18.41666667, color = "burlywood2", linetype = "dashed", size = 1.5)+
-  geom_hline(yintercept = 18.08333333, color = "palegreen4", linetype = "dashed", size = 1.5)
+  geom_hline(yintercept = 18.08333333, color = "palegreen4", linetype = "dashed", size = 1.5)+
+  geom_hline(yintercept = 17.00000000, color = "#293487", linetype = "dashed", size = 1.5)
 temp_month_clim
 
 # c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
@@ -66,25 +71,26 @@ table_ppmean<-dataclim %>%
 
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=10}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 prec_month_clim<-ggplot(dataclim, aes(x=month, y=PP_mean, fill=site, width=.4)) +
   stat_summary(size = .4, geom = "bar",position=position_dodge(0.6), color="blue") +
-  scale_fill_manual(values=c("coral4","burlywood2","palegreen4"))+
+  scale_fill_manual(values=c("coral4","burlywood2","palegreen4","#293487"))+
   labs(y="Precipitaciones (mm)", x="")+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=25, color='black'))+
+  theme(text = element_text(size=32, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
   geom_hline(yintercept = 114, color = "coral4", linetype = 3, size = 1.5)+
   geom_hline(yintercept = 110, color = "burlywood2", linetype = 3, size = 1.5)+
-  geom_hline(yintercept = 107, color = "palegreen4", linetype = 3, size = 1.5)
+  geom_hline(yintercept = 107, color = "palegreen4", linetype = 3, size = 1.5)+
+geom_hline(yintercept = 84, color = "#293487", linetype = 3, size = 1.5)
 prec_month_clim
 
 ```

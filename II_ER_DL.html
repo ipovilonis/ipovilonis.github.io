@@ -337,14 +337,14 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="II_ER_Phenotypes.html">Fenotipos</a>
+      <a href="II_Phenotypes.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_ER_Climate.html">Clima ER</a>
     </li>
     <li class="divider"></li>
     <li class="dropdown-header">ENTRE RÍOS</li>
     <li class="divider"></li>
-    <li>
-      <a href="II_ER_Climate.html">Clima ER</a>
-    </li>
     <li>
       <a href="II_ER_SMN.html">MET ER</a>
     </li>
@@ -360,9 +360,6 @@ div.tocify {
     <li class="divider"></li>
     <li class="dropdown-header">MORENO</li>
     <li class="divider"></li>
-    <li>
-      <a href="II_M_Climate.html">Clima M</a>
-    </li>
     <li>
       <a href="II_M_inta.html">MET M</a>
     </li>
@@ -755,12 +752,10 @@ div.tocify {
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##               (Intercept)                   year2021                   year2022  
-##                 3.0743953                  0.0937800                  0.0498129  
-##                sitePalmar           siteGualeguaychu        year2021:sitePalmar  
-##                 0.0397546                 -0.0249711                 -0.1022537  
-##       year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
-##                -0.1124572                 -0.0476747                 -0.0881064</code></pre>
+##               (Intercept)                   year2021                   year2022                 sitePalmar           siteGualeguaychu  
+##                 3.0743953                  0.0937800                  0.0498129                  0.0397546                 -0.0249711  
+##       year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
+##                -0.1022537                 -0.1124572                 -0.0476747                 -0.0881064</code></pre>
 <p>Gráfico de residuos vs. predichos
 <img src="II_ER_DL_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
@@ -948,12 +943,10 @@ div.tocify {
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##               (Intercept)                   year2021                   year2022  
-##                0.81014267                -0.68499075                -0.74175082  
-##                sitePalmar           siteGualeguaychu        year2021:sitePalmar  
-##               -0.03520179                 0.04930193                 0.44993996  
-##       year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
-##                0.21797706                -0.00291621                 0.12620578</code></pre>
+##               (Intercept)                   year2021                   year2022                 sitePalmar           siteGualeguaychu  
+##                0.81014267                -0.68499075                -0.74175082                -0.03520179                 0.04930193  
+##       year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
+##                0.44993996                 0.21797706                -0.00291621                 0.12620578</code></pre>
 <p>Gráfico de residuos vs. predichos
 <img src="II_ER_DL_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
