@@ -1,15 +1,9 @@
 ---
-title: "Fenotipos"
-output:
- html_document:
-   toc: true
-   toc_depth: 5
-   toc_float:
-     collapsed: false
-     smooth_scroll: true
+title: "Fenotipos: caracterización"
+output: html_document
 ---
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
@@ -18,7 +12,7 @@ dataCAR$phenotype<-as.factor(dataCAR$phenotype)
 dataCAR$site<-factor(dataCAR$site,levels=c("Concordia", "PN El Palmar", "Gualeguaychu"))
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=25, fig.height=20}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -68,7 +62,7 @@ spider_caract
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=25, fig.height=20}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)

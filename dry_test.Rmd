@@ -1,0 +1,344 @@
+---
+title: "Pruebas de secado"
+---
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+datospeso <- read_excel("database.xlsx", sheet="Prueba_secado")
+
+datospeso$Temperatura<-factor(datospeso$Temperatura,levels=c("60","80"))
+datospeso$Repeticion<-factor(datospeso$Repeticion,levels=c("1", "2","3"))
+datospeso$Hora<-factor(datospeso$Hora,levels=c("0","1","2","3","4","5","6","7"))
+datospeso$Peso <- as.numeric(datospeso$Peso)
+
+```
+
+Tabla descriptiva
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_dry_test <- datospeso %>%
+  dplyr::group_by(Temperatura,Hora) %>%
+  dplyr::summarise(n=n(),
+                   Mean=mean(Peso),
+                   sd=sd(Peso))
+table_dry_test
+```
+
+Gráfico de medias con desvío estándar
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+gg_peso_secado<-ggplot(table_dry_test, aes(x=Hora, y=Mean, color=Temperatura)) +
+  geom_point(size=3)+
+  # geom_smooth(method = "gam",se=F,size=1.5)+
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=0.2, position=position_dodge(0))+
+  scale_color_manual(values=c("coral","red4"))+
+  labs(y="Peso (g)", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(breaks = seq(0, max(22), by = 2))
+gg_peso_secado
+
+```
+
+Gráfico de líneas de tendencia medias y valores puntuales
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datospeso$Hora<-as.numeric(datospeso$Hora)
+
+library(ggplot2)
+gg_drytest<-ggplot(data=datospeso, aes(x=Hora, y=Peso, color=Temperatura))+
+  scale_color_manual(values=c("coral","red4"))+
+  geom_point(size=3)+
+  geom_smooth(method="loess", se = F, linetype="dashed", lwd=1, size=1)+
+  scale_y_continuous(breaks=seq(0,24,2))+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=32, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.position = "bottom")+
+  theme(text = element_text(size=10))+
+  ylab("Peso (g)")+
+  xlab("")+
+  labs(color = "", shape = "")+
+  scale_x_continuous(limits = c(1, 8), breaks = seq(1, 8, 1))
+gg_drytest
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(nlme)
+library(tidyr)
+library(dplyr)
+datospeso2<-datospeso
+datospeso2$Hora<-as.factor(datospeso2$Hora)
+dp_dry<-datospeso2[-c(19:24),]
+dp_wide <- tidyr::spread(dp_dry, Hora, Peso)
+dp_tiempos <-dp_wide[,-c(1:2)]
+
+
+gathercols <- c("1",  "2",  "3",  "4",  "5")
+datospeso2w <- tidyr::gather(dp_wide, "Hora", "Peso", gathercols)
+datospeso2w$Hora<-factor(datospeso2w$Hora, levels = c("1",  "2",  "3",  "4",  "5"))
+colnames(datospeso2w)[3]<-"basal"
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_datospeso2 <- datospeso2w %>% 
+  dplyr::group_by(Hora, Temperatura) %>%
+  dplyr::select_if(is.numeric) %>%
+  dplyr::summarise_all(.funs = c(
+    n = length, 
+    Mean = mean, 
+    sd = sd, 
+    min = min, 
+    max = max
+  )
+)
+
+table_datospeso2<-table_datospeso2[,-c(3,5,7,9,11)]
+
+```
+
+Correlación de cada unidad observacional en el tiempo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(GGally)
+ggcor_dp_tiempos<-ggpairs(dp_tiempos) 
+# round(cor(tiempos),2) #matriz de correlacion
+# ggcor_dp_tiempos2<-ggcorr(dp_tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 2)
+
+```
+
+Matriz de covarianzas
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+round(cov(dp_tiempos),2) #matriz de covarianza 
+
+```
+
+Modelo marginal. Estructura autoregresiva de orden 1
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# m1<-gls(carbon_ac ~ matu*time_min + basal,  correlation = corCompSymm(form = ~ 1 | rep), resp2w)
+
+
+# #Modelo 2: AR1, varianzas iguales
+library(nlme)
+modelo_secado<-gls((Peso) ~ Hora*Temperatura + basal ,  correlation = corAR1(form = ~ 1 | Repeticion), datospeso2w)
+# modelo_secado<-gls((carbon_ac) ~ matu ,  correlation = corAR1(form = ~ 1 | rep), resp2)
+modelo_secado$call
+
+```
+
+Comprobación de supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+resp_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_secado),
+  "predichos" = predict(modelo_secado)))
+resp_ajuste$Hora_ac <- datospeso2w$Hora_ac
+
+HVresp<-ggplot(resp_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVresp
+
+QQresp<-ggplot(resp_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQresp
+
+ggplot(aes(x = resp_ajuste$residuos), data = datospeso2w)+
+  geom_histogram(colour="gray12",fill="white")+
+  theme_classic()+
+  ylab("Frequency")+ xlab("Residuals")+
+  theme(legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+
+e<-resid(modelo_secado) # residuos de pearson
+pre<-predict(modelo_secado) #predichos
+shapiro.test(e)
+
+```
+
+Coeficientes del modelo
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_secado$coefficients
+
+# Si hay interacción significa beta1 != beta3
+
+```
+
+ANOVA
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(modelo_secado)
+
+# Si hay interacción significa beta1 != beta3
+
+```
+
+Efectos simples
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+comp_dp<-emmeans(modelo_secado, pairwise ~ Temperatura|Hora, mode = "appx-satterthwaite")
+comp_dp
+```
+
+Gráfico de comparaciones
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(emmeans)
+complot<-plot(comp_dp, comparisons = TRUE)+
+  facet_wrap(~Hora, strip.position = "right", ncol = 1,
+             labeller = label_wrap_gen(width = 1))+
+  labs(x = "Peso (g)", y ="Temperatura")+
+  theme_classic()+
+  ggtitle("Mean Contrast")+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black', size=15))+
+  theme(strip.text.y = element_text(angle = 0))+
+  scale_x_continuous(limits = c(0, 18), breaks = seq(0,18,2))#+
+  # annotate("text", x = table_datospeso2$Peso_Mean[table_datospeso2$Temperatura == "60" & table_resp2$Hora == "1"], y = 1 , label = "b")+
+  # annotate("text", x = table_datospeso2$Peso_Mean[table_datospeso2$Temperatura == "80" & table_datospeso2$Hora == "1"], y = 1 , label = "a")
+complot
+```
+
+Modelo
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datospeso2w1<-datospeso2w
+datospeso2w1$Hora<-as.numeric(datospeso2w1$Hora)
+
+library(ggplot2)
+colores<-c("coral","red4")
+
+# Generar un data frame con los valores de time_min y matu para predecir
+newdata <- expand.grid(Hora = seq(1, 5, by = 1), Temperatura = c("60", "80"), basal=datospeso2w1$basal)
+newdata$Hora <- as.factor(newdata$Hora)
+
+# Predecir los valores de Peso utilizando el modelo ajustado y los valores de newdata
+# pred <- predict(modelo_secado, newdata, type = "response")
+
+# Unir los valores predecidos y los valores de newdata en un data frame
+# df_pred <- cbind(newdata, pred)
+
+# Graficar puntos y línea ajustada
+gm_aj <- ggplot(datospeso2w1, aes(x = Hora, y = Peso, color=Temperatura)) +
+  geom_point(size=1.5) +
+  geom_smooth(aes(y = fitted(modelo_secado), group = Temperatura),method="lm", se = F, linetype="dashed",   lwd=1,      size=1.5, color="black")+
+  labs(y = "Peso (g)", x = "Tiempo (Horas)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = 'bottom') +
+  theme(panel.grid.major.y = element_line(color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 15, color = 'black')) +
+  theme(axis.text = element_text(color = 'black'))+
+  scale_x_continuous(limits = c(0, 5), breaks = seq(0, 5, 1))+
+  scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2))
+gm_aj
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+# datospeso2 <- datospeso2w %>%
+#   dplyr::mutate(Hora = rep(seq(from = 0, to = 5, by = 5), times=5))
+
+colores <- c("coral","red4")
+
+df_line60 <- data.frame(x = c(1,5), y = c(13.22, 5.90))
+df_line80 <- data.frame(x = c(1,5), y = c(13.52, 2.87))
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+gm_ajust <- ggplot(datospeso2w1, aes(x = Hora, y = Peso)) +
+  geom_point(aes(color = factor(Temperatura)), size = 6)+
+  geom_line(data = df_line60, aes(x = x, y = y), color="coral", size= 2, linetype = "dotdash")+
+  geom_line(data = df_line80, aes(x = x, y = y), color="red4", size= 2, linetype = "dotdash")+
+  labs(y = "Peso (g)", x = "Tiempo (hora)") +
+  theme_classic() +
+  theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = 'bottom') +
+  theme(panel.grid.major.y = element_line(color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 15, color = 'black')) +
+  theme(axis.text = element_text(color = 'black'))+
+  scale_x_continuous(limits = c(1, 5), breaks = seq(1, 5, 1))+
+  scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2))
+# gm_ajust
+
+```
