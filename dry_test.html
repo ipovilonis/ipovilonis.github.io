@@ -494,12 +494,12 @@ $(document).ready(function () {
 ## data:  e
 ## W = 0.96317, p-value = 0.3724</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5 
-##          17.4161821          -6.3890000          -7.9286667          -9.9033333         -11.9220000 
-##       Temperatura80               basal Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 
-##           1.3578918           0.4464761          -0.5823333          -2.4076667          -4.1876667 
-## Hora5:Temperatura80 
-##          -4.9033333</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3               Hora4 
+##          17.4161821          -6.3890000          -7.9286667          -9.9033333 
+##               Hora5       Temperatura80               basal Hora2:Temperatura80 
+##         -11.9220000           1.3578918           0.4464761          -0.5823333 
+## Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
+##          -2.4076667          -4.1876667          -4.9033333</code></pre>
 <p>ANOVA</p>
 <pre><code>## Denom. DF: 19 
 ##                  numDF  F-value p-value
@@ -542,30 +542,29 @@ $(document).ready(function () {
 ## $contrasts
 ## Hora = 1:
 ##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80   -1.358 0.731 7.72  -1.856  0.1018
+##  Temperatura60 - Temperatura80   -1.358 0.731 7.73  -1.856  0.1018
 ## 
 ## Hora = 2:
 ##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80   -0.776 0.731 7.72  -1.060  0.3211
+##  Temperatura60 - Temperatura80   -0.776 0.731 7.73  -1.060  0.3210
 ## 
 ## Hora = 3:
 ##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80    1.050 0.731 7.72   1.435  0.1905
+##  Temperatura60 - Temperatura80    1.050 0.731 7.73   1.435  0.1905
 ## 
 ## Hora = 4:
 ##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80    2.830 0.731 7.72   3.869  0.0051
+##  Temperatura60 - Temperatura80    2.830 0.731 7.73   3.869  0.0051
 ## 
 ## Hora = 5:
 ##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80    3.545 0.731 7.72   4.847  0.0014
+##  Temperatura60 - Temperatura80    3.545 0.731 7.73   4.847  0.0014
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
 <img src="dry_test_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 
 
 
