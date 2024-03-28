@@ -31,7 +31,7 @@ library(ggplot2)
 vargg1<-ggplot(varia, aes(x=VR,y=PORC,fill=LEVEL))+
   stat_summary(fun = "mean", size = 1, geom = "bar",position="dodge", width=0.5) +
   labs(x="", y="%")+
-  facet_grid(TYPE~.)+
+  # facet_grid(TYPE~.)+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   scale_fill_manual(values = c("red2","green3","gold")) +

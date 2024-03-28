@@ -418,6 +418,9 @@ $(document).ready(function () {
     <li>
       <a href="dry_test.html">Pruebas de Secado</a>
     </li>
+    <li>
+      <a href="ER_flores.html">Floración ER</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -471,69 +474,69 @@ $(document).ready(function () {
 ## 13 80          4         3  2.88 0.336
 ## 14 80          5         3  2.08 0.124</code></pre>
 <p>Gráfico de medias con desvío estándar
-<img src="dry_test_files/figure-html/unnamed-chunk-3-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-3-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Gráfico de líneas de tendencia medias y valores puntuales
-<img src="dry_test_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-4-1.png" width="75%" style="display: block; margin: auto;" /></p>
 <p>Correlación de cada unidad observacional en el tiempo</p>
 <p>Matriz de covarianzas</p>
-<pre><code>##      1    2    3    4     5    6
-## 1 0.24 0.46 0.88 1.28  1.40 1.15
-## 2 0.46 1.32 2.06 2.86  3.12 2.67
-## 3 0.88 2.06 3.88 5.66  6.26 5.23
-## 4 1.28 2.86 5.66 8.41  9.40 7.84
-## 5 1.40 3.12 6.26 9.40 10.69 8.98
-## 6 1.15 2.67 5.23 7.84  8.98 7.61</code></pre>
+<pre><code>##      0    1    2    3     4    5
+## 0 0.24 0.46 0.88 1.28  1.40 1.15
+## 1 0.46 1.32 2.06 2.86  3.12 2.67
+## 2 0.88 2.06 3.88 5.66  6.26 5.23
+## 3 1.28 2.86 5.66 8.41  9.40 7.84
+## 4 1.40 3.12 6.26 9.40 10.69 8.98
+## 5 1.15 2.67 5.23 7.84  8.98 7.61</code></pre>
 <p>Modelo marginal. Estructura autoregresiva de orden 1</p>
 <pre><code>## gls(model = (Peso) ~ Hora * Temperatura + basal, data = datospeso2w, 
 ##     correlation = corAR1(form = ~1 | Repeticion))</code></pre>
 <p>Comprobación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-10-3.png" width="960" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-10-1.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-10-2.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-10-3.png" width="75%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.96317, p-value = 0.3724</code></pre>
+## W = 0.9558226, p-value = 0.241377</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4 
-##          17.4161821          -6.3890000          -7.9286667          -9.9033333 
-##               Hora5       Temperatura80               basal Hora2:Temperatura80 
-##         -11.9220000           1.3578918           0.4464761          -0.5823333 
-## Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
-##          -2.4076667          -4.1876667          -4.9033333</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5 
+##       -31.996552210        -1.539666667        -3.514333333        -5.533000000        -7.323000000 
+##       Temperatura80               basal Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 
+##         0.298694977         2.255026084        -1.825333333        -3.605333333        -4.321000000 
+## Hora5:Temperatura80 
+##        -3.329333333</code></pre>
 <p>ANOVA</p>
 <pre><code>## Denom. DF: 19 
-##                  numDF  F-value p-value
-## (Intercept)          1 71443.31  &lt;.0001
-## Hora                 4  2670.19  &lt;.0001
-## Temperatura          1    40.22  &lt;.0001
-## basal                1    59.40  &lt;.0001
-## Hora:Temperatura     4     8.39   4e-04</code></pre>
+##                  numDF    F-value p-value
+## (Intercept)          1 3275.92959  &lt;.0001
+## Hora                 4  124.49491  &lt;.0001
+## Temperatura          1  120.00027  &lt;.0001
+## basal                1   13.07197  0.0018
+## Hora:Temperatura     4    4.95217  0.0066</code></pre>
 <p>Efectos simples</p>
 <pre><code>## $emmeans
 ## Hora = 1:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60           19.37 0.386 9.08    18.50    20.25
-##  80           20.73 0.386 9.08    19.86    21.60
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60          13.22348584 0.557653114 17.24 12.04819219 14.39877949
+##  80          13.52218082 0.557653114 17.24 12.34688717 14.69747447
 ## 
 ## Hora = 2:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60           12.99 0.386 9.08    12.11    13.86
-##  80           13.76 0.386 9.08    12.89    14.63
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60          11.68381918 0.557653114 17.24 10.50852553 12.85911283
+##  80          10.15718082 0.557653114 17.24  8.98188717 11.33247447
 ## 
 ## Hora = 3:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60           11.45 0.386 9.08    10.57    12.32
-##  80           10.40 0.386 9.08     9.52    11.27
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60           9.70915251 0.557653114 17.24  8.53385886 10.88444616
+##  80           6.40251416 0.557653114 17.24  5.22722051  7.57780781
 ## 
 ## Hora = 4:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60            9.47 0.386 9.08     8.60    10.34
-##  80            6.64 0.386 9.08     5.77     7.51
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60           7.69048584 0.557653114 17.24  6.51519219  8.86577949
+##  80           3.66818082 0.557653114 17.24  2.49288717  4.84347447
 ## 
 ## Hora = 5:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60            7.45 0.386 9.08     6.58     8.32
-##  80            3.91 0.386 9.08     3.03     4.78
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60           5.90048584 0.557653114 17.24  4.72519219  7.07577949
+##  80           2.86984749 0.557653114 17.24  1.69455384  4.04514114
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Results are given on the ( (not the response) scale. 
@@ -541,30 +544,31 @@ $(document).ready(function () {
 ## 
 ## $contrasts
 ## Hora = 1:
-##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80   -1.358 0.731 7.73  -1.856  0.1018
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.56  -0.341  0.7408
 ## 
 ## Hora = 2:
-##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80   -0.776 0.731 7.73  -1.060  0.3210
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.56   1.741  0.1138
 ## 
 ## Hora = 3:
-##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80    1.050 0.731 7.73   1.435  0.1905
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.56   3.770  0.0040
 ## 
 ## Hora = 4:
-##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80    2.830 0.731 7.73   3.869  0.0051
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.56   4.586  0.0011
 ## 
 ## Hora = 5:
-##  contrast                      estimate    SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80    3.545 0.731 7.73   4.847  0.0014
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.56   3.455  0.0066
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
-<img src="dry_test_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Modelo</p>
+<img src="dry_test_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Modelo
+<img src="dry_test_files/figure-html/unnamed-chunk-17-1.png" width="75%" style="display: block; margin: auto;" /></p>
 
 
 

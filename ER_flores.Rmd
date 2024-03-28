@@ -1,0 +1,490 @@
+---
+title: "Variables reproductivas"
+---
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Cargar la base de datos:
+# 1- descargar paquete readxl en herramientas -> Instalar paquetes
+# 2- activar librería readxl
+library(readxl)
+# 3- Chequiar que el excel este ubicado en el directorio de trabajo actual en R.
+# La función getwd() da la ubicación del directorio de trabajo.
+# 4- crear un objeto que contenga la base de datos. En este caso "datosff"
+datosff <- read_excel("database.xlsx", sheet="ER_fns")
+
+# Alunas funciones para explorar la base de datos:
+# Estructura: str(datosff)
+# Encabezado: head(datosff)
+# Nombres de las variables: names(datosff)
+
+
+# Modificar el tipo de variable si es necesario:
+datosff$year<-as.factor(datosff$year)
+datosff$site<-as.factor(datosff$site)
+datosff$phenotype<-as.factor(datosff$phenotype)
+datosff$id<-as.factor(datosff$id)
+datosff$polen_type<-as.factor(datosff$polen_type)
+
+# Es posible que debas instalar más paquetes para ejecutar todo el script
+# Para ejecutar un chunk hay que estar posicionado en el mismo y presionar Shift + Enter
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas y gráficos resumen
+
+# Crea un vector con las variables respuesta
+variables_respuesta <- c("ps_flor", "n_ovu", "mean_polen","ns")
+
+# Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+tablas_list <- list()
+graficos_list <- list()
+
+library(dplyr)
+
+# Crea un bucle que recorre cada variable respuesta
+for(variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), datosff %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(n = n(),
+              Mean = mean(get(variable)),
+              sd = sd(get(variable))
+              )
+  )
+    
+  # Agrega la tabla a la lista
+  tablas_list[[variable]] <- get(paste0("Tabla_", variable))
+
+  # Crea el gráfico
+library(ggplot2)
+colores<-c("coral1","palegreen4","burlywood2")
+ggplotff<-ggplot(data=tablas_list[[variable]], aes(x=phenotype, y=Mean, fill=site))+
+  stat_summary(fun = "mean", size = 1, geom = "bar") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.2, position=position_dodge(.9))+
+  facet_grid(year~.)+
+  labs(x="", y="Peso (mg)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))
+  
+assign(paste0("flores_gg_", variable), ggplotff)
+  
+  # Agrega el gráfico a la lista
+  graficos_list[[variable]] <- get(paste0("flores_gg_", variable))
+}
+
+# acceder a las tablas y gráficos individuales con tablas_list$ y graficos_list$
+
+```
+
+## Peso seco de botones florales en fases C/D
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$ps_flor
+
+```
+
+Modelo ajustado
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# (VEA1 / VEA2) -> distinta pendiente (slope)
+# (VEA1 | VEA2) -> distinta ordenada al origen (intercept)
+# (VEA1 | VEA2) + (1|VR2) -> distinta pendiente y ordenada al origen
+
+library(lme4)
+library(lmerTest)
+
+# modelo_psflor1 <- lmer(ps_flor ~ (1|site/phenotype), datosff)
+
+modelo_psflor <- lmer(ps_flor ~ (1 | year) + (1 | site/phenotype), data = datosff)
+
+# modelo_psflor <- lmer(ps_flor ~ year + (1 | site/phenotype), data = datosff)
+
+# modelo_psflor3 <- glmer(ps_flor ~ 1 + (1 | site/phenotype), data = datosff, family = "Gamma")
+
+modelo_psflor
+
+#HAY DESBALANCEO en los datos pero es confiable porque se están declarando los efectos aleatorios.
+
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+psflor_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_psflor),
+  "predichos" = predict(modelo_psflor)))
+
+# Gráfico de residuos vs. predichos. Ver homocedasticidad y outliers
+HV_psflor<-ggplot(psflor_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_psflor
+
+# QQ plot. ver normalidad
+QQ_psflor<-ggplot(psflor_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_psflor
+
+e<-resid(modelo_psflor) # residuos de pearson
+# r.est <- resid(modelo_psflor, type="normalized") #residuos estandarizados
+pre<-predict(modelo_psflor) #predichos
+betai<-ranef(modelo_psflor)$phenotype$'(Intercept)'
+
+# Ver normalidad
+shapiro.test(e)
+# Ver normalidad del efecto aleatorio
+shapiro.test(betai)
+
+
+```
+
+Resumen del modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_psflor)
+
+```
+
+Significación de las variables aleatorias
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Pone a prueba los efectos aleatorios. H0: sigma2 = 0
+ranova(modelo_psflor)
+
+# Intervalo de confianza para la varianza de los efectos aleatorios  
+confint(modelo_psflor)
+
+```
+
+## Número de óvulos por flor
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$n_ovu
+
+```
+
+## Diámetro medio de polen ()
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$mean_polen
+
+```
+
+## Número de semillas por fruto
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$ns
+
+```
+
+## Correlaciones
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(readxl)
+ledesma <- read_excel("database.xlsx", sheet="V ledesma")
+
+ledesma$year<-as.factor(ledesma$year)
+ledesma$site<-factor(ledesma$site,levels=c("concordia","palmar","gualeguaychu"),labels = c("Concordia", "PN El Palmar","Gualeguaychu"))
+ledesma$phenotype<-as.factor(ledesma$phenotype)
+
+library(dplyr)
+tabla_phenotypes <- datosff %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(ps_flor_mean = mean(ps_flor),
+            n_ovu_mean = mean(n_ovu),
+            mean_polen_mean = mean(mean_polen),
+            mean_ns = mean(ns))
+
+df_completo <- merge(x=ledesma, y=tabla_phenotypes, by=c("year","site","phenotype"), all.y = TRUE, no.dups = TRUE)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=25, fig.height=20}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+VRff <- df_completo[,-c(1:3)]
+
+library(GGally)
+VRff_gg<-ggpairs(VRff)
+VRff_gg
+
+```
+
+### Correlación N° de semillas y N° de óvulos
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# correlación número de óvulo y número de semilla
+
+cor_value_ovusem <- cor(df_completo$mean_ns, df_completo$n_ovu_mean, use = "complete.obs")
+
+library(ggplot2)
+cor_ovusem<-ggplot(df_completo, aes(x=n_ovu_mean,y=mean_ns,color=site,shape=year))+
+  geom_point(size=6)+
+  labs(x="", y="")+
+  # facet_grid(year~.)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values =    c("coral1","burlywood2","palegreen4"))+
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+
+cor_ovusem
+cor_value_ovusem
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# (VEA1 / VEA2) -> distinta pendiente (slope)
+# (VEA1 | VEA2) -> distinta ordenada al origen (intercept)
+# (VEA1 | VEA2) + (1|VR2) -> distinta pendiente y ordenada al origen
+
+df_ovusem <- df_completo[,c(1:3,13,15)]
+df_ovusem <- na.omit(df_ovusem)
+
+# datosff_ovusem <- datosff[,c(1:4,6,13)]
+# datosff_ovusem <- na.omit(datosff_ovusem)
+
+cor_ovusem2<-ggplot(df_ovusem, aes(x=n_ovu_mean,y=mean_ns,color=site,shape=year))+
+  geom_point(size=6)+
+  labs(x="N° óvulos", y="N° semillas")+
+  facet_grid(year~.)+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values =    c("coral1","burlywood2","palegreen4"))+
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  scale_x_continuous(breaks = 0:12, labels = c(0:12))
+
+# cor_ovusem_phen <- ggplot(data = datosff_ovusem, aes(x = n_ovu, y = ns, color = year)) +
+#   geom_point() +
+#   theme_bw() +
+#   facet_wrap(~ site) + labs(y = "N° semillas") +
+#   scale_color_manual(values =    c("maroon4","dodgerblue4","deeppink"))+
+#   theme(legend.position = "bottom")
+
+library(lme4)
+library(lmerTest)
+
+# fit_ovusem4 <- lm(mean_ns ~ n_ovu_mean, data = df_ovusem)
+
+# fit_ovusem3 <- lmer(ns ~ n_ovu + (1 |year) * (1 | site/phenotype), data = datosff)
+
+# fit_ovusem2 <- lmer(mean_ns ~ n_ovu_mean + (1 |year) + (1 | site), data = df_ovusem)
+
+fit_ovusem <- lmer(mean_ns ~ n_ovu_mean + (1 |year) + (1 | site), data = df_ovusem)
+fit_ovusem
+# null_model <- lmer(mean_ns ~ (1 | year) + (1 | site), data = df_ovusem)
+# anova(fit_ovusem, null_model)
+
+#summary(fit_ovusem)
+
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ovusem_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(fit_ovusem),
+  "predichos" = predict(fit_ovusem)))
+
+HV_ovusem<-ggplot(ovusem_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_ovusem
+
+QQ_ovusem<-ggplot(ovusem_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_ovusem
+
+e<-resid(fit_ovusem) # residuos de pearson
+# r.est <- resid(modelo_psflor, type="normalized") #residuos estandarizados
+pre<-predict(fit_ovusem) #predichos
+# alfai<-ranef(modelo_psflor)$$'(Intercept)'
+shapiro.test(e)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+tabla_antpol <- df_completo %>%
+  dplyr::group_by(site, year, phenotype) %>%
+  dplyr::summarise(n=n(),
+            Mean=mean(antesis_polinacion),
+            sd=sd(antesis_polinacion),
+            min=min(antesis_polinacion),
+            max=max(antesis_polinacion))
+
+library(ggplot2)
+gg_ledesma<-ggplot(tabla_antpol, aes(x=site,y=Mean,fill=site))+
+  stat_summary(fun = "mean", size = 0.5, geom = "bar",position="dodge", width=0.2) +
+  # geom_errorbar(aes(min=min, max=max),width=.2, position=position_dodge(.5))+
+  labs(x="", y="%")+
+  facet_grid(year~.)+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_fill_manual(values =    c("coral1","burlywood2","palegreen4"))+
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=15, color='black'))+
+  theme(axis.text = element_text(color='black'))
+# gg_ledesma
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(readxl)
+# datosff_ns <- read_excel("database.xlsx", sheet="V fisico")
+# 
+# datosff_ns$year<-as.factor(datosff_ns$year)
+# datosff_ns$site<-factor(datosff_ns$site,levels=c("concordia","palmar","gualeguaychu"),labels = c("Concordia", "PN El Palmar","Gualeguaychu"))
+# datosff_ns$phenotype<-as.factor(datosff_ns$phenotype)
+# 
+# datosff_ns<-datosff_ns[-c(341:350),-c(5:10,12:15)]
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# datosfns <- merge(datosff, datosff_ns, by.x = c("year", "site", "phenotype","id"), by.y = c("year", "site", "phenotype","id"), all=TRUE)
+
+# write.csv(datosfns, "datosfns.csv")
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Número de semillas completo
+
+# library(readxl)
+# datosff_ns <- read_excel("database.xlsx", sheet="V fisico")
+# 
+# datosff_ns$year<-as.factor(datosff_ns$year)
+# datosff_ns$site<-factor(datosff_ns$site,levels=c("concordia","palmar","gualeguaychu"),labels = c("Concordia", "PN El Palmar","Gualeguaychu"))
+# datosff_ns$phenotype<-as.factor(datosff_ns$phenotype)
+# 
+# datosff_ns<-datosff_ns[-c(341:350),-c(5:10,12:15)]
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=15}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+#Número de semillas completo
+
+datosff_cor_psf_dpolen <- na.omit(datosff[,-c(6:11,13)])
+
+library(ggplot2)
+
+cor_psf_dpolen <- ggplot(data = datosff_cor_psf_dpolen, aes(x = ps_flor, y = mean_polen, color = year)) +
+  geom_point() +
+  theme_bw() +
+  facet_wrap(~ phenotype) + labs(y = "D polen") +
+  scale_color_manual(values =    c("maroon4","dodgerblue4","deeppink"))+
+  theme(legend.position = "bottom")+
+  labs(x="Peso seco de boton C/D (mg)", y="Diámetro de polen")
+cor_psf_dpolen
+
+# cor_psf_dpolen2 <- ggplot(data = datosff_cor_psf_dpolen, aes(x = ps_flor, y = mean_polen, color = year)) +
+#   geom_point() +
+#   theme_bw() +
+#   # facet_wrap(~ phenotype) + labs(y = "D polen") +
+#   scale_color_manual(values =    c("maroon4","dodgerblue4","deeppink"))+
+#   theme(legend.position = "bottom")
+
+# Para renderizar a pdf
+# rmarkdown::render("ER_flores.Rmd", output_format = "pdf_document")
+
+```
+

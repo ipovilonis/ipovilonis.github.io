@@ -500,6 +500,9 @@ div.tocify {
     <li>
       <a href="dry_test.html">Pruebas de Secado</a>
     </li>
+    <li>
+      <a href="ER_flores.html">Floración ER</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -533,8 +536,13 @@ div.tocify {
 </div>
 
 
-<pre><code>## New names:
-## • `` -&gt; `...15`</code></pre>
+<pre><code>## Error in `$&lt;-`:
+## ! Assigned data `as.factor(fisico$n)` must be compatible with existing data.
+## ✖ Existing data has 1166 rows.
+## ✖ Assigned data has 0 rows.
+## ℹ Only vectors of size 1 are recycled.
+## Caused by error in `vectbl_recycle_rhs_rows()`:
+## ! Can&#39;t recycle input of size 0 to size 1166.</code></pre>
 <div id="fresh-weight" class="section level1">
 <h1>Fresh weight</h1>
 <pre><code>##   year         site   N         pff         sd          se          ci
@@ -547,8 +555,8 @@ div.tocify {
 ## 7 2022    concordia 121  7.94329752 5.01444239 0.455858399 0.902567906
 ## 8 2022       palmar   6 11.35850000 7.14512087 2.916983382 7.498344496
 ## 9 2022 gualeguaychu 114  8.64003509 5.06417900 0.474303820 0.939681413</code></pre>
-<p><img src="V_Weight_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="V_Weight_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /><img src="V_Weight_files/figure-html/unnamed-chunk-4-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Weight_files/figure-html/unnamed-chunk-2-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Weight_files/figure-html/unnamed-chunk-4-1.png" width="75%" style="display: block; margin: auto;" /><img src="V_Weight_files/figure-html/unnamed-chunk-4-2.png" width="75%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -557,14 +565,14 @@ div.tocify {
 <pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
 ##        Sum Sq  Mean Sq NumDF    DenDF F value  Pr(&gt;F)
 ## year 2.352085 1.176043     2 1133.792 1.64911 0.19268</code></pre>
-<pre><code>## [1] 64.1043157</code></pre>
-<pre><code>## [1] 29.0210785</code></pre>
-<pre><code>## [1] 6.87460587</code></pre>
+<pre><code>## [1] 64.1043155</code></pre>
+<pre><code>## [1] 29.0210784</code></pre>
+<pre><code>## [1] 6.87460615</code></pre>
 <pre><code>## # Intraclass Correlation Coefficient
 ## 
 ##     Adjusted ICC: 0.359
 ##   Unadjusted ICC: 0.358</code></pre>
-<pre><code>## [1] 0.358956843</code></pre>
+<pre><code>## [1] 0.358956845</code></pre>
 </div>
 
 

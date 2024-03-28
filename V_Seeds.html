@@ -500,6 +500,9 @@ div.tocify {
     <li>
       <a href="dry_test.html">Pruebas de Secado</a>
     </li>
+    <li>
+      <a href="ER_flores.html">Floración ER</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -535,8 +538,13 @@ div.tocify {
 
 <div id="seed-number-per-fruit" class="section level1">
 <h1>Seed number per fruit</h1>
-<pre><code>## New names:
-## • `` -&gt; `...15`</code></pre>
+<pre><code>## Error in `$&lt;-`:
+## ! Assigned data `as.factor(fisico$n)` must be compatible with existing data.
+## ✖ Existing data has 1166 rows.
+## ✖ Assigned data has 0 rows.
+## ℹ Only vectors of size 1 are recycled.
+## Caused by error in `vectbl_recycle_rhs_rows()`:
+## ! Can&#39;t recycle input of size 0 to size 1166.</code></pre>
 <pre><code>##   year         site   N         ns          sd           se           ci
 ## 1 2019    concordia 160 1.19375000 0.482353703 0.0381334084 0.0753133373
 ## 2 2019       palmar 156 1.27564103 0.607201066 0.0486149929 0.0960334313
@@ -547,7 +555,7 @@ div.tocify {
 ## 7 2022    concordia 107 1.32710280 0.610840759 0.0590522051 0.1170767401
 ## 8 2022       palmar   6 1.16666667 0.408248290 0.1666666667 0.4284303059
 ## 9 2022 gualeguaychu 114 1.54385965 0.873811211 0.0818399183 0.1621396387</code></pre>
-<p><img src="V_Seeds_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Seeds_files/figure-html/unnamed-chunk-2-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dry-seed-weight" class="section level1">
 <h1>Dry seed weight</h1>
@@ -562,21 +570,21 @@ div.tocify {
 ## 7 2022    concordia 104 0.931778846 0.688876572 0.0675499054 0.1339693054
 ## 8 2022       palmar   6 2.027500000 1.253524910 0.5117494016 1.3154937161
 ## 9 2022 gualeguaychu 114 0.859842105 0.800593160 0.0749824195 0.1485536968</code></pre>
-<p><img src="V_Seeds_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="V_Seeds_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="V_Seeds_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Seeds_files/figure-html/unnamed-chunk-7-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Seeds_files/figure-html/unnamed-chunk-9-1.png" width="75%" style="display: block; margin: auto;" /><img src="V_Seeds_files/figure-html/unnamed-chunk-9-2.png" width="75%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9899773, p-value = 1.1902e-06</code></pre>
+## W = 0.9899773, p-value = 1.19019e-06</code></pre>
 <pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
 ##        Sum Sq  Mean Sq NumDF    DenDF  F value     Pr(&gt;F)    
-## year 3.334914 1.667457     2 1040.308 14.72494 4.9418e-07 ***
+## year 3.334915 1.667457     2 1040.308 14.72494 4.9418e-07 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## [1] 70.1996461</code></pre>
-<pre><code>## [1] 27.261252</code></pre>
-<pre><code>## [1] 2.53910185</code></pre>
+<pre><code>## [1] 70.1996644</code></pre>
+<pre><code>## [1] 27.2612472</code></pre>
+<pre><code>## [1] 2.53908835</code></pre>
 <pre><code>## # Intraclass Correlation Coefficient
 ## 
 ##     Adjusted ICC: 0.298

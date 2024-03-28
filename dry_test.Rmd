@@ -56,10 +56,12 @@ Gráfico de líneas de tendencia medias y valores puntuales
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datospeso$Hora<-as.numeric(datospeso$Hora)
+datospeso3<-datospeso
+datospeso3$Hora<-as.numeric(datospeso3$Hora)
+datospeso3$Hora<-datospeso3$Hora-1
 
 library(ggplot2)
-gg_drytest<-ggplot(data=datospeso, aes(x=Hora, y=Peso, color=Temperatura))+
+gg_drytest<-ggplot(data=datospeso3, aes(x=Hora, y=Peso, color=Temperatura))+
   scale_color_manual(values=c("coral","red4"))+
   geom_point(size=3)+
   geom_smooth(method="loess", se = F, linetype="dashed", lwd=1, size=1)+
@@ -74,7 +76,7 @@ gg_drytest<-ggplot(data=datospeso, aes(x=Hora, y=Peso, color=Temperatura))+
   ylab("Peso (g)")+
   xlab("")+
   labs(color = "", shape = "")+
-  scale_x_continuous(limits = c(1, 8), breaks = seq(1, 8, 1))
+  scale_x_continuous(limits = c(0, 7), breaks = seq(0, 7, 1))
 gg_drytest
 
 ```
@@ -265,8 +267,6 @@ complot<-plot(comp_dp, comparisons = TRUE)+
 complot
 ```
 
-Modelo
-
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -300,7 +300,7 @@ gm_aj <- ggplot(datospeso2w1, aes(x = Hora, y = Peso, color=Temperatura)) +
   theme(panel.grid.major.x = element_blank()) +
   theme(text = element_text(size = 15, color = 'black')) +
   theme(axis.text = element_text(color = 'black'))+
-  scale_x_continuous(limits = c(0, 5), breaks = seq(0, 5, 1))+
+  scale_x_continuous(limits = c(1, 5), breaks = seq(1, 5, 1))+
   scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2))
 # gm_aj
 
@@ -319,6 +319,7 @@ df_line60 <- data.frame(x = c(1,5), y = c(13.22, 5.90))
 df_line80 <- data.frame(x = c(1,5), y = c(13.52, 2.87))
 ```
 
+Modelo
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -339,6 +340,6 @@ gm_ajust <- ggplot(datospeso2w1, aes(x = Hora, y = Peso)) +
   theme(axis.text = element_text(color = 'black'))+
   scale_x_continuous(limits = c(1, 5), breaks = seq(1, 5, 1))+
   scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2))
-# gm_ajust
+gm_ajust
 
 ```
