@@ -1,6 +1,15 @@
 ---
-title: "Pruebas de secado"
+title: "Tratamientos de secado"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
 ---
+
+# Cambios en el peso
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -81,13 +90,39 @@ gg_drytest
 
 ```
 
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Gráfico de líneas de tendencia medias y valores puntuales
+# library(ggplot2)
+# gg_drytestseco<-ggplot(data=datospeso3, aes(x=Hora, y=Peso, color=Temperatura))+
+#   scale_color_manual(values=c("coral","red4"))+
+#   geom_point(size=3)+
+#   geom_smooth(method="loess", se = F, linetype="dashed", lwd=1, size=1)+
+#   scale_y_continuous(breaks=seq(0,100,10))+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=32, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.position = "bottom")+
+#   theme(text = element_text(size=10))+
+#   ylab("Peso seco (%)")+
+#   xlab("")+
+#   labs(color = "", shape = "")+
+#   scale_x_continuous(limits = c(0, 7), breaks = seq(0, 7, 1))
+# gg_drytestseco
+
+```
+
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(nlme)
 library(tidyr)
 library(dplyr)
-datospeso2<-datospeso
+datospeso2<-datospeso[,-c(5)]
 datospeso2$Hora<-as.factor(datospeso2$Hora)
 dp_dry<-datospeso2[-c(19:24),]
 dp_wide <- tidyr::spread(dp_dry, Hora, Peso)
@@ -117,7 +152,6 @@ table_datospeso2 <- datospeso2w %>%
   )
 )
 
-table_datospeso2<-table_datospeso2[,-c(3,5,7,9,11)]
 
 ```
 
@@ -127,9 +161,9 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 library(GGally)
-ggcor_dp_tiempos<-ggpairs(dp_tiempos) 
-# round(cor(tiempos),2) #matriz de correlacion
-# ggcor_dp_tiempos2<-ggcorr(dp_tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 2)
+ggcor_dp_tiempos<-ggpairs(dp_tiempos)
+round(cor(dp_tiempos),2) #matriz de correlacion
+ggcor_dp_tiempos2<-ggcorr(dp_tiempos, label = TRUE, label_size = 3,limits = FALSE, midpoint = NULL, label_round = 2)
 
 ```
 
@@ -137,7 +171,7 @@ Matriz de covarianzas
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-round(cov(dp_tiempos),2) #matriz de covarianza 
+round(cov(dp_tiempos),2) #matriz de covarianza
 
 ```
 
@@ -150,7 +184,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # #Modelo 2: AR1, varianzas iguales
 library(nlme)
-modelo_secado<-gls((Peso) ~ Hora*Temperatura + basal ,  correlation = corAR1(form = ~ 1 | Repeticion), datospeso2w)
+modelo_secado<-gls(Peso ~ Hora*Temperatura + basal ,  correlation = corAR1(form = ~ 1 | Repeticion), datospeso2w)
 # modelo_secado<-gls((carbon_ac) ~ matu ,  correlation = corAR1(form = ~ 1 | rep), resp2)
 modelo_secado$call
 
@@ -223,7 +257,7 @@ modelo_secado$coefficients
 
 ```
 
-ANOVA
+Anova
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -240,6 +274,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
 comp_dp<-emmeans(modelo_secado, pairwise ~ Temperatura|Hora, mode = "appx-satterthwaite")
 comp_dp
+
 ```
 
 Gráfico de comparaciones
@@ -256,14 +291,14 @@ complot<-plot(comp_dp, comparisons = TRUE)+
   ggtitle("Mean Contrast")+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
   theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color="grey", size=4))+
+  theme(panel.grid.major.y = element_line(color="black", size=0.05))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=15, color='black'))+
   theme(axis.text = element_text(color='black', size=15))+
   theme(strip.text.y = element_text(angle = 0))+
   scale_x_continuous(limits = c(0, 18), breaks = seq(0,18,2))#+
-  # annotate("text", x = table_datospeso2$Peso_Mean[table_datospeso2$Temperatura == "60" & table_resp2$Hora == "1"], y = 1 , label = "b")+
-  # annotate("text", x = table_datospeso2$Peso_Mean[table_datospeso2$Temperatura == "80" & table_datospeso2$Hora == "1"], y = 1 , label = "a")
+  # annotate("text", x = table_datospeso$Peso_Mean[table_datospeso$Temperatura == "60" & table_resp2$Hora == "1"], y = 1 , label = "b")+
+  # annotate("text", x = table_datospeso$Peso_Mean[table_datospeso$Temperatura == "80" & table_datospeso2$Hora == "1"], y = 1 , label = "a")
 complot
 ```
 
@@ -341,5 +376,843 @@ gm_ajust <- ggplot(datospeso2w1, aes(x = Hora, y = Peso)) +
   scale_x_continuous(limits = c(1, 5), breaks = seq(1, 5, 1))+
   scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2))
 gm_ajust
+
+```
+
+
+# Actividad antioxidante
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+datosaao <- read_excel("database.xlsx", sheet="Secado_aao")
+
+datosaao$Tratamiento<-factor(datosaao$Tratamiento,levels=c("Frizado","Liofilizado","T60","T80"))
+datosaao$Especie<-as.factor(datosaao$Especie)
+datosaao$Concentracion<-as.factor(datosaao$Concentracion)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+datosaao_uba <- datosaao %>% filter(Especie == "Ubajay")
+datosaao_cal <- datosaao %>% filter(Especie == "Calafate")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_sec_aao <- datosaao %>%
+  dplyr::group_by(Especie, Tratamiento, Concentracion) %>%
+  dplyr::summarise(n=n(),
+                   Mean=mean(aao),
+                   sd=sd(aao))
+
+tabla_sec_uba_aao<-tabla_sec_aao %>%
+  dplyr::filter(Especie == "Ubajay")
+tabla_sec_cal_aao<-tabla_sec_aao %>%
+  dplyr::filter(Especie == "Calafate")
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(ggplot2)
+sec_uba_aao<-ggplot(tabla_sec_uba_aao, aes(x=Concentracion, y=Mean, fill=Tratamiento, width=.4)) +
+  stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.1, position=position_dodge(.6), size=1)+
+  scale_fill_manual(values=c("yellow3","lightblue","coral","red4"))+
+  labs(y="Actividad Antioxidante [%]", x="")+
+  labs(x="mg peso seco / ml", x="")+
+  facet_grid(Especie~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(0, 105), breaks = seq(0, 100, 20))
+sec_uba_aao
+
+library(ggplot2)
+sec_cal_aao<-ggplot(tabla_sec_cal_aao, aes(x=Concentracion, y=Mean, fill=Tratamiento, width=.4)) +
+  stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.1, position=position_dodge(.6), size=1)+
+  scale_fill_manual(values=c("yellow3","lightblue","coral","red4"))+
+  labs(y="Actividad Antioxidante [%]", x="")+
+  labs(x="mg peso seco / ml", x="")+
+  facet_grid(Especie~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(0, 105), breaks = seq(0, 100, 20))
+sec_cal_aao
+
+```
+
+## Ubajay
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(lmerTest)
+# library(lme4)
+# modelo_sec_uba_aao <- lmer(aao ~ Tratamiento + (1|Concentracion), data = datosaao_uba)
+
+library(glmmTMB)
+modelo_sec_uba_aao_2 <- glmmTMB(aao/100 ~ Tratamiento + (1|Concentracion), family = beta_family(), data = datosaao_uba)
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_sec_uba_aao_2
+
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+H_modelo_sec_uba_aao <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_sec_uba_aao_2),
+  "predichos" = predict(modelo_sec_uba_aao_2)))
+
+HV_H_modelo_sec_uba_aao<-ggplot(H_modelo_sec_uba_aao) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_H_modelo_sec_uba_aao
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(modelo_sec_uba_aao_2)
+
+```
+
+Comparaciones a posteriori
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+emm_options(opt.digits = FALSE)
+Comp_modelo_sec_uba_aao_2<-emmeans(modelo_sec_uba_aao_2, pairwise ~ Tratamiento, type="response") 
+Comp_modelo_sec_uba_aao_2
+
+gg_Comp_modelo_sec_uba_aao_2 <- plot(Comp_modelo_sec_uba_aao_2, comparisons = TRUE)+ 
+labs(x = "Actividad Antioxidante [%/100]", y ="Ubajay")+
+  annotate("text", x = 0.3701567 , y = 1.4 , label = "a",size=6)+
+  annotate("text", x = 0.2419388 , y = 2.4 , label = "b",size=6)+
+  annotate("text", x = 0.1461863 , y = 3.4 , label = "c",size=6)+
+  annotate("text", x = 0.2304315 , y = 4.4 , label = "bc",size=6)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=32, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  scale_x_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2))
+gg_Comp_modelo_sec_uba_aao_2
+
+```
+
+
+## Calafate
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(lmerTest)
+# library(lme4)
+# modelo_sec_cal_aao <- lmer(aao ~ Tratamiento + (1|Concentracion), data = datosaao_cal)
+
+library(glmmTMB)
+modelo_sec_cal_aao_2 <- glmmTMB(aao/100 ~ Tratamiento + (1|Concentracion), family = beta_family(), data = datosaao_cal)
+
+```
+
+Modelo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_sec_cal_aao_2
+
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+H_modelo_sec_cal_aao <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_sec_cal_aao_2),
+  "predichos" = predict(modelo_sec_cal_aao_2)))
+
+HV_H_modelo_sec_cal_aao<-ggplot(H_modelo_sec_cal_aao) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_H_modelo_sec_cal_aao
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(modelo_sec_cal_aao_2)
+
+```
+
+Comparaciones a posteriori
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+emm_options(opt.digits = FALSE)
+Comp_modelo_sec_cal_aao_2<-emmeans(modelo_sec_cal_aao_2, pairwise ~ Tratamiento, type="response") 
+Comp_modelo_sec_cal_aao_2
+
+gg_Comp_modelo_sec_cal_aao_2 <- plot(Comp_modelo_sec_cal_aao_2, comparisons = TRUE)+ 
+labs(x = "Actividad Antioxidante [%/100]", y ="Calafate")+
+  annotate("text", x = 0.8418061  , y = 1.4 , label = "a",size=6)+
+  annotate("text", x = 0.8426335  , y = 2.4 , label = "a",size=6)+
+  annotate("text", x = 0.6413422  , y = 3.4 , label = "b",size=6)+
+  annotate("text", x = 0.7099505  , y = 4.4 , label = "ab",size=6)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=32, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  scale_x_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2))
+gg_Comp_modelo_sec_cal_aao_2
+
+```
+
+
+
+# Carotenoides
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+secado_carotenoides <- read_excel("database.xlsx", sheet="Secado_car")
+
+secado_carotenoides$Tratamiento<-as.factor(secado_carotenoides$Tratamiento)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_sec_car <- secado_carotenoides %>%
+  dplyr::group_by(Tratamiento) %>%
+  dplyr::summarise(n=n(),
+            Mean=mean(b_car),
+            sd=sd(b_car))
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(ggplot2)
+gg_seCar<-ggplot(tabla_sec_car, aes(x=Tratamiento, y=Mean, fill=Tratamiento, width=.4)) +
+  stat_summary(fun = "mean", size = 1, geom = "bar",position=position_dodge(0.6), color="black") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.1, position=position_dodge(.5), size=1)+
+  scale_fill_manual(values=c("yellow3","lightblue","coral","red4"))+
+  labs(y="Carotenoides [µg / g PS]", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(0, 350), breaks = seq(0, 350, 50))
+gg_seCar
+
+```
+
+Modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_seCar <- lm(b_car ~ Tratamiento, data=secado_carotenoides)
+
+library(nlme)
+
+modelo_seCar_gamma <- glm(b_car ~ Tratamiento, data=secado_carotenoides, family = "Gamma")
+modelo_seCar_gamma
+```
+
+Comprobación de supuestos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+seCar_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_seCar),
+  "predichos" = predict(modelo_seCar)))
+
+HVseCar<-ggplot(seCar_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HVseCar
+
+QQseCar<-ggplot(seCar_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQseCar
+
+HIST_seCar <- ggplot(aes(x = seCar_ajuste$residuos), data = secado_carotenoides)+
+  geom_histogram(colour="gray12",fill="white")+
+  theme_classic()+
+  ylab("Frequency")+ xlab("Residuals")+
+  theme(legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HIST_seCar
+
+e<-resid(modelo_seCar) # residuos de pearson
+pre<-predict(modelo_seCar) #predichos
+shapiro.test(e)
+
+library(car)
+leveneTest(b_car ~ Tratamiento, data=secado_carotenoides)
+
+```
+
+Anova del modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(modelo_seCar_gamma)
+
+```
+
+Comparaciones a posteriori
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(emmeans)
+# library(multcompView)
+Com_seCar<-emmeans(modelo_seCar_gamma, pairwise ~ Tratamiento, type="response")
+Com_seCar
+
+gg_Com_seCar <- plot(Com_seCar, comparisons = TRUE)+
+  labs(x = "Carotenoides [mg / g PS]", y ="")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1), color = "black"))+
+  scale_fill_manual(values = c("yellow3","lightblue","coral","red4")) +
+  theme(legend.position='none')+
+  theme(panel.grid.major.y = element_line(color="black", size=0.05))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color='black'))+
+  theme(axis.text = element_text(color='black', size=30))+
+  annotate("text", x = tabla_sec_car$Mean[tabla_sec_car$Tratamiento == "Frizado"]
+, y = 1.4 , label = "a", size=6)+
+  annotate("text", x = tabla_sec_car$Mean[tabla_sec_car$Tratamiento == "Liofilizado"]
+, y = 2.4 , label = "ab", size=6)+
+  annotate("text", x = tabla_sec_car$Mean[tabla_sec_car$Tratamiento == "T60"]
+, y = 3.4 , label = "c", size=6)+
+  annotate("text", x = tabla_sec_car$Mean[tabla_sec_car$Tratamiento == "T80"]
+, y = 4.4 , label = "bc", size=6)+
+  scale_x_continuous(limits = c(0, 350), breaks = seq(0, 350, 50))
+
+gg_Com_seCar
+
+
+```
+
+
+# Antocianinas
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+datosanto <- read_excel("database.xlsx", sheet="Secado_anto")
+
+datosanto$Tratamiento<-factor(datosanto$Tratamiento,levels=c("Frizado","Liofilizado","T60","T80"))
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_sec_anto <- datosanto %>%
+  dplyr::group_by(Tratamiento) %>%
+  dplyr::summarise(n=n(),
+                   Mean=mean(Antocianinas),
+                   sd=sd(Antocianinas))
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(ggplot2)
+sec_cal_anto<-ggplot(tabla_sec_anto, aes(x=Tratamiento, y=Mean, fill=Tratamiento, width=.4)) +
+  stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
+  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+                width=.1, position=position_dodge(.6), size=1)+
+  scale_fill_manual(values=c("yellow3","lightblue","coral","red4"))+
+  labs(y="Antocianinas [mg / 100 g peso seco]", x="")+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(0, 2200), breaks = seq(0, 2200, 400))
+sec_cal_anto
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_sec_cal_anto <- lm(Antocianinas ~ Tratamiento , data = datosanto)
+
+# library(nlme)
+# modelo_sec_car_anto_gamma <- glm(Antocianinas ~ Tratamiento, data=datosanto, family = "Gamma")
+
+```
+
+Modelo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+modelo_sec_cal_anto
+
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+sec_anto_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_sec_cal_anto),
+  "predichos" = predict(modelo_sec_cal_anto)))
+
+library(ggplot2)
+# Gráfico de residuos vs. predichos. Ver homocedasticidad y outliers
+HV_sec_anto_ajuste<-ggplot(sec_anto_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_sec_anto_ajuste
+
+# QQ plot. ver normalidad
+QQ_sec_anto_ajuste<-ggplot(sec_anto_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# sec_anto_ajuste
+
+e<-resid(modelo_sec_cal_anto) # residuos de pearson
+pre<-predict(modelo_sec_cal_anto) #predichos
+
+# Ver normalidad
+shapiro.test(e)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(modelo_sec_cal_anto)
+
+```
+
+Comparaciones a posteriori
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+library(multcompView)
+emm_options(opt.digits = FALSE)
+Comp_modelo_sec_cal_anto<-emmeans(modelo_sec_cal_anto, pairwise ~ Tratamiento, type="response") 
+Comp_modelo_sec_cal_anto
+
+gg_Comp_modelo_sec_cal_aao_2 <- plot(Comp_modelo_sec_cal_anto, comparisons = TRUE)+
+labs(x = "Actividad Antioxidante [%/100]", y ="Calafate")+
+  annotate("text", x = 1306   , y = 1.4 , label = "a",size=6)+
+  annotate("text", x = 1842   , y = 2.4 , label = "a",size=6)+
+  annotate("text", x = 1181   , y = 3.4 , label = "b",size=6)+
+  annotate("text", x = 1243   , y = 4.4 , label = "ab",size=6)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=32, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  scale_x_continuous(limits = c(600, 2400), breaks = seq(600, 2400, 200))+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
+gg_Comp_modelo_sec_cal_aao_2
+
+```
+
+# Correlaciones
+
+## Ubajay
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+datosaao_uba_cor <- datosaao %>% filter(Especie == "Ubajay" & Concentracion == "0.5")
+datosaao_cal_cor <- datosaao %>% filter(Especie == "Calafate" & Concentracion == "0.625")
+
+correlaciones_uba2 <- merge(datosaao_uba_cor[,c(3,7)], secado_carotenoides[,c(1:2)], by.y = "Tratamiento")
+correlaciones_uba <- correlaciones_uba2[c(1,5,9,10,14,18,19,23,27,28,32,36),]
+
+correlaciones_cal2 <- merge(datosaao_cal_cor, datosanto[,c(1,3), by.y = "Tratamiento"])
+correlaciones_cal<- correlaciones_cal2[c(1,5,9,10,14,18,19,23,27,28,32,36),]
+
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(ggplot2)
+colores<-c("yellow3","lightblue","coral","red4")
+gg_sec_cor_uba<-ggplot(data=correlaciones_uba, aes(x=(b_car), y=aao, color=Tratamiento))+
+  geom_point(size=6)+
+  labs(x="", y="")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+  scale_x_continuous(limits = c(0, 320), breaks = seq(0, 320, 20))
+# gg_sec_cor_uba
+
+```
+
+Modelo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+modelo_sec_cor_uba <- lmer(aao ~ (b_car) + (1|Tratamiento), data=correlaciones_uba)
+modelo_sec_cor_uba
+
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+sec_cor_uba <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_sec_cor_uba),
+  "predichos" = predict(modelo_sec_cor_uba)))
+
+library(ggplot2)
+# Gráfico de residuos vs. predichos. Ver homocedasticidad y outliers
+HV_sec_cor_uba<-ggplot(sec_cor_uba) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_sec_cor_uba
+
+# QQ plot. ver normalidad
+QQ_sec_cor_uba<-ggplot(sec_cor_uba) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_sec_cor_uba
+
+e<-resid(modelo_sec_cor_uba) # residuos de pearson
+pre<-predict(modelo_sec_cor_uba) #predichos
+
+# Ver normalidad
+shapiro.test(e)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_sec_cor_uba)
+
+cor(correlaciones_uba$aao,correlaciones_uba$b_car)
+
+```
+
+Existe evidencia para aceptar que beta1 difiere de cero (R = 0.616, valor p = 0.033)
+
+Gráfico del modelo ajustado
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(ggplot2)
+colores<-c("yellow3","lightblue","coral","red4")
+
+
+newdata <- data.frame(b_car = seq(min(correlaciones_uba$b_car), max(correlaciones_uba$b_car), length.out = 100), Tratamiento = factor("Frizado"))
+newdata$aao <- predict(modelo_sec_cor_uba, newdata = newdata)
+
+# Graficar puntos y línea ajustada
+gm_cor_sec_uba <- ggplot(correlaciones_uba, aes(x = b_car, y = aao)) +
+  geom_point(aes(color = factor(Tratamiento)), size = 6) +
+  geom_line(data = newdata, aes(x = b_car, y = aao), size=1.2)+
+  labs(x="Carotenoides [µg / g PS]", y="Actividad Antioxidante [%]")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color="black", size=0.05))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+  scale_x_continuous(limits = c(0, 320), breaks = seq(0, 320, 20))
+gm_cor_sec_uba
+
+```
+
+## Calafate
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='110%')
+
+library(ggplot2)
+colores<-c("yellow3","lightblue","coral","red4")
+gg_sec_cor_cal<-ggplot(data=correlaciones_cal, aes(x=(Antocianinas), y=aao, color=Tratamiento))+
+  geom_point(size=6)+
+  labs(x="", y="")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
+  scale_x_continuous(limits = c(600, 2200), breaks = seq(600, 2200, 200))
+# gg_sec_cor_cal
+
+```
+
+Modelo
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+modelo_sec_cor_cal <- lmer(aao ~ (Antocianinas) + (1|Tratamiento), data=correlaciones_cal)
+modelo_sec_cor_cal
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+sec_cor_cal <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_sec_cor_cal),
+  "predichos" = predict(modelo_sec_cor_cal)))
+
+library(ggplot2)
+# Gráfico de residuos vs. predichos. Ver homocedasticidad y outliers
+HV_sec_cor_cal<-ggplot(sec_cor_cal) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_sec_cor_cal
+
+# QQ plot. ver normalidad
+QQ_sec_cor_cal<-ggplot(sec_cor_cal) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+QQ_sec_cor_cal
+
+e<-resid(modelo_sec_cor_cal) # residuos de pearson
+pre<-predict(modelo_sec_cor_cal) #predichos
+
+# Ver normalidad
+shapiro.test(e)
+
+```
+
+Anova
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_sec_cor_cal)
+
+cor(correlaciones_cal$aao,correlaciones_cal$Antocianinas)
+
+```
+
+No existe evidencia para aceptar que beta1 difiere de cero (R = 0.406, valor p = 0.029)
+
+Gráfico del modelo ajustado
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(ggplot2)
+colores<-c("yellow3","lightblue","coral","red4")
+
+
+newdata <- data.frame(Antocianinas = seq(min(correlaciones_cal$Antocianinas), max(correlaciones_cal$Antocianinas), length.out = 100), Tratamiento = factor("Frizado"))
+newdata$aao <- predict(modelo_sec_cor_cal, newdata = newdata)
+
+# Graficar puntos y línea ajustada
+gm_cor_sec_cal <- ggplot(correlaciones_cal, aes(x = Antocianinas, y = aao)) +
+  geom_point(aes(color = factor(Tratamiento)), size = 6) +
+  geom_line(data = newdata, aes(x = Antocianinas, y = aao), size=1.2)+
+  labs(x="Antocianinas [mg / 100 g peso seco]", y="Actividad Antioxidante [%]")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+  scale_color_manual(values = colores) +
+  theme(legend.title=element_blank())+
+  theme(legend.position='bottom')+
+  theme(panel.grid.major.y = element_line(color="black", size=0.05))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+  scale_y_continuous(limits = c(40, 100), breaks = seq(40, 100, 20))+
+  scale_x_continuous(limits = c(600, 2200), breaks = seq(600, 2200, 200))
+gm_cor_sec_cal
 
 ```

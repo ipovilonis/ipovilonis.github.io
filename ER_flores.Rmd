@@ -1,5 +1,12 @@
 ---
 title: "Variables reproductivas"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
 ---
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -114,11 +121,11 @@ library(lmerTest)
 
 # modelo_psflor1 <- lmer(ps_flor ~ (1|site/phenotype), datosff)
 
-modelo_psflor <- lmer(ps_flor ~ (1 | year) + (1 | site/phenotype), data = datosff)
+modelo_psflor2 <- lmer(ps_flor ~ (1 | year) + (1 | site/phenotype), data = datosff)
 
 # modelo_psflor <- lmer(ps_flor ~ year + (1 | site/phenotype), data = datosff)
 
-# modelo_psflor3 <- glmer(ps_flor ~ 1 + (1 | site/phenotype), data = datosff, family = "Gamma")
+modelo_psflor <- glmer(ps_flor ~ (1 | year) + (1 | site/phenotype), data = datosff, family = "Gamma")
 
 modelo_psflor
 
@@ -134,6 +141,7 @@ psflor_ajuste <- as.data.frame(cbind(
   "residuos" = residuals(modelo_psflor),
   "predichos" = predict(modelo_psflor)))
 
+library(ggplot2)
 # Gráfico de residuos vs. predichos. Ver homocedasticidad y outliers
 HV_psflor<-ggplot(psflor_ajuste) +
   aes(predichos, residuos) +
@@ -164,17 +172,17 @@ QQ_psflor<-ggplot(psflor_ajuste) +
   theme(axis.text = element_text(color='white'))+
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQ_psflor
+# QQ_psflor
 
 e<-resid(modelo_psflor) # residuos de pearson
 # r.est <- resid(modelo_psflor, type="normalized") #residuos estandarizados
 pre<-predict(modelo_psflor) #predichos
 betai<-ranef(modelo_psflor)$phenotype$'(Intercept)'
 
-# Ver normalidad
-shapiro.test(e)
-# Ver normalidad del efecto aleatorio
-shapiro.test(betai)
+# # Ver normalidad
+# shapiro.test(e)
+# # Ver normalidad del efecto aleatorio
+# shapiro.test(betai)
 
 
 ```
@@ -191,12 +199,33 @@ Significación de las variables aleatorias
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+# Con lmer()
+
 # Pone a prueba los efectos aleatorios. H0: sigma2 = 0
-ranova(modelo_psflor)
+# ranova(modelo_psflor2)
 
-# Intervalo de confianza para la varianza de los efectos aleatorios  
-confint(modelo_psflor)
+# Intervalo de confianza para la varianza de los efectos aleatorios
+# confint(modelo_psflor)
 
+# ...................................
+
+# Con glmer()
+
+library(lme4)
+
+modelo_sin_efectos_aleatorios <- glm(ps_flor ~ 1, data = datosff, family = "Gamma")
+modelo_con_efectos_aleatorios1 <- glmer(ps_flor ~ (1|year) , data = datosff, family = "Gamma")
+modelo_con_efectos_aleatorios2 <- glmer(ps_flor ~ (1|site) , data = datosff, family = "Gamma")
+modelo_con_efectos_aleatorios3 <- glmer(ps_flor ~  (1 | site/phenotype), data = datosff, family = "Gamma")
+
+LRT1 <- anova(modelo_con_efectos_aleatorios1, modelo_sin_efectos_aleatorios)
+ LRT1
+
+LRT2 <- anova(modelo_con_efectos_aleatorios2, modelo_sin_efectos_aleatorios)
+ LRT2
+ 
+LRT3 <- anova(modelo_con_efectos_aleatorios3, modelo_sin_efectos_aleatorios)
+ LRT3
 ```
 
 ## Número de óvulos por flor
@@ -205,6 +234,113 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 graficos_list$n_ovu
 
+```
+
+Modelo ajustado
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+library(lmerTest)
+
+modelo_n_ovu <- glmer(n_ovu ~ (1 | year) + (1 | site/phenotype), data = datosff, family = poisson(link = "log"))
+
+modelo_n_ovu
+
+```
+
+Verificación de supuestos
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+n_ovu_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(modelo_n_ovu),
+  "predichos" = predict(modelo_n_ovu)))
+
+# Gráfico de residuos vs. predichos. Ver homocedasticidad y outliers
+HV_n_ovu<-ggplot(n_ovu_ajuste) +
+  aes(predichos, residuos) +
+  geom_hline(yintercept = 0, colour="white", size=2) +
+  geom_point(colour="white")+
+  theme_classic()+
+  labs(y="Residuals", x="Predicted values")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+HV_n_ovu
+
+# QQ plot. ver normalidad
+QQ_n_ovu<-ggplot(n_ovu_ajuste) +
+  aes(sample = residuos) +
+  geom_qq(shape = 1, colour="white") +
+  geom_qq_line(colour="white")+
+  theme_classic()+
+  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=10, color='white'))+
+  theme(axis.text = element_text(color='white'))+
+  theme(plot.background = element_rect(fill = "gray12"))+
+  theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQ_n_ovu
+
+# e<-resid(modelo_n_ovu) # residuos de pearson
+# # r.est <- resid(modelo_n_ovu, type="normalized") #residuos estandarizados
+# pre<-predict(modelo_n_ovu) #predichos
+# betai<-ranef(modelo_n_ovu)$phenotype$'(Intercept)'
+
+# # Ver normalidad
+# shapiro.test(e)
+# # Ver normalidad del efecto aleatorio
+# shapiro.test(betai)
+
+
+```
+
+Resumen del modelo
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(modelo_n_ovu)
+
+```
+
+Significación de las variables aleatorias
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Con lmer()
+
+# Pone a prueba los efectos aleatorios. H0: sigma2 = 0
+# ranova(modelo_psflor)
+
+# Intervalo de confianza para la varianza de los efectos aleatorios
+# confint(modelo_psflor)
+
+# ...................................
+
+# Con glmer()
+
+library(lme4)
+
+modelo_sin_efectos_aleatorios <- glm(n_ovu ~ 1, data = datosff, family = "poisson")
+modelo_con_efectos_aleatorios1 <- glmer(n_ovu ~ (1|year) , data = datosff, family = "poisson")
+modelo_con_efectos_aleatorios2 <- glmer(n_ovu ~ (1|site) , data = datosff, family = "poisson")
+modelo_con_efectos_aleatorios3 <- glmer(n_ovu ~  (1 | site/phenotype), data = datosff, family = "poisson")
+
+LRT1_n_ovu <- anova(modelo_con_efectos_aleatorios1, modelo_sin_efectos_aleatorios)
+ LRT1_n_ovu
+
+LRT2_n_ovu <- anova(modelo_con_efectos_aleatorios2, modelo_sin_efectos_aleatorios)
+ LRT2_n_ovu
+ 
+LRT3_n_ovu <- anova(modelo_con_efectos_aleatorios3, modelo_sin_efectos_aleatorios)
+ LRT3_n_ovu
 ```
 
 ## Diámetro medio de polen ()
