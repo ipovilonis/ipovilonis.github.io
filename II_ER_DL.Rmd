@@ -13,7 +13,7 @@ output:
 
 | Año  | Sitio         | Temperatura (°C)   | Humedad Relativa (%) |
 |------|---------------|--------------------|----------------------|
-|    2019 | Concordia     |      19,7±1,6b     | 69,2±2,5ab           |
+|    2019 | Concordia     |      20,8±1,6a     | 69,2±2,5ab           |
 |    2019 | Palmar        |      22,2±1,7a     | 68,5±2,6b           |
 |    2019 | Gualeguaychu  |      20,0±1,6b     | 70,3±2,5a           |
 |    2021 | Concordia     |      23,8±1,8a     | 53,1±3,0b           |
@@ -48,6 +48,13 @@ data_dl$number<-as.numeric(data_dl$number)
 data_dl$temp<-as.numeric(data_dl$temp)
 data_dl$hr<-as.numeric(data_dl$hr)
 data_dl$temp_soil<-as.numeric(data_dl$temp_soil)
+
+# Para balancear se filtra el período con datos completos para cada sitio (17/9 al 6/11)
+library(dplyr)
+data_dl2 <- na.omit(data_dl[,-c(9)])
+data_dl <- data_dl2 %>% dplyr::filter(number>193 & number<1407) %>%
+  dplyr::arrange(year)
+
 
 ```
 
@@ -124,14 +131,10 @@ Tabla resumen
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
-data_dl2 <- na.omit(data_dl[,-c(9)])
-data_dl <- data_dl2 %>% dplyr::filter(number>193 & number<1407)
-
-library(dplyr)
-tabla_dl_mean <- data_dl %>%
+tabla_dl_mean <- tablas_list_ER_DL$temp %>%
   dplyr::group_by(year, site) %>%
   dplyr::summarise(n=n(),
-                  Mean=mean(temp))
+                  Mean=mean(Mean))
 
 options(digits = 9)
 library(knitr)
@@ -144,18 +147,31 @@ Análisis factorial mixto
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
-data_dl$temp2<-data_dl$temp+2 # to avoid negaive numbers in gamma models
+data_dl$temp2<-data_dl$temp+1 # to avoid negaive numbers in gamma models
+
+library(dplyr)
+tabla_dl_mean <- data_dl %>%
+  dplyr::group_by(year, site, date) %>%
+  dplyr::summarise(n=n(),
+                  Mean=mean(temp2))
 
 library(lme4)
-modelo_dl_temp <- lmer(temp~year*site+(1|hour), data = data_dl)
+# modelo_dl_temp <- lmer(temp2~year*site+(1|hour), data = data_dl)
 
-library(nlme)
-modelo_dl_temp_gamma_ide <- glm(temp2~year*site, data = data_dl, family = Gamma(link = "identity"))
-modelo_dl_temp_gamma_log <- glm(temp2~year*site, data = data_dl, family = Gamma(link = "log"))
+# library(nlme)
+# modelo_dl_temp_gamma_ide <- glm(temp2~year*site, data = data_dl, family = Gamma(link = "identity"))
+# modelo_dl_temp_gamma_log <- glm(temp2~year*site, data = data_dl, family = Gamma(link = "log"))
+# 
+# library(glmmTMB)
+# modelo_dl_temp_gamma_ide_mixto <- glmmTMB(temp2~year*site+(1|hour), family = Gamma(link = "identity"), data = data_dl)
+# modelo_dl_temp_gamma_log_mixto <- glmmTMB(temp2~year*site+(1|hour), family = Gamma(link = "log"), data = data_dl)
 
-library(glmmTMB)
-modelo_dl_temp_gamma_ide_mixto <- glmmTMB(temp2~year*site+(1|hour), family = Gamma(link = "identity"), data = data_dl)
-modelo_dl_temp_gamma_log_mixto <- glmmTMB(temp2~year*site+(1|hour), family = Gamma(link = "log"), data = data_dl)
+library(lme4)
+modelo_dl_temp_gamma_log_mixto <- glmer(
+  temp2 ~ year * site + (1 | hour),
+  family = Gamma(link = "log"),
+  data = data_dl
+)
 
 ```
 
@@ -255,26 +271,10 @@ Anova(modelo_dl_temp_gamma_log_mixto)
 
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# # Comparaciones de Interaccion
-# ##todos contra todos 
-# library(emmeans)
-# library(multcompView)
-# 
-# #Tukey por default
-# comp1<-emmeans(modelo_dl_temp_gamma_log_mixto, pairwise ~ site*year, type="response")
-# comp1
-# plot(comp1, comparisons = TRUE)
-
-```
-
 Efectos simples
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-#Efectos simples
 library(emmeans)
 library(multcompView)
 
@@ -470,7 +470,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(emmeans)
 library(multcompView)
 
-efsimple_dl<-emmeans(modelo_dl_hr_beta_mixto, pairwise ~ site | year,  type="response") #Tukey por default
+efsimple_dl<-emmeans(modelo_dl_hr_beta_mixto, pairwise ~ site | year,  type="response", 
+    digits = 16) #Tukey por default
 efsimple_dl
 
 gg_comp_hr <- plot(efsimple_dl, comparisons = TRUE,  type="response")+theme_minimal()

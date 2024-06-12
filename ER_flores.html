@@ -13,7 +13,7 @@
 
 <title>Variables reproductivas</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -539,26 +539,26 @@ div.tocify {
 <div id="peso-seco-de-botones-florales-en-fases-cd"
 class="section level2">
 <h2>Peso seco de botones florales en fases C/D</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-3-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Modelo ajustado</p>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: Gamma  ( inverse )
 ## Formula: ps_flor ~ (1 | year) + (1 | site/phenotype)
 ##    Data: datosff
-##      AIC      BIC   logLik deviance df.resid 
-##     6455     6480    -3222     6445     1173 
+##        AIC        BIC     logLik   deviance   df.resid 
+##  6454.6366  6479.9945 -3222.3183  6444.6366       1173 
 ## Random effects:
-##  Groups         Name        Std.Dev.
-##  phenotype:site (Intercept) 0.01213 
-##  site           (Intercept) 0.00257 
-##  year           (Intercept) 0.00699 
-##  Residual                   0.32565 
+##  Groups         Name        Std.Dev.  
+##  phenotype:site (Intercept) 0.01212825
+##  site           (Intercept) 0.00257276
+##  year           (Intercept) 0.00699091
+##  Residual                   0.32565149
 ## Number of obs: 1178, groups:  phenotype:site, 52; site, 3; year, 3
 ## Fixed Effects:
 ## (Intercept)  
-##       0.099</code></pre>
+##   0.0989558</code></pre>
 <p>Verificación de supuestos
-<img src="ER_flores_files/figure-html/unnamed-chunk-5-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="ER_flores_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Resumen del modelo</p>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: Gamma  ( inverse )
@@ -566,23 +566,23 @@ class="section level2">
 ##    Data: datosff
 ## 
 ##      AIC      BIC   logLik deviance df.resid 
-##     6455     6480    -3222     6445     1173 
+##   6454.6   6480.0  -3222.3   6444.6     1173 
 ## 
 ## Scaled residuals: 
-##    Min     1Q Median     3Q    Max 
-## -2.644 -0.546 -0.051  0.488  4.070 
+##       Min        1Q    Median        3Q       Max 
+## -2.643881 -0.546306 -0.051338  0.488302  4.070334 
 ## 
 ## Random effects:
-##  Groups         Name        Variance Std.Dev.
-##  phenotype:site (Intercept) 1.47e-04 0.01213 
-##  site           (Intercept) 6.62e-06 0.00257 
-##  year           (Intercept) 4.89e-05 0.00699 
-##  Residual                   1.06e-01 0.32565 
+##  Groups         Name        Variance    Std.Dev.  
+##  phenotype:site (Intercept) 1.47094e-04 0.01212825
+##  site           (Intercept) 6.61909e-06 0.00257276
+##  year           (Intercept) 4.88728e-05 0.00699091
+##  Residual                   1.06049e-01 0.32565149
 ## Number of obs: 1178, groups:  phenotype:site, 52; site, 3; year, 3
 ## 
 ## Fixed effects:
-##             Estimate Std. Error t value Pr(&gt;|z|)    
-## (Intercept)   0.0990     0.0128    7.71  1.2e-14 ***
+##              Estimate Std. Error t value   Pr(&gt;|z|)    
+## (Intercept) 0.0989558  0.0128273 7.71448 1.2148e-14 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Significación de las variables aleatorias</p>
@@ -590,49 +590,49 @@ class="section level2">
 ## Models:
 ## modelo_sin_efectos_aleatorios: ps_flor ~ 1
 ## modelo_con_efectos_aleatorios1: ps_flor ~ (1 | year)
-##                                npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     2 6941 6951  -3468     6937                        
-## modelo_con_efectos_aleatorios1    3 6735 6750  -3364     6729   208  1     &lt;2e-16 ***
+##                                npar      AIC      BIC    logLik deviance    Chisq Df Pr(&gt;Chisq)    
+## modelo_sin_efectos_aleatorios     2 6940.612 6950.755 -3468.306 6936.612                           
+## modelo_con_efectos_aleatorios1    3 6734.783 6749.998 -3364.392 6728.783 207.8286  1 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## Data: datosff
 ## Models:
 ## modelo_sin_efectos_aleatorios: ps_flor ~ 1
 ## modelo_con_efectos_aleatorios2: ps_flor ~ (1 | site)
-##                                npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)
-## modelo_sin_efectos_aleatorios     2 6941 6951  -3468     6937                    
-## modelo_con_efectos_aleatorios2    3 6943 6958  -3468     6937     0  1          1</code></pre>
+##                                npar      AIC      BIC    logLik deviance Chisq Df Pr(&gt;Chisq)
+## modelo_sin_efectos_aleatorios     2 6940.612 6950.755 -3468.306 6936.612                    
+## modelo_con_efectos_aleatorios2    3 6942.755 6957.970 -3468.378 6936.755     0  1          1</code></pre>
 <pre><code>## Data: datosff
 ## Models:
 ## modelo_sin_efectos_aleatorios: ps_flor ~ 1
 ## modelo_con_efectos_aleatorios3: ps_flor ~ (1 | site/phenotype)
-##                                npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     2 6941 6951  -3468     6937                        
-## modelo_con_efectos_aleatorios3    4 6737 6757  -3364     6729   208  2     &lt;2e-16 ***
+##                                npar      AIC      BIC    logLik deviance    Chisq Df Pr(&gt;Chisq)    
+## modelo_sin_efectos_aleatorios     2 6940.612 6950.755 -3468.306 6936.612                           
+## modelo_con_efectos_aleatorios3    4 6736.899 6757.186 -3364.450 6728.899 207.7125  2 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="número-de-óvulos-por-flor" class="section level2">
 <h2>Número de óvulos por flor</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-8-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Modelo ajustado</p>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: poisson  ( log )
 ## Formula: n_ovu ~ (1 | year) + (1 | site/phenotype)
 ##    Data: datosff
-##      AIC      BIC   logLik deviance df.resid 
-##     4740     4760    -2366     4732     1180 
+##        AIC        BIC     logLik   deviance   df.resid 
+##  4740.0586  4760.3652 -2366.0293  4732.0586       1180 
 ## Random effects:
-##  Groups         Name        Std.Dev.
-##  phenotype:site (Intercept) 0.1778  
-##  site           (Intercept) 0.0238  
-##  year           (Intercept) 0.0560  
+##  Groups         Name        Std.Dev. 
+##  phenotype:site (Intercept) 0.1777561
+##  site           (Intercept) 0.0238101
+##  year           (Intercept) 0.0560322
 ## Number of obs: 1184, groups:  phenotype:site, 51; site, 3; year, 3
 ## Fixed Effects:
 ## (Intercept)  
-##        1.54</code></pre>
+##     1.53958</code></pre>
 <p>Verificación de supuestos
-<img src="ER_flores_files/figure-html/unnamed-chunk-10-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="ER_flores_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Resumen del modelo</p>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: poisson  ( log )
@@ -640,22 +640,22 @@ class="section level2">
 ##    Data: datosff
 ## 
 ##      AIC      BIC   logLik deviance df.resid 
-##     4740     4760    -2366     4732     1180 
+##   4740.1   4760.4  -2366.0   4732.1     1180 
 ## 
 ## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -2.6333 -0.3948  0.0206  0.4300  2.6251 
+##        Min         1Q     Median         3Q        Max 
+## -2.6332974 -0.3947791  0.0205979  0.4300150  2.6250614 
 ## 
 ## Random effects:
-##  Groups         Name        Variance Std.Dev.
-##  phenotype:site (Intercept) 0.031596 0.1778  
-##  site           (Intercept) 0.000568 0.0238  
-##  year           (Intercept) 0.003140 0.0560  
+##  Groups         Name        Variance    Std.Dev. 
+##  phenotype:site (Intercept) 0.031597237 0.1777561
+##  site           (Intercept) 0.000566921 0.0238101
+##  year           (Intercept) 0.003139613 0.0560322
 ## Number of obs: 1184, groups:  phenotype:site, 51; site, 3; year, 3
 ## 
 ## Fixed effects:
-##             Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)   1.5396     0.0453      34   &lt;2e-16 ***
+##              Estimate Std. Error z value   Pr(&gt;|z|)    
+## (Intercept) 1.5395761  0.0453134 33.9761 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Significación de las variables aleatorias</p>
@@ -663,37 +663,37 @@ class="section level2">
 ## Models:
 ## modelo_sin_efectos_aleatorios: n_ovu ~ 1
 ## modelo_con_efectos_aleatorios1: n_ovu ~ (1 | year)
-##                                npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     1 4837 4842  -2417     4835                        
-## modelo_con_efectos_aleatorios1    2 4827 4837  -2412     4823  11.6  1    0.00065 ***
+##                                npar      AIC      BIC    logLik deviance    Chisq Df Pr(&gt;Chisq)    
+## modelo_sin_efectos_aleatorios     1 4836.713 4841.789 -2417.356 4834.713                           
+## modelo_con_efectos_aleatorios1    2 4827.099 4837.253 -2411.550 4823.099 11.61324  1 0.00065484 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## Data: datosff
 ## Models:
 ## modelo_sin_efectos_aleatorios: n_ovu ~ 1
 ## modelo_con_efectos_aleatorios2: n_ovu ~ (1 | site)
-##                                npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)  
-## modelo_sin_efectos_aleatorios     1 4837 4842  -2417     4835                      
-## modelo_con_efectos_aleatorios2    2 4834 4844  -2415     4830  4.79  1      0.029 *
+##                                npar      AIC      BIC    logLik deviance   Chisq Df Pr(&gt;Chisq)  
+## modelo_sin_efectos_aleatorios     1 4836.713 4841.789 -2417.356 4834.713                        
+## modelo_con_efectos_aleatorios2    2 4833.918 4844.072 -2414.959 4829.918 4.79424  1   0.028555 *
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## Data: datosff
 ## Models:
 ## modelo_sin_efectos_aleatorios: n_ovu ~ 1
 ## modelo_con_efectos_aleatorios3: n_ovu ~ (1 | site/phenotype)
-##                                npar  AIC  BIC logLik deviance Chisq Df Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     1 4837 4842  -2417     4835                        
-## modelo_con_efectos_aleatorios3    3 4747 4763  -2371     4741  93.2  2     &lt;2e-16 ***
+##                                npar      AIC      BIC    logLik deviance    Chisq Df Pr(&gt;Chisq)    
+## modelo_sin_efectos_aleatorios     1 4836.713 4841.789 -2417.356 4834.713                           
+## modelo_con_efectos_aleatorios3    3 4747.473 4762.702 -2370.736 4741.473 93.24016  2 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="diámetro-medio-de-polen" class="section level2">
 <h2>Diámetro medio de polen ()</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-13-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="número-de-semillas-por-fruto" class="section level2">
 <h2>Número de semillas por fruto</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlaciones" class="section level2">
 <h2>Correlaciones</h2>
@@ -702,21 +702,21 @@ class="section level2">
 class="section level3">
 <h3>Correlación N° de semillas y N° de óvulos</h3>
 <p><img src="ER_flores_files/figure-html/unnamed-chunk-17-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<pre><code>## [1] 0.397</code></pre>
+<pre><code>## [1] 0.396656132</code></pre>
 <p>Modelo</p>
 <pre><code>## Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
 ## Formula: mean_ns ~ n_ovu_mean + (1 | year) + (1 | site)
 ##    Data: df_ovusem
-## REML criterion at convergence: 28.1
+## REML criterion at convergence: 28.0874
 ## Random effects:
 ##  Groups   Name        Std.Dev.
-##  year     (Intercept) 0.000   
-##  site     (Intercept) 0.227   
-##  Residual             0.282   
+##  year     (Intercept) 0.000000
+##  site     (Intercept) 0.227242
+##  Residual             0.281833
 ## Number of obs: 52, groups:  year, 3; site, 3
 ## Fixed Effects:
 ## (Intercept)   n_ovu_mean  
-##      0.9480       0.0909  
+##   0.9480370    0.0909351  
 ## optimizer (nloptwrap) convergence code: 0 (OK) ; 0 optimizer warnings; 1 lme4 warnings</code></pre>
 <p>Verificación de supuestos
 <img src="ER_flores_files/figure-html/unnamed-chunk-19-1.png" width="75%" style="display: block; margin: auto;" /><img src="ER_flores_files/figure-html/unnamed-chunk-19-2.png" width="75%" style="display: block; margin: auto;" /></p>
@@ -724,7 +724,7 @@ class="section level3">
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9, p-value = 9e-05</code></pre>
+## W = 0.8805634, p-value = 8.66204e-05</code></pre>
 <p><img src="ER_flores_files/figure-html/unnamed-chunk-24-1.png" width="75%" style="display: block; margin: auto;" /></p>
 </div>
 </div>

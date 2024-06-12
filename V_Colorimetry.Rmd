@@ -422,7 +422,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(lme4)
 L2<- lme4::lmer(color_L ~ 1 + (1|site/phenotype/id), data)
 summary(L2)
-library(sjPlot)
+# library(sjPlot)
 # sjPlot::plot_model(L2, type = "re",sort.est = "sort.all",facet.grid=FALSE)
 ```
 

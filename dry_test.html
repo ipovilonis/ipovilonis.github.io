@@ -13,7 +13,7 @@
 
 <title>Tratamientos de secado</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -558,9 +558,9 @@ div.tocify {
 ## 13 80          4         3  2.88 0.336
 ## 14 80          5         3  2.08 0.124</code></pre>
 <p>Gráfico de medias con desvío estándar
-<img src="dry_test_files/figure-html/unnamed-chunk-3-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-3-1.png" width="1536" style="display: block; margin: auto;" /></p>
 <p>Gráfico de líneas de tendencia medias y valores puntuales
-<img src="dry_test_files/figure-html/unnamed-chunk-4-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Correlación de cada unidad observacional en el tiempo</p>
 <pre><code>##      0    1    2    3    4    5
 ## 0 1.00 0.82 0.92 0.90 0.88 0.86
@@ -581,416 +581,381 @@ div.tocify {
 <pre><code>## gls(model = Peso ~ Hora * Temperatura + basal, data = datospeso2w, 
 ##     correlation = corAR1(form = ~1 | Repeticion))</code></pre>
 <p>Comprobación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-11-1.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-2.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-3.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-2.png" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-3.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 1, p-value = 0.2</code></pre>
+## W = 0.9558226, p-value = 0.241377</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80 
-##             -31.997              -1.540              -3.514              -5.533              -7.323               0.299 
-##               basal Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
-##               2.255              -1.825              -3.605              -4.321              -3.329</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80               basal 
+##       -31.996552210        -1.539666667        -3.514333333        -5.533000000        -7.323000000         0.298694977         2.255026084 
+## Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
+##        -1.825333333        -3.605333333        -4.321000000        -3.329333333</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 19 
-##                  numDF F-value p-value
-## (Intercept)          1    3276  &lt;.0001
-## Hora                 4     124  &lt;.0001
-## Temperatura          1     120  &lt;.0001
-## basal                1      13  0.0018
-## Hora:Temperatura     4       5  0.0066</code></pre>
+##                  numDF    F-value p-value
+## (Intercept)          1 3275.92959  &lt;.0001
+## Hora                 4  124.49491  &lt;.0001
+## Temperatura          1  120.00027  &lt;.0001
+## basal                1   13.07197  0.0018
+## Hora:Temperatura     4    4.95217  0.0066</code></pre>
 <p>Efectos simples</p>
 <pre><code>## $emmeans
 ## Hora = 1:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60           13.22 0.558 17.3    12.05    14.40
-##  80           13.52 0.558 17.3    12.35    14.70
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60          13.22348584 0.557653114 17.5 12.04951003 14.39746165
+##  80          13.52218082 0.557653114 17.5 12.34820501 14.69615663
 ## 
 ## Hora = 2:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60           11.68 0.558 17.3    10.51    12.86
-##  80           10.16 0.558 17.3     8.98    11.33
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60          11.68381918 0.557653114 17.5 10.50984337 12.85779499
+##  80          10.15718082 0.557653114 17.5  8.98320501 11.33115663
 ## 
 ## Hora = 3:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60            9.71 0.558 17.3     8.53    10.88
-##  80            6.40 0.558 17.3     5.23     7.58
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60           9.70915251 0.557653114 17.5  8.53517670 10.88312832
+##  80           6.40251416 0.557653114 17.5  5.22853835  7.57648997
 ## 
 ## Hora = 4:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60            7.69 0.558 17.3     6.52     8.87
-##  80            3.67 0.558 17.3     2.49     4.84
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60           7.69048584 0.557653114 17.5  6.51651003  8.86446165
+##  80           3.66818082 0.557653114 17.5  2.49420501  4.84215663
 ## 
 ## Hora = 5:
-##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60            5.90 0.558 17.3     4.73     7.08
-##  80            2.87 0.558 17.3     1.69     4.04
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60           5.90048584 0.557653114 17.5  4.72651003  7.07446165
+##  80           2.86984749 0.557653114 17.5  1.69587168  4.04382330
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
 ## Hora = 1:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80    -0.30 0.877 9.7  -0.340  0.7410
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.69  -0.341  0.7407
 ## 
 ## Hora = 2:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80     1.53 0.877 9.7   1.740  0.1130
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.69   1.741  0.1134
 ## 
 ## Hora = 3:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80     3.31 0.877 9.7   3.770  0.0040
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.69   3.770  0.0039
 ## 
 ## Hora = 4:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80     4.02 0.877 9.7   4.590  0.0010
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.69   4.586  0.0011
 ## 
 ## Hora = 5:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80     3.03 0.877 9.7   3.460  0.0060
+##  contrast                         estimate          SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.69   3.455  0.0065
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
-<img src="dry_test_files/figure-html/unnamed-chunk-15-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-15-1.png" width="1920" style="display: block; margin: auto;" /></p>
 <p>Modelo
-<img src="dry_test_files/figure-html/unnamed-chunk-18-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="actividad-antioxidante" class="section level1">
 <h1>Actividad antioxidante</h1>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-22-1.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-22-2.png" width="75%" style="display: block; margin: auto;" /></p>
 <div id="ubajay" class="section level2">
 <h2>Ubajay</h2>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-22-1.png" width="1920" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
-<pre><code>## Formula:          aao/100 ~ Tratamiento + (1 | Concentracion)
+<pre><code>## Formula:          aao/100 ~ Tratamiento + (1 | Concentracion) + (1 | Dia)
 ## Data: datosaao_uba
-##      AIC      BIC   logLik df.resid 
-##    -63.2    -53.7     37.6       30 
+##          AIC          BIC       logLik     df.resid 
+## -123.3252706 -108.9585757   67.6626353           75 
 ## Random-effects (co)variances:
 ## 
 ## Conditional model:
 ##  Groups        Name        Std.Dev.
-##  Concentracion (Intercept) 0.592   
+##  Concentracion (Intercept) 0.685004
+##  Dia           (Intercept) 0.489180
 ## 
-## Number of obs: 36 / Conditional model: Concentracion, 3
+## Number of obs: 81 / Conditional model: Concentracion, 3; Dia, 3
 ## 
-## Dispersion parameter for beta family (): 26.8 
+## Dispersion parameter for beta family (): 18.5 
 ## 
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##            (Intercept)  TratamientoLiofilizado          TratamientoT60          TratamientoT80  
-##                 -0.532                  -0.611                  -1.233                  -0.674</code></pre>
+##    (Intercept)  TratamientoT60  TratamientoT80  
+##      -0.563155       -0.649220       -0.278287</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-25-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: aao/100
-##             Chisq Df Pr(&gt;Chisq)    
-## Tratamiento  32.9  3    3.5e-07 ***
+##               Chisq Df Pr(&gt;Chisq)    
+## Tratamiento 21.2695  2 2.4065e-05 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Tratamiento response     SE  df asymp.LCL asymp.UCL
-##  Frizado        0.370 0.0856 Inf    0.2225     0.547
-##  Liofilizado    0.242 0.0683 Inf    0.1333     0.398
-##  T60            0.146 0.0480 Inf    0.0746     0.267
-##  T80            0.230 0.0662 Inf    0.1259     0.384
+##  Tratamiento    response           SE  df   asymp.LCL   asymp.UCL
+##  Liofilizado 0.362817703 0.1144431577 Inf 0.177495313 0.600392169
+##  T60         0.229280985 0.0879523799 Inf 0.100843684 0.441058833
+##  T80         0.301231164 0.1043580019 Inf 0.140256596 0.532523104
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale 
 ## 
 ## $contrasts
-##  contrast              odds.ratio    SE  df null z.ratio p.value
-##  Frizado / Liofilizado       1.84 0.367 Inf    1   3.070  0.0120
-##  Frizado / T60               3.43 0.756 Inf    1   5.600  &lt;.0001
-##  Frizado / T80               1.96 0.394 Inf    1   3.360  0.0040
-##  Liofilizado / T60           1.86 0.422 Inf    1   2.750  0.0310
-##  Liofilizado / T80           1.07 0.223 Inf    1   0.310  0.9900
-##  T60 / T80                   0.57 0.130 Inf    1  -2.450  0.0680
+##  contrast           odds.ratio           SE  df null z.ratio p.value
+##  Liofilizado / T60 1.914047912 0.2694817873 Inf    1   4.611  &lt;.0001
+##  Liofilizado / T80 1.320864888 0.1777830930 Inf    1   2.068  0.0966
+##  T60 / T80         0.690089772 0.0984970964 Inf    1  -2.599  0.0253
 ## 
-## P value adjustment: tukey method for comparing a family of 4 estimates 
+## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log odds ratio scale</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-27-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-27-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="calafate" class="section level2">
 <h2>Calafate</h2>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-29-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
-<pre><code>## Formula:          aao/100 ~ Tratamiento + (1 | Concentracion)
-## Data: datosaao_cal
-##      AIC      BIC   logLik df.resid 
-##    -73.7    -64.2     42.9       30 
+<pre><code>## Formula:          aao/100 ~ Tratamiento + (1 | Concentracion) + (1 | Dia)
+## Data: tabla_sec_cal_aao_2
+##         AIC         BIC      logLik    df.resid 
+## -92.7448068 -79.0848101  52.3724034          66 
 ## Random-effects (co)variances:
 ## 
 ## Conditional model:
 ##  Groups        Name        Std.Dev.
-##  Concentracion (Intercept) 1.32    
+##  Concentracion (Intercept) 1.068924
+##  Dia           (Intercept) 0.369193
 ## 
-## Number of obs: 36 / Conditional model: Concentracion, 3
+## Number of obs: 72 / Conditional model: Concentracion, 3; Dia, 3
 ## 
-## Dispersion parameter for beta family (): 13.1 
+## Dispersion parameter for beta family (): 10.8 
 ## 
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##            (Intercept)  TratamientoLiofilizado          TratamientoT60          TratamientoT80  
-##                1.73332                -0.00248                -1.30122                -0.79498</code></pre>
+##    (Intercept)  TratamientoT60  TratamientoT80  
+##       1.312554       -1.354000       -0.324026</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-30-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: aao/100
-##             Chisq Df Pr(&gt;Chisq)    
-## Tratamiento  24.8  3    1.7e-05 ***
+##                Chisq Df Pr(&gt;Chisq)    
+## Tratamiento 48.18699  2 3.4382e-11 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Tratamiento response    SE  df asymp.LCL asymp.UCL
-##  Frizado        0.850 0.101 Inf     0.545     0.964
-##  Liofilizado    0.850 0.101 Inf     0.546     0.964
-##  T60            0.606 0.190 Inf     0.245     0.880
-##  T80            0.719 0.160 Inf     0.352     0.923
+##  Tratamiento    response          SE  df   asymp.LCL   asymp.UCL
+##  Liofilizado 0.787940158 0.112944683 Inf 0.496929377 0.933229509
+##  T60         0.489639920 0.166195455 Inf 0.206696505 0.779380832
+##  T80         0.728797096 0.131617069 Inf 0.421500035 0.908351834
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale 
 ## 
 ## $contrasts
-##  contrast              odds.ratio    SE  df null z.ratio p.value
-##  Frizado / Liofilizado       1.00 0.297 Inf    1   0.010  1.0000
-##  Frizado / T60               3.67 1.161 Inf    1   4.120  &lt;.0001
-##  Frizado / T80               2.21 0.659 Inf    1   2.670  0.0380
-##  Liofilizado / T60           3.66 1.145 Inf    1   4.160  &lt;.0001
-##  Liofilizado / T80           2.21 0.650 Inf    1   2.690  0.0360
-##  T60 / T80                   0.60 0.188 Inf    1  -1.630  0.3630
+##  contrast          odds.ratio          SE  df null z.ratio p.value
+##  Liofilizado / T60 3.87288571 0.844513584 Inf    1   6.209  &lt;.0001
+##  Liofilizado / T80 1.38268262 0.288915975 Inf    1   1.551  0.2673
+##  T60 / T80         0.35701612 0.065140490 Inf    1  -5.645  &lt;.0001
 ## 
-## P value adjustment: tukey method for comparing a family of 4 estimates 
+## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log odds ratio scale</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-32-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="carotenoides" class="section level1">
 <h1>Carotenoides</h1>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-35-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-37-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
-<pre><code>## 
-## Call:  glm(formula = b_car ~ Tratamiento, family = &quot;Gamma&quot;, data = secado_carotenoides)
-## 
-## Coefficients:
-##            (Intercept)  TratamientoLiofilizado          TratamientoT60          TratamientoT80  
-##                0.00437                 0.00351                 0.02042                 0.01069  
-## 
-## Degrees of Freedom: 11 Total (i.e. Null);  8 Residual
-## Null Deviance:       5.57 
-## Residual Deviance: 0.579     AIC: 116</code></pre>
 <p>Comprobación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-37-1.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-37-2.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-37-3.png" width="75%" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.9, p-value = 0.5</code></pre>
-<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value Pr(&gt;F)
-## group  3    1.78   0.23
-##        8</code></pre>
+<img src="dry_test_files/figure-html/unnamed-chunk-39-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova del modelo</p>
-<pre><code>## Analysis of Deviance Table (Type II tests)
+<pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: b_car
-##             LR Chisq Df Pr(&gt;Chisq)    
-## Tratamiento     75.3  3    3.1e-16 ***
+##                Chisq Df Pr(&gt;Chisq)    
+## Tratamiento 93.61343  2 &lt; 2.22e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Tratamiento response   SE df lower.CL upper.CL
-##  Frizado        228.6 34.0  8    170.3      348
-##  Liofilizado    126.8 18.8  8     94.4      193
-##  T60             40.3  6.0  8     30.0       61
-##  T80             66.4  9.9  8     49.4      101
+##  Tratamiento    response         SE  df   asymp.LCL  asymp.UCL
+##  Liofilizado 258.2085589 37.5809452 Inf 194.1254920 343.446186
+##  T60          79.4572283 11.5964131 Inf  59.6904020 105.769955
+##  T80          95.2017322 13.8889106 Inf  71.5259582 126.714413
 ## 
 ## Confidence level used: 0.95 
-## Intervals are back-transformed from the inverse scale 
+## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast              estimate      SE df t.ratio p.value
-##  Frizado - Liofilizado -0.00351 0.00134  8  -2.620  0.1132
-##  Frizado - T60         -0.02042 0.00374  8  -5.460  0.0027
-##  Frizado - T80         -0.01069 0.00233  8  -4.590  0.0077
-##  Liofilizado - T60     -0.01690 0.00386  8  -4.370  0.0102
-##  Liofilizado - T80     -0.00718 0.00253  8  -2.840  0.0831
-##  T60 - T80              0.00973 0.00431  8   2.260  0.1878
+##  contrast               ratio          SE  df null z.ratio p.value
+##  Liofilizado / T60 3.24965474 0.426523146 Inf    1   8.979  &lt;.0001
+##  Liofilizado / T80 2.71222543 0.356318758 Inf    1   7.595  &lt;.0001
+##  T60 / T80         0.83461956 0.109844324 Inf    1  -1.374  0.3548
 ## 
-## Note: contrasts are still on the inverse scale 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-39-1.png" width="75%" style="display: block; margin: auto;" /></p>
+## P value adjustment: tukey method for comparing a family of 3 estimates 
+## Tests are performed on the log scale</code></pre>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-41-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-42-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="antocianinas" class="section level1">
 <h1>Antocianinas</h1>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-42-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-45-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
-<pre><code>## 
-## Call:
-## lm(formula = Antocianinas ~ Tratamiento, data = datosanto)
-## 
-## Coefficients:
-##            (Intercept)  TratamientoLiofilizado          TratamientoT60          TratamientoT80  
-##                 1306.3                   535.4                  -125.7                   -63.7</code></pre>
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
+##  Family: Gamma  ( log )
+## Formula: Antocianinas ~ Tratamiento + (1 | Dia)
+##    Data: datosanto2
+##       AIC       BIC    logLik  deviance  df.resid 
+##  416.7869  423.2661 -203.3935  406.7869        22 
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  Dia      (Intercept) 0.109396
+##  Residual             0.333004
+## Number of obs: 27, groups:  Dia, 3
+## Fixed Effects:
+##    (Intercept)  TratamientoT60  TratamientoT80  
+##       7.434077       -0.216964       -0.523494</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-45-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.9, p-value = 0.1</code></pre>
+<img src="dry_test_files/figure-html/unnamed-chunk-48-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
-<pre><code>## Analysis of Variance Table
+<pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: Antocianinas
-##             Df  Sum Sq Mean Sq F value Pr(&gt;F)
-## Tratamiento  3  829717  276572    1.78   0.23
-## Residuals    8 1242103  155263</code></pre>
+##                Chisq Df Pr(&gt;Chisq)   
+## Tratamiento 11.51729  2  0.0031554 **
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Tratamiento emmean  SE df lower.CL upper.CL
-##  Frizado       1306 228  8      782     1831
-##  Liofilizado   1842 228  8     1317     2366
-##  T60           1181 228  8      656     1705
-##  T80           1243 228  8      718     1767
+##  Tratamiento   response         SE  df   asymp.LCL  asymp.UCL
+##  Liofilizado 1692.69511 252.858805 Inf 1263.060737 2268.47105
+##  T60         1362.54948 201.614539 Inf 1019.532749 1820.97248
+##  T80         1002.83151 148.190880 Inf  750.660947 1339.71407
 ## 
 ## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast              estimate  SE df t.ratio p.value
-##  Frizado - Liofilizado     -535 322  8  -1.664  0.3990
-##  Frizado - T60              126 322  8   0.391  0.9780
-##  Frizado - T80               64 322  8   0.198  0.9970
-##  Liofilizado - T60          661 322  8   2.055  0.2460
-##  Liofilizado - T80          599 322  8   1.862  0.3150
-##  T60 - T80                  -62 322  8  -0.192  0.9970
+##  contrast               ratio          SE  df null z.ratio p.value
+##  Liofilizado / T60 1.24229992 0.195228528 Inf    1   1.381  0.3511
+##  Liofilizado / T80 1.68791576 0.262122425 Inf    1   3.371  0.0022
+##  T60 / T80         1.35870230 0.210222394 Inf    1   1.981  0.1168
 ## 
-## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-47-1.png" width="75%" style="display: block; margin: auto;" /></p>
+## P value adjustment: tukey method for comparing a family of 3 estimates 
+## Tests are performed on the log scale</code></pre>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-50-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlaciones" class="section level1">
 <h1>Correlaciones</h1>
 <div id="ubajay-1" class="section level2">
 <h2>Ubajay</h2>
 <p>Modelo</p>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
-## Formula: aao ~ (b_car) + (1 | Tratamiento)
-##    Data: correlaciones_uba
-## REML criterion at convergence: 94.8
-## Random effects:
-##  Groups      Name        Std.Dev.
-##  Tratamiento (Intercept)  0.0    
-##  Residual                13.9    
-## Number of obs: 12, groups:  Tratamiento, 4
+<pre><code>## Formula:          aao_mean/100 ~ b_car + (1 | Tratamiento)
+## Data: secado_carotenoides3
+##         AIC         BIC      logLik    df.resid 
+## -11.7485554  -6.1437659   9.8742777          26 
+## Random-effects (co)variances:
+## 
+## Conditional model:
+##  Groups      Name        Std.Dev.   
+##  Tratamiento (Intercept) 7.85324e-06
+## 
+## Number of obs: 30 / Conditional model: Tratamiento, 4
+## 
+## Dispersion parameter for beta family (): 6.88 
+## 
 ## Fixed Effects:
+## 
+## Conditional model:
 ## (Intercept)        b_car  
-##      26.739        0.124  
-## optimizer (nloptwrap) convergence code: 0 (OK) ; 0 optimizer warnings; 1 lme4 warnings</code></pre>
+## -0.32335278   0.00216982</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-51-1.png" width="75%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-51-2.png" width="75%" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.9, p-value = 0.1</code></pre>
+<img src="dry_test_files/figure-html/unnamed-chunk-54-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
-## Formula: aao ~ (b_car) + (1 | Tratamiento)
-##    Data: correlaciones_uba
+<pre><code>##  Family: beta  ( logit )
+## Formula:          aao_mean/100 ~ b_car + (1 | Tratamiento)
+## Data: secado_carotenoides3
 ## 
-## REML criterion at convergence: 94.8
-## 
-## Scaled residuals: 
-##    Min     1Q Median     3Q    Max 
-## -0.981 -0.833 -0.192  0.631  2.102 
+##      AIC      BIC   logLik deviance df.resid 
+##    -11.7     -6.1      9.9    -19.7       26 
 ## 
 ## Random effects:
-##  Groups      Name        Variance Std.Dev.
-##  Tratamiento (Intercept)   0       0.0    
-##  Residual                194      13.9    
-## Number of obs: 12, groups:  Tratamiento, 4
 ## 
-## Fixed effects:
-##             Estimate Std. Error      df t value Pr(&gt;|t|)   
-## (Intercept)  26.7385     7.0651 10.0000    3.78   0.0036 **
-## b_car         0.1243     0.0503 10.0000    2.47   0.0330 * 
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Conditional model:
+##  Groups      Name        Variance    Std.Dev.   
+##  Tratamiento (Intercept) 6.16733e-11 7.85324e-06
+## Number of obs: 30, groups:  Tratamiento, 4
 ## 
-## Correlation of Fixed Effects:
-##       (Intr)
-## b_car -0.822
-## optimizer (nloptwrap) convergence code: 0 (OK)
-## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
-<pre><code>## [1] 0.616</code></pre>
-<p>Existe evidencia para aceptar que beta1 difiere de cero (R = 0.616,
-valor p = 0.033)</p>
+## Dispersion parameter for beta family (): 6.88 
+## 
+## Conditional model:
+##                Estimate  Std. Error  z value Pr(&gt;|z|)
+## (Intercept) -0.32335278  0.25612613 -1.26248  0.20678
+## b_car        0.00216982  0.00145165  1.49473  0.13498</code></pre>
+<pre><code>## [1] 0.261372079</code></pre>
+<p>No existe evidencia para aceptar que beta1 difiere de cero (r =
+0.261, valor p = 0.135)</p>
 <p>Gráfico del modelo ajustado</p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-53-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-57-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="calafate-1" class="section level2">
 <h2>Calafate</h2>
 <p>Modelo</p>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
-## Formula: aao ~ (Antocianinas) + (1 | Tratamiento)
-##    Data: correlaciones_cal
-## REML criterion at convergence: 100
-## Random effects:
+<pre><code>## Formula:          aao/100 ~ Antocianinas + (1 | Tratamiento)
+## Data: correlaciones_cal
+##         AIC         BIC      logLik    df.resid 
+## -14.8580770  -9.6747295  11.4290385          23 
+## Random-effects (co)variances:
+## 
+## Conditional model:
 ##  Groups      Name        Std.Dev.
-##  Tratamiento (Intercept) 14.4    
-##  Residual                12.4    
-## Number of obs: 12, groups:  Tratamiento, 4
+##  Tratamiento (Intercept) 0.606452
+## 
+## Number of obs: 27 / Conditional model: Tratamiento, 4
+## 
+## Dispersion parameter for beta family (): 9.25 
+## 
 ## Fixed Effects:
+## 
+## Conditional model:
 ##  (Intercept)  Antocianinas  
-##     62.37663       0.00641</code></pre>
+##  6.65723e-01   6.32046e-05</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-56-1.png" width="110%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-56-2.png" width="110%" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.9, p-value = 0.2</code></pre>
+<img src="dry_test_files/figure-html/unnamed-chunk-61-1.png" width="110%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
-## Formula: aao ~ (Antocianinas) + (1 | Tratamiento)
-##    Data: correlaciones_cal
+<pre><code>##  Family: beta  ( logit )
+## Formula:          aao/100 ~ Antocianinas + (1 | Tratamiento)
+## Data: correlaciones_cal
 ## 
-## REML criterion at convergence: 100
-## 
-## Scaled residuals: 
-##    Min     1Q Median     3Q    Max 
-## -0.987 -0.624 -0.138  0.578  1.328 
+##      AIC      BIC   logLik deviance df.resid 
+##    -14.9     -9.7     11.4    -22.9       23 
 ## 
 ## Random effects:
+## 
+## Conditional model:
 ##  Groups      Name        Variance Std.Dev.
-##  Tratamiento (Intercept) 207      14.4    
-##  Residual                154      12.4    
-## Number of obs: 12, groups:  Tratamiento, 4
+##  Tratamiento (Intercept) 0.367784 0.606452
+## Number of obs: 27, groups:  Tratamiento, 4
 ## 
-## Fixed effects:
-##              Estimate Std. Error       df t value Pr(&gt;|t|)   
-## (Intercept)  62.37663   16.62944  9.93593    3.75   0.0038 **
-## Antocianinas  0.00641    0.01046  8.64955    0.61   0.5557   
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Dispersion parameter for beta family (): 9.25 
 ## 
-## Correlation of Fixed Effects:
-##             (Intr)
-## Antocianins -0.876</code></pre>
-<pre><code>## [1] 0.406</code></pre>
-<p>No existe evidencia para aceptar que beta1 difiere de cero (R =
-0.406, valor p = 0.029)</p>
-<p>Gráfico del modelo ajustado</p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-58-1.png" width="110%" style="display: block; margin: auto;" /></p>
+## Conditional model:
+##                 Estimate  Std. Error z value Pr(&gt;|z|)
+## (Intercept)  6.65723e-01 5.68074e-01 1.17190  0.24124
+## Antocianinas 6.32046e-05 3.08446e-04 0.20491  0.83764</code></pre>
+<p>Correlación</p>
+<pre><code>## [1] NA</code></pre>
+<p>No existe evidencia para aceptar que beta1 difiere de cero (r =
+0.178, valor p = 0.502)</p>
+<p>Gráfico del modelo ajustado
+<img src="dry_test_files/figure-html/unnamed-chunk-64-1.png" width="110%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 

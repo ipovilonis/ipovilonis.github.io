@@ -40,9 +40,13 @@ table_met_pp_pluv <- db_met_mor %>%
   dplyr::summarise(Mean_pp=sum(pp_pluv),
                    sd_pp=sd(pp_pluv))
 
-datos_unidos <- merge(table_met_temp, table_met_pp_pluv, by = c("month", "year"))
+datos_unidos2 <- merge(table_met_temp, table_met_pp_pluv, by = c("month", "year"))
 
-palette <- c("#1F78B4","#A6CEE3",  "#B2DF8A", "#33A02C")
+datos_unidos <- datos_unidos2 %>%
+  filter(year %in% c(2018, 2019, 2020))
+
+
+palette <- c("#1F78B4","#A6CEE3",  "#B2DF8A")
 library(ggplot2)
 gg_month_mor_temp<-ggplot(datos_unidos, aes(x = month, y = Mean, color = year, fill = year, width = 1)) +
     geom_point(size = 2) +
@@ -54,12 +58,13 @@ gg_month_mor_temp<-ggplot(datos_unidos, aes(x = month, y = Mean, color = year, f
     theme_classic() +
     theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
     theme(panel.grid.major.x = element_blank()) +
-    theme(text = element_text(size = 20, color = 'black')) +
+    theme(text = element_text(size = 30, color = 'black')) +
     theme(axis.text = element_text(color = 'black')) +
     theme(legend.position = "bottom") +
     theme(legend.title=element_blank())+
-    scale_x_continuous(breaks = 1:12, labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                                                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+    scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                                                 "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+    geom_hline(yintercept = 17.00000000, color = "#993427", linetype = "dashed", size = 1.5)
 
 gg_month_mor_pp<-ggplot(datos_unidos, aes(x = month, y = Mean_pp, color = year, fill = year, width = 0.8)) +
     stat_summary(aes(y = Mean_pp), fun = "mean", size = .2, geom = "bar", position = position_dodge(0.8), color = "blue") +
@@ -71,15 +76,17 @@ gg_month_mor_pp<-ggplot(datos_unidos, aes(x = month, y = Mean_pp, color = year, 
     theme_classic() +
     theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
     theme(panel.grid.major.x = element_blank()) +
-    theme(text = element_text(size = 20, color = 'black')) +
+    theme(text = element_text(size = 30, color = 'black')) +
     theme(axis.text = element_text(color = 'black')) +
     theme(legend.position = "bottom") +
     theme(legend.title=element_blank())+
-    scale_x_continuous(breaks = 1:12, labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                                                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+    scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                                                 "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+    geom_hline(yintercept = 84, color = "#293487", linetype = 3, size = 1.5)
 
 gg_month_mor_temp
 
+# c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 ```
 

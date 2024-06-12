@@ -41,15 +41,15 @@ Se catalogó la flora total de las áreas de estudio, se encontraron 39 familias
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
-library(labdsv)
 library(vegan) # vegdist
+library(labdsv) # para pco()
 library(data.table) # PERMITE ALGUNAS OPERACIONES CONTABLAS
 library(ggplot2)    # permite hacer graficos
 library(ggfortify)
 # library(BiodiversityR) # Para calcular Shannon
 # library(tcltk)
 library(dplyr) # Para hacer tabla de promedios
-library(tidyverse)
+# library(tidyverse)
 library(patchwork)
 library(lme4)
 
@@ -223,6 +223,7 @@ gg_bioindex
 
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 library(readxl)
 biod3<-read_excel("database.xlsx",sheet="II bio_index3")
 
@@ -1400,7 +1401,7 @@ library(data.table) # PERMITE ALGUNAS OPERACIONES CONTABLAS
 library(ggplot2)    # permite hacer graficos
 library(ggfortify)
 library(dplyr) # Para hacer tabla de promedios
-library(tidyverse)
+# library(tidyverse)
 library(patchwork)
 library(lme4)
 
@@ -1493,6 +1494,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(FactoMineR)
 library(factoextra)
+library(labdsv)
 
 # MULTIDIMENSINAL SCALING - PRINCIPAL COORDINATE ANALYSIS
 mds.ALT <- pco(mat.b, k=4) # k es n-1 censos como máximo
@@ -1587,7 +1589,6 @@ data_disc$species<-as.factor(data_disc$species)
 ```
 
 ```{r , echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
-
 
 ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
   geom_hline(yintercept=0, col="black")+

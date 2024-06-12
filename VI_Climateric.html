@@ -13,7 +13,7 @@
 
 <title>Climateric</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
@@ -605,30 +605,30 @@ class="section level2">
 <div id="descriptive-table-for-fresh_weight" class="section level2">
 <h2>Descriptive table for fresh_weight</h2>
 <pre><code>##         mean        min        max         sd
-## 1 63.6679419 48.0793481 73.5247655 6.09572865</code></pre>
+## 1 63.8017232 48.0793481 73.5247655 6.05651593</code></pre>
 </div>
 <div id="descriptive-graphic-sd" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-27-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-model" class="section level2">
 <h2>The model</h2>
 </div>
 <div id="assumptions-check" class="section level2">
 <h2>Assumptions check</h2>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-30-1.png" width="75%" style="display: block; margin: auto;" /><img src="VI_Climateric_files/figure-html/unnamed-chunk-30-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /><img src="VI_Climateric_files/figure-html/unnamed-chunk-30-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9207526, p-value = 3.78038e-07</code></pre>
+## W = 0.9248957, p-value = 7.00353e-07</code></pre>
 </div>
 <div id="anova-comparison-of-means" class="section level2">
 <h2>Anova (comparison of means)</h2>
 <pre><code>## Denom. DF: 141 
 ##             numDF    F-value p-value
-## (Intercept)     1 67436.3676  &lt;.0001
-## treat           2     5.0900  0.0073</code></pre>
+## (Intercept)     1 67866.5442  &lt;.0001
+## treat           2     3.9459  0.0215</code></pre>
 </div>
 <div id="dunnett-test" class="section level2">
 <h2>Dunnett test</h2>
@@ -638,16 +638,16 @@ class="section level2">
 ## 
 ## $control
 ##                        diff      lwr.ci      upr.ci   pval    
-## etileno-control  1.29351681 -1.42323960 4.010273229 0.4628    
-## 1MCP-control    -2.26476121 -4.98151762 0.451995206 0.1157    
+## etileno-control  1.28976209 -1.42721566 4.006739847 0.4648    
+## 1MCP-control    -1.87092677 -4.58790452 0.846050986 0.2178    
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
 ##  treat       emmean           SE    df   lower.CL   upper.CL
-##  control 7.98736139 0.0642051503 47.13 7.85820670 8.11651607
-##  etileno 8.07153729 0.0536919079 47.07 7.96352750 8.17954709
-##  1MCP    7.85037006 0.0458069145 47.06 7.75822157 7.94251854
+##  control 7.98759465 0.0642098456 46.53 7.85838631 8.11680299
+##  etileno 8.07153729 0.0536919080 46.68 7.96350353 8.17957106
+##  1MCP    7.87570260 0.0456225591 47.01 7.78392227 7.96748292
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the sqrt (not the response) scale. 
@@ -655,14 +655,14 @@ class="section level2">
 ## 
 ## $contrasts
 ##  contrast               estimate           SE    df t.ratio p.value
-##  control - etileno -0.0841759091 0.0836966087 91.24  -1.006  0.5752
-##  control - 1MCP     0.1369913298 0.0788706203 85.14   1.737  0.1975
-##  etileno - 1MCP     0.2211672389 0.0705768687 91.83   3.134  0.0065
+##  control - etileno -0.0839426452 0.0837002107 91.05  -1.003  0.5769
+##  control - 1MCP     0.1118920532 0.0787675198 84.24   1.421  0.3350
+##  etileno - 1MCP     0.1958346984 0.0704573551 91.06   2.779  0.0180
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-32-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="color" class="section level1">
@@ -673,30 +673,30 @@ class="section level2">
 <div id="descriptive-table-for-fresh_weight-1" class="section level2">
 <h2>Descriptive table for fresh_weight</h2>
 <pre><code>##         mean        min        max         sd
-## 1 102.845777 65.2194586 139.935557 19.3550769</code></pre>
+## 1 102.297071 65.2194586 139.935557 19.8856935</code></pre>
 </div>
 <div id="descriptive-graphic-sd-1" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-36-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-model-1" class="section level2">
 <h2>The model</h2>
 </div>
 <div id="assumptions-check-1" class="section level2">
 <h2>Assumptions check</h2>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-39-1.png" width="75%" style="display: block; margin: auto;" /><img src="VI_Climateric_files/figure-html/unnamed-chunk-39-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-39-1.png" width="960" style="display: block; margin: auto;" /><img src="VI_Climateric_files/figure-html/unnamed-chunk-39-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9638767, p-value = 0.000764552</code></pre>
+## W = 0.9626006, p-value = 0.000581838</code></pre>
 </div>
 <div id="anova-comparison-of-means-1" class="section level2">
 <h2>Anova (comparison of means)</h2>
 <pre><code>## Denom. DF: 141 
 ##             numDF    F-value p-value
-## (Intercept)     1 34576.0064  &lt;.0001
-## treat           2    49.4193  &lt;.0001</code></pre>
+## (Intercept)     1 31754.5853  &lt;.0001
+## treat           2    52.2266  &lt;.0001</code></pre>
 </div>
 <div id="dunnett-test-1" class="section level2">
 <h2>Dunnett test</h2>
@@ -706,16 +706,16 @@ class="section level2">
 ## 
 ## $control
 ##                         diff        lwr.ci      upr.ci    pval    
-## etileno-control   7.26053448  -0.097227846  14.6182968  0.0537 .  
-## 1MCP-control    -18.45998480 -25.817747128 -11.1022225 2.1e-07 ***
+## etileno-control   7.72064433   0.220735764  15.2205529  0.0426 *  
+## 1MCP-control    -19.18588336 -26.685791925 -11.6859748 1.2e-07 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  treat        emmean          SE    df    lower.CL    upper.CL
-##  control 10.27635982 0.144056427 46.99  9.98655375 10.56616589
-##  etileno 10.63543129 0.124376162 46.84 10.38519620 10.88566637
-##  1MCP     9.37728086 0.062831452 47.00  9.25088045  9.50368127
+##  treat        emmean           SE    df    lower.CL   upper.CL
+##  control 10.25062759 0.1489997137 47.05  9.95088652 10.5503687
+##  etileno 10.63543129 0.1243766820 46.89 10.38520286 10.8856597
+##  1MCP     9.31274469 0.0661591173 47.00  9.17964977  9.4458396
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the sqrt (not the response) scale. 
@@ -723,18 +723,18 @@ class="section level2">
 ## 
 ## $contrasts
 ##  contrast              estimate          SE    df t.ratio p.value
-##  control - etileno -0.359071461 0.190319952 92.17  -1.887  0.1483
-##  control - 1MCP     0.899078966 0.157162482 64.24   5.721  &lt;.0001
-##  etileno - 1MCP     1.258150427 0.139345690 69.29   9.029  &lt;.0001
+##  control - etileno -0.384803690 0.194088829 91.18  -1.983  0.1223
+##  control - 1MCP     0.937882906 0.163027432 64.91   5.753  &lt;.0001
+##  etileno - 1MCP     1.322686596 0.140877918 71.47   9.389  &lt;.0001
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-41-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="descriptive-graphic-sd-2" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-42-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="color-correlation" class="section level1">
@@ -742,11 +742,11 @@ class="section level2">
 </div>
 <div id="correlation" class="section level1">
 <h1>Correlation</h1>
-<pre><code>## [1] 0.458838926</code></pre>
-<pre><code>## [1] 0.632160149</code></pre>
-<pre><code>## [1] 0.794521331</code></pre>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-45-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-46-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>## [1] 0.524751298</code></pre>
+<pre><code>## [1] 0.668853507</code></pre>
+<pre><code>## [1] 0.806548518</code></pre>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="VI_Climateric_files/figure-html/unnamed-chunk-46-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

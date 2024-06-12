@@ -1,18 +1,14 @@
 ---
-title: "Pollination"
+title: "Polinización"
 ---
 
 ## Objetive
-
 The objective of this essay was to study the pollination regime of the species.
 
 ## Materials and Methods
-
 Pollination studies were carried out on floral buds that had not begun anthesis yet. In the **natural self-pollinated** (NSPO) treatment, branches with only one bud were isolated with paper bags , in **natural self-pollinated** (NSPS) branches with several buds were isolated with paper bags to check auto compatibility, while in the **open pollination** (OP) treatment branches were only identified. In the **cross-pollinated** (CPA) trial, buds were emasculated and then pollinated manually with pollen from another genotype and in **cross pollinated** (CPS) the buds were emasculated and then pollinated manually with pollen from anothers flowers on the same genotype. These branches were also covered with paper bags to avoid the entrance of unknown pollen. Twenty repetitions of each treatment were performed in random branches. Finally, thirty days later fruit set was verified.
  
 ## Results
-
-
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
@@ -88,26 +84,26 @@ G2
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datapol2<-subset(datapol, TRA == "OP")
-datapol3<-subset(datapol, TRA == "CPA")
-datapol4<-rbind(datapol2, datapol3)
-
-mpol2b <- glm(PROP ~ TRA,
-          family = "binomial",
-          data = datapol4)
-
-summary(mpol2b)
-
-library(sjPlot)
-plot_model(mpol2b, show.values = TRUE)+
-  theme_classic()+
-  theme(text = element_text(size=20))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))
+# datapol2<-subset(datapol, TRA == "OP")
+# datapol3<-subset(datapol, TRA == "CPA")
+# datapol4<-rbind(datapol2, datapol3)
+# 
+# mpol2b <- glm(PROP ~ TRA,
+#           family = "binomial",
+#           data = datapol4)
+# 
+# summary(mpol2b)
+# 
+# library(sjPlot)
+# plot_model(mpol2b, show.values = TRUE)+
+#   theme_classic()+
+#   theme(text = element_text(size=20))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))
 
 
 ```
