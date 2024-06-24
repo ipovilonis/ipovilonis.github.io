@@ -12,7 +12,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # fenoles
 
 ## Metodología
-# Se muestrearon 10 frutos por genotipo de *Hexachlamys edulis* en 3 poblaciones de Entre Ríos: concordia, PN El palmar y gualeguaychu.
+# Se muestrearon 10 frutos por genotipo de *Hexachlamys edulis* en 3 poblaciones de Entre Ríos: Concordia, PN El Palmar y Gualeguaychu.
 # La cuantificación de compuestos fenólicos se realizó según la metodología de Makkar *et al*., (1993). Se pesaron 5 gramos de fruta fresca, se homogeneizó la muestra y se diluyó en 50ml de solución extractante metanol 80%. Luego de 24hs la solución fue transferida a tubos conicos para su centrifugado durante 5 minutos a 2500rpm. El tubo queda separado por dos fases marcadas, una líquida y otra sólida en el fondo del tubo.
 # Luego las muestras son transferidas a tubos de ensayo y el volumen llevado a 500 μl con agua desionizada. Se adicionan 250 μl de reactivo Folin-Ciocalteu (1N) y 1,25 ml de solución acuosa de carbonato de sodio decahidratado al 20%.
 # Luego de 40 minutos en oscuridad la absorbancia es medida por espectrofotometría a 725 nm. El contenido de fenoles totales es expresado en mg ácido tánico/100g de peso fresco.
@@ -20,7 +20,7 @@ library(readxl)
 datavq<-read_excel("database.xlsx", sheet="V varqui")
 datavq$year<-as.factor(datavq$year)
 datavq$phenotype<-as.factor(datavq$phenotype)
-datavq$site<-factor(datavq$site,levels=c("concordia", "palmar","gualeguaychu"))
+datavq$site<-factor(datavq$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
 datavq19Q<-subset(datavq, year == "2019")
 
 ```
@@ -730,7 +730,7 @@ library(readxl)
 dataqui<-read_excel("database.xlsx", sheet="V varqui")
 
 dataqui$year<-as.factor(dataqui$year)
-dataqui$site<-factor(dataqui$site,levels=c("concordia", "palmar","gualeguaychu"))
+dataqui$site<-factor(dataqui$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
 dataqui$phenotype<-as.factor(dataqui$phenotype)
 
 ```
@@ -1069,17 +1069,17 @@ gfen
 ```
 *With standar desviation
 
-### Individuos de concordia en ambos años.
+### Individuos de Concordia en ambos años.
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-concordia<-subset(datavq, site == "concordia")
-concordia$year<-as.factor(concordia$year)
-concordia$phenotype<-as.factor(concordia$phenotype)
-concordia$site<-as.factor(concordia$site)
+Concordia<-subset(datavq, site == "Concordia")
+Concordia$year<-as.factor(Concordia$year)
+Concordia$phenotype<-as.factor(Concordia$phenotype)
+Concordia$site<-as.factor(Concordia$site)
 colorescon<-c("coral1","coral2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2","red2")
 
-estcon <- summarySE(concordia, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
+estcon <- summarySE(Concordia, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
 estcon
 
 library(ggplot2)
@@ -1089,7 +1089,7 @@ g2<-ggplot(data=estcon, aes(x=phenotype, y=fen, form=phenotype, fill=phenotype))
   geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
                 width=.2, position=position_dodge(.9))+
   facet_grid(.~year)+
-  labs(x="concordia", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  labs(x="Concordia", y="fenoles (mg ácido tánico/100g de peso fresco)")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   theme(legend.title=element_blank())+
@@ -1101,17 +1101,17 @@ g2<-ggplot(data=estcon, aes(x=phenotype, y=fen, form=phenotype, fill=phenotype))
 g2
 ```
 
-### Individuos del palmar en ambos años.
+### Individuos del Palmar en ambos años.
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-palmar<-subset(datavq, site == "palmar")
-palmar$year<-as.factor(palmar$year)
-palmar$phenotype<-as.factor(palmar$phenotype)
-palmar$site<-as.factor(palmar$site)
+Palmar<-subset(datavq, site == "Palmar")
+Palmar$year<-as.factor(Palmar$year)
+Palmar$phenotype<-as.factor(Palmar$phenotype)
+Palmar$site<-as.factor(Palmar$site)
 colorespal<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4", "wheat3","khaki","wheat")
 
-estpal <- summarySE(palmar, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
+estpal <- summarySE(Palmar, measurevar="fen", groupvars=c("year","phenotype"), na.rm = TRUE)
 estpal
 
 library(ggplot2)
@@ -1121,7 +1121,7 @@ g3<-ggplot(data=estpal, aes(x=phenotype, y=fen, form=phenotype, fill=phenotype))
   geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
                 width=.2, position=position_dodge(.9))+
   facet_grid(.~year)+
-  labs(x="palmar", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  labs(x="Palmar", y="fenoles (mg ácido tánico/100g de peso fresco)")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   theme(legend.title=element_blank())+
@@ -1132,11 +1132,11 @@ g3<-ggplot(data=estpal, aes(x=phenotype, y=fen, form=phenotype, fill=phenotype))
   theme(axis.text = element_text(color='black'))
 g3
 ```
-### Individuos de gualeguaychu en ambos años.
+### Individuos de Gualeguaychu en ambos años.
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-guale<-subset(datavq, site == "gualeguaychu")
+guale<-subset(datavq, site == "Gualeguaychu")
 guale$year<-as.factor(guale$year)
 guale$phenotype<-as.factor(guale$phenotype)
 guale$site<-as.factor(guale$site)
@@ -1152,7 +1152,7 @@ g4<-ggplot(data=estgua, aes(x=phenotype, y=fen, fill=phenotype)) +
   geom_errorbar(aes(ymin=fen-sd, ymax=fen+sd),
                 width=.2, position=position_dodge(.9))+
   facet_grid(.~year)+
-  labs(x="gualeguaychu", y="fenoles (mg ácido tánico/100g de peso fresco)")+
+  labs(x="Gualeguaychu", y="fenoles (mg ácido tánico/100g de peso fresco)")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
   theme(legend.title=element_blank())+
@@ -1324,7 +1324,7 @@ library(readxl)
 dataacso<-read_excel("database.xlsx", sheet="V acidezsolidos")
 dataacso$year<-as.factor(dataacso$year)
 dataacso$phenotype<-as.factor(dataacso$phenotype)
-dataacso$site<-factor(dataacso$site,levels=c("concordia", "palmar","gualeguaychu"))
+dataacso$site<-factor(dataacso$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
 dataacso$ph7=as.numeric(dataacso$ph7)
 dataacso$mad<-as.factor(dataacso$mad)
 dataacso21<-subset(dataacso, year == "2021")
@@ -1340,7 +1340,7 @@ resatt <- summarySE(dataacso, measurevar="ac", groupvars=c("year","site"), na.rm
 resatt
 
 library(ggplot2)
-colores<-c("coral1","burlywood2")
+colores<-c("coral1","burlywood2","palegreen4")
 gatt<-ggplot(data=resatt, aes(x=year, y=ac, fill=year))+
   stat_summary(fun = "mean", size = 1, geom = "bar") +
   geom_errorbar(aes(ymin=ac-sd, ymax=ac+sd),
@@ -1425,7 +1425,7 @@ gbrix<-ggplot(data=resbrix, aes(x=phenotype, y=brix, fill=year))+
   labs(x="phenotype", y="° brix")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_fill_manual(values = c("coral1","burlywood2")) +
+  scale_fill_manual(values = c("coral1","burlywood2","palegreen4")) +
   theme(legend.title=element_blank())+
   theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
@@ -1462,7 +1462,7 @@ gcor<-ggplot(data=dataacso, aes(x=ac, y=brix, color=year, shape=phenotype))+
   labs(x="Acidez %", y="° brix")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  scale_color_manual(values = c("coral1","green2")) +
+  scale_color_manual(values = c("coral1","green2","yellow")) +
   theme(legend.title=element_blank())+
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_line(color='black'))+

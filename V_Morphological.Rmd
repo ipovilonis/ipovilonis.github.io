@@ -12,7 +12,7 @@ fisico<- read_excel("database.xlsx", sheet="V fisico")
 
 fisico$year<-as.factor(fisico$year)
 fisico$phenotype<-as.factor(fisico$phenotype)
-fisico$site<-factor(fisico$site,levels=c("concordia", "palmar","gualeguaychu"))
+fisico$site<-factor(fisico$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
 fisico$n<-as.factor(fisico$n)
 fisico$pss<-as.numeric(fisico$pss)
 fisico$mad<-as.numeric(fisico$mad)
@@ -56,7 +56,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 data<-read_excel("database.xlsx", sheet="V varqui")
 data$year<-as.factor(data$year)
 data$phenotype<-as.factor(data$phenotype)
-data$site<-factor(data$site,levels=c("concordia", "palmar","gualeguaychu"))
+data$site<-factor(data$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
 data19Q<-subset(data, year == "2019")
 
 library(Rmisc)
@@ -177,7 +177,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 datamorf<-read_excel("database.xlsx", sheet="V datamorf")
 
 datamorf$year<-as.factor(datamorf$year)
-datamorf$site<-factor(datamorf$site,levels=c("concordia", "palmar", "gualeguaychu"))
+datamorf$site<-factor(datamorf$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
 datamorf$phenotype<-as.factor(datamorf$phenotype)
 
 

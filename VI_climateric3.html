@@ -456,7 +456,7 @@ $(document).ready(function () {
 
 <div id="principal-component-analysis" class="section level1">
 <h1>Principal component analysis</h1>
-<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-analysis-for-the-color-component-lab"
 class="section level1">
@@ -477,24 +477,24 @@ class="section level2">
 <tbody>
 <tr class="odd">
 <td align="left">control</td>
-<td align="right">105.792781</td>
+<td align="right">105.2478379</td>
 <td align="right">65.2194586</td>
 <td align="right">139.935557</td>
-<td align="right">20.84525858</td>
+<td align="right">20.45278478</td>
 </tr>
 <tr class="even">
 <td align="left">etileno</td>
-<td align="right">113.839462</td>
+<td align="right">113.8394618</td>
 <td align="right">66.9255122</td>
 <td align="right">133.890523</td>
 <td align="right">17.62301483</td>
 </tr>
 <tr class="odd">
 <td align="left">1MCP</td>
-<td align="right">87.488179</td>
+<td align="right">87.2472823</td>
 <td align="right">68.0718073</td>
 <td align="right">102.209545</td>
-<td align="right">8.68523104</td>
+<td align="right">8.64406826</td>
 </tr>
 </tbody>
 </table>
@@ -503,7 +503,7 @@ maturation</em></p>
 </div>
 <div id="descriptive-graphic-sd" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
-<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-6-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-model" class="section level2">
 <h2>The model</h2>
@@ -512,12 +512,12 @@ maturation</em></p>
 </div>
 <div id="assumptions-check" class="section level2">
 <h2>Assumptions check</h2>
-<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /><img src="VI_climateric3_files/figure-html/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;" /><img src="VI_climateric3_files/figure-html/unnamed-chunk-10-2.png" width="95%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9761693, p-value = 0.0129368</code></pre>
+## W = 0.9776194, p-value = 0.0184852</code></pre>
 </div>
 <div id="descriptive-graphic-sd-1" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
@@ -537,13 +537,13 @@ maturation</em></p>
 <tr class="odd">
 <td align="left">(Intercept)</td>
 <td align="right">1</td>
-<td align="right">8006.6978915</td>
+<td align="right">8059.3435246</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">treat</td>
 <td align="right">2</td>
-<td align="right">51.5609186</td>
+<td align="right">52.3213021</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -556,9 +556,9 @@ maturation</em></p>
 ##     95% family-wise confidence level
 ## 
 ## $control
-##                         diff        lwr.ci      upr.ci   pval    
-## etileno-control   8.04668096   0.503272267  15.5900896 0.0345 *  
-## 1MCP-control    -18.30460179 -25.848010480 -10.7611931  5e-07 ***
+##                         diff       lwr.ci      upr.ci    pval    
+## etileno-control   8.59162386   1.12640406  16.0568437  0.0211 *  
+## 1MCP-control    -18.00055560 -25.46577540 -10.5353358 5.8e-07 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -566,10 +566,10 @@ maturation</em></p>
 <div id="tukey-test" class="section level2">
 <h2>Tukey test</h2>
 <pre><code>## $emmeans
-##  treat       emmean         SE    df    lower.CL    upper.CL
-##  control 105.792781 3.00875486 46.91  99.7396387 111.8459229
-##  etileno 113.839462 2.54366327 46.89 108.7219679 118.9569556
-##  1MCP     87.488179 1.25360464 47.00  84.9662504  90.0101077
+##  treat        emmean         SE    df    lower.CL    upper.CL
+##  control 105.2478379 2.95210688 46.96  99.3088411 111.1868347
+##  etileno 113.8394618 2.54366332 46.91 108.7220036 118.9569199
+##  1MCP     87.2472823 1.24766296 46.99  84.7372940  89.7572707
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
@@ -577,9 +577,9 @@ maturation</em></p>
 ## 
 ## $contrasts
 ##  contrast             estimate         SE    df t.ratio p.value
-##  control - etileno -8.04668096 3.93990211 91.46  -2.042  0.1080
-##  control - 1MCP    18.30460179 3.25946781 62.72   5.616  &lt;.0001
-##  etileno - 1MCP    26.35128275 2.83579749 68.42   9.292  &lt;.0001
+##  control - etileno -8.59162386 3.89681384 91.99  -2.205  0.0757
+##  control - 1MCP    18.00055560 3.20493337 63.21   5.617  &lt;.0001
+##  etileno - 1MCP    26.59217946 2.83317594 68.27   9.386  &lt;.0001
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -590,24 +590,24 @@ maturation</em></p>
 <h1>Lab coordinates Correlations</h1>
 <div id="a-vs.-l" class="section level2">
 <h2><em>a</em> vs. <em>L</em></h2>
-<pre><code>## [1] 0.476187176</code></pre>
+<pre><code>## [1] 0.482785241</code></pre>
 </div>
 <div id="a-vs.-b" class="section level2">
 <h2><em>a</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.64173306</code></pre>
+<pre><code>## [1] 0.644569928</code></pre>
 </div>
 <div id="l-vs.-b" class="section level2">
 <h2><em>L</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.802991605</code></pre>
+<pre><code>## [1] 0.796187367</code></pre>
 </div>
 </div>
 <div id="color-correlation" class="section level1">
 <h1>Color correlation</h1>
-<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-19-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-19-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="discriminant-analysis" class="section level1">
 <h1>Discriminant Analysis</h1>
-<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="VI_climateric3_files/figure-html/unnamed-chunk-21-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <div id="multiple-response-permutation-procedure-mrpp"
 class="section level2">
 <h2>Multiple Response Permutation Procedure (MRPP)</h2>
@@ -621,11 +621,11 @@ class="section level2">
 ## Class means and counts:
 ## 
 ##       1        2        3        
-## delta 0.139391 0.104724 0.0872849
+## delta 0.137732 0.104724 0.0850976
 ## n     48       48       48       
 ## 
-## Chance corrected within-group agreement A: 0.172987 
-## Based on observed delta 0.1105 and expected delta 0.1336 
+## Chance corrected within-group agreement A: 0.179359 
+## Based on observed delta 0.1092 and expected delta 0.133 
 ## 
 ## Significance of delta: 0.001 
 ## Permutation: free

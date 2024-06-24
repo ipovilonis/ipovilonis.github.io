@@ -1,15 +1,489 @@
 ---
-title: ""
+title: "Análisis multivariado"
 ---
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+library(dplyr)
+
+fisico<- read_excel("database.xlsx", sheet="V fisico")
+fisico$year<-as.factor(fisico$year)
+fisico$phenotype<-as.factor(fisico$phenotype)
+fisico$site<-factor(fisico$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+fisico$id<-as.factor(fisico$id)
+fisico$pss<-as.numeric(fisico$pss)
+fisico$mad<-as.numeric(fisico$mad)
+
+fisico <- fisico[,-c(4,9,13:15)]
+
+table_fisico <- fisico %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(across(c(pff, de, dp, pen, psf, ns, pss), mean, na.rm = TRUE))
+
+color<-read_excel("database.xlsx", sheet="V color")
+color$id<-as.factor(color$id)
+color$year<-as.factor(color$year)
+color$phenotype<-as.factor(color$phenotype)
+color$mad<-as.factor(color$mad)
+color$mad<-factor(color$mad,levels=c("I", "MM", "M", "SM"))
+color$site<-factor(color$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+
+color<-color[,-c(4:6, 10:16)]
+
+table_color <- color %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(across(c(color_L, color_a, color_b), mean, na.rm = TRUE))
+
+quimico1<-read_excel("database.xlsx", sheet="V varqui")
+quimico1$year<-as.factor(quimico1$year)
+quimico1$phenotype<-as.factor(quimico1$phenotype)
+quimico1$site<-factor(quimico1$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+
+quimico1 <- quimico1[,-c(4:5,11:13)]
+
+table_quimico1 <- quimico1 %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(across(c(fen, cloa, clob, caro, indmad, aao25, aao50, aao100, aao250), mean, na.rm = TRUE))
+
+quimico2<-read_excel("database.xlsx", sheet="V acidezsolidos")
+quimico2$year<-as.factor(quimico2$year)
+quimico2$phenotype<-as.factor(quimico2$phenotype)
+quimico2$site<-factor(quimico2$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+quimico2$ph7=as.numeric(quimico2$ph7)
+quimico2$mad<-as.factor(quimico2$mad)
+
+quimico2<-quimico2[,-c(4:5,7,12)]
+
+table_quimico2 <- quimico2 %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(across(c(phi, ph8, ac, ratio, brix), mean, na.rm = TRUE))
+
+```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+datos_combinados <-  merge(table_fisico, table_color, by= c("year", "site", "phenotype"), all.y = TRUE, all.x = TRUE)
+datos_combinados <-  merge(datos_combinados, table_quimico1, by= c("year", "site", "phenotype"), all.y = TRUE, all.x = TRUE)
+datos_combinados <-  merge(datos_combinados, table_quimico2, by= c("year", "site", "phenotype"), all.y = TRUE, all.x = TRUE)
+
+datos_combinados<-datos_combinados[-112,] # se quita Palmar 2022
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# estandarizar
+
+# Seleccionar las columnas numéricas
+numeric_cols <- sapply(datos_combinados, is.numeric)
+
+# Estandarizar las columnas numéricas
+datos_estandarizados <- datos_combinados
+datos_estandarizados[, numeric_cols] <- scale(datos_combinados[, numeric_cols])
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
+# Cargar las librerías necesarias
+library(ggplot2)
+library(factoextra)
+
+# Seleccionar solo las columnas numéricas
+numeric_cols <- sapply(datos_estandarizados, is.numeric)
+data_numeric <- datos_estandarizados[, numeric_cols]
+
+# Asegurarse de que data_numeric sea un data.frame
+data_numeric <- as.data.frame(data_numeric)
+
+# Manejar valores faltantes e infinitos
+# Reemplazar infinitos con NA
+data_numeric[do.call(cbind, lapply(data_numeric, is.infinite))] <- NA
+
+# Imputar valores faltantes (NA) con la media de cada columna
+data_numeric <- as.data.frame(lapply(data_numeric, function(x) {
+  if(is.numeric(x)) {
+    return(ifelse(is.na(x), mean(x, na.rm = TRUE), x))
+  } else {
+    return(x)
+  }
+}))
+
+# Verificar que no haya NA ni Inf
+any(is.na(data_numeric))      # Debería ser FALSE
+any(do.call(cbind, lapply(data_numeric, is.infinite)))  # Debería ser FALSE
+
+# Realizar el PCA
+pca_result <- prcomp(data_numeric, center = TRUE, scale. = TRUE)
+
+# Ver resumen del PCA
+# summary(pca_result)
+
+# Ver los loadings (contribuciones de cada variable a los componentes principales)
+# print(pca_result$rotation)
+
+# Ver los scores (valores de las muestras en los componentes principales)
+# head(pca_result$x)
+
+# Visualización de los resultados
+
+# Biplot de los dos primeros componentes principales
+biplot <- biplot(pca_result, scale = 0)
+
+# Scree plot para ver la varianza explicada por cada componente principal
+fviz_eig(pca_result)
+
+# Biplot variables
+# biplot_variables <- fviz_pca_biplot(pca_result, repel = TRUE,
+#                 col.var = "#2E9FDF", # color de las variables
+#                 col.ind = "red")
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
+
+library(ggplot2)
+library(factoextra)
+library(dplyr)
+library(ggrepel)
+
+# Convertir los resultados del PCA a un data frame
+pca_scores <- as.data.frame(pca_result$x)
+pca_scores$site <- datos_estandarizados$site
+pca_scores$phenotype <- datos_estandarizados$phenotype
+pca_scores$year <- datos_estandarizados$year
+
+pca_scores <- pca_scores[,-c(3:24)]
+
+# # Personalizar el biplot usando ggplot2
+# biplot_0 <- ggplot(data = pca_scores, aes(x = PC1, y = PC2, color = site, label = phenotype, shape = year)) +
+#   geom_point(aes(color = site, size=15)) +
+#   scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "burlywood2", "Gualeguaychu" = "palegreen4")) +
+#   theme_minimal() +
+#   labs(title = "Biplot de PCA", x = "Componente Principal 1", y = "Componente Principal 2") +
+#   theme(legend.position = "bottom")
+# 
+# # Crear el biplot combinando individuos y variables
+# biplot <- fviz_pca_var(pca_result, col.var = "#2E9FDF", repel = TRUE) + 
+#   geom_point(data = pca_scores, 
+#              aes(x = PC1, y = PC2, color = site, shape = year), size = 3) +
+#   scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "burlywood2", "Gualeguaychu" = "palegreen4")) +
+#   geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = phenotype), size = 3) +
+#   theme_minimal() +
+#   labs(title = "Biplot de PCA con Individuos y Variables", x = "Componente Principal 1 (32,2 %)", y = "Componente Principal 2 (17,0 %)") +
+#   theme(legend.position = "bottom")
+
+biplot_variables <- fviz_pca_biplot(pca_result, repel = TRUE,
+                                    col.var = "#2E4FDF", # color de las variables
+                                    geom.ind = "point",
+                                    label = "var", # para que solo las variables tengan etiquetas
+                                    addEllipses = FALSE) +
+  geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = phenotype), size = 5, box.padding = 0.5)+ 
+  geom_point(data = pca_scores, 
+             aes(x = PC1, y = PC2, color = site, shape = year), size = 5) +
+  scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "burlywood2", "Gualeguaychu" = "palegreen4")) +
+  theme_minimal() +
+  labs(title = "Biplot de PCA con Individuos y Variables", x = "Componente Principal 1 (32,2 %)", y = "Componente Principal 2 (17,0 %)") +
+  theme(legend.position = "bottom")+
+  theme(text = element_text(size=15, color='black'))
+
+biplot_variables
+
+biplot_variables_2 <- fviz_pca_biplot(pca_result, repel = TRUE,
+                                    col.var = "#2E4FDF", # color de las variables
+                                    geom.ind = "point",
+                                    label = "var", # para que solo las variables tengan etiquetas
+                                    addEllipses = FALSE) +
+  geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = phenotype), size = 5, box.padding = 0.5)+ 
+  geom_point(data = pca_scores, 
+             aes(x = PC1, y = PC2, color = year, shape = site), size = 5) +
+  scale_color_manual(values = c("2019" = "maroon4", "2021" = "dodgerblue4", "2022" = "deeppink")) +
+  theme_minimal() +
+  labs(title = "Biplot de PCA con Individuos y Variables", x = "Componente Principal 1 (32,2 %)", y = "Componente Principal 2 (17,0 %)") +
+  theme(legend.position = "bottom")+
+  theme(text = element_text(size=15, color='black'))
+biplot_variables_2
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Obtener las contribuciones de las variables a cada componente principal
+pca_var <- get_pca_var(pca_result)
+
+# Ordenar las variables por contribución para Dim.1 (PC1)
+pca_var_dim1 <- pca_var$contrib[, 1] %>% sort(decreasing = TRUE)
+pca_var_dim1
+
+# Ordenar las variables por contribución para Dim.2 (PC2)
+pca_var_dim2 <- pca_var$contrib[, 2] %>% sort(decreasing = TRUE)
+pca_var_dim2
+
+```
+
+## Supresión de variables
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
+# Cargar las librerías necesarias
+library(ggplot2)
+library(factoextra)
+
+# Definir las contribuciones de las variables en cada componente principal
+pca_var_dim1 <- c(pen = 8.71, indmad = 7.77, de = 7.53, phi = 7.27, pff = 7.03, 
+                  color_a = 6.55, ratio = 6.29, ac = 5.94, psf = 5.77, clob = 5.67, 
+                  cloa = 5.66, pss = 4.81, fen = 4.61, dp = 4.05, aao25 = 3.07, 
+                  ph8 = 2.64, aao50 = 2.18, color_b = 1.29, aao100 = 1.25, caro = 1.15, 
+                  brix = 0.52, color_L = 0.18, ns = 0.03, aao250 = 0.02)
+
+pca_var_dim2 <- c(color_L = 12.75, color_b = 11.06, dp = 8.62, pff = 7.03, psf = 6.83, 
+                  pss = 6.33, de = 5.57, brix = 3.53, cloa = 3.52, clob = 3.52, 
+                  ns = 3.29, aao100 = 3.29, ac = 2.91, indmad = 2.68, ratio = 2.67, 
+                  aao250 = 2.61, fen = 2.55, phi = 2.19, color_a = 2.03, aao50 = 1.99, 
+                  aao25 = 1.95, pen = 1.53, ph8 = 1.44, caro = 0.10)
+
+# Asegurarse de que los nombres de las variables coincidan entre los dos vectores
+common_names <- intersect(names(pca_var_dim1), names(pca_var_dim2))
+
+# Filtrar solo las variables comunes
+pca_var_dim1_filtered <- pca_var_dim1[common_names]
+pca_var_dim2_filtered <- pca_var_dim2[common_names]
+# Sumar las contribuciones de cada variable en los dos componentes
+combined_contributions <- pca_var_dim1_filtered + pca_var_dim2_filtered
+
+# Ordenar las variables por su contribución acumulada
+sorted_contributions <- sort(combined_contributions, decreasing = TRUE)
+
+# Mostrar el resultado
+sorted_contributions
+
+# Seleccionar las columnas específicas del dataframe
+datos_filtrados <- datos_estandarizados %>%
+  select(pff, de, color_L, dp, psf, color_b, pss, indmad, pen, phi, clob, cloa, ratio, ac, color_a, fen, aao25)
+
+# Seleccionar solo las columnas numéricas
+numeric_cols <- sapply(datos_filtrados, is.numeric)
+data_numeric <- datos_filtrados[, numeric_cols]
+
+# Asegurarse de que data_numeric sea un data.frame
+data_numeric <- as.data.frame(data_numeric)
+
+# Manejar valores faltantes e infinitos
+# Reemplazar infinitos con NA
+data_numeric[do.call(cbind, lapply(data_numeric, is.infinite))] <- NA
+
+# Imputar valores faltantes (NA) con la media de cada columna
+data_numeric <- as.data.frame(lapply(data_numeric, function(x) {
+  if(is.numeric(x)) {
+    return(ifelse(is.na(x), mean(x, na.rm = TRUE), x))
+  } else {
+    return(x)
+  }
+}))
+
+# Verificar que no haya NA ni Inf
+# any(is.na(data_numeric))      # Debería ser FALSE
+# any(do.call(cbind, lapply(data_numeric, is.infinite)))  # Debería ser FALSE
+
+# Realizar el PCA
+pca_result <- prcomp(data_numeric, center = TRUE, scale. = TRUE)
+
+# Ver resumen del PCA
+# summary(pca_result)
+
+# Ver los loadings (contribuciones de cada variable a los componentes principales)
+# print(pca_result$rotation)
+
+# Ver los scores (valores de las muestras en los componentes principales)
+# head(pca_result$x)
+
+# Visualización de los resultados
+
+# Biplot de los dos primeros componentes principales
+# biplot <- biplot(pca_result, scale = 0)
+
+# Scree plot para ver la varianza explicada por cada componente principal
+fviz_eig(pca_result)
+
+# Biplot variables
+# biplot_variables <- fviz_pca_biplot(pca_result, repel = TRUE,
+#                 col.var = "#2E9FDF", # color de las variables
+#                 col.ind = "red")
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
+
+library(ggplot2)
+library(factoextra)
+library(dplyr)
+library(ggrepel)
+
+# Convertir los resultados del PCA a un data frame
+pca_scores <- as.data.frame(pca_result$x)
+pca_scores$site <- datos_estandarizados$site
+pca_scores$phenotype <- datos_estandarizados$phenotype
+pca_scores$year <- datos_estandarizados$year
+
+pca_scores <- pca_scores[,-c(3:17)]
+
+# # Personalizar el biplot usando ggplot2
+# biplot_0 <- ggplot(data = pca_scores, aes(x = PC1, y = PC2, color = site, label = phenotype, shape = year)) +
+#   geom_point(aes(color = site, size=15)) +
+#   scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "burlywood2", "Gualeguaychu" = "palegreen4")) +
+#   theme_minimal() +
+#   labs(title = "Biplot de PCA", x = "Componente Principal 1", y = "Componente Principal 2") +
+#   theme(legend.position = "bottom")
+# 
+# # Crear el biplot combinando individuos y variables
+# biplot <- fviz_pca_var(pca_result, col.var = "#2E9FDF", repel = TRUE) + 
+#   geom_point(data = pca_scores, 
+#              aes(x = PC1, y = PC2, color = site, shape = year), size = 3) +
+#   scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "burlywood2", "Gualeguaychu" = "palegreen4")) +
+#   geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = phenotype), size = 3) +
+#   theme_minimal() +
+#   labs(title = "Biplot de PCA con Individuos y Variables", x = "Componente Principal 1 (32,2 %)", y = "Componente Principal 2 (17,0 %)") +
+#   theme(legend.position = "bottom")
+
+biplot_variables_new <- fviz_pca_biplot(pca_result, repel = TRUE,
+                                    col.var = "#2E4FDF", # color de las variables
+                                    geom.ind = "point",
+                                    label = "var", # para que solo las variables tengan etiquetas
+                                    addEllipses = FALSE) +
+  geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = phenotype), size = 5, box.padding = 0.5)+ 
+  geom_point(data = pca_scores, 
+             aes(x = PC1, y = PC2, color = site, shape = year), size = 5) +
+  scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "burlywood2", "Gualeguaychu" = "palegreen4")) +
+  theme_minimal() +
+  labs(title = "Biplot de PCA con Individuos y Variables", x = "Componente Principal 1 (42,3 %)", y = "Componente Principal 2 (21,7 %)") +
+  theme(legend.position = "bottom")+
+  theme(text = element_text(size=15, color='black'))
+
+biplot_variables_new
+
+biplot_variables_2_new <- fviz_pca_biplot(pca_result, repel = TRUE,
+                                    col.var = "#2E4FDF", # color de las variables
+                                    geom.ind = "point",
+                                    label = "var", # para que solo las variables tengan etiquetas
+                                    addEllipses = FALSE) +
+  geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2), size = 5, box.padding = 0.5)+ 
+  geom_point(data = pca_scores, 
+             aes(x = PC1, y = PC2, color = year, shape = site), size = 5) +
+  scale_color_manual(values = c("2019" = "maroon4", "2021" = "dodgerblue4", "2022" = "deeppink")) +
+  theme_minimal() +
+  labs(title = "Biplot de PCA con Individuos y Variables", x = "Componente Principal 1 (42,3 %)", y = "Componente Principal 2 (21,7 %)") +
+  theme(legend.position = "bottom")+
+  theme(text = element_text(size=15, color='black'))
+
+biplot_variables_2_new
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Obtener las contribuciones de las variables a cada componente principal
+pca_var <- get_pca_var(pca_result)
+
+# Ordenar las variables por contribución para Dim.1 (PC1)
+pca_var_dim1 <- pca_var$contrib[, 1] %>% sort(decreasing = TRUE)
+pca_var_dim1
+
+# Ordenar las variables por contribución para Dim.2 (PC2)
+pca_var_dim2 <- pca_var$contrib[, 2] %>% sort(decreasing = TRUE)
+pca_var_dim2
+
+```
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
+
+
+# Instalar y cargar los paquetes necesarios si no están instalados
+if (!require(factoextra)) install.packages("factoextra")
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(cluster)) install.packages("cluster")
+if (!require(ggplot2)) install.packages("ggplot2")
+
+library(factoextra)
+library(dplyr)
+library(cluster)
+library(ggplot2)
+
+
+# Filtrar el dataframe con las variables especificadas
+datos_filtrados <- datos_estandarizados %>%
+  select(phenotype, pff, de, color_L, dp, psf, color_b, pss, indmad, pen, phi, clob, cloa, ratio, ac, color_a, fen, aao25)
+
+# Eliminar filas con NA
+datos_filtrados <- na.omit(datos_filtrados)
+
+# Realizar el escalado de las variables
+datos_scaled <- scale(datos_filtrados[,-1])  # Excluir la columna 'phenotype'
+
+# Crear el dendrograma
+d <- dist(datos_scaled, method = "euclidean")
+hc <- hclust(d, method = "ward.D2")
+
+# Asignar clusters
+num_clusters <- 8
+clusters <- cutree(hc, k = num_clusters) # Número de clusters
+
+# Agregar la asignación de clusters al dataframe original
+datos_filtrados$cluster <- factor(cluster)
+
+# Combinar phenotype y year para las etiquetas
+datos_filtrados$label <- paste(datos_filtrados$phenotype, datos_filtrados$year, sep = "_")
+
+# Crear un vector de colores para los clusters
+cluster_colors <- scales::hue_pal()(num_clusters)
+names(cluster_colors) <- levels(datos_filtrados$cluster)
+
+# Visualizar el gráfico de clusters con los nombres de los phenotypes
+fviz_cluster(list(data = datos_scaled, cluster = cluster),
+             geom = "point", ellipse.type = "convex",
+             label = datos_filtrados$phenotype, # Añadir los nombres de los phenotypes
+             ggtheme = theme_minimal()) +
+  labs(title = "Cluster de fenotipos de ubajay",
+       x = "PC1", y = "PC2") +
+  theme(legend.position = "right")
 
 
 ```
 
-# Variation between and within populations
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
+
+library(ggdendro)
+# Convertir el objeto hclust a un formato compatible con ggplot2
+dendro_data <- as.dendrogram(hc)
+dendro_df <- dendro_data %>%
+  ggdendro::dendro_data()
+
+# Crear un vector de colores para los clusters
+cluster_colors <- scales::hue_pal()(num_clusters)
+names(cluster_colors) <- levels(datos_filtrados$cluster)
+
+# Crear el dendrograma
+# ggdendro <- ggdendrogram(dendro_data, rotate = TRUE, labels = FALSE) +
+#   geom_text(data = dendro_df$labels, 
+#             aes(x = x, y = y, label = datos_filtrados$label[dendro_df$labels$label], 
+#                 color = datos_filtrados$cluster[dendro_df$labels$label]), 
+#             angle = 90, hjust = 1, size = 2.5) +
+#   scale_color_manual(values = cluster_colors) +
+#   labs(title = "Dendrograma de phenotypes de ubajay",
+#        x = "Phenotype", y = "Distancia") +
+#   theme_minimal() +
+#   theme(legend.position = "right")
+```
+
+# Análisis univariado
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)

@@ -558,9 +558,9 @@ div.tocify {
 ## 13 80          4         3  2.88 0.336
 ## 14 80          5         3  2.08 0.124</code></pre>
 <p>Gráfico de medias con desvío estándar
-<img src="dry_test_files/figure-html/unnamed-chunk-3-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Gráfico de líneas de tendencia medias y valores puntuales
-<img src="dry_test_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Correlación de cada unidad observacional en el tiempo</p>
 <pre><code>##      0    1    2    3    4    5
 ## 0 1.00 0.82 0.92 0.90 0.88 0.86
@@ -581,17 +581,17 @@ div.tocify {
 <pre><code>## gls(model = Peso ~ Hora * Temperatura + basal, data = datospeso2w, 
 ##     correlation = corAR1(form = ~1 | Repeticion))</code></pre>
 <p>Comprobación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-2.png" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-3.png" width="960" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-2.png" width="95%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-3.png" width="95%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
 ## W = 0.9558226, p-value = 0.241377</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80               basal 
-##       -31.996552210        -1.539666667        -3.514333333        -5.533000000        -7.323000000         0.298694977         2.255026084 
-## Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
-##        -1.825333333        -3.605333333        -4.321000000        -3.329333333</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80               basal Hora2:Temperatura80 
+##       -31.996552210        -1.539666667        -3.514333333        -5.533000000        -7.323000000         0.298694977         2.255026084        -1.825333333 
+## Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
+##        -3.605333333        -4.321000000        -3.329333333</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 19 
 ##                  numDF    F-value p-value
@@ -603,29 +603,29 @@ div.tocify {
 <p>Efectos simples</p>
 <pre><code>## $emmeans
 ## Hora = 1:
-##  Temperatura      emmean          SE   df    lower.CL    upper.CL
-##  60          13.22348584 0.557653114 17.5 12.04951003 14.39746165
-##  80          13.52218082 0.557653114 17.5 12.34820501 14.69615663
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60          13.22348584 0.557653114 17.29 12.04844929 14.39852240
+##  80          13.52218082 0.557653114 17.29 12.34714427 14.69721737
 ## 
 ## Hora = 2:
-##  Temperatura      emmean          SE   df    lower.CL    upper.CL
-##  60          11.68381918 0.557653114 17.5 10.50984337 12.85779499
-##  80          10.15718082 0.557653114 17.5  8.98320501 11.33115663
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60          11.68381918 0.557653114 17.29 10.50878263 12.85885573
+##  80          10.15718082 0.557653114 17.29  8.98214427 11.33221737
 ## 
 ## Hora = 3:
-##  Temperatura      emmean          SE   df    lower.CL    upper.CL
-##  60           9.70915251 0.557653114 17.5  8.53517670 10.88312832
-##  80           6.40251416 0.557653114 17.5  5.22853835  7.57648997
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60           9.70915251 0.557653114 17.29  8.53411596 10.88418906
+##  80           6.40251416 0.557653114 17.29  5.22747760  7.57755071
 ## 
 ## Hora = 4:
-##  Temperatura      emmean          SE   df    lower.CL    upper.CL
-##  60           7.69048584 0.557653114 17.5  6.51651003  8.86446165
-##  80           3.66818082 0.557653114 17.5  2.49420501  4.84215663
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60           7.69048584 0.557653114 17.29  6.51544929  8.86552240
+##  80           3.66818082 0.557653114 17.29  2.49314427  4.84321737
 ## 
 ## Hora = 5:
-##  Temperatura      emmean          SE   df    lower.CL    upper.CL
-##  60           5.90048584 0.557653114 17.5  4.72651003  7.07446165
-##  80           2.86984749 0.557653114 17.5  1.69587168  4.04382330
+##  Temperatura      emmean          SE    df    lower.CL    upper.CL
+##  60           5.90048584 0.557653114 17.29  4.72544929  7.07552240
+##  80           2.86984749 0.557653114 17.29  1.69481094  4.04488404
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Confidence level used: 0.95 
@@ -633,35 +633,35 @@ div.tocify {
 ## $contrasts
 ## Hora = 1:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.69  -0.341  0.7407
+##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.75  -0.341  0.7407
 ## 
 ## Hora = 2:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.69   1.741  0.1134
+##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.75   1.741  0.1132
 ## 
 ## Hora = 3:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.69   3.770  0.0039
+##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.75   3.770  0.0038
 ## 
 ## Hora = 4:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.69   4.586  0.0011
+##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.75   4.586  0.0011
 ## 
 ## Hora = 5:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.69   3.455  0.0065
+##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.75   3.455  0.0064
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
-<img src="dry_test_files/figure-html/unnamed-chunk-15-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-15-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo
-<img src="dry_test_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-18-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="actividad-antioxidante" class="section level1">
 <h1>Actividad antioxidante</h1>
 <div id="ubajay" class="section level2">
 <h2>Ubajay</h2>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-22-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## Formula:          aao/100 ~ Tratamiento + (1 | Concentracion) + (1 | Dia)
 ## Data: datosaao_uba

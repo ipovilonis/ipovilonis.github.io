@@ -12,7 +12,7 @@ data$site<-as.factor(data$site)
 data$phenotype<-as.factor(data$phenotype)
 data$mad<-as.factor(data$mad)
 data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
-data$site<-factor(data$site,levels=c("concordia", "palmar", "gualeguaychu"))
+data$site<-factor(data$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
 
 ```
 
@@ -513,7 +513,7 @@ data$site<-as.factor(data$site)
 data$phenotype<-as.factor(data$phenotype)
 data$mad<-as.factor(data$mad)
 data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
-data$site<-factor(data$site,levels=c("concordia", "palmar", "gualeguaychu"))
+data$site<-factor(data$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
 
 data_color_G<- data[,-c(1,3:5,7:9)]
 
@@ -779,7 +779,7 @@ gcorLabmad
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-data$site<-factor(data$site,levels=c("concordia", "palmar", "gualeguaychu"))
+data$site<-factor(data$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
 # Gráfico
 colores<-c("coral1","burlywood2","palegreen4")
 library(ggplot2)
