@@ -18,6 +18,20 @@ datamet$year<-as.factor(datamet$year)
 datamet$date_long<-as.POSIXct(datamet$date_long,format="%m-%d-%Y")
 datamet$site<-factor(datamet$site,levels=c("concordia", "palmar","gualeguaychu"))
 datamet$site<-factor(datamet$site,labels=c("Concordia", "PN El Palmar","Gualeguaychú"))
+
+library(dplyr)
+table_datamet_temp <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(mean_temp = mean(temp))
+table_datamet_temp
+table_datamet_hr <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(mean_hr = mean(hr))
+table_datamet_hr
+table_datamet_prec <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(total_prec = sum(prec))
+table_datamet_prec
   
 ```
 
@@ -67,7 +81,7 @@ table_dl_meam_temp <- data_dl_imp %>%
   dplyr::group_by(site, year) %>%
   dplyr::summarise(Mean_temp = mean(new_temp, na.rm = TRUE),
                    sd=sd(new_temp, na.rm = TRUE))
-
+table_dl_meam_temp
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -90,12 +104,38 @@ table_temp <- full_join(table_dl_month_temp, estadmet_temp, by = c("site", "year
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-temp_month <- ggplot(table_temp, aes(x = month, y = temp, color = site, group = site)) +
+table_temp_2019 <- table_temp %>%
+  dplyr::filter(year == 2019)
+table_temp_2021 <- table_temp %>%
+  dplyr::filter(year == 2021)
+table_temp_2022 <- table_temp %>%
+  dplyr::filter(year == 2022)
+
+temp_month_2019 <- ggplot(table_temp_2019, aes(x = month, y = temp, color = site, group = site)) +
   geom_smooth(method = "gam", se = FALSE, size = 2) +
-  geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
-  geom_hline(yintercept = 19.09166667, color = "coral2", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 18.41666667, color = "burlywood3", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 18.08333333, color = "palegreen4", linetype = "dashed", size = 1.5)+
+  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 21.7  , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 21.5 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8  , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))
+
+temp_month_2021 <- ggplot(table_temp_2021, aes(x = month, y = temp, color = site, group = site)) +
+  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 22.0 , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 22.2 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 21.4 , color = "palegreen4", linetype = "dashed", size = 1.5)+
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
   facet_grid(year ~ .) +
   labs(y = "Temperatura (°C)", x = "") +
@@ -106,7 +146,29 @@ temp_month <- ggplot(table_temp, aes(x = month, y = temp, color = site, group = 
   theme(axis.text = element_text(color = 'black')) +
   theme(legend.title = element_blank()) +
   theme(legend.position = "bottom") +
-  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) 
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))
+
+temp_month_2022 <- ggplot(table_temp_2022, aes(x = month, y = temp, color = site, group = site)) +
+  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 20.8 , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8 , color = "burlywood3", linetype = "twodash", size = 1.5) +
+  geom_hline(yintercept = 19.9 , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
+
+library(ggpubr)
+temp_month <- ggarrange(temp_month_2019, temp_month_2021, temp_month_2022, common.legend = TRUE, legend = "bottom", nrow = 3)
 temp_month
 ```
 
@@ -161,7 +223,7 @@ hr_month<-ggplot(estadmet_hr, aes(x=month, y=hr, color=site, width=1)) +
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
-  scale_y_continuous(limits = c(40, 90))
+  scale_y_continuous(limits = c(30, 90))
 hr_month
 
 ```
