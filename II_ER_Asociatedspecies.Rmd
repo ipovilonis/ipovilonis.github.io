@@ -96,37 +96,7 @@ print(pkpd)
 
 ```
 
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-datos<-read_excel("database.xlsx",sheet="II asociated")
-datos[is.na(datos)] <-  0
-
-```
-
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-rownames(datos)<-datos$Censo
-datosm<-datos[,-c(1:2)]
-
-# datosm<-as.data.frame(datosm)
-rownames(datosm)<-datos$Censo
-# mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
-mat.b<-vegdist(datosm, method = "bray", diag = T, binary = F)
-
-```
-
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# dim(mat.j)          # revisamos cuantas filas y columnas tiene
-
-```
-
 # Indicadores de biodiversidad
-
-
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ## Antropic index
@@ -152,16 +122,18 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 biod<-read_excel("database.xlsx",sheet="II bio_index2")
 
-biod$site<-factor(biod$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychu"))
+biod$site<-factor(biod$site, levels = c("concordia", "palmar", "gualeguaychu"), labels = c("Concordia", "PN El Palmar", "Gualeguaychu"))
 biod$variable<-as.factor(biod$variable)
 
 biod$variable<-factor(biod$variable, levels = levels(biod$variable), labels = levels(biod$variable))
+
+biod$variable<-factor(biod$variable, levels = c("Dominance_D", "Equitatibilidad", "Shannon_H","Evenness_e^H/S", "Margalef"), labels = c("Dominancia","Equitatibilidad","Shannon","Equidad","Margalef"))
 
 # Add 2 variables
 
 biod3<-read_excel("database.xlsx",sheet="II bio_index3")
 
-biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychu"))
+biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu"), labels = c("Concordia", "PN El Palmar", "Gualeguaychu"))
 biod3$censo<-as.factor(biod3$censo)
 
 library(dplyr)
@@ -176,12 +148,15 @@ table_anthropic_Ia<- biod3 %>% dplyr::group_by(site) %>%
 
 tsi<-rbind(table_Taxa_S,table_Individuals,table_anthropic_Ia)
 
-tsi$variable<-as.factor(c(rep("Richness",3),rep("Abundance",3),rep("anthropic_Ia",3)))
+tsi$variable<-as.factor(c(rep("Riqueza",3),rep("Abundancia",3),rep("Antrópico",3)))
 
 biod<-rbind(biod, tsi)
 
 letters <- c("ab","a","ab","a","a","b","a","a","a","a","a","a","b","a","a","ab","b","a","ab","b","a","a","ab","b")
 biod<-cbind(biod, letters)
+
+
+
 
 ```
 
@@ -213,8 +188,8 @@ gg_bioindex<-ggplot(biod, aes(x=site, y=(Mean), color=site, fill=site)) +
   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
   scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
   # scale_y_continuous(breaks=seq(0, 50, 5))+
-  geom_text(aes(label = round(Mean,2)), vjust = -0.5, hjust = -0.1, size=5, color="black")+
-  geom_text(aes(label = letters, group = letters), vjust = 1.5, hjust = -0.8, size = 5, color="black", position = position_dodge(width = 0.8))
+  geom_text(aes(label = round(Mean,2)), vjust = 1.1, hjust = -0.1, size=5, color="black", position = position_dodge(width = 0.8))+
+  geom_text(aes(label = letters, group = letters), vjust = 2.5, hjust = -0.8, size = 5, color="black", position = position_dodge(width = 0.8))
 
 gg_bioindex
 ```
@@ -231,6 +206,10 @@ biod3$site<-factor(biod3$site, levels = c("Concordia", "Palmar", "Gualeguaychu")
 biod3$censo<-as.factor(biod3$censo)
 
 # biod3 %>% group_by(site) %>% dplyr::summarise(sd = sd(Richness))
+
+library(dplyr)
+biod3 <- biod3 %>%
+  dplyr::rename(Equitatibilidad = Equitability_J)
 
 ```
 
@@ -940,30 +919,30 @@ complot<-plot(Comptar, comparisons = TRUE)+
 complot
 ```
 
-#### Equitability_J
+#### Equitatibilidad
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 biod32<-biod3[-26,]
 
-mbi_Equitability_J<- lm(Equitability_J ~ site, biod32)
+mbi_Equitatibilidad<- lm(Equitatibilidad ~ site, biod32)
 
 library(nlme)
-mbi_Equitability_J <- gls(Equitability_J ~ site, varIdent(form=~1|site), data=biod32)
+mbi_Equitatibilidad <- gls(Equitatibilidad ~ site, varIdent(form=~1|site), data=biod32)
 
-mbi_Equitability_J3 <- glm(Equitability_J ~ site, family = "Gamma", data = biod32)
+mbi_Equitatibilidad3 <- glm(Equitatibilidad ~ site, family = "Gamma", data = biod32)
 
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-mbi_Equitability_J_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(mbi_Equitability_J),
-  "predichos" = predict(mbi_Equitability_J)))
+mbi_Equitatibilidad_ajuste <- as.data.frame(cbind(
+  "residuos" = residuals(mbi_Equitatibilidad),
+  "predichos" = predict(mbi_Equitatibilidad)))
 
 library(ggplot2)
-HVpff<-ggplot(mbi_Equitability_J_ajuste) +
+HVpff<-ggplot(mbi_Equitatibilidad_ajuste) +
   aes(predichos, residuos) +
   geom_hline(yintercept = 0, colour="white", size=2) +
   geom_point(colour="white")+
@@ -978,7 +957,7 @@ HVpff<-ggplot(mbi_Equitability_J_ajuste) +
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
 HVpff
 
-QQmbi_Equitability_J<-ggplot(mbi_Equitability_J_ajuste) +
+QQmbi_Equitatibilidad<-ggplot(mbi_Equitatibilidad_ajuste) +
   aes(sample = residuos) +
   geom_qq(shape = 1, colour="white") +
   geom_qq_line(colour="white")+
@@ -991,9 +970,9 @@ QQmbi_Equitability_J<-ggplot(mbi_Equitability_J_ajuste) +
   theme(axis.text = element_text(color='white'))+
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQmbi_Equitability_J
+QQmbi_Equitatibilidad
 
-e<-resid(mbi_Equitability_J) # residuos de pearson
+e<-resid(mbi_Equitatibilidad) # residuos de pearson
 # pre<-predict(mpff) #predichos
 # alfai<-ranef(mpff)$REP$'(Intercept)'
 shapiro.test(e)
@@ -1005,7 +984,7 @@ shapiro.test(e)
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-anova(mbi_Equitability_J)
+anova(mbi_Equitatibilidad)
 
 ```
 
@@ -1014,14 +993,14 @@ anova(mbi_Equitability_J)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
-table_Equitability_J<- biod3 %>% dplyr::group_by(site) %>%
-  dplyr::summarise(Mean = mean(Equitability_J))
+table_Equitatibilidad<- biod3 %>% dplyr::group_by(site) %>%
+  dplyr::summarise(Mean = mean(Equitatibilidad))
 
 library(emmeans)
 # library(multcompView)
-Comptar<-emmeans(mbi_Equitability_J, pairwise ~ site) #Tukey 
+Comptar<-emmeans(mbi_Equitatibilidad, pairwise ~ site) #Tukey 
 Comptar
-# round(table_Equitability_J$Mean, digits = 5)
+# round(table_Equitatibilidad$Mean, digits = 5)
 complot<-plot(Comptar, comparisons = TRUE)+
   labs(x = "N° species", y ="")+
   theme_classic()+
@@ -1033,15 +1012,14 @@ complot<-plot(Comptar, comparisons = TRUE)+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=14, color='black'))+
   theme(axis.text = element_text(color='black', size=14))+
-  annotate("text", x = table_Equitability_J$Mean[table_Equitability_J$site == "Concordia"]
+  annotate("text", x = table_Equitatibilidad$Mean[table_Equitatibilidad$site == "Concordia"]
 , y = 1.3 , label = "a")+
-  annotate("text", x = table_Equitability_J$Mean[table_Equitability_J$site == "Palmar"]
+  annotate("text", x = table_Equitatibilidad$Mean[table_Equitatibilidad$site == "Palmar"]
 , y = 2.3, label = "a")+
-  annotate("text", x = table_Equitability_J$Mean[table_Equitability_J$site == "Gualeguaychu"]
+  annotate("text", x = table_Equitatibilidad$Mean[table_Equitatibilidad$site == "Gualeguaychu"]
 , y = 3.3, label = "a")
 complot
 ```
-
 
 #### anthropic_Ia
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -1143,6 +1121,22 @@ complot
 \[
 H = -\sum_{i=1}^{n} p_i \log_{2}(p_i)
 \]
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datos<-read_excel("database.xlsx",sheet="II asociated")
+datos[is.na(datos)] <-  0
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+rownames(datos)<-datos$Censo
+datosm<-datos[,-c(1:2)]
+
+```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1250,6 +1244,34 @@ Las barras representan el error estándar.
 
 # Clasificación
 
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datos<-read_excel("database.xlsx",sheet="II asociated")
+datos[is.na(datos)] <-  0
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+rownames(datos)<-datos$Censo
+datosm<-datos[,-c(1:2)]
+
+# datosm<-as.data.frame(datosm)
+rownames(datosm)<-datos$Censo
+# mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
+mat.b<-vegdist(datosm, method = "bray", diag = T, binary = F)
+
+```
+
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# dim(mat.j)          # revisamos cuantas filas y columnas tiene
+
+```
+
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1265,7 +1287,6 @@ plot(dendro.ward, hang = -1, cex = 1)
 
 
 ```
-
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1312,29 +1333,29 @@ df.todo <- cbind(df.mds, datos)
 library(ggplot2)
 library(ggrepel)
 
-acoorp<-ggplot(df.todo, aes(-X1, -X2))+
-  geom_hline(yintercept=0, col="black")+
-  geom_vline(xintercept=0, col="black")+
-  geom_point(size=5,aes(col=REG, pch=as.factor(REG)))+
-  theme_classic()+
-  scale_color_manual(values = c("coral4","palegreen4","burlywood2"))+
-  theme(panel.grid.major.y = element_blank())+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
-  theme(legend.direction = "horizontal")+
-  theme(legend.position = "bottom")+
-  theme(legend.title = element_blank())+
-  labs(x = "Principal coordinate 1", y = "Principal coordinate 2",colour = "REG",pch="REG",
-                    groups = "REG")+
-  stat_ellipse(aes(x=-X1, y=-X2,color=REG),type = "norm")+
-  geom_text_repel(
-    data = df.todo,
-    aes(label = Censo),
-    size = 5,
-    box.padding = unit(0.001, "lines"),
-    point.padding = unit(1, "lines"))
+# acoorp<-ggplot(df.todo, aes(-X1, -X2))+
+#   geom_hline(yintercept=0, col="black")+
+#   geom_vline(xintercept=0, col="black")+
+#   geom_point(size=5,aes(col=REG, pch=as.factor(REG)))+
+#   theme_classic()+
+#   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+#   theme(panel.grid.major.y = element_blank())+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
+#   theme(legend.direction = "horizontal")+
+#   theme(legend.position = "bottom")+
+#   theme(legend.title = element_blank())+
+#   labs(x = "Principal coordinate 1", y = "Principal coordinate 2",colour = "REG",pch="REG",
+#                     groups = "REG")+
+#   stat_ellipse(aes(x=-X1, y=-X2,color=REG),type = "norm")+
+#   geom_text_repel(
+#     data = df.todo,
+#     aes(label = Censo),
+#     size = 5,
+#     box.padding = unit(0.001, "lines"),
+#     point.padding = unit(1, "lines"))
 
 ```
 
@@ -1432,7 +1453,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 datosm <- decostand(datosm_df, "normalize")
 
 # mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
-mat.b<-vegdist(datosm, method = "bray", diag = T, binary = T)
+mat.b<-vegdist(datosm, method = "jaccard", diag = T, binary = T)
 
 ```
 
@@ -1497,18 +1518,18 @@ library(factoextra)
 library(labdsv)
 
 # MULTIDIMENSINAL SCALING - PRINCIPAL COORDINATE ANALYSIS
-mds.ALT <- pco(mat.b, k=4) # k es n-1 censos como máximo
+mds.ALT <- pco(mat.b, k=3) # k es n-1 censos (como máximo)
 
-# mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
-# sum(mds.eig[1:1])
+mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
+sum(mds.eig[1:1])
 
 df.mds<-data.frame(mds.ALT$points) #posici?n de cada punto en los ejes. 
 
-df.todo <- cbind(df.mds[,c(1:4)], datos)
+df.todo <- cbind(df.mds, datos)
 
 df.todo$REG <- factor(df.todo$REG,
                    levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
-                   labels = c("Conconrdia" ,"NP El Palmar" ,"Gualeguaychu"))
+                   labels = c("Conconrdia" ,"PN El Palmar" ,"Gualeguaychu"))
 
 
 # data_disc<-read_excel("database.xlsx",sheet="II discriminant")
@@ -1524,32 +1545,34 @@ df.todo$REG <- factor(df.todo$REG,
 library(ggplot2)
 library(ggrepel)
 
-ggPCoA<-ggplot(df.todo, aes(-X1, -X2))+
+ggPCoA<-ggplot(df.todo, aes(-X1, X2))+
   geom_hline(yintercept=0, col="black")+
   geom_vline(xintercept=0, col="black")+
-  geom_point(size=5,aes(col=REG, pch=as.factor(REG)))+
+  geom_point(size=8,aes(col=REG, pch=as.factor(REG)))+
   theme_classic()+
   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
   scale_shape_manual(values=c(16,15,17))+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=25, color='black'))+
+  theme(text = element_text(size=30, color='black'))+
   theme(axis.text = element_text(color='black'))+
   # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
   theme(legend.direction = "horizontal")+
   theme(legend.position = "bottom")+
   theme(legend.title = element_blank())+
-  labs(x = "Principal coordinate 1 (22.5%)", y = "Principal coordinate 2 (14.2%)",colour = "REG",pch="REG",
+  labs(x = "Coordenada principal 1 (25,4%)", y = "Coordenada principal 2 (14,9%)",colour = "REG",pch="REG",
                     groups = "REG")+
-  stat_ellipse(aes(x=-X1, y=-X2,color=REG,type = "norm"))+
+  stat_ellipse(aes(x=-X1, y=X2,color=REG,type = "norm"))+
   # geom_polygon(data = data_disc, aes(x = axis_1, y = axis_2, group = site, fill = site), alpha = 0.2) +
   # stat_chull(aes(x = axis_1, y = axis_2, group = site), geom = "path", col = "black", fill = NA)+
   geom_text_repel(
     data = df.todo,
     aes(label = Censo),
-    size = 5,
+    size = 8,
     box.padding = unit(0.0001, "lines"),
-    point.padding = unit(1, "lines"))
+    point.padding = unit(1, "lines"))+
+  scale_y_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))+
+  scale_x_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))
 ggPCoA
 
 ```
@@ -1575,7 +1598,7 @@ data_disc$axis_1<-as.numeric(data_disc$axis_1)
 data_disc$axis_2<-as.numeric(data_disc$axis_2)
 data_disc$site <- factor(data_disc$site,
                    levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
-                   labels = c("Conconrdia" ,"Palmar" ,"Gualeguaychu"))
+                   labels = c("Concordia" ,"PN El Palmar" ,"Gualeguaychu"))
 data_disc$species<-as.factor(data_disc$species)
 ```
 
@@ -1593,29 +1616,31 @@ data_disc$species<-as.factor(data_disc$species)
 ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
   geom_hline(yintercept=0, col="black")+
   geom_vline(xintercept=0, col="black")+
-  geom_point(size=5,aes(col=site, pch=(site)))+
+  geom_point(size=8,aes(col=site, pch=(site)))+
   theme_classic()+
   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
   scale_shape_manual(values = c(16,15,17))+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
+  theme(text = element_text(size=30, color='black'))+
   theme(axis.text = element_text(color='black'))+
   # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
   theme(legend.direction = "horizontal")+
   theme(legend.position = "bottom")+
   theme(legend.title = element_blank())+
-  labs(x = "Canonical axis 1", y = "Canonical axis 2",colour = "site",pch="site", groups = "site")+
+  labs(x = "Eje canónico 1", y = "Eje canónico 2",colour = "site",pch="site", groups = "site")+
   # stat_ellipse(aes(x=axis_1, y=axis_2,color=site,type = "norm"))+
   geom_text_repel(
     data = data_disc,
     aes(label = census),
-    size = 3,
+    size = 8,
     box.padding = unit(0.0001, "lines"),
-    point.padding = unit(1, "lines"))+
+    point.padding = unit(2, "lines"))+
   geom_point(size=1,aes(x=axis_sp1,y=axis_sp2))+
-  geom_text_repel(aes(x = axis_sp1, y = axis_sp2, label = species), hjust = -0.1, vjust = 0.5, size = 3, color = "black") 
-
+  geom_text_repel(aes(x = axis_sp1, y = axis_sp2, label = species), hjust = -0.1, vjust = 0.5, size = 5, color = "black")+
+  scale_y_continuous(limits = c(-5, 8), breaks = seq(-5, 8, 13))+
+  scale_x_continuous(limits = c(-10, 10), breaks = seq(-10, 10, 10)) 
+ggdisc
 # library(dplyr)
 # # Calcular los contornos manualmente
 # contour_data <- data_disc %>%
@@ -1646,7 +1671,7 @@ ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
 | Total        | 12       | 13           | 14     | 39    | 0,00     |
 
 
-El análisis discriminante (figure 4) muestra las separaciones maximizadas y tasa de error calculada total es de 0%. De todas formas, si se quisiera usar, por ejemplo a estas especies vegetales para inferir a que población pertenece un censo no sería recomendable ya que posiblemente no se cumplen los supuestos de matrices similares de varianza covarianza dentro de grupos.
+El análisis discriminante muestra las separaciones maximizadas y la tasa de error calculada total es de 0%. De todas formas, si se quisiera usar, por ejemplo a estas especies vegetales para inferir a que población pertenece un censo no sería recomendable ya que posiblemente no se cumplen los supuestos de matrices similares de varianza covarianza dentro de grupos.
 
 Finalmente, todos los resultados llevan a la conclusión de que las poblaciones de ubajay en cada sitio se encuentran en distintas comunidades vegetales con respecto a las especies leñosas y semileñosas acompañantes.
 
@@ -1907,8 +1932,8 @@ t1_guale<-rbind(family_n_guale1,family_n_guale2)
 t1_natexo<-rbind(t1_conc,t1_pal,t1_guale)
 
 t1_natexo<-as.data.frame(t1_natexo)
-t1_natexo$native <- factor(t1_natexo$native, levels = c("1", "0"), labels = c("Native", "Exotic"))
-t1_natexo$site <- factor(t1_natexo$site, levels = c("Concordia", "NP El Palmar", "gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychú"))
+t1_natexo$native <- factor(t1_natexo$native, levels = c("1", "0"), labels = c("Nativas", "Exóticas"))
+t1_natexo$site <- factor(t1_natexo$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
 
 ```
 
@@ -1917,29 +1942,29 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
 library(forcats)
 
-# ggfam_total2 <- ggplot(t1_natexo, aes(x = fct_reorder2(family, site, n), y = n, fill = native)) +
-#   geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
-#   labs(y = "Richness", x = "") +
-#   facet_grid(. ~ site) +
-#   facet_wrap(~site, ncol = 3, scales = "free") +
-#   scale_fill_manual(values = c("palegreen4", "coral4")) +
-#   theme_classic() +
-#   theme(
-#     legend.position = "bottom",
-#     legend.background = element_rect(fill = "white"),
-#     legend.title = element_blank(),
-#     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
-#     panel.grid.major.x = element_blank(),
-#     text = element_text(size = 25, color = 'black'),
-#     plot.background = element_rect(fill = "white"),
-#     panel.background = element_rect(fill = "white", color = "white"),
-#     panel.border = element_rect(fill = "transparent"),
-#     axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
-#     axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
-#   ) +
-#   scale_y_continuous(breaks = seq(1, 16, 2), limits = c(0, 16))
-# 
-# ggfam_total2
+ggfam_total2 <- ggplot(t1_natexo, aes(x = fct_reorder2(family, site, n), y = n, fill = native)) +
+  geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
+  labs(y = "Riqueza", x = "") +
+  facet_grid(. ~ site) +
+  facet_wrap(~site, ncol = 3, scales = "free") +
+  scale_fill_manual(values = c("palegreen4", "coral4")) +
+  theme_classic() +
+  theme(
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "white"),
+    legend.title = element_blank(),
+    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 25, color = 'black'),
+    plot.background = element_rect(fill = "white"),
+    panel.background = element_rect(fill = "white", color = "white"),
+    panel.border = element_rect(fill = "transparent"),
+    axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
+    axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+  ) +
+  scale_y_continuous(breaks = seq(1, 16, 2), limits = c(0, 16))
+
+ggfam_total2
 
 ```
 
@@ -1987,10 +2012,10 @@ sp_guale<-rbind(sp_n_guale_exo[1:5,],sp_n_guale_nat[1:5,])
 sp_ahv<-rbind(sp_conc,sp_pal,sp_guale)
 
 sp_ahv$site<-c(rep("Concordia",10),rep("NP El Palmar",10),rep("Gualeguaychú",10))
-sp_ahv$site<-factor(sp_ahv$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"))
+sp_ahv$site<-factor(sp_ahv$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
 sp_ahv<-as.data.frame(sp_ahv)
 # sp_ahv$site <- factor(sp_ahv$site, levels = c("Concordia", "Palmar", "Gualeguaychu"))
-sp_ahv$native <- factor(sp_ahv$native, levels = c("1", "0"), labels = c("Native", "Exotic"))
+sp_ahv$native <- factor(sp_ahv$native, levels = c("1", "0"), labels = c("Nativas", "Exóticas"))
 sp_ahv$n<-as.numeric(sp_ahv$n)
 
 
@@ -2004,7 +2029,7 @@ library(forcats)
 
 ggsp_total <- ggplot(sp_ahv, aes(x = fct_reorder2(species, site, n), y = n, fill = native)) +
   geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
-  labs(y = "Species frequency", x = "") +
+  labs(y = "Frecuencia de especies", x = "") +
   facet_grid(. ~ site) +
   facet_wrap(~site, ncol = 3, scales = "free") +
   scale_fill_manual(values = c("palegreen4", "coral4")) +

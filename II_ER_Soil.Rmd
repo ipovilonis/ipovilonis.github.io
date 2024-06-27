@@ -3,6 +3,8 @@ title: "Suelo en Entre Ríos"
 
 ---
 
+# Análisis de laboratorio
+
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -22,56 +24,59 @@ suelo$MO<-as.numeric(suelo$MO)
 suelo$CO<-as.numeric(suelo$CO)
 suelo$NO<-as.numeric(suelo$NO)
 suelo$C_N<-as.numeric(suelo$C_N)
-suelo$Sitio<-factor(suelo$Sitio,levels=c("Concordia", "Palmar","Gualeguaychu","Moreno"))
+suelo$Sitio<-factor(suelo$Sitio,levels=c("Concordia", "Palmar","Gualeguaychu","Moreno"), labels = c("Concordia", "PN El Palmar","Gualeguaychú","Moreno"))
 
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Crea un vector con las variables respuesta
-variables_respuesta_suelo <- c("CE", "H2O_saturacion","pH_agua", "pH_CaCl2","pH_KCl", "MO","CO", "NO","C_N")
-
-# Inicializa una lista para almacenar las tablas y otra lista para los gráficos
-tablas_ER_suelo <- list()
-graficos_ER_suelo <- list()
-
-library(dplyr)
-
-for(variable in variables_respuesta_suelo) {
-  # Crea la tabla resumen
-  assign(paste0("ER_suelo_", variable), suelo %>%
-    dplyr::group_by(Sitio) %>%
-    dplyr::summarise(n = n(),
-                      Mean = mean(.data[[variable]]),
-                      sd = sd(.data[[variable]]),
-                      min = min(.data[[variable]]),
-                      max = max(.data[[variable]]))
-  )
-
-  # Agrega la tabla a la lista
-  tablas_ER_suelo[[variable]] <- get(paste0("ER_suelo_", variable))
-
-  # Crea el gráfico
-  library(ggplot2)
-gg_plot <- ggplot(tablas_ER_suelo[[variable]], aes(x = Sitio, y = Mean, fill = Sitio)) +
-  scale_fill_manual(values = c("coral4","burlywood2","palegreen4","#293487")) +
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin = min, ymax = max), width = 0.5) +
-  theme_classic() +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "none") +
-  theme(text = element_text(size = 15, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  labs(y=paste0("", variable), x="")
-
-assign(paste0("ER_suelo_gg_", variable), gg_plot)
-
-    # Agrega el gráfico a la lista
-graficos_ER_suelo[[variable]] <- get(paste0("ER_suelo_gg_", variable))
-
-}
-
+# # Crea un vector con las variables respuesta
+# variables_respuesta_suelo <- c("CE", "H2O_saturacion","pH_agua", "pH_CaCl2","pH_KCl", "MO","CO", "NO","C_N")
+# 
+# # Inicializa una lista para almacenar las tablas y otra lista para los gráficos
+# tablas_ER_suelo <- list()
+# graficos_ER_suelo <- list()
+# 
+# library(dplyr)
+# 
+# for(variable in variables_respuesta_suelo) {
+#   # Crea la tabla resumen
+#   assign(paste0("ER_suelo_", variable), suelo %>%
+#     dplyr::group_by(Sitio) %>%
+#     dplyr::summarise(n = n(),
+#                       Mean = mean(.data[[variable]]),
+#                       sd = sd(.data[[variable]]),
+#                       min = min(.data[[variable]]),
+#                       max = max(.data[[variable]]))
+#   )
+# 
+#   # Agrega la tabla a la lista
+#   tablas_ER_suelo[[variable]] <- get(paste0("ER_suelo_", variable))
+# 
+#   # Crea el gráfico
+#   library(ggplot2)
+# gg_plot <- ggplot(tablas_ER_suelo[[variable]], aes(x = Sitio, y = Mean, fill = Sitio)) +
+#   scale_fill_manual(values = c("coral4","burlywood2","palegreen4","#293487")) +
+#   stat_summary(fun = "mean", size = 1, geom = "bar") +
+#   geom_errorbar(aes(ymin = min, ymax = max), width = 0.5) +
+#   theme_classic() +
+#   theme(legend.title = element_blank()) +
+#   theme(legend.position = "none") +
+#   theme(text = element_text(size = 15, color = 'black')) +
+#   theme(axis.text = element_text(color = 'black')) +
+#   labs(y=paste0("", variable), x="")
+# 
+# assign(paste0("ER_suelo_gg_", variable), gg_plot)
+# 
+#     # Agrega el gráfico a la lista
+# graficos_ER_suelo[[variable]] <- get(paste0("ER_suelo_gg_", variable))
+# 
+# }
+# 
+# library(ggpubr)
+# ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3)
+# ER_gg_soil
 
 ```
 
@@ -79,11 +84,101 @@ Gráficos de suelo
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggpubr)
-ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3)
-ER_gg_soil
+# library(ggpubr)
+# ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3)
+# ER_gg_soil
 ```
 
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+library(ggplot2)
+library(ggpubr)
+library(emmeans)
+library(multcompView)
+
+# Crea un vector con las variables respuesta
+variables_respuesta_suelo <- c("pH_agua", "pH_CaCl2", "pH_KCl","CE", "H2O_saturacion", "MO", "CO", "NO", "C_N")
+
+# Crea un vector con los nuevos nombres para las variables con subíndices
+nombres_nuevos <- c(expression(pH["1:2,5 H"[2]*O]),
+                    expression(pH["1:2,5 CaCl"[2]]),
+                    expression(pH["1:2,5 KCl"]),
+                    expression("Cond. Eléctrica (mS/cm)"),
+                    expression(H[2]*O["de saturación"]~"(%)"),
+                    expression("Materia orgánica (%)"),
+                    expression("C Orgánico (%)"),
+                    expression("N Orgánico (%)"),
+                    expression("Relación C/N"))
+
+# Inicializa listas para almacenar las tablas, gráficos y letras de subconjuntos
+tablas_ER_suelo <- list()
+graficos_ER_suelo <- list()
+letras_subconjuntos <- list()
+
+for (i in seq_along(variables_respuesta_suelo)) {
+  variable <- variables_respuesta_suelo[i]
+  nombre_nuevo <- nombres_nuevos[i]
+  
+  # Crea la tabla resumen
+  tabla_resumen <- suelo %>%
+    dplyr::group_by(Sitio) %>%
+    dplyr::summarise(n = n(),
+                     Mean = mean(.data[[variable]], na.rm = TRUE),
+                     sd = sd(.data[[variable]], na.rm = TRUE),
+                     min = min(.data[[variable]], na.rm = TRUE),
+                     max = max(.data[[variable]], na.rm = TRUE))
+  
+  # Agrega la tabla a la lista
+  tablas_ER_suelo[[variable]] <- tabla_resumen
+  
+  # Realiza el modelo lineal y ANOVA
+  formula <- as.formula(paste(variable, "~ Sitio"))
+  modelo <- lm(formula, data = suelo)
+  anova_result <- Anova(modelo, type = "II")
+  
+  # Realiza el test de Tukey si el p-valor del ANOVA es < 0.05
+  p_value <- anova_result[["Pr(>F)"]][1]
+  if (p_value < 0.05) {
+    tukey_result <- emmeans(modelo, pairwise ~ Sitio)
+    tukey_summary <- cld(tukey_result$emmeans, Letters = letters)
+    letras_subconjuntos[[variable]] <- tukey_summary %>% as.data.frame() %>% dplyr::select(Sitio, .group)
+  } else {
+    letras_subconjuntos[[variable]] <- data.frame(Sitio = levels(suelo$Sitio), .group = "")
+  }
+  
+  # Merge tablas para incluir las letras de subconjuntos
+  tabla_resumen <- merge(tabla_resumen, letras_subconjuntos[[variable]], by = "Sitio")
+  tablas_ER_suelo[[variable]] <- tabla_resumen
+  
+  # Crear el gráfico
+  gg_plot <- ggplot(tabla_resumen, aes(x = Sitio, y = Mean, fill = Sitio)) +
+    scale_fill_manual(values = c("coral4", "burlywood2", "palegreen4", "#293487")) +
+    geom_bar(stat = "identity") +
+    geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.5) +
+    theme_classic() +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = "none") + # Quitar la leyenda individual de cada gráfico
+    theme(text = element_text(size = 25, color = 'black')) +
+    theme(axis.text.x = element_blank(), # Quitar los nombres de Sitio
+          axis.ticks.x = element_blank(), # Quitar las marcas de los ejes en x
+          axis.text = element_text(color = 'black')) +
+    labs(y = nombre_nuevo, x = "") +
+    geom_text(aes(label = .group, y = Mean + sd + 0.02 * (max(Mean + sd, na.rm = TRUE) - min(Mean - sd, na.rm = TRUE))), vjust = -0.1, size=6)
+  
+  # Agrega el gráfico a la lista
+  graficos_ER_suelo[[variable]] <- gg_plot
+}
+
+# Combina todos los gráficos en una sola imagen con una leyenda común
+ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3, common.legend = TRUE, legend = "bottom")
+print(ER_gg_soil)
+
+
+```
+
+# Humedad del suelo
 Diferencia relativa de la humedad de suelo en % durante la primavera de 2022
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)

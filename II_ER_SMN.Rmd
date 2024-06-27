@@ -82,6 +82,8 @@ table_dl_meam_temp <- data_dl_imp %>%
   dplyr::summarise(Mean_temp = mean(new_temp, na.rm = TRUE),
                    sd=sd(new_temp, na.rm = TRUE))
 table_dl_meam_temp
+
+
 ```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -92,6 +94,13 @@ estadmet_temp <- summarySE(datamet, measurevar="temp", groupvars=c("site","year"
 
 table_temp <- full_join(table_dl_month_temp, estadmet_temp, by = c("site", "year", "month"))
 
+
+library(Rmisc)
+estadmet_hr <- summarySE(datamet, measurevar="hr", groupvars=c("site","year", "month"))
+
+# table_hr <- full_join(table_dl_month_temp, estadmet_temp, by = c("site", "year", "month"))
+
+
 # temp_prueba_2122 <- table_temp[c(4:9),]
 # mean(temp_prueba_2122$Mean_temp)-mean(temp_prueba_2122$temp)
 # a Concordia 2019 se le suma 1.057307°C
@@ -101,8 +110,9 @@ table_temp <- full_join(table_dl_month_temp, estadmet_temp, by = c("site", "year
 
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+## Temperatura
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='110%')
 
 table_temp_2019 <- table_temp %>%
   dplyr::filter(year == 2019)
@@ -111,6 +121,7 @@ table_temp_2021 <- table_temp %>%
 table_temp_2022 <- table_temp %>%
   dplyr::filter(year == 2022)
 
+library(ggplot2)
 temp_month_2019 <- ggplot(table_temp_2019, aes(x = month, y = temp, color = site, group = site)) +
   geom_smooth(method = "gam", se = FALSE, size = 2) +
   # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
@@ -197,6 +208,7 @@ temp_month2<-ggplot(estadmet_temp, aes(x=month, y=temp, color=year, width=1)) +
 
 ```
 
+## Humedad Relativa
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -207,23 +219,94 @@ estadmet_hr <- summarySE(datamet, measurevar="hr", groupvars=c("site","year", "m
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='110%')
+
+# library(ggplot2)
+# hr_month<-ggplot(estadmet_hr, aes(x=month, y=hr, color=site, width=1)) +
+#   geom_smooth(method = "gam",se=F,size=2)+
+#   scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
+#   facet_grid(year~.)+
+#   labs(y="Humedad Relativa (%)", x="")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=35, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "bottom")+
+#   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+#   scale_y_continuous(limits = c(30, 90))
+# hr_month
+
+table_hr_2019 <- estadmet_hr %>%
+  dplyr::filter(year == 2019)
+table_hr_2021 <- estadmet_hr %>%
+  dplyr::filter(year == 2021)
+table_hr_2022 <- estadmet_hr %>%
+  dplyr::filter(year == 2022)
 
 library(ggplot2)
-hr_month<-ggplot(estadmet_hr, aes(x=month, y=hr, color=site, width=1)) +
-  geom_smooth(method = "gam",se=F,size=2)+
-  scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
-  facet_grid(year~.)+
-  labs(y="Humedad Relativa (%)", x="")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=35, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
+hr_month_2019 <- ggplot(table_hr_2019, aes(x = month, y = hr, color = site, group = site)) +
+  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_hr, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 64.4  , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 70.1 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 64.0  , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(40, 80))
+
+hr_month_2021 <- ggplot(table_hr_2021, aes(x = month, y = hr, color = site, group = site)) +
+  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_hr, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 60.3 , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 65.5 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 61.4 , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "Humedad relativa (%)", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(40, 80))
+
+hr_month_2022 <- ggplot(table_hr_2022, aes(x = month, y = hr, color = site, group = site)) +
+  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_hr, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 60.8 , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 66.4 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 63.9 , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
-  scale_y_continuous(limits = c(30, 90))
+  scale_y_continuous(limits = c(40, 80))
+
+library(ggpubr)
+hr_month <- ggarrange(hr_month_2019, hr_month_2021, hr_month_2022, common.legend = TRUE, legend = "bottom", nrow = 3)
 hr_month
 
 ```
@@ -235,6 +318,7 @@ datacor_temp_hr<-data.frame(estadmet_hr$hr, estadmet_temp$temp)
 
 ```
 
+## Velocidad del viento
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -265,6 +349,7 @@ wind_month
 
 ```
 
+## Precipitaciones
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -285,7 +370,7 @@ pp_table <- estadmet_prec %>%
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='110%')
 
 library(ggplot2)
 
