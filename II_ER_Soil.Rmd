@@ -97,6 +97,8 @@ library(ggplot2)
 library(ggpubr)
 library(emmeans)
 library(multcompView)
+library(multcomp)
+library(car)
 
 # Crea un vector con las variables respuesta
 variables_respuesta_suelo <- c("pH_agua", "pH_CaCl2", "pH_KCl","CE", "H2O_saturacion", "MO", "CO", "NO", "C_N")
@@ -173,7 +175,41 @@ for (i in seq_along(variables_respuesta_suelo)) {
 
 # Combina todos los gráficos en una sola imagen con una leyenda común
 ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3, common.legend = TRUE, legend = "bottom")
+
 print(ER_gg_soil)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+library(car) # para la función Anova
+
+# Inicializa un data frame para almacenar los valores p de cada ANOVA
+tabla_anova_pvalores <- data.frame(Variable = character(), Nombre = character(), P_valor = numeric())
+
+for (i in seq_along(variables_respuesta_suelo)) {
+  variable <- variables_respuesta_suelo[i]
+  nombre_nuevo <- nombres_nuevos[i]
+  
+  # Realiza el modelo lineal y ANOVA
+  formula <- as.formula(paste(variable, "~ Sitio"))
+  modelo <- lm(formula, data = suelo)
+  anova_result <- Anova(modelo, type = "II")
+  
+  # Obtén el valor p del ANOVA
+  p_value <- anova_result[["Pr(>F)"]][1]
+  
+  # Agrega los resultados a la tabla
+  tabla_anova_pvalores <- tabla_anova_pvalores %>%
+    add_row(Variable = variable, Nombre = as.character(nombre_nuevo), P_valor = p_value)
+}
+
+options(scipen = 999)
+# Muestra la tabla de valores p
+print(tabla_anova_pvalores[,2:3])
 
 
 ```

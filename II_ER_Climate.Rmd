@@ -12,7 +12,7 @@ library(readxl)
 #Create object "dataclim" which contains climate data
 dataclim <- read_excel("database.xlsx", sheet = "II_ER_clima")
 
-dataclim$site<-factor(dataclim$site,levels=c("Concordia", "Palmar","Gualeguaychu","Moreno"),labels = c("Concordia", "PN El Palmar","Gualeguaychu","Moreno"))
+dataclim$site<-factor(dataclim$site,levels=c("Concordia", "Palmar","Gualeguaychu","Moreno"),labels = c("Concordia", "PN El Palmar","Gualeguaychú","Moreno"))
 
 # months <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 # dataclim$month<-factor(dataclim$month,levels=months)
