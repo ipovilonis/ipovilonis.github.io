@@ -122,7 +122,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(nlme)
 library(tidyr)
 library(dplyr)
-datospeso2<-datospeso[,-c(5)]
+datospeso2<-datospeso[,-c(5:6)]
 datospeso2$Hora<-as.factor(datospeso2$Hora)
 dp_dry<-datospeso2[-c(19:24),]
 dp_wide <- tidyr::spread(dp_dry, Hora, Peso)
@@ -371,7 +371,7 @@ gm_ajust <- ggplot(datospeso2w1, aes(x = Hora, y = Peso)) +
   theme(legend.position = 'bottom') +
   theme(panel.grid.major.y = element_line(color = 'black')) +
   theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 15, color = 'black')) +
+  theme(text = element_text(size = 32, color = 'black')) +
   theme(axis.text = element_text(color = 'black'))+
   scale_x_continuous(limits = c(1, 5), breaks = seq(1, 5, 1))+
   scale_y_continuous(limits = c(0, 16), breaks = seq(0, 16, 2))
@@ -422,7 +422,6 @@ tabla_sec_cal_aao<-tabla_sec_aao %>%
 ```
 
 ## Ubajay
-
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
 
@@ -457,7 +456,10 @@ datosaao_uba <- datosaao_uba2[-c(1:9),]
 # modelo_sec_uba_aao <- lmer(aao ~ Tratamiento + (1|Concentracion), data = datosaao_uba)
 
 library(glmmTMB)
-modelo_sec_uba_aao_2 <- glmmTMB(aao/100 ~ Tratamiento + (1|Concentracion) + (1|Dia), family = beta_family(), data = datosaao_uba)
+modelo_sec_uba_aao_2 <- glmmTMB(aao/100 ~ Tratamiento + (1|Concentracion) + (1|Dia), family = beta_family(link = "logit"), data = datosaao_uba)
+
+# modelo_sec_uba_aao_3 <- glmmTMB(aao/100 ~ Tratamiento + (1|Concentracion) + (1|Dia), family = beta_family(link = "cloglog"), data = datosaao_uba)
+# anova(modelo_sec_uba_aao_2,modelo_sec_uba_aao_3)
 
 ```
 
@@ -477,7 +479,7 @@ H_modelo_sec_uba_aao <- as.data.frame(cbind(
   "residuos" = residuals(modelo_sec_uba_aao_2),
   "predichos" = predict(modelo_sec_uba_aao_2)))
 
-HV_H_modelo_sec_uba_aao<-ggplot(H_modelo_sec_uba_aao) +
+HV_H_modelo_sec_uba_aao2<-ggplot(H_modelo_sec_uba_aao) +
   aes(predichos, residuos) +
   geom_hline(yintercept = 0, colour="white", size=2) +
   geom_point(colour="white")+
@@ -490,7 +492,7 @@ HV_H_modelo_sec_uba_aao<-ggplot(H_modelo_sec_uba_aao) +
   theme(axis.text = element_text(color='white'))+
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HV_H_modelo_sec_uba_aao
+HV_H_modelo_sec_uba_aao2
 
 ```
 
@@ -507,17 +509,26 @@ Comparaciones a posteriori
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(ggplot2)
 library(emmeans)
 library(multcompView)
 emm_options(opt.digits = FALSE)
 Comp_modelo_sec_uba_aao_2<-emmeans(modelo_sec_uba_aao_2, pairwise ~ Tratamiento, type="response") 
-Comp_modelo_sec_uba_aao_2
+confint(Comp_modelo_sec_uba_aao_2)
+
+# Resumen de los resultados
+summary_results <- summary(Comp_modelo_sec_uba_aao_2)
+
+# Si necesitas calcular el desvío estándar a partir del error estándar
+n <- summary_results$emmean$df + 1  # tamaño de muestra (ajusta según tu modelo)
+desviaciones_estandar <- summary_results$contrasts[, "SE"] * sqrt(n)
+
 
 gg_Comp_modelo_sec_uba_aao_2 <- plot(Comp_modelo_sec_uba_aao_2, comparisons = TRUE)+ 
 labs(x = "Actividad Antioxidante [%/100]", y ="Ubajay")+
-  annotate("text", x = 0.3628177 , y = 1.4 , label = "a", size=6)+
-  annotate("text", x = 0.2292810 , y = 2.4 , label = "b", size=6)+
-  annotate("text", x = 0.3012312 , y = 3.4 , label = "a", size=6)+
+  annotate("text", x = 0.3628177 , y = 1.2 , label = "a", size=6)+
+  annotate("text", x = 0.2292810 , y = 2.2 , label = "b", size=6)+
+  annotate("text", x = 0.3012312 , y = 3.2 , label = "a", size=6)+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
@@ -531,14 +542,14 @@ gg_Comp_modelo_sec_uba_aao_2
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
 
-response_data <- data.frame(Comp_modelo_sec_uba_aao_2$emmeans)
+response_data <- data.frame(confint(Comp_modelo_sec_uba_aao_2$emmeans))
 
 response_data$Tratamiento <- as.factor(response_data$Tratamiento)
 
 library(ggplot2)
 sec_uba_aao_comp<-ggplot(response_data, aes(x=Tratamiento, y=response*100, fill = Tratamiento)) +
   geom_bar(stat = "identity", width=.4, color='black', size = 1) +
-  geom_errorbar(aes(ymin = response*100-SE*100, ymax = response*100+SE*100), width = 0.2, position = "dodge", color='black', size = 1)+
+  geom_errorbar(aes(ymin = response*100-response_data$SE *100, ymax = response*100+SE*100), width = 0.2, position = "dodge", color='black', size = 1)+
   scale_fill_manual(values=c("lightblue","coral","red4"))+
   labs(y="Actividad Antioxidante [%]", x="")+
   labs(x="", x="")+ #mg peso seco / ml
@@ -549,7 +560,7 @@ sec_uba_aao_comp<-ggplot(response_data, aes(x=Tratamiento, y=response*100, fill 
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
-  scale_y_continuous(limits = c(0, 0.6*100), breaks = seq(0, 0.6*100, 0.10*100))+
+  scale_y_continuous(limits = c(0, 0.99*100), breaks = seq(0, 1*100, 0.10*100))+
   annotate("text", y = 0.3628177*100+0.1*0.3628177*100 , x = 1.05 , label = "a",size=10)+
   annotate("text", y = 0.2292810 *100+0.1*0.2292810*100 , x = 2.05 , label = "b",size=10)+
   annotate("text", y = 0.3012312 *100+0.1*0.3012312*100 , x = 3.05 , label = "a",size=10)
@@ -658,7 +669,7 @@ sec_cal_aao<-ggplot(tabla_sec_cal_aao, aes(x=Dia, y=Mean, fill=Tratamiento, widt
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=32, color='black'))+
+  theme(text = element_text(size=35, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
@@ -677,9 +688,6 @@ tabla_sec_cal_aao_2$Tratamiento <- factor(tabla_sec_cal_aao_2$Tratamiento, level
 # library(lmerTest)
 # library(lme4)
 # modelo_sec_cal_aao <- lmer(aao ~ Tratamiento + (1|Concentracion), data = datosaao_cal)
-
-# Quitar cuando se agregue L a 60 días
-tabla_sec_cal_aao_2 <- tabla_sec_cal_aao_2[-c(73:81),]
 
 library(glmmTMB)
 modelo_sec_cal_aao_2 <- glmmTMB(aao/100 ~ Tratamiento + (1|Concentracion) + (1|Dia), family = beta_family(), data = tabla_sec_cal_aao_2)
@@ -753,8 +761,35 @@ gg_Comp_modelo_sec_cal_aao_2
 
 ```
 
-# Carotenoides
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
 
+response_data_cal <- data.frame(Comp_modelo_sec_cal_aao_2$emmeans)
+
+response_data_cal$Tratamiento <- as.factor(response_data_cal$Tratamiento)
+
+library(ggplot2)
+sec_cal_aao_comp<-ggplot(response_data_cal, aes(x=Tratamiento, y=response*100, fill = Tratamiento)) +
+  geom_bar(stat = "identity", width=.4, color='black', size = 1) +
+  geom_errorbar(aes(ymin = response*100-SE*100, ymax = response*100+SE*100), width = 0.2, position = "dodge", color='black', size = 1)+
+  scale_fill_manual(values=c("lightblue","coral","red4"))+
+  labs(y="Actividad Antioxidante [%]", x="")+
+  labs(x="", x="")+ #mg peso seco / ml
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=32, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(0, 0.99*100), breaks = seq(0, 1*100, 0.10*100))+
+  annotate("text", y = 0.8011113  *100+0.1*0.8011113 *100 , x = 1.05 , label = "a",size=10)+
+  annotate("text", y = 0.4876685   *100+0.1*0.4876685  *100 , x = 2.05 , label = "b",size=10)+
+  annotate("text", y = 0.7317074   *100+0.1*0.7317074 *100 , x = 3.05 , label = "a",size=10)
+sec_cal_aao_comp
+```
+
+# Carotenoides
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -791,7 +826,7 @@ gg_seCar<-ggplot(tabla_sec_car, aes(x=Dia, y=Mean, fill=Tratamiento, width=.5)) 
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=32, color='black'))+
+  theme(text = element_text(size=35, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
@@ -946,9 +981,9 @@ sec_uba_car_comp<-ggplot(response_data2, aes(x=Tratamiento, y=response, fill = T
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
   scale_y_continuous(limits = c(0, 300), breaks = seq(0, 300, 60))+
-  annotate("text", y = 259.34016 +20  , x = 1.2 , label = "a",size=6)+
-  annotate("text", y = 80.24991  +20   , x = 2.2 , label = "b",size=6)+
-  annotate("text", y = 96.00817 +20   , x = 3.2 , label = "b",size=6)
+  annotate("text", y = 259.34016 +20  , x = 1.2 , label = "a",size=10)+
+  annotate("text", y = 80.24991  +20   , x = 2.2 , label = "b",size=10)+
+  annotate("text", y = 96.00817 +20   , x = 3.2 , label = "b",size=10)
 sec_uba_car_comp
 
 ```
@@ -962,8 +997,7 @@ library(readxl)
 datosanto <- read_excel("database.xlsx", sheet="Secado_anto")
 
 datosanto$Tratamiento<-factor(datosanto$Tratamiento,levels=c("Frizado","Liofilizado","T60","T80"))
-
-
+datosanto$Dia<-as.factor(datosanto$Dia)
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
@@ -971,7 +1005,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
 tabla_sec_anto <- datosanto %>%
-  dplyr::group_by(Tratamiento) %>%
+  dplyr::group_by(Dia, Tratamiento) %>%
   dplyr::summarise(n=n(),
                    Mean=mean(Antocianinas),
                    sd=sd(Antocianinas))
@@ -982,20 +1016,21 @@ tabla_sec_anto <- datosanto %>%
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
 
 library(ggplot2)
-sec_cal_anto<-ggplot(tabla_sec_anto, aes(x=Tratamiento, y=Mean, fill=Tratamiento, width=.4)) +
-  stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
+sec_cal_anto<-ggplot(tabla_sec_anto, aes(x=Dia, y=Mean, fill=Tratamiento, width=.5)) +
+  stat_summary(fun = "mean", size = 1, geom = "bar",position=position_dodge(0.5), color="black") +
   geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.1, position=position_dodge(.6), size=1)+
+                width=.1, position=position_dodge(0.5), size=1)+
   scale_fill_manual(values=c("yellow3","lightblue","coral","red4"))+
-  labs(y="Antocianinas [mg / 100 g peso seco]", x="")+
+  labs(y="Antocianinas [mg / 100 g PS]", x="Día")+
+  # facet_grid(.~Tratamiento)+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=32, color='black'))+
+  theme(text = element_text(size=35, color='black'))+
   theme(axis.text = element_text(color='black'))+
   theme(legend.title=element_blank())+
   theme(legend.position = "bottom")+
-  scale_y_continuous(limits = c(0, 2600), breaks = seq(0, 2600, 400))
+  scale_y_continuous(limits = c(0, 2400), breaks = seq(0, 2400, 400))
 sec_cal_anto
 
 ```
@@ -1094,19 +1129,47 @@ Comp_modelo_sec_cal_anto<-emmeans(modelo_sec_car_anto_gamma, pairwise ~ Tratamie
 Comp_modelo_sec_cal_anto
 
 gg_Comp_modelo_sec_cal_aao_2 <- plot(Comp_modelo_sec_cal_anto, comparisons = TRUE)+
-labs(x = "Antocianinas [mg / 100 g peso seco]", y ="")+
-  annotate("text", x = 1692.695     , y = 1.4 , label = "a",size=6)+
-  annotate("text", x = 1362.550    , y = 2.4 , label = "ab",size=6)+
-  annotate("text", x = 1002.832   , y = 3.4 , label = "b",size=6)+
+labs(x = "Antocianinas [mg / 100 g PS]", y ="")+
+  annotate("text", x = 1690.368 , y = 1.4 , label = "a",size=6)+
+  annotate("text", x = 1349.826 , y = 2.4 , label = "ab",size=6)+
+  annotate("text", x = 1013.290 , y = 3.4 , label = "b",size=6)+
   theme_classic()+
   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=32, color='black'))+
   theme(axis.text = element_text(color='black'))+
-  scale_x_continuous(limits = c(600, 2400), breaks = seq(600, 2400, 200))+
+  scale_x_continuous(limits = c(600, 2500), breaks = seq(600, 2500, 200))+
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
 gg_Comp_modelo_sec_cal_aao_2
 
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
+
+response_data_cal_anto <- data.frame(Comp_modelo_sec_cal_anto$emmeans)
+
+response_data_cal_anto$Tratamiento <- as.factor(response_data_cal_anto$Tratamiento)
+
+library(ggplot2)
+sec_cal_aao_comp<-ggplot(response_data_cal_anto, aes(x=Tratamiento, y=response, fill = Tratamiento)) +
+  geom_bar(stat = "identity", width=.4, color='black', size = 1) +
+  geom_errorbar(aes(ymin = response-SE, ymax = response+SE), width = 0.2, position = "dodge", color='black', size = 1)+
+  scale_fill_manual(values=c("lightblue","coral","red4"))+
+  labs(y="Antocianinas [mg / 100 g PS]", x="")+
+  labs(x="", x="")+ #mg peso seco / ml
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=32, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(00, 2200), breaks = seq(00, 2200, 200))+
+  annotate("text", y = 1690.368+0.05*1349.826 , x = 1.05 , label = "a",size=10)+
+  annotate("text", y = 1349.826+0.05*1349.826 , x = 2.05 , label = "ab",size=10)+
+  annotate("text", y = 1013.290+0.05*1349.826 , x = 3.05 , label = "b",size=10)
+sec_cal_aao_comp
 ```
 
 # Correlaciones
@@ -1220,7 +1283,7 @@ HV_sec_cor_uba
 
 ```
 
-Anova
+Análisis de regresión
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1267,7 +1330,7 @@ gm_cor_sec_uba <- ggplot(secado_carotenoides3, aes(x = b_car, y = aao_mean)) +
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_line(color="black", size=0.05))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
+  theme(text = element_text(size=32, color='black'))+
   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
@@ -1417,11 +1480,11 @@ gm_cor_sec_cal <- ggplot(correlaciones_cal, aes(x = Antocianinas, y = aao)) +
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_line(color="black", size=0.05))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
+  theme(text = element_text(size=31, color='black'))+
   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
   scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, 20))+
-  scale_x_continuous(limits = c(0, 4200), breaks = seq(0, 4200, 200))
+  scale_x_continuous(limits = c(0, 2200), breaks = seq(0, 2200, 200))
 gm_cor_sec_cal
 
 ```

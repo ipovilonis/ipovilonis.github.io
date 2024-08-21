@@ -1,0 +1,194 @@
+---
+title: "Análisis multivariado maduración"
+---
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+madPCA <-read_excel("database.xlsx", sheet = "mad_PCA")
+madPCA$Madurez<-factor(madPCA$Madurez,levels=c("I", "MM", "M", "SM"))
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+madPCA2 <- madPCA[,-c(1)]
+
+# estandarizar
+
+# Seleccionar las columnas numéricas
+numeric_cols <- sapply(madPCA2, is.numeric)
+
+# Estandarizar las columnas numéricas
+datos_estandarizados <- madPCA2
+datos_estandarizados[, numeric_cols] <- scale(madPCA2[, numeric_cols])
+
+```
+
+PCA resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+library(factoextra)
+library(ggplot2)
+library(ggrepel)
+
+# Seleccionar las columnas específicas del dataframe
+datos_filtrados <- datos_estandarizados #%>%
+  # dplyr::select(Firmeza, L_color, a_color, b_color, aao_0.125, aao_0.250, aao_0.500, Fenoles, Carotenoides, Clo_a, Clo_b, pH, ATT, Sólidos, Respiración, Ratio)
+  
+# dplyr::select(TFS, FNP, FFWP, CO2)
+# 
+  # dplyr::select(PS, FIRMEZA, DT, PH, CO2, DL, NUPRORAFRU, NUFRU, PF)
+
+# Realizar el PCA
+pca_result <- prcomp(datos_filtrados, center = TRUE, scale. = TRUE)
+
+pca_scores <- as.data.frame(pca_result$x[,c(1:3)])
+pca_scores$Madurez <- as.factor(madPCA$Madurez)
+
+
+# Ver resumen del PCA
+summary(pca_result)
+
+```
+
+Loadings (contribuciones de cada variable a los componentes principales)
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Ver los loadings (contribuciones de cada variable a los componentes principales)
+print(pca_result$rotation)
+
+```
+
+Scores (valores de las muestras en los componentes principales)
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Ver los scores (valores de las muestras en los componentes principales)
+head(pca_result$x)
+
+```
+
+Contribución de las variables al CP1
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+pca_var <- get_pca_var(pca_result)
+# Ordenar las variables por contribución para Dim.1 (PC1)
+pca_var_dim1 <- pca_var$contrib[, 1] %>% sort(decreasing = TRUE)
+pca_var_dim1
+
+```
+
+Contribución de las variables al CP2
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Ordenar las variables por contribución para Dim.2 (PC2)
+pca_var_dim2 <- pca_var$contrib[, 2] %>% sort(decreasing = TRUE)
+pca_var_dim2
+
+```
+
+Contribución acumulada de cada variable a CP1 y CP2
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Contribución acumulada de cada variable a CP1 y CP2
+# Asegurarse de que los nombres de las variables coincidan entre los dos vectores
+common_names <- intersect(names(pca_var_dim1), names(pca_var_dim2))
+
+# Filtrar solo las variables comunes
+pca_var_dim1_filtered <- pca_var_dim1[common_names]
+pca_var_dim2_filtered <- pca_var_dim2[common_names]
+# Sumar las contribuciones de cada variable en los dos componentes
+combined_contributions <- pca_var_dim1_filtered + pca_var_dim2_filtered
+
+# Ordenar las variables por su contribución acumulada
+sorted_contributions <- sort(combined_contributions, decreasing = TRUE)
+
+# Mostrar el resultado
+sorted_contributions
+
+```
+
+Biplot
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=32, fig.height=24}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# c("#A6CEE3", "#1F78B4", "#B2DF8A", "#33A02C", "#FB9A99",
+# "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A",
+# "#FFFF00", "#B15928")
+
+# Suponiendo que quieres cambiar "Firmeza" por "Dureza" y "L_color" por "Color_L"
+
+rownames(pca_result$rotation)[8] <- "DMAF/DPF"
+rownames(pca_result$rotation)[25] <- "SS/ATT"
+rownames(pca_result$rotation)[42] <- "Feofitina a"
+rownames(pca_result$rotation)[43] <- "Feofitina b"
+rownames(pca_result$rotation)[44] <- "Luteína"
+rownames(pca_result$rotation)[45] <- "β Cryptoxantina"
+rownames(pca_result$rotation)[46] <- "β Caroteno"
+rownames(pca_result$rotation)[47] <- "Ésteres de β Cryptoxantina"
+rownames(pca_result$rotation)[48] <- "Di-ésteres Luteína"
+
+library(factoextra)
+library(ggplot2)
+
+# Definir las variables no significativas
+non_significant_vars <- c("Mn", "FDS", "Luteína")
+
+# Crear un vector de colores, asignando verde a las variables significativas y negro a las no significativas
+var_colors <- ifelse(rownames(pca_result$rotation) %in% non_significant_vars, "No Significativo", "Significativo")
+
+# Generar el biplot con fviz_pca_biplot
+biplot_madPCA <- fviz_pca_biplot(pca_result,
+                                 axes = c(1, 2),
+                                 repel = TRUE,
+                                 col.var = var_colors, # Usar el vector de colores
+                                 geom.ind = "point",
+                                 label = "var",
+                                 addEllipses = FALSE,
+                                 labelsize = 8) +
+  geom_point(data = pca_scores, # Si tienes los scores de PCA en un dataframe llamado pca_scores
+             aes(x = PC1, y = PC2, color = Madurez), size = 14) +
+  scale_color_manual(values = c("palegreen4", "yellowgreen", "gold", "gold4", "red", "black")) +
+  theme_classic() +
+  labs(title = "", x = "PC1 (59,9 %)", y = "PC2 (25,4 %)") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        text = element_text(size = 38, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  geom_smooth(data = pca_scores,
+              aes(x = PC1, y = PC2),
+              method = "loess",
+              se = FALSE,
+              color = "gray50",
+              linetype = 2,
+              span = 0.85)+
+  scale_x_continuous(limits = c(-8, 8), breaks = seq(-8, 8, 8))+
+  scale_y_continuous(limits = c(-5, 5), breaks = seq(-5, 5, 5))
+
+# Mostrar el biplot
+print(biplot_madPCA)
+# rmarkdown::render("mad_PCA.Rmd", output_format = "pdf_document")
+
+```

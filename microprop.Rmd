@@ -1,0 +1,189 @@
+---
+title: "Ensayos de micropropagación"
+---
+
+# Hormonas
+
+Encabezado de la base de datos
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Load library
+library(readxl)
+
+#Create object "db_met_mor" which contains climate data
+microprop <- read_excel("database.xlsx", sheet = "microprop")
+
+microprop$explanto <- as.factor(microprop$explanto)
+microprop$antioxidante <- as.factor(microprop$antioxidante)
+# 
+microprop$hormona <- as.factor(microprop$hormona)
+# microprop$hormona <- as.numeric(microprop$hormona)
+
+head(microprop)
+
+```
+
+Tabla resumen
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_microprop <- microprop %>%
+  dplyr::group_by(hormona, explanto) %>%
+  dplyr::summarise(n=n(),
+                   Mean_supervivencia = mean(supervivencia),
+                   sd_supervivencia = sd(supervivencia))
+tabla_microprop
+
+```
+
+Gráfico de barras
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+gg_microprop <- ggplot(tabla_microprop, aes(x=explanto, y=Mean_supervivencia , fill=hormona, width=.4)) +
+  stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
+  geom_errorbar(aes(ymin=Mean_supervivencia -sd_supervivencia, ymax=Mean_supervivencia +sd_supervivencia),
+                width=.1, position=position_dodge(.6), size=1)+
+  scale_fill_manual(values=c("#FF8","#FF9955","#FF2220"))+
+  labs(y="Supervivencia", x="")+
+  labs(x="", x="")+
+  # facet_grid(Conc~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=12, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(-0.2, 1.4), breaks = seq(-0.2, 1.4, 0.2))
+
+gg_microprop
+
+```
+
+Chekeo de linealidad
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+microprop <- read_excel("database.xlsx", sheet = "microprop")
+microprop$explanto <- as.factor(microprop$explanto)
+microprop$antioxidante <- as.factor(microprop$antioxidante)
+microprop$hormona <- as.numeric(microprop$hormona)
+
+tabla_microprop_2 <- microprop %>%
+  dplyr::group_by(hormona, explanto) %>%
+  dplyr::summarise(n=n(),
+                   Mean_supervivencia = mean(supervivencia),
+                   sd_supervivencia = sd(supervivencia))
+
+gg_microprop_2 <- ggplot(tabla_microprop_2, aes(x=hormona, y=Mean_supervivencia, color=explanto, shape = explanto, width=.4)) +
+  geom_point(size=8)+
+  labs(y="Supervivencia", x="")+
+  scale_x_continuous(limits = c(0, 10), breaks = seq(0, 10, 2))+
+  scale_y_continuous(limits = c(0, 1), breaks = seq(0, 1, 0.2))+
+  scale_color_manual(values=c("green3","coral3"))+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=12, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")
+gg_microprop_2
+
+microprop <- read_excel("database.xlsx", sheet = "microprop")
+microprop$explanto <- as.factor(microprop$explanto)
+microprop$antioxidante <- as.factor(microprop$antioxidante)
+microprop$hormona <- as.factor(microprop$hormona)
+
+```
+No hay linealidad --> comparación de medias
+
+Modelo factorial:
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lmerTest)
+
+library(nlme)
+
+modelo <- glm(supervivencia ~ hormona * explanto, family = binomial(link = "logit"), data = microprop)
+modelo$call
+```
+
+Anova:
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(modelo)
+
+```
+No se encontraron diferencias significativas
+
+# Antioxidante
+
+Tabla resumen
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_microprop_antioxidante <- microprop %>%
+  dplyr::group_by(antioxidante, explanto) %>%
+  dplyr::summarise(n=n(),
+                   Mean_supervivencia = mean(supervivencia),
+                   sd_supervivencia = sd(supervivencia))
+tabla_microprop_antioxidante
+
+```
+
+Gráfico de barras
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+gg_microprop_ao <- ggplot(tabla_microprop_antioxidante, aes(x=explanto, y=Mean_supervivencia , fill=antioxidante, width=.4)) +
+  stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
+  geom_errorbar(aes(ymin=Mean_supervivencia -sd_supervivencia, ymax=Mean_supervivencia +sd_supervivencia),
+                width=.1, position=position_dodge(.6), size=1)+
+  scale_fill_manual(values=c("#FF8","#FF9955","#FF2220"))+
+  labs(y="Supervivencia", x="")+
+  labs(x="", x="")+
+  # facet_grid(Conc~.)+
+  theme_classic()+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=12, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  scale_y_continuous(limits = c(-0.2, 1.4), breaks = seq(-0.2, 1.4, 0.2))
+gg_microprop_ao
+
+```
+
+Modelo factorial
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lmerTest)
+
+library(nlme)
+
+modelo_2 <- glm(supervivencia ~ antioxidante * explanto, family = binomial(link = "logit"), data = microprop)
+modelo_2$call
+
+```
+
+Anova:
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(car)
+Anova(modelo_2)
+
+```
+No se encontraron diferencias significativas

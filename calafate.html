@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Análisis de componentes principales en Calafate (Berberis mycrophylla)</title>
+
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">I Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    II Sitios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="II_Phenotypes.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_ER_Climate.html">Clima</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">ENTRE RÍOS</li>
+    <li class="divider"></li>
+    <li>
+      <a href="II_ER_SMN.html">MET ER</a>
+    </li>
+    <li>
+      <a href="II_ER_DL.html">DL ER</a>
+    </li>
+    <li>
+      <a href="II_ER_Soil.html">Suelos ER</a>
+    </li>
+    <li>
+      <a href="II_ER_Asociatedspecies.html">Especies asociadas</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">MORENO</li>
+    <li class="divider"></li>
+    <li>
+      <a href="II_M_inta.html">MET M</a>
+    </li>
+    <li>
+      <a href="II_M_Soil.html">Suelos M</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    III Fenología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="III_Phenology.html">Fenología</a>
+    </li>
+    <li>
+      <a href="III_Yield.html">Rendimiento</a>
+    </li>
+    <li>
+      <a href="III_Polinization.html">Polinización</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    IV Maduración
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mad_resume.html">Tablas resumen</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Atributos físicos</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Actividad antioxidante</a>
+    </li>
+    <li>
+      <a href="madPhenols.html">Fenoles</a>
+    </li>
+    <li>
+      <a href="madSSyAcidez.html">Sólidos Solubles y Acidez</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Ácidos orgánicos</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohidratos</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Fibra dietaria</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cationes</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    V Variabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V_Weight.html">Peso</a>
+    </li>
+    <li>
+      <a href="V_Diameter.html">Diámetro</a>
+    </li>
+    <li>
+      <a href="V_Seeds.html">Semillas</a>
+    </li>
+    <li>
+      <a href="V_Colorimetry.html">Colorimetría</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_phenols.html">Fenoles</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Reproductive.html">Variables reproductivas</a>
+    </li>
+    <li>
+      <a href="V_Branches.html">Eficiencia reproductiva</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_Multivariate.html">Multivariado</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+    <li>
+      <a href="VI_UNLP_1.html">Conservación 1°C</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Otros ensayos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Genetics.html">Extracción de ADN</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extración química</a>
+    </li>
+    <li>
+      <a href="q2022_quimico.html">Variables químicas 2022</a>
+    </li>
+    <li>
+      <a href="secado.html">Secado ER</a>
+    </li>
+    <li>
+      <a href="dry_test.html">Pruebas de Secado</a>
+    </li>
+    <li>
+      <a href="ER_flores.html">Floración ER</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Publicaciones</a>
+</li>
+<li>
+  <a href="bibliografia.html">Bibliografía</a>
+</li>
+<li>
+  <a href="about.html">Sobre el sitio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Análisis de componentes principales en
+Calafate (<em>Berberis mycrophylla</em>)</h1>
+
+</div>
+
+
+<div id="variables-respuesta" class="section level2">
+<h2>Variables respuesta:</h2>
+<p><strong>TFS</strong>: Total fruiting shoots per plant<br />
+<strong>FNP</strong>: Fruit number per plant<br />
+<strong>FFWP</strong>: Fresh fruit weight per plant<br />
+<strong>FFW</strong>: Fresh fruit weight<br />
+<strong>DFW</strong>: Dry fruit weight<br />
+<strong>EFD</strong>: Equatorial fruit diameter<br />
+<strong>PFD</strong>: Polar fruit diameter<br />
+<strong>FC</strong>: Color del fruto <strong>FF</strong>: Fruit
+firmness<br />
+<strong>NPR</strong>: Tasa de fotosíntesis (irradiancia=500)</p>
+<p>Resultado PCA</p>
+<pre><code>## Importance of components:
+##                           PC1    PC2    PC3     PC4     PC5     PC6    PC7     PC8     PC9    PC10
+## Standard deviation     2.2778 1.6281 1.0828 0.76547 0.43251 0.33876 0.2864 0.12441 0.05225 0.02255
+## Proportion of Variance 0.5188 0.2651 0.1172 0.05859 0.01871 0.01148 0.0082 0.00155 0.00027 0.00005
+## Cumulative Proportion  0.5188 0.7839 0.9012 0.95974 0.97845 0.98992 0.9981 0.99968 0.99995 1.00000</code></pre>
+<p>Heatmap
+<img src="calafate_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Scree plot para ver la varianza explicada por cada Principal
+component
+<img src="calafate_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Contribuciones de las variables para CP1</p>
+<p>Contribuciones de las variables para CP2</p>
+<pre><code>##       PFD       TFS       FNP      FFWP       FFW       EFD       DFW        FC        FF       NPR 
+## 16.867352 15.853562 15.060285 12.737096 11.847295 10.864138  9.875528  3.206205  2.480036  1.208502</code></pre>
+<pre><code>##         FF         FC        DFW        EFD        FFW        TFS        FNP       FFWP        NPR 
+## 28.8503686 16.3677209 14.5320653 13.9601643  9.4003012  4.9076078  4.5666750  4.5445801  1.8907620 
+##        PFD 
+##  0.9797548</code></pre>
+<pre><code>##          NPR           FC          FFW         FFWP          EFD          FNP          PFD           FF 
+## 57.909876917 18.206669873  6.814978175  5.255768439  4.153292131  2.763444267  1.870427459  1.586549627 
+##          DFW          TFS 
+##  1.436170038  0.002823075</code></pre>
+<p>Contribución acumulada de cada variable a CP1 y CP2</p>
+<pre><code>##        FF       EFD       DFW       FFW       TFS       FNP        FC       PFD      FFWP       NPR 
+## 31.330405 24.824302 24.407593 21.247596 20.761170 19.626960 19.573926 17.847106 17.281677  3.099264</code></pre>
+<p>Proporción de contribución de cada variable a PC1, PC2 y PC3
+<img src="calafate_files/figure-html/unnamed-chunk-13-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="biplots-de-pca-cp1-vs-cp2" class="section level2">
+<h2>Biplots de PCA CP1 VS CP2</h2>
+</div>
+<div id="biplots-de-pca-cp1-vs-cp3" class="section level2">
+<h2>Biplots de PCA CP1 VS CP3</h2>
+<p><img src="calafate_files/figure-html/unnamed-chunk-21-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="análisis-univariado-tasa-de-fotosíntesis-npr"
+class="section level2">
+<h2>Análisis univariado Tasa de fotosíntesis (<strong>NPR</strong>)</h2>
+<p><img src="calafate_files/figure-html/unnamed-chunk-26-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
+## 
+## Response: NPR_aj
+##                              Chisq Df Pr(&gt;Chisq)    
+## Fertilization               2.1554  2  0.3403858    
+## Ligth                      82.7143  1  &lt; 2.2e-16 ***
+## Season                     10.9737  1  0.0009241 ***
+## Fertilization:Ligth        62.0704  2  3.323e-14 ***
+## Fertilization:Season        2.7550  2  0.2522128    
+## Ligth:Season                2.8654  1  0.0905017 .  
+## Fertilization:Ligth:Season  2.8460  2  0.2409955    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><img src="calafate_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="efectos-simples" class="section level2">
+<h2>Efectos simples</h2>
+<pre><code>## $emmeans
+## Ligth = High, Season = 1st:
+##  Fertilization response        SE  df asymp.LCL asymp.UCL
+##  0             4.209045 0.4701398 Inf  3.381478  5.239148
+##  1             4.378010 0.4863772 Inf  3.521373  5.443038
+##  2             4.499106 0.5006865 Inf  3.617426  5.595680
+## 
+## Ligth = Medium, Season = 1st:
+##  Fertilization response        SE  df asymp.LCL asymp.UCL
+##  0             4.405079 0.4902337 Inf  3.541807  5.478762
+##  1             3.960158 0.4398811 Inf  3.185399  4.923354
+##  2             3.898135 0.4330483 Inf  3.135421  4.846384
+## 
+## Ligth = High, Season = 2nd:
+##  Fertilization response        SE  df asymp.LCL asymp.UCL
+##  0             4.343862 0.4819364 Inf  3.494927  5.399007
+##  1             4.714838 0.5237293 Inf  3.792402  5.861640
+##  2             4.637571 0.5151469 Inf  3.730252  5.765581
+## 
+## Ligth = Medium, Season = 2nd:
+##  Fertilization response        SE  df asymp.LCL asymp.UCL
+##  0             4.347186 0.4828749 Inf  3.496704  5.404526
+##  1             4.023099 0.4468635 Inf  3.236041  5.001583
+##  2             4.074973 0.4547397 Inf  3.274435  5.071228
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale 
+## 
+## $contrasts
+## Ligth = High, Season = 1st:
+##  contrast                            ratio         SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 0.9614061 0.02362414 Inf    1  -1.602  0.2449
+##  Fertilization0 / Fertilization2 0.9355292 0.02379252 Inf    1  -2.620  0.0239
+##  Fertilization1 / Fertilization2 0.9730844 0.02200772 Inf    1  -1.206  0.4493
+## 
+## Ligth = Medium, Season = 1st:
+##  contrast                            ratio         SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 1.1123494 0.02507709 Inf    1   4.723  &lt;.0001
+##  Fertilization0 / Fertilization2 1.1300480 0.02555829 Inf    1   5.406  &lt;.0001
+##  Fertilization1 / Fertilization2 1.0159109 0.02191280 Inf    1   0.732  0.7446
+## 
+## Ligth = High, Season = 2nd:
+##  contrast                            ratio         SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 0.9213174 0.01914156 Inf    1  -3.944  0.0002
+##  Fertilization0 / Fertilization2 0.9366674 0.01946111 Inf    1  -3.149  0.0047
+##  Fertilization1 / Fertilization2 1.0166610 0.02185109 Inf    1   0.769  0.7222
+## 
+## Ligth = Medium, Season = 2nd:
+##  contrast                            ratio         SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 1.0805564 0.02322576 Inf    1   3.605  0.0009
+##  Fertilization0 / Fertilization2 1.0668012 0.02563643 Inf    1   2.691  0.0195
+##  Fertilization1 / Fertilization2 0.9872702 0.02372400 Inf    1  -0.533  0.8550
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates 
+## Tests are performed on the log scale</code></pre>
+<pre><code>## $`simple contrasts for Fertilization`
+## Ligth = High, Season = 1st:
+##  contrast                            ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 1.0401432 0.02555891 Inf 0.9912358 1.0914636    1   1.602  0.1092
+##  Fertilization2 / Fertilization0 1.0689137 0.02718478 Inf 1.0169386 1.1235451    1   2.620  0.0088
+##  Fertilization2 / Fertilization1 1.0276601 0.02324203 Inf 0.9831015 1.0742384    1   1.206  0.2277
+## 
+## Ligth = Medium, Season = 1st:
+##  contrast                            ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 0.8989981 0.02026724 Inf 0.8601398 0.9396118    1  -4.723  &lt;.0001
+##  Fertilization2 / Fertilization0 0.8849182 0.02001419 Inf 0.8465478 0.9250277    1  -5.406  &lt;.0001
+##  Fertilization2 / Fertilization1 0.9843383 0.02123179 Inf 0.9435921 1.0268440    1  -0.732  0.4643
+## 
+## Ligth = High, Season = 2nd:
+##  contrast                            ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 1.0854023 0.02255064 Inf 1.0420917 1.1305130    1   3.944  0.0001
+##  Fertilization2 / Fertilization0 1.0676148 0.02218180 Inf 1.0250126 1.1119877    1   3.149  0.0016
+##  Fertilization2 / Fertilization1 0.9836121 0.02114077 Inf 0.9430375 1.0259323    1  -0.769  0.4420
+## 
+## Ligth = Medium, Season = 2nd:
+##  contrast                            ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 0.9254491 0.01989184 Inf 0.8872716 0.9652693    1  -3.605  0.0003
+##  Fertilization2 / Fertilization0 0.9373818 0.02252634 Inf 0.8942546 0.9825889    1  -2.691  0.0071
+##  Fertilization2 / Fertilization1 1.0128939 0.02433973 Inf 0.9662949 1.0617402    1   0.533  0.5939
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale 
+## Tests are performed on the log scale 
+## 
+## $`simple contrasts for Ligth`
+## Fertilization = 0, Season = 1st:
+##  contrast          ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 1.0465744 0.02661568 Inf 0.9956874 1.1000622    1   1.790  0.0735
+## 
+## Fertilization = 1, Season = 1st:
+##  contrast          ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.9045566 0.01951409 Inf 0.8671070 0.9436236    1  -4.650  &lt;.0001
+## 
+## Fertilization = 2, Season = 1st:
+##  contrast          ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.8664243 0.01959436 Inf 0.8288587 0.9056924    1  -6.340  &lt;.0001
+## 
+## Fertilization = 0, Season = 2nd:
+##  contrast          ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 1.0007653 0.02079055 Inf 0.9608350 1.0423550    1   0.037  0.9706
+## 
+## Fertilization = 1, Season = 2nd:
+##  contrast          ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.8532848 0.01834370 Inf 0.8180788 0.8900060    1  -7.380  &lt;.0001
+## 
+## Fertilization = 2, Season = 2nd:
+##  contrast          ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.8786869 0.02111845 Inf 0.8382553 0.9210687    1  -5.381  &lt;.0001
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale 
+## Tests are performed on the log scale 
+## 
+## $`simple contrasts for Season`
+## Fertilization = 0, Ligth = High:
+##  contrast      ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.0320302 0.02464697 Inf 0.9848362  1.081486    1   1.320  0.1868
+## 
+## Fertilization = 1, Ligth = High:
+##  contrast      ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.0769363 0.02322876 Inf 1.0323577  1.123440    1   3.436  0.0006
+## 
+## Fertilization = 2, Ligth = High:
+##  contrast      ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.0307762 0.02323676 Inf 0.9862244  1.077341    1   1.345  0.1787
+## 
+## Fertilization = 0, Ligth = Medium:
+##  contrast      ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 0.9868577 0.02224697 Inf 0.9442036  1.031439    1  -0.587  0.5573
+## 
+## Fertilization = 1, Ligth = Medium:
+##  contrast      ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.0158938 0.02183520 Inf 0.9739865  1.059604    1   0.734  0.4632
+## 
+## Fertilization = 2, Ligth = Medium:
+##  contrast      ratio         SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.0453649 0.02519256 Inf 0.9971363  1.095926    1   1.841  0.0656
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the log scale 
+## Tests are performed on the log scale</code></pre>
+<p><img src="calafate_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="calafate_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="calafate_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="efectos-principales" class="section level1">
+<h1>Efectos principales</h1>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

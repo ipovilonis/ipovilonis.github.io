@@ -4,7 +4,7 @@ title: "Morphological"
 
 ![The fruit](C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/test/ipovilonis.github.io)
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
@@ -13,16 +13,16 @@ fisico<- read_excel("database.xlsx", sheet="V fisico")
 fisico$year<-as.factor(fisico$year)
 fisico$phenotype<-as.factor(fisico$phenotype)
 fisico$site<-factor(fisico$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
-fisico$n<-as.factor(fisico$n)
+fisico$id<-as.factor(fisico$id)
 fisico$pss<-as.numeric(fisico$pss)
-fisico$mad<-as.numeric(fisico$mad)
+fisico$mad<-as.factor(fisico$mad)
 data19F<-subset(fisico, year == "2019")
 
 ```
 
 # Average fruit
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
@@ -36,7 +36,7 @@ mean_fruit<-data.frame(variable,means)
 mean_fruit
 ```
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Crear el gráfico utilizando ggplot y agregar el texto del número
@@ -50,7 +50,7 @@ ggfruit
 
 # Maturity index
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data<-read_excel("database.xlsx", sheet="V varqui")
@@ -83,7 +83,7 @@ gindmad<-ggplot(data=resindmad, aes(x=phenotype, y=indmad, fill=site))+
 gindmad
 ```
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 dataindmad <- data19Q[!is.na(data19Q$indmad),]
@@ -94,7 +94,7 @@ library(lmerTest)
 mindmad<- lmer((indmad) ~ 1 + (1|site/phenotype), dataindmad)
 ```
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
 # indmad_ajuste <- as.data.frame(cbind(
@@ -143,12 +143,12 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 summary(mindmad)
 ```
 
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
 
@@ -170,7 +170,7 @@ ICCindmad
 
 
 # **pff** Peso fresco del fruto
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 
@@ -183,7 +183,7 @@ datamorf$phenotype<-as.factor(datamorf$phenotype)
 
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 
@@ -218,7 +218,7 @@ The dashed red line indicates the mean.
 
 # **de** Diámetro ecuatorial
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #setwd("C:/Users/um/Documents/ipovilonis/Doc/6 - Producción/web/ipovilonis.github.io")
 
@@ -250,3 +250,52 @@ gde
 
 The bars indicate standard deviation.
 The dashed red line indicates the mean.
+
+## PEN
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+fisico$PEN <- fisico$pen
+
+fisico[do.call(cbind, lapply(fisico, is.infinite))] <- NA
+
+# Imputar valores faltantes (NA) con la media de cada columna
+fisico <- as.data.frame(lapply(fisico, function(x) {
+  if(is.numeric(x)) {
+    return(ifelse(is.na(x), mean(x, na.rm = TRUE), x))
+  } else {
+    return(x)
+  }
+}))
+
+library(dplyr)
+
+tabla_PEN <- fisico %>%
+  dplyr::group_by(mad) %>%
+  dplyr::summarise(n=n(),
+                   Mean_PEN = mean(PEN),
+                   sd_PEN = sd(PEN))
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```

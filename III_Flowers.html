@@ -11,7 +11,7 @@
 
 
 
-<title>Reproductive</title>
+<title>Predicción del incio y plena floración</title>
 
 <script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -394,6 +394,9 @@ $(document).ready(function () {
     <li>
       <a href="VI_climateric3.html">Climacterio 3</a>
     </li>
+    <li>
+      <a href="VI_UNLP_1.html">Conservación 1°C</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -449,12 +452,72 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Reproductive</h1>
+<h1 class="title toc-ignore">Predicción del incio y plena floración</h1>
 
 </div>
 
 
-
+<div id="método-del-coeficiente-de-regresión" class="section level2">
+<h2>Método del Coeficiente de Regresión</h2>
+<p>Cálculo de la temperatura base óptima utilizando el Método del
+Coeficiente de Regresión <a
+href="https://doi.org/10.1016/0168-1923(94)02185-M"><em>(Yang et al.,
+1995)</em></a></p>
+<div id="ecuación-para-el-coeficiente-de-regresión"
+class="section level3">
+<h3>Ecuación para el Coeficiente de Regresión</h3>
+<p>El coeficiente de regresión <span class="math inline">\(b\)</span> se
+calcula usando la fórmula:</p>
+<p><span class="math display">\[
+b = \frac{n \sum_{i=1}^{n} GDD_i T_i - \sum_{i=1}^{n} T_i \sum_{i=1}^{n}
+GDD_i}{n \sum_{i=1}^{n} T_i^2 - \left(\sum_{i=1}^{n} T_i\right)^2}
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(GDD_i\)</span> es el total de Grados-Día
+Acumulados para cada observación.</li>
+<li><span class="math inline">\(T_i\)</span> es la temperatura promedio
+para cada observación.</li>
+<li><span class="math inline">\(n\)</span> es el número total de
+observaciones.</li>
+</ul>
+</div>
+<div id="ecuación-para-la-temperatura-base" class="section level3">
+<h3>Ecuación para la Temperatura Base</h3>
+<p>La temperatura base (<span class="math inline">\(T_b\)</span>) se
+calcula usando la ecuación:</p>
+<p><span class="math display">\[
+T_b = \frac{\sum_{i=1}^{n} T_i \sum_{i=1}^{n} d_i T_i - n \sum_{i=1}^{n}
+d_i T_i^2}{\sum_{i=1}^{n} d_i \sum_{i=1}^{n} T_i - n \sum_{i=1}^{n} d_i
+T_i}
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(d_i\)</span> es el número de días de
+cada observación.</li>
+<li><span class="math inline">\(n\)</span> es el número total de
+observaciones.</li>
+</ul>
+<pre><code>## Error in select(., date, Grados_Día_Acumulados): los argumentos no fueron usados (date, Grados_Día_Acumulados)</code></pre>
+<pre><code>## Error in select(., date, Grados_Día_Acumulados): los argumentos no fueron usados (date, Grados_Día_Acumulados)</code></pre>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;results_if&#39; no encontrado</code></pre>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;results_pf&#39; no encontrado</code></pre>
+<p>Temperatura base óptima para inicio de floración</p>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;results_if&#39; no encontrado</code></pre>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;optimal_base_temp_if&#39; no encontrado</code></pre>
+<p>Temperatura base óptima para plena floración</p>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;results_pf&#39; no encontrado</code></pre>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;optimal_base_temp_pf&#39; no encontrado</code></pre>
+<p>Gráfico con predicciones y datos puntuales para cada año
+<img src="III_Flowers_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<ul>
+<li><p>Inicio de floración (10%) con 789.40 grados-día acumulados y
+Temperatura base de 6°C a partir del 1 de agosto</p></li>
+<li><p>Plena floración (%máx) con 1341.36 grados-día acumulados y
+Temperatura base de 2°C a partir del 1 de agosto</p></li>
+</ul>
+</div>
+</div>
 
 
 
