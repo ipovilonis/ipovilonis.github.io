@@ -220,6 +220,11 @@ data_numeric <- as.data.frame(lapply(data_numeric, function(x) {
   }
 }))
 
+names(data_numeric) <- c("PFF", "DMAF", "L*", "DPF", "PSF",
+                         "b*", "PSS", "IM", "PEN", 
+                         "pH", "CLb", 
+                         "CLa", "ATT/SS", "ATT", "a*", "PT", "DPPH25")
+
 # Verificar que no haya NA ni Inf
 # any(is.na(data_numeric))      # Debería ser FALSE
 # any(do.call(cbind, lapply(data_numeric, is.infinite)))  # Debería ser FALSE
@@ -405,8 +410,8 @@ heatmap_multivar <- heatmap_multivar +
     color = "black", 
     size = 12, 
     vjust = 0.5, 
-    hjust = 0.5,
-    angle = 23
+    hjust = 0.2,
+    angle = 0
   )
 
 # Mostrar el gráfico
@@ -506,12 +511,12 @@ df <- data.frame(Componente = factor(1:length(eig_values)), Varianza = eig_value
 
 # Crear el gráfico de barras
 gg_scree_multivar <- ggplot(df, aes(x = Componente, y = Varianza)) +
-    geom_bar(stat = "identity", fill = "#345345") +
+    geom_bar(stat = "identity", fill = "palegreen4") +
     geom_text(aes(label = Varianza), vjust = -0.5, size = 12) +
     theme_classic() +
     labs(title = "",
          x = "Componente principal",
-         y = "Porcentaje de varianza [%]") +
+         y = "Porcentaje de varianza (%)") +
     theme(text = element_text(size = 32, color = 'black'),
           axis.text = element_text(size = 32, color = 'black'),
           legend.position = "none")
