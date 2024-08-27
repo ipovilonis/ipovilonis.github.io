@@ -1,7 +1,13 @@
 ---
 title: "Análisis de componentes principales en Calafate
 (_Berberis mycrophylla_)"
-
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
 ---
 
 ## Variables respuesta:
@@ -1345,33 +1351,33 @@ tabla_calafate2 <- calafate2 %>%
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-gg_irradiance<-ggplot(tabla_calafate2, aes(x = Irradiance, y = Mean, color = Fertilization)) +
-  geom_line(size = 1) +  # Líneas para cada combinación de factores
-  geom_point(size = 4) +  # Puntos en cada nivel de Irradiance
-  # geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.1) +  # Barras de error
-  scale_color_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
-  # scale_color_brewer(palette = "Set1") +  # Escala de color para Fertilization
-  # scale_shape_manual(values = c(16, 17, 18)) +  # Ajusta los shapes si es necesario
-  labs(
-    title = "",
-    x = "Irradiance [µmol.m-2.s-1]",
-    y = "NPR [µmolCO2 m-2 s-1]",
-    color = "Fertilization",
-    # linetype = "Season"
-  ) +
-  facet_grid(.~Light)+
-  theme_classic() +
-  theme(
-    text = element_text(size = 14),
-    legend.position = "bottom"
-  )+
-  theme(text = element_text(size=26, color='black')) +
-  theme(axis.text = element_text(color='black'))+
-  geom_hline(yintercept = 0, linetype = "dashed", color = "black", size = 1)+
-  coord_cartesian(xlim = c(0, 50), ylim = c(-1, 1))
-
-gg_irradiance
+# library(ggplot2)
+# gg_irradiance<-ggplot(tabla_calafate2, aes(x = Irradiance, y = Mean, color = Fertilization)) +
+#   geom_line(size = 1) +  # Líneas para cada combinación de factores
+#   geom_point(size = 4) +  # Puntos en cada nivel de Irradiance
+#   # geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.1) +  # Barras de error
+#   scale_color_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
+#   # scale_color_brewer(palette = "Set1") +  # Escala de color para Fertilization
+#   # scale_shape_manual(values = c(16, 17, 18)) +  # Ajusta los shapes si es necesario
+#   labs(
+#     title = "",
+#     x = "Irradiance [µmol.m-2.s-1]",
+#     y = "NPR [µmolCO2 m-2 s-1]",
+#     color = "Fertilization",
+#     # linetype = "Season"
+#   ) +
+#   facet_grid(.~Light)+
+#   theme_classic() +
+#   theme(
+#     text = element_text(size = 14),
+#     legend.position = "bottom"
+#   )+
+#   theme(text = element_text(size=26, color='black')) +
+#   theme(axis.text = element_text(color='black'))+
+#   geom_hline(yintercept = 0, linetype = "dashed", color = "black", size = 1)+
+#   coord_cartesian(xlim = c(0, 50), ylim = c(-1, 1))
+# 
+# gg_irradiance
 
 ```
 
