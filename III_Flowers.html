@@ -498,18 +498,26 @@ cada observación.</li>
 <li><span class="math inline">\(n\)</span> es el número total de
 observaciones.</li>
 </ul>
-<pre><code>## Error in select(., date, Grados_Día_Acumulados): los argumentos no fueron usados (date, Grados_Día_Acumulados)</code></pre>
-<pre><code>## Error in select(., date, Grados_Día_Acumulados): los argumentos no fueron usados (date, Grados_Día_Acumulados)</code></pre>
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;results_if&#39; no encontrado</code></pre>
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;results_pf&#39; no encontrado</code></pre>
+<pre><code>##   BaseTemp          R2        RMSE
+## 1        2 0.999679174 26.26360052
+## 2        4 0.999699974 21.77565241
+## 3        6 0.999716786 17.66195374
+## 4        8 0.999707230 14.47375956
+## 5       10 0.999715963 10.98024659
+## 6       12 0.999836086  6.12030125</code></pre>
+<pre><code>##   BaseTemp          R2       RMSE
+## 1        2 0.999309627 37.5314242
+## 2        4 0.999260304 33.3171520
+## 3        6 0.999169809 29.4781294
+## 4        8 0.998963558 26.5673995
+## 5       10 0.998653768 23.3576997
+## 6       12 0.998392870 18.7959742</code></pre>
 <p>Temperatura base óptima para inicio de floración</p>
-<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;results_if&#39; no encontrado</code></pre>
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;optimal_base_temp_if&#39; no encontrado</code></pre>
+<pre><code>## [1] 12</code></pre>
 <p>Temperatura base óptima para plena floración</p>
-<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;results_pf&#39; no encontrado</code></pre>
-<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;optimal_base_temp_pf&#39; no encontrado</code></pre>
+<pre><code>## [1] 2</code></pre>
 <p>Gráfico con predicciones y datos puntuales para cada año
-<img src="III_Flowers_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="III_Flowers_files/figure-html/unnamed-chunk-8-1.svg" width="2304" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>Inicio de floración (10%) con 789.40 grados-día acumulados y
 Temperatura base de 6°C a partir del 1 de agosto</p></li>

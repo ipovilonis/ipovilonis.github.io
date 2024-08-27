@@ -561,9 +561,9 @@ div.tocify {
 ## 13 80          4         3  2.88 0.336
 ## 14 80          5         3  2.08 0.124</code></pre>
 <p>Gráfico de medias con desvío estándar
-<img src="dry_test_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-3-1.svg" width="1536" style="display: block; margin: auto;" /></p>
 <p>Gráfico de líneas de tendencia medias y valores puntuales
-<img src="dry_test_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-4-1.svg" width="960" style="display: block; margin: auto;" /></p>
 <p>Correlación de cada unidad observacional en el tiempo</p>
 <pre><code>##      0    1    2    3    4    5
 ## 0 1.00 0.82 0.92 0.90 0.88 0.86
@@ -584,7 +584,7 @@ div.tocify {
 <pre><code>## gls(model = Peso ~ Hora * Temperatura + basal, data = datospeso2w, 
 ##     correlation = corAR1(form = ~1 | Repeticion))</code></pre>
 <p>Comprobación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-2.png" width="95%" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-3.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-11-1.svg" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-2.svg" width="960" style="display: block; margin: auto;" /><img src="dry_test_files/figure-html/unnamed-chunk-11-3.svg" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -608,65 +608,65 @@ div.tocify {
 <p>Efectos simples</p>
 <pre><code>## $emmeans
 ## Hora = 1:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60          13.223486 0.5576531 17.29 12.048430 14.398541
-##  80          13.522181 0.5576531 17.29 12.347125 14.697236
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60           13.22 0.558 17.4    12.05    14.40
+##  80           13.52 0.558 17.4    12.35    14.70
 ## 
 ## Hora = 2:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60          11.683819 0.5576531 17.29 10.508764 12.858875
-##  80          10.157181 0.5576531 17.29  8.982125 11.332236
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60           11.68 0.558 17.4    10.51    12.86
+##  80           10.16 0.558 17.4     8.98    11.33
 ## 
 ## Hora = 3:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60           9.709153 0.5576531 17.29  8.534097 10.884208
-##  80           6.402514 0.5576531 17.29  5.227459  7.577570
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60            9.71 0.558 17.4     8.53    10.88
+##  80            6.40 0.558 17.4     5.23     7.58
 ## 
 ## Hora = 4:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60           7.690486 0.5576531 17.29  6.515430  8.865541
-##  80           3.668181 0.5576531 17.29  2.493125  4.843236
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60            7.69 0.558 17.4     6.52     8.87
+##  80            3.67 0.558 17.4     2.49     4.84
 ## 
 ## Hora = 5:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60           5.900486 0.5576531 17.29  4.725430  7.075541
-##  80           2.869847 0.5576531 17.29  1.694792  4.044903
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60            5.90 0.558 17.4     4.73     7.08
+##  80            2.87 0.558 17.4     1.70     4.04
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
 ## Hora = 1:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80 -0.298695 0.877104 9.68  -0.341  0.7407
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80   -0.299 0.877 9.75  -0.341  0.7407
 ## 
 ## Hora = 2:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  1.526638 0.877104 9.68   1.741  0.1134
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    1.527 0.877 9.75   1.741  0.1132
 ## 
 ## Hora = 3:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.306638 0.877104 9.68   3.770  0.0039
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    3.307 0.877 9.75   3.770  0.0038
 ## 
 ## Hora = 4:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  4.022305 0.877104 9.68   4.586  0.0011
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    4.022 0.877 9.75   4.586  0.0011
 ## 
 ## Hora = 5:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.030638 0.877104 9.68   3.455  0.0065
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    3.031 0.877 9.75   3.455  0.0064
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
-<img src="dry_test_files/figure-html/unnamed-chunk-15-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-15-1.svg" width="1920" style="display: block; margin: auto;" /></p>
 <p>Modelo
-<img src="dry_test_files/figure-html/unnamed-chunk-18-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-18-1.svg" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="actividad-antioxidante" class="section level1">
 <h1>Actividad antioxidante</h1>
 <div id="ubajay" class="section level2">
 <h2>Ubajay</h2>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-22-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-22-1.svg" width="1920" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## Formula:          aao/100 ~ Tratamiento + (1 | Concentracion) + (1 | Dia)
 ## Data: datosaao_uba
@@ -689,7 +689,7 @@ div.tocify {
 ##    (Intercept)  TratamientoT60  TratamientoT80  
 ##        -0.5632         -0.6492         -0.2783</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-25-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-25-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
@@ -717,12 +717,12 @@ div.tocify {
 ## Confidence level used: 0.95 
 ## Conf-level adjustment: tukey method for comparing a family of 3 estimates 
 ## Intervals are back-transformed from the log odds ratio scale</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-27-1.png" width="95%" style="display: block; margin: auto;" /></p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-28-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-27-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-28-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="calafate" class="section level2">
 <h2>Calafate</h2>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-29-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-29-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## Formula:          aao/100 ~ Tratamiento + (1 | Concentracion) + (1 | Dia)
 ## Data: tabla_sec_cal_aao_2
@@ -745,7 +745,7 @@ div.tocify {
 ##    (Intercept)  TratamientoT60  TratamientoT80  
 ##          1.393          -1.443          -0.390</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-32-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-32-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
@@ -772,16 +772,16 @@ div.tocify {
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log odds ratio scale</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-34-1.png" width="95%" style="display: block; margin: auto;" /></p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-35-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-34-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-35-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="carotenoides" class="section level1">
 <h1>Carotenoides</h1>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-38-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-38-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <p>Comprobación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-40-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-40-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova del modelo</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
@@ -808,12 +808,12 @@ div.tocify {
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log scale</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-42-1.png" width="95%" style="display: block; margin: auto;" /></p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-43-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-42-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-43-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="antocianinas" class="section level1">
 <h1>Antocianinas</h1>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-46-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-46-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: Gamma  ( log )
@@ -831,7 +831,7 @@ div.tocify {
 ##         7.4327         -0.2250         -0.5117  
 ## optimizer (Nelder_Mead) convergence code: 0 (OK) ; 0 optimizer warnings; 1 lme4 warnings</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-49-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-49-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
@@ -858,8 +858,8 @@ div.tocify {
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log scale</code></pre>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-51-1.png" width="95%" style="display: block; margin: auto;" /></p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-52-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-51-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-52-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlaciones" class="section level1">
 <h1>Correlaciones</h1>
@@ -886,7 +886,7 @@ div.tocify {
 ## (Intercept)        b_car  
 ##    -0.32335      0.00217</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-56-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-56-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 <p>Análisis de regresión</p>
 <pre><code>##  Family: beta  ( logit )
 ## Formula:          aao_mean/100 ~ b_car + (1 | Tratamiento)
@@ -912,7 +912,7 @@ div.tocify {
 <p>No existe evidencia para aceptar que beta1 difiere de cero (r =
 0.261, valor p = 0.135)</p>
 <p>Gráfico del modelo ajustado</p>
-<p><img src="dry_test_files/figure-html/unnamed-chunk-59-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="dry_test_files/figure-html/unnamed-chunk-59-1.svg" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="calafate-1" class="section level2">
 <h2>Calafate</h2>
@@ -937,7 +937,7 @@ div.tocify {
 ##  (Intercept)  Antocianinas  
 ##    0.9656156    -0.0000848</code></pre>
 <p>Verificación de supuestos
-<img src="dry_test_files/figure-html/unnamed-chunk-63-1.png" width="110%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-63-1.svg" width="110%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
 <pre><code>##  Family: beta  ( logit )
 ## Formula:          aao/100 ~ Antocianinas + (1 | Tratamiento)
@@ -964,7 +964,7 @@ div.tocify {
 <p>No existe evidencia para aceptar que beta1 difiere de cero (r =
 0.178, valor p = 0.502)</p>
 <p>Gráfico del modelo ajustado
-<img src="dry_test_files/figure-html/unnamed-chunk-66-1.png" width="110%" style="display: block; margin: auto;" /></p>
+<img src="dry_test_files/figure-html/unnamed-chunk-66-1.svg" width="110%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 

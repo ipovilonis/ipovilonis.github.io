@@ -8,10 +8,18 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 library(dplyr)
 
+# Supongamos que fisico es tu data.frame
+
+# Paso 1: Definir los niveles y etiquetas
+new_levels <- c("Concordia", "Palmar", "Gualeguaychú")
+original_levels <- c("Concordia", "Palmar", "Gualeguaychu")
+# Paso 2: Convertir el factor a caracteres para hacer la sustitución
+fisico$site <- factor(fisico$site, levels = original_levels)
+
 fisico<- read_excel("database.xlsx", sheet="V fisico")
 fisico$year<-as.factor(fisico$year)
 fisico$phenotype<-as.factor(fisico$phenotype)
-fisico$site<-factor(fisico$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+fisico$site<-factor(fisico$site, levels = original_levels, labels = new_levels)
 fisico$id<-as.factor(fisico$id)
 fisico$pss<-as.numeric(fisico$pss)
 fisico$mad<-as.numeric(fisico$mad)
@@ -28,7 +36,7 @@ color$year<-as.factor(color$year)
 color$phenotype<-as.factor(color$phenotype)
 color$mad<-as.factor(color$mad)
 color$mad<-factor(color$mad,levels=c("I", "MM", "M", "SM"))
-color$site<-factor(color$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+color$site<-factor(color$site,, levels = original_levels, labels = new_levels)
 
 color<-color[,-c(4:6, 10:16)]
 
@@ -39,7 +47,7 @@ table_color <- color %>%
 quimico1<-read_excel("database.xlsx", sheet="V varqui")
 quimico1$year<-as.factor(quimico1$year)
 quimico1$phenotype<-as.factor(quimico1$phenotype)
-quimico1$site<-factor(quimico1$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+quimico1$site<-factor(quimico1$site, levels = original_levels, labels = new_levels)
 
 quimico1 <- quimico1[,-c(4:5,11:13)]
 
@@ -50,7 +58,7 @@ table_quimico1 <- quimico1 %>%
 quimico2<-read_excel("database.xlsx", sheet="V acidezsolidos")
 quimico2$year<-as.factor(quimico2$year)
 quimico2$phenotype<-as.factor(quimico2$phenotype)
-quimico2$site<-factor(quimico2$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
+quimico2$site<-factor(quimico2$site, levels = original_levels, labels = new_levels)
 quimico2$ph7=as.numeric(quimico2$ph7)
 quimico2$mad<-as.factor(quimico2$mad)
 
@@ -477,7 +485,7 @@ gg_bar_agr_PCA_multivar <- ggplot(loadings_long, aes(x = Component, y = Contribu
   scale_fill_manual(values = my_palette) +
   labs(title = "",
        x = "Componente principal",
-       y = "Porcentaje de los coeficientes") +
+       y = "Porcentaje explicado") +
   theme_classic() +
   theme(text = element_text(size = 32, color = 'black'),
         legend.position = "right",
@@ -551,8 +559,13 @@ biplot_variables_multivar <- fviz_pca_biplot(pca_result, repel = TRUE,
                                     labelsize=12) +
   # geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = Fenotipo), size = 8, box.padding = 0.5)+ 
   geom_point(data = pca_scores, 
-             aes(x = PC1, y = PC2, color = Sitio), size = 12) +
-  scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "burlywood2", "Gualeguaychu" = "palegreen4"))+
+             aes(x = PC1, y = PC2, color = Sitio), size = 12, alpha = 0.6) +
+  geom_text_repel(data = coords, 
+                  aes(x = PC1, y = PC2, label = rownames(coords)), 
+                  size = 8, 
+                  box.padding = 0.5, 
+                  color = "black") +
+  scale_color_manual(values = c("Concordia" = "coral1", "Palmar" = "blue3", "Gualeguaychú" = "palegreen4"))+
   labs(title = "", x = "Componente Principal 1 (42,3 %)", y = "Componente Principal 2 (21,7 %)", color = "Sitio") +
   theme_classic() +
   theme(legend.position = "bottom",
@@ -571,7 +584,7 @@ biplot_variables_multivar_2 <- fviz_pca_biplot(pca_result, repel = TRUE,
                                     labelsize=12) +
   # geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = phenotype), size = 5, box.padding = 0.5)+ 
   geom_point(data = pca_scores, 
-             aes(x = PC1, y = PC2, color = Año), size = 12) +
+             aes(x = PC1, y = PC2, color = Año), size = 12, alpha = 0.6) +
   scale_color_manual(values = c("2019" = "#f7db20", "2021" = "#07c22c", "2022" = "#522DAD")) +
   labs(title = "", x = "Componente Principal 1 (42,3 %)", y = "Componente Principal 2 (21,7 %)", color = "Año") +
   theme_classic() +

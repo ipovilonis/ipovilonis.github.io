@@ -13,9 +13,9 @@ title: "Análisis de componentes principales en Calafate
 **DFW**: Dry fruit weight  
 **EFD**: Equatorial fruit diameter  
 **PFD**: Polar fruit diameter  
-**FC**: Color del fruto
+**FC**: Fruit color
 **FF**: Fruit firmness  
-**NPR**: Tasa de fotosíntesis (irradiancia=500)
+**NPR**: net rate of photosynthesis (irradiance=500)
 
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -25,7 +25,7 @@ library(readxl)
 calafate <- read_excel("database.xlsx", sheet = "calafate")
 
 calafate$Season<-as.factor(calafate$Season)
-calafate$Ligth<-as.factor(calafate$Ligth)
+calafate$Light<-as.factor(calafate$Light)
 calafate$Fertilization<-as.factor(calafate$Fertilization)
 
 ```
@@ -34,7 +34,7 @@ calafate$Fertilization<-as.factor(calafate$Fertilization)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # calafate$AÑO<-as.factor(calafate$AÑO)
-# calafate$Ligth<-as.factor(calafate$Ligth)
+# calafate$Light<-as.factor(calafate$Light)
 # calafate$FERTI<-as.factor(calafate$FERTI)
 # 
 # library(dplyr)
@@ -60,7 +60,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
 #   # Crea la tabla resumen
 #   tabla_resumen <- calafate %>%
-#     group_by(Season, Ligth, Fertilization) %>%
+#     group_by(Season, Light, Fertilization) %>%
 #     summarise(
 #       n = n(),
 #       Mean = mean(.data[[variable]], na.rm = TRUE),
@@ -224,7 +224,7 @@ pca_result <- prcomp(datos_filtrados, center = TRUE, scale. = TRUE)
 
 pca_scores <- as.data.frame(pca_result$x[,c(1:3)])
 pca_scores$Season <- calafate$Season
-pca_scores$Ligth <- calafate$Ligth
+pca_scores$Light <- calafate$Light
 pca_scores$Fertilization <- calafate$Fertilization
 
 # Ver resumen del PCA
@@ -531,7 +531,7 @@ biplot_variables_2 <- fviz_pca_biplot(pca_result,
   labelsize = 6) +
   # geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = Season), size = 10, box.padding = 0.5)+ 
   geom_point(data = pca_scores, 
-             aes(x = PC1, y = PC2, color = Ligth), size = 10) +
+             aes(x = PC1, y = PC2, color = Light), size = 10) +
   scale_color_manual(values = c("High" = "#FFFF00", "Medium" = "#4C4C4C")) +
    theme_classic() +
   labs(title = "", x = "", y = "") + #Principal component 2 (26,51 %)
@@ -549,7 +549,7 @@ biplot_variables_2 <- fviz_pca_biplot(pca_result,
 #                                     addEllipses = FALSE) +
 #   geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = Season), size = 10, box.padding = 0.5)+ 
 #   geom_point(data = pca_scores, 
-#              aes(x = PC1, y = PC2, color = Ligth, shape = Fertilization), size = 10) +
+#              aes(x = PC1, y = PC2, color = Light, shape = Fertilization), size = 10) +
 #   scale_color_manual(values = c("High" = "#FFFF00", "Medium" = "#A6CEE3")) +
 #    theme_classic() +
 #   labs(title = "", x = "Principal component 1 (51,85 %)", y = "Principal component 2 (26,51 %)") +
@@ -571,7 +571,7 @@ biplot_variables_3 <- fviz_pca_biplot(pca_result,
   label = "var", # para que solo las variables tengan etiquetas
   addEllipses = FALSE,
   labelsize = 6) +
-  # geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = Ligth), size = 10, box.padding = 0.5)+ 
+  # geom_text_repel(data = pca_scores, aes(x = PC1, y = PC2, label = Light), size = 10, box.padding = 0.5)+ 
   geom_point(data = pca_scores, 
              aes(x = PC1, y = PC2, color = Season), size = 10) +
   scale_color_manual(values = c("1st" = "#6A3D9A", "2nd" = "#FF7F00")) +
@@ -632,7 +632,7 @@ biplot_variables_2_cp3 <- fviz_pca_biplot(pca_result,
                                     labelsize = 6) +
   # geom_text_repel(data = pca_scores, aes(x = PC1, y = PC3, label = Season), size = 10, box.padding = 0.5)+ 
   geom_point(data = pca_scores, 
-             aes(x = PC1, y = PC3, color = Ligth), size = 10) +
+             aes(x = PC1, y = PC3, color = Light), size = 10) +
   scale_color_manual(values = c("High" = "#FFFF00", "Medium" = "#4C4C4C")) +
    theme_classic() +
   labs(title = "", x = "PC 1 (51,85 %)", y = "") +
@@ -664,7 +664,7 @@ biplot_variables_3_cp3 <- fviz_pca_biplot(
   arrow.size = 1 # Ajustar el tamaño de las flechas
 ) +
   # geom_text_repel(data = pca_scores, 
-  #                 aes(x = PC1, y = PC3, label = Ligth), 
+  #                 aes(x = PC1, y = PC3, label = Light), 
   #                 size = 10, 
   #                 box.padding = 0.5) + 
   geom_point(data = pca_scores, 
@@ -705,6 +705,225 @@ combined_plot <- ggarrange(biplot_variables, biplot_variables_2, biplot_variable
 combined_plot
 ```
 
+## Triplots
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(plotly)
+
+# Crear el gráfico 3D para las observaciones coloreadas según Fertilization
+fig_fert <- plot_ly(data = pca_scores, 
+                    x = ~PC1, y = ~PC2, z = ~PC3, 
+                    type = 'scatter3d', 
+                    mode = 'markers',
+                    marker = list(size = 10),
+                    color = ~Fertilization, 
+                    colors = c("#E31A1C", "#FDBF6F", "#B2DF8A"))
+
+# Personalizar el diseño del gráfico
+fig_fert <- fig_fert %>% layout(scene = list(xaxis = list(title = 'PC1'),
+                                             yaxis = list(title = 'PC2'),
+                                             zaxis = list(title = 'PC3')),
+                                title = "PCA: Componentes Principales 1, 2 y 3",
+                                legend = list(title = list(text = "Fertilization Levels")))
+
+# Mostrar el gráfico
+fig_fert
+
+
+```
+
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(plotly)
+
+# Suponiendo que pca_scores es un data frame que contiene PC1, PC2, PC3 y la columna Light
+# Además, asegúrate de que los niveles de Light estén ordenados como "High", "Medium", y "Low"
+pca_scores$Light <- factor(pca_scores$Light, levels = c("High", "Medium"))
+
+# Crear el gráfico 3D coloreando según Light
+fig_light <- plot_ly(pca_scores, x = ~PC1, y = ~PC2, z = ~PC3, 
+               type = 'scatter3d', mode = 'markers+text', 
+               color = ~Light, colors = c("High" = "#FFFF00", "Medium" = "#4C4C4C"),
+               marker = list(size = 10),
+               text = ~Light,
+               textposition = 'top center') 
+
+# Personalizar el diseño del gráfico
+fig_light <- fig_light %>% layout(scene = list(xaxis = list(title = 'PC1'),
+                                   yaxis = list(title = 'PC2'),
+                                   zaxis = list(title = 'PC3')),
+                      title = "PCA: Componentes Principales 1, 2 y 3",
+                      legend = list(title = list(text = "Light Levels")))
+
+# Mostrar el gráfico
+fig_light
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(plotly)
+
+# Suponiendo que pca_scores es un data frame que contiene PC1, PC2, PC3, Season y Light
+# Además, asegúrate de que los niveles de Season estén definidos correctamente
+pca_scores$Season <- factor(pca_scores$Season, levels = c("1st", "2nd"))
+
+# Crear el gráfico 3D coloreando según Season
+fig_season <- plot_ly(pca_scores, x = ~PC1, y = ~PC2, z = ~PC3, 
+               type = 'scatter3d', mode = 'markers+text', 
+               color = ~Season, colors = c("1st" = "#6A3D9A", "2nd" = "#FF7F00"),
+               marker = list(size = 10),
+               text = ~Season,
+               textposition = 'top center') 
+
+# Personalizar el diseño del gráfico
+fig_season <- fig_season %>% layout(scene = list(xaxis = list(title = 'PC1 (51,85 %)'),
+                                   yaxis = list(title = 'PC2'),
+                                   zaxis = list(title = 'PC3 (11,72 %)')),
+                      title = "PCA: Componentes Principales 1, 2 y 3",
+                      legend = list(title = list(text = "Season")),
+                      annotations = list(x = 1, y = 1, text = "F", 
+                                         showarrow = FALSE, 
+                                         xref = 'paper', yref = 'paper',
+                                         xanchor = 'right', yanchor = 'bottom',
+                                         font = list(size = 13, color = "black", face = "bold")))
+
+# Mostrar el gráfico
+fig_season
+
+
+```
+
+## Triplots (rlg)
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+pca_scores <- cbind(pca_scores, Fertilization = calafate$Fertilization)
+
+library(rgl)
+
+# Definir los colores
+colors <- c("#E31A1C", "#FDBF6F", "#B2DF8A")
+
+# Convertir los niveles del factor a colores
+color_map <- colors[as.numeric(pca_scores$Fertilization)]
+
+# Crear el gráfico 3D
+plot3d(pca_scores$PC1, pca_scores$PC2, pca_scores$PC3,
+       col = color_map,  # Usar colores convertidos
+       size = 4,  # Aumentar el tamaño de los puntos
+       xlab = "PC1", ylab = "PC2", zlab = "PC3",
+       main = "PCA: Componentes Principales 1, 2 y 3",
+       type = "s")  # Tipo de gráfico para puntos
+
+# Obtener las cargas de las tres primeras PCs
+loadings <- pca_result$rotation[, 1:3]  # Cargas para las tres primeras PCs
+var_names <- c("EFD", "PFD", "FC", "FF", "FFW", "DFW", "TFS", "FNP", "FFWP", "NPR")
+
+# Verificar el número de variables y las cargas
+print(loadings)
+print(var_names)
+
+# Escalar los vectores para mejor visualización
+scaling_factor <- 1.5  # Ajusta este valor según sea necesario
+
+for (i in 1:nrow(loadings)) {
+  # Escalar los vectores para asegurar que sean visibles
+  x_end <- loadings[i, 1] * scaling_factor
+  y_end <- loadings[i, 2] * scaling_factor
+  z_end <- loadings[i, 3] * scaling_factor
+  
+  # Dibujar los vectores
+  segments3d(
+    x = c(0, x_end), 
+    y = c(0, y_end),
+    z = c(0, z_end),
+    col = "#000000",  # Color de los vectores
+    lwd = 2           # Grosor de los vectores
+  )
+  
+  # Añadir nombres de las variables al final de cada vector
+  text3d(
+    x = x_end, 
+    y = y_end,
+    z = z_end,
+    texts = var_names[i],
+    cex = 1.2,  # Tamaño del texto
+    col = "#000000"  # Color del texto
+  )
+}
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Limpiar el data frame pca_scores
+pca_scores_cleaned <- pca_scores[, c("PC1", "PC2", "PC3", "Light")]
+
+# Verificar el data frame limpio
+str(pca_scores_cleaned)
+head(pca_scores_cleaned)
+
+# Definir los colores
+colors <- c("High" = "#FFFF00", "Medium" = "#4C4C4C")
+
+# Convertir los niveles del factor a colores
+color_map <- colors[as.character(pca_scores_cleaned$Light)]
+
+# Crear el gráfico 3D
+library(rgl)
+plot3d(pca_scores_cleaned$PC1, pca_scores_cleaned$PC2, pca_scores_cleaned$PC3,
+       col = color_map,  # Usar colores convertidos
+       size = 4,  # Aumentar el tamaño de los puntos
+       xlab = "PC1", ylab = "PC2", zlab = "PC3",
+       main = "PCA: Componentes Principales 1, 2 y 3",
+       type = "s")  # Tipo de gráfico para puntos
+
+# Obtener las cargas de las tres primeras PCs
+loadings <- pca_result$rotation[, 1:3]  # Cargas para las tres primeras PCs
+var_names <- c("EFD", "PFD", "FC", "FF", "FFW", "DFW", "TFS", "FNP", "FFWP", "NPR")
+
+# Escalar los vectores para mejor visualización
+scaling_factor <- 1.5  # Ajusta este valor según sea necesario
+
+for (i in 1:nrow(loadings)) {
+  # Escalar los vectores para asegurar que sean visibles
+  x_end <- loadings[i, 1] * scaling_factor
+  y_end <- loadings[i, 2] * scaling_factor
+  z_end <- loadings[i, 3] * scaling_factor
+  
+  # Dibujar los vectores
+  segments3d(
+    x = c(0, x_end), 
+    y = c(0, y_end),
+    z = c(0, z_end),
+    col = "#000000",  # Color de los vectores
+    lwd = 2           # Grosor de los vectores
+  )
+  
+  # Añadir nombres de las variables al final de cada vector
+  text3d(
+    x = x_end, 
+    y = y_end,
+    z = z_end,
+    texts = var_names[i],
+    cex = 1.2,  # Tamaño del texto
+    col = "#000000"  # Color del texto
+  )
+}
+
+
+```
+
 ## Análisis univariado Tasa de fotosíntesis (**NPR**)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -713,12 +932,12 @@ library(readxl)
 calafate2 <- read_excel("database.xlsx", sheet = "calafate2")
 
 calafate2$Season<-as.factor(calafate2$Season)
-calafate2$Ligth<-as.factor(calafate2$Ligth)
+calafate2$Light<-as.factor(calafate2$Light)
 calafate2$Fertilization<-as.factor(calafate2$Fertilization)
 
 library(dplyr)
 calafate2 <- calafate2 %>%
-  dplyr::filter(Ligth %in% c("High", "Medium"))
+  dplyr::filter(Light %in% c("High", "Medium"))
 
 calafate2 <- na.omit(calafate2)
 
@@ -754,20 +973,20 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
 tabla_calafate2 <- calafate2_clean %>%
-  dplyr::group_by(Season, Ligth, Fertilization, Irradiance) %>%
+  dplyr::group_by(Season, Light, Fertilization, Irradiance) %>%
   dplyr::summarise(n=n(),
                    Mean_NPR = mean(NPR),
                    sd_NPR = sd(NPR))
 
 tabla_calafate2 <- calafate2_clean %>%
-  dplyr::group_by(Season, Ligth, Fertilization) %>%
+  dplyr::group_by(Season, Light, Fertilization) %>%
   dplyr::summarise(n=n(),
                    Mean_NPR = mean(NPR),
                    sd_NPR = sd(NPR))
 
 tabla_calafate3 <- calafate2_clean %>%
   dplyr::filter(Irradiance == "500") %>%
-  dplyr::group_by(Season, Ligth, Fertilization) %>%
+  dplyr::group_by(Season, Light, Fertilization) %>%
   dplyr::summarise(n=n(),
                    Mean_NPR = mean(NPR),
                    sd_NPR = sd(NPR))
@@ -782,7 +1001,7 @@ calafate2_clean$Irradiance <- as.factor(calafate2_clean$Irradiance)
 
 library(lme4)
 model_irradiance <- glmer(
-  NPR_aj ~ Fertilization * Ligth * Season + (1 | Irradiance),
+  NPR_aj ~ Fertilization * Light * Season + (1 | Irradiance),
   data = calafate2_clean,
   family = Gamma(link = "log")
 )
@@ -855,14 +1074,14 @@ library(dplyr)
 
 # Resumir los datos para el gráfico de interacción
 interaction_data <- calafate2_clean %>%
-  dplyr::group_by(Fertilization, Ligth) %>%
+  dplyr::group_by(Fertilization, Light) %>%
   dplyr::summarise(mean_NPR_aj = mean(NPR_aj , na.rm = TRUE))
 
 # Crear el gráfico de interacción
-gg_interac <- ggplot(interaction_data, aes(x = Fertilization, y = mean_NPR_aj, color = Ligth, group = Ligth)) +
+gg_interac <- ggplot(interaction_data, aes(x = Fertilization, y = mean_NPR_aj, color = Light, group = Light)) +
   geom_line(size=2) +
   geom_point(size=6) +
-  labs(title = "Fertilization * Ligth",
+  labs(title = "Fertilization * Light",
        x = "Fertilization",
        y = "NPR [µmolCO2.m-2.s-1]") +
   scale_color_manual(values = c("High" = "#FFFF00", "Medium" = "#4C4C4C")) +
@@ -931,7 +1150,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Como la interaccion fue signifificativa se comparan #Efectos simples
 library(emmeans)
 library(dplyr)
-m1_emm  <- emmeans(model_irradiance, pairwise ~ Fertilization|Ligth|Season, type= "response") 
+m1_emm  <- emmeans(model_irradiance, pairwise ~ Fertilization|Light|Season, type= "response") 
 m1_emm 
 m1_simple  <- contrast(m1_emm, method = "revpairwise", simple = "each", adjust = "none") %>%
   summary(infer = TRUE)
@@ -972,10 +1191,10 @@ gg_bar_irr <- ggplot(response_data_irr, aes(x = Season, y = response, fill = Fer
   # geom_errorbar(aes(ymin = response - SE, ymax = response + SE), width = 0.2, position = position_dodge(0.6), color = 'black', size = 1) +
   geom_text(aes(label = sig_letters, y = response  + 0.08), # Ajusta la posición vertical (+ SE)
             position = position_dodge(0.6), vjust = -0.5, size = 8) +
-  facet_grid(. ~ Ligth) +
+  facet_grid(. ~ Light) +
   scale_fill_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
   labs(
-    title = "Ligth intensity",
+    title = "Light intensity",
     x = "Growing season",
     y = "NPR [µmol CO2 m-2 s-1]",
     fill = "Fertilization"
@@ -1012,7 +1231,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #     shape = "Season",
 #     # linetype = "Season"
 #   ) +
-#   facet_grid(.~Ligth)+
+#   facet_grid(.~Light)+
 #   theme_classic() +
 #   theme(
 #     text = element_text(size = 14),
@@ -1035,10 +1254,10 @@ gg_point_irr <- ggplot(response_data_irr, aes(x = Season, y = response, color = 
   geom_errorbar(aes(ymin = response - SE, ymax = response + SE), width = 0.2, position = position_dodge(0.6), color = 'black', size = 1) +
   geom_text(aes(label = sig_letters, y = response + SE + 0.2), # Ajusta la posición vertical
             position = position_dodge(0.6), vjust = -0.5, size = 6, color = "black") +
-  facet_grid(. ~ Ligth) +
+  facet_grid(. ~ Light) +
   scale_color_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
   labs(
-    title = "Ligth intensity",
+    title = "Light intensity",
     x = "Growing season",
     y = "NPR [µmol CO2 m-2 s-1]",
     fill = "Fertilization"
@@ -1057,15 +1276,16 @@ gg_point_irr
 
 ```
 
-# Efectos principales
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+## Efectos princiaples X
+
 # #Como la interaccion fue signifificativa se comparan #Efectos simples
 # library(emmeans)
 # library(dplyr)
-# m1_emm  <- emmeans(model_irradiance, pairwise ~ Fertilization*Ligth*Season, type= "response") 
+# m1_emm  <- emmeans(model_irradiance, pairwise ~ Fertilization*Light*Season, type= "response") 
 # m1_emm 
 # m1_simple  <- contrast(m1_emm, method = "revpairwise", simple = "each", adjust = "none") %>%
 #   summary(infer = TRUE)
@@ -1097,3 +1317,143 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
+## Análisis de fotorespiración
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+calafate2 <- read_excel("database.xlsx", sheet = "calafate2")
+
+calafate2$Season<-as.factor(calafate2$Season)
+calafate2$Light <- factor(calafate2$Light, levels = c("High", "Medium", "Low"))
+calafate2$Fertilization<-as.factor(calafate2$Fertilization)
+
+calafate2 <- na.omit(calafate2)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+tabla_calafate2 <- calafate2 %>%
+  dplyr::group_by(Light, Fertilization, Irradiance) %>%
+  dplyr::summarise(Mean = mean(NPR))
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+gg_irradiance<-ggplot(tabla_calafate2, aes(x = Irradiance, y = Mean, color = Fertilization)) +
+  geom_line(size = 1) +  # Líneas para cada combinación de factores
+  geom_point(size = 4) +  # Puntos en cada nivel de Irradiance
+  # geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.1) +  # Barras de error
+  scale_color_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
+  # scale_color_brewer(palette = "Set1") +  # Escala de color para Fertilization
+  # scale_shape_manual(values = c(16, 17, 18)) +  # Ajusta los shapes si es necesario
+  labs(
+    title = "",
+    x = "Irradiance [µmol.m-2.s-1]",
+    y = "NPR [µmolCO2 m-2 s-1]",
+    color = "Fertilization",
+    # linetype = "Season"
+  ) +
+  facet_grid(.~Light)+
+  theme_classic() +
+  theme(
+    text = element_text(size = 14),
+    legend.position = "bottom"
+  )+
+  theme(text = element_text(size=26, color='black')) +
+  theme(axis.text = element_text(color='black'))+
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black", size = 1)+
+  coord_cartesian(xlim = c(0, 50), ylim = c(-1, 1))
+
+gg_irradiance
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+# Función para encontrar el cruce con el eje x
+find_x_intercept <- function(df) {
+  df <- df %>% dplyr::arrange(Irradiance)
+  
+  # Filtrar los puntos donde Mean cambia de signo
+  crossing_points <- df %>%
+    dplyr::mutate(sign_change = sign(Mean) != dplyr::lag(sign(Mean))) %>%
+    stats::na.omit() %>%
+    dplyr::filter(sign_change == TRUE)
+  
+  if (nrow(crossing_points) > 0) {
+    # Tomar los dos puntos adyacentes donde ocurre el cambio de signo
+    point1 <- crossing_points[1,]
+    point2 <- df %>% dplyr::filter(Irradiance == point1$Irradiance - 25) # Consideramos pasos de 25
+    
+    # Interpolación lineal
+    x_intercept <- point1$Irradiance - (point1$Mean / (point1$Mean - point2$Mean)) * (point1$Irradiance - point2$Irradiance)
+    return(x_intercept)
+  } else {
+    return(NA)
+  }
+}
+
+# Aplicar la función a cada combinación de Light y Fertilization
+intercepts <- tabla_calafate2 %>%
+  dplyr::group_by(Light, Fertilization) %>%
+  dplyr::summarise(x_intercept = find_x_intercept(dplyr::cur_data())) %>%
+  dplyr::ungroup()
+
+print(intercepts)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+# Suponiendo que intercepts es un data frame con las columnas Light, Fertilization, y x_intercept
+intercepts <- data.frame(
+  Light = factor(c("High", "High", "High", "Medium", "Medium", "Medium", "Low", "Low", "Low")),
+  Fertilization = factor(c(0, 1, 2, 0, 1, 2, 0, 1, 2)),
+  x_intercept = c(40.4, 28.8, 24.4, 30.0, 32.9, 28.9, 44.1, 38.9, 32.6)
+)
+
+gg_irradiance <- ggplot(tabla_calafate2, aes(x = Irradiance, y = Mean, color = Fertilization)) +
+  geom_line(size = 1) +  # Líneas para cada combinación de factores
+  geom_point(size = 4) +  # Puntos en cada nivel de Irradiance
+  scale_color_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
+  labs(
+    title = "",
+    x = "Irradiance [µmol.m-2.s-1]",
+    y = "NPR [µmolCO2 m-2 s-1]",
+    color = "Fertilization"
+  ) +
+  facet_grid(.~Light) +
+  theme_classic() +
+  theme(
+    text = element_text(size = 14),
+    legend.position = "bottom"
+  ) +
+  theme(text = element_text(size=26, color='black')) +
+  theme(axis.text = element_text(color='black')) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black", size = 1) +
+  coord_cartesian(xlim = c(0, 50), ylim = c(-1, 1)) +
+  # Añadir líneas verticales para los interceptos x
+  geom_vline(data = intercepts, aes(xintercept = x_intercept, color = Fertilization), 
+             linetype = "dotted", size = 1) +
+  # Añadir etiquetas para las líneas verticales
+  geom_text(data = intercepts, aes(x = x_intercept, y = 0.5, label = round(x_intercept, 1), color = Fertilization),
+            angle = 90, vjust = -0.5, hjust = 1, size=6)
+
+gg_irradiance
+
+
+```
