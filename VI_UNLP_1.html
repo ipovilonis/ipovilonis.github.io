@@ -295,7 +295,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="III_Phenology.html">Fenología</a>
+      <a href="III_Flowers.html">Fenología</a>
     </li>
     <li>
       <a href="III_Yield.html">Rendimiento</a>
@@ -343,7 +343,28 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    V Variabilidad
+    V Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+    <li>
+      <a href="VI_UNLP_1.html">Conservación 1°C</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Variabilidad
      
     <span class="caret"></span>
   </a>
@@ -376,27 +397,6 @@ $(document).ready(function () {
       <a href="V_Multivariate.html">Multivariado</a>
     </li>
     <li class="divider"></li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    VI Postcosecha
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="VI_Postharvest.html">Postcosecha</a>
-    </li>
-    <li>
-      <a href="VI_climateric2.html">Climacterio 2</a>
-    </li>
-    <li>
-      <a href="VI_climateric3.html">Climacterio 3</a>
-    </li>
-    <li>
-      <a href="VI_UNLP_1.html">Conservación 1°C</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -470,7 +470,7 @@ $(document).ready(function () {
 ## 2 5         3      8.58    4.12
 ## 3 7         3     23.8     4.94
 ## 4 10        2     23.0     1.64</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-3-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-3-1.png" width="2304" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = respiracion ~ Día, data = data_resp)</code></pre>
 <p>Análisis de regresión</p>
@@ -501,7 +501,7 @@ $(document).ready(function () {
 ##  Día7 - Día10   0.78106719 4.33251070  7   0.180  0.9977
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-8-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="firmeza" class="section level2">
 <h2>Firmeza</h2>
@@ -513,7 +513,7 @@ $(document).ready(function () {
 ## 2 5        22         1.05      0.505
 ## 3 7        22         1.13      0.412
 ## 4 10       22         1.13      0.322</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-11-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Firmeza ~ Día, data = data_fisico)</code></pre>
 <p>Análisis de la varianza</p>
@@ -544,7 +544,7 @@ $(document).ready(function () {
 ##  Día7 - Día10  0.000000000 0.136515067 84   0.000  1.0000
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-16-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="colorimetría" class="section level2">
 <h2>Colorimetría</h2>
@@ -558,7 +558,7 @@ $(document).ready(function () {
 ## 2 5        24         56.1       7.55
 ## 3 7        24         54.0       6.44
 ## 4 10       24         53.4       4.76</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-19-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-19-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = L_color ~ Día, data = data_fisico)</code></pre>
 <p>Análisis de la varianza</p>
@@ -589,7 +589,7 @@ $(document).ready(function () {
 ##  Día7 - Día10 0.59000000 1.71641442 92   0.344  0.9859
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-24-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-24-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="a" class="section level3">
 <h3>a*</h3>
@@ -601,7 +601,7 @@ $(document).ready(function () {
 ## 2 5        24        11.6        4.84
 ## 3 7        24        12.4        6.55
 ## 4 10       24        14.6        3.72</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-26-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-26-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = a_color ~ Día, data = data_fisico)</code></pre>
 <p>Análisis de la varianza</p>
@@ -632,7 +632,7 @@ $(document).ready(function () {
 ##  Día7 - Día10  -2.19916667 1.38014247 92  -1.593  0.3874
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-31-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="b" class="section level3">
 <h3>b*</h3>
@@ -644,7 +644,7 @@ $(document).ready(function () {
 ## 2 5        24         48.2       9.89
 ## 3 7        24         47.0      10.0 
 ## 4 10       24         46.7       8.22</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-33-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-33-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = b_color ~ Día, data = data_fisico)</code></pre>
 <p>Análisis de la varianza</p>
@@ -673,7 +673,7 @@ $(document).ready(function () {
 ##  Día7 - Día10 0.32500000 2.46777216 92   0.132  0.9992
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-38-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-38-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="actividad-antioxidante" class="section level2">
@@ -692,7 +692,7 @@ $(document).ready(function () {
 ## 7 10    0.125     3     8.96   4.13
 ## 8 10    0.25      3    10.5    3.13
 ## 9 10    0.5       3    23.4    9.78</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-41-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-41-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## Formula:          aao/100 ~ Día + (1 | Conc)
 ## Data: data_aao
@@ -740,8 +740,8 @@ $(document).ready(function () {
 ## Confidence level used: 0.95 
 ## Conf-level adjustment: tukey method for comparing a family of 3 estimates 
 ## Intervals are back-transformed from the log odds ratio scale</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-46-1.svg" width="95%" style="display: block; margin: auto;" /></p>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-47-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-46-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-47-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="fenoles" class="section level2">
 <h2>Fenoles</h2>
@@ -751,7 +751,7 @@ $(document).ready(function () {
 ## 1 1         3         90.7      11.1 
 ## 2 7         3         72.3       5.28
 ## 3 10        3         70.4      14.9</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-50-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-50-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Fenoles ~ Día, data = data)</code></pre>
 <p>Análisis de regresión</p>
@@ -806,7 +806,7 @@ Tán/100g PF (p=0.041)</p>
 <pre><code>## [1] 0.791479043</code></pre>
 <p>Hay evidencia para aceptar que beta1 difiere de cero (r = 0.791,
 valor p = 0.011 )
-<img src="VI_UNLP_1_files/figure-html/unnamed-chunk-60-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="VI_UNLP_1_files/figure-html/unnamed-chunk-60-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="carotenoides" class="section level2">
 <h2>Carotenoides</h2>
@@ -816,7 +816,7 @@ valor p = 0.011 )
 ## 1 1         6              205.            29.5
 ## 2 7         6              298.            38.8
 ## 3 10        6              193.            39.2</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-63-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-63-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Carotenoides ~ Día, data = data)</code></pre>
 <p>ANOVA</p>
@@ -844,7 +844,7 @@ valor p = 0.011 )
 ##  Día7 - Día10 104.2344930 20.8588088 15   4.997  0.0004
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-68-1.svg" width="95%" style="display: block; margin: auto;" />
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-68-1.png" width="95%" style="display: block; margin: auto;" />
 A los 7 días se encontró un aumento significativo en la concentración de
 carotenoides (p=0.009 )</p>
 </div>
@@ -856,7 +856,7 @@ carotenoides (p=0.009 )</p>
 ## 1 1         6            31.4           10.1 
 ## 2 7         6            24.8            9.70
 ## 3 10        6             9.91           3.97</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-70-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-70-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Clorofila_a ~ Día, data = data)</code></pre>
 <p>ANOVA</p>
@@ -884,7 +884,7 @@ carotenoides (p=0.009 )</p>
 ##  Día7 - Día10 14.90015103 4.84392565 15   3.076  0.0198
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-75-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-75-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="clorofila-b" class="section level2">
 <h2>Clorofila b</h2>
@@ -894,7 +894,7 @@ carotenoides (p=0.009 )</p>
 ## 1 1         6             53.9          17.4 
 ## 2 7         6             42.7          16.5 
 ## 3 10        6             16.9           6.48</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-77-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-77-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Clorofila_b ~ Día, data = data)</code></pre>
 <p>ANOVA</p>
@@ -922,7 +922,7 @@ carotenoides (p=0.009 )</p>
 ##  Día7 - Día10 25.8212955 8.28999223 15   3.115  0.0183
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-82-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-82-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlación-aao-y-carotenoides" class="section level2">
 <h2>Correlación AAO y Carotenoides</h2>
@@ -945,7 +945,7 @@ carotenoides (p=0.009 )</p>
 <pre><code>## [1] -0.00492250412</code></pre>
 <p>No existe evidencia para aceptar que beta1 difiere de cero (r =
 -0.004, valor p = 0.990)
-<img src="VI_UNLP_1_files/figure-html/unnamed-chunk-86-1.svg" width="95%" style="display: block; margin: auto;" />
+<img src="VI_UNLP_1_files/figure-html/unnamed-chunk-86-1.png" width="95%" style="display: block; margin: auto;" />
 No existe evidencia para aceptar que beta1 difiere de cero (r = 0.082,
 valor p = 0.8330)</p>
 </div>
@@ -957,7 +957,7 @@ valor p = 0.8330)</p>
 ## 1 1         3        2.07     0.125
 ## 2 7         3        1.70     0.132
 ## 3 10        3        1.58     0.157</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-90-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-90-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Acidez ~ Día, data = data)</code></pre>
 <p>Análisis de regresión</p>
@@ -984,7 +984,7 @@ valor p = 0.8330)</p>
 ##  Día7 - Día10 0.125866667 0.113363691  6   1.110  0.5428
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-95-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-95-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ph-inicial" class="section level2">
 <h2>pH inicial</h2>
@@ -994,7 +994,7 @@ valor p = 0.8330)</p>
 ## 1 1         3            3.30        0.0252
 ## 2 7         3            3.40        0.0404
 ## 3 10        3            3.40        0.0289</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-97-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-97-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = pH_inicial ~ Día, data = data)</code></pre>
 <p>Análisis de regresión</p>
@@ -1021,7 +1021,7 @@ valor p = 0.8330)</p>
 ##  Día7 - Día10  0.0066666667 0.0262466929  6   0.254  0.9653
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-102-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-102-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ratio" class="section level2">
 <h2>Ratio</h2>
@@ -1031,7 +1031,7 @@ valor p = 0.8330)</p>
 ## 1 1         3       4.54   0.511 
 ## 2 7         3       4.55   0.207 
 ## 3 10        3       4.27   0.0671</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-104-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-104-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Ratio ~ Día, data = data)</code></pre>
 <p>Análisis de regresión</p>
@@ -1056,7 +1056,7 @@ valor p = 0.8330)</p>
 ##  Día7 - Día10  0.2810687385 0.261984067  6   1.073  0.5631
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-109-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-109-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="sólidos-solubles" class="section level2">
 <h2>Sólidos solubles</h2>
@@ -1066,7 +1066,7 @@ valor p = 0.8330)</p>
 ## 1 1         3         9.33      0.467
 ## 2 7         3         7.73      0.533
 ## 3 10        3         6.73      0.769</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-112-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-112-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = Solidos ~ Día, data = data)</code></pre>
 <p>Análisis de regresión</p>
@@ -1093,7 +1093,7 @@ valor p = 0.8330)</p>
 ##  Día7 - Día10      1.0 0.492912734  6   2.029  0.1861
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-117-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="VI_UNLP_1_files/figure-html/unnamed-chunk-117-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="pca" class="section level2">
 <h2>PCA</h2>
@@ -1102,18 +1102,16 @@ valor p = 0.8330)</p>
 ## Standard deviation     3.67288 1.58428 0.000000000000000125159
 ## Proportion of Variance 0.84313 0.15687 0.000000000000000000000
 ## Cumulative Proportion  0.84313 1.00000 1.000000000000000000000</code></pre>
-<pre><code>##          ATT      a_color    aao_0.125  Respiración      Sólidos    aao_0.250      Fenoles    aao_0.500 
-##  7.411169601  7.388160265  7.361916605  7.303337686  7.297065882  7.233395040  7.180074782  7.004301421 
-##      Firmeza      L_color           pH      b_color        Clo_a        Clo_b        Ratio Carotenoides 
-##  6.901237838  6.797339783  6.654867809  6.059575082  5.854988486  5.815861177  3.554293436  0.182415107</code></pre>
-<pre><code>##   Carotenoides          Ratio          Clo_b          Clo_a        b_color             pH        L_color 
-## 38.86130285860 20.73854935266  8.58335551129  8.37305890154  7.27347223582  4.07396670546  3.30822600997 
-##        Firmeza      aao_0.500        Fenoles      aao_0.250        Sólidos    Respiración      aao_0.125 
-##  2.74980762899  2.19587425864  1.25114939718  0.96457028824  0.62236014098  0.58865122427  0.27380851874 
-##        a_color            ATT 
-##  0.13275734827  0.00908961935</code></pre>
+<pre><code>##          ATT      a_color    aao_0.125  Respiración      Sólidos    aao_0.250      Fenoles    aao_0.500      Firmeza      L_color           pH      b_color 
+##  7.411169601  7.388160265  7.361916605  7.303337686  7.297065882  7.233395040  7.180074782  7.004301421  6.901237838  6.797339783  6.654867809  6.059575082 
+##        Clo_a        Clo_b        Ratio Carotenoides 
+##  5.854988486  5.815861177  3.554293436  0.182415107</code></pre>
+<pre><code>##   Carotenoides          Ratio          Clo_b          Clo_a        b_color             pH        L_color        Firmeza      aao_0.500        Fenoles 
+## 38.86130285860 20.73854935266  8.58335551129  8.37305890154  7.27347223582  4.07396670546  3.30822600997  2.74980762899  2.19587425864  1.25114939718 
+##      aao_0.250        Sólidos    Respiración      aao_0.125        a_color            ATT 
+##  0.96457028824  0.62236014098  0.58865122427  0.27380851874  0.13275734827  0.00908961935</code></pre>
 <p>Biplot
-<img src="VI_UNLP_1_files/figure-html/unnamed-chunk-123-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="VI_UNLP_1_files/figure-html/unnamed-chunk-123-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 
 

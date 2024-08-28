@@ -808,61 +808,61 @@ fig_season
 ## Triplots (rlg)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-pca_scores <- cbind(pca_scores, Fertilization = calafate$Fertilization)
-
-library(rgl)
-
-# Definir los colores
-colors <- c("#E31A1C", "#FDBF6F", "#B2DF8A")
-
-# Convertir los niveles del factor a colores
-color_map <- colors[as.numeric(pca_scores$Fertilization)]
-
-# Crear el gráfico 3D
-plot3d(pca_scores$PC1, pca_scores$PC2, pca_scores$PC3,
-       col = color_map,  # Usar colores convertidos
-       size = 4,  # Aumentar el tamaño de los puntos
-       xlab = "PC1", ylab = "PC2", zlab = "PC3",
-       main = "PCA: Componentes Principales 1, 2 y 3",
-       type = "s")  # Tipo de gráfico para puntos
-
-# Obtener las cargas de las tres primeras PCs
-loadings <- pca_result$rotation[, 1:3]  # Cargas para las tres primeras PCs
-var_names <- c("EFD", "PFD", "FC", "FF", "FFW", "DFW", "TFS", "FNP", "FFWP", "NPR")
-
-# Verificar el número de variables y las cargas
-print(loadings)
-print(var_names)
-
-# Escalar los vectores para mejor visualización
-scaling_factor <- 1.5  # Ajusta este valor según sea necesario
-
-for (i in 1:nrow(loadings)) {
-  # Escalar los vectores para asegurar que sean visibles
-  x_end <- loadings[i, 1] * scaling_factor
-  y_end <- loadings[i, 2] * scaling_factor
-  z_end <- loadings[i, 3] * scaling_factor
-  
-  # Dibujar los vectores
-  segments3d(
-    x = c(0, x_end), 
-    y = c(0, y_end),
-    z = c(0, z_end),
-    col = "#000000",  # Color de los vectores
-    lwd = 2           # Grosor de los vectores
-  )
-  
-  # Añadir nombres de las variables al final de cada vector
-  text3d(
-    x = x_end, 
-    y = y_end,
-    z = z_end,
-    texts = var_names[i],
-    cex = 1.2,  # Tamaño del texto
-    col = "#000000"  # Color del texto
-  )
-}
+# 
+# pca_scores <- cbind(pca_scores, Fertilization = calafate$Fertilization)
+# 
+# library(rgl)
+# 
+# # Definir los colores
+# colors <- c("#E31A1C", "#FDBF6F", "#B2DF8A")
+# 
+# # Convertir los niveles del factor a colores
+# color_map <- colors[as.numeric(pca_scores$Fertilization)]
+# 
+# # Crear el gráfico 3D
+# plot3d(pca_scores$PC1, pca_scores$PC2, pca_scores$PC3,
+#        col = color_map,  # Usar colores convertidos
+#        size = 4,  # Aumentar el tamaño de los puntos
+#        xlab = "PC1", ylab = "PC2", zlab = "PC3",
+#        main = "PCA: Componentes Principales 1, 2 y 3",
+#        type = "s")  # Tipo de gráfico para puntos
+# 
+# # Obtener las cargas de las tres primeras PCs
+# loadings <- pca_result$rotation[, 1:3]  # Cargas para las tres primeras PCs
+# var_names <- c("EFD", "PFD", "FC", "FF", "FFW", "DFW", "TFS", "FNP", "FFWP", "NPR")
+# 
+# # Verificar el número de variables y las cargas
+# print(loadings)
+# print(var_names)
+# 
+# # Escalar los vectores para mejor visualización
+# scaling_factor <- 1.5  # Ajusta este valor según sea necesario
+# 
+# for (i in 1:nrow(loadings)) {
+#   # Escalar los vectores para asegurar que sean visibles
+#   x_end <- loadings[i, 1] * scaling_factor
+#   y_end <- loadings[i, 2] * scaling_factor
+#   z_end <- loadings[i, 3] * scaling_factor
+#   
+#   # Dibujar los vectores
+#   segments3d(
+#     x = c(0, x_end), 
+#     y = c(0, y_end),
+#     z = c(0, z_end),
+#     col = "#000000",  # Color de los vectores
+#     lwd = 2           # Grosor de los vectores
+#   )
+#   
+#   # Añadir nombres de las variables al final de cada vector
+#   text3d(
+#     x = x_end, 
+#     y = y_end,
+#     z = z_end,
+#     texts = var_names[i],
+#     cex = 1.2,  # Tamaño del texto
+#     col = "#000000"  # Color del texto
+#   )
+# }
 
 
 
@@ -871,61 +871,61 @@ for (i in 1:nrow(loadings)) {
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-
-# Limpiar el data frame pca_scores
-pca_scores_cleaned <- pca_scores[, c("PC1", "PC2", "PC3", "Light")]
-
-# Verificar el data frame limpio
-str(pca_scores_cleaned)
-head(pca_scores_cleaned)
-
-# Definir los colores
-colors <- c("High" = "#FFFF00", "Medium" = "#4C4C4C")
-
-# Convertir los niveles del factor a colores
-color_map <- colors[as.character(pca_scores_cleaned$Light)]
-
-# Crear el gráfico 3D
-library(rgl)
-plot3d(pca_scores_cleaned$PC1, pca_scores_cleaned$PC2, pca_scores_cleaned$PC3,
-       col = color_map,  # Usar colores convertidos
-       size = 4,  # Aumentar el tamaño de los puntos
-       xlab = "PC1", ylab = "PC2", zlab = "PC3",
-       main = "PCA: Componentes Principales 1, 2 y 3",
-       type = "s")  # Tipo de gráfico para puntos
-
-# Obtener las cargas de las tres primeras PCs
-loadings <- pca_result$rotation[, 1:3]  # Cargas para las tres primeras PCs
-var_names <- c("EFD", "PFD", "FC", "FF", "FFW", "DFW", "TFS", "FNP", "FFWP", "NPR")
-
-# Escalar los vectores para mejor visualización
-scaling_factor <- 1.5  # Ajusta este valor según sea necesario
-
-for (i in 1:nrow(loadings)) {
-  # Escalar los vectores para asegurar que sean visibles
-  x_end <- loadings[i, 1] * scaling_factor
-  y_end <- loadings[i, 2] * scaling_factor
-  z_end <- loadings[i, 3] * scaling_factor
-  
-  # Dibujar los vectores
-  segments3d(
-    x = c(0, x_end), 
-    y = c(0, y_end),
-    z = c(0, z_end),
-    col = "#000000",  # Color de los vectores
-    lwd = 2           # Grosor de los vectores
-  )
-  
-  # Añadir nombres de las variables al final de cada vector
-  text3d(
-    x = x_end, 
-    y = y_end,
-    z = z_end,
-    texts = var_names[i],
-    cex = 1.2,  # Tamaño del texto
-    col = "#000000"  # Color del texto
-  )
-}
+# 
+# # Limpiar el data frame pca_scores
+# pca_scores_cleaned <- pca_scores[, c("PC1", "PC2", "PC3", "Light")]
+# 
+# # Verificar el data frame limpio
+# str(pca_scores_cleaned)
+# head(pca_scores_cleaned)
+# 
+# # Definir los colores
+# colors <- c("High" = "#FFFF00", "Medium" = "#4C4C4C")
+# 
+# # Convertir los niveles del factor a colores
+# color_map <- colors[as.character(pca_scores_cleaned$Light)]
+# 
+# # Crear el gráfico 3D
+# library(rgl)
+# plot3d(pca_scores_cleaned$PC1, pca_scores_cleaned$PC2, pca_scores_cleaned$PC3,
+#        col = color_map,  # Usar colores convertidos
+#        size = 4,  # Aumentar el tamaño de los puntos
+#        xlab = "PC1", ylab = "PC2", zlab = "PC3",
+#        main = "PCA: Componentes Principales 1, 2 y 3",
+#        type = "s")  # Tipo de gráfico para puntos
+# 
+# # Obtener las cargas de las tres primeras PCs
+# loadings <- pca_result$rotation[, 1:3]  # Cargas para las tres primeras PCs
+# var_names <- c("EFD", "PFD", "FC", "FF", "FFW", "DFW", "TFS", "FNP", "FFWP", "NPR")
+# 
+# # Escalar los vectores para mejor visualización
+# scaling_factor <- 1.5  # Ajusta este valor según sea necesario
+# 
+# for (i in 1:nrow(loadings)) {
+#   # Escalar los vectores para asegurar que sean visibles
+#   x_end <- loadings[i, 1] * scaling_factor
+#   y_end <- loadings[i, 2] * scaling_factor
+#   z_end <- loadings[i, 3] * scaling_factor
+#   
+#   # Dibujar los vectores
+#   segments3d(
+#     x = c(0, x_end), 
+#     y = c(0, y_end),
+#     z = c(0, z_end),
+#     col = "#000000",  # Color de los vectores
+#     lwd = 2           # Grosor de los vectores
+#   )
+#   
+#   # Añadir nombres de las variables al final de cada vector
+#   text3d(
+#     x = x_end, 
+#     y = y_end,
+#     z = z_end,
+#     texts = var_names[i],
+#     cex = 1.2,  # Tamaño del texto
+#     col = "#000000"  # Color del texto
+#   )
+# }
 
 
 ```

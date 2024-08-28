@@ -377,7 +377,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="III_Phenology.html">Fenología</a>
+      <a href="III_Flowers.html">Fenología</a>
     </li>
     <li>
       <a href="III_Yield.html">Rendimiento</a>
@@ -425,7 +425,28 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    V Variabilidad
+    V Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+    <li>
+      <a href="VI_UNLP_1.html">Conservación 1°C</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Variabilidad
      
     <span class="caret"></span>
   </a>
@@ -458,27 +479,6 @@ div.tocify {
       <a href="V_Multivariate.html">Multivariado</a>
     </li>
     <li class="divider"></li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    VI Postcosecha
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="VI_Postharvest.html">Postcosecha</a>
-    </li>
-    <li>
-      <a href="VI_climateric2.html">Climacterio 2</a>
-    </li>
-    <li>
-      <a href="VI_climateric3.html">Climacterio 3</a>
-    </li>
-    <li>
-      <a href="VI_UNLP_1.html">Conservación 1°C</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -640,7 +640,7 @@ div.tocify {
 <div id="temperatura" class="section level1">
 <h1>Temperatura</h1>
 <p>Gráfico de temperaturas
-<img src="II_ER_DL_files/figure-html/unnamed-chunk-3-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="II_ER_DL_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Tabla resumen</p>
 <table>
 <thead>
@@ -725,14 +725,12 @@ div.tocify {
 ##  Residual             0.287305
 ## Number of obs: 10916, groups:  hour, 24
 ## Fixed Effects:
-##               (Intercept)                   year2021                   year2022                 sitePalmar  
-##                3.12786754                -0.00662376                -0.05297823                -0.06283593  
-##          siteGualeguaychu        year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  
-##               -0.12957746                -0.00192673                -0.01438792                 0.05396480  
-## year2022:siteGualeguaychu  
-##                0.01119255</code></pre>
+##               (Intercept)                   year2021                   year2022                 sitePalmar           siteGualeguaychu  
+##                3.12786754                -0.00662376                -0.05297823                -0.06283593                -0.12957746  
+##       year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
+##               -0.00192673                -0.01438792                 0.05396480                 0.01119255</code></pre>
 <p>Gráfico de residuos vs. predichos
-<img src="II_ER_DL_files/figure-html/unnamed-chunk-9-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="II_ER_DL_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
 <pre><code>##   year         site       temp
 ## 1 2019    Concordia 21.7719291
@@ -744,15 +742,15 @@ div.tocify {
 ## 7 2019 Gualeguaychu 20.0496101
 ## 8 2021 Gualeguaychu 21.6778887
 ## 9 2022 Gualeguaychu 19.8537082</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-10-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Análisis de varianza</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: temp2
-##               Chisq Df             Pr(&gt;Chisq)    
-## year       96.32876  2 &lt; 0.000000000000000222 ***
-## site      238.22684  2 &lt; 0.000000000000000222 ***
-## year:site  14.72270  4              0.0053123 ** 
+##               Chisq Df Pr(&gt;Chisq)    
+## year       96.32876  2 &lt; 2.22e-16 ***
+## site      238.22684  2 &lt; 2.22e-16 ***
+## year:site  14.72270  4  0.0053123 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Efectos simples</p>
@@ -799,12 +797,12 @@ div.tocify {
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log scale</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-12-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="humedad-relativa" class="section level1">
 <h1>Humedad Relativa</h1>
 <p>Gráfico de humedad relativa
-<img src="II_ER_DL_files/figure-html/unnamed-chunk-14-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="II_ER_DL_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Tabla resumen</p>
 <table>
 <thead>
@@ -895,7 +893,7 @@ div.tocify {
 ## 7 2019 Gualeguaychu 0.671780437
 ## 8 2021 Gualeguaychu 0.540137774
 ## 9 2022 Gualeguaychu 0.558833718</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-20-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Análisis de varianza</p>
 <pre><code>## Error in eval(expr, envir, enclos): objeto &#39;modelo_dl_hr_beta_mixto&#39; no encontrado</code></pre>
 <p>Efectos simples</p>
@@ -943,7 +941,7 @@ div.tocify {
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log scale</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-23-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

@@ -295,7 +295,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="III_Phenology.html">Fenología</a>
+      <a href="III_Flowers.html">Fenología</a>
     </li>
     <li>
       <a href="III_Yield.html">Rendimiento</a>
@@ -343,7 +343,28 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    V Variabilidad
+    V Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+    <li>
+      <a href="VI_UNLP_1.html">Conservación 1°C</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Variabilidad
      
     <span class="caret"></span>
   </a>
@@ -376,27 +397,6 @@ $(document).ready(function () {
       <a href="V_Multivariate.html">Multivariado</a>
     </li>
     <li class="divider"></li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    VI Postcosecha
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="VI_Postharvest.html">Postcosecha</a>
-    </li>
-    <li>
-      <a href="VI_climateric2.html">Climacterio 2</a>
-    </li>
-    <li>
-      <a href="VI_climateric3.html">Climacterio 3</a>
-    </li>
-    <li>
-      <a href="VI_UNLP_1.html">Conservación 1°C</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -461,45 +461,33 @@ $(document).ready(function () {
 
 
 <pre><code>## Importance of components:
-##                            PC1     PC2     PC3     PC4     PC5     PC6      PC7      PC8      PC9     PC10
-## Standard deviation     2.77817 2.02113 1.68229 1.26266 1.12181 1.09313 0.989378 0.887565 0.777914 0.762436
-## Proportion of Variance 0.32159 0.17021 0.11792 0.06643 0.05244 0.04979 0.040790 0.032820 0.025210 0.024220
-## Cumulative Proportion  0.32159 0.49180 0.60972 0.67615 0.72859 0.77837 0.819160 0.851980 0.877200 0.901420
-##                            PC11     PC12     PC13     PC14     PC15     PC16     PC17     PC18     PC19
-## Standard deviation     0.718903 0.610938 0.592431 0.512971 0.487912 0.453316 0.367021 0.288074 0.254148
-## Proportion of Variance 0.021530 0.015550 0.014620 0.010960 0.009920 0.008560 0.005610 0.003460 0.002690
-## Cumulative Proportion  0.922950 0.938510 0.953130 0.964090 0.974010 0.982580 0.988190 0.991650 0.994340
-##                            PC20     PC21     PC22     PC23       PC24
-## Standard deviation     0.236921 0.172057 0.165812 0.150564 0.00290443
-## Proportion of Variance 0.002340 0.001230 0.001150 0.000940 0.00000000
-## Cumulative Proportion  0.996680 0.997910 0.999060 1.000000 1.00000000</code></pre>
-<pre><code>##          PEN           IM         DMAF           pH          PFF           a*       ATT/SS          ATT 
-## 8.7082712411 7.7678901461 7.5341310132 7.2705888570 7.0257500859 6.5498576797 6.2933091277 5.9435799492 
-##          PSF          CLb          CLa          PSS           PT          DPF       DPPH25          ph8 
-## 5.7676881362 5.6727305381 5.6599054254 4.8130690509 4.6107041658 4.0542844888 3.0697540826 2.6356497503 
-##       DPPH50           b*      DPPH100          CTC           SS           L*           NS      DPPH250 
-## 2.1800227697 1.2916200662 1.2538627769 1.1450090180 0.5161977671 0.1831863342 0.0319617455 0.0209757844</code></pre>
-<pre><code>##           L*           b*          DPF          PFF          PSF          PSS         DMAF           SS 
-## 12.745813348 11.057148552  8.618510370  7.030434978  6.834619098  6.334188121  5.573811732  3.530683688 
-##          CLa          CLb           NS      DPPH100          ATT           IM       ATT/SS      DPPH250 
-##  3.523779565  3.522586518  3.289616546  3.288787113  2.910148460  2.676875546  2.666790136  2.609598306 
-##           PT           pH           a*       DPPH50       DPPH25          PEN          ph8          CTC 
-##  2.553250282  2.192853376  2.029782796  1.989085450  1.947364754  1.527910696  1.441768756  0.104591814</code></pre>
-<pre><code>##        DPPH50       DPPH100        DPPH25           PSF           PSS           ph8            SS 
-## 22.1310676843 18.6813844560 17.0243228725  7.0466616403  5.3264321298  4.8634394419  3.6026189728 
-##            NS           PFF           DPF          DMAF       DPPH250           CTC            PT 
-##  3.1978393518  2.8718407422  2.8705127463  2.5716056614  1.6990962991  1.6390833932  1.6095272966 
-##            IM           ATT           CLa           CLb           PEN            b*            a* 
-##  0.9242024608  0.8573595426  0.8415681626  0.8393462846  0.6966830501  0.3221703938  0.1864580269 
-##        ATT/SS            L*            pH 
-##  0.1481595105  0.0365338937  0.0120859861</code></pre>
+##                            PC1     PC2     PC3     PC4     PC5     PC6      PC7      PC8      PC9     PC10     PC11     PC12     PC13     PC14     PC15
+## Standard deviation     2.77817 2.02113 1.68229 1.26266 1.12181 1.09313 0.989378 0.887565 0.777914 0.762436 0.718903 0.610938 0.592431 0.512971 0.487912
+## Proportion of Variance 0.32159 0.17021 0.11792 0.06643 0.05244 0.04979 0.040790 0.032820 0.025210 0.024220 0.021530 0.015550 0.014620 0.010960 0.009920
+## Cumulative Proportion  0.32159 0.49180 0.60972 0.67615 0.72859 0.77837 0.819160 0.851980 0.877200 0.901420 0.922950 0.938510 0.953130 0.964090 0.974010
+##                            PC16     PC17     PC18     PC19     PC20     PC21     PC22     PC23       PC24
+## Standard deviation     0.453316 0.367021 0.288074 0.254148 0.236921 0.172057 0.165812 0.150564 0.00290443
+## Proportion of Variance 0.008560 0.005610 0.003460 0.002690 0.002340 0.001230 0.001150 0.000940 0.00000000
+## Cumulative Proportion  0.982580 0.988190 0.991650 0.994340 0.996680 0.997910 0.999060 1.000000 1.00000000</code></pre>
+<pre><code>##          PEN           IM         DMAF           pH          PFF           a*       ATT/SS          ATT          PSF          CLb          CLa          PSS 
+## 8.7082712411 7.7678901461 7.5341310132 7.2705888570 7.0257500859 6.5498576797 6.2933091277 5.9435799492 5.7676881362 5.6727305381 5.6599054254 4.8130690509 
+##           PT          DPF       DPPH25          ph8       DPPH50           b*      DPPH100          CTC           SS           L*           NS      DPPH250 
+## 4.6107041658 4.0542844888 3.0697540826 2.6356497503 2.1800227697 1.2916200662 1.2538627769 1.1450090180 0.5161977671 0.1831863342 0.0319617455 0.0209757844</code></pre>
+<pre><code>##           L*           b*          DPF          PFF          PSF          PSS         DMAF           SS          CLa          CLb           NS      DPPH100 
+## 12.745813348 11.057148552  8.618510370  7.030434978  6.834619098  6.334188121  5.573811732  3.530683688  3.523779565  3.522586518  3.289616546  3.288787113 
+##          ATT           IM       ATT/SS      DPPH250           PT           pH           a*       DPPH50       DPPH25          PEN          ph8          CTC 
+##  2.910148460  2.676875546  2.666790136  2.609598306  2.553250282  2.192853376  2.029782796  1.989085450  1.947364754  1.527910696  1.441768756  0.104591814</code></pre>
+<pre><code>##        DPPH50       DPPH100        DPPH25           PSF           PSS           ph8            SS            NS           PFF           DPF          DMAF 
+## 22.1310676843 18.6813844560 17.0243228725  7.0466616403  5.3264321298  4.8634394419  3.6026189728  3.1978393518  2.8718407422  2.8705127463  2.5716056614 
+##       DPPH250           CTC            PT            IM           ATT           CLa           CLb           PEN            b*            a*        ATT/SS 
+##  1.6990962991  1.6390833932  1.6095272966  0.9242024608  0.8573595426  0.8415681626  0.8393462846  0.6966830501  0.3221703938  0.1864580269  0.1481595105 
+##            L*            pH 
+##  0.0365338937  0.0120859861</code></pre>
 <p>Contribución acumulada de cada variable en CP1 y CP2</p>
-<pre><code>##         PFF        DMAF          L*         DPF         PSF          b*         PSS          IM         PEN 
-## 14.05618506 13.10794275 12.92899968 12.67279486 12.60230723 12.34876862 11.14725717 10.44476569 10.23618194 
-##          pH         CLb         CLa      ATT/SS         ATT          a*          PT      DPPH25     DPPH100 
-##  9.46344223  9.19531706  9.18368499  8.96009926  8.85372841  8.57964048  7.16395445  5.01711884  4.54264989 
-##      DPPH50         ph8          SS          NS     DPPH250         CTC 
-##  4.16910822  4.07741851  4.04688145  3.32157829  2.63057409  1.24960083</code></pre>
+<pre><code>##         PFF        DMAF          L*         DPF         PSF          b*         PSS          IM         PEN          pH         CLb         CLa      ATT/SS 
+## 14.05618506 13.10794275 12.92899968 12.67279486 12.60230723 12.34876862 11.14725717 10.44476569 10.23618194  9.46344223  9.19531706  9.18368499  8.96009926 
+##         ATT          a*          PT      DPPH25     DPPH100      DPPH50         ph8          SS          NS     DPPH250         CTC 
+##  8.85372841  8.57964048  7.16395445  5.01711884  4.54264989  4.16910822  4.07741851  4.04688145  3.32157829  2.63057409  1.24960083</code></pre>
 <div id="supresión-de-variables" class="section level2">
 <h2>Supresión de variables</h2>
 </div>
@@ -507,44 +495,42 @@ $(document).ready(function () {
 <h1>Resultados PCA</h1>
 <p>Resumen</p>
 <pre><code>## Importance of components:
-##                            PC1     PC2     PC3     PC4      PC5      PC6      PC7      PC8      PC9     PC10
-## Standard deviation     2.67996 1.91848 1.21642 1.00802 0.988347 0.863254 0.665576 0.632309 0.610738 0.517198
-## Proportion of Variance 0.42248 0.21650 0.08704 0.05977 0.057460 0.043840 0.026060 0.023520 0.021940 0.015730
-## Cumulative Proportion  0.42248 0.63899 0.72603 0.78580 0.843260 0.887090 0.913150 0.936670 0.958610 0.974350
-##                            PC11     PC12     PC13     PC14     PC15     PC16       PC17
-## Standard deviation     0.380869 0.322088 0.262345 0.241018 0.189766 0.156132 0.00303135
-## Proportion of Variance 0.008530 0.006100 0.004050 0.003420 0.002120 0.001430 0.00000000
-## Cumulative Proportion  0.982880 0.988980 0.993030 0.996450 0.998570 1.000000 1.00000000</code></pre>
+##                            PC1     PC2     PC3     PC4      PC5      PC6      PC7      PC8      PC9     PC10     PC11     PC12     PC13     PC14     PC15
+## Standard deviation     2.67996 1.91848 1.21642 1.00802 0.988347 0.863254 0.665576 0.632309 0.610738 0.517198 0.380869 0.322088 0.262345 0.241018 0.189766
+## Proportion of Variance 0.42248 0.21650 0.08704 0.05977 0.057460 0.043840 0.026060 0.023520 0.021940 0.015730 0.008530 0.006100 0.004050 0.003420 0.002120
+## Cumulative Proportion  0.42248 0.63899 0.72603 0.78580 0.843260 0.887090 0.913150 0.936670 0.958610 0.974350 0.982880 0.988980 0.993030 0.996450 0.998570
+##                            PC16       PC17
+## Standard deviation     0.156132 0.00303135
+## Proportion of Variance 0.001430 0.00000000
+## Cumulative Proportion  1.000000 1.00000000</code></pre>
 <p>Contribuciones de las variables a cada componente principal</p>
-<pre><code>##         PEN        DMAF          IM          pH         PFF          a*      ATT/SS         PSF         ATT 
-## 9.497939796 8.529680718 8.329218539 8.003998495 7.748881462 7.046067543 6.799560693 6.485984091 6.243731369 
-##         CLb         CLa         PSS          PT         DPF      DPPH25          b*          L* 
-## 5.949684046 5.934886576 5.501643584 4.921870739 4.565838552 2.558811161 1.617129533 0.265073105</code></pre>
-<pre><code>##           L*          DPF           b*          PSF          PFF          PSS         DMAF          CLa 
-## 13.861934855 11.580254138 11.336555984 10.648967464  9.504779154  9.320922896  7.367315093  4.905521613 
-##          CLb           IM       ATT/SS           pH          PEN          ATT           a*           PT 
-##  4.903378889  3.536766274  3.132358858  2.280262055  2.116586661  2.021714612  1.670050075  1.621173422 
-##       DPPH25 
-##  0.191457958</code></pre>
+<pre><code>##         PEN        DMAF          IM          pH         PFF          a*      ATT/SS         PSF         ATT         CLb         CLa         PSS          PT 
+## 9.497939796 8.529680718 8.329218539 8.003998495 7.748881462 7.046067543 6.799560693 6.485984091 6.243731369 5.949684046 5.934886576 5.501643584 4.921870739 
+##         DPF      DPPH25          b*          L* 
+## 4.565838552 2.558811161 1.617129533 0.265073105</code></pre>
+<pre><code>##           L*          DPF           b*          PSF          PFF          PSS         DMAF          CLa          CLb           IM       ATT/SS           pH 
+## 13.861934855 11.580254138 11.336555984 10.648967464  9.504779154  9.320922896  7.367315093  4.905521613  4.903378889  3.536766274  3.132358858  2.280262055 
+##          PEN          ATT           a*           PT       DPPH25 
+##  2.116586661  2.021714612  1.670050075  1.621173422  0.191457958</code></pre>
 <p>Contribución acumulada de cada variable en CP1 y CP2</p>
-<pre><code>##         PFF         PSF         DPF        DMAF         PSS          L*          b*          IM         PEN 
-## 17.25366062 17.13495155 16.14609269 15.89699581 14.82256648 14.12700796 12.95368552 11.86598481 11.61452646 
-##         CLb         CLa          pH      ATT/SS          a*         ATT          PT      DPPH25 
-## 10.85306294 10.84040819 10.28426055  9.93191955  8.71611762  8.26544598  6.54304416  2.75026912</code></pre>
+<pre><code>##         PFF         PSF         DPF        DMAF         PSS          L*          b*          IM         PEN         CLb         CLa          pH      ATT/SS 
+## 17.25366062 17.13495155 16.14609269 15.89699581 14.82256648 14.12700796 12.95368552 11.86598481 11.61452646 10.85306294 10.84040819 10.28426055  9.93191955 
+##          a*         ATT          PT      DPPH25 
+##  8.71611762  8.26544598  6.54304416  2.75026912</code></pre>
 <p>Heatmap
-<img src="V_Multivariate_files/figure-html/unnamed-chunk-11-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="V_Multivariate_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Proporción de contribución de cada variable a PC1, PC2 y PC3
-<img src="V_Multivariate_files/figure-html/unnamed-chunk-12-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="V_Multivariate_files/figure-html/unnamed-chunk-12-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Scree plot para ver la varianza explicada por cada Principal
 component
-<img src="V_Multivariate_files/figure-html/unnamed-chunk-13-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="V_Multivariate_files/figure-html/unnamed-chunk-13-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <pre><code>## Error in eval(expr, envir, enclos): objeto &#39;coords&#39; no encontrado</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): objeto &#39;biplot_variables_multivar&#39; no encontrado</code></pre>
-<p><img src="V_Multivariate_files/figure-html/unnamed-chunk-14-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Multivariate_files/figure-html/unnamed-chunk-14-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="análisis-univariado" class="section level1">
 <h1>Análisis univariado</h1>
-<p><img src="V_Multivariate_files/figure-html/unnamed-chunk-19-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Multivariate_files/figure-html/unnamed-chunk-19-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <ul>
 <li><p>QUIM chemical variables</p></li>
 <li><p>FIS physical variables</p></li>

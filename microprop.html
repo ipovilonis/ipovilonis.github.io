@@ -295,7 +295,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="III_Phenology.html">Fenología</a>
+      <a href="III_Flowers.html">Fenología</a>
     </li>
     <li>
       <a href="III_Yield.html">Rendimiento</a>
@@ -343,7 +343,28 @@ $(document).ready(function () {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    V Variabilidad
+    V Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_Postharvest.html">Postcosecha</a>
+    </li>
+    <li>
+      <a href="VI_climateric2.html">Climacterio 2</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Climacterio 3</a>
+    </li>
+    <li>
+      <a href="VI_UNLP_1.html">Conservación 1°C</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Variabilidad
      
     <span class="caret"></span>
   </a>
@@ -376,27 +397,6 @@ $(document).ready(function () {
       <a href="V_Multivariate.html">Multivariado</a>
     </li>
     <li class="divider"></li>
-  </ul>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    VI Postcosecha
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="VI_Postharvest.html">Postcosecha</a>
-    </li>
-    <li>
-      <a href="VI_climateric2.html">Climacterio 2</a>
-    </li>
-    <li>
-      <a href="VI_climateric3.html">Climacterio 3</a>
-    </li>
-    <li>
-      <a href="VI_UNLP_1.html">Conservación 1°C</a>
-    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -484,9 +484,9 @@ $(document).ready(function () {
 ## 5 10      hoja         6              0.667            0.516
 ## 6 10      segmento     6              0.667            0.516</code></pre>
 <p>Gráfico de barras
-<img src="microprop_files/figure-html/unnamed-chunk-3-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="microprop_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Chekeo de linealidad
-<img src="microprop_files/figure-html/unnamed-chunk-4-1.svg" width="95%" style="display: block; margin: auto;" />
+<img src="microprop_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 No hay linealidad –&gt; comparación de medias</p>
 <p>Modelo factorial:</p>
 <pre><code>## glm(formula = supervivencia ~ hormona * explanto, family = binomial(link = &quot;logit&quot;), 
@@ -513,7 +513,7 @@ No hay linealidad –&gt; comparación de medias</p>
 ## 3 pvpp         hoja        20               0.55            0.510
 ## 4 pvpp         segmento    15               0.6             0.507</code></pre>
 <p>Gráfico de barras
-<img src="microprop_files/figure-html/unnamed-chunk-8-1.svg" width="95%" style="display: block; margin: auto;" /></p>
+<img src="microprop_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>Modelo factorial</p>
 <pre><code>## glm(formula = supervivencia ~ antioxidante * explanto, family = binomial(link = &quot;logit&quot;), 
 ##     data = microprop)</code></pre>

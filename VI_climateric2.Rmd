@@ -32,7 +32,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 gr1<-ggplot(data=resp2, aes(x=time_min, y=carbon_ac, color=matu))+
-  scale_color_manual(values=c("green2","orange"))+
+  scale_color_manual(values=c("yellowgreen","gold"))+
   geom_point(size=3)+
   geom_smooth(method="lm", se = TRUE, linetype="dashed", lwd=1, size=1)+
   scale_y_continuous(breaks=seq(0,240,20))+
@@ -318,15 +318,15 @@ library(dplyr)
 resp2 <- resp2 %>% 
   mutate(time_min = rep(seq(from = 0, to = 150, by = 15), times=4))
 
-colores <- c("green","orange")
+colores <- c("yellowgreen","gold")
 
 df_lineI <- data.frame(x = c(15,150), y = c(29.05593, 173.01033))
 df_lineM <- data.frame(x = c(15,150), y = c(53.07623, 226.12895))
 
 gm_ajust <- ggplot(resp2, aes(x = time_min, y = carbon_ac)) +
   geom_point(aes(color = factor(matu)), size = 10)+
-  geom_line(data = df_lineI, aes(x = x, y = y), color="green2", size= 2, linetype = "dotdash")+
-  geom_line(data = df_lineM, aes(x = x, y = y), color="orange", size= 2, linetype = "dotdash")+
+  geom_line(data = df_lineI, aes(x = x, y = y), color="yellowgreen", size= 2, linetype = "dotdash")+
+  geom_line(data = df_lineM, aes(x = x, y = y), color="gold", size= 2, linetype = "dotdash")+
   labs(y = "CO2 (ml acumulado/Kg)", x = "Tiempo (min)") +
   theme_classic() +
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
@@ -339,6 +339,7 @@ gm_ajust <- ggplot(resp2, aes(x = time_min, y = carbon_ac)) +
   theme(axis.text = element_text(color = 'black'))+
   scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
 gm_ajust
+
 
 ```
 
