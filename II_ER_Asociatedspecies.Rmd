@@ -1428,7 +1428,7 @@ library(lme4)
 
 ```
 
-## Base de datos
+# Clasificación y ordenamiento
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE)
 
@@ -1468,6 +1468,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 dendro.wardb<-hclust(mat.b,method="ward.D")
 
 library(factoextra)
+
+
 cluster_dend<-fviz_dend(x = dendro.wardb, cex = 1.5, lwd = 1, k = 3,
 # Manually selected colors
           k_colors = c("coral4","burlywood2","palegreen4"),
@@ -1478,6 +1480,18 @@ cluster_dend<-fviz_dend(x = dendro.wardb, cex = 1.5, lwd = 1, k = 3,
   theme(axis.text.y = element_text(size = 20))
 cluster_dend
 
+
+# # Guardar una imagen en formato TIFF con 600 DPI
+# tiff("cluster_dend.tiff", width = 12, height = 8, units = "in", res = 600)
+# fviz_dend(x = dendro.wardb, cex = 1.5, lwd = 1, k = 3,
+# # Manually selected colors
+#           k_colors = c("coral4","burlywood2","palegreen4"),
+#           rect = TRUE, 
+#           rect_border = "gray4", 
+#           rect_fill = FALSE)+
+#   scale_y_continuous(breaks = 0:4, labels = 0:4)+
+#   theme(axis.text.y = element_text(size = 20))
+# dev.off()
 
 
 ```
@@ -1531,7 +1545,7 @@ df.todo <- cbind(df.mds, datos)
 
 df.todo$REG <- factor(df.todo$REG,
                    levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
-                   labels = c("Conconrdia" ,"PN El Palmar" ,"Gualeguaychu"))
+                   labels = c("Conconrdia" ,"PN El Palmar" ,"Gualeguaychú"))
 
 
 # data_disc<-read_excel("database.xlsx",sheet="II discriminant")
@@ -1577,6 +1591,38 @@ ggPCoA<-ggplot(df.todo, aes(-X1, X2))+
   scale_x_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))
 ggPCoA
 
+tiff("ggPCoA.tiff", width = 12, height = 8, units = "in", res = 600)
+ggplot(df.todo, aes(-X1, X2))+
+  geom_hline(yintercept=0, col="black")+
+  geom_vline(xintercept=0, col="black")+
+  geom_point(size=8,aes(col=REG, pch=as.factor(REG)))+
+  theme_classic()+
+  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_shape_manual(values=c(16,15,17))+
+  theme(panel.grid.major.y = element_blank())+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=30, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
+  theme(legend.direction = "horizontal")+
+  theme(legend.position = "bottom")+
+  theme(legend.title = element_blank())+
+  labs(x = "Principal coordinate 1 (25.4%)", y = "Principal coordinate 2 (14.9%)",colour = "REG",pch="REG",
+                    groups = "REG")+
+  stat_ellipse(aes(x=-X1, y=X2,color=REG,type = "norm"))+
+  # geom_polygon(data = data_disc, aes(x = axis_1, y = axis_2, group = site, fill = site), alpha = 0.2) +
+  # stat_chull(aes(x = axis_1, y = axis_2, group = site), geom = "path", col = "black", fill = NA)+
+  geom_text_repel(
+    data = df.todo,
+    aes(label = Censo),
+    size = 8,
+    box.padding = unit(0.0001, "lines"),
+    point.padding = unit(1, "lines"))+
+  scale_y_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))+
+  scale_x_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))
+dev.off()
+
+
 ```
 Se observa un ordenamiento muy marcado de las poblaciones en concordancia con los resultados anteriores. Los dos ejes principales explican un 27.19% de la variación total de los datos.
 
@@ -1597,7 +1643,7 @@ data_disc<-read_excel("database.xlsx",sheet="II discriminant")
 
 data_disc$census<-as.factor(data_disc$census)
 data_disc$axis_1<-as.numeric(data_disc$axis_1)
-data_disc$axis_2<-as.numeric(data_disc$axis_2)
+data_disc$axis_2<-as.numeric(data_disc$axis_2) 
 data_disc$site <- factor(data_disc$site,
                    levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
                    labels = c("Concordia" ,"PN El Palmar" ,"Gualeguaychu"))

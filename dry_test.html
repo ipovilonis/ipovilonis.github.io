@@ -594,10 +594,10 @@ div.tocify {
 ## data:  e
 ## W = 0.95582, p-value = 0.2414</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80               basal 
-##          -31.996552           -1.539667           -3.514333           -5.533000           -7.323000            0.298695            2.255026 
-## Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
-##           -1.825333           -3.605333           -4.321000           -3.329333</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80 
+##          -31.996552           -1.539667           -3.514333           -5.533000           -7.323000            0.298695 
+##               basal Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
+##            2.255026           -1.825333           -3.605333           -4.321000           -3.329333</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 19 
 ##                  numDF  F-value p-value
@@ -609,53 +609,53 @@ div.tocify {
 <p>Efectos simples</p>
 <pre><code>## $emmeans
 ## Hora = 1:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60          13.223486 0.5576531 17.48 12.049404 14.397568
-##  80          13.522181 0.5576531 17.48 12.348099 14.696263
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60           13.22 0.558 17.4    12.05    14.40
+##  80           13.52 0.558 17.4    12.35    14.70
 ## 
 ## Hora = 2:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60          11.683819 0.5576531 17.48 10.509737 12.857901
-##  80          10.157181 0.5576531 17.48  8.983099 11.331263
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60           11.68 0.558 17.4    10.51    12.86
+##  80           10.16 0.558 17.4     8.98    11.33
 ## 
 ## Hora = 3:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60           9.709153 0.5576531 17.48  8.535071 10.883234
-##  80           6.402514 0.5576531 17.48  5.228432  7.576596
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60            9.71 0.558 17.4     8.53    10.88
+##  80            6.40 0.558 17.4     5.23     7.58
 ## 
 ## Hora = 4:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60           7.690486 0.5576531 17.48  6.516404  8.864568
-##  80           3.668181 0.5576531 17.48  2.494099  4.842263
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60            7.69 0.558 17.4     6.52     8.86
+##  80            3.67 0.558 17.4     2.49     4.84
 ## 
 ## Hora = 5:
-##  Temperatura    emmean        SE    df  lower.CL  upper.CL
-##  60           5.900486 0.5576531 17.48  4.726404  7.074568
-##  80           2.869847 0.5576531 17.48  1.695766  4.043929
+##  Temperatura emmean    SE   df lower.CL upper.CL
+##  60            5.90 0.558 17.4     4.73     7.07
+##  80            2.87 0.558 17.4     1.70     4.04
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
 ## Hora = 1:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80 -0.298695 0.877104 9.74  -0.341  0.7407
+##  contrast                      estimate    SE  df t.ratio p.value
+##  Temperatura60 - Temperatura80   -0.299 0.877 9.7  -0.341  0.7407
 ## 
 ## Hora = 2:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  1.526638 0.877104 9.74   1.741  0.1132
+##  contrast                      estimate    SE  df t.ratio p.value
+##  Temperatura60 - Temperatura80    1.527 0.877 9.7   1.741  0.1133
 ## 
 ## Hora = 3:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.306638 0.877104 9.74   3.770  0.0038
+##  contrast                      estimate    SE  df t.ratio p.value
+##  Temperatura60 - Temperatura80    3.307 0.877 9.7   3.770  0.0039
 ## 
 ## Hora = 4:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  4.022305 0.877104 9.74   4.586  0.0011
+##  contrast                      estimate    SE  df t.ratio p.value
+##  Temperatura60 - Temperatura80    4.022 0.877 9.7   4.586  0.0011
 ## 
 ## Hora = 5:
-##  contrast                       estimate       SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.030638 0.877104 9.74   3.455  0.0064
+##  contrast                      estimate    SE  df t.ratio p.value
+##  Temperatura60 - Temperatura80    3.031 0.877 9.7   3.455  0.0065
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
