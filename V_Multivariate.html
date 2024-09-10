@@ -427,6 +427,9 @@ $(document).ready(function () {
     <li>
       <a href="calafate.html">Calafate</a>
     </li>
+    <li>
+      <a href="microprop.html">Micropropagación</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -460,6 +463,25 @@ $(document).ready(function () {
 </div>
 
 
+<pre><code>## New names:
+## • `` -&gt; `...15`</code></pre>
+<pre><code>## Warning: NAs introducidos por coerción</code></pre>
+<pre><code>## Warning: There was 1 warning in `dplyr::summarise()`.
+## ℹ In argument: `across(c(pff, de, dp, pen, psf, ns, pss), mean, na.rm = TRUE)`.
+## ℹ In group 1: `year = 2019`, `site = Concordia`, `phenotype = 154`.
+## Caused by warning:
+## ! The `...` argument of `across()` is deprecated as of dplyr 1.1.0.
+## Supply arguments directly to `.fns` through an anonymous function instead.
+## 
+##   # Previously
+##   across(a:b, mean, na.rm = TRUE)
+## 
+##   # Now
+##   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;year&#39;, &#39;site&#39;. You can override using the `.groups` argument.
+## `summarise()` has grouped output by &#39;year&#39;, &#39;site&#39;. You can override using the `.groups` argument.
+## `summarise()` has grouped output by &#39;year&#39;, &#39;site&#39;. You can override using the `.groups` argument.
+## `summarise()` has grouped output by &#39;year&#39;, &#39;site&#39;. You can override using the `.groups` argument.</code></pre>
 <pre><code>## Importance of components:
 ##                            PC1     PC2     PC3     PC4     PC5     PC6      PC7      PC8      PC9     PC10     PC11
 ## Standard deviation     2.77817 2.02113 1.68229 1.26266 1.12181 1.09313 0.989378 0.887565 0.777914 0.762436 0.718903
@@ -492,12 +514,12 @@ $(document).ready(function () {
 ##           CLa           CLb           PEN            b*            a*        ATT/SS            L*            pH 
 ##  0.8415681626  0.8393462846  0.6966830501  0.3221703938  0.1864580269  0.1481595105  0.0365338937  0.0120859861</code></pre>
 <p>Contribución acumulada de cada variable en CP1 y CP2</p>
-<pre><code>##         PFF        DMAF          L*         DPF         PSF          b*         PSS          IM         PEN          pH 
-## 14.05618506 13.10794275 12.92899968 12.67279486 12.60230723 12.34876862 11.14725717 10.44476569 10.23618194  9.46344223 
-##         CLb         CLa      ATT/SS         ATT          a*          PT      DPPH25     DPPH100      DPPH50         ph8 
-##  9.19531706  9.18368499  8.96009926  8.85372841  8.57964048  7.16395445  5.01711884  4.54264989  4.16910822  4.07741851 
-##          SS          NS     DPPH250         CTC 
-##  4.04688145  3.32157829  2.63057409  1.24960083</code></pre>
+<pre><code>##         PFF        DMAF          L*         DPF         PSF          b*         PSS          IM         PEN 
+## 14.05618506 13.10794275 12.92899968 12.67279486 12.60230723 12.34876862 11.14725717 10.44476569 10.23618194 
+##          pH         CLb         CLa      ATT/SS         ATT          a*          PT      DPPH25     DPPH100 
+##  9.46344223  9.19531706  9.18368499  8.96009926  8.85372841  8.57964048  7.16395445  5.01711884  4.54264989 
+##      DPPH50         ph8          SS          NS     DPPH250         CTC 
+##  4.16910822  4.07741851  4.04688145  3.32157829  2.63057409  1.24960083</code></pre>
 <div id="supresión-de-variables" class="section level2">
 <h2>Supresión de variables</h2>
 </div>
@@ -514,19 +536,19 @@ $(document).ready(function () {
 ## Proportion of Variance 0.006100 0.004050 0.003420 0.002120 0.001430 0.00000000
 ## Cumulative Proportion  0.988980 0.993030 0.996450 0.998570 1.000000 1.00000000</code></pre>
 <p>Contribuciones de las variables a cada componente principal</p>
-<pre><code>##         PEN        DMAF          IM          pH         PFF          a*      ATT/SS         PSF         ATT         CLb 
-## 9.497939796 8.529680718 8.329218539 8.003998495 7.748881462 7.046067543 6.799560693 6.485984091 6.243731369 5.949684046 
-##         CLa         PSS          PT         DPF      DPPH25          b*          L* 
-## 5.934886576 5.501643584 4.921870739 4.565838552 2.558811161 1.617129533 0.265073105</code></pre>
+<pre><code>##         PEN        DMAF          IM          pH         PFF          a*      ATT/SS         PSF         ATT 
+## 9.497939796 8.529680718 8.329218539 8.003998495 7.748881462 7.046067543 6.799560693 6.485984091 6.243731369 
+##         CLb         CLa         PSS          PT         DPF      DPPH25          b*          L* 
+## 5.949684046 5.934886576 5.501643584 4.921870739 4.565838552 2.558811161 1.617129533 0.265073105</code></pre>
 <pre><code>##           L*          DPF           b*          PSF          PFF          PSS         DMAF          CLa          CLb 
 ## 13.861934855 11.580254138 11.336555984 10.648967464  9.504779154  9.320922896  7.367315093  4.905521613  4.903378889 
 ##           IM       ATT/SS           pH          PEN          ATT           a*           PT       DPPH25 
 ##  3.536766274  3.132358858  2.280262055  2.116586661  2.021714612  1.670050075  1.621173422  0.191457958</code></pre>
 <p>Contribución acumulada de cada variable en CP1 y CP2</p>
-<pre><code>##         PFF         PSF         DPF        DMAF         PSS          L*          b*          IM         PEN         CLb 
-## 17.25366062 17.13495155 16.14609269 15.89699581 14.82256648 14.12700796 12.95368552 11.86598481 11.61452646 10.85306294 
-##         CLa          pH      ATT/SS          a*         ATT          PT      DPPH25 
-## 10.84040819 10.28426055  9.93191955  8.71611762  8.26544598  6.54304416  2.75026912</code></pre>
+<pre><code>##         PFF         PSF         DPF        DMAF         PSS          L*          b*          IM         PEN 
+## 17.25366062 17.13495155 16.14609269 15.89699581 14.82256648 14.12700796 12.95368552 11.86598481 11.61452646 
+##         CLb         CLa          pH      ATT/SS          a*         ATT          PT      DPPH25 
+## 10.85306294 10.84040819 10.28426055  9.93191955  8.71611762  8.26544598  6.54304416  2.75026912</code></pre>
 <p>Heatmap
 <img src="V_Multivariate_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Proporción de contribución de cada variable a PC1, PC2 y PC3

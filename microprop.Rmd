@@ -4,7 +4,7 @@ title: "Ensayos de micropropagación"
 
 # Hormonas
 
-Encabezado de la base de datos
+### Encabezado de la base de datos
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -24,7 +24,7 @@ head(microprop)
 
 ```
 
-Tabla resumen
+### Tabla resumen
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -38,10 +38,11 @@ tabla_microprop
 
 ```
 
-Gráfico de barras
+### Gráfico de barras
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(ggplot2)
 gg_microprop <- ggplot(tabla_microprop, aes(x=explanto, y=Mean_supervivencia , fill=hormona, width=.4)) +
   stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
   geom_errorbar(aes(ymin=Mean_supervivencia -sd_supervivencia, ymax=Mean_supervivencia +sd_supervivencia),
@@ -63,7 +64,7 @@ gg_microprop
 
 ```
 
-Chekeo de linealidad
+### Chekeo de linealidad
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -101,31 +102,118 @@ microprop$hormona <- as.factor(microprop$hormona)
 ```
 No hay linealidad --> comparación de medias
 
-Modelo factorial:
+### Frecuencias
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Calcular la frecuencia de cada combinación de 'explanto' y 'antioxidante'
+frecuencias <- table(microprop$explanto, microprop$hormona)
+frecuencias
+
+```
+
+### Modelo factorial:
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lmerTest)
-
 library(nlme)
 
-modelo <- glm(supervivencia ~ hormona * explanto, family = binomial(link = "logit"), data = microprop)
-modelo$call
+# Crear una columna de pesos inversamente proporcional a la frecuencia de cada categoría
+microprop$pesos <- with(microprop, 1 / (frecuencias[cbind(explanto, hormona)]))
+
+# Ajustar el modelo de regresión logística con los pesos
+modelo_hormona <- glm(supervivencia ~ explanto * hormona, 
+              data = microprop, 
+              family = binomial, 
+              weights = microprop$pesos)
+modelo_hormona$call
+
+```
+Los weights (pesos) están siendo utilizados para ajustar el impacto de cada observación en la estimación de los coeficientes del modelo. En este caso, los pesos son inversamente proporcionales a la frecuencia de cada combinación de las categorías de las variables explanto y hormona.
+
+
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Resumen del modelo
+# summary(modelo_hormona)
 ```
 
-Anova:
+### El modelo en formato ANOVA se expresa como:
+
+$$
+E[Y_{ijk}] = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+$$
+
+- \(E[Y_{ijk}]\) es la esperanza de la respuesta de supervivencia.
+- \(\mu\) es la media general de la respuesta.
+- \(\alpha_i\) es el efecto del nivel \(i\) del factor `explanto`.
+- \(\beta_j\) es el efecto del nivel \(j\) del factor `hormona`.
+- \((\alpha \beta)_{ij}\) es el efecto de interacción entre `explanto` e `hormona`.
+
+### Supuestos del Modelo Binomial
+
+Para el modelo de regresión logística binomial, los supuestos son:
+
+1. **Distribución de la Variable Respuesta:**
+
+   La variable de respuesta sigue una distribución binomial:
+
+   $$
+   Y_{ijk} \sim \text{Binomial}(n_{ijk}, p_{ijk})
+   $$
+
+2. **Relación Lineal en la Escala del Logit:**
+
+   La relación entre los predictores y el logit de la probabilidad de éxito es lineal:
+
+   $$
+   \text{logit}(p_{ijk}) = \log \left( \frac{p_{ijk}}{1 - p_{ijk}} \right) = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+   $$
+
+3. **Independencia de las Observaciones:**
+
+   Los errores son independientes:
+
+   $$
+   \epsilon_{ijk} \sim \text{Independiente}
+   $$
+
+4. **Varianza de la Distribución Binomial:**
+
+   La varianza de la respuesta binomial es:
+
+   $$
+   \text{Var}(Y_{ijk}) = n_{ijk} p_{ijk} (1 - p_{ijk})
+   $$
+
+
+
+### Comparación de medias:
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(car)
-Anova(modelo)
+Anova(modelo_hormona)
 
 ```
-No se encontraron diferencias significativas
+Los resultados sugieren que, según los datos disponibles, no hay interacción y ni el tipo de explanto, ni el tipo de hormona afectan significativamente la supervivencia de los explantos.
+
+### Emmeans
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+# Estimaciones marginales de los efectos principales
+emmeans_results_1 <- emmeans(modelo_hormona, ~ explanto * hormona, type= "response")
+emmeans_results_1
+```
 
 # Antioxidante
 
-Tabla resumen
+### Tabla resumen
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -139,7 +227,7 @@ tabla_microprop_antioxidante
 
 ```
 
-Gráfico de barras
+### Gráfico de barras
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -165,25 +253,93 @@ gg_microprop_ao
 
 ```
 
-Modelo factorial
+### Frecuencias
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Calcular la frecuencia de cada combinación de 'explanto' y 'antioxidante'
+frecuencias <- table(microprop$explanto, microprop$antioxidante)
+frecuencias
+```
+
+### Modelo factorial
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(lmerTest)
-
 library(nlme)
 
-modelo_2 <- glm(supervivencia ~ antioxidante * explanto, family = binomial(link = "logit"), data = microprop)
-modelo_2$call
+# Crear una columna de pesos inversamente proporcional a la frecuencia de cada categoría
+microprop$pesos <- with(microprop, 1 / (frecuencias[cbind(explanto, antioxidante)]))
+
+# Ajustar el modelo de regresión logística con los pesos
+modelo_antioxidante <- glm(supervivencia ~ explanto * antioxidante, 
+              data = microprop, 
+              family = binomial, 
+              weights = microprop$pesos)
+
+modelo_antioxidante$call
 
 ```
 
-Anova:
+
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+### Modelo de regresión logística:
+
+```
+
+
+<!-- $$ -->
+<!-- \text{logit}(P(Y = 1)) = \beta_0 + \beta_1 \cdot \text{explanto}_{hoja} + \beta_2 \cdot \text{antioxidante}_{pvpp} + \beta_3 \cdot (\text{explanto}_{hoja} \times \text{antioxidante}_{pvpp}) -->
+<!-- $$ -->
+
+<!-- * \(\text{logit}(P(Y=1))\): Es el logaritmo de las probabilidades (log-odds) de supervivencia (donde \(Y=1\) indica éxito o supervivencia). -->
+<!-- * \(\beta_0\): Intercepto del modelo, que representa el logit de la probabilidad de supervivencia cuando todas las variables son la referencia (por ejemplo, cuando `explanto` es "segmento" y `antioxidante` es "ácido cítrico"). -->
+<!-- * \(\beta_1\): Coeficiente del efecto de `explanto`, que mide la diferencia en log-odds de supervivencia cuando el explanto es "hoja" en comparación con "segmento". -->
+<!-- * \(\beta_2\): Coeficiente del efecto de `antioxidante`, que mide la diferencia en log-odds de supervivencia cuando el antioxidante es "PVPP" en comparación con "ácido cítrico". -->
+<!-- * \(\beta_3\): Coeficiente de interacción entre `explanto` y `antioxidante`, que mide cuánto cambia el efecto del explanto "hoja" en la probabilidad de supervivencia cuando el antioxidante es "PVPP". -->
+
+
+### El modelo en formato ANOVA se expresa como:
+
+$$
+E[Y_{ijk}] = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+$$
+
+- \(E[Y_{ijk}]\) es la esperanza de la respuesta de supervivencia.
+- \(\mu\) es la media general de la respuesta.
+- \(\alpha_i\) es el efecto del nivel \(i\) del factor `explanto`.
+- \(\beta_j\) es el efecto del nivel \(j\) del factor `antioxidante`.
+- \((\alpha \beta)_{ij}\) es el efecto de interacción entre `explanto` e `antioxidante`.
+
+   La variable de respuesta sigue una distribución binomial:
+
+   $$
+   Y_{ijk} \sim \text{Binomial}(n_{ijk}, p_{ijk})
+   $$
+
+### Resumen del modelo
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(car)
-Anova(modelo_2)
+Anova(modelo_antioxidante)
 
 ```
-No se encontraron diferencias significativas
+No hay evidencia estadística suficiente para rechazar la hipótesis nula de que ninguno de los coeficientes es diferente de cero. En otras palabras, ni el tipo de explanto, ni el antioxidante utilizado, ni su interacción parecen tener un efecto significativo en la supervivencia de los explantos, según los datos disponibles.
+
+### Emmeans
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+# Estimaciones marginales de los efectos principales
+emmeans_results <- emmeans(modelo_antioxidante, ~ explanto * antioxidante, type= "response")
+emmeans_results
+
+```
+
+

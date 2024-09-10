@@ -12,7 +12,6 @@ output:
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-
 # Cargar la base de datos:
 # 1- descargar paquete readxl en herramientas -> Instalar paquetes
 # 2- activar librería readxl
@@ -121,7 +120,7 @@ library(lmerTest)
 
 # modelo_psflor1 <- lmer(ps_flor ~ (1|site/phenotype), datosff)
 
-modelo_psflor2 <- lmer(ps_flor ~ (1 | year) + (1 | site/phenotype), data = datosff)
+modelo_psflor2 <- lmer(ps_flor ~ (1 | year) + (1|site) + (1|phenotype), data = datosff)
 
 # modelo_psflor <- lmer(ps_flor ~ year + (1 | site/phenotype), data = datosff)
 
@@ -194,6 +193,40 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 summary(modelo_psflor)
 
 ```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(performance)
+icc_values <- performance::icc(modelo_psflor, by_group = TRUE)
+icc_values
+
+library(lme4)
+
+# Extraer las varianzas de los componentes del modelo
+var_comps <- as.data.frame(VarCorr(modelo_psflor))
+
+# Extraer la varianza de los efectos aleatorios
+var_year <- var_comps[var_comps$grp == "year", "vcov"]
+var_site_phenotype <- var_comps[var_comps$grp == "site:phenotype", "vcov"]
+
+# Extraer la varianza residual
+var_residual <- attr(VarCorr(modelo_psflor), "sc")^2
+
+# Calcular la varianza total
+var_total <- var_year + var_site_phenotype + var_residual
+
+# Calcular el ICC residual
+icc_residual <- (var_year + var_site_phenotype) / var_total
+
+# Mostrar el ICC residual en porcentaje
+icc_residual_percentage <- icc_residual * 100
+print(paste("ICC Residual: ", round(icc_residual_percentage, 2), "%", sep = ""))
+
+
+```
+
+
 
 Significación de las variables aleatorias
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}

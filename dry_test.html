@@ -509,6 +509,9 @@ div.tocify {
     <li>
       <a href="calafate.html">Calafate</a>
     </li>
+    <li>
+      <a href="microprop.html">Micropropagación</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -544,6 +547,8 @@ div.tocify {
 
 <div id="cambios-en-el-peso" class="section level1">
 <h1>Cambios en el peso</h1>
+<pre><code>## New names:
+## • `` -&gt; `...6`</code></pre>
 <p>Tabla descriptiva</p>
 <pre><code>## # A tibble: 14 × 5
 ## # Groups:   Temperatura [2]
@@ -594,10 +599,12 @@ div.tocify {
 ## data:  e
 ## W = 0.95582, p-value = 0.2414</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80 
-##          -31.996552           -1.539667           -3.514333           -5.533000           -7.323000            0.298695 
-##               basal Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
-##            2.255026           -1.825333           -3.605333           -4.321000           -3.329333</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3               Hora4 
+##          -31.996552           -1.539667           -3.514333           -5.533000 
+##               Hora5       Temperatura80               basal Hora2:Temperatura80 
+##           -7.323000            0.298695            2.255026           -1.825333 
+## Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
+##           -3.605333           -4.321000           -3.329333</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 19 
 ##                  numDF  F-value p-value
@@ -625,12 +632,12 @@ div.tocify {
 ## 
 ## Hora = 4:
 ##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60            7.69 0.558 17.4     6.52     8.86
+##  60            7.69 0.558 17.4     6.52     8.87
 ##  80            3.67 0.558 17.4     2.49     4.84
 ## 
 ## Hora = 5:
 ##  Temperatura emmean    SE   df lower.CL upper.CL
-##  60            5.90 0.558 17.4     4.73     7.07
+##  60            5.90 0.558 17.4     4.73     7.08
 ##  80            2.87 0.558 17.4     1.70     4.04
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
@@ -638,24 +645,24 @@ div.tocify {
 ## 
 ## $contrasts
 ## Hora = 1:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80   -0.299 0.877 9.7  -0.341  0.7407
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80   -0.299 0.877 9.75  -0.341  0.7407
 ## 
 ## Hora = 2:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80    1.527 0.877 9.7   1.741  0.1133
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    1.527 0.877 9.75   1.741  0.1132
 ## 
 ## Hora = 3:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80    3.307 0.877 9.7   3.770  0.0039
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    3.307 0.877 9.75   3.770  0.0038
 ## 
 ## Hora = 4:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80    4.022 0.877 9.7   4.586  0.0011
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    4.022 0.877 9.75   4.586  0.0011
 ## 
 ## Hora = 5:
-##  contrast                      estimate    SE  df t.ratio p.value
-##  Temperatura60 - Temperatura80    3.031 0.877 9.7   3.455  0.0065
+##  contrast                      estimate    SE   df t.ratio p.value
+##  Temperatura60 - Temperatura80    3.031 0.877 9.75   3.455  0.0064
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones

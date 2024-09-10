@@ -427,6 +427,9 @@ $(document).ready(function () {
     <li>
       <a href="calafate.html">Calafate</a>
     </li>
+    <li>
+      <a href="microprop.html">Micropropagación</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -462,7 +465,8 @@ $(document).ready(function () {
 
 <div id="hormonas" class="section level1">
 <h1>Hormonas</h1>
-<p>Encabezado de la base de datos</p>
+<div id="encabezado-de-la-base-de-datos" class="section level3">
+<h3>Encabezado de la base de datos</h3>
 <pre><code>## # A tibble: 6 × 4
 ##   hormona explanto antioxidante supervivencia
 ##   &lt;fct&gt;   &lt;fct&gt;    &lt;fct&gt;                &lt;dbl&gt;
@@ -472,7 +476,9 @@ $(document).ready(function () {
 ## 4 0.5     hoja     pvpp                     1
 ## 5 0.5     hoja     pvpp                     1
 ## 6 0.5     hoja     pvpp                     0</code></pre>
-<p>Tabla resumen</p>
+</div>
+<div id="tabla-resumen" class="section level3">
+<h3>Tabla resumen</h3>
 <pre><code>## # A tibble: 6 × 5
 ## # Groups:   hormona [3]
 ##   hormona explanto     n Mean_supervivencia sd_supervivencia
@@ -483,27 +489,115 @@ $(document).ready(function () {
 ## 4 4       segmento     4              0.75             0.5  
 ## 5 10      hoja         6              0.667            0.516
 ## 6 10      segmento     6              0.667            0.516</code></pre>
-<p>Gráfico de barras
-<img src="microprop_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Chekeo de linealidad
-<img src="microprop_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+</div>
+<div id="gráfico-de-barras" class="section level3">
+<h3>Gráfico de barras</h3>
+<p><img src="microprop_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="chekeo-de-linealidad" class="section level3">
+<h3>Chekeo de linealidad</h3>
+<p><img src="microprop_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 No hay linealidad –&gt; comparación de medias</p>
-<p>Modelo factorial:</p>
-<pre><code>## glm(formula = supervivencia ~ hormona * explanto, family = binomial(link = &quot;logit&quot;), 
-##     data = microprop)</code></pre>
-<p>Anova:</p>
+</div>
+<div id="frecuencias" class="section level3">
+<h3>Frecuencias</h3>
+<pre><code>##           
+##            0.5  4 10
+##   hoja      16  6  6
+##   segmento   9  4  6</code></pre>
+</div>
+<div id="modelo-factorial" class="section level3">
+<h3>Modelo factorial:</h3>
+<pre><code>## glm(formula = supervivencia ~ explanto * hormona, family = binomial, 
+##     data = microprop, weights = microprop$pesos)</code></pre>
+<p>Los weights (pesos) están siendo utilizados para ajustar el impacto
+de cada observación en la estimación de los coeficientes del modelo. En
+este caso, los pesos son inversamente proporcionales a la frecuencia de
+cada combinación de las categorías de las variables explanto y
+hormona.</p>
+</div>
+<div id="el-modelo-en-formato-anova-se-expresa-como"
+class="section level3">
+<h3>El modelo en formato ANOVA se expresa como:</h3>
+<p><span class="math display">\[
+E[Y_{ijk}] = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(E[Y_{ijk}]\)</span> es la esperanza de
+la respuesta de supervivencia.</li>
+<li><span class="math inline">\(\mu\)</span> es la media general de la
+respuesta.</li>
+<li><span class="math inline">\(\alpha_i\)</span> es el efecto del nivel
+<span class="math inline">\(i\)</span> del factor
+<code>explanto</code>.</li>
+<li><span class="math inline">\(\beta_j\)</span> es el efecto del nivel
+<span class="math inline">\(j\)</span> del factor
+<code>hormona</code>.</li>
+<li><span class="math inline">\((\alpha \beta)_{ij}\)</span> es el
+efecto de interacción entre <code>explanto</code> e
+<code>hormona</code>.</li>
+</ul>
+</div>
+<div id="supuestos-del-modelo-binomial" class="section level3">
+<h3>Supuestos del Modelo Binomial</h3>
+<p>Para el modelo de regresión logística binomial, los supuestos
+son:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Distribución de la Variable Respuesta:</strong></p>
+<p>La variable de respuesta sigue una distribución binomial:</p>
+<p><span class="math display">\[
+Y_{ijk} \sim \text{Binomial}(n_{ijk}, p_{ijk})
+\]</span></p></li>
+<li><p><strong>Relación Lineal en la Escala del Logit:</strong></p>
+<p>La relación entre los predictores y el logit de la probabilidad de
+éxito es lineal:</p>
+<p><span class="math display">\[
+\text{logit}(p_{ijk}) = \log \left( \frac{p_{ijk}}{1 - p_{ijk}} \right)
+= \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+\]</span></p></li>
+<li><p><strong>Independencia de las Observaciones:</strong></p>
+<p>Los errores son independientes:</p>
+<p><span class="math display">\[
+\epsilon_{ijk} \sim \text{Independiente}
+\]</span></p></li>
+<li><p><strong>Varianza de la Distribución Binomial:</strong></p>
+<p>La varianza de la respuesta binomial es:</p>
+<p><span class="math display">\[
+\text{Var}(Y_{ijk}) = n_{ijk} p_{ijk} (1 - p_{ijk})
+\]</span></p></li>
+</ol>
+</div>
+<div id="comparación-de-medias" class="section level3">
+<h3>Comparación de medias:</h3>
 <pre><code>## Analysis of Deviance Table (Type II tests)
 ## 
 ## Response: supervivencia
 ##                   LR Chisq Df Pr(&gt;Chisq)
-## hormona          2.7693084  2    0.25041
-## explanto         0.0222407  1    0.88145
-## hormona:explanto 0.0593212  2    0.97077</code></pre>
-<p>No se encontraron diferencias significativas</p>
+## explanto         0.0060355  1    0.93808
+## hormona          0.3446193  2    0.84172
+## explanto:hormona 0.0109127  2    0.99456</code></pre>
+<p>Los resultados sugieren que, según los datos disponibles, no hay
+interacción y ni el tipo de explanto, ni el tipo de hormona afectan
+significativamente la supervivencia de los explantos.</p>
+</div>
+<div id="emmeans" class="section level3">
+<h3>Emmeans</h3>
+<pre><code>##  explanto hormona        prob          SE  df    asymp.LCL   asymp.UCL
+##  hoja     0.5     0.437500000 0.496078371 Inf 0.0147416009 0.975863596
+##  segmento 0.5     0.444444444 0.496903995 Inf 0.0152547059 0.976367309
+##  hoja     4       0.666666667 0.471404521 Inf 0.0303374767 0.992239045
+##  segmento 4       0.750000000 0.433012678 Inf 0.0314399716 0.996406236
+##  hoja     10      0.666666667 0.471404521 Inf 0.0303374767 0.992239045
+##  segmento 10      0.666666667 0.471404521 Inf 0.0303374767 0.992239045
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the logit scale</code></pre>
+</div>
 </div>
 <div id="antioxidante" class="section level1">
 <h1>Antioxidante</h1>
-<p>Tabla resumen</p>
+<div id="tabla-resumen-1" class="section level3">
+<h3>Tabla resumen</h3>
 <pre><code>## # A tibble: 4 × 5
 ## # Groups:   antioxidante [2]
 ##   antioxidante explanto     n Mean_supervivencia sd_supervivencia
@@ -512,20 +606,83 @@ No hay linealidad –&gt; comparación de medias</p>
 ## 2 citrico      segmento     4               0.5             0.577
 ## 3 pvpp         hoja        20               0.55            0.510
 ## 4 pvpp         segmento    15               0.6             0.507</code></pre>
-<p>Gráfico de barras
-<img src="microprop_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Modelo factorial</p>
-<pre><code>## glm(formula = supervivencia ~ antioxidante * explanto, family = binomial(link = &quot;logit&quot;), 
-##     data = microprop)</code></pre>
-<p>Anova:</p>
+</div>
+<div id="gráfico-de-barras-1" class="section level3">
+<h3>Gráfico de barras</h3>
+<p><img src="microprop_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="frecuencias-1" class="section level3">
+<h3>Frecuencias</h3>
+<pre><code>##           
+##            citrico pvpp
+##   hoja           8   20
+##   segmento       4   15</code></pre>
+</div>
+<div id="modelo-factorial-1" class="section level3">
+<h3>Modelo factorial</h3>
+<pre><code>## glm(formula = supervivencia ~ explanto * antioxidante, family = binomial, 
+##     data = microprop, weights = microprop$pesos)</code></pre>
+<!-- $$ -->
+<!-- \text{logit}(P(Y = 1)) = \beta_0 + \beta_1 \cdot \text{explanto}_{hoja} + \beta_2 \cdot \text{antioxidante}_{pvpp} + \beta_3 \cdot (\text{explanto}_{hoja} \times \text{antioxidante}_{pvpp}) -->
+<!-- $$ -->
+<!-- * \(\text{logit}(P(Y=1))\): Es el logaritmo de las probabilidades (log-odds) de supervivencia (donde \(Y=1\) indica éxito o supervivencia). -->
+<!-- * \(\beta_0\): Intercepto del modelo, que representa el logit de la probabilidad de supervivencia cuando todas las variables son la referencia (por ejemplo, cuando `explanto` es "segmento" y `antioxidante` es "ácido cítrico"). -->
+<!-- * \(\beta_1\): Coeficiente del efecto de `explanto`, que mide la diferencia en log-odds de supervivencia cuando el explanto es "hoja" en comparación con "segmento". -->
+<!-- * \(\beta_2\): Coeficiente del efecto de `antioxidante`, que mide la diferencia en log-odds de supervivencia cuando el antioxidante es "PVPP" en comparación con "ácido cítrico". -->
+<!-- * \(\beta_3\): Coeficiente de interacción entre `explanto` y `antioxidante`, que mide cuánto cambia el efecto del explanto "hoja" en la probabilidad de supervivencia cuando el antioxidante es "PVPP". -->
+</div>
+<div id="el-modelo-en-formato-anova-se-expresa-como-1"
+class="section level3">
+<h3>El modelo en formato ANOVA se expresa como:</h3>
+<p><span class="math display">\[
+E[Y_{ijk}] = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(E[Y_{ijk}]\)</span> es la esperanza
+de la respuesta de supervivencia.</p></li>
+<li><p><span class="math inline">\(\mu\)</span> es la media general de
+la respuesta.</p></li>
+<li><p><span class="math inline">\(\alpha_i\)</span> es el efecto del
+nivel <span class="math inline">\(i\)</span> del factor
+<code>explanto</code>.</p></li>
+<li><p><span class="math inline">\(\beta_j\)</span> es el efecto del
+nivel <span class="math inline">\(j\)</span> del factor
+<code>antioxidante</code>.</p></li>
+<li><p><span class="math inline">\((\alpha \beta)_{ij}\)</span> es el
+efecto de interacción entre <code>explanto</code> e
+<code>antioxidante</code>.</p>
+<p>La variable de respuesta sigue una distribución binomial:</p>
+<p><span class="math display">\[
+Y_{ijk} \sim \text{Binomial}(n_{ijk}, p_{ijk})
+\]</span></p></li>
+</ul>
+</div>
+<div id="resumen-del-modelo" class="section level3">
+<h3>Resumen del modelo</h3>
 <pre><code>## Analysis of Deviance Table (Type II tests)
 ## 
 ## Response: supervivencia
-##                         LR Chisq Df Pr(&gt;Chisq)
-## antioxidante          0.16456587  1    0.68499
-## explanto              0.06648175  1    0.79653
-## antioxidante:explanto 0.02118302  1    0.88428</code></pre>
-<p>No se encontraron diferencias significativas</p>
+##                          LR Chisq Df Pr(&gt;Chisq)
+## explanto              0.002528723  1    0.95989
+## antioxidante          0.022663458  1    0.88034
+## explanto:antioxidante 0.002588750  1    0.95942</code></pre>
+<p>No hay evidencia estadística suficiente para rechazar la hipótesis
+nula de que ninguno de los coeficientes es diferente de cero. En otras
+palabras, ni el tipo de explanto, ni el antioxidante utilizado, ni su
+interacción parecen tener un efecto significativo en la supervivencia de
+los explantos, según los datos disponibles.</p>
+</div>
+<div id="emmeans-1" class="section level3">
+<h3>Emmeans</h3>
+<pre><code>##  explanto antioxidante prob          SE  df    asymp.LCL   asymp.UCL
+##  hoja     citrico      0.50 0.500000000 Inf 0.0194564587 0.980543541
+##  segmento citrico      0.50 0.500000000 Inf 0.0194564587 0.980543541
+##  hoja     pvpp         0.55 0.497493718 Inf 0.0232254968 0.984332057
+##  segmento pvpp         0.60 0.489897872 Inf 0.0267191019 0.987945913
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the logit scale</code></pre>
+</div>
 </div>
 
 
