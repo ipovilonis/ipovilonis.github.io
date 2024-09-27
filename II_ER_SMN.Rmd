@@ -28,6 +28,10 @@ table_datamet_hr <- datamet %>%
   dplyr::group_by(year, site) %>%
   dplyr::summarise(mean_hr = mean(hr))
 table_datamet_hr
+table_datamet_wind <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(mean_hr = mean(wind))
+table_datamet_wind
 table_datamet_prec <- datamet %>%
   dplyr::group_by(year, site) %>%
   dplyr::summarise(total_prec = sum(prec))
@@ -112,7 +116,7 @@ estadmet_hr <- summarySE(datamet, measurevar="hr", groupvars=c("site","year", "m
 
 ## Temperatura
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='110%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
 
 table_temp_2019 <- table_temp %>%
   dplyr::filter(year == 2019)
@@ -123,7 +127,7 @@ table_temp_2022 <- table_temp %>%
 
 library(ggplot2)
 temp_month_2019 <- ggplot(table_temp_2019, aes(x = month, y = temp, color = site, group = site)) +
-  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
   # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
   geom_hline(yintercept = 21.7  , color = "coral2", linetype = "dashed", size = 1.5) +
   geom_hline(yintercept = 21.5 , color = "burlywood3", linetype = "dashed", size = 1.5) +
@@ -139,10 +143,11 @@ temp_month_2019 <- ggplot(table_temp_2019, aes(x = month, y = temp, color = site
   theme(legend.title = element_blank()) +
   theme(legend.position = "bottom") +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(10, 32))
 
 temp_month_2021 <- ggplot(table_temp_2021, aes(x = month, y = temp, color = site, group = site)) +
-  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
   # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
   geom_hline(yintercept = 22.0 , color = "coral2", linetype = "dashed", size = 1.5) +
   geom_hline(yintercept = 22.2 , color = "burlywood3", linetype = "dashed", size = 1.5) +
@@ -158,10 +163,11 @@ temp_month_2021 <- ggplot(table_temp_2021, aes(x = month, y = temp, color = site
   theme(legend.title = element_blank()) +
   theme(legend.position = "bottom") +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(10, 32))
 
 temp_month_2022 <- ggplot(table_temp_2022, aes(x = month, y = temp, color = site, group = site)) +
-  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
   # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
   geom_hline(yintercept = 20.8 , color = "coral2", linetype = "dashed", size = 1.5) +
   geom_hline(yintercept = 20.8 , color = "burlywood3", linetype = "twodash", size = 1.5) +
@@ -176,14 +182,17 @@ temp_month_2022 <- ggplot(table_temp_2022, aes(x = month, y = temp, color = site
   theme(axis.text = element_text(color = 'black')) +
   theme(legend.title = element_blank()) +
   theme(legend.position = "bottom") +
-  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+  scale_y_continuous(limits = c(10, 32))
 
 library(ggpubr)
 temp_month <- ggarrange(temp_month_2019, temp_month_2021, temp_month_2022, common.legend = TRUE, legend = "bottom", nrow = 3)
-temp_month
+
+# ggsave("temp_month.tiff", plot = temp_month, device = "tiff",units="cm", width=32, height=24, dpi = 300)
+
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
@@ -247,7 +256,7 @@ table_hr_2022 <- estadmet_hr %>%
 
 library(ggplot2)
 hr_month_2019 <- ggplot(table_hr_2019, aes(x = month, y = hr, color = site, group = site)) +
-  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
   # geom_smooth(aes(y = Mean_hr, color = site), linetype = 4, size = 1)+
   geom_hline(yintercept = 64.4  , color = "coral2", linetype = "dashed", size = 1.5) +
   geom_hline(yintercept = 70.1 , color = "burlywood3", linetype = "dashed", size = 1.5) +
@@ -258,16 +267,16 @@ hr_month_2019 <- ggplot(table_hr_2019, aes(x = month, y = hr, color = site, grou
   theme_classic() +
   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
   theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 35, color = 'black')) +
+  theme(text = element_text(size = 33, color = 'black')) +
   theme(axis.text = element_text(color = 'black')) +
   theme(legend.title = element_blank()) +
   theme(legend.position = "bottom") +
   guides(color = FALSE) +
   scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
-  scale_y_continuous(limits = c(40, 80))
+  scale_y_continuous(limits = c(40, 85))
 
 hr_month_2021 <- ggplot(table_hr_2021, aes(x = month, y = hr, color = site, group = site)) +
-  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
   # geom_smooth(aes(y = Mean_hr, color = site), linetype = 4, size = 1)+
   geom_hline(yintercept = 60.3 , color = "coral2", linetype = "dashed", size = 1.5) +
   geom_hline(yintercept = 65.5 , color = "burlywood3", linetype = "dashed", size = 1.5) +
@@ -278,16 +287,16 @@ hr_month_2021 <- ggplot(table_hr_2021, aes(x = month, y = hr, color = site, grou
   theme_classic() +
   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
   theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 35, color = 'black')) +
+  theme(text = element_text(size = 33, color = 'black')) +
   theme(axis.text = element_text(color = 'black')) +
   theme(legend.title = element_blank()) +
   theme(legend.position = "bottom") +
   guides(color = FALSE) +
   scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
-  scale_y_continuous(limits = c(40, 80))
+  scale_y_continuous(limits = c(40, 85))
 
 hr_month_2022 <- ggplot(table_hr_2022, aes(x = month, y = hr, color = site, group = site)) +
-  geom_smooth(method = "gam", se = FALSE, size = 2) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
   # geom_smooth(aes(y = Mean_hr, color = site), linetype = 4, size = 1)+
   geom_hline(yintercept = 60.8 , color = "coral2", linetype = "dashed", size = 1.5) +
   geom_hline(yintercept = 66.4 , color = "burlywood3", linetype = "dashed", size = 1.5) +
@@ -298,16 +307,19 @@ hr_month_2022 <- ggplot(table_hr_2022, aes(x = month, y = hr, color = site, grou
   theme_classic() +
   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
   theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 35, color = 'black')) +
+  theme(text = element_text(size = 33, color = 'black')) +
   theme(axis.text = element_text(color = 'black')) +
   theme(legend.title = element_blank()) +
   theme(legend.position = "bottom") +
   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
-  scale_y_continuous(limits = c(40, 80))
+  scale_y_continuous(limits = c(40, 85))
 
 library(ggpubr)
 hr_month <- ggarrange(hr_month_2019, hr_month_2021, hr_month_2022, common.legend = TRUE, legend = "bottom", nrow = 3)
 hr_month
+
+# ggsave("hr_month.tiff", plot = hr_month, device = "tiff",units="cm", width=36, height=28, dpi = 300)
+
 
 ```
 
@@ -331,21 +343,94 @@ estadmet_wind <- summarySE(datamet, measurevar="wind", groupvars=c("site","year"
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+table_wind_2019 <- estadmet_wind %>%
+  dplyr::filter(year == 2019)
+table_wind_2021 <- estadmet_wind %>%
+  dplyr::filter(year == 2021)
+table_wind_2022 <- estadmet_wind %>%
+  dplyr::filter(year == 2022)
+
 library(ggplot2)
-wind_month<-ggplot(estadmet_wind, aes(x=month, y=wind, color=site, width=1)) +
-  geom_smooth(method = "gam",se=F,size=1)+
-  scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
-  facet_grid(year~.)+
-  labs(y="Wind Km/h", x="Month")+
-  theme_classic()+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=15, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "bottom")+
-  scale_x_continuous(breaks = 1:12, labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+wind_month_2019 <- ggplot(table_wind_2019, aes(x = month, y = wind, color = site, group = site)) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_wind, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 14.6  , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 12.2 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 14.1  , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(8, 18), breaks = c(8,10,12,14,16,18))
+
+wind_month_2021 <- ggplot(table_wind_2021, aes(x = month, y = wind, color = site, group = site)) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_wind, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 13.3 , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 11.8 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 14.0 , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "Viento (Km/hora)", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(8, 18), breaks = c(8,10,12,14,16,18))
+
+wind_month_2022 <- ggplot(table_wind_2022, aes(x = month, y = wind, color = site, group = site)) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_wind, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 13.8 , color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 13.0 , color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 13.7 , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+  facet_grid(year ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+  scale_y_continuous(limits = c(8, 18), breaks = c(8,10,12,14,16,18))
+
+library(ggpubr)
+wind_month <- ggarrange(wind_month_2019, wind_month_2021, wind_month_2022, common.legend = TRUE, legend = "bottom", nrow = 3)
 wind_month
+
+# ggsave("wind_month.tiff", plot = wind_month, device = "tiff",units="cm", width=32, height=24, dpi = 300)
+
+# library(ggplot2)
+# wind_month<-ggplot(estadmet_wind, aes(x=month, y=wind, color=site, width=1)) +
+#   geom_smooth(method = "gam",se=F,size=1)+
+#   scale_color_manual(values=c("coral1","burlywood2","palegreen4"))+
+#   facet_grid(year~.)+
+#   labs(y="Wind Km/h", x="Month")+
+#   theme_classic()+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=15, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "bottom")+
+#   scale_x_continuous(breaks = 1:12, labels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+# wind_month
 
 ```
 
@@ -392,5 +477,7 @@ prec_month <- ggplot(pp_table, aes(x = month, y = acum, fill = site, width = .4)
   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
 
 prec_month
+
+ggsave("prec_month.tiff", plot = prec_month, device = "tiff",units="cm", width=32, height=24, dpi = 300)
 
 ```

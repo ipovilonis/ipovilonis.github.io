@@ -19,7 +19,7 @@ datospeso$phenotype<-as.factor(datospeso$phenotype)
 datospeso$id <-as.factor(datospeso$id)
 datospeso$mad <-as.factor(datospeso$mad)
 datospeso$pff <- as.numeric(datospeso$pff)
-datospeso$pss <- as.numeric(datospeso$pss)
+datospeso$PSS <- as.numeric(datospeso$PSS)
 
 ```
 
@@ -28,7 +28,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Se quitan filas sin datos de peso seco (en este caso no hay)
 library(dplyr)
-datospeso_sna <- datospeso %>% filter(!is.na(psf))
+datospeso_sna <- datospeso %>% filter(!is.na(PSF))
 
 ```
 
@@ -38,7 +38,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 
-gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=psf, y=pff, color=mad))+
+gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=PSF, y=pff, color=mad))+
   geom_point(size=5)+
   # facet_grid(.~year)+
   labs(x="Peso seco fruto (g)", y="Peso fresco fruto (g)")+
@@ -60,7 +60,7 @@ gg_pesoseco_3a
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-modelo_ps <- lm(psf ~ pff, data=datospeso)
+modelo_ps <- lm(PSF ~ pff, data=datospeso)
 
 ```
 
@@ -111,7 +111,7 @@ datospeso2022 <- datospeso2022 %>% filter(site == "concordia" | site == "gualegu
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datospeso2022$psp <- datospeso2022$psf * 0.4842
+datospeso2022$psp <- datospeso2022$PSF * 0.4842
 
 ```
 

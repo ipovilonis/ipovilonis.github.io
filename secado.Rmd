@@ -19,7 +19,7 @@ datospeso$mad<-factor(datospeso$mad,levels=c("I", "MM","M","SM"))
 datospeso$phenotype<-as.factor(datospeso$phenotype)
 datospeso$id <-as.factor(datospeso$id)
 datospeso$pff <- as.numeric(datospeso$pff)
-datospeso$pss <- as.numeric(datospeso$pss)
+datospeso$PSS <- as.numeric(datospeso$PSS)
 
 ```
 
@@ -29,7 +29,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Se quitan filas sin datos de peso seco (en este caso no hay)
 library(dplyr)
-datospeso_sna2 <- datospeso %>% filter(!is.na(psf))
+datospeso_sna2 <- datospeso %>% filter(!is.na(PSF))
 datospeso_sna3 <- datospeso_sna2 %>% filter(datospeso$mad == "SM")
 datospeso_sna4 <- datospeso_sna2 %>% filter(datospeso$mad == "M")
 datospeso_sna <- full_join(datospeso_sna3, datospeso_sna4)
@@ -45,12 +45,12 @@ library(dplyr)
 
 tps <- datospeso_sna %>%
   dplyr::summarise(n=n(),
-            mean=mean(psf),
-            sd=sd(psf))
+            mean=mean(PSF),
+            sd=sd(PSF))
 
 library(ggplot2)
 
-gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=psf, y=pff, color=mad))+
+gg_pesoseco_3a <- ggplot(data=datospeso_sna, aes(x=PSF, y=pff, color=mad))+
   geom_point(size=0.8)+
   # facet_grid(.~year)+
   labs(x="Peso seco fruto (g)", y="Peso fresco fruto (g)")+
@@ -72,7 +72,7 @@ Modelo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-modelo_ps <- lm(psf ~ pff, data=datospeso_sna)
+modelo_ps <- lm(PSF ~ pff, data=datospeso_sna)
 
 ```
 

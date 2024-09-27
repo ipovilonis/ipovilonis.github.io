@@ -421,6 +421,9 @@ div.tocify {
     <li>
       <a href="madCations.html">Cationes</a>
     </li>
+    <li>
+      <a href="mad_PCA.html">Multivariado</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -469,7 +472,7 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="V_Reproductive.html">Variables reproductivas</a>
+      <a href="ER_flores.html">Variables reproductivas</a>
     </li>
     <li>
       <a href="V_Branches.html">Eficiencia reproductiva</a>
@@ -502,9 +505,6 @@ div.tocify {
     </li>
     <li>
       <a href="dry_test.html">Pruebas de Secado</a>
-    </li>
-    <li>
-      <a href="ER_flores.html">Floración ER</a>
     </li>
     <li>
       <a href="calafate.html">Calafate</a>
@@ -545,204 +545,1217 @@ div.tocify {
 </div>
 
 
-<div id="peso-seco-de-botones-florales-en-fases-cd"
+<div id="estimación-de-coeficientes-de-correlación-intraclase-cci"
+class="section level1">
+<h1>Estimación de coeficientes de correlación intraclase (CCI)</h1>
+<div id="peso-seco-de-botones-florales-en-fases-cd-psfl"
 class="section level2">
-<h2>Peso seco de botones florales en fases C/D</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Modelo ajustado</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
-##  Family: Gamma  ( inverse )
-## Formula: ps_flor ~ (1 | year) + (1 | site/phenotype)
-##    Data: datosff
-##        AIC        BIC     logLik   deviance   df.resid 
-##  6454.6366  6479.9945 -3222.3183  6444.6366       1173 
-## Random effects:
-##  Groups         Name        Std.Dev.  
-##  phenotype:site (Intercept) 0.01212825
-##  site           (Intercept) 0.00257276
-##  year           (Intercept) 0.00699091
-##  Residual                   0.32565149
-## Number of obs: 1178, groups:  phenotype:site, 52; site, 3; year, 3
-## Fixed Effects:
-## (Intercept)  
-##   0.0989558</code></pre>
-<p>Verificación de supuestos
-<img src="ER_flores_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Resumen del modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
-##  Family: Gamma  ( inverse )
-## Formula: ps_flor ~ (1 | year) + (1 | site/phenotype)
-##    Data: datosff
+<h2>Peso seco de botones florales en fases C/D (PSFL)</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" />
+Resumen</p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
 ## 
-##      AIC      BIC   logLik deviance df.resid 
-##   6454.6   6480.0  -3222.3   6444.6     1173 
+## Call = rptGaussian(formula = PSFL ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosff, nboot = 3, npermut = 3)
 ## 
-## Scaled residuals: 
-##       Min        1Q    Median        3Q       Max 
-## -2.643881 -0.546306 -0.051338  0.488302  4.070334 
+## Data: 1178 observations
+## ----------------------------------------
 ## 
-## Random effects:
-##  Groups         Name        Variance      Std.Dev.  
-##  phenotype:site (Intercept) 0.00014709436 0.01212825
-##  site           (Intercept) 0.00000661909 0.00257276
-##  year           (Intercept) 0.00004887278 0.00699091
-##  Residual                   0.10604889215 0.32565149
-## Number of obs: 1178, groups:  phenotype:site, 52; site, 3; year, 3
+## year (3 groups)
 ## 
-## Fixed effects:
-##              Estimate Std. Error t value             Pr(&gt;|z|)    
-## (Intercept) 0.0989558  0.0128273 7.71448 0.000000000000012148 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## # ICC by Group
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.296  0.119  0.306  0.532    0.667      0
 ## 
-## Group          |       ICC
-## --------------------------
-## phenotype:site |     0.001
-## site           | 6.230e-05
-## year           | 4.600e-04</code></pre>
-<pre><code>## [1] &quot;ICC Residual: %&quot;</code></pre>
-<p>Significación de las variables aleatorias</p>
-<pre><code>## Data: datosff
-## Models:
-## modelo_sin_efectos_aleatorios: ps_flor ~ 1
-## modelo_con_efectos_aleatorios1: ps_flor ~ (1 | year)
-##                                npar      AIC      BIC    logLik deviance    Chisq Df             Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     2 6940.612 6950.755 -3468.306 6936.612                                       
-## modelo_con_efectos_aleatorios1    3 6734.783 6749.998 -3364.392 6728.783 207.8286  1 &lt; 0.000000000000000222 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## Data: datosff
-## Models:
-## modelo_sin_efectos_aleatorios: ps_flor ~ 1
-## modelo_con_efectos_aleatorios2: ps_flor ~ (1 | site)
-##                                npar      AIC      BIC    logLik deviance Chisq Df Pr(&gt;Chisq)
-## modelo_sin_efectos_aleatorios     2 6940.612 6950.755 -3468.306 6936.612                    
-## modelo_con_efectos_aleatorios2    3 6942.755 6957.970 -3468.378 6936.755     0  1          1</code></pre>
-<pre><code>## Data: datosff
-## Models:
-## modelo_sin_efectos_aleatorios: ps_flor ~ 1
-## modelo_con_efectos_aleatorios3: ps_flor ~ (1 | site/phenotype)
-##                                npar      AIC      BIC    logLik deviance    Chisq Df             Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     2 6940.612 6950.755 -3468.306 6936.612                                       
-## modelo_con_efectos_aleatorios3    4 6736.899 6757.186 -3364.450 6728.899 207.7125  2 &lt; 0.000000000000000222 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.415  0.407 0.3058  0.532
+## permut      3  0.345  0.296 0.0148  0.716
+## 
+## Likelihood ratio test: 
+## logLik full model = -3043.27559
+## logLik red. model = -3255.27424
+## D  = 424, df = 1, P = 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000165
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##        R       SE    2.5%   97.5% P_permut  LRT_P
+##  0.00482 0.000633 0.00005 0.00116    0.667  0.397
+## 
+## Bootstrapping and Permutation test: 
+##             N     Mean   Median     2.5%   97.5%
+## boot        3 0.000724 0.000999 0.000050 0.00116
+## permut      3 0.150074 0.004819 0.000241 0.42337
+## 
+## Likelihood ratio test: 
+## logLik full model = -3043.27559
+## logLik red. model = -3043.30996
+## D  = 0.0687, df = 1, P = 0.397
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.257 0.0524  0.133  0.231    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.186  0.194 0.1327  0.231
+## permut      3  0.336  0.257 0.0128  0.725
+## 
+## Likelihood ratio test: 
+## logLik full model = -3043.27559
+## logLik red. model = -3239.60799
+## D  = 393, df = 1, P = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000109
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.442 0.0678  0.334  0.463       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.398  0.398  0.334  0.463
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -3043.27559
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+<div id="diámetro-máximo-de-polen-dmap" class="section level2">
+<h2>Diámetro máximo de polen (DMAP)</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" />
+Resumen</p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = DMAP ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosff, nboot = 3, npermut = 3)
+## 
+## Data: 1130 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.547  0.101  0.139   0.31    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.247  0.302 0.1391  0.310
+## permut      3  0.444  0.547 0.0313  0.769
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.25877
+## logLik red. model = -3547.91912
+## D  = 699, df = 1, P = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000021
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##       0      0      0      0        1    0.5
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.000      0      0  0.000
+## permut      3  0.111      0      0  0.316
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.25877
+## logLik red. model = -3198.25877
+## D  = 0.000000127, df = 1, P = 0.5
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.102  0.031  0.131   0.19    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median    2.5%  97.5%
+## boot        3  0.159  0.157 0.13068  0.190
+## permut      3  0.180  0.102 0.00886  0.416
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.25877
+## logLik red. model = -3281.78209
+## D  = 167, df = 1, P = 0.0000000000000000000000000000000000000163
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.351 0.0742  0.542  0.672       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.593  0.561  0.542  0.672
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.25877
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+<div id="diámetro-mínimo-de-polen-dmip" class="section level2">
+<h2>Diámetro mínimo de polen (DMIP)</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" />
+Resumen</p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = DMIP ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosff, nboot = 3, npermut = 3)
+## 
+## Data: 1130 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.391 0.0935  0.113   0.28    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.212  0.248 0.1126  0.280
+## permut      3  0.394  0.391 0.0278  0.762
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.89631
+## logLik red. model = -3416.192
+## D  = 435, df = 1, P = 0.000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000814
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##               R              SE             2.5%           97.5% P_permut  LRT_P
+##  0.000000000516 0.0000000000238 0.00000000000032 0.0000000000401    0.667      1
+## 
+## Bootstrapping and Permutation test: 
+##             N            Mean           Median             2.5%           97.5%
+## boot        3 0.0000000000147 0.00000000000175 0.00000000000032 0.0000000000401
+## permut      3 0.1416696605961 0.00000000051648 0.00000000006562 0.4037585321944
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.89631
+## logLik red. model = -3198.89631
+## D  = -0.000000132, df = 1, P = 1
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.166 0.0533  0.179  0.276    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median    2.5%  97.5%
+## boot        3  0.235  0.251 0.17871  0.276
+## permut      3  0.244  0.166 0.00831  0.547
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.89631
+## logLik red. model = -3310.77376
+## D  = 224, df = 1, P = 0.00000000000000000000000000000000000000000000000000686
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.443 0.0585  0.503  0.613       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.554  0.543  0.503  0.613
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -3198.89631
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
 </div>
 <div id="número-de-óvulos-por-flor" class="section level2">
 <h2>Número de óvulos por flor</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Modelo ajustado</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
-##  Family: poisson  ( log )
-## Formula: n_ovu ~ (1 | year) + (1 | site/phenotype)
-##    Data: datosff
-##        AIC        BIC     logLik   deviance   df.resid 
-##  4740.0586  4760.3652 -2366.0293  4732.0586       1180 
-## Random effects:
-##  Groups         Name        Std.Dev. 
-##  phenotype:site (Intercept) 0.1777561
-##  site           (Intercept) 0.0238101
-##  year           (Intercept) 0.0560322
-## Number of obs: 1184, groups:  phenotype:site, 51; site, 3; year, 3
-## Fixed Effects:
-## (Intercept)  
-##     1.53958</code></pre>
-<p>Verificación de supuestos
-<img src="ER_flores_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Resumen del modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
-##  Family: poisson  ( log )
-## Formula: n_ovu ~ (1 | year) + (1 | site/phenotype)
-##    Data: datosff
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" />
+Resumen</p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year:
+## Permutation Progress for site:
+## Permutation Progress for phenotype:</code></pre>
+<pre><code>## 
+## Repeatability estimation using glmer method
 ## 
-##      AIC      BIC   logLik deviance df.resid 
-##   4740.1   4760.4  -2366.0   4732.1     1180 
+## Call = rptPoisson(formula = NO ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;, &quot;Overdispersion&quot;), data = datosff, link = c(&quot;sqrt&quot;), nboot = 3, npermut = 3)
 ## 
-## Scaled residuals: 
-##        Min         1Q     Median         3Q        Max 
-## -2.6332974 -0.3947791  0.0205979  0.4300150  2.6250614 
+## Data: 1184 observations
+## ----------------------------------------
 ## 
-## Random effects:
-##  Groups         Name        Variance    Std.Dev. 
-##  phenotype:site (Intercept) 0.031597237 0.1777561
-##  site           (Intercept) 0.000566921 0.0238101
-##  year           (Intercept) 0.003139613 0.0560322
-## Number of obs: 1184, groups:  phenotype:site, 51; site, 3; year, 3
+## year (3 groups)
 ## 
-## Fixed effects:
-##              Estimate Std. Error z value               Pr(&gt;|z|)    
-## (Intercept) 1.5395761  0.0453134 33.9761 &lt; 0.000000000000000222 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<p>Significación de las variables aleatorias</p>
-<pre><code>## Data: datosff
-## Models:
-## modelo_sin_efectos_aleatorios: n_ovu ~ 1
-## modelo_con_efectos_aleatorios1: n_ovu ~ (1 | year)
-##                                npar      AIC      BIC    logLik deviance    Chisq Df Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     1 4836.713 4841.789 -2417.356 4834.713                           
-## modelo_con_efectos_aleatorios1    2 4827.099 4837.253 -2411.550 4823.099 11.61324  1 0.00065484 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## Data: datosff
-## Models:
-## modelo_sin_efectos_aleatorios: n_ovu ~ 1
-## modelo_con_efectos_aleatorios2: n_ovu ~ (1 | site)
-##                                npar      AIC      BIC    logLik deviance   Chisq Df Pr(&gt;Chisq)  
-## modelo_sin_efectos_aleatorios     1 4836.713 4841.789 -2417.356 4834.713                        
-## modelo_con_efectos_aleatorios2    2 4833.918 4844.072 -2414.959 4829.918 4.79424  1   0.028555 *
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## Data: datosff
-## Models:
-## modelo_sin_efectos_aleatorios: n_ovu ~ 1
-## modelo_con_efectos_aleatorios3: n_ovu ~ (1 | site/phenotype)
-##                                npar      AIC      BIC    logLik deviance    Chisq Df             Pr(&gt;Chisq)    
-## modelo_sin_efectos_aleatorios     1 4836.713 4841.789 -2417.356 4834.713                                       
-## modelo_con_efectos_aleatorios3    3 4747.473 4762.702 -2370.736 4741.473 93.24016  2 &lt; 0.000000000000000222 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-</div>
-<div id="diámetro-medio-de-polen" class="section level2">
-<h2>Diámetro medio de polen ()</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
+## Repeatability estimation overview: 
+##           R       SE   2.5%    97.5% P_permut
+## Org      NA       NA     NA       NA       NA
+## Link 0.0116 0.000277      0 0.000456    0.333
+## 
+## 
+## Bootstrapping: 
+##           N    Mean Median   2.5%    97.5%
+## Org       3      NA     NA     NA       NA
+## Link      3 0.00016      0      0 0.000456
+## 
+## Permutation test: 
+##           N    Mean Median   2.5%  97.5% P_permut
+## Org       3      NA     NA     NA     NA       NA
+## Link      3 0.00387      0      0  0.011    0.333
+## 
+## Likelihood ratio test: 
+## logLik full model = -2365.94218
+## logLik red. model = -2370.1115
+## D  = 8.34, df = 1, P = 0.00194
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##            R     SE   2.5%  97.5% P_permut
+## Org       NA     NA     NA     NA       NA
+## Link 0.00224      0      0      0    0.667
+## 
+## 
+## Bootstrapping: 
+##           N   Mean Median   2.5%  97.5%
+## Org       3     NA     NA     NA     NA
+## Link      3      0      0      0      0
+## 
+## Permutation test: 
+##           N    Mean  Median    2.5%   97.5% P_permut
+## Org       3      NA      NA      NA      NA       NA
+## Link      3 0.00263 0.00224 0.00197 0.00364    0.667
+## 
+## Likelihood ratio test: 
+## logLik full model = -2365.94218
+## logLik red. model = -2365.97094
+## D  = 0.0575, df = 1, P = 0.405
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (51 groups)
+## 
+## Repeatability estimation overview: 
+##           R     SE   2.5%  97.5% P_permut
+## Org      NA     NA     NA     NA       NA
+## Link  0.125 0.0404 0.0784  0.151    0.333
+## 
+## 
+## Bootstrapping: 
+##           N   Mean Median   2.5%  97.5%
+## Org       3     NA     NA     NA     NA
+## Link      3  0.121  0.135 0.0784  0.151
+## 
+## Permutation test: 
+##           N   Mean  Median     2.5%  97.5% P_permut
+## Org       3     NA      NA       NA     NA       NA
+## Link      3 0.0429 0.00379 0.000189  0.119    0.333
+## 
+## Likelihood ratio test: 
+## logLik full model = -2365.94218
+## logLik red. model = -2408.1178
+## D  = 84.4, df = 1, P = 0.0000000000000000000207
+## 
+## ----------------------------------------
+## 
+## 
+## Overdispersion
+## 
+## Repeatability estimation overview: 
+##           R     SE   2.5%  97.5% P_permut
+## Org      NA     NA     NA     NA       NA
+## Link      0 0.0405  0.849  0.922       NA
+## 
+## 
+## Bootstrapping: 
+##           N   Mean Median   2.5%  97.5%
+## Org       3     NA     NA     NA     NA
+## Link      3  0.879  0.864  0.849  0.922
+## 
+## Permutation test: 
+##           N   Mean Median   2.5%  97.5% P_permut
+## Org       3     NA     NA     NA     NA       NA
+## Link      3     NA     NA     NA     NA       NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -2365.94218
+## logLik red. model = -2365.94218
+## D  = 0.0000000015, df = 1, P = 0.5
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##           R     SE   2.5%  97.5% P_permut
+## Org      NA     NA     NA     NA       NA
+## Link  0.861      0      0      0       NA
+## 
+## 
+## Bootstrapping: 
+##           N   Mean Median   2.5%  97.5%
+## Org       3     NA     NA     NA     NA
+## Link      3      0      0      0      0
+## 
+## Permutation test: 
+##           N   Mean Median   2.5%  97.5% P_permut
+## Org       1     NA     NA     NA     NA       NA
+## Link      1     NA     NA     NA     NA       NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -2365.94218
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
 </div>
 <div id="número-de-semillas-por-fruto" class="section level2">
 <h2>Número de semillas por fruto</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year:
+## Permutation Progress for site:
+## Permutation Progress for phenotype:</code></pre>
+<pre><code>## 
+## Repeatability estimation using glmer method
+## 
+## Call = rptPoisson(formula = NS ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;, &quot;Overdispersion&quot;), data = datosff, link = c(&quot;sqrt&quot;), nboot = 3, npermut = 3)
+## 
+## Data: 988 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##            R       SE       2.5%    97.5% P_permut
+## Org       NA       NA         NA       NA       NA
+## Link 0.00212 0.000522 0.00000795 0.000932    0.333
+## 
+## 
+## Bootstrapping: 
+##           N     Mean   Median       2.5%    97.5%
+## Org       3       NA       NA         NA       NA
+## Link      3 0.000377 0.000159 0.00000795 0.000932
+## 
+## Permutation test: 
+##           N    Mean  Median      2.5%   97.5% P_permut
+## Org       3      NA      NA        NA      NA       NA
+## Link      3 0.00121 0.00151 0.0000753 0.00209    0.333
+## 
+## Likelihood ratio test: 
+## logLik full model = -1222.76879
+## logLik red. model = -1222.96546
+## D  = 0.393, df = 1, P = 0.265
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##            R       SE   2.5%   97.5% P_permut
+## Org       NA       NA     NA      NA       NA
+## Link 0.00348 0.000904      0 0.00149    0.333
+## 
+## 
+## Bootstrapping: 
+##           N     Mean Median   2.5%   97.5%
+## Org       3       NA     NA     NA      NA
+## Link      3 0.000522      0      0 0.00149
+## 
+## Permutation test: 
+##           N    Mean Median   2.5%  97.5% P_permut
+## Org       3      NA     NA     NA     NA       NA
+## Link      3 0.00116      0      0 0.0033    0.333
+## 
+## Likelihood ratio test: 
+## logLik full model = -1222.76879
+## logLik red. model = -1223.35423
+## D  = 1.17, df = 1, P = 0.14
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##                       R      SE     2.5%  97.5% P_permut
+## Org                  NA      NA       NA     NA       NA
+## Link 0.0000000000000187 0.00582 0.000357 0.0113        1
+## 
+## 
+## Bootstrapping: 
+##           N    Mean  Median     2.5%  97.5%
+## Org       3      NA      NA       NA     NA
+## Link      3 0.00623 0.00715 0.000357 0.0113
+## 
+## Permutation test: 
+##           N    Mean   Median      2.5%   97.5% P_permut
+## Org       3      NA       NA        NA      NA       NA
+## Link      3 0.00344 0.000166 0.0000083 0.00967        1
+## 
+## Likelihood ratio test: 
+## logLik full model = -1222.76879
+## logLik red. model = -1222.76879
+## D  = -0.0000000000136, df = 1, P = 1
+## 
+## ----------------------------------------
+## 
+## 
+## Overdispersion
+## 
+## Repeatability estimation overview: 
+##           R      SE   2.5%  97.5% P_permut
+## Org      NA      NA     NA     NA       NA
+## Link      0 0.00625  0.988      1       NA
+## 
+## 
+## Bootstrapping: 
+##           N   Mean Median   2.5%  97.5%
+## Org       3     NA     NA     NA     NA
+## Link      3  0.993   0.99  0.988      1
+## 
+## Permutation test: 
+##           N   Mean Median   2.5%  97.5% P_permut
+## Org       3     NA     NA     NA     NA       NA
+## Link      3     NA     NA     NA     NA       NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -1222.76879
+## logLik red. model = -1222.76879
+## D  = 0.00000000144, df = 1, P = 0.5
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##           R     SE     2.5%  97.5% P_permut
+## Org      NA     NA       NA     NA       NA
+## Link  0.994 0.0409 0.000107 0.0684       NA
+## 
+## 
+## Bootstrapping: 
+##           N   Mean  Median     2.5%  97.5%
+## Org       3     NA      NA       NA     NA
+## Link      3 0.0247 0.00213 0.000107 0.0684
+## 
+## Permutation test: 
+##           N   Mean Median   2.5%  97.5% P_permut
+## Org       1     NA     NA     NA     NA       NA
+## Link      1     NA     NA     NA     NA       NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -1222.76879
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
 </div>
+<div id="nsno" class="section level2">
+<h2>NS/NO</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = (NS_NO_log) ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosff_clean, nboot = 3, npermut = 3)
+## 
+## Data: 879 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##        R     SE               2.5%  97.5% P_permut  LRT_P
+##  0.00284 0.0102 0.0000000000000703 0.0168    0.667  0.227
+## 
+## Bootstrapping and Permutation test: 
+##             N    Mean           Median               2.5%  97.5%
+## boot        3 0.00589 0.00000000000141 0.0000000000000703 0.0168
+## permut      3 0.31638 0.00283803195741 0.0001419015978705 0.8991
+## 
+## Likelihood ratio test: 
+## logLik full model = 456.952234
+## logLik red. model = 456.671451
+## D  = 0.562, df = 1, P = 0.227
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R      SE     2.5%   97.5% P_permut  LRT_P
+##       0 0.00162 0.000122 0.00305        1    0.5
+## 
+## Bootstrapping and Permutation test: 
+##             N    Mean  Median     2.5%   97.5%
+## boot        3 0.00184 0.00243 0.000122 0.00305
+## permut      3 0.31609 0.00363 0.000182 0.89759
+## 
+## Likelihood ratio test: 
+## logLik full model = 456.952234
+## logLik red. model = 456.952234
+## D  = 0.00000000000568, df = 1, P = 0.5
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (47 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##  0.0921   0.02 0.0487 0.0868    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3 0.0674 0.0665 0.0487 0.0868
+## permut      3 0.3640 0.0921 0.0207 0.9385
+## 
+## Likelihood ratio test: 
+## logLik full model = 456.952234
+## logLik red. model = 438.957677
+## D  = 36, df = 1, P = 0.000000000992
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.905 0.0237  0.909   0.95       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.925  0.913  0.909   0.95
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = 456.952234
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+<div id="nflcm" class="section level2">
+<h2>NFL/cm</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = NFL_cm_log ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosramas_clean, nboot = 3, npermut = 3)
+## 
+## Data: 534 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE     2.5%  97.5% P_permut  LRT_P
+##  0.0194 0.0154 0.000153 0.0268    0.667  0.003
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean  Median     2.5%  97.5%
+## boot        3 0.0104 0.00307 0.000153 0.0268
+## permut      3 0.2213 0.01936 0.000968 0.6134
+## 
+## Likelihood ratio test: 
+## logLik full model = -163.247867
+## logLik red. model = -166.990733
+## D  = 7.49, df = 1, P = 0.00311
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE    2.5%  97.5% P_permut  LRT_P
+##    0.12  0.181 0.00233   0.32    0.667  0.003
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median    2.5%  97.5%
+## boot        3  0.127 0.0465 0.00233  0.320
+## permut      3  0.287 0.1200 0.09954  0.617
+## 
+## Likelihood ratio test: 
+## logLik full model = -163.247867
+## logLik red. model = -167.038394
+## D  = 7.58, df = 1, P = 0.00295
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##    0.26  0.105  0.199  0.389    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.310  0.348 0.1989  0.389
+## permut      3  0.366  0.260 0.0137  0.808
+## 
+## Likelihood ratio test: 
+## logLik full model = -163.247867
+## logLik red. model = -214.201533
+## D  = 102, df = 1, P = 0.00000000000000000000000291
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.601 0.0917  0.475  0.646       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.553  0.535  0.475  0.646
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -163.247867
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+<div id="nfrnfl" class="section level2">
+<h2>NFR/NFL</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = (NFR_NFL_log) ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosramas_clean, nboot = 3, npermut = 3)
+## 
+## Data: 529 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R      SE   2.5%   97.5% P_permut  LRT_P
+##       0 0.00346      0 0.00569        1      1
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%   97.5%
+## boot        3  0.002      0      0 0.00569
+## permut      3  0.325      0      0 0.92634
+## 
+## Likelihood ratio test: 
+## logLik full model = 690.72811
+## logLik red. model = 690.72811
+## D  = -0.000000000105, df = 1, P = 1
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##  0.0327 0.0291 0.0124 0.0676    0.667  0.004
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median    2.5%  97.5%
+## boot        3 0.0389 0.0363 0.01241 0.0676
+## permut      3 0.3442 0.0327 0.00163 0.9516
+## 
+## Likelihood ratio test: 
+## logLik full model = 690.72811
+## logLik red. model = 687.094478
+## D  = 7.27, df = 1, P = 0.00351
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE      2.5%  97.5% P_permut  LRT_P
+##       0 0.0249 0.0000477 0.0415        1      1
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean   Median      2.5%  97.5%
+## boot        3 0.0149 0.000954 0.0000477 0.0415
+## permut      3 0.3208 0.035758 0.0017879 0.8821
+## 
+## Likelihood ratio test: 
+## logLik full model = 690.72811
+## logLik red. model = 690.72811
+## D  = -0.000000000945, df = 1, P = 1
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.967 0.0387  0.915  0.985       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.944  0.931  0.915  0.985
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = 690.72811
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+<div id="peso-seco-fruto" class="section level2">
+<h2>Peso seco fruto</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-21-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = (PSF_log) ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosfisico_clean, nboot = 3, npermut = 3)
+## 
+## Data: 1166 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R      SE    2.5%  97.5% P_permut  LRT_P
+##  0.0094 0.00887 0.00247 0.0181    0.667  0.002
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean  Median    2.5%  97.5%
+## boot        3 0.0086 0.00468 0.00247 0.0181
+## permut      3 0.2102 0.00940 0.00047 0.5905
+## 
+## Likelihood ratio test: 
+## logLik full model = -1177.12435
+## logLik red. model = -1181.45944
+## D  = 8.67, df = 1, P = 0.00162
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.079 0.0308  0.128  0.186    0.667  0.021
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.154  0.149 0.1277  0.186
+## permut      3  0.235  0.079 0.0583  0.543
+## 
+## Likelihood ratio test: 
+## logLik full model = -1177.12435
+## logLik red. model = -1179.21008
+## D  = 4.17, df = 1, P = 0.0206
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.311 0.0358  0.225  0.286    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.248  0.229 0.2249  0.286
+## permut      3  0.398  0.311 0.0156  0.855
+## 
+## Likelihood ratio test: 
+## logLik full model = -1177.12435
+## logLik red. model = -1324.5332
+## D  = 295, df = 1, P = 0.00000000000000000000000000000000000000000000000000000000000000000222
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##     0.6  0.031  0.565  0.622       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3   0.59   0.58  0.565  0.622
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -1177.12435
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+<div id="peso-seco-semillas" class="section level2">
+<h2>Peso seco semillas</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-23-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = (PSS_log) ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosfisico_clean, nboot = 3, npermut = 3)
+## 
+## Data: 1064 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE    2.5%  97.5% P_permut  LRT_P
+##  0.0291 0.0151 0.00013 0.0261    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N    Mean  Median    2.5%  97.5%
+## boot        3 0.00996 0.00259 0.00013 0.0261
+## permut      3 0.21914 0.02908 0.00345 0.5964
+## 
+## Likelihood ratio test: 
+## logLik full model = -1278.56236
+## logLik red. model = -1290.17877
+## D  = 23.2, df = 1, P = 0.000000718
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R             SE              2.5%           97.5% P_permut  LRT_P
+##  0.0149 0.000000000044 0.000000000000492 0.0000000000771    0.667  0.261
+## 
+## Bootstrapping and Permutation test: 
+##             N            Mean           Median              2.5%           97.5%
+## boot        3 0.0000000000302 0.00000000000983 0.000000000000492 0.0000000000771
+## permut      3 0.2380230872654 0.01486949437165 0.012314304187341 0.6534124243031
+## 
+## Likelihood ratio test: 
+## logLik full model = -1278.56236
+## logLik red. model = -1278.76787
+## D  = 0.411, df = 1, P = 0.261
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.281 0.0621  0.209  0.322    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.274  0.295 0.2092  0.322
+## permut      3  0.405  0.281 0.0146  0.901
+## 
+## Likelihood ratio test: 
+## logLik full model = -1278.56236
+## logLik red. model = -1387.87477
+## D  = 219, df = 1, P = 0.0000000000000000000000000000000000000000000000000902
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.675 0.0668  0.676  0.787       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.716  0.678  0.676  0.787
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = -1278.56236
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+<div id="peso-seco-de-semillapeso-seco-de-fruto" class="section level2">
+<h2>peso seco de semilla/peso seco de fruto</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-25-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>## Bootstrap Progress:
+## Permutation Progress for year :
+## Permutation Progress for site :
+## Permutation Progress for phenotype :</code></pre>
+<pre><code>## 
+## Repeatability estimation using the lmm method
+## 
+## Call = rptGaussian(formula = (PSS_PSF) ~ (1 | year) + (1 | site) + (1 | phenotype), grname = c(&quot;year&quot;, &quot;site&quot;, &quot;phenotype&quot;, &quot;Residual&quot;), data = datosfisico_clean, nboot = 3, npermut = 3)
+## 
+## Data: 1065 observations
+## ----------------------------------------
+## 
+## year (3 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##  0.0158 0.0296 0.0181 0.0712    0.667  0.003
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median    2.5%  97.5%
+## boot        3  0.040 0.0290 0.01805 0.0712
+## permut      3  0.231 0.0158 0.00222 0.6436
+## 
+## Likelihood ratio test: 
+## logLik full model = 563.53156
+## logLik red. model = 559.775824
+## D  = 7.51, df = 1, P = 0.00307
+## 
+## ----------------------------------------
+## 
+## 
+## site (3 groups)
+## 
+## Repeatability estimation overview: 
+##               R             SE           2.5%         97.5% P_permut  LRT_P
+##  0.000000000815 0.000000000594 0.000000000053 0.00000000109    0.667      1
+## 
+## Bootstrapping and Permutation test: 
+##             N           Mean         Median            2.5%         97.5%
+## boot        3 0.000000000686 0.000000000959 0.0000000000530 0.00000000109
+## permut      3 0.213639731892 0.000000000815 0.0000000000422 0.60887323516
+## 
+## Likelihood ratio test: 
+## logLik full model = 563.53156
+## logLik red. model = 563.53156
+## D  = -0.000000216, df = 1, P = 1
+## 
+## ----------------------------------------
+## 
+## 
+## phenotype (52 groups)
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.329 0.0175  0.318  0.351    0.667      0
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.336  0.339 0.3183  0.351
+## permut      3  0.438  0.329 0.0346  0.935
+## 
+## Likelihood ratio test: 
+## logLik full model = 563.53156
+## logLik red. model = 422.821998
+## D  = 281, df = 1, P = 0.00000000000000000000000000000000000000000000000000000000000000184
+## 
+## ----------------------------------------
+## 
+## 
+## Residual
+## 
+## Repeatability estimation overview: 
+##       R     SE   2.5%  97.5% P_permut  LRT_P
+##   0.655 0.0175   0.61  0.642       NA     NA
+## 
+## Bootstrapping and Permutation test: 
+##             N   Mean Median   2.5%  97.5%
+## boot        3  0.624  0.619   0.61  0.642
+## permut      3     NA     NA     NA     NA
+## 
+## Likelihood ratio test: 
+## logLik full model = 563.53156
+## logLik red. model = NA
+## D  = NA, df = NA, P = NA
+## 
+## ----------------------------------------</code></pre>
+</div>
+</div>
+<div id="análisis-multivariado" class="section level1">
+<h1>Análisis multivariado</h1>
+</div>
+<div id="análisis-de-pca-con-variables-suplementarias"
+class="section level1">
+<h1>Análisis de PCA con variables suplementarias</h1>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-35-1.png" width="75%" style="display: block; margin: auto;" /><img src="ER_flores_files/figure-html/unnamed-chunk-35-2.png" width="75%" style="display: block; margin: auto;" /></p>
+<p>Resultado PCA</p>
+<pre><code>## 
+## Call:
+## PCA(X = tabla_merged, quanti.sup = c(16:19), quali.sup = c(12:15),  
+##      graph = FALSE) 
+## 
+## 
+## Eigenvalues
+##                        Dim.1   Dim.2   Dim.3   Dim.4   Dim.5   Dim.6   Dim.7   Dim.8   Dim.9  Dim.10  Dim.11
+## Variance               7.806   3.194   0.000   0.000   0.000   0.000   0.000   0.000   0.000   0.000   0.000
+## % of var.             70.963  29.037   0.000   0.000   0.000   0.000   0.000   0.000   0.000   0.000   0.000
+## Cumulative % of var.  70.963 100.000 100.000 100.000 100.000 100.000 100.000 100.000 100.000 100.000 100.000
+## 
+## Individuals (the 10 first)
+##                  Dist    Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3    ctr   cos2  
+## 1            |  2.138 |  1.696  0.261  0.629 |  1.302  0.376  0.371 |  0.000  0.000  0.000 |
+## 2            |  2.890 | -2.247  0.459  0.604 |  1.817  0.733  0.396 |  0.000  0.000  0.000 |
+## 3            |  1.905 |  1.894  0.326  0.989 |  0.202  0.009  0.011 |  0.000  0.000  0.000 |
+## 4            |  2.103 |  1.877  0.320  0.797 | -0.948  0.199  0.203 |  0.000  0.000  0.000 |
+## 5            |  2.437 |  2.345  0.500  0.926 | -0.661  0.097  0.074 |  0.000  0.000  0.000 |
+## 6            |  1.861 | -1.781  0.288  0.916 |  0.539  0.064  0.084 |  0.000  0.000  0.000 |
+## 7            |  1.852 | -1.691  0.260  0.833 | -0.757  0.127  0.167 |  0.000  0.000  0.000 |
+## 8            |  2.329 | -2.143  0.417  0.847 | -0.912  0.185  0.153 |  0.000  0.000  0.000 |
+## 9            |  0.992 | -0.427  0.017  0.185 | -0.895  0.178  0.815 |  0.000  0.000  0.000 |
+## 10           |  2.708 | -2.582  0.606  0.909 |  0.816  0.148  0.091 |  0.000  0.000  0.000 |
+## 
+## Variables (the 10 first)
+##                 Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3    ctr   cos2  
+## PSFL         |  0.867  9.628  0.752 |  0.498  7.777  0.248 |  0.000  0.000  0.000 |
+## DMAP         |  0.951 11.585  0.904 | -0.309  2.997  0.096 |  0.000  0.000  0.000 |
+## DMIP         |  0.955 11.686  0.912 | -0.296  2.748  0.088 |  0.000  0.000  0.000 |
+## NO           |  0.161  0.330  0.026 |  0.987 30.502  0.974 |  0.000  0.000  0.000 |
+## NS           |  0.965 11.927  0.931 | -0.263  2.159  0.069 |  0.000  0.000  0.000 |
+## NS/NO        |  0.262  0.882  0.069 | -0.965 29.152  0.931 |  0.000  0.000  0.000 |
+## NFL/cm       |  0.986 12.460  0.973 | -0.166  0.858  0.027 |  0.000  0.000  0.000 |
+## NFR/NFL      | -0.851  9.284  0.725 |  0.525  8.618  0.275 |  0.000  0.000  0.000 |
+## PSS          |  0.918 10.786  0.842 |  0.398  4.948  0.158 |  0.000  0.000  0.000 |
+## PSF          |  0.924 10.927  0.853 |  0.383  4.604  0.147 |  0.000  0.000  0.000 |
+## 
+## Supplementary continuous variables
+##                 Dim.1   cos2    Dim.2   cos2    Dim.3   cos2  
+## temp         |  0.184  0.034 | -0.013  0.000 |  0.000  0.000 |
+## prec         |  0.045  0.002 | -0.023  0.001 |  0.000  0.000 |
+## hr           |  0.167  0.028 |  0.092  0.009 |  0.000  0.000 |
+## wind         | -0.073  0.005 | -0.106  0.011 |  0.000  0.000 |
+## 
+## Supplementary categories (the 10 first)
+##                  Dist    Dim.1   cos2 v.test    Dim.2   cos2 v.test    Dim.3   cos2 v.test  
+## 2019         |  0.392 |  0.149  0.145  0.419 | -0.363  0.855 -1.591 |  0.000  0.000  0.000 |
+## 2021         |  1.160 |  1.156  0.994  3.800 | -0.087  0.006 -0.446 |  0.000  0.000  0.000 |
+## 2022         |  1.570 | -1.504  0.918 -4.362 |  0.449  0.082  2.035 |  0.000  0.000  0.000 |
+## Concordia    |  1.071 | -1.070  0.999 -3.256 |  0.037  0.001  0.174 |  0.000  0.000  0.000 |
+## PN El Palmar |  0.795 |  0.744  0.876  2.121 |  0.280  0.124  1.249 |  0.000  0.000  0.000 |
+## Gualeguaychú |  0.477 |  0.381  0.637  1.176 | -0.287  0.363 -1.389 |  0.000  0.000  0.000 |
+## 154          |  2.096 |  0.047  0.001  0.030 |  2.095  0.999  2.045 |  0.000  0.000  0.000 |
+## 156          |  1.992 | -1.991  0.999 -1.243 |  0.055  0.001  0.054 |  0.000  0.000  0.000 |
+## 161          |  3.856 |  2.228  0.334  1.391 | -3.147  0.666 -3.072 |  0.000  0.000  0.000 |
+## 171          |  1.538 |  1.461  0.903  0.912 | -0.480  0.097 -0.469 |  0.000  0.000  0.000 |</code></pre>
+<p>Scree plot para ver la varianza explicada por cada Principal
+component</p>
+<p>Contribuciones de las variables para CP1</p>
+<p>Contribuciones de las variables para CP2</p>
+<pre><code>##       NFL/cm           NS         DMIP         DMAP          PSF          PSS      PSS/PSF         PSFL 
+## 12.459690644 11.927401015 11.686133322 11.584537134 10.926795473 10.785972846 10.504430923  9.628457617 
+##      NFR/NFL        NS/NO           NO 
+##  9.284387834  0.882152659  0.330040530</code></pre>
+<pre><code>##           NO        NS/NO      NFR/NFL         PSFL      PSS/PSF          PSS          PSF         DMAP 
+## 30.501550630 29.152246643  8.618067387  7.777197016  5.636410368  4.948351513  4.604195819  2.996744363 
+##         DMIP           NS       NFL/cm 
+##  2.748453963  2.158821090  0.857961208</code></pre>
+<p>Contribución acumulada de cada variable a CP1 y CP2</p>
+<pre><code>##         NO      NS/NO    NFR/NFL       PSFL    PSS/PSF        PSS        PSF       DMAP       DMIP         NS 
+## 30.8315912 30.0343993 17.9024552 17.4056546 16.1408413 15.7343244 15.5309913 14.5812815 14.4345873 14.0862221 
+##     NFL/cm 
+## 13.3176519</code></pre>
+<p>Proporción de contribución de cada variable a PC1, PC2 y PC3
+<img src="ER_flores_files/figure-html/unnamed-chunk-41-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<div id="biplots-de-pca-cp1-vs-cp2" class="section level2">
+<h2>Biplots de PCA CP1 VS CP2</h2>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-42-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-43-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-44-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-45-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>## null device 
+##           1</code></pre>
+<pre><code>## png 
+##   2</code></pre>
+</div>
+</div>
+<div id="heatmap" class="section level1">
+<h1>Heatmap</h1>
 <div id="correlaciones" class="section level2">
 <h2>Correlaciones</h2>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-17-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<div id="correlación-n-de-semillas-y-n-de-óvulos"
-class="section level3">
-<h3>Correlación N° de semillas y N° de óvulos</h3>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-18-1.png" width="75%" style="display: block; margin: auto;" /></p>
-<pre><code>## [1] 0.396656132</code></pre>
-<p>Modelo</p>
-<pre><code>## Linear mixed model fit by REML [&#39;lmerModLmerTest&#39;]
-## Formula: mean_ns ~ n_ovu_mean + (1 | year) + (1 | site)
-##    Data: df_ovusem
-## REML criterion at convergence: 28.0874
-## Random effects:
-##  Groups   Name        Std.Dev.
-##  year     (Intercept) 0.000000
-##  site     (Intercept) 0.227242
-##  Residual             0.281833
-## Number of obs: 52, groups:  year, 3; site, 3
-## Fixed Effects:
-## (Intercept)   n_ovu_mean  
-##   0.9480370    0.0909351  
-## optimizer (nloptwrap) convergence code: 0 (OK) ; 0 optimizer warnings; 1 lme4 warnings</code></pre>
-<p>Verificación de supuestos
-<img src="ER_flores_files/figure-html/unnamed-chunk-20-1.png" width="75%" style="display: block; margin: auto;" /><img src="ER_flores_files/figure-html/unnamed-chunk-20-2.png" width="75%" style="display: block; margin: auto;" /></p>
-<pre><code>## 
-##  Shapiro-Wilk normality test
-## 
-## data:  e
-## W = 0.8805634, p-value = 0.0000866204</code></pre>
-<p><img src="ER_flores_files/figure-html/unnamed-chunk-25-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-48-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<p><img src="ER_flores_files/figure-html/unnamed-chunk-49-1.png" width="75%" style="display: block; margin: auto;" /></p>
+<pre><code>## png 
+##   2</code></pre>
 </div>
 </div>
 

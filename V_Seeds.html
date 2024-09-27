@@ -421,6 +421,9 @@ div.tocify {
     <li>
       <a href="madCations.html">Cationes</a>
     </li>
+    <li>
+      <a href="mad_PCA.html">Multivariado</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -469,7 +472,7 @@ div.tocify {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="V_Reproductive.html">Variables reproductivas</a>
+      <a href="ER_flores.html">Variables reproductivas</a>
     </li>
     <li>
       <a href="V_Branches.html">Eficiencia reproductiva</a>
@@ -502,9 +505,6 @@ div.tocify {
     </li>
     <li>
       <a href="dry_test.html">Pruebas de Secado</a>
-    </li>
-    <li>
-      <a href="ER_flores.html">Floración ER</a>
     </li>
     <li>
       <a href="calafate.html">Calafate</a>
@@ -547,9 +547,6 @@ div.tocify {
 
 <div id="seed-number-per-fruit" class="section level1">
 <h1>Seed number per fruit</h1>
-<pre><code>## New names:
-## • `` -&gt; `...15`</code></pre>
-<pre><code>## Warning: Unknown or uninitialised column: `n`.</code></pre>
 <pre><code>## Error in `$&lt;-`:
 ## ! Assigned data `as.factor(fisico$n)` must be compatible with existing data.
 ## ✖ Existing data has 1166 rows.
@@ -557,50 +554,51 @@ div.tocify {
 ## ℹ Only vectors of size 1 are recycled.
 ## Caused by error in `vectbl_recycle_rhs_rows()`:
 ## ! Can&#39;t recycle input of size 0 to size 1166.</code></pre>
-<pre><code>##   year         site   N         ns          sd           se           ci
-## 1 2019    Concordia 160 1.19375000 0.482353703 0.0381334084 0.0753133373
-## 2 2019       Palmar 156 1.27564103 0.607201066 0.0486149929 0.0960334313
-## 3 2019 Gualeguaychu  94 1.24468085 0.522322568 0.0538734594 0.1069820134
-## 4 2021    Concordia 178 1.24719101 0.558061594 0.0418284849 0.0825467248
-## 5 2021       Palmar 171 1.45029240 0.841313697 0.0643368664 0.1270020493
-## 6 2021 Gualeguaychu 164 1.52439024 0.882350594 0.0689000058 0.1360516478
-## 7 2022    Concordia 107 1.32710280 0.610840759 0.0590522051 0.1170767401
-## 8 2022       Palmar   6 1.16666667 0.408248290 0.1666666667 0.4284303059
-## 9 2022 Gualeguaychu 114 1.54385965 0.873811211 0.0818399183 0.1621396387</code></pre>
+<pre><code>## Error in `$&lt;-`:
+## ! Assigned data `as.numeric(fisico$pss)` must be compatible with existing data.
+## ✖ Existing data has 1166 rows.
+## ✖ Assigned data has 0 rows.
+## ℹ Only vectors of size 1 are recycled.
+## Caused by error in `vectbl_recycle_rhs_rows()`:
+## ! Can&#39;t recycle input of size 0 to size 1166.</code></pre>
+<pre><code>##   year      site   N         ns          sd           se           ci
+## 1 2019 Concordia 160 1.19375000 0.482353703 0.0381334084 0.0753133373
+## 2 2021 Concordia 178 1.24719101 0.558061594 0.0418284849 0.0825467248
+## 3 2022 Concordia 107 1.32710280 0.610840759 0.0590522051 0.1170767401</code></pre>
 <p><img src="V_Seeds_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="dry-seed-weight" class="section level1">
 <h1>Dry seed weight</h1>
 <pre><code>## Error in eval(expr, envir, enclos): objeto &#39;fisicopff&#39; no encontrado</code></pre>
-<pre><code>##   year         site   N         pss          sd           se           ci
-## 1 2019    Concordia 159 1.025647799 0.755995330 0.0599543295 0.1184153209
-## 2 2019       Palmar 156 1.192288462 0.884255575 0.0707971064 0.1398516929
-## 3 2019 Gualeguaychu  81 0.869241975 1.020046140 0.1133384600 0.2255507235
-## 4 2021    Concordia 126 0.837587302 0.545584520 0.0486045321 0.0961944013
-## 5 2021       Palmar 169 1.312473373 0.895055180 0.0688503984 0.1359234370
-## 6 2021 Gualeguaychu 149 1.898107383 1.006104430 0.0824232864 0.1628785103
-## 7 2022    Concordia 104 0.931778846 0.688876572 0.0675499054 0.1339693054
-## 8 2022       Palmar   6 2.027500000 1.253524910 0.5117494016 1.3154937161
-## 9 2022 Gualeguaychu 114 0.859842105 0.800593160 0.0749824195 0.1485536968</code></pre>
-<p><img src="V_Seeds_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="V_Seeds_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="V_Seeds_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Error in `[.data.frame`(xx, , col): columnas no definidas seleccionadas</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;respss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;respss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;gpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(predvars, data, env): objeto &#39;pss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;mpss&#39; no encontrado</code></pre>
+<pre><code>## Error: objeto &#39;pss_ajuste&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;pss_ajuste&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;HVpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;pss_ajuste&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;QQpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;mpss&#39; no encontrado</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9899773, p-value = 0.00000119019</code></pre>
-<pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
-##        Sum Sq  Mean Sq NumDF    DenDF  F value        Pr(&gt;F)    
-## year 3.334915 1.667457     2 1040.308 14.72494 0.00000049418 ***
-## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## [1] 70.1996644</code></pre>
-<pre><code>## [1] 27.2612472</code></pre>
-<pre><code>## [1] 2.53908835</code></pre>
-<pre><code>## # Intraclass Correlation Coefficient
-## 
-##     Adjusted ICC: 0.298
-##   Unadjusted ICC: 0.291</code></pre>
+## W = 0.7797993, p-value &lt; 0.000000000000000222</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;mpss&#39; no encontrado</code></pre>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;object&#39; in selecting a method for function &#39;summary&#39;: objeto &#39;mpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;mpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;mpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;FRUppss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;phenotypeppss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;siteppss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;mpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;ICCfpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;ICCapss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;ICCrpss&#39; no encontrado</code></pre>
+<pre><code>## Error in eval(expr, envir, enclos): objeto &#39;ICCpss&#39; no encontrado</code></pre>
 </div>
 
 

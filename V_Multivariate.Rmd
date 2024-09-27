@@ -21,14 +21,14 @@ fisico$year<-as.factor(fisico$year)
 fisico$phenotype<-as.factor(fisico$phenotype)
 fisico$site<-factor(fisico$site, levels = original_levels, labels = new_levels)
 fisico$id<-as.factor(fisico$id)
-fisico$pss<-as.numeric(fisico$pss)
+fisico$PSS<-as.numeric(fisico$PSS)
 fisico$mad<-as.numeric(fisico$mad)
 
 fisico <- fisico[,-c(4,9,13:15)]
 
 table_fisico <- fisico %>%
   dplyr::group_by(year, site, phenotype) %>%
-  dplyr::summarise(across(c(pff, de, dp, pen, psf, ns, pss), mean, na.rm = TRUE))
+  dplyr::summarise(across(c(pff, de, dp, pen, PSF, ns, PSS), mean, na.rm = TRUE))
 
 color<-read_excel("database.xlsx", sheet="V color")
 color$id<-as.factor(color$id)

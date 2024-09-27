@@ -339,6 +339,9 @@ $(document).ready(function () {
     <li>
       <a href="madCations.html">Cationes</a>
     </li>
+    <li>
+      <a href="mad_PCA.html">Multivariado</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -387,7 +390,7 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="V_Reproductive.html">Variables reproductivas</a>
+      <a href="ER_flores.html">Variables reproductivas</a>
     </li>
     <li>
       <a href="V_Branches.html">Eficiencia reproductiva</a>
@@ -420,9 +423,6 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="dry_test.html">Pruebas de Secado</a>
-    </li>
-    <li>
-      <a href="ER_flores.html">Floración ER</a>
     </li>
     <li>
       <a href="calafate.html">Calafate</a>
@@ -469,16 +469,21 @@ src="C:/Users/um/Documents/ipovilonis/Doc/6%20-%20Producción/test/ipovilonis.gi
 alt="The fruit" />
 <div class="figcaption">The fruit</div>
 </div>
-<pre><code>## New names:
-## • `` -&gt; `...15`</code></pre>
+<pre><code>## Error in `$&lt;-`:
+## ! Assigned data `as.numeric(fisico$pss)` must be compatible with existing data.
+## ✖ Existing data has 1166 rows.
+## ✖ Assigned data has 0 rows.
+## ℹ Only vectors of size 1 are recycled.
+## Caused by error in `vectbl_recycle_rhs_rows()`:
+## ! Can&#39;t recycle input of size 0 to size 1166.</code></pre>
 <div id="average-fruit" class="section level1">
 <h1>Average fruit</h1>
-<pre><code>##                          variable       means
-## 1              Fresh fruit weight 9.761323842
-## 2                Dry fruit weight 1.792486621
-## 3                 Dry seed weight 1.161472864
-## 4                 Dry pulp weight 0.631013757
-## 5 Dry pulp/fresh fruit weight (%) 3.407403900</code></pre>
+<pre><code>##                          variable      means
+## 1              Fresh fruit weight 9.76132384
+## 2                Dry fruit weight         NA
+## 3                 Dry seed weight         NA
+## 4                 Dry pulp weight         NA
+## 5 Dry pulp/fresh fruit weight (%) 3.40740390</code></pre>
 <p><img src="V_Morphological_files/figure-html/unnamed-chunk-3-1.png" width="1920" style="display: block; margin: auto;" /></p>
 </div>
 <div id="maturity-index" class="section level1">
