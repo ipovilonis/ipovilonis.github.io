@@ -568,14 +568,10 @@ firmness<br />
 <strong>NPR</strong>: net rate of photosynthesis (irradiance=500)</p>
 <p>Resultado PCA</p>
 <pre><code>## Importance of components:
-##                            PC1     PC2     PC3      PC4      PC5      PC6      PC7      PC8       PC9
-## Standard deviation     2.27780 1.62807 1.08280 0.765469 0.432513 0.338756 0.286428 0.124406 0.0522478
-## Proportion of Variance 0.51884 0.26506 0.11725 0.058590 0.018710 0.011480 0.008200 0.001550 0.0002700
-## Cumulative Proportion  0.51884 0.78390 0.90115 0.959740 0.978450 0.989920 0.998130 0.999680 0.9999500
-##                             PC10
-## Standard deviation     0.0225508
-## Proportion of Variance 0.0000500
-## Cumulative Proportion  1.0000000</code></pre>
+##                           PC1    PC2    PC3     PC4     PC5     PC6    PC7     PC8     PC9    PC10
+## Standard deviation     2.2778 1.6281 1.0828 0.76547 0.43251 0.33876 0.2864 0.12441 0.05225 0.02255
+## Proportion of Variance 0.5188 0.2651 0.1172 0.05859 0.01871 0.01148 0.0082 0.00155 0.00027 0.00005
+## Cumulative Proportion  0.5188 0.7839 0.9012 0.95974 0.97845 0.98992 0.9981 0.99968 0.99995 1.00000</code></pre>
 <p>Heatmap
 <img src="calafate_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Scree plot para ver la varianza explicada por cada Principal
@@ -583,23 +579,17 @@ component
 <img src="calafate_files/figure-html/unnamed-chunk-9-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Contribuciones de las variables para CP1</p>
 <p>Contribuciones de las variables para CP2</p>
-<pre><code>##         PFD         TFS         FNP        FFWP         FFW         EFD         DFW          FC          FF 
-## 16.86735166 15.85356221 15.06028516 12.73709636 11.84729475 10.86413781  9.87552803  3.20620527  2.48003648 
-##         NPR 
-##  1.20850226</code></pre>
-<pre><code>##           FF           FC          DFW          EFD          FFW          TFS          FNP         FFWP 
-## 28.850368554 16.367720925 14.532065290 13.960164255  9.400301230  4.907607824  4.566675000  4.544580145 
-##          NPR          PFD 
-##  1.890762022  0.979754755</code></pre>
-<pre><code>##            NPR             FC            FFW           FFWP            EFD            FNP            PFD 
-## 57.90987691698 18.20666987293  6.81497817463  5.25576843875  4.15329213093  2.76344426718  1.87042745859 
-##             FF            DFW            TFS 
-##  1.58654962654  1.43617003827  0.00282307519</code></pre>
+<pre><code>##       PFD       TFS       FNP      FFWP       FFW       EFD       DFW        FC        FF       NPR 
+## 16.867352 15.853562 15.060285 12.737096 11.847295 10.864138  9.875528  3.206205  2.480036  1.208502</code></pre>
+<pre><code>##         FF         FC        DFW        EFD        FFW        TFS        FNP       FFWP        NPR        PFD 
+## 28.8503686 16.3677209 14.5320653 13.9601643  9.4003012  4.9076078  4.5666750  4.5445801  1.8907620  0.9797548</code></pre>
+<pre><code>##          NPR           FC          FFW         FFWP          EFD          FNP          PFD           FF 
+## 57.909876917 18.206669873  6.814978175  5.255768439  4.153292131  2.763444267  1.870427459  1.586549627 
+##          DFW          TFS 
+##  1.436170038  0.002823075</code></pre>
 <p>Contribución acumulada de cada variable a CP1 y CP2</p>
-<pre><code>##          FF         EFD         DFW         FFW         TFS         FNP          FC         PFD        FFWP 
-## 31.33040503 24.82430206 24.40759332 21.24759598 20.76117004 19.62696016 19.57392620 17.84710642 17.28167651 
-##         NPR 
-##  3.09926429</code></pre>
+<pre><code>##        FF       EFD       DFW       FFW       TFS       FNP        FC       PFD      FFWP       NPR 
+## 31.330405 24.824302 24.407593 21.247596 20.761170 19.626960 19.573926 17.847106 17.281677  3.099264</code></pre>
 <p>Proporción de contribución de cada variable a PC1, PC2 y PC3
 <img src="calafate_files/figure-html/unnamed-chunk-13-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
@@ -612,12 +602,12 @@ component
 </div>
 <div id="triplots" class="section level2">
 <h2>Triplots</h2>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-7a6b5170514c981ef7b1" style="width:95%;height:921.6px;"></div>
-<script type="application/json" data-for="htmlwidget-7a6b5170514c981ef7b1">{"x":{"visdat":{"2af017d7b11":["function () ","plotlyVisDat"]},"cur_data":"2af017d7b11","attrs":{"2af017d7b11":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["#E31A1C","#FDBF6F","#B2DF8A"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Fertilization Levels"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.2941758142824047,-2.0310357260840632,-0.92885024379551762,-1.3157537921412332],"y":[0.53194554828301022,-1.3427098298822218,0.37306441772868798,1.9791334193850072],"z":[-0.48691209576161487,-0.17563290703334894,-1.9274094380747346,0.11753550333417971],"mode":"markers","marker":{"color":"rgba(227,26,28,1)","size":10,"line":{"color":"rgba(227,26,28,1)"}},"type":"scatter3d","name":"0","textfont":{"color":"rgba(227,26,28,1)"},"error_y":{"color":"rgba(227,26,28,1)"},"error_x":{"color":"rgba(227,26,28,1)"},"line":{"color":"rgba(227,26,28,1)"},"frame":null},{"x":[0.45069347764794809,-2.4238945164354777,4.2117127365281286,2.089526731676723],"y":[-2.2841431830997005,-1.1684455248607271,-1.1962337202414091,1.6853297654006953],"z":[-0.19650837549752595,0.8534932200004669,-0.51751583247613986,1.1277081868098453],"mode":"markers","marker":{"color":"rgba(253,191,111,1)","size":10,"line":{"color":"rgba(253,191,111,1)"}},"type":"scatter3d","name":"1","textfont":{"color":"rgba(253,191,111,1)"},"error_y":{"color":"rgba(253,191,111,1)"},"error_x":{"color":"rgba(253,191,111,1)"},"line":{"color":"rgba(253,191,111,1)"},"frame":null},{"x":[0.32489810834968164,-2.3319864121307692,3.2053635385396393,1.0435019121273448],"y":[1.8898601831910913,-1.2370954866555786,-1.4542525880788473,2.2235469988299923],"z":[-1.6795394748303469,1.1751633433601902,0.17269524612734233,1.5369226240416871],"mode":"markers","marker":{"color":"rgba(178,223,138,1)","size":10,"line":{"color":"rgba(178,223,138,1)"}},"type":"scatter3d","name":"2","textfont":{"color":"rgba(178,223,138,1)"},"error_y":{"color":"rgba(178,223,138,1)"},"error_x":{"color":"rgba(178,223,138,1)"},"line":{"color":"rgba(178,223,138,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-d0d77af3201b3f7e0e40" style="width:95%;height:921.6px;"></div>
-<script type="application/json" data-for="htmlwidget-d0d77af3201b3f7e0e40">{"x":{"visdat":{"2af078a13ab8":["function () ","plotlyVisDat"]},"cur_data":"2af078a13ab8","attrs":{"2af078a13ab8":{"x":{},"y":{},"z":{},"mode":"markers+text","marker":{"size":10},"text":{},"textposition":"top center","color":{},"colors":["#FFFF00","#4C4C4C"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Light Levels"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.2941758142824047,0.45069347764794809,0.32489810834968164,-0.92885024379551762,4.2117127365281286,3.2053635385396393],"y":[0.53194554828301022,-2.2841431830997005,1.8898601831910913,0.37306441772868798,-1.1962337202414091,-1.4542525880788473],"z":[-0.48691209576161487,-0.19650837549752595,-1.6795394748303469,-1.9274094380747346,-0.51751583247613986,0.17269524612734233],"mode":"markers+text","marker":{"color":"rgba(255,255,0,1)","size":10,"line":{"color":"rgba(255,255,0,1)"}},"text":["High","High","High","High","High","High"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"High","textfont":{"color":"rgba(255,255,0,1)"},"error_y":{"color":"rgba(255,255,0,1)"},"error_x":{"color":"rgba(255,255,0,1)"},"line":{"color":"rgba(255,255,0,1)"},"frame":null},{"x":[-2.0310357260840632,-2.4238945164354777,-2.3319864121307692,-1.3157537921412332,2.089526731676723,1.0435019121273448],"y":[-1.3427098298822218,-1.1684455248607271,-1.2370954866555786,1.9791334193850072,1.6853297654006953,2.2235469988299923],"z":[-0.17563290703334894,0.8534932200004669,1.1751633433601902,0.11753550333417971,1.1277081868098453,1.5369226240416871],"mode":"markers+text","marker":{"color":"rgba(76,76,76,1)","size":10,"line":{"color":"rgba(76,76,76,1)"}},"text":["Medium","Medium","Medium","Medium","Medium","Medium"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"Medium","textfont":{"color":"rgba(76,76,76,1)"},"error_y":{"color":"rgba(76,76,76,1)"},"error_x":{"color":"rgba(76,76,76,1)"},"line":{"color":"rgba(76,76,76,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-4f47382e336e2b23b5cb" style="width:95%;height:921.6px;"></div>
-<script type="application/json" data-for="htmlwidget-4f47382e336e2b23b5cb">{"x":{"visdat":{"2af07e9874c9":["function () ","plotlyVisDat"]},"cur_data":"2af07e9874c9","attrs":{"2af07e9874c9":{"x":{},"y":{},"z":{},"mode":"markers+text","marker":{"size":10},"text":{},"textposition":"top center","color":{},"colors":["#6A3D9A","#FF7F00"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1 (51,85 %)"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3 (11,72 %)"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Season"}},"annotations":[{"x":1,"y":1,"text":"F","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","font":{"size":13,"color":"black","face":"bold"}},{"x":1,"y":1,"text":"F","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","font":{"size":13,"color":"black","face":"bold"}},{"x":1,"y":1,"text":"F","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","font":{"size":13,"color":"black","face":"bold"}}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.2941758142824047,0.45069347764794809,0.32489810834968164,-2.0310357260840632,-2.4238945164354777,-2.3319864121307692],"y":[0.53194554828301022,-2.2841431830997005,1.8898601831910913,-1.3427098298822218,-1.1684455248607271,-1.2370954866555786],"z":[-0.48691209576161487,-0.19650837549752595,-1.6795394748303469,-0.17563290703334894,0.8534932200004669,1.1751633433601902],"mode":"markers+text","marker":{"color":"rgba(106,61,154,1)","size":10,"line":{"color":"rgba(106,61,154,1)"}},"text":["1st","1st","1st","1st","1st","1st"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"1st","textfont":{"color":"rgba(106,61,154,1)"},"error_y":{"color":"rgba(106,61,154,1)"},"error_x":{"color":"rgba(106,61,154,1)"},"line":{"color":"rgba(106,61,154,1)"},"frame":null},{"x":[-0.92885024379551762,4.2117127365281286,3.2053635385396393,-1.3157537921412332,2.089526731676723,1.0435019121273448],"y":[0.37306441772868798,-1.1962337202414091,-1.4542525880788473,1.9791334193850072,1.6853297654006953,2.2235469988299923],"z":[-1.9274094380747346,-0.51751583247613986,0.17269524612734233,0.11753550333417971,1.1277081868098453,1.5369226240416871],"mode":"markers+text","marker":{"color":"rgba(255,127,0,1)","size":10,"line":{"color":"rgba(255,127,0,1)"}},"text":["2nd","2nd","2nd","2nd","2nd","2nd"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"2nd","textfont":{"color":"rgba(255,127,0,1)"},"error_y":{"color":"rgba(255,127,0,1)"},"error_x":{"color":"rgba(255,127,0,1)"},"line":{"color":"rgba(255,127,0,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-52698d24d3075bdc5590" style="width:95%;height:921.6px;"></div>
+<script type="application/json" data-for="htmlwidget-52698d24d3075bdc5590">{"x":{"visdat":{"2428d6e3ec3":["function () ","plotlyVisDat"]},"cur_data":"2428d6e3ec3","attrs":{"2428d6e3ec3":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["#E31A1C","#FDBF6F","#B2DF8A"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Fertilization Levels"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.2941758142824047,-2.0310357260840632,-0.92885024379551762,-1.3157537921412332],"y":[0.53194554828301022,-1.3427098298822218,0.37306441772868798,1.9791334193850072],"z":[-0.48691209576161487,-0.17563290703334894,-1.9274094380747346,0.11753550333417971],"mode":"markers","marker":{"color":"rgba(227,26,28,1)","size":10,"line":{"color":"rgba(227,26,28,1)"}},"type":"scatter3d","name":"0","textfont":{"color":"rgba(227,26,28,1)"},"error_y":{"color":"rgba(227,26,28,1)"},"error_x":{"color":"rgba(227,26,28,1)"},"line":{"color":"rgba(227,26,28,1)"},"frame":null},{"x":[0.45069347764794809,-2.4238945164354777,4.2117127365281286,2.089526731676723],"y":[-2.2841431830997005,-1.1684455248607271,-1.1962337202414091,1.6853297654006953],"z":[-0.19650837549752595,0.8534932200004669,-0.51751583247613986,1.1277081868098453],"mode":"markers","marker":{"color":"rgba(253,191,111,1)","size":10,"line":{"color":"rgba(253,191,111,1)"}},"type":"scatter3d","name":"1","textfont":{"color":"rgba(253,191,111,1)"},"error_y":{"color":"rgba(253,191,111,1)"},"error_x":{"color":"rgba(253,191,111,1)"},"line":{"color":"rgba(253,191,111,1)"},"frame":null},{"x":[0.32489810834968164,-2.3319864121307692,3.2053635385396393,1.0435019121273448],"y":[1.8898601831910913,-1.2370954866555786,-1.4542525880788473,2.2235469988299923],"z":[-1.6795394748303469,1.1751633433601902,0.17269524612734233,1.5369226240416871],"mode":"markers","marker":{"color":"rgba(178,223,138,1)","size":10,"line":{"color":"rgba(178,223,138,1)"}},"type":"scatter3d","name":"2","textfont":{"color":"rgba(178,223,138,1)"},"error_y":{"color":"rgba(178,223,138,1)"},"error_x":{"color":"rgba(178,223,138,1)"},"line":{"color":"rgba(178,223,138,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-6857cace7df51232b3c3" style="width:95%;height:921.6px;"></div>
+<script type="application/json" data-for="htmlwidget-6857cace7df51232b3c3">{"x":{"visdat":{"242866c5b81":["function () ","plotlyVisDat"]},"cur_data":"242866c5b81","attrs":{"242866c5b81":{"x":{},"y":{},"z":{},"mode":"markers+text","marker":{"size":10},"text":{},"textposition":"top center","color":{},"colors":["#FFFF00","#4C4C4C"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Light Levels"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.2941758142824047,0.45069347764794809,0.32489810834968164,-0.92885024379551762,4.2117127365281286,3.2053635385396393],"y":[0.53194554828301022,-2.2841431830997005,1.8898601831910913,0.37306441772868798,-1.1962337202414091,-1.4542525880788473],"z":[-0.48691209576161487,-0.19650837549752595,-1.6795394748303469,-1.9274094380747346,-0.51751583247613986,0.17269524612734233],"mode":"markers+text","marker":{"color":"rgba(255,255,0,1)","size":10,"line":{"color":"rgba(255,255,0,1)"}},"text":["High","High","High","High","High","High"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"High","textfont":{"color":"rgba(255,255,0,1)"},"error_y":{"color":"rgba(255,255,0,1)"},"error_x":{"color":"rgba(255,255,0,1)"},"line":{"color":"rgba(255,255,0,1)"},"frame":null},{"x":[-2.0310357260840632,-2.4238945164354777,-2.3319864121307692,-1.3157537921412332,2.089526731676723,1.0435019121273448],"y":[-1.3427098298822218,-1.1684455248607271,-1.2370954866555786,1.9791334193850072,1.6853297654006953,2.2235469988299923],"z":[-0.17563290703334894,0.8534932200004669,1.1751633433601902,0.11753550333417971,1.1277081868098453,1.5369226240416871],"mode":"markers+text","marker":{"color":"rgba(76,76,76,1)","size":10,"line":{"color":"rgba(76,76,76,1)"}},"text":["Medium","Medium","Medium","Medium","Medium","Medium"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"Medium","textfont":{"color":"rgba(76,76,76,1)"},"error_y":{"color":"rgba(76,76,76,1)"},"error_x":{"color":"rgba(76,76,76,1)"},"line":{"color":"rgba(76,76,76,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-9719bbdaba9f585b793c" style="width:95%;height:921.6px;"></div>
+<script type="application/json" data-for="htmlwidget-9719bbdaba9f585b793c">{"x":{"visdat":{"2428173a5438":["function () ","plotlyVisDat"]},"cur_data":"2428173a5438","attrs":{"2428173a5438":{"x":{},"y":{},"z":{},"mode":"markers+text","marker":{"size":10},"text":{},"textposition":"top center","color":{},"colors":["#6A3D9A","#FF7F00"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1 (51,85 %)"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3 (11,72 %)"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Season"}},"annotations":[{"x":1,"y":1,"text":"F","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","font":{"size":13,"color":"black","face":"bold"}},{"x":1,"y":1,"text":"F","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","font":{"size":13,"color":"black","face":"bold"}},{"x":1,"y":1,"text":"F","showarrow":false,"xref":"paper","yref":"paper","xanchor":"right","yanchor":"bottom","font":{"size":13,"color":"black","face":"bold"}}],"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.2941758142824047,0.45069347764794809,0.32489810834968164,-2.0310357260840632,-2.4238945164354777,-2.3319864121307692],"y":[0.53194554828301022,-2.2841431830997005,1.8898601831910913,-1.3427098298822218,-1.1684455248607271,-1.2370954866555786],"z":[-0.48691209576161487,-0.19650837549752595,-1.6795394748303469,-0.17563290703334894,0.8534932200004669,1.1751633433601902],"mode":"markers+text","marker":{"color":"rgba(106,61,154,1)","size":10,"line":{"color":"rgba(106,61,154,1)"}},"text":["1st","1st","1st","1st","1st","1st"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"1st","textfont":{"color":"rgba(106,61,154,1)"},"error_y":{"color":"rgba(106,61,154,1)"},"error_x":{"color":"rgba(106,61,154,1)"},"line":{"color":"rgba(106,61,154,1)"},"frame":null},{"x":[-0.92885024379551762,4.2117127365281286,3.2053635385396393,-1.3157537921412332,2.089526731676723,1.0435019121273448],"y":[0.37306441772868798,-1.1962337202414091,-1.4542525880788473,1.9791334193850072,1.6853297654006953,2.2235469988299923],"z":[-1.9274094380747346,-0.51751583247613986,0.17269524612734233,0.11753550333417971,1.1277081868098453,1.5369226240416871],"mode":"markers+text","marker":{"color":"rgba(255,127,0,1)","size":10,"line":{"color":"rgba(255,127,0,1)"}},"text":["2nd","2nd","2nd","2nd","2nd","2nd"],"textposition":["top center","top center","top center","top center","top center","top center"],"type":"scatter3d","name":"2nd","textfont":{"color":"rgba(255,127,0,1)"},"error_y":{"color":"rgba(255,127,0,1)"},"error_x":{"color":"rgba(255,127,0,1)"},"line":{"color":"rgba(255,127,0,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="triplots-rlg" class="section level2">
 <h2>Triplots (rlg)</h2>
@@ -629,14 +619,14 @@ class="section level2">
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: NPR_aj
-##                               Chisq Df             Pr(&gt;Chisq)    
-## Fertilization               2.15535  2             0.34038584    
-## Light                      82.71432  1 &lt; 0.000000000000000222 ***
-## Season                     10.97372  1             0.00092413 ***
-## Fertilization:Light        62.07037  2   0.000000000000033235 ***
-## Fertilization:Season        2.75496  2             0.25221277    
-## Light:Season                2.86543  1             0.09050169 .  
-## Fertilization:Light:Season  2.84595  2             0.24099552    
+##                              Chisq Df Pr(&gt;Chisq)    
+## Fertilization               2.1554  2  0.3403858    
+## Light                      82.7143  1  &lt; 2.2e-16 ***
+## Season                     10.9737  1  0.0009241 ***
+## Fertilization:Light        62.0704  2  3.323e-14 ***
+## Fertilization:Season        2.7550  2  0.2522128    
+## Light:Season                2.8654  1  0.0905017 .  
+## Fertilization:Light:Season  2.8460  2  0.2409955    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p><img src="calafate_files/figure-html/unnamed-chunk-33-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -645,83 +635,83 @@ class="section level2">
 <h2>Efectos simples</h2>
 <pre><code>## $emmeans
 ## Light = High, Season = 1st:
-##  Fertilization   response          SE  df  asymp.LCL  asymp.UCL
-##  0             4.20904523 0.470139756 Inf 3.38147766 5.23914794
-##  1             4.37800964 0.486377223 Inf 3.52137310 5.44303823
-##  2             4.49910600 0.500686475 Inf 3.61742559 5.59567967
+##  Fertilization response    SE  df asymp.LCL asymp.UCL
+##  0                 4.21 0.470 Inf      3.38      5.24
+##  1                 4.38 0.486 Inf      3.52      5.44
+##  2                 4.50 0.501 Inf      3.62      5.60
 ## 
 ## Light = Medium, Season = 1st:
-##  Fertilization   response          SE  df  asymp.LCL  asymp.UCL
-##  0             4.40507907 0.490233717 Inf 3.54180743 5.47876248
-##  1             3.96015756 0.439881068 Inf 3.18539902 4.92335428
-##  2             3.89813464 0.433048349 Inf 3.13542097 4.84638390
+##  Fertilization response    SE  df asymp.LCL asymp.UCL
+##  0                 4.41 0.490 Inf      3.54      5.48
+##  1                 3.96 0.440 Inf      3.19      4.92
+##  2                 3.90 0.433 Inf      3.14      4.85
 ## 
 ## Light = High, Season = 2nd:
-##  Fertilization   response          SE  df  asymp.LCL  asymp.UCL
-##  0             4.34386179 0.481936439 Inf 3.49492719 5.39900669
-##  1             4.71483759 0.523729339 Inf 3.79240172 5.86163997
-##  2             4.63757120 0.515146870 Inf 3.73025155 5.76558076
+##  Fertilization response    SE  df asymp.LCL asymp.UCL
+##  0                 4.34 0.482 Inf      3.49      5.40
+##  1                 4.71 0.524 Inf      3.79      5.86
+##  2                 4.64 0.515 Inf      3.73      5.77
 ## 
 ## Light = Medium, Season = 2nd:
-##  Fertilization   response          SE  df  asymp.LCL  asymp.UCL
-##  0             4.34718603 0.482874924 Inf 3.49670354 5.40452633
-##  1             4.02309944 0.446863473 Inf 3.23604120 5.00158314
-##  2             4.07497300 0.454739668 Inf 3.27443482 5.07122782
+##  Fertilization response    SE  df asymp.LCL asymp.UCL
+##  0                 4.35 0.483 Inf      3.50      5.40
+##  1                 4.02 0.447 Inf      3.24      5.00
+##  2                 4.07 0.455 Inf      3.27      5.07
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
 ## Light = High, Season = 1st:
-##  contrast                              ratio           SE  df null z.ratio p.value
-##  Fertilization0 / Fertilization1 0.961406112 0.0236241441 Inf    1  -1.602  0.2449
-##  Fertilization0 / Fertilization2 0.935529241 0.0237925240 Inf    1  -2.620  0.0239
-##  Fertilization1 / Fertilization2 0.973084350 0.0220077224 Inf    1  -1.206  0.4493
+##  contrast                        ratio     SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 0.961 0.0236 Inf    1  -1.602  0.2449
+##  Fertilization0 / Fertilization2 0.936 0.0238 Inf    1  -2.620  0.0239
+##  Fertilization1 / Fertilization2 0.973 0.0220 Inf    1  -1.206  0.4493
 ## 
 ## Light = Medium, Season = 1st:
-##  contrast                              ratio           SE  df null z.ratio p.value
-##  Fertilization0 / Fertilization1 1.112349448 0.0250770927 Inf    1   4.723  &lt;.0001
-##  Fertilization0 / Fertilization2 1.130047953 0.0255582856 Inf    1   5.406  &lt;.0001
-##  Fertilization1 / Fertilization2 1.015910923 0.0219128019 Inf    1   0.732  0.7446
+##  contrast                        ratio     SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 1.112 0.0251 Inf    1   4.723  &lt;.0001
+##  Fertilization0 / Fertilization2 1.130 0.0256 Inf    1   5.406  &lt;.0001
+##  Fertilization1 / Fertilization2 1.016 0.0219 Inf    1   0.732  0.7446
 ## 
 ## Light = High, Season = 2nd:
-##  contrast                              ratio           SE  df null z.ratio p.value
-##  Fertilization0 / Fertilization1 0.921317375 0.0191415625 Inf    1  -3.944  0.0002
-##  Fertilization0 / Fertilization2 0.936667408 0.0194611077 Inf    1  -3.149  0.0047
-##  Fertilization1 / Fertilization2 1.016660960 0.0218510877 Inf    1   0.769  0.7222
+##  contrast                        ratio     SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 0.921 0.0191 Inf    1  -3.944  0.0002
+##  Fertilization0 / Fertilization2 0.937 0.0195 Inf    1  -3.149  0.0047
+##  Fertilization1 / Fertilization2 1.017 0.0219 Inf    1   0.769  0.7222
 ## 
 ## Light = Medium, Season = 2nd:
-##  contrast                              ratio           SE  df null z.ratio p.value
-##  Fertilization0 / Fertilization1 1.080556445 0.0232257611 Inf    1   3.605  0.0009
-##  Fertilization0 / Fertilization2 1.066801185 0.0256364328 Inf    1   2.691  0.0195
-##  Fertilization1 / Fertilization2 0.987270207 0.0237239988 Inf    1  -0.533  0.8550
+##  contrast                        ratio     SE  df null z.ratio p.value
+##  Fertilization0 / Fertilization1 1.081 0.0232 Inf    1   3.605  0.0009
+##  Fertilization0 / Fertilization2 1.067 0.0256 Inf    1   2.691  0.0195
+##  Fertilization1 / Fertilization2 0.987 0.0237 Inf    1  -0.533  0.8550
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log scale</code></pre>
 <pre><code>## $`simple contrasts for Fertilization`
 ## Light = High, Season = 1st:
-##  contrast                              ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Fertilization1 / Fertilization0 1.040143169 0.0255589098 Inf 0.991235799 1.091463620    1   1.602  0.1092
-##  Fertilization2 / Fertilization0 1.068913675 0.0271847775 Inf 1.016938629 1.123545132    1   2.620  0.0088
-##  Fertilization2 / Fertilization1 1.027660140 0.0232420336 Inf 0.983101474 1.074238410    1   1.206  0.2277
+##  contrast                        ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 1.040 0.0256 Inf     0.991     1.091    1   1.602  0.1092
+##  Fertilization2 / Fertilization0 1.069 0.0272 Inf     1.017     1.124    1   2.620  0.0088
+##  Fertilization2 / Fertilization1 1.028 0.0232 Inf     0.983     1.074    1   1.206  0.2277
 ## 
 ## Light = Medium, Season = 1st:
-##  contrast                              ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Fertilization1 / Fertilization0 0.898998064 0.0202672441 Inf 0.860139812 0.939611803    1  -4.723  &lt;.0001
-##  Fertilization2 / Fertilization0 0.884918199 0.0200141879 Inf 0.846547845 0.925027716    1  -5.406  &lt;.0001
-##  Fertilization2 / Fertilization1 0.984338270 0.0212317921 Inf 0.943592077 1.026843966    1  -0.732  0.4643
+##  contrast                        ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 0.899 0.0203 Inf     0.860     0.940    1  -4.723  &lt;.0001
+##  Fertilization2 / Fertilization0 0.885 0.0200 Inf     0.847     0.925    1  -5.406  &lt;.0001
+##  Fertilization2 / Fertilization1 0.984 0.0212 Inf     0.944     1.027    1  -0.732  0.4643
 ## 
 ## Light = High, Season = 2nd:
-##  contrast                              ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Fertilization1 / Fertilization0 1.085402302 0.0225506395 Inf 1.042091667 1.130512981    1   3.944  0.0001
-##  Fertilization2 / Fertilization0 1.067614814 0.0221817977 Inf 1.025012602 1.111987685    1   3.149  0.0016
-##  Fertilization2 / Fertilization1 0.983612078 0.0211407682 Inf 0.943037545 1.025932346    1  -0.769  0.4420
+##  contrast                        ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 1.085 0.0226 Inf     1.042     1.131    1   3.944  0.0001
+##  Fertilization2 / Fertilization0 1.068 0.0222 Inf     1.025     1.112    1   3.149  0.0016
+##  Fertilization2 / Fertilization1 0.984 0.0211 Inf     0.943     1.026    1  -0.769  0.4420
 ## 
 ## Light = Medium, Season = 2nd:
-##  contrast                              ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Fertilization1 / Fertilization0 0.925449110 0.0198918437 Inf 0.887271629 0.965269290    1  -3.605  0.0003
-##  Fertilization2 / Fertilization0 0.937381786 0.0225263390 Inf 0.894254594 0.982588872    1  -2.691  0.0071
-##  Fertilization2 / Fertilization1 1.012893930 0.0243397341 Inf 0.966294896 1.061740177    1   0.533  0.5939
+##  contrast                        ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Fertilization1 / Fertilization0 0.925 0.0199 Inf     0.887     0.965    1  -3.605  0.0003
+##  Fertilization2 / Fertilization0 0.937 0.0225 Inf     0.894     0.983    1  -2.691  0.0071
+##  Fertilization2 / Fertilization1 1.013 0.0243 Inf     0.966     1.062    1   0.533  0.5939
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
@@ -729,28 +719,28 @@ class="section level2">
 ## 
 ## $`simple contrasts for Light`
 ## Fertilization = 0, Season = 1st:
-##  contrast            ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Medium / High 1.046574422 0.0266156807 Inf 0.995687395 1.100062153    1   1.790  0.0735
+##  contrast      ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 1.047 0.0266 Inf     0.996     1.100    1   1.790  0.0735
 ## 
 ## Fertilization = 1, Season = 1st:
-##  contrast            ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Medium / High 0.904556610 0.0195140918 Inf 0.867107004 0.943623633    1  -4.650  &lt;.0001
+##  contrast      ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.905 0.0195 Inf     0.867     0.944    1  -4.650  &lt;.0001
 ## 
 ## Fertilization = 2, Season = 1st:
-##  contrast            ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Medium / High 0.866424272 0.0195943595 Inf 0.828858729 0.905692360    1  -6.340  &lt;.0001
+##  contrast      ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.866 0.0196 Inf     0.829     0.906    1  -6.340  &lt;.0001
 ## 
 ## Fertilization = 0, Season = 2nd:
-##  contrast            ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Medium / High 1.000765272 0.0207905478 Inf 0.960834996 1.042354967    1   0.037  0.9706
+##  contrast      ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 1.001 0.0208 Inf     0.961     1.042    1   0.037  0.9706
 ## 
 ## Fertilization = 1, Season = 2nd:
-##  contrast            ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Medium / High 0.853284841 0.0183437029 Inf 0.818078753 0.890006025    1  -7.380  &lt;.0001
+##  contrast      ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.853 0.0183 Inf     0.818     0.890    1  -7.380  &lt;.0001
 ## 
 ## Fertilization = 2, Season = 2nd:
-##  contrast            ratio           SE  df   asymp.LCL   asymp.UCL null z.ratio p.value
-##  Medium / High 0.878686888 0.0211184461 Inf 0.838255256 0.921068662    1  -5.381  &lt;.0001
+##  contrast      ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  Medium / High 0.879 0.0211 Inf     0.838     0.921    1  -5.381  &lt;.0001
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
@@ -758,28 +748,28 @@ class="section level2">
 ## 
 ## $`simple contrasts for Season`
 ## Fertilization = 0, Light = High:
-##  contrast       ratio           SE  df   asymp.LCL  asymp.UCL null z.ratio p.value
-##  2nd / 1st 1.03203020 0.0246469714 Inf 0.984836168 1.08148580    1   1.320  0.1868
+##  contrast  ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.032 0.0246 Inf     0.985      1.08    1   1.320  0.1868
 ## 
 ## Fertilization = 1, Light = High:
-##  contrast       ratio           SE  df   asymp.LCL  asymp.UCL null z.ratio p.value
-##  2nd / 1st 1.07693632 0.0232287625 Inf 1.032357701 1.12343990    1   3.436  0.0006
+##  contrast  ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.077 0.0232 Inf     1.032      1.12    1   3.436  0.0006
 ## 
 ## Fertilization = 2, Light = High:
-##  contrast       ratio           SE  df   asymp.LCL  asymp.UCL null z.ratio p.value
-##  2nd / 1st 1.03077616 0.0232367558 Inf 0.986224424 1.07734047    1   1.345  0.1787
+##  contrast  ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.031 0.0232 Inf     0.986      1.08    1   1.345  0.1787
 ## 
 ## Fertilization = 0, Light = Medium:
-##  contrast       ratio           SE  df   asymp.LCL  asymp.UCL null z.ratio p.value
-##  2nd / 1st 0.98685766 0.0222469719 Inf 0.944203646 1.03143855    1  -0.587  0.5573
+##  contrast  ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 0.987 0.0222 Inf     0.944      1.03    1  -0.587  0.5573
 ## 
 ## Fertilization = 1, Light = Medium:
-##  contrast       ratio           SE  df   asymp.LCL  asymp.UCL null z.ratio p.value
-##  2nd / 1st 1.01589378 0.0218351971 Inf 0.973986486 1.05960420    1   0.734  0.4632
+##  contrast  ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.016 0.0218 Inf     0.974      1.06    1   0.734  0.4632
 ## 
 ## Fertilization = 2, Light = Medium:
-##  contrast       ratio           SE  df   asymp.LCL  asymp.UCL null z.ratio p.value
-##  2nd / 1st 1.04536487 0.0251925577 Inf 0.997136335 1.09592607    1   1.841  0.0656
+##  contrast  ratio     SE  df asymp.LCL asymp.UCL null z.ratio p.value
+##  2nd / 1st 1.045 0.0252 Inf     0.997      1.10    1   1.841  0.0656
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 

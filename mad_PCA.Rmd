@@ -173,8 +173,14 @@ biplot_madPCA <- fviz_pca_biplot(pca_result,
   scale_x_continuous(limits = c(-8, 8), breaks = seq(-8, 8, 8))+
   scale_y_continuous(limits = c(-5, 5), breaks = seq(-5, 5, 5))
 
+# Abre un dispositivo TIFF
+tiff("biplot_madPCA.tiff", units = "cm", width = 42, height = 28, res = 300)
+
 # Mostrar el biplot
 print(biplot_madPCA)
 # rmarkdown::render("mad_PCA.Rmd", output_format = "pdf_document")
+
+# Cierra el dispositivo gráfico
+dev.off()
 
 ```
