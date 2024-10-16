@@ -496,7 +496,6 @@ summary(rpt_PSS_PSF)
 
 ```
 
-
 # Análisis multivariado
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -727,7 +726,7 @@ fviz_pca_ind(pca_result,
              pointsize = 4,
              label = "none") +
   labs(title = "PCA - Fenotipos")+
-    theme(legend.position = 'bottom')+
+    theme(legend.position = 'none')+
   coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
 
 # Visualización de las variables activas y suplementarias
@@ -919,8 +918,6 @@ biplot_sites_repro <- fviz_pca_biplot(pca_result,
   
 # Mostrar el gráfico
 print(biplot_sites_repro)
-
-
 
 ```
 

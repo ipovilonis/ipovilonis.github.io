@@ -1247,6 +1247,7 @@ Las barras representan el error estándar.
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(readxl)
 datos<-read_excel("database.xlsx",sheet="II asociated")
 datos[is.na(datos)] <-  0
 
@@ -1261,7 +1262,7 @@ datosm<-datos[,-c(1:2)]
 # datosm<-as.data.frame(datosm)
 rownames(datosm)<-datos$Censo
 # mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
-mat.b<-vegdist(datosm, method = "bray", diag = T, binary = F)
+mat.b<-vegdist(datosm, method = "euclidean", diag = T, binary = F)
 
 ```
 
@@ -1294,10 +1295,23 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(factoextra)
 dendro<-fviz_dend(x = dendro.ward, cex = 2, lwd = 0.5, k = 3,
 # Manually selected colors
-          k_colors = c("palegreen4","burlywood2","coral1"),
+          k_colors = c("coral4","burlywood3","palegreen4"),
           rect = TRUE, 
-          rect_border = "gray", 
-          rect_fill = FALSE)
+          rect_border = "black",
+          rect_lty = 5,
+          rect_fill = FALSE)+
+  theme_classic()+
+  labs(title = "", x = "Censuses", y = "Height") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        text = element_text(size = 38, color = 'black'),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.line.x = element_blank(),
+        axis.title.y = element_text(color = "black"), # Color del título del eje y
+        axis.text.y = element_text(color = "black"), # Color de los números del eje y
+        axis.line.y = element_line(color = "black")) +  # Color del eje y
+  scale_y_continuous(limits = c(-1, 4))
 
 # Circular
 # Circ = fviz_dend(dendro.ward, cex = 0.8, lwd = 0.8, k = 3,
@@ -1307,6 +1321,7 @@ dendro<-fviz_dend(x = dendro.ward, cex = 2, lwd = 0.5, k = 3,
                  # rect_fill = TRUE,
                  # type = "circular")
 # Circ
+
 
 ```
 
@@ -1472,12 +1487,23 @@ library(factoextra)
 
 cluster_dend<-fviz_dend(x = dendro.wardb, cex = 1.5, lwd = 1, k = 3,
 # Manually selected colors
-          k_colors = c("coral4","burlywood2","palegreen4"),
+          k_colors = c("coral4","burlywood3","palegreen4"),
           rect = TRUE, 
-          rect_border = "gray4", 
+          rect_border = "black",
+          rect_lty = 5,
           rect_fill = FALSE)+
-  scale_y_continuous(breaks = 0:4, labels = 0:4)+
-  theme(axis.text.y = element_text(size = 20))
+  theme_classic()+
+  labs(title = "", x = "Censuses", y = "Height") +
+  theme(legend.position = "bottom",
+        legend.title = element_blank(),
+        text = element_text(size = 38, color = 'black'),
+        axis.text.x = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.line.x = element_blank(),
+        axis.title.y = element_text(color = "black"), # Color del título del eje y
+        axis.text.y = element_text(color = "black"), # Color de los números del eje y
+        axis.line.y = element_line(color = "black")) +  # Color del eje y
+  scale_y_continuous(limits = c(-1, 3))
 cluster_dend
 
 
@@ -1493,6 +1519,17 @@ cluster_dend
 #   theme(axis.text.y = element_text(size = 20))
 # dev.off()
 
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cerrar todos los dispositivos gráficos abiertos
+# dev.off()
+
+# # Guardar el gráfico como PNG con alta resolución
+# ggsave("cluster_dend.tiff", plot = cluster_dend, device = "tiff", width = 18, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1513,7 +1550,7 @@ names(grp)<-(datos$Censo)
 #mrpp
 library(vegan)
 library(lattice)
-ubajay.mrpp<-mrpp(datosm, grp, permutations = 999, distance = "bray", weight.type = 1) 
+ubajay.mrpp<-mrpp(datosm, grp, permutations = 999, distance = "mahalanobis", weight.type = 1) 
 ubajay.mrpp
 
 ```
@@ -1566,7 +1603,7 @@ ggPCoA<-ggplot(df.todo, aes(-X1, X2))+
   geom_vline(xintercept=0, col="black")+
   geom_point(size=8,aes(col=REG, pch=as.factor(REG)))+
   theme_classic()+
-  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_color_manual(values = c("coral4","burlywood3","palegreen4"))+
   scale_shape_manual(values=c(16,15,17))+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
@@ -1626,7 +1663,16 @@ ggPCoA
 ```
 Se observa un ordenamiento muy marcado de las poblaciones en concordancia con los resultados anteriores. Los dos ejes principales explican un 27.19% de la variación total de los datos.
 
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+# Cerrar todos los dispositivos gráficos abiertos
+# dev.off()
+
+# Guardar el gráfico como PNG con alta resolución
+# ggsave("ggPCoA.tiff", plot = ggPCoA, device = "tiff", width = 12, height = 12, units = "in", dpi = 300)
+
+```
 
 ```{r, echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
 
@@ -1638,7 +1684,7 @@ Se observa un ordenamiento muy marcado de las poblaciones en concordancia con lo
 ## Base de datos
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE)
-
+library(readxl)
 data_disc<-read_excel("database.xlsx",sheet="II discriminant")
 
 data_disc$census<-as.factor(data_disc$census)
@@ -1646,7 +1692,7 @@ data_disc$axis_1<-as.numeric(data_disc$axis_1)
 data_disc$axis_2<-as.numeric(data_disc$axis_2) 
 data_disc$site <- factor(data_disc$site,
                    levels = c("CONCORDIA" ,"PALMAR" ,"GUALEGUAYCHU"),
-                   labels = c("Concordia" ,"PN El Palmar" ,"Gualeguaychu"))
+                   labels = c("Concordia" ,"NP El Palmar" ,"Gualeguaychú"))
 data_disc$species<-as.factor(data_disc$species)
 ```
 
@@ -1661,12 +1707,13 @@ data_disc$species<-as.factor(data_disc$species)
 
 ```{r , echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
 
+library(ggplot2)
 ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
   geom_hline(yintercept=0, col="black")+
   geom_vline(xintercept=0, col="black")+
   geom_point(size=8,aes(col=site, pch=(site)))+
   theme_classic()+
-  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
+  scale_color_manual(values = c("coral4","burlywood3","palegreen4"))+
   scale_shape_manual(values = c(16,15,17))+
   theme(panel.grid.major.y = element_blank())+
   theme(panel.grid.major.x = element_blank())+
@@ -1676,7 +1723,7 @@ ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
   theme(legend.direction = "horizontal")+
   theme(legend.position = "bottom")+
   theme(legend.title = element_blank())+
-  labs(x = "Eje canónico 1", y = "Eje canónico 2",colour = "site",pch="site", groups = "site")+
+  labs(x = "Canonical axis 1", y = "Canonical axis 2",colour = "site",pch="site", groups = "site")+
   # stat_ellipse(aes(x=axis_1, y=axis_2,color=site,type = "norm"))+
   geom_text_repel(
     data = data_disc,
@@ -1710,6 +1757,18 @@ ggdisc
 # ggdisc
 
 ```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cerrar todos los dispositivos gráficos abiertos
+# dev.off()
+
+# Guardar el gráfico como .tiff con alta resolución
+# ggsave("ggdisc.tiff", plot = ggdisc, device = "tiff", width = 10, height = 10, units = "in", dpi = 300)
+
+```
+
 
 | Grupo        | CONCORDIA | GUALEGUAYCHU | PALMAR | Total | Error(%) |
 |--------------|----------|--------------|--------|-------|----------|
@@ -1811,6 +1870,10 @@ ggdom_total<-ggplot(data_ahv, aes(x=species, y=abundancy, fill=site)) +
   scale_y_continuous(breaks = seq(0,40, 2), limits = c(0, 40))
 
 ggdom_total
+
+# Guardar el gráfico como PNG con alta resolución
+# ggsave("ggdom_total.tiff", plot = ggdom_total, device = "tiff", width = 14, height = 7, units = "in", dpi = 300)
+
 ```
 
 ```{r, echo=FALSE, include=FALSE}
