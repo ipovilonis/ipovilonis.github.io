@@ -55,10 +55,7 @@ library(lme4)
 
 ```
 
-
 # Argentinian forest
-
-
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -127,7 +124,7 @@ biod$variable<-as.factor(biod$variable)
 
 biod$variable<-factor(biod$variable, levels = levels(biod$variable), labels = levels(biod$variable))
 
-biod$variable<-factor(biod$variable, levels = c("Dominance_D", "Equitatibilidad", "Shannon_H","Evenness_e^H/S", "Margalef"), labels = c("Dominancia","Equitatibilidad","Shannon","Equidad","Margalef"))
+biod$variable<-factor(biod$variable, levels = c("Dominance_D", "Equitatibilidad", "Shannon_H","Evenness_e^H/S", "Margalef"), labels = c("Dominance","Equitability","Shannon","Evenness","Margalef"))
 
 # Add 2 variables
 
@@ -148,29 +145,28 @@ table_anthropic_Ia<- biod3 %>% dplyr::group_by(site) %>%
 
 tsi<-rbind(table_Taxa_S,table_Individuals,table_anthropic_Ia)
 
-tsi$variable<-as.factor(c(rep("Riqueza",3),rep("Abundancia",3),rep("Antrópico",3)))
+tsi$variable<-as.factor(c(rep("Richness",3),rep("Abundance",3),rep("Anthropic",3)))
 
 biod<-rbind(biod, tsi)
 
 letters <- c("ab","a","ab","a","a","b","a","a","a","a","a","a","b","a","a","ab","b","a","ab","b","a","a","ab","b")
 biod<-cbind(biod, letters)
 
-
-
-
 ```
 
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 library(ggplot2)
-gg_bioindex<-ggplot(biod, aes(x=site, y=(Mean), color=site, fill=site)) + 
-  geom_bar(stat="identity", size=.05, color="black") +
-  labs(y="", x= "")+
-  geom_point(size=1, color="black")+
-  # geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),width=.05, color="black")+
-  facet_grid(.~variable)+
-  facet_wrap(~ variable, ncol = 4, scales = "free")+
+library(ggplot2)
+
+gg_bioindex <- ggplot(biod, aes(x = site, y = Mean, color = site, fill = site)) + 
+  geom_bar(stat = "identity", size = 0.05, color = "black") +
+  geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.05, color = "black") +
+  labs(y = "", x = "") +
+  geom_point(size = 1, color = "black") +
+  facet_wrap(~ variable, ncol = 4, scales = "free") +
   theme_classic() +
   theme(
     legend.position = "bottom",
@@ -184,14 +180,25 @@ gg_bioindex<-ggplot(biod, aes(x=site, y=(Mean), color=site, fill=site)) +
     panel.border = element_rect(fill = "transparent"),
     axis.text.x = element_blank(),
     axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
-  )+
-  scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
-  scale_fill_manual(values = c("coral4","burlywood2","palegreen4"))+
-  # scale_y_continuous(breaks=seq(0, 50, 5))+
-  geom_text(aes(label = round(Mean,2)), vjust = 1.1, hjust = -0.1, size=5, color="black", position = position_dodge(width = 0.8))+
-  geom_text(aes(label = letters, group = letters), vjust = 2.5, hjust = -0.8, size = 5, color="black", position = position_dodge(width = 0.8))
+  ) +
+  scale_color_manual(values = c("coral4", "burlywood2", "palegreen4")) +
+  scale_fill_manual(values = c("coral4", "burlywood2", "palegreen4")) +
+  
+  # Ajustar la posición de las etiquetas Mean debajo de las barras de error
+  geom_text(aes(label = round(Mean, 2), y = Mean - sd - 0.6 * sd), 
+            vjust = 0.5, hjust = 0.5, size = 7, color = "black", 
+            position = position_dodge(width = 0.8)) +
+  
+  # Ajustar la posición de las letras debajo de las barras de error
+  geom_text(aes(label = letters, y = Mean - sd - 0.6 * sd), 
+            vjust = 1.5, hjust = 0.5, size = 7, color = "black", 
+            position = position_dodge(width = 0.8))
+
 
 gg_bioindex
+
+# ggsave("gg_bioindex.tiff", plot = gg_bioindex, device = "tiff", width = 12, height = 12, units = "in", dpi = 300)
+
 ```
 
 ## ANOVA BIO INDEX
@@ -1613,7 +1620,7 @@ ggPCoA<-ggplot(df.todo, aes(-X1, X2))+
   theme(legend.direction = "horizontal")+
   theme(legend.position = "bottom")+
   theme(legend.title = element_blank())+
-  labs(x = "Principal coordinate 1 (25.4%)", y = "Principal coordinate 2 (14.9%)",colour = "REG",pch="REG",
+  labs(x = "Principal coordinate 1", y = "Principal coordinate 2",colour = "REG",pch="REG",
                     groups = "REG")+
   stat_ellipse(aes(x=-X1, y=X2,color=REG,type = "norm"))+
   # geom_polygon(data = data_disc, aes(x = axis_1, y = axis_2, group = site, fill = site), alpha = 0.2) +
@@ -1625,10 +1632,10 @@ ggPCoA<-ggplot(df.todo, aes(-X1, X2))+
     box.padding = unit(0.0001, "lines"),
     point.padding = unit(1, "lines"))+
   scale_y_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))+
-  scale_x_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))
+  scale_x_continuous(limits = c(-0.65, 0.6), breaks = seq(-0.6, 0.6, 0.6))
 ggPCoA
 
-# tiff("ggPCoA.tiff", width = 12, height = 8, units = "in", res = 600)
+ggsave("ggPCoA.tiff", plot = ggPCoA, device = "tiff", width = 12, height = 12, units = "in", dpi = 300)
 # ggplot(df.todo, aes(-X1, X2))+
 #   geom_hline(yintercept=0, col="black")+
 #   geom_vline(xintercept=0, col="black")+

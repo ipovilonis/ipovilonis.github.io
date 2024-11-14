@@ -1,0 +1,79 @@
+---
+title: "Índices de madurez"
+---
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear tabla en formato data.frame
+madurez_data <- data.frame(
+  Ripeness_Stage = c("Inmaduro", "Medio Maduro", "Maduro", "Sobre Maduro"),
+  Carotenes_Mean = c(389.3, 771.0, 906.8, 1183.5),
+  Carotenes_SD = c(99.3, 102.4, 62.5, 236.2),
+  Chlorophylls_Mean = c(68.1, 40.52, 18.1, 12.0),
+  Chlorophylls_SD = c(9.9, 6.7, 1.0, 1.7)
+)
+
+madurez_data$Ripeness_Stage <- factor(madurez_data$Ripeness_Stage, levels = c("Inmaduro", "Medio Maduro", "Maduro", "Sobre Maduro"))
+madurez_data$CTC_CL <- madurez_data$Carotenes_Mean/madurez_data$Chlorophylls_Mean
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Definir colores para las etapas de madurez
+# colores <- c("lightgreen", "yellowgreen", "gold", "orange")
+colores<-c("palegreen4", "yellowgreen", "gold", "gold4")
+library(ggplot2)
+
+gg_inmadctccl <- ggplot(data = madurez_data, aes(x = Ripeness_Stage, y = CTC_CL, fill = Ripeness_Stage, color = Ripeness_Stage)) +
+  stat_summary(fun = "mean", size = 0.2, width = 0.4, geom = "bar") +
+  # geom_errorbar(aes(ymin = CTC_CL - 0, ymax = CTC_CL + (Carotenes_SD / Chlorophylls_Mean)), 
+                # width = 0.2, position = position_dodge(0.4)) +
+  scale_fill_manual(values = colores) +
+  scale_color_manual(values = c("black", "black", "black", "black")) +
+  theme_classic() +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = c(0.85, 0.25),
+        legend.background = element_rect(fill = "white")) +
+  theme(legend.position = "none") +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  labs(y = "CTC/CL", x = "")
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+

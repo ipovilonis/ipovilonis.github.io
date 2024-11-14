@@ -1,0 +1,1587 @@
+---
+title: "Variables frutos"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+# Análisis univariado
+
+## Componentes de varianza
+
+## Tabla 6.2. ICC para caracteres físicos de frutos
+
+A continuación se muestran los intervalos de correlación intraclase (ICC) o repetibilidad expresada en proporción de la varianza total explicada por cada nivel de agrupamiento (Año, Población, Individuo) para caracteres físicos de frutos de individuos de *Hexachlamys edulis* muestreados en Entre Ríos, Argentina en noviembre de los años 2019, 2021 y 2022.
+
+Los asteriscos indican diferencias estadísticas significativas (* < 0,05; ** < 0,01; *** < 0,001).
+
+```{r tabla-icc-fisicos, echo=FALSE}
+
+library(knitr)
+
+# Crear tabla de datos con asteriscos como parte de los valores
+tabla_fisicos <- data.frame(
+  Nivel = c("Año", "Población", "Población/individuo", "Residual"),
+  PFF = c("0.6", "5.8*", "26.1***", "67.5"),
+  DPF = c("0.8**", "9.6**", "35.1***", "54.7"),
+  DMAF = c("0.6", "7.7*", "25.8***", "65.9"),
+  DMAF_DPF = c("4.3***", "1.0", "42.1***", "52.5"),
+  L = c("0.6", "18.7***", "16.9***", "63.8"),
+  a = c("13.6***", "14.9***", "21.6***", "49.9"),
+  b = c("0.1", "14.7***", "21.3***", "63.9"),
+  IM = c("9.4***", "40.6***", "32.0***", "18.1"),
+  PEN = c("7.7***", "25.7***", "14.7***", "59.1")
+)
+
+# Mostrar tabla con kable
+kable(tabla_fisicos, caption = "ICC para caracteres físicos de frutos de *Hexachlamys edulis*", 
+      format = "html", digits = 2, align = "c", 
+      col.names = c("Nivel", "PFF", "DPF", "DMAF", "DMAF/DPF", "*L*", "*a*", "*b*", "IM", "PEN"))
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(knitr)
+
+# Crear tabla de datos con asteriscos como parte de los valores
+tabla_quimicos <- data.frame(
+  Nivel = c("Año", "Población", "Población/individuo", "Residual"),
+  CLa = c("7.4***", "32.2***", "29.3***", "31.1"),
+  CLb = c("7.5***", "32.1***", "29.3***", "31.2"),
+  CTC = c("10.6***", "0.001", "36.8***", "52.6"),
+  ATT = c("35.7***", "8.6*", "15.3***", "40.4"),
+  TA = c("7.0***", "9.1", "32.7***", "51.2"),
+  ATT_TA = c("35.6***", "18.2***", "17.7***", "28.5"),
+  DPPH = c("4.9***", "13.4**", "39.2***", "42.6"),
+  PT = c("4.3***", "14.1**", "41.6***", "40.0")
+)
+
+# Mostrar tabla con kable
+kable(tabla_quimicos, caption = "ICC para caracteres químicos de frutos de *Hexachlamys edulis*", 
+      format = "html", digits = 2, align = "c", 
+      col.names = c("Nivel", "CLa", "CLb", "CTC", "ATT", "TA", "ATT/TA", "DPPH", "PT"))
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+frutos_fisico <- read_excel("database.xlsx", sheet="V fisico")
+
+frutos_fisico$year<-as.factor(frutos_fisico$year)
+frutos_fisico$site<-factor(frutos_fisico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+frutos_fisico$phenotype<-as.factor(frutos_fisico$phenotype)
+frutos_fisico$id<-as.factor(frutos_fisico$id)
+
+frutos_fisico$dedp <- frutos_fisico$de/frutos_fisico$dp
+
+frutos_color <- read_excel("database.xlsx", sheet="V color")
+
+frutos_color$year <- as.factor(frutos_color$year)
+frutos_color$site <- factor(frutos_color$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+frutos_color$phenotype <- as.factor(frutos_color$phenotype)
+frutos_color$mad <- as.factor(frutos_color$mad)
+
+frutos_quimico <- read_excel("database.xlsx", sheet="V varqui")
+
+frutos_quimico$year <- as.factor(frutos_quimico$year)
+frutos_quimico$site <- factor(frutos_quimico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+frutos_quimico$phenotype <- as.factor(frutos_quimico$phenotype)
+frutos_quimico$id <- as.factor(frutos_quimico$id)
+
+frutos_quimico$CTC_CL <- frutos_quimico$caro/(frutos_quimico$cloa+frutos_quimico$clob)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas y gráficos resumen
+
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("pff", "de", "dp", "pen", "PSF", "PSS", "dedp")
+
+# Inicializa listas para almacenar las tablas y gráficos
+tablas_list <- list()
+graficos_list <- list()
+
+library(dplyr)
+library(ggplot2)
+# Define un vector con las etiquetas de las unidades para cada variable
+unidades <- c("pff" = "Peso fresco fruto (g)", 
+              "de" = "Diámetro ecuatorial", 
+              "dp" = "Diámetro polar", 
+              "pen" = "Resistencia a la penetración", 
+              "PSF" = "Peso seco fruto (g)", 
+              "PSS" = "NS/NO",
+              "dedp" = "DAMF/DPF")
+
+# Define los colores a utilizar en los gráficos
+colores <- c("coral1", "burlywood2", "palegreen4")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_fisico %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(n = n(),
+              Mean = mean(get(variable)),
+              sd = sd(get(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list[[variable]] <- get(paste0("Tabla_", variable))
+  
+  # Obtén la unidad correspondiente a la variable actual
+  y_label <- unidades[variable]
+
+  # Crea el gráfico
+  ggplotff <- ggplot(data = tablas_list[[variable]], aes(x = phenotype, y = Mean, fill = site)) +
+    stat_summary(fun = "mean", size = 1, geom = "bar") +
+    geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd),
+                  width = .2, position = position_dodge(.9)) +
+    facet_grid(year ~ .) +
+    labs(x = "", y = y_label) + # Utiliza la etiqueta dinámica para el eje y
+    theme_classic() +
+    theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+    scale_fill_manual(values = colores) +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = 'bottom') +
+    theme(panel.grid.major.y = element_line(color = 'black')) +
+    theme(panel.grid.major.x = element_blank()) +
+    theme(text = element_text(size = 30, color = 'black')) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, color = 'black')) +
+    theme(axis.text.y = element_text(angle = 0, hjust = 1, color = 'black'))
+  
+  # Asigna el gráfico a un objeto dinámico
+  assign(paste0("frutos_gg_", variable), ggplotff)
+  
+  # Agrega el gráfico a la lista
+  graficos_list[[variable]] <- get(paste0("frutos_gg_", variable))
+}
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("color_L", "color_a", "color_b")
+
+library(dplyr)
+library(ggplot2)
+
+# Define un vector con las etiquetas de las unidades para cada variable
+unidades <- c("color_L" = "*L", 
+              "color_a" = "*a",
+              "color_b" = "*b")
+
+# Define los colores a utilizar en los gráficos
+colores <- c("coral1", "burlywood2", "palegreen4")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_color %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(n = n(),
+              Mean = mean(get(variable)),
+              sd = sd(get(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list[[variable]] <- get(paste0("Tabla_", variable))
+  
+  # Obtén la unidad correspondiente a la variable actual
+  y_label <- unidades[variable]
+
+  # Crea el gráfico
+  ggplotff <- ggplot(data = tablas_list[[variable]], aes(x = phenotype, y = Mean, fill = site)) +
+    stat_summary(fun = "mean", size = 1, geom = "bar") +
+    geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd),
+                  width = .2, position = position_dodge(.9)) +
+    facet_grid(year ~ .) +
+    labs(x = "", y = y_label) + # Utiliza la etiqueta dinámica para el eje y
+    theme_classic() +
+    theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+    scale_fill_manual(values = colores) +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = 'bottom') +
+    theme(panel.grid.major.y = element_line(color = 'black')) +
+    theme(panel.grid.major.x = element_blank()) +
+    theme(text = element_text(size = 30, color = 'black')) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, color = 'black')) +
+    theme(axis.text.y = element_text(angle = 0, hjust = 1, color = 'black'))
+  
+  # Asigna el gráfico a un objeto dinámico
+  assign(paste0("frutos_gg_", variable), ggplotff)
+  
+  # Agrega el gráfico a la lista
+  graficos_list[[variable]] <- get(paste0("frutos_gg_", variable))
+}
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "aao50", "aao100", "aao250","CTC_CL")
+
+library(dplyr)
+library(ggplot2)
+
+# Define un vector con las etiquetas de las unidades para cada variable
+unidades <- c("fen" = "Fenoles", 
+              "cloa" = "Clorofila a",
+              "clob" = "Clorofila b",
+              "caro" = "Carotenoides",
+              "indmad" = "Madurez",
+              "att" = "ATT",
+              "ratio" = "ATT/SS",
+              "brix" = "SS",
+              "aao25" = "aao25",
+              "aao50" = "aao50",
+              "aao100" = "aao100",
+              "aao250" = "aao250",
+              "CTC_CL" = "CTC/CL")
+
+# Define los colores a utilizar en los gráficos
+colores <- c("coral1", "burlywood2", "palegreen4")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_quimico %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(n = n(),
+              Mean = mean(get(variable)),
+              sd = sd(get(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list[[variable]] <- get(paste0("Tabla_", variable))
+  
+  # Obtén la unidad correspondiente a la variable actual
+  y_label <- unidades[variable]
+
+  # Crea el gráfico
+  ggplotff <- ggplot(data = tablas_list[[variable]], aes(x = phenotype, y = Mean, fill = site)) +
+    stat_summary(fun = "mean", size = 1, geom = "bar") +
+    geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd),
+                  width = .2, position = position_dodge(.9)) +
+    facet_grid(year ~ .) +
+    labs(x = "", y = y_label) + # Utiliza la etiqueta dinámica para el eje y
+    theme_classic() +
+    theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+    scale_fill_manual(values = colores) +
+    theme(legend.title = element_blank()) +
+    theme(legend.position = 'bottom') +
+    theme(panel.grid.major.y = element_line(color = 'black')) +
+    theme(panel.grid.major.x = element_blank()) +
+    theme(text = element_text(size = 30, color = 'black')) +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1, color = 'black')) +
+    theme(axis.text.y = element_text(angle = 0, hjust = 1, color = 'black'))
+  
+  # Asigna el gráfico a un objeto dinámico
+  assign(paste0("frutos_gg_", variable), ggplotff)
+  
+  # Agrega el gráfico a la lista
+  graficos_list[[variable]] <- get(paste0("frutos_gg_", variable))
+}
+
+```
+
+## PFF
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$pff
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_pff<-rptGaussian(pff ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_fisico, nboot=3, npermut=3)
+rpt_pff
+
+```
+
+## DPF
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$dp
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_dp<-rptGaussian(dp ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_fisico, nboot=3, npermut=3)
+rpt_dp
+
+```
+
+## DMAF
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$de
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_de<-rptGaussian(de ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_fisico, nboot=3, npermut=3)
+rpt_de
+
+```
+
+## DMAF_DPF
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$dedp
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_dedp<-rptGaussian(dedp ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_fisico, nboot=3, npermut=3)
+rpt_dedp
+
+```
+
+## *L
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$color_L
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_L<-rptGaussian(color_L ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_color, nboot=3, npermut=3)
+rpt_L
+
+```
+
+## *a
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$color_a
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_a<-rptGaussian(color_a ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_color, nboot=3, npermut=3)
+rpt_a
+
+```
+
+## *b
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$color_b
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_b<-rptGaussian(color_b ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_color, nboot=3, npermut=3)
+rpt_b
+
+```
+
+## IM
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$indmad
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_indmad<-rptGaussian(indmad ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_indmad
+
+```
+
+## PEN
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$pen
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_pen<-rptGaussian(pen ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_fisico, nboot=3, npermut=3)
+rpt_pen
+
+```
+
+## CLa
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$cloa
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_cloa<-rptGaussian(cloa ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_cloa
+
+```
+
+## CLb
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$clob
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_CLb<-rptGaussian(clob ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_CLb
+
+```
+
+## CTC
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$caro
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_CTC<-rptGaussian(caro ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_CTC
+
+```
+
+## ATT
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$att
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_ATT<-rptGaussian(att ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_ATT
+
+```
+
+## TA
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$brix
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_TA<-rptGaussian(brix ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_TA
+
+```
+
+## TA/ATT
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$ratio
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_ATT_TA<-rptGaussian(ratio ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_ATT_TA
+```
+
+## DPPH
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$aao25
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_aao25<-rptGaussian(aao25 ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_aao25
+```
+
+## PT
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$fen
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_PT<-rptGaussian(fen ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_PT
+```
+
+## CTC/CL
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$CTC_CL
+
+```
+Resumen
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(rptR)
+library(pbapply)
+
+rpt_CTC_CL<-rptGaussian(CTC_CL ~ (1|year) + (1|site) + (1|phenotype),
+                    grname=c("year", "site", "phenotype", "Residual"),
+                    data=frutos_quimico, nboot=3, npermut=3)
+rpt_CTC_CL
+```
+
+# Análisis multivariado
+
+## Análisis de variabilidad completa
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas y gráficos resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("pff", "de", "dp", "pen", "PSF", "PSS","dedp")
+
+# Inicializa listas para almacenar las tablas y gráficos
+tablas_list_multivar <- list()
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_fisico %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("color_L", "color_a", "color_b")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_color %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "aao50", "aao100", "aao250", "CTC_CL")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_quimico %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(purrr)
+tabla_combinada <- reduce(tablas_list_multivar, full_join, by = c("year", "site", "phenotype"))
+
+tabla_combinada$indmad[is.na(tabla_combinada$indmad)] <- 0
+
+library(dplyr)
+
+tabla_combinada <- tabla_combinada %>%
+  dplyr::mutate(indmad = case_when(
+    year == "2019" & site == "Concordia" & phenotype == "190" & indmad == 0 ~ 0.444,
+    TRUE ~ indmad
+  ))
+
+tabla_combinada <- tabla_combinada %>%
+  dplyr::mutate(indmad = case_when(
+    year == "2021" & site == "Concordia" & phenotype == "190"  & indmad == 0 ~ 0.222,
+    TRUE ~ indmad
+  ))
+
+tabla_combinada <- tabla_combinada %>%
+  dplyr::mutate(indmad = case_when(
+    year == "2021" & site == "PN El Palmar" & phenotype == "281"  & indmad == 0 ~ 0.333,
+    TRUE ~ indmad
+  ))
+
+library(dplyr)
+tabla_combinada_ordenada <- tabla_combinada %>%
+  dplyr::arrange(year, site, phenotype)
+
+# Usando dplyr y stringr para crear la nueva columna
+library(dplyr)
+library(stringr)
+
+# Crear la nueva columna 'year*site' concatenando los valores de 'year' y 'site'
+tabla_combinada_ordenada <- tabla_combinada_ordenada %>%
+  mutate(`year.site` = str_c(site, year, sep = "."))
+
+tabla_combinada_ordenada$year.site <- as.factor(tabla_combinada_ordenada$year.site)
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tabla_combinada2 <- tabla_combinada_ordenada[,-c(1:3, 23:25, 27)]
+
+# Nombres de las variables
+nombres_variables <- c("pff", "de", "dp", "pen", "PSF", "PSS", "dedp","color_L", "color_a", "color_b","fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "CTC/CL")
+colnames(tabla_combinada2) <- nombres_variables
+
+library(missMDA)
+library(doParallel)
+
+# Estimar el número óptimo de componentes
+# ncp_optimo <- estim_ncpPCA(tabla_combinada2, ncp.max = 17)$ncp
+
+# Imputar valores faltantes usando PCA factorial
+# Probar con el método regularizado
+data_imputed <- imputePCA(tabla_combinada2, ncp = 19, method = "Regularized")
+
+tabla_pca <- (data_imputed$fittedX)
+
+# Estandarizar las columnas numéricas en la tabla
+tabla_pca_estandarizada <- scale(tabla_pca)
+
+tabla_pca_estandarizada <- as.data.frame(tabla_pca_estandarizada)
+
+# Nombres de las variables
+colnames(tabla_pca_estandarizada) <- nombres_variables
+
+tabla_pca_estandarizada$year <- tabla_combinada_ordenada$year
+tabla_pca_estandarizada$site <- tabla_combinada_ordenada$site
+tabla_pca_estandarizada$phenotype <- tabla_combinada_ordenada$phenotype
+tabla_pca_estandarizada$year.site <- tabla_combinada_ordenada$year.site
+tabla_cca_means <- tabla_pca_estandarizada
+
+# Revisar la matriz de correlación antes y después de la imputación
+# cor(tabla_combinada2, use = "complete.obs")
+# cor(data_imputed$fittedX)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tabla_pca <- tabla_cca_means[,-c(24)]
+
+# Nombres de las variables
+nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "TA/ATT", "TA", "DPPH25","CTC/CL","year","site","phenotype")
+colnames(tabla_pca) <- nombres_variables
+
+library(FactoMineR)
+library(factoextra)
+
+pca_result <- PCA(tabla_pca,
+                  quali.sup = c(21:23),  # year, site, phenotype
+                  graph = FALSE,
+                  ncp = 18 )#ncol(tabla_pca) - length(c(20:22))) #19
+
+# tabla_pca <- tabla_pca[,-c(22:24)]
+# pca_result <- prcomp(tabla_pca, center = TRUE, scale. = TRUE)
+
+
+```
+
+Resultado PCA
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+pca_scores <- as.data.frame(pca_result$ind$coord)
+pca_scores$year <- tabla_cca_means$year
+pca_scores$site <- tabla_cca_means$site
+pca_scores$phenotype <- tabla_cca_means$phenotype
+pca_scores$year.site <- tabla_cca_means$year.site
+
+# Ver resumen del PCA
+summary(pca_result)
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Scree plot para ver la varianza explicada por cada Principal component
+# library(factoextra)
+# library(ggplot2)
+# 
+# # Calcular los valores propios del PCA
+# eig_values <- pca_result$eig[, 2]  # Extraer la segunda columna de eigenvalues
+# 
+# # Filtrar solo los valores positivos de las varianzas
+# eig_values <- eig_values[eig_values > 0]
+# 
+# # Crear un data frame para asegurar la consistencia en mapeo
+# eig_df <- data.frame(Comp = factor(1:length(eig_values)), Variance = eig_values)
+# 
+# # Crear el gráfico de barras con etiquetas ajustadas
+# gg_scree_repro <- ggplot(eig_df, aes(x = Comp, y = Variance)) +
+#   geom_bar(stat = "identity", fill = "#FB9B99") +
+#   geom_text(aes(label = round(Variance, 2), vjust = -0.5), size = 12) +
+#   theme_classic() +
+#   labs(title = "Scree Plot",
+#        x = "Componente Principal",
+#        y = "Porcentaje de Varianza [%]") +
+#   theme(text = element_text(size = 32, color = 'black'),
+#         axis.text = element_text(size = 32, color = 'black'),
+#         legend.position = "none") +
+#   scale_y_continuous(limits = c(0, max(eig_values) * 1.1)) +
+#   geom_text(aes(x = Inf, y = Inf, label = "A"), size = 16)
+# 
+# # Mostrar el gráfico
+# print(gg_scree_repro)
+
+
+```
+
+Contribuciones de las variables para CP1
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Obtener las contribuciones de las variables a cada Principal component
+pca_var <- get_pca_var(pca_result)
+
+```
+
+Contribuciones de las variables para CP2
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Ordenar las variables por contribución para Dim.1 (PC1)
+pca_var_dim1 <- pca_var$contrib[, 1] %>% sort(decreasing = TRUE)
+pca_var_dim1
+
+# Ordenar las variables por contribución para Dim.2 (PC2)
+pca_var_dim2 <- pca_var$contrib[, 2] %>% sort(decreasing = TRUE)
+pca_var_dim2
+
+```
+
+Contribución acumulada de cada variable a CP1 y CP2
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Asegurarse de que los nombres de las variables coincidan entre los dos vectores
+common_names <- intersect(names(pca_var_dim1), names(pca_var_dim2))
+
+# Filtrar solo las variables comunes
+pca_var_dim1_filtered <- pca_var_dim1[common_names]
+pca_var_dim2_filtered <- pca_var_dim2[common_names]
+# Sumar las contribuciones de cada variable en los dos componentes
+combined_contributions <- pca_var_dim1_filtered + pca_var_dim2_filtered
+
+# Ordenar las variables por su contribución acumulada
+sorted_contributions <- sort(combined_contributions, decreasing = TRUE)
+
+# Mostrar el resultado
+sorted_contributions
+
+```
+
+Proporción de contribución de cada variable a PC1, PC2 y PC3
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Suponiendo que tienes el objeto pca_result con la salida de tu análisis PCA
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Extraer las rotaciones (cargas) de los componentes principales
+loadings <- as.data.frame(pca_result$var$coord)
+
+# Seleccionar solo las cargas para PC1 y PC2
+loadings <- loadings %>%
+  dplyr::select(Dim.1, Dim.2, Dim.3)
+
+# Calcular la proporción de contribución para cada parámetro en cada componente
+loadings <- loadings %>%
+  dplyr::mutate(Variable = rownames(loadings),
+         PC1 = abs(Dim.1) / sum(abs(Dim.1)),
+         PC2 = abs(Dim.2) / sum(abs(Dim.2)),
+         PC3 = abs(Dim.3) / sum(abs(Dim.3)))
+
+# Convertir los datos a formato largo (long format)
+loadings_long <- loadings %>%
+  pivot_longer(cols = starts_with("PC"),
+               names_to = "Component",
+               values_to = "Contribution")
+
+paleta_21_colores <- c("#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", 
+                       "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF", 
+                       "#AEC7E8", "#FFBB78", "#98DF8A", "#FF9896", "#C5B0D5", 
+                       "#C49C94", "#F7B6D2", "#C7C7C7", "#DBDB8D", "#9EDAE5", 
+                       "#393B41", "#393A88")
+
+# Crear el gráfico de barras apiladas
+gg_bar_agr <- ggplot(loadings_long, aes(x = Component, y = Contribution * 100, fill = Variable)) +
+  geom_bar(stat = "identity", size = 5) +
+  geom_text(aes(label = paste0(round(Contribution * 100, 1), "%")), 
+            position = position_stack(vjust = 0.5), 
+            size = 6, color = "black") +
+  scale_fill_manual(values = paleta_21_colores) +
+  labs(title = "",
+       x = "Componente principal",
+       y = "Cargas (loadings)") +
+  theme_classic() +
+  theme(text = element_text(size = 32, color = 'black'),
+        legend.position = "right",
+        legend.title = element_blank()) +
+  theme(axis.text = element_text(color = 'black')) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  geom_text(aes(x = 2.5, y = 95, label = "B"), size = 16, hjust = 0.5, vjust = 0.5) 
+
+gg_bar_agr
+
+```
+
+Biplots de PCA: CP1 VS CP2
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(dplyr)
+# library(ggplot2)
+# library(factoextra)
+# 
+# # Suponiendo que pca_scores tiene las columnas Dim.1, Dim.2, y year.site
+# # Crear un dataframe para los contornos (convex hulls)
+# # hulls <- pca_scores %>%
+# #   group_by(phenotype) %>%
+# #   slice(chull(Dim.1, Dim.2)) # Calcula el contorno convexo
+# 
+# # Crear el gráfico PCA
+# biplot_year.site_frutos <- fviz_pca_biplot(pca_result, 
+#                                            axes = c(1, 2), # Especifica CP1 y CP2
+#                                            geom.ind = "point", 
+#                                            label = "var", # Etiquetas solo para las variables
+#                                            addEllipses = FALSE,
+#                                            labelsize = 6, 
+#                                            col.var = "black", 
+#                                            repel = TRUE) +
+#   # Añadir los puntos de los fenotipos
+#   geom_point(data = pca_scores, 
+#              aes(x = Dim.1, y = Dim.2, color = year.site), size = 5) + 
+#   # Añadir los polígonos que representan el perímetro de los grupos
+#   # geom_polygon(data = hulls, 
+#   #              aes(x = Dim.1, y = Dim.2, fill = year.site), 
+#   #              alpha = 0.2, color = "black") +  # Color del perímetro
+#   scale_color_manual(values = c("coral1", "red", "orange", "palegreen4", "green","yellowgreen","burlywood2","burlywood4","yellow"),
+#                      name = NULL) +
+#   theme_classic() +
+#   labs(title = "", x = "PC1 (66,3 %)", y = "PC2 (33,74 %)") +
+#   theme(legend.position = "bottom",
+#         text = element_text(size = 26, color = 'black'),
+#         axis.text = element_text(color = 'black')) +
+#   geom_text(aes(x = Inf, y = Inf, label = "D"), 
+#             hjust = 1.2, vjust = 1.2, size = 13, color = "black", fontface = "bold")+
+#   coord_cartesian(xlim = c(-10, 10), ylim = c(-10, 10))
+# 
+# # Mostrar el gráfico
+# print(biplot_year.site_frutos)
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar el paquete ggrepel para evitar la superposición de las etiquetas
+library(ggrepel)
+library(ggplot2)
+library(factoextra)
+
+# Crear el gráfico de PCA
+gg_pca_fruits <- fviz_pca_biplot(pca_result, 
+                                geom.ind = "point",           # Puntos para los individuos
+                                pointshape = 21,              # Forma de los puntos
+                                pointsize = 6,                # Tamaño de los puntos
+                                geom.var = c("point", "text"), # Puntos y texto para las variables
+                                labelsize = 10,               # Tamaño del texto
+                                fill.ind = tabla_pca$year, # Colorear los individuos por año
+                                col.ind = "black",            # Color del borde de los puntos
+                                repel = TRUE,                 # Evitar superposición de etiquetas
+                                addEllipses = FALSE,          # No agregar elipses
+                                label = "var",                # Etiquetar las variables
+                                col.var = "black", # Color de las variables basado en cos2
+                                arrows = TRUE) + 
+  # Colorear los puntos por year
+  scale_fill_manual(values = c("2019" = "#f7db20", "2021" = "#07c22c", "2022" = "#522DAD"),
+                    name = NULL) +
+  
+  # Añadir título y etiquetas de ejes
+  labs(title = "", 
+       x = "Componente Principal 1 (35,7 %)", 
+       y = "Componente Principal 2 (18,2 %)") +
+  
+  # Personalizar el tema del gráfico
+    theme_classic() +
+  theme(legend.position = "bottom",
+        text = element_text(size = 32, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  # Añadir un título o marcador en el gráfico
+  geom_text(aes(x = Inf, y = Inf, label = ""), 
+            hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
+  # Limitar los ejes para que los vectores sean visibles
+  coord_cartesian(xlim = c(-6, 6), ylim = c(-6, 6))
+
+# Mostrar el gráfico
+print(gg_pca_fruits)
+
+# # Cerrar todos los dispositivos gráficos abiertos
+# dev.off()
+# 
+# Guardar el gráfico como PNG con alta resolución
+# ggsave("gg_pca_fruits.tiff", plot = gg_pca_fruits, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar el paquete ggrepel para evitar la superposición de las etiquetas
+library(ggrepel)
+library(ggplot2)
+library(factoextra)
+
+# Crear el gráfico de PCA
+gg_pca_fruits_site <- fviz_pca_biplot(pca_result, 
+                                geom.ind = "point",           # Puntos para los individuos
+                                pointshape = 21,              # Forma de los puntos
+                                pointsize = 6,                # Tamaño de los puntos
+                                geom.var = c("point", "text"), # Puntos y texto para las variables
+                                labelsize = 10,               # Tamaño del texto
+                                fill.ind = tabla_pca$site, # Colorear los individuos por año
+                                col.ind = "black",            # Color del borde de los puntos
+                                repel = TRUE,                 # Evitar superposición de etiquetas
+                                addEllipses = FALSE,          # No agregar elipses
+                                label = "var",                # Etiquetar las variables
+                                col.var = "black", # Color de las variables basado en cos2
+                                arrows = TRUE) + 
+  # Colorear los puntos por year
+  scale_fill_manual(values = c("coral1", "burlywood2", "palegreen4"),
+                    name = NULL) +
+  
+  # Añadir título y etiquetas de ejes
+  labs(title = "", 
+       x = "Componente Principal 1 (35,7 %)", 
+       y = "Componente Principal 2 (18,2 %)") +
+  
+  # Personalizar el tema del gráfico
+    theme_classic() +
+  theme(legend.position = "bottom",
+        text = element_text(size = 32, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  # Añadir un título o marcador en el gráfico
+  geom_text(aes(x = Inf, y = Inf, label = ""), 
+            hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
+  # Limitar los ejes para que los vectores sean visibles
+  coord_cartesian(xlim = c(-6, 6), ylim = c(-6, 6))
+
+# Mostrar el gráfico
+print(gg_pca_fruits_site)
+
+# # Cerrar todos los dispositivos gráficos abiertos
+# dev.off()
+# 
+# # Guardar el gráfico como PNG con alta resolución
+# ggsave("gg_pca_fruits_site.tiff", plot = gg_pca_fruits_site, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
+
+```
+
+Triplot:
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+pca_result <- prcomp(tabla_pca[,-c(21:23)], center = TRUE, scale. = TRUE)
+
+pca_scores <- as.data.frame(pca_result$x[,c(1:3)])
+pca_scores$site <- tabla_pca$site
+pca_scores$phenotype <- tabla_pca$phenotype
+
+
+library(plotly)
+
+# Crear el gráfico 3D para las observaciones coloreadas según sitio
+triplot_frutos1 <- plot_ly(data = pca_scores, 
+                    x = ~PC1, y = ~PC2, z = ~PC3, 
+                    type = 'scatter3d', 
+                    mode = 'markers',
+                    marker = list(size = 10),
+                    color = ~site, 
+                    colors = c("coral1", "burlywood2", "palegreen4"))
+
+# Personalizar el diseño del gráfico
+triplot_frutos <- triplot_frutos1 %>% layout(scene = list(xaxis = list(title = 'PC1'),
+                                             yaxis = list(title = 'PC2'),
+                                             zaxis = list(title = 'PC3')),
+                                title = "PCA: Componentes Principales 1, 2 y 3",
+                                legend = list(title = list(text = "Sitios")))
+
+# Mostrar el gráfico
+triplot_frutos
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+## Heatmap
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(Hmisc)
+library(ggcorrplot)
+library(corrplot)
+
+datos <- tabla_combinada2
+datos <- na.omit(datos)
+# Nombres de las variables
+nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "TA/ATT", "TA", "DPPH25", "CTC/CL","year","site","phenotype")
+colnames(datos) <- nombres_variables[-c(23:26)]
+
+# Calculamos la correlación de Spearman y los p-valores
+resultado_corr <- rcorr(as.matrix(datos), type = "spearman")
+
+# Calcula la matriz de correlación
+matriz_corr <- cor(datos, use = "pairwise.complete.obs") # Asegúrate de que 'datos' tiene el formato correcto
+p_valores <- cor.mtest(datos, conf.level = 0.95)$p  # Esto también debe coincidir con 'datos'
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+# # Paquetes necesarios
+# library(corrplot)
+# 
+# # Matriz de correlación (matriz_corr) y matriz de p-valores (p_valores) ya creadas
+# 
+# # Graficar la matriz de correlación, destacando los valores significativos con asteriscos
+# heatmap <- corrplot(matriz_corr, 
+#          method = "ellipse",      # Estilo de las formas, como en el gráfico
+#          type = "lower",          # Mostrar solo la mitad inferior de la matriz
+#          p.mat = p_valores,       # Matriz de p-valores para mostrar significancia
+#          sig.level = c(0.001, 0.01, 0.05),  # Niveles de significancia
+#          insig = "label_sig",     # Mostrar los asteriscos en los valores significativos
+#          pch.cex = 0.8,           # Tamaño de los asteriscos
+#          pch.col = "red",         # Color de los asteriscos
+#          addCoef.col = "black",   # Añadir valores numéricos (correlaciones)
+#          diag = FALSE,            # No mostrar la diagonal con las correlaciones 1.00
+#          tl.col = "black",        # Color de las etiquetas
+#          tl.srt = 45,             # Rotar las etiquetas para mejorar la legibilidad
+#          tl.pos = "n",            # Posicionar etiquetas en la diagonal
+#          tl.cex = 1.1,            # Tamaño de las etiquetas
+#          tl.font = 2,             # Negrita en las etiquetas
+#          number.cex = 0.9,        # Tamaño de los valores numéricos de correlación
+#          number.font = 1,         # Fuente normal para los valores de correlación
+#          cl.cex = 1.0,            # Tamaño de la barra de colores
+#          cl.pos = "b",            # Mostrar la barra de colores en la parte inferior
+#          mar = c(0, 0, 0, 0))     # Márgenes ajustados para que no se superpongan
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Abre un dispositivo TIFF
+tiff("heatmap_frutos.tiff", units = "cm", width = 32, height = 24, res = 300)
+
+corrplot(matriz_corr, 
+         method = "ellipse",      # Mostrar elipses en la parte superior
+         type = "upper",          # Solo parte superior
+         addCoef.col = "black",   # Añadir valores numéricos de correlación
+         order = "AOE",           # Ordenar por ángulo
+         tl.col = "black",        # Color de las etiquetas
+         tl.pos = "d",            # Etiquetas en diagonal
+         tl.srt = 90)             # Inclinación de las etiquetas a 45 grados
+
+# Cerrar el dispositivo de gráficos
+dev.off()
+
+```
+
+![Heatmap de correlación](heatmap_frutos.tiff)
+
+## Selección de fenotipos superiores
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tabla_combinada2 <- tabla_combinada_ordenada[,-c(1:3,27)]
+
+# Nombres de las variables
+nombres_variables <- c("pff", "de", "dp", "pen", "PSF", "PSS", "dedp", "color_L", "color_a", "color_b","fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "aao50", "aao100", "aao250","CTC_CL")
+colnames(tabla_combinada2) <- nombres_variables
+
+# Nombres de las variables
+colnames(tabla_combinada2) <- nombres_variables
+
+tabla_combinada2$year <- tabla_combinada_ordenada$year
+tabla_combinada2$site <- tabla_combinada_ordenada$site
+tabla_combinada2$phenotype <- tabla_combinada_ordenada$phenotype
+tabla_combinada2$year.site <- tabla_combinada_ordenada$year.site
+
+# Filtrar filas donde indmad es mayor o igual a 0.25
+library(dplyr)
+tabla_combinada2_filtrada <- tabla_combinada_ordenada %>%
+  dplyr::filter(indmad >= 0.25)
+
+# Agrupar por phenotype y resumir con la media de cada columna
+tabla_combinada2_resumida <- tabla_combinada2_filtrada %>%
+  dplyr::group_by(site, phenotype) %>%
+  dplyr::summarise(across(everything(), mean, na.rm = TRUE)) 
+
+tabla_combinada2_filtrada_pca <- tabla_combinada2_resumida[,-c(1:3,17,23:25,27)]
+
+library(missMDA)
+library(doParallel)
+# Imputar valores faltantes usando PCA factorial
+data_imputed <- imputePCA(tabla_combinada2_filtrada_pca, ncp = 18)
+
+tabla_pca <- (data_imputed$fittedX)
+
+# Estandarizar las columnas numéricas en la tabla
+tabla_pca_estandarizada <- scale(tabla_pca)
+
+tabla_pca_estandarizada <- as.data.frame(tabla_pca_estandarizada)
+
+tabla_cca_means <- tabla_pca_estandarizada
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tabla_pca <- tabla_cca_means
+
+# Nombres de las variables
+nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "ATT", "TA/ATT", "TA", "DPPH25", "CTC/CL")
+colnames(tabla_pca) <- nombres_variables
+
+tabla_pca<-as.data.frame(tabla_pca)
+
+tabla_pca$site <- tabla_combinada2_resumida$site
+tabla_pca$phenotype <- tabla_combinada2_resumida$phenotype
+
+
+library(FactoMineR)
+library(factoextra)
+
+pca_result <- PCA(tabla_pca,
+                  quali.sup = c(20:21),  # year, site, phenotype
+                  graph = FALSE)
+
+# tabla_pca <- tabla_pca[,-c(23:24)]
+# pca_result <- prcomp(tabla_pca, center = TRUE, scale. = TRUE)
+
+
+```
+
+Resultado PCA
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+pca_scores <- as.data.frame(pca_result$ind$coord)
+pca_scores$year <- tabla_cca_means$year
+pca_scores$site <- tabla_cca_means$site
+pca_scores$phenotype <- tabla_cca_means$phenotype
+pca_scores$year.site <- tabla_cca_means$year.site
+
+# Ver resumen del PCA
+summary(pca_result)
+
+```
+
+Contribuciones de las variables para CP1
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Obtener las contribuciones de las variables a cada Principal component
+pca_var <- get_pca_var(pca_result)
+
+```
+
+Contribuciones de las variables para CP2
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Ordenar las variables por contribución para Dim.1 (PC1)
+pca_var_dim1 <- pca_var$contrib[, 1] %>% sort(decreasing = TRUE)
+pca_var_dim1
+
+# Ordenar las variables por contribución para Dim.2 (PC2)
+pca_var_dim2 <- pca_var$contrib[, 2] %>% sort(decreasing = TRUE)
+pca_var_dim2
+
+```
+
+Contribución acumulada de cada variable a CP1 y CP2
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Asegurarse de que los nombres de las variables coincidan entre los dos vectores
+common_names <- intersect(names(pca_var_dim1), names(pca_var_dim2))
+
+# Filtrar solo las variables comunes
+pca_var_dim1_filtered <- pca_var_dim1[common_names]
+pca_var_dim2_filtered <- pca_var_dim2[common_names]
+# Sumar las contribuciones de cada variable en los dos componentes
+combined_contributions <- pca_var_dim1_filtered + pca_var_dim2_filtered
+
+# Ordenar las variables por su contribución acumulada
+sorted_contributions <- sort(combined_contributions, decreasing = TRUE)
+
+# Mostrar el resultado
+sorted_contributions
+
+```
+
+Proporción de contribución de cada variable a PC1, PC2 y PC3
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# Suponiendo que tienes el objeto pca_result con la salida de tu análisis PCA
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Extraer las rotaciones (cargas) de los componentes principales
+loadings <- as.data.frame(pca_result$var$coord)
+
+# Seleccionar solo las cargas para PC1 y PC2
+loadings <- loadings %>%
+  dplyr::select(Dim.1, Dim.2, Dim.3)
+
+# Calcular la proporción de contribución para cada parámetro en cada componente
+loadings <- loadings %>%
+  dplyr::mutate(Variable = rownames(loadings),
+         PC1 = abs(Dim.1) / sum(abs(Dim.1)),
+         PC2 = abs(Dim.2) / sum(abs(Dim.2)),
+         PC3 = abs(Dim.3) / sum(abs(Dim.3)))
+
+# Convertir los datos a formato largo (long format)
+loadings_long <- loadings %>%
+  pivot_longer(cols = starts_with("PC"),
+               names_to = "Component",
+               values_to = "Contribution")
+
+paleta_22_colores <- c("#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", 
+                       "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF", 
+                       "#AEC7E8", "#FFBB78", "#98DF8A", "#FF9896", "#C5B0D5", 
+                       "#C49C94", "#F7B6D2", "#C7C7C7", "#DBDB8D", "#9EDAE5", 
+                       "#393B79", "blue4")
+
+# Crear el gráfico de barras apiladas
+gg_bar_agr <- ggplot(loadings_long, aes(x = Component, y = Contribution * 100, fill = Variable)) +
+  geom_bar(stat = "identity", size = 5) +
+  geom_text(aes(label = paste0(round(Contribution * 100, 1), "%")), 
+            position = position_stack(vjust = 0.5), 
+            size = 6, color = "black") +
+  scale_fill_manual(values = paleta_21_colores) +
+  labs(title = "",
+       x = "Componente principal",
+       y = "Cargas (loadings)") +
+  theme_classic() +
+  theme(text = element_text(size = 32, color = 'black'),
+        legend.position = "right",
+        legend.title = element_blank()) +
+  theme(axis.text = element_text(color = 'black')) +
+  scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  geom_text(aes(x = 2.5, y = 95, label = "B"), size = 16, hjust = 0.5, vjust = 0.5) 
+
+gg_bar_agr
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar el paquete ggrepel para evitar la superposición de las etiquetas
+library(ggrepel)
+library(ggplot2)
+library(factoextra)
+
+gg_pca_fruits_site_sel <- fviz_pca_biplot(pca_result, 
+                                geom.ind = "point",           # Puntos para los individuos
+                                pointshape = 21,              # Forma de los puntos
+                                pointsize = 6,                # Tamaño de los puntos
+                                geom.var = c("point", "text"), # Puntos y texto para las variables
+                                labelsize = 10,               # Tamaño del texto
+                                fill.ind = tabla_pca$site,    # Colorear los individuos por año
+                                col.ind = "black",            # Color del borde de los puntos
+                                repel = TRUE,                 # Evitar superposición de etiquetas
+                                addEllipses = FALSE,          # No agregar elipses
+                                label = "var",                # Etiquetar las variables
+                                col.var = "black",            # Color de las variables basado en cos2
+                                arrows = TRUE) + 
+  # Colorear los puntos por year
+  scale_fill_manual(values = c("coral1", "burlywood2", "palegreen4"),
+                    name = NULL) +
+  
+  # Añadir título y etiquetas de ejes
+  labs(title = "", 
+       x = "Componente Principal 1 (28,6 %)",
+       y = "Componente Principal 2 (22,5 %)") +
+  
+  # Personalizar el tema del gráfico
+    theme_classic() +
+  theme(legend.position = "bottom",
+        text = element_text(size = 32, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  # Añadir las etiquetas de 'phenotype' a cada punto
+  geom_text_repel(aes(x = pca_result$ind$coord[,1], 
+                      y = pca_result$ind$coord[,2], 
+                      label = tabla_pca$phenotype),
+                  size = 6, color = "black") +
+  # Limitar los ejes para que los vectores sean visibles
+  coord_cartesian(xlim = c(-5, 8), ylim = c(-6, 7.2))
+
+gg_pca_fruits_site_sel
+
+# # Cerrar todos los dispositivos gráficos abiertos
+# dev.off()
+ 
+# # Guardar el gráfico como PNG con alta resolución
+# ggsave("gg_pca_fruits_site_sel.tiff", plot = gg_pca_fruits_site_sel, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+```
+
+Triplot:
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+pca_result <- prcomp(tabla_pca[,-c(20:21)], center = TRUE, scale. = TRUE)
+
+pca_scores <- as.data.frame(pca_result$x[,c(1:3)])
+pca_scores$site <- tabla_pca$site
+pca_scores$phenotype <- tabla_pca$phenotype
+
+
+library(plotly)
+
+# Crear el gráfico 3D para las observaciones coloreadas según sitio
+triplot_frutos1 <- plot_ly(data = pca_scores, 
+                    x = ~PC1, y = ~PC2, z = ~PC3, 
+                    type = 'scatter3d', 
+                    mode = 'markers',
+                    marker = list(size = 10),
+                    color = ~site, 
+                    colors = c("coral1", "burlywood2", "palegreen4"))
+
+# Personalizar el diseño del gráfico
+triplot_frutos <- triplot_frutos1 %>% layout(scene = list(xaxis = list(title = 'PC1'),
+                                             yaxis = list(title = 'PC2'),
+                                             zaxis = list(title = 'PC3')),
+                                title = "PCA: Componentes Principales 1, 2 y 3",
+                                legend = list(title = list(text = "Sitios")))
+
+# Mostrar el gráfico
+triplot_frutos
+
+```

@@ -707,9 +707,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(FactoMineR)
 library(factoextra)
 
+tabla_merged <- tabla_merged[,-c(16:19)]
+
 pca_result <- PCA(tabla_merged,
-                  quali.sup = c(12:15),  # year, site, phenotype
-                  quanti.sup = c(16:19),  # Las variables climáticas suplementarias
+                   quali.sup = c(12:15),  # year, site, phenotype
+                  # quanti.sup = c(16:19),  # Las variables climáticas suplementarias
                   graph = FALSE)
 
 
@@ -888,7 +890,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # "#FFFF00", "#B15928")
 
 # Cambiar los nombres de las variables suplementarias en el objeto PCA
-rownames(pca_result$quanti.sup$coord) <- c("T", "PP", "HR", "V")
+# rownames(pca_result$quanti.sup$coord) <- c("T", "PP", "HR", "V")
 
 library(factoextra)
 library(ggplot2)
@@ -1037,7 +1039,7 @@ gg_pca_repro <- fviz_pca_biplot(pca_result,
         text = element_text(size = 32, color = 'black'),
         axis.text = element_text(color = 'black')) +
   # Añadir un título o marcador en el gráfico
-  geom_text(aes(x = Inf, y = Inf, label = "A"), 
+  geom_text(aes(x = Inf, y = Inf, label = ""), 
             hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
   # Limitar los ejes para que los vectores sean visibles
   coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
@@ -1050,6 +1052,59 @@ dev.off()
 
 # Guardar el gráfico como PNG con alta resolución
 ggsave("mi_grafico_pca.tiff", plot = gg_pca_repro, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar el paquete ggrepel para evitar la superposición de las etiquetas
+library(ggrepel)
+library(ggplot2)
+library(factoextra)
+
+# Crear el gráfico de PCA
+mi_grafico_pca_year <- fviz_pca_biplot(pca_result, 
+                                geom.ind = "point",           # Puntos para los individuos
+                                pointshape = 21,              # Forma de los puntos
+                                pointsize = 6,                # Tamaño de los puntos
+                                geom.var = c("point", "text"), # Puntos y texto para las variables
+                                labelsize = 10,               # Tamaño del texto
+                                fill.ind = tabla_merged$site, # Colorear los individuos por año
+                                col.ind = "black",            # Color del borde de los puntos
+                                repel = TRUE,                 # Evitar superposición de etiquetas
+                                addEllipses = FALSE,          # No agregar elipses
+                                label = "var",                # Etiquetar las variables
+                                col.var = "black", # Color de las variables basado en cos2
+                                arrows = TRUE) + 
+  # Colorear los puntos por year
+  scale_fill_manual(values = c("coral1", "burlywood2", "palegreen4"),
+                    name = NULL) +
+  
+  # Añadir título y etiquetas de ejes
+  labs(title = "", 
+       x = "Componente Principal 1 (71,0 %)", 
+       y = "Componente Principal 2 (29,0 %)") +
+  
+  # Personalizar el tema del gráfico
+    theme_classic() +
+  theme(legend.position = "bottom",
+        text = element_text(size = 32, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  # Añadir un título o marcador en el gráfico
+  geom_text(aes(x = Inf, y = Inf, label = ""), 
+            hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
+  # Limitar los ejes para que los vectores sean visibles
+  coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
+
+# Mostrar el gráfico
+print(mi_grafico_pca_year)
+
+# Cerrar todos los dispositivos gráficos abiertos
+dev.off()
+
+# Guardar el gráfico como PNG con alta resolución
+ggsave("mi_grafico_pca_year.tiff", plot = mi_grafico_pca_year, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
 
 ```
 

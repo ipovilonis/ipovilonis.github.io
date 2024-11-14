@@ -390,14 +390,13 @@ $(document).ready(function () {
     </li>
     <li class="divider"></li>
     <li>
-      <a href="ER_flores.html">Variables reproductivas</a>
+      <a href="V_flowers.html">Variables reproductivas</a>
     </li>
     <li>
       <a href="V_Branches.html">Eficiencia reproductiva</a>
     </li>
-    <li class="divider"></li>
     <li>
-      <a href="V_Multivariate.html">Multivariado</a>
+      <a href="V_fruits.html">Frutos</a>
     </li>
     <li class="divider"></li>
   </ul>
@@ -492,11 +491,11 @@ $(document).ready(function () {
 </div>
 <div id="gráfico-de-barras" class="section level3">
 <h3>Gráfico de barras</h3>
-<p><img src="microprop_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="microprop_files/figure-html/unnamed-chunk-3-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="chekeo-de-linealidad" class="section level3">
 <h3>Chekeo de linealidad</h3>
-<p><img src="microprop_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
+<p><img src="microprop_files/figure-html/unnamed-chunk-4-1.png" width="95%" style="display: block; margin: auto;" />
 No hay linealidad –&gt; comparación de medias</p>
 </div>
 <div id="frecuencias" class="section level3">
@@ -520,22 +519,19 @@ hormona.</p>
 class="section level3">
 <h3>El modelo en formato ANOVA se expresa como:</h3>
 <p><span class="math display">\[
-E[Y_{ijk}] = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+logit(p_{ijk}) = \log\left(\frac{p_{ijk}}{1 - p_{ijk}}\right) = \mu +
+\alpha_i + \beta_j + (\alpha\beta)_{ij}
 \]</span></p>
 <ul>
-<li><span class="math inline">\(E[Y_{ijk}]\)</span> es la esperanza de
-la respuesta de supervivencia.</li>
-<li><span class="math inline">\(\mu\)</span> es la media general de la
-respuesta.</li>
-<li><span class="math inline">\(\alpha_i\)</span> es el efecto del nivel
-<span class="math inline">\(i\)</span> del factor
-<code>explanto</code>.</li>
-<li><span class="math inline">\(\beta_j\)</span> es el efecto del nivel
-<span class="math inline">\(j\)</span> del factor
-<code>hormona</code>.</li>
-<li><span class="math inline">\((\alpha \beta)_{ij}\)</span> es el
-efecto de interacción entre <code>explanto</code> e
-<code>hormona</code>.</li>
+<li><span class="math inline">\(p_{ijk}\)</span> es la probabilidad de
+supervivencia del explanto.</li>
+<li><span class="math inline">\(\mu\)</span> es la media general.</li>
+<li><span class="math inline">\(\alpha_i\)</span> es el efecto del tipo
+de explanto i.</li>
+<li><span class="math inline">\(\beta_j\)</span> es el efecto del tipo
+de hormona j.</li>
+<li><span class="math inline">\((\alpha\beta)_{ij}\)</span> es el efecto
+de interacción entre explanto y hormona.</li>
 </ul>
 </div>
 <div id="supuestos-del-modelo-binomial" class="section level3">
@@ -609,7 +605,7 @@ significativamente la supervivencia de los explantos.</p>
 </div>
 <div id="gráfico-de-barras-1" class="section level3">
 <h3>Gráfico de barras</h3>
-<p><img src="microprop_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="microprop_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="frecuencias-1" class="section level3">
 <h3>Frecuencias</h3>

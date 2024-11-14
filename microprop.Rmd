@@ -144,14 +144,14 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ### El modelo en formato ANOVA se expresa como:
 
 $$
-E[Y_{ijk}] = \mu + \alpha_i + \beta_j + (\alpha \beta)_{ij}
+logit(p_{ijk}) = \log\left(\frac{p_{ijk}}{1 - p_{ijk}}\right) = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij}
 $$
 
-- \(E[Y_{ijk}]\) es la esperanza de la respuesta de supervivencia.
-- \(\mu\) es la media general de la respuesta.
-- \(\alpha_i\) es el efecto del nivel \(i\) del factor `explanto`.
-- \(\beta_j\) es el efecto del nivel \(j\) del factor `hormona`.
-- \((\alpha \beta)_{ij}\) es el efecto de interacción entre `explanto` e `hormona`.
+- \(p_{ijk}\) es la probabilidad de supervivencia del explanto.
+- \(\mu\) es la media general.
+- \(\alpha_i\) es el efecto del tipo de explanto i.
+- \(\beta_j\) es el efecto del tipo de hormona j.
+- \((\alpha\beta)_{ij}\) es el efecto de interacción entre explanto y hormona.
 
 ### Supuestos del Modelo Binomial
 

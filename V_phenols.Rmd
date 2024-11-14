@@ -12,7 +12,7 @@ library(readxl)
 data_phenols<-read_excel("database.xlsx", sheet="V quimico")
 
 data_phenols$year<-as.factor(data_phenols$year)
-data_phenols$site<-factor(data_phenols$site, levels = c("Concordia", "Palmar", "Gualeguaychu"))
+data_phenols$site<-factor(data_phenols$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
 data_phenols$phenotype<-as.factor(data_phenols$phenotype)
 data_phenols$bag<-as.factor(data_phenols$bag)
 
@@ -96,44 +96,44 @@ g2_phenols
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-concordia_phenols<-subset(data_phenols, site == "Concordia")
-
-library(dplyr)
-estcon_phenols <- concordia_phenols %>%
-  dplyr::group_by(year, phenotype) %>%
-  dplyr::summarise(
-    Mean = mean(phenols),
-    min = min(phenols),
-    max = max(phenols),
-    sd = sd(phenols)
-  )
-
-estcon_phenols<-as.data.frame(estcon_phenols)
-
-# library(Rmisc)
-# estcon_phenols <- summarySE(concordia_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
-
-library(knitr)
-kable(estcon_phenols, format = "markdown")
-
-colorescon<-c("coral1","red2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2","red3")
-
-library(ggplot2)
-gp_concordia<-ggplot(data=estcon_phenols, aes(x=phenotype, y=Mean, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = colorescon)+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  facet_grid(.~year)+
-  labs(x="Concordia", y="")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=8, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+# concordia_phenols<-subset(data_phenols, site == "Concordia")
+# 
+# library(dplyr)
+# estcon_phenols <- concordia_phenols %>%
+#   dplyr::group_by(year, phenotype) %>%
+#   dplyr::summarise(
+#     Mean = mean(phenols),
+#     min = min(phenols),
+#     max = max(phenols),
+#     sd = sd(phenols)
+#   )
+# 
+# estcon_phenols<-as.data.frame(estcon_phenols)
+# 
+# # library(Rmisc)
+# # estcon_phenols <- summarySE(concordia_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
+# 
+# library(knitr)
+# kable(estcon_phenols, format = "markdown")
+# 
+# colorescon<-c("coral1","red2","coral3","coral4","coral","chocolate","chocolate4","chocolate3","chocolate2","tan3","chocolate1","tan","salmon","tan4","tomato","tan2","red3")
+# 
+# library(ggplot2)
+# gp_concordia<-ggplot(data=estcon_phenols, aes(x=phenotype, y=Mean, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = colorescon)+
+#   stat_summary(fun = "mean", size = 1, geom = "bar") +
+#   geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+#                 width=.2, position=position_dodge(.9))+
+#   facet_grid(.~year)+
+#   labs(x="Concordia", y="")+
+#   theme_classic()+
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+#   theme(legend.title=element_blank())+
+#   theme(legend.position='none')+
+#   theme(panel.grid.major.y = element_line(color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=8, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
 
 ```
 
@@ -141,44 +141,44 @@ gp_concordia<-ggplot(data=estcon_phenols, aes(x=phenotype, y=Mean, form=phenotyp
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-palmar_phenols<-subset(data_phenols, site == "Palmar")
-
-library(dplyr)
-estpalmar_phenols <- palmar_phenols %>%
-  dplyr::group_by(year, phenotype) %>%
-  dplyr::summarise(
-    Mean = mean(phenols),
-    min = min(phenols),
-    max = max(phenols),
-    sd = sd(phenols)
-  )
-
-estpalmar_phenols
-
-# library(Rmisc)
-# estpalmar_phenols <- summarySE(palmar_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
-
-library(knitr)
-kable(estpalmar_phenols, format = "markdown")
-
-colorespal<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4", "wheat3","khaki","wheat")
-
-library(ggplot2)
-gp_palmar<-ggplot(data=estpalmar_phenols, aes(x=phenotype, y=Mean, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = colorespal)+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  facet_grid(.~year)+
-  labs(x="Palmar", y="Phenols [mgTA/100gFW]")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=8, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+# palmar_phenols<-subset(data_phenols, site == "PN El Palmar")
+# 
+# library(dplyr)
+# estpalmar_phenols <- palmar_phenols %>%
+#   dplyr::group_by(year, phenotype) %>%
+#   dplyr::summarise(
+#     Mean = mean(phenols),
+#     min = min(phenols),
+#     max = max(phenols),
+#     sd = sd(phenols)
+#   )
+# 
+# estpalmar_phenols
+# 
+# # library(Rmisc)
+# # estpalmar_phenols <- summarySE(palmar_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
+# 
+# library(knitr)
+# kable(estpalmar_phenols, format = "markdown")
+# 
+# colorespal<-c("burlywood1","burlywood2","burlywood3","burlywood4","burlywood","khaki1","khaki4","khaki3","khaki2","tan3","tan","gold1","gold2","gold3","gold4", "wheat3","khaki","wheat")
+# 
+# library(ggplot2)
+# gp_palmar<-ggplot(data=estpalmar_phenols, aes(x=phenotype, y=Mean, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = colorespal)+
+#   stat_summary(fun = "mean", size = 1, geom = "bar") +
+#   geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+#                 width=.2, position=position_dodge(.9))+
+#   facet_grid(.~year)+
+#   labs(x="PN El Palmar", y="Phenols [mgTA/100gFW]")+
+#   theme_classic()+
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+#   theme(legend.title=element_blank())+
+#   theme(legend.position='none')+
+#   theme(panel.grid.major.y = element_line(color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=8, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
 
 ```
 
@@ -186,53 +186,53 @@ gp_palmar<-ggplot(data=estpalmar_phenols, aes(x=phenotype, y=Mean, form=phenotyp
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-guale_phenols<-subset(data_phenols, site == "Gualeguaychu")
-
-library(dplyr)
-estguale_phenols <- guale_phenols %>%
-  dplyr::group_by(year, phenotype) %>%
-  dplyr::summarise(
-    Mean = mean(phenols),
-    min = min(phenols),
-    max = max(phenols),
-    sd = sd(phenols)
-  )
-
-estguale_phenols
-
-# library(Rmisc)
-# estguale_phenols <- summarySE(guale_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
-
-library(knitr)
-kable(estguale_phenols, format = "markdown")
-
-coloresguale<-c("palegreen1","palegreen2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","seagreen","aquamarine2","seagreen3","aquamarine","springgreen3","springgreen2","springgreen1","forestgreen")
-
-library(ggplot2)
-gp_guale<-ggplot(data=estguale_phenols, aes(x=phenotype, y=Mean, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = coloresguale)+
-  stat_summary(fun = "mean", size = 1, geom = "bar") +
-  geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
-                width=.2, position=position_dodge(.9))+
-  facet_grid(.~year)+
-  labs(x="Gualeguaychú", y="")+
-  theme_classic()+
-  theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
-  theme(legend.title=element_blank())+
-  theme(legend.position='none')+
-  theme(panel.grid.major.y = element_line(color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=8, color='black'))+
-  theme(axis.text = element_text(color='black'))+
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
+# guale_phenols<-subset(data_phenols, site == "Gualeguaychú")
+# 
+# library(dplyr)
+# estguale_phenols <- guale_phenols %>%
+#   dplyr::group_by(year, phenotype) %>%
+#   dplyr::summarise(
+#     Mean = mean(phenols),
+#     min = min(phenols),
+#     max = max(phenols),
+#     sd = sd(phenols)
+#   )
+# 
+# estguale_phenols
+# 
+# # library(Rmisc)
+# # estguale_phenols <- summarySE(guale_phenols, measurevar="phenols", groupvars=c("year", "phenotype"))
+# 
+# library(knitr)
+# kable(estguale_phenols, format = "markdown")
+# 
+# coloresguale<-c("palegreen1","palegreen2","palegreen3","palegreen4","palegreen","aquamarine1","aquamarine4","aquamarine3","seagreen","aquamarine2","seagreen3","aquamarine","springgreen3","springgreen2","springgreen1","forestgreen")
+# 
+# library(ggplot2)
+# gp_guale<-ggplot(data=estguale_phenols, aes(x=phenotype, y=Mean, form=phenotype, fill=phenotype)) +   scale_fill_manual(values = coloresguale)+
+#   stat_summary(fun = "mean", size = 1, geom = "bar") +
+#   geom_errorbar(aes(ymin=Mean-sd, ymax=Mean+sd),
+#                 width=.2, position=position_dodge(.9))+
+#   facet_grid(.~year)+
+#   labs(x="Gualeguaychú", y="")+
+#   theme_classic()+
+#   theme(plot.title = element_text(hjust = 0.5, size = rel(1.5))) +
+#   theme(legend.title=element_blank())+
+#   theme(legend.position='none')+
+#   theme(panel.grid.major.y = element_line(color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=8, color='black'))+
+#   theme(axis.text = element_text(color='black'))+
+#   theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))
 
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library("ggpubr")
-asd <- ggarrange(gp_concordia,gp_palmar,gp_guale, ncol = 1, nrow = 3,  common.legend = FALSE)
-asd
+# library("ggpubr")
+# asd <- ggarrange(gp_concordia,gp_palmar,gp_guale, ncol = 1, nrow = 3,  common.legend = FALSE)
+# asd
 ```
 
 ## Inferential statistics

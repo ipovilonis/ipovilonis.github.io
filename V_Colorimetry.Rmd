@@ -12,7 +12,7 @@ data$site<-as.factor(data$site)
 data$phenotype<-as.factor(data$phenotype)
 data$mad<-as.factor(data$mad)
 data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
-data$site<-factor(data$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+data$site<-factor(data$site,levels=c("Concordia", "PN El Palmar", "Gualeguaychú"))
 
 ```
 
@@ -20,7 +20,7 @@ Colorimetry quantified in 4 states of ripeness:
 Immature (I), Medium Ripe (MM), Ripe (M), Overripe (SM).
 
 In 3 populations of Entre Rios:
-Concordia, PN El Palmar, and Gualeguaychú.
+Concordia, PN El PN El Palmar, and Gualeguaychú.
 
 CieLab scale:
 color_L: luminosity
@@ -513,7 +513,7 @@ data$site<-as.factor(data$site)
 data$phenotype<-as.factor(data$phenotype)
 data$mad<-as.factor(data$mad)
 data$mad<-factor(data$mad,levels=c("I", "MM", "M", "SM"))
-data$site<-factor(data$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+data$site<-factor(data$site,levels=c("Concordia", "PN El Palmar", "Gualeguaychú"))
 
 data_color_G<- data[,-c(1,3:5,7:9)]
 
@@ -779,7 +779,7 @@ gcorLabmad
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-data$site<-factor(data$site,levels=c("Concordia", "Palmar", "Gualeguaychu"))
+data$site<-factor(data$site,levels=c("Concordia", "PN El Palmar", "Gualeguaychú"))
 # Gráfico
 colores<-c("coral1","burlywood2","palegreen4")
 library(ggplot2)

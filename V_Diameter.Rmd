@@ -17,7 +17,7 @@ fisico<- read_excel("database.xlsx", sheet="V fisico")
 
 fisico$year<-as.factor(fisico$year)
 fisico$phenotype<-as.factor(fisico$phenotype)
-fisico$site<-factor(fisico$site,levels=c("concordia", "palmar","gualeguaychu"))
+fisico$site<-factor(fisico$site,levels=c("Concordia", "PN El PN El Palmar","Gualeguaychú"))
 fisico$n<-as.factor(fisico$n)
 fisico$pss<-as.numeric(fisico$pss)
 fisico$mad<-factor(fisico$mad,levels=c("I", "MM","M","SM"))
