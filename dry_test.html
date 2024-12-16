@@ -434,16 +434,28 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="VI_climateric2.html">Ensayo 1</a>
+      <a href="Ensayo1.html">Ensayo 1</a>
     </li>
     <li>
-      <a href="VI_climateric3.html">Ensayo 4</a>
+      <a href="Ensayo2.html">Ensayo 2</a>
     </li>
     <li>
-      <a href="VI_Postharvest.html">Ensayo 7</a>
+      <a href="Ensayo3.html">Ensayo 3</a>
     </li>
     <li>
-      <a href="VI_UNLP_1.html">Ensayo 8</a>
+      <a href="Ensayo4.html">Ensayo 4</a>
+    </li>
+    <li>
+      <a href="Ensayo5.html">Ensayo 5</a>
+    </li>
+    <li>
+      <a href="Ensayo6.html">Ensayo 6</a>
+    </li>
+    <li>
+      <a href="Ensayo7.html">Ensayo 7</a>
+    </li>
+    <li>
+      <a href="Ensayo8.html">Ensayo 8</a>
     </li>
   </ul>
 </li>
@@ -596,10 +608,12 @@ div.tocify {
 ## data:  e
 ## W = 0.9558226, p-value = 0.241377</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5       Temperatura80               basal 
-##       -31.996552210        -1.539666667        -3.514333333        -5.533000000        -7.323000000         0.298694977         2.255026084 
-## Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
-##        -1.825333333        -3.605333333        -4.321000000        -3.329333333</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3               Hora4               Hora5 
+##       -31.996552210        -1.539666667        -3.514333333        -5.533000000        -7.323000000 
+##       Temperatura80               basal Hora2:Temperatura80 Hora3:Temperatura80 Hora4:Temperatura80 
+##         0.298694977         2.255026084        -1.825333333        -3.605333333        -4.321000000 
+## Hora5:Temperatura80 
+##        -3.329333333</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 19 
 ##                  numDF    F-value p-value
@@ -612,28 +626,28 @@ div.tocify {
 <pre><code>## $emmeans
 ## Hora = 1:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60          13.22348584 0.557653114 17.45 12.04924359 14.39772810
-##  80          13.52218082 0.557653114 17.45 12.34793857 14.69642307
+##  60          13.22348584 0.557653114 17.41 12.04904725 14.39792444
+##  80          13.52218082 0.557653114 17.41 12.34774223 14.69661941
 ## 
 ## Hora = 2:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60          11.68381918 0.557653114 17.45 10.50957693 12.85806143
-##  80          10.15718082 0.557653114 17.45  8.98293857 11.33142307
+##  60          11.68381918 0.557653114 17.41 10.50938059 12.85825777
+##  80          10.15718082 0.557653114 17.41  8.98274223 11.33161941
 ## 
 ## Hora = 3:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           9.70915251 0.557653114 17.45  8.53491026 10.88339476
-##  80           6.40251416 0.557653114 17.45  5.22827190  7.57675641
+##  60           9.70915251 0.557653114 17.41  8.53471392 10.88359110
+##  80           6.40251416 0.557653114 17.41  5.22807556  7.57695275
 ## 
 ## Hora = 4:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           7.69048584 0.557653114 17.45  6.51624359  8.86472810
-##  80           3.66818082 0.557653114 17.45  2.49393857  4.84242307
+##  60           7.69048584 0.557653114 17.41  6.51604725  8.86492444
+##  80           3.66818082 0.557653114 17.41  2.49374223  4.84261941
 ## 
 ## Hora = 5:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           5.90048584 0.557653114 17.45  4.72624359  7.07472810
-##  80           2.86984749 0.557653114 17.45  1.69560524  4.04408974
+##  60           5.90048584 0.557653114 17.41  4.72604725  7.07492444
+##  80           2.86984749 0.557653114 17.41  1.69540890  4.04428608
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Confidence level used: 0.95 
@@ -641,23 +655,23 @@ div.tocify {
 ## $contrasts
 ## Hora = 1:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.73  -0.341  0.7407
+##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.67  -0.341  0.7407
 ## 
 ## Hora = 2:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.73   1.741  0.1132
+##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.67   1.741  0.1134
 ## 
 ## Hora = 3:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.73   3.770  0.0038
+##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.67   3.770  0.0039
 ## 
 ## Hora = 4:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.73   4.586  0.0011
+##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.67   4.586  0.0011
 ## 
 ## Hora = 5:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.73   3.455  0.0064
+##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.67   3.455  0.0065
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
@@ -697,8 +711,8 @@ div.tocify {
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: aao/100
-##               Chisq Df Pr(&gt;Chisq)    
-## Tratamiento 21.2695  2 2.4065e-05 ***
+##               Chisq Df  Pr(&gt;Chisq)    
+## Tratamiento 21.2695  2 0.000024065 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
@@ -753,8 +767,8 @@ div.tocify {
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: aao/100
-##                Chisq Df Pr(&gt;Chisq)    
-## Tratamiento 69.34732  2 8.7382e-16 ***
+##                Chisq Df             Pr(&gt;Chisq)    
+## Tratamiento 69.34732  2 0.00000000000000087382 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
@@ -789,8 +803,8 @@ div.tocify {
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: b_car
-##                Chisq Df Pr(&gt;Chisq)    
-## Tratamiento 93.61343  2 &lt; 2.22e-16 ***
+##                Chisq Df             Pr(&gt;Chisq)    
+## Tratamiento 93.61343  2 &lt; 0.000000000000000222 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
@@ -876,8 +890,8 @@ div.tocify {
 ## Random-effects (co)variances:
 ## 
 ## Conditional model:
-##  Groups      Name        Std.Dev.   
-##  Tratamiento (Intercept) 7.85324e-06
+##  Groups      Name        Std.Dev.     
+##  Tratamiento (Intercept) 0.00000785324
 ## 
 ## Number of obs: 30 / Conditional model: Tratamiento, 4
 ## 
@@ -901,8 +915,8 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups      Name        Variance    Std.Dev.   
-##  Tratamiento (Intercept) 6.16733e-11 7.85324e-06
+##  Groups      Name        Variance           Std.Dev.     
+##  Tratamiento (Intercept) 0.0000000000616733 0.00000785324
 ## Number of obs: 30, groups:  Tratamiento, 4
 ## 
 ## Dispersion parameter for beta family (): 6.88 
@@ -937,8 +951,8 @@ div.tocify {
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##  (Intercept)  Antocianinas  
-##  9.65616e-01  -8.48033e-05</code></pre>
+##   (Intercept)   Antocianinas  
+##  0.9656156226  -0.0000848033</code></pre>
 <p>Verificación de supuestos
 <img src="dry_test_files/figure-html/unnamed-chunk-63-1.png" width="110%" style="display: block; margin: auto;" /></p>
 <p>Anova</p>
@@ -959,9 +973,9 @@ div.tocify {
 ## Dispersion parameter for beta family (): 9.19 
 ## 
 ## Conditional model:
-##                  Estimate   Std. Error  z value Pr(&gt;|z|)
-## (Intercept)   9.65616e-01  6.27217e-01  1.53952  0.12368
-## Antocianinas -8.48033e-05  3.69869e-04 -0.22928  0.81865</code></pre>
+##                   Estimate    Std. Error  z value Pr(&gt;|z|)
+## (Intercept)   0.9656156226  0.6272173675  1.53952  0.12368
+## Antocianinas -0.0000848033  0.0003698695 -0.22928  0.81865</code></pre>
 <p>Correlación</p>
 <pre><code>## [1] 0.150240732</code></pre>
 <p>No existe evidencia para aceptar que beta1 difiere de cero (r =

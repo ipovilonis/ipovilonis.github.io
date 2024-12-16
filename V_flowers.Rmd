@@ -678,14 +678,8 @@ datamet <- datamet_filtered %>%
   dplyr::group_by(year, site) %>%
   dplyr::summarise(across(all_of(var_mets), mean, na.rm = TRUE))
 
-library(dplyr)
-datamet <- datamet %>%
-  rename(
-    temp = temp,
-    hr = hr,
-    vv = wind,
-    pp = prec
-  )
+colnames(datamet)[colnames(datamet) == "wind"] <- "vv"
+colnames(datamet)[colnames(datamet) == "prec"] <- "pp"
 
 
 ```

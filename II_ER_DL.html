@@ -434,16 +434,28 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="VI_climateric2.html">Ensayo 1</a>
+      <a href="Ensayo1.html">Ensayo 1</a>
     </li>
     <li>
-      <a href="VI_climateric3.html">Ensayo 4</a>
+      <a href="Ensayo2.html">Ensayo 2</a>
     </li>
     <li>
-      <a href="VI_Postharvest.html">Ensayo 7</a>
+      <a href="Ensayo3.html">Ensayo 3</a>
     </li>
     <li>
-      <a href="VI_UNLP_1.html">Ensayo 8</a>
+      <a href="Ensayo4.html">Ensayo 4</a>
+    </li>
+    <li>
+      <a href="Ensayo5.html">Ensayo 5</a>
+    </li>
+    <li>
+      <a href="Ensayo6.html">Ensayo 6</a>
+    </li>
+    <li>
+      <a href="Ensayo7.html">Ensayo 7</a>
+    </li>
+    <li>
+      <a href="Ensayo8.html">Ensayo 8</a>
     </li>
   </ul>
 </li>
@@ -724,10 +736,12 @@ div.tocify {
 ##  Residual             0.287305
 ## Number of obs: 10916, groups:  hour, 24
 ## Fixed Effects:
-##               (Intercept)                   year2021                   year2022                 sitePalmar           siteGualeguaychu  
-##                3.12786754                -0.00662376                -0.05297823                -0.06283593                -0.12957746  
-##       year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
-##               -0.00192673                -0.01438792                 0.05396480                 0.01119255</code></pre>
+##               (Intercept)                   year2021                   year2022                 sitePalmar  
+##                3.12786754                -0.00662376                -0.05297823                -0.06283593  
+##          siteGualeguaychu        year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  
+##               -0.12957746                -0.00192673                -0.01438792                 0.05396480  
+## year2022:siteGualeguaychu  
+##                0.01119255</code></pre>
 <p>Gráfico de residuos vs. predichos
 <img src="II_ER_DL_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
@@ -746,10 +760,10 @@ div.tocify {
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: temp2
-##               Chisq Df Pr(&gt;Chisq)    
-## year       96.32876  2 &lt; 2.22e-16 ***
-## site      238.22684  2 &lt; 2.22e-16 ***
-## year:site  14.72270  4  0.0053123 ** 
+##               Chisq Df             Pr(&gt;Chisq)    
+## year       96.32876  2 &lt; 0.000000000000000222 ***
+## site      238.22684  2 &lt; 0.000000000000000222 ***
+## year:site  14.72270  4              0.0053123 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Efectos simples</p>
@@ -888,10 +902,12 @@ div.tocify {
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##               (Intercept)                   year2021                   year2022                 sitePalmar           siteGualeguaychu  
-##                0.81485003                -0.68959883                -0.74640544                -0.03938260                 0.04535305  
-##       year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
-##                0.45446986                 0.22230662                 0.00106932                 0.13028737</code></pre>
+##               (Intercept)                   year2021                   year2022                 sitePalmar  
+##                0.81485003                -0.68959883                -0.74640544                -0.03938260  
+##          siteGualeguaychu        year2021:sitePalmar        year2022:sitePalmar  year2021:siteGualeguaychu  
+##                0.04535305                 0.45446986                 0.22230662                 0.00106932  
+## year2022:siteGualeguaychu  
+##                0.13028737</code></pre>
 <p>Gráfico de residuos vs. predichos
 <img src="II_ER_DL_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
@@ -910,10 +926,10 @@ div.tocify {
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: hr
-##               Chisq Df Pr(&gt;Chisq)    
-## year      1500.6434  2 &lt; 2.22e-16 ***
-## site       122.0576  2 &lt; 2.22e-16 ***
-## year:site  174.1807  4 &lt; 2.22e-16 ***
+##               Chisq Df             Pr(&gt;Chisq)    
+## year      1500.6434  2 &lt; 0.000000000000000222 ***
+## site       122.0576  2 &lt; 0.000000000000000222 ***
+## year:site  174.1807  4 &lt; 0.000000000000000222 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Efectos simples</p>

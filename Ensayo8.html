@@ -434,16 +434,28 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="VI_climateric2.html">Ensayo 1</a>
+      <a href="Ensayo1.html">Ensayo 1</a>
     </li>
     <li>
-      <a href="VI_climateric3.html">Ensayo 4</a>
+      <a href="Ensayo2.html">Ensayo 2</a>
     </li>
     <li>
-      <a href="VI_Postharvest.html">Ensayo 7</a>
+      <a href="Ensayo3.html">Ensayo 3</a>
     </li>
     <li>
-      <a href="VI_UNLP_1.html">Ensayo 8</a>
+      <a href="Ensayo4.html">Ensayo 4</a>
+    </li>
+    <li>
+      <a href="Ensayo5.html">Ensayo 5</a>
+    </li>
+    <li>
+      <a href="Ensayo6.html">Ensayo 6</a>
+    </li>
+    <li>
+      <a href="Ensayo7.html">Ensayo 7</a>
+    </li>
+    <li>
+      <a href="Ensayo8.html">Ensayo 8</a>
     </li>
   </ul>
 </li>
@@ -650,7 +662,7 @@ div.tocify {
 ## 
 ## Response: L_color
 ##           Df   Sum Sq   Mean Sq F value Pr(&gt;F)    
-## Día        3  770.173 256.72446 7.26176  2e-04 ***
+## Día        3  770.173 256.72446 7.26176 0.0002 ***
 ## Residuals 92 3252.471  35.35294                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -692,9 +704,9 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: a_color
-##           Df   Sum Sq  Mean Sq F value     Pr(&gt;F)    
-## Día        3 1636.957 545.6524 23.8719 1.6295e-11 ***
-## Residuals 92 2102.892  22.8575                       
+##           Df   Sum Sq  Mean Sq F value            Pr(&gt;F)    
+## Día        3 1636.957 545.6524 23.8719 0.000000000016295 ***
+## Residuals 92 2102.892  22.8575                              
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
@@ -801,8 +813,8 @@ div.tocify {
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: aao/100
-##        Chisq Df Pr(&gt;Chisq)    
-## Día 31.69151  2  1.313e-07 ***
+##        Chisq Df   Pr(&gt;Chisq)    
+## Día 31.69151  2 0.0000001313 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
@@ -848,9 +860,9 @@ div.tocify {
 ## -10.92750  -6.48029  -5.03722   4.68472  19.97650 
 ## 
 ## Coefficients:
-##              Estimate Std. Error  t value   Pr(&gt;|t|)    
-## (Intercept)  98.08296    9.89698  9.91039 2.2701e-05 ***
-## Día         -10.14090    4.58141 -2.21349   0.062475 .  
+##              Estimate Std. Error  t value    Pr(&gt;|t|)    
+## (Intercept)  98.08296    9.89698  9.91039 0.000022701 ***
+## Día         -10.14090    4.58141 -2.21349    0.062475 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
@@ -1182,18 +1194,20 @@ valor p = 0.8330)</p>
 <div id="pca" class="section level2">
 <h2>PCA</h2>
 <pre><code>## Importance of components:
-##                            PC1     PC2         PC3
-## Standard deviation     3.67288 1.58428 1.25159e-16
-## Proportion of Variance 0.84313 0.15687 0.00000e+00
-## Cumulative Proportion  0.84313 1.00000 1.00000e+00</code></pre>
-<pre><code>##          ATT      a_color    aao_0.125  Respiración      Sólidos    aao_0.250      Fenoles    aao_0.500      Firmeza      L_color           pH 
-##  7.411169601  7.388160265  7.361916605  7.303337686  7.297065882  7.233395040  7.180074782  7.004301421  6.901237838  6.797339783  6.654867809 
-##      b_color        Clo_a        Clo_b        Ratio Carotenoides 
-##  6.059575082  5.854988486  5.815861177  3.554293436  0.182415107</code></pre>
-<pre><code>##   Carotenoides          Ratio          Clo_b          Clo_a        b_color             pH        L_color        Firmeza      aao_0.500        Fenoles 
-## 38.86130285860 20.73854935266  8.58335551129  8.37305890154  7.27347223582  4.07396670546  3.30822600997  2.74980762899  2.19587425864  1.25114939718 
-##      aao_0.250        Sólidos    Respiración      aao_0.125        a_color            ATT 
-##  0.96457028824  0.62236014098  0.58865122427  0.27380851874  0.13275734827  0.00908961935</code></pre>
+##                            PC1     PC2                     PC3
+## Standard deviation     3.67288 1.58428 0.000000000000000125159
+## Proportion of Variance 0.84313 0.15687 0.000000000000000000000
+## Cumulative Proportion  0.84313 1.00000 1.000000000000000000000</code></pre>
+<pre><code>##          ATT      a_color    aao_0.125  Respiración      Sólidos    aao_0.250      Fenoles    aao_0.500 
+##  7.411169601  7.388160265  7.361916605  7.303337686  7.297065882  7.233395040  7.180074782  7.004301421 
+##      Firmeza      L_color           pH      b_color        Clo_a        Clo_b        Ratio Carotenoides 
+##  6.901237838  6.797339783  6.654867809  6.059575082  5.854988486  5.815861177  3.554293436  0.182415107</code></pre>
+<pre><code>##   Carotenoides          Ratio          Clo_b          Clo_a        b_color             pH        L_color 
+## 38.86130285860 20.73854935266  8.58335551129  8.37305890154  7.27347223582  4.07396670546  3.30822600997 
+##        Firmeza      aao_0.500        Fenoles      aao_0.250        Sólidos    Respiración      aao_0.125 
+##  2.74980762899  2.19587425864  1.25114939718  0.96457028824  0.62236014098  0.58865122427  0.27380851874 
+##        a_color            ATT 
+##  0.13275734827  0.00908961935</code></pre>
 <p>Biplot
 <img src="Ensayo8_files/figure-html/unnamed-chunk-123-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>
