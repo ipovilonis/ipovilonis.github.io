@@ -618,7 +618,8 @@ colnames(tabla_combinada2) <- nombres_variables
 library(missMDA)
 library(doParallel)
 # Imputar valores faltantes usando PCA factorial
-data_imputed <- imputePCA(tabla_combinada2)
+data_imputed <- imputePCA(tabla_combinada2,
+                          ncp = 10)
 
 tabla_pca <- (data_imputed$fittedX)
 
@@ -677,6 +678,16 @@ datamet <- datamet_filtered %>%
   dplyr::group_by(year, site) %>%
   dplyr::summarise(across(all_of(var_mets), mean, na.rm = TRUE))
 
+library(dplyr)
+datamet <- datamet %>%
+  rename(
+    temp = temp,
+    hr = hr,
+    vv = wind,
+    pp = prec
+  )
+
+
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -692,10 +703,10 @@ variables_respuesta <- tabla_cca_means %>%
 # Calcular las medias de las variables suplementarias agrupadas por year y site
 variables_suplementarias <- datamet %>%
   dplyr::group_by(year, site) %>%
-  dplyr::summarise(across(c(temp, prec, hr, wind), mean, na.rm = TRUE)) 
+  dplyr::summarise(across(c(temp, pp, hr, vv), mean, na.rm = TRUE)) 
 
 # Unir las variables climáticas promedio a la tabla de respuestas
-tabla_merged <- tabla_cca_means %>%
+tabla_merged0 <- tabla_cca_means %>%
   left_join(variables_suplementarias, by = c("year", "site"))
 
 
@@ -707,11 +718,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(FactoMineR)
 library(factoextra)
 
-tabla_merged <- tabla_merged[,-c(16:19)]
+tabla_merged <- tabla_merged0[,-c(16:19)]
 
 pca_result <- PCA(tabla_merged,
                    quali.sup = c(12:15),  # year, site, phenotype
-                  # quanti.sup = c(16:19),  # Las variables climáticas suplementarias
+                   # quanti.sup = c(16:19),  # Las variables climáticas suplementarias
                   graph = FALSE)
 ```
 
@@ -840,13 +851,14 @@ loadings <- as.data.frame(pca_result$var$coord)
 
 # Seleccionar solo las cargas para PC1 y PC2
 loadings <- loadings %>%
-  dplyr::select(Dim.1, Dim.2)
+  dplyr::select(Dim.1, Dim.2, Dim.3)
 
 # Calcular la proporción de contribución para cada parámetro en cada componente
 loadings <- loadings %>%
   dplyr::mutate(Variable = rownames(loadings),
          PC1 = abs(Dim.1) / sum(abs(Dim.1)),
-         PC2 = abs(Dim.2) / sum(abs(Dim.2)))
+         PC2 = abs(Dim.2) / sum(abs(Dim.2)),
+         PC3 = abs(Dim.3) / sum(abs(Dim.3)))
 
 # Convertir los datos a formato largo (long format)
 loadings_long <- loadings %>%
@@ -873,7 +885,7 @@ gg_bar_agr <- ggplot(loadings_long, aes(x = Component, y = Contribution * 100, f
         legend.title = element_blank()) +
   theme(axis.text = element_text(color = 'black')) +
   scale_y_continuous(labels = scales::percent_format(scale = 1)) +
-  geom_text(aes(x = 2.5, y = 95, label = "B"), size = 16, hjust = 0.5, vjust = 0.5) 
+  geom_text(aes(x = 3.5, y = 95, label = ""), size = 16, hjust = 0.5, vjust = 0.5) 
 
 gg_bar_agr
 
@@ -908,13 +920,13 @@ biplot_sites_repro <- fviz_pca_biplot(pca_result,
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4"),
                      name = NULL) +
   theme_classic() +
-  labs(title = "", x = "PC1 (71,0 %)", y = "PC2 (29,0 %)") +
+  labs(title = "", x = "PC1 (31,8 %)", y = "PC2 (17,5 %)") +
   theme(legend.position = "bottom",
         text = element_text(size = 26, color = 'black'),
         axis.text = element_text(color = 'black')) +
-  geom_text(aes(x = Inf, y = Inf, label = "C"), 
+  geom_text(aes(x = Inf, y = Inf, label = ""), 
             hjust = 1.2, vjust = 1.2, size = 16, color = "black", fontface = "bold")+
-  coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
   
 # Mostrar el gráfico
 print(biplot_sites_repro)
@@ -942,13 +954,13 @@ biplot_years_repro <- fviz_pca_biplot(pca_result,
   scale_color_manual(values = c("2019" = "#f7db20", "2021" = "#07c22c", "2022" = "#522DAD"),
                      name = NULL) +
   theme_classic() +
-  labs(title = "", x = "PC1 (71,0 %)", y = "PC2 (29,0 %)") +
+  labs(title = "", x = "PC1 (31,8 %)", y = "PC2 (17,5 %)") +
   theme(legend.position = "bottom",
         text = element_text(size = 26, color = 'black'),
         axis.text = element_text(color = 'black')) +
-  geom_text(aes(x = Inf, y = Inf, label = "D"), 
+  geom_text(aes(x = Inf, y = Inf, label = ""), 
             hjust = 1.2, vjust = 1.2, size = 13, color = "black", fontface = "bold")+
-  coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
 
 biplot_years_repro
 
@@ -986,13 +998,13 @@ biplot_year.site_repro <- fviz_pca_biplot(pca_result,
   scale_color_manual(values = c("coral1", "red", "orange", "palegreen4", "green","yellowgreen","burlywood2","burlywood4","yellow"),
                      name = NULL) +
   theme_classic() +
-  labs(title = "", x = "PC1 (71,0 %)", y = "PC2 (29,0 %)") +
+  labs(title = "", x = "PC1 (31,8 %)", y = "PC2 (17,5 %)") +
   theme(legend.position = "bottom",
         text = element_text(size = 26, color = 'black'),
         axis.text = element_text(color = 'black')) +
-  geom_text(aes(x = Inf, y = Inf, label = "D"), 
+  geom_text(aes(x = Inf, y = Inf, label = ""), 
             hjust = 1.2, vjust = 1.2, size = 13, color = "black", fontface = "bold")+
-  coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
 
 # Mostrar el gráfico
 print(biplot_year.site_repro)
@@ -1028,8 +1040,8 @@ gg_pca_repro <- fviz_pca_biplot(pca_result,
   
   # Añadir título y etiquetas de ejes
   labs(title = "", 
-       x = "Componente Principal 1 (71,0 %)", 
-       y = "Componente Principal 2 (29,0 %)") +
+       x = "Componente Principal 1 (31,8 %)", 
+       y = "Componente Principal 2 (17,5 %)") +
   
   # Personalizar el tema del gráfico
     theme_classic() +
@@ -1040,7 +1052,7 @@ gg_pca_repro <- fviz_pca_biplot(pca_result,
   geom_text(aes(x = Inf, y = Inf, label = ""), 
             hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
   # Limitar los ejes para que los vectores sean visibles
-  coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
 
 # Mostrar el gráfico
 print(gg_pca_repro)
@@ -1049,7 +1061,7 @@ print(gg_pca_repro)
 dev.off()
 
 # Guardar el gráfico como PNG con alta resolución
-ggsave("mi_grafico_pca.tiff", plot = gg_pca_repro, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
+ggsave("mi_grafico_pca.tiff", plot = gg_pca_repro, device = "tiff", width = 10, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1081,8 +1093,8 @@ mi_grafico_pca_year <- fviz_pca_biplot(pca_result,
   
   # Añadir título y etiquetas de ejes
   labs(title = "", 
-       x = "Componente Principal 1 (71,0 %)", 
-       y = "Componente Principal 2 (29,0 %)") +
+       x = "Componente Principal 1 (31,8 %)", 
+       y = "Componente Principal 2 (17,5 %)") +
   
   # Personalizar el tema del gráfico
     theme_classic() +
@@ -1093,7 +1105,7 @@ mi_grafico_pca_year <- fviz_pca_biplot(pca_result,
   geom_text(aes(x = Inf, y = Inf, label = ""), 
             hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
   # Limitar los ejes para que los vectores sean visibles
-  coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
 
 # Mostrar el gráfico
 print(mi_grafico_pca_year)
@@ -1102,7 +1114,7 @@ print(mi_grafico_pca_year)
 dev.off()
 
 # Guardar el gráfico como PNG con alta resolución
-ggsave("mi_grafico_pca_year.tiff", plot = mi_grafico_pca_year, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
+ggsave("mi_grafico_pca_year.tiff", plot = mi_grafico_pca_year, device = "tiff", width = 10, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1168,10 +1180,11 @@ heatmap <- corrplot(matriz_corr,
          cl.cex = 1.0,            # Tamaño de la barra de colores
          cl.pos = "b",            # Mostrar la barra de colores en la parte inferior
          mar = c(0, 0, 0, 0))     # Márgenes ajustados para que no se superpongan
+
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
 
 corrplot(matriz_corr, 
           method = "ellipse",     # Mostrar elipses en la parte superior

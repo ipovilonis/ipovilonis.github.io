@@ -1,0 +1,21 @@
+---
+title: "Ensayo 6"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Carga de datos
+library(readxl)
+ensayo6 <- read_excel("database.xlsx", sheet = "Ensayo 6")
+
+print(ensayo6)
+
+```

@@ -175,14 +175,15 @@ modelo_dl_temp_gamma_log_mixto <- glmer(
 
 ```
 
-Comparación de modelos por AIC
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-aic_table <- AIC(modelo_dl_temp, modelo_dl_temp_gamma_ide, modelo_dl_temp_gamma_log, modelo_dl_temp_gamma_ide_mixto, modelo_dl_temp_gamma_log_mixto)
-
-library(knitr)
-kable(aic_table, format = "markdown")
+#Comparación de modelos por AIC
+# aic_table <- AIC(modelo_dl_temp, modelo_dl_temp_gamma_ide, modelo_dl_temp_gamma_log, modelo_dl_temp_gamma_ide_mixto, modelo_dl_temp_gamma_log_mixto)
+# 
+# library(knitr)
+# kable(aic_table, format = "markdown")
 
 ```
 
@@ -342,25 +343,27 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data_dl$hr<-data_dl$hr/100
 
-library(lme4)
-modelo_dl_hr <- lmer(hr~year*site+(1|hour), data = data_dl)
-
-library(nlme)
-modelo_dl_hr_beta <- glm(hr~year*site, family = beta_family(), data = data_dl)
+# library(lme4)
+# modelo_dl_hr <- lmer(hr~year*site+(1|hour), data = data_dl)
+# 
+# library(nlme)
+# modelo_dl_hr_beta <- glm(hr~year*site, family = beta_family(), data = data_dl)
 
 library(glmmTMB)
 modelo_dl_hr_beta_mixto <- glmmTMB(hr~year*site+(1|hour), family = beta_family(), data = data_dl)
 
 ```
 
-Comparación de modelos por AIC
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-aic_table_hr <- AIC(modelo_dl_hr, modelo_dl_hr_beta, modelo_dl_hr_beta_mixto)
-
-library(knitr)
-kable(aic_table_hr, format = "markdown")
+# Comparación de modelos por AIC
+# 
+# aic_table_hr <- AIC(modelo_dl_hr, modelo_dl_hr_beta, modelo_dl_hr_beta_mixto)
+# 
+# library(knitr)
+# kable(aic_table_hr, format = "markdown")
 
 ```
 

@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Ensayo 3</title>
+
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">I Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    II Sitios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="II_Phenotypes.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_ER_Climate.html">Clima</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">ENTRE RÍOS</li>
+    <li class="divider"></li>
+    <li>
+      <a href="II_ER_SMN.html">MET ER</a>
+    </li>
+    <li>
+      <a href="II_ER_DL.html">DL ER</a>
+    </li>
+    <li>
+      <a href="II_ER_Soil.html">Suelos ER</a>
+    </li>
+    <li>
+      <a href="II_ER_Asociatedspecies.html">Especies asociadas</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">MORENO</li>
+    <li class="divider"></li>
+    <li>
+      <a href="II_M_inta.html">MET M</a>
+    </li>
+    <li>
+      <a href="II_M_Soil.html">Suelos M</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    III Fenología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="III_Flowers.html">Fenología</a>
+    </li>
+    <li>
+      <a href="III_Yield.html">Rendimiento</a>
+    </li>
+    <li>
+      <a href="III_Polinization.html">Polinización</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    IV Maduración
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mad_resume.html">Tablas resumen</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Atributos físicos</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Actividad antioxidante</a>
+    </li>
+    <li>
+      <a href="madPhenols.html">Fenoles</a>
+    </li>
+    <li>
+      <a href="madSSyAcidez.html">Sólidos Solubles y Acidez</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Ácidos orgánicos</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohidratos</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Fibra dietaria</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cationes</a>
+    </li>
+    <li>
+      <a href="mad_PCA.html">Multivariado</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    V Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_climateric2.html">Ensayo 1</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Ensayo 4</a>
+    </li>
+    <li>
+      <a href="VI_Postharvest.html">Ensayo 7</a>
+    </li>
+    <li>
+      <a href="VI_UNLP_1.html">Ensayo 8</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Variabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V_Weight.html">Peso</a>
+    </li>
+    <li>
+      <a href="V_Diameter.html">Diámetro</a>
+    </li>
+    <li>
+      <a href="V_Seeds.html">Semillas</a>
+    </li>
+    <li>
+      <a href="V_Colorimetry.html">Colorimetría</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_phenols.html">Fenoles</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_flowers.html">Variables reproductivas</a>
+    </li>
+    <li>
+      <a href="V_Branches.html">Eficiencia reproductiva</a>
+    </li>
+    <li>
+      <a href="V_fruits.html">Frutos</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Otros ensayos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Genetics.html">Extracción de ADN</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extración química</a>
+    </li>
+    <li>
+      <a href="q2022_quimico.html">Variables químicas 2022</a>
+    </li>
+    <li>
+      <a href="secado.html">Secado ER</a>
+    </li>
+    <li>
+      <a href="dry_test.html">Pruebas de Secado</a>
+    </li>
+    <li>
+      <a href="calafate.html">Calafate</a>
+    </li>
+    <li>
+      <a href="microprop.html">Micropropagación</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Publicaciones</a>
+</li>
+<li>
+  <a href="bibliografia.html">Bibliografía</a>
+</li>
+<li>
+  <a href="about.html">Sobre el sitio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Ensayo 3</h1>
+
+</div>
+
+
+<div id="principal-component-analysis" class="section level1">
+<h1>Principal component analysis</h1>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="univariate-analysis-for-the-color-component-lab"
+class="section level1">
+<h1>Univariate analysis for the color component Lab</h1>
+<div id="descriptive-table-for-principal-color-component"
+class="section level2">
+<h2>Descriptive table for principal color component</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">treat</th>
+<th align="right">mean</th>
+<th align="right">min</th>
+<th align="right">max</th>
+<th align="right">sd</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">control</td>
+<td align="right">105.3433519</td>
+<td align="right">65.2194586</td>
+<td align="right">139.935557</td>
+<td align="right">20.57438871</td>
+</tr>
+<tr class="even">
+<td align="left">etileno</td>
+<td align="right">113.8394618</td>
+<td align="right">66.9255122</td>
+<td align="right">133.890523</td>
+<td align="right">17.62301483</td>
+</tr>
+<tr class="odd">
+<td align="left">1MCP</td>
+<td align="right">87.6933851</td>
+<td align="right">68.0718073</td>
+<td align="right">102.209545</td>
+<td align="right">8.64723381</td>
+</tr>
+</tbody>
+</table>
+<p><em>Higher values indicate more advanced stages of
+maturation</em></p>
+</div>
+<div id="descriptive-graphic-sd" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model" class="section level2">
+<h2>The model</h2>
+<pre><code>## gls(model = (color_G) ~ treat, data = data_color_G, weights = varIdent(form = ~1 | 
+##     treat))</code></pre>
+</div>
+<div id="assumptions-check" class="section level2">
+<h2>Assumptions check</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo3_files/figure-html/unnamed-chunk-10-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9776409, p-value = 0.0185841</code></pre>
+</div>
+<div id="descriptive-graphic-sd-1" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="anova-comparison-of-means" class="section level2">
+<h2>Anova (comparison of means)</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">numDF</th>
+<th align="right">F-value</th>
+<th align="right">p-value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">1</td>
+<td align="right">8096.9495221</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">treat</td>
+<td align="right">2</td>
+<td align="right">50.4268615</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="dunnett-test" class="section level2">
+<h2>Dunnett test</h2>
+<pre><code>## 
+##   Dunnett&#39;s test for comparing several treatments with a control :  
+##     95% family-wise confidence level
+## 
+## $control
+##                         diff       lwr.ci      upr.ci   pval    
+## etileno-control   8.49610987   1.00749917  15.9847206 0.0233 *  
+## 1MCP-control    -17.64996680 -25.13857751 -10.1613561  1e-06 ***
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="tukey-test" class="section level2">
+<h2>Tukey test</h2>
+<pre><code>## $emmeans
+##  treat        emmean         SE    df    lower.CL    upper.CL
+##  control 105.3433519 2.96965861 46.99  99.3691347 111.3175691
+##  etileno 113.8394618 2.54366330 47.01 108.7222860 118.9566376
+##  1MCP     87.6933851 1.24812000 47.00  85.1824968  90.2042734
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the ( (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast             estimate         SE    df t.ratio p.value
+##  control - etileno -8.49610987 3.91012727 91.83  -2.173  0.0813
+##  control - 1MCP    17.64996680 3.22128480 63.09   5.479  &lt;.0001
+##  etileno - 1MCP    26.14607667 2.83337723 68.39   9.228  &lt;.0001
+## 
+## Note: contrasts are still on the ( scale 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+</div>
+</div>
+<div id="lab-coordinates-correlations" class="section level1">
+<h1>Lab coordinates Correlations</h1>
+<div id="a-vs.-l" class="section level2">
+<h2><em>a</em> vs. <em>L</em></h2>
+<pre><code>## [1] 0.470019664</code></pre>
+</div>
+<div id="a-vs.-b" class="section level2">
+<h2><em>a</em> vs. <em>b</em></h2>
+<pre><code>## [1] 0.637315841</code></pre>
+</div>
+<div id="l-vs.-b" class="section level2">
+<h2><em>L</em> vs. <em>b</em></h2>
+<pre><code>## [1] 0.806146561</code></pre>
+</div>
+</div>
+<div id="color-correlation" class="section level1">
+<h1>Color correlation</h1>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-19-1.png" width="1920" style="display: block; margin: auto;" /></p>
+</div>
+<div id="discriminant-analysis" class="section level1">
+<h1>Discriminant Analysis</h1>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<div id="multiple-response-permutation-procedure-mrpp"
+class="section level2">
+<h2>Multiple Response Permutation Procedure (MRPP)</h2>
+<pre><code>## 
+## Call:
+## mrpp(dat = datos, grouping = grp, permutations = 999, distance = &quot;bray&quot;,      weight.type = 1) 
+## 
+## Dissimilarity index: bray 
+## Weights for groups:  n 
+## 
+## Class means and counts:
+## 
+##       1        2        3        
+## delta 0.138523 0.104724 0.0861082
+## n     48       48       48       
+## 
+## Chance corrected within-group agreement A: 0.171697 
+## Based on observed delta 0.1098 and expected delta 0.1325 
+## 
+## Significance of delta: 0.001 
+## Permutation: free
+## Number of permutations: 999</code></pre>
+</div>
+</div>
+<div id="primer-análisis" class="section level1">
+<h1>Primer análisis</h1>
+</div>
+<div id="colorimetry" class="section level1">
+<h1>Colorimetry</h1>
+</div>
+<div id="l-color" class="section level1">
+<h1>*L color</h1>
+<div id="filter-data-n50" class="section level2">
+<h2>Filter data n=50</h2>
+</div>
+<div id="descriptive-table-for-fresh_weight" class="section level2">
+<h2>Descriptive table for fresh_weight</h2>
+<pre><code>## # A tibble: 3 × 5
+##   treat    mean   min   max    sd
+##   &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 control  63.8  48.5  73.5  6.82
+## 2 etileno  65.3  48.1  71.8  5.82
+## 3 1MCP     61.8  51.7  71.8  5.24</code></pre>
+</div>
+<div id="descriptive-graphic-sd-2" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model-1" class="section level2">
+<h2>The model</h2>
+</div>
+<div id="assumptions-check-1" class="section level2">
+<h2>Assumptions check</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo3_files/figure-html/unnamed-chunk-29-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9268195, p-value = 9.38661e-07</code></pre>
+</div>
+<div id="anova-comparison-of-means-1" class="section level2">
+<h2>Anova (comparison of means)</h2>
+<pre><code>## Denom. DF: 141 
+##             numDF    F-value p-value
+## (Intercept)     1 64707.2488  &lt;.0001
+## treat           2     4.5320  0.0124</code></pre>
+</div>
+<div id="dunnett-test-1" class="section level2">
+<h2>Dunnett test</h2>
+<pre><code>## 
+##   Dunnett&#39;s test for comparing several treatments with a control :  
+##     95% family-wise confidence level
+## 
+## $control
+##                        diff      lwr.ci      upr.ci   pval    
+## etileno-control  1.46765221 -1.26709943 4.202403859 0.3816    
+## 1MCP-control    -2.00759464 -4.74234628 0.727157009 0.1804    
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  treat       emmean           SE    df   lower.CL   upper.CL
+##  control 7.97687814 0.0630720063 46.84 7.84998220 8.10377409
+##  etileno 8.07153729 0.0536919175 46.80 7.96351102 8.17956357
+##  1MCP    7.85486773 0.0486001929 47.19 7.75710696 7.95262849
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the sqrt (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast               estimate           SE    df t.ratio p.value
+##  control - etileno -0.0946591497 0.0828305498 91.84  -1.143  0.4904
+##  control - 1MCP     0.1220104164 0.0796244731 87.96   1.532  0.2809
+##  etileno - 1MCP     0.2166695661 0.0724209966 92.83   2.992  0.0099
+## 
+## Note: contrasts are still on the sqrt scale 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="color" class="section level1">
+<h1>Color +</h1>
+<div id="filter-data-n50-1" class="section level2">
+<h2>Filter data n=50</h2>
+</div>
+<div id="descriptive-table-for-fresh_weight-1" class="section level2">
+<h2>Descriptive table for fresh_weight</h2>
+<pre><code>## # A tibble: 3 × 5
+##   treat    mean   min   max    sd
+##   &lt;fct&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 control 106.   65.2  140. 20.7 
+## 2 etileno 114.   66.9  134. 17.6 
+## 3 1MCP     88.1  68.1  102.  8.04</code></pre>
+</div>
+<div id="descriptive-graphic-sd-3" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-35-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="the-model-2" class="section level2">
+<h2>The model</h2>
+</div>
+<div id="assumptions-check-2" class="section level2">
+<h2>Assumptions check</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo3_files/figure-html/unnamed-chunk-38-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  e
+## W = 0.9679035, p-value = 0.00185555</code></pre>
+</div>
+<div id="anova-comparison-of-means-2" class="section level2">
+<h2>Anova (comparison of means)</h2>
+<pre><code>## Denom. DF: 141 
+##             numDF    F-value p-value
+## (Intercept)     1 34202.5219  &lt;.0001
+## treat           2    47.4631  &lt;.0001</code></pre>
+</div>
+<div id="dunnett-test-2" class="section level2">
+<h2>Dunnett test</h2>
+<pre><code>## 
+##   Dunnett&#39;s test for comparing several treatments with a control :  
+##     95% family-wise confidence level
+## 
+## $control
+##                        diff        lwr.ci      upr.ci    pval    
+## etileno-control   8.3259354   0.853438918 15.79843189  0.0262 *  
+## 1MCP-control    -17.3664659 -24.838962384 -9.89396941 1.4e-06 ***
+## 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  treat        emmean           SE    df    lower.CL   upper.CL
+##  control 10.22114573 0.1488757525 47.17  9.92167451 10.5206169
+##  etileno 10.63543129 0.1243761690 46.94 10.38521087 10.8856517
+##  1MCP     9.37877585 0.0628445784 47.01  9.25234930  9.5052024
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the sqrt (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast              estimate          SE    df t.ratio p.value
+##  control - etileno -0.414285559 0.193993353 91.26  -2.136  0.0883
+##  control - 1MCP     0.842369873 0.161596506 63.46   5.213  &lt;.0001
+##  etileno - 1MCP     1.256655432 0.139351614 69.44   9.018  &lt;.0001
+## 
+## Note: contrasts are still on the sqrt scale 
+## Degrees-of-freedom method: satterthwaite 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+<div id="descriptive-graphic-sd-4" class="section level2">
+<h2>Descriptive graphic (sd)</h2>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="color-correlation-1" class="section level1">
+<h1>Color correlation</h1>
+</div>
+<div id="correlation" class="section level1">
+<h1>Correlation</h1>
+<pre><code>## [1] 0.469400212</code></pre>
+<pre><code>## [1] 0.642366796</code></pre>
+<pre><code>## [1] 0.790734056</code></pre>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-45-1.png" width="960" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

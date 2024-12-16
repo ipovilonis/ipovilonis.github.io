@@ -352,16 +352,16 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="VI_Postharvest.html">Postcosecha</a>
+      <a href="VI_climateric2.html">Ensayo 1</a>
     </li>
     <li>
-      <a href="VI_climateric2.html">Climacterio 2</a>
+      <a href="VI_climateric3.html">Ensayo 4</a>
     </li>
     <li>
-      <a href="VI_climateric3.html">Climacterio 3</a>
+      <a href="VI_Postharvest.html">Ensayo 7</a>
     </li>
     <li>
-      <a href="VI_UNLP_1.html">Conservación 1°C</a>
+      <a href="VI_UNLP_1.html">Ensayo 8</a>
     </li>
   </ul>
 </li>
@@ -532,92 +532,74 @@ principales)</p>
 ## [3,]  2.173886860 -4.14940374 -2.6092796324 -0.00000000000000435762537
 ## [4,]  6.012488143  3.96910842 -0.0674018108  0.00000000000000305311332</code></pre>
 <p>Contribución de las variables al CP1</p>
-<pre><code>##                     PTHPLC                        CLb                         PT         Di_Esteres_Luteina 
-##             3.086864012378             3.057821661956             3.045033229134             3.034451338221 
-##                    DMAFDPF         Beta_Cryptoxantina                Respiración                     Gálico 
-##             2.993706115504             2.950229020692             2.913258355086             2.910687239594 
-##                        PEN                  Siríngico                       DMIF                        CTC 
-##             2.902505466112             2.896894377821             2.838238697592             2.821042177980 
-##                  Catequina                         TS Esteres_Beta_Criptoxantina                        CLa 
-##             2.776627911561             2.774207486996             2.701917489773             2.688553399054 
-##                     Tánico                       DMAF                    Catecol                Feofitina_a 
-##             2.641052368078             2.523957295350             2.454492061813             2.331582284811 
-##                     Rutina                        PSS                        PFF                       DPPH 
-##             2.330566576242             2.298301704119             2.297712909665             2.135836074564 
-##                    Quínico                         a*                        FDI                        FDT 
-##             2.135359398212             2.132405247966             2.112576000964             2.054325051103 
-##                    Almidón                        FDS                     Málico                        PSF 
-##             2.024443083603             1.897924233965             1.832876939969             1.769693543895 
-##                    Glucosa                     GluFru                   Fructosa                  Tartárico 
-##             1.740111704879             1.685867792492             1.605790291711             1.548605711049 
-##                     ATT_SS                   Sacarosa                Feofitina_b                         L* 
-##             1.547299102348             1.412220610434             1.368543022303             1.308851235683 
-##                        ATT                         SS                          H              Beta_caroteno 
-##             1.212196365923             1.171007150201             0.951866791528             0.898288125693 
-##                     PSSPSF                          K                         CT                         Mg 
-##             0.460363096524             0.421066879249             0.417345895928             0.327096566213 
-##                         pH                         b*                    Luteina                        DPF 
-##             0.268127492781             0.183781226880             0.088461165480             0.012846137694 
-##                  Succinico                         Mn 
-##             0.004416480659             0.000704400574</code></pre>
+<pre><code>##                     PTHPLC                        CLb                         PT         Di_Esteres_Luteina                    DMAFDPF 
+##             3.086864012378             3.057821661956             3.045033229134             3.034451338221             2.993706115504 
+##         Beta_Cryptoxantina                Respiración                     Gálico                        PEN                  Siríngico 
+##             2.950229020692             2.913258355086             2.910687239594             2.902505466112             2.896894377821 
+##                       DMIF                        CTC                  Catequina                         TS Esteres_Beta_Criptoxantina 
+##             2.838238697592             2.821042177980             2.776627911561             2.774207486996             2.701917489773 
+##                        CLa                     Tánico                       DMAF                    Catecol                Feofitina_a 
+##             2.688553399054             2.641052368078             2.523957295350             2.454492061813             2.331582284811 
+##                     Rutina                        PSS                        PFF                       DPPH                    Quínico 
+##             2.330566576242             2.298301704119             2.297712909665             2.135836074564             2.135359398212 
+##                         a*                        FDI                        FDT                    Almidón                        FDS 
+##             2.132405247966             2.112576000964             2.054325051103             2.024443083603             1.897924233965 
+##                     Málico                        PSF                    Glucosa                     GluFru                   Fructosa 
+##             1.832876939969             1.769693543895             1.740111704879             1.685867792492             1.605790291711 
+##                  Tartárico                     ATT_SS                   Sacarosa                Feofitina_b                         L* 
+##             1.548605711049             1.547299102348             1.412220610434             1.368543022303             1.308851235683 
+##                        ATT                         SS                          H              Beta_caroteno                     PSSPSF 
+##             1.212196365923             1.171007150201             0.951866791528             0.898288125693             0.460363096524 
+##                          K                         CT                         Mg                         pH                         b* 
+##             0.421066879249             0.417345895928             0.327096566213             0.268127492781             0.183781226880 
+##                    Luteina                        DPF                  Succinico                         Mn 
+##             0.088461165480             0.012846137694             0.004416480659             0.000704400574</code></pre>
 <p>Contribución de las variables al CP2</p>
-<pre><code>##                         Mg                         CT                          K                  Succinico 
-##           6.04298899480519           5.58574184034337           5.55984800705262           5.49165441688062 
-##                         pH                          H              Beta_caroteno                    Luteina 
-##           5.09662659040772           4.72701648924627           4.66536994057751           4.30621518696728 
-##                Feofitina_b                  Tartárico                         Mn                   Sacarosa 
-##           3.99589325395812           3.58390805575880           3.48941328526462           3.46503495171177 
-##                     ATT_SS                     GluFru                        DPF                    Glucosa 
-##           3.26393136653985           3.15128790142066           3.07754610275154           2.89597379440752 
-##                     Málico                        ATT                   Fructosa                         SS 
-##           2.88943298205460           2.84785480834254           2.39925625786066           2.28236401940241 
-##                         a*                     PSSPSF                         b*                     Rutina 
-##           2.14611817030436           2.05131441061150           1.85253432786493           1.69911163084139 
-##                        FDS                       DPPH                Feofitina_a                    Quínico 
-##           1.49939396375266           1.49531745586667           1.23262393764628           1.19514468786721 
-##                        PFF                     Tánico                       DMAF Esteres_Beta_Criptoxantina 
-##           1.15664092113184           1.04958647365919           0.93950249611402           0.81526135884467 
-##                        CTC                         TS                        PEN                  Catequina 
-##           0.57986899510475           0.57853279782339           0.45433193023109           0.34869238379270 
-##                       DMIF                        PSF                    Almidón         Beta_Cryptoxantina 
-##           0.33874815980984           0.29677215655509           0.27438358927519           0.26095090402160 
-##                     Gálico                Respiración                        CLa                        CLb 
-##           0.21455945737341           0.18469353302651           0.16097027595413           0.10776195669855 
-##         Di_Esteres_Luteina                        FDT                         PT                  Siríngico 
-##           0.07097681414773           0.04538673821034           0.03353937580375           0.02926245632438 
-##                    Catecol                         L*                        PSS                    DMAFDPF 
-##           0.02106575966337           0.01780962303763           0.01414920939665           0.01281894426847 
-##                     PTHPLC                        FDI 
-##           0.00480912645316           0.00000773276988</code></pre>
+<pre><code>##                         Mg                         CT                          K                  Succinico                         pH 
+##           6.04298899480519           5.58574184034337           5.55984800705262           5.49165441688062           5.09662659040772 
+##                          H              Beta_caroteno                    Luteina                Feofitina_b                  Tartárico 
+##           4.72701648924627           4.66536994057751           4.30621518696728           3.99589325395812           3.58390805575880 
+##                         Mn                   Sacarosa                     ATT_SS                     GluFru                        DPF 
+##           3.48941328526462           3.46503495171177           3.26393136653985           3.15128790142066           3.07754610275154 
+##                    Glucosa                     Málico                        ATT                   Fructosa                         SS 
+##           2.89597379440752           2.88943298205460           2.84785480834254           2.39925625786066           2.28236401940241 
+##                         a*                     PSSPSF                         b*                     Rutina                        FDS 
+##           2.14611817030436           2.05131441061150           1.85253432786493           1.69911163084139           1.49939396375266 
+##                       DPPH                Feofitina_a                    Quínico                        PFF                     Tánico 
+##           1.49531745586667           1.23262393764628           1.19514468786721           1.15664092113184           1.04958647365919 
+##                       DMAF Esteres_Beta_Criptoxantina                        CTC                         TS                        PEN 
+##           0.93950249611402           0.81526135884467           0.57986899510475           0.57853279782339           0.45433193023109 
+##                  Catequina                       DMIF                        PSF                    Almidón         Beta_Cryptoxantina 
+##           0.34869238379270           0.33874815980984           0.29677215655509           0.27438358927519           0.26095090402160 
+##                     Gálico                Respiración                        CLa                        CLb         Di_Esteres_Luteina 
+##           0.21455945737341           0.18469353302651           0.16097027595413           0.10776195669855           0.07097681414773 
+##                        FDT                         PT                  Siríngico                    Catecol                         L* 
+##           0.04538673821034           0.03353937580375           0.02926245632438           0.02106575966337           0.01780962303763 
+##                        PSS                    DMAFDPF                     PTHPLC                        FDI 
+##           0.01414920939665           0.01281894426847           0.00480912645316           0.00000773276988</code></pre>
 <p>Contribución acumulada de cada variable a CP1 y CP2</p>
-<pre><code>##                         Mg                         CT                          K                          H 
-##                 6.37008556                 6.00308774                 5.98091489                 5.67888328 
-##              Beta_caroteno                  Succinico                         pH                Feofitina_b 
-##                 5.56365807                 5.49607090                 5.36475408                 5.36443628 
-##                  Tartárico                   Sacarosa                     GluFru                     ATT_SS 
-##                 5.13251377                 4.87725556                 4.83715569                 4.81123047 
-##                     Málico                    Glucosa                    Luteina                         a* 
-##                 4.72230992                 4.63608550                 4.39467635                 4.27852342 
-##                        ATT                     Rutina                   Fructosa                     Tánico 
-##                 4.06005117                 4.02967821                 4.00504655                 3.69063884 
-##                       DPPH                Feofitina_a Esteres_Beta_Criptoxantina                         Mn 
-##                 3.63115353                 3.56420622                 3.51717885                 3.49011769 
-##                       DMAF                        PFF                         SS                        CTC 
-##                 3.46345979                 3.45435383                 3.45337117                 3.40091117 
-##                        FDS                        PEN                         TS                    Quínico 
-##                 3.39731820                 3.35683740                 3.35274028                 3.33050409 
-##         Beta_Cryptoxantina                       DMIF                        CLb                  Catequina 
-##                 3.21117992                 3.17698686                 3.16558362                 3.12532030 
-##                     Gálico         Di_Esteres_Luteina                Respiración                     PTHPLC 
-##                 3.12524670                 3.10542815                 3.09795189                 3.09167314 
-##                        DPF                         PT                    DMAFDPF                  Siríngico 
-##                 3.09039224                 3.07857260                 3.00652506                 2.92615683 
-##                        CLa                     PSSPSF                    Catecol                        PSS 
-##                 2.84952368                 2.51167751                 2.47555782                 2.31245091 
-##                    Almidón                        FDI                        FDT                        PSF 
-##                 2.29882667                 2.11258373                 2.09971179                 2.06646570 
-##                         b*                         L* 
-##                 2.03631555                 1.32666086</code></pre>
+<pre><code>##                         Mg                         CT                          K                          H              Beta_caroteno 
+##                 6.37008556                 6.00308774                 5.98091489                 5.67888328                 5.56365807 
+##                  Succinico                         pH                Feofitina_b                  Tartárico                   Sacarosa 
+##                 5.49607090                 5.36475408                 5.36443628                 5.13251377                 4.87725556 
+##                     GluFru                     ATT_SS                     Málico                    Glucosa                    Luteina 
+##                 4.83715569                 4.81123047                 4.72230992                 4.63608550                 4.39467635 
+##                         a*                        ATT                     Rutina                   Fructosa                     Tánico 
+##                 4.27852342                 4.06005117                 4.02967821                 4.00504655                 3.69063884 
+##                       DPPH                Feofitina_a Esteres_Beta_Criptoxantina                         Mn                       DMAF 
+##                 3.63115353                 3.56420622                 3.51717885                 3.49011769                 3.46345979 
+##                        PFF                         SS                        CTC                        FDS                        PEN 
+##                 3.45435383                 3.45337117                 3.40091117                 3.39731820                 3.35683740 
+##                         TS                    Quínico         Beta_Cryptoxantina                       DMIF                        CLb 
+##                 3.35274028                 3.33050409                 3.21117992                 3.17698686                 3.16558362 
+##                  Catequina                     Gálico         Di_Esteres_Luteina                Respiración                     PTHPLC 
+##                 3.12532030                 3.12524670                 3.10542815                 3.09795189                 3.09167314 
+##                        DPF                         PT                    DMAFDPF                  Siríngico                        CLa 
+##                 3.09039224                 3.07857260                 3.00652506                 2.92615683                 2.84952368 
+##                     PSSPSF                    Catecol                        PSS                    Almidón                        FDI 
+##                 2.51167751                 2.47555782                 2.31245091                 2.29882667                 2.11258373 
+##                        FDT                        PSF                         b*                         L* 
+##                 2.09971179                 2.06646570                 2.03631555                 1.32666086</code></pre>
 <p>Biplot</p>
 <pre><code>## png 
 ##   2</code></pre>

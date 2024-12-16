@@ -692,7 +692,6 @@ rpt_CTC_CL
 ```
 
 # Análisis multivariado
-
 ## Análisis de variabilidad completa
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1286,13 +1285,13 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width=
 #          mar = c(0, 0, 0, 0))     # Márgenes ajustados para que no se superpongan
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=12, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
-# Abre un dispositivo TIFF
-tiff("heatmap_frutos.tiff", units = "cm", width = 32, height = 24, res = 300)
-
-corrplot(matriz_corr, 
+# # Abre un dispositivo TIFF
+# tiff("heatmap_frutos.tiff", units = "cm", width = 32, height = 24, res = 300)
+# 
+corrplot(matriz_corr,
          method = "ellipse",      # Mostrar elipses en la parte superior
          type = "upper",          # Solo parte superior
          addCoef.col = "black",   # Añadir valores numéricos de correlación
@@ -1300,13 +1299,11 @@ corrplot(matriz_corr,
          tl.col = "black",        # Color de las etiquetas
          tl.pos = "d",            # Etiquetas en diagonal
          tl.srt = 90)             # Inclinación de las etiquetas a 45 grados
-
-# Cerrar el dispositivo de gráficos
-dev.off()
+# 
+# # Cerrar el dispositivo de gráficos
+# dev.off()
 
 ```
-
-![Heatmap de correlación](heatmap_frutos.tiff)
 
 ## Selección de fenotipos superiores
 

@@ -1,0 +1,120 @@
+---
+title: "Ensayo 2"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+Tiempo
+(horas)		CO2 (mg/Kg)
+
+24		128,2±36,7a
+48		115,7±40,1a
+120		172,6±18,5a
+ANOVA 	F	p-valor
+Tiempo	1,6	<0,332
+
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Essay 2
+library(readxl)
+datares <- read_excel("database.xlsx", sheet = "VI respiration")
+datares$site<-as.factor(datares$site)
+datares$time<-as.numeric(datares$time)
+datares$respiration<-datares$respiration*1.831 # ml a mg CO2
+
+
+resp_barplot<-ggplot(data = datares, aes(x = time, y = respiration, color=site))+
+  geom_point(size=8)+
+  theme_classic()+
+  labs(y="mg CO2 / kg.h", x="Horas desde cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  scale_color_manual(values=c("skyblue1", "skyblue4"))+
+  annotate("text", x = 125, y = 105, label = "+ 112%")+
+  annotate("text", x = 125, y = 92, label = "+ 11%")
+resp_barplot
+
+datares$time<-as.factor(datares$time)
+
+resp_barplot2<-ggplot(data = datares, aes(x = time, y = respiration, fill=site))+
+  geom_bar(stat = "identity", position = "dodge")+
+  theme_classic()+
+  labs(y="mg CO2 / kg.h", x="Horas desde cosecha")+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(panel.grid.major.y = element_line(size=0.5, color='black'))+
+  theme(text = element_text(size=30, color="black"))+
+  theme(axis.text = element_text(color="black"))+
+  theme(plot.background = element_rect(fill = "white"))+
+  theme(panel.background = element_rect(fill = "white", color = "white"))+
+  scale_fill_manual(values=c("skyblue1", "skyblue4"))+
+  annotate("text", x = 2.8, y = 105, label = "+ 112%")+
+  annotate("text", x = 3.2, y = 92, label = "+ 11%")
+resp_barplot2
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadac <- summarySE(datares, measurevar="respiration", groupvars=c("time"))
+estadac
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datares$time <- as.factor(datares$time)
+mcm_clim <- lm(respiration ~ time, data=datares)
+
+# datares$time <- as.numeric(datares$time)
+# mr_clim <- lm(respiration ~ time, data=datares)
+# 
+# mr_clim2 <- lm(respiration ~ time + time^2, data=datares)
+# 
+# 
+# anova(mcm_clim, mr_clim, mr_clim2)
+# AIC(mcm_clim, mr_clim, mr_clim2)
+```
+
+## Diferencias en porcentaje por sitio
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(mcm_clim)
+
+```
+
+No existen evidencias para rechazar la hipótesis nula.
+
+## Diferencias en porcentaje por sitio
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+Pampa_Azul <- filter(datares, datares$site == "pampa_azul") 
+((100*max(Pampa_Azul$respiration))/min(Pampa_Azul$respiration))-100
+
+san_carlos <- filter(datares, datares$site == "san_carlos") 
+((100*max(san_carlos$respiration))/min(san_carlos$respiration))-100
+
+```
+
+
+

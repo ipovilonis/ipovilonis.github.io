@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Ensayo 8</title>
+
+<script src="site_libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+  <link rel="icon" type="image/png" href="fruto.jpg"/>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="styles.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+.tocify-subheader {
+  display: inline;
+}
+.tocify-subheader .tocify-item {
+  font-size: 0.95em;
+}
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Inicio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">I Introducción</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    II Sitios
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="II_Phenotypes.html">Fenotipos</a>
+    </li>
+    <li>
+      <a href="II_ER_Climate.html">Clima</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">ENTRE RÍOS</li>
+    <li class="divider"></li>
+    <li>
+      <a href="II_ER_SMN.html">MET ER</a>
+    </li>
+    <li>
+      <a href="II_ER_DL.html">DL ER</a>
+    </li>
+    <li>
+      <a href="II_ER_Soil.html">Suelos ER</a>
+    </li>
+    <li>
+      <a href="II_ER_Asociatedspecies.html">Especies asociadas</a>
+    </li>
+    <li class="divider"></li>
+    <li class="dropdown-header">MORENO</li>
+    <li class="divider"></li>
+    <li>
+      <a href="II_M_inta.html">MET M</a>
+    </li>
+    <li>
+      <a href="II_M_Soil.html">Suelos M</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    III Fenología
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="III_Flowers.html">Fenología</a>
+    </li>
+    <li>
+      <a href="III_Yield.html">Rendimiento</a>
+    </li>
+    <li>
+      <a href="III_Polinization.html">Polinización</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    IV Maduración
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="mad_resume.html">Tablas resumen</a>
+    </li>
+    <li>
+      <a href="madPhysical.html">Atributos físicos</a>
+    </li>
+    <li>
+      <a href="madAntioxidant.html">Actividad antioxidante</a>
+    </li>
+    <li>
+      <a href="madPhenols.html">Fenoles</a>
+    </li>
+    <li>
+      <a href="madSSyAcidez.html">Sólidos Solubles y Acidez</a>
+    </li>
+    <li>
+      <a href="madAcids.html">Ácidos orgánicos</a>
+    </li>
+    <li>
+      <a href="madCarbohydrates.html">Carbohidratos</a>
+    </li>
+    <li>
+      <a href="madFiber.html">Fibra dietaria</a>
+    </li>
+    <li>
+      <a href="madCations.html">Cationes</a>
+    </li>
+    <li>
+      <a href="mad_PCA.html">Multivariado</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    V Postcosecha
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="VI_climateric2.html">Ensayo 1</a>
+    </li>
+    <li>
+      <a href="VI_climateric3.html">Ensayo 4</a>
+    </li>
+    <li>
+      <a href="VI_Postharvest.html">Ensayo 7</a>
+    </li>
+    <li>
+      <a href="VI_UNLP_1.html">Ensayo 8</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    VI Variabilidad
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="V_Weight.html">Peso</a>
+    </li>
+    <li>
+      <a href="V_Diameter.html">Diámetro</a>
+    </li>
+    <li>
+      <a href="V_Seeds.html">Semillas</a>
+    </li>
+    <li>
+      <a href="V_Colorimetry.html">Colorimetría</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_phenols.html">Fenoles</a>
+    </li>
+    <li class="divider"></li>
+    <li>
+      <a href="V_flowers.html">Variables reproductivas</a>
+    </li>
+    <li>
+      <a href="V_Branches.html">Eficiencia reproductiva</a>
+    </li>
+    <li>
+      <a href="V_fruits.html">Frutos</a>
+    </li>
+    <li class="divider"></li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Otros ensayos
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Genetics.html">Extracción de ADN</a>
+    </li>
+    <li>
+      <a href="extraction_methods.html">Extración química</a>
+    </li>
+    <li>
+      <a href="q2022_quimico.html">Variables químicas 2022</a>
+    </li>
+    <li>
+      <a href="secado.html">Secado ER</a>
+    </li>
+    <li>
+      <a href="dry_test.html">Pruebas de Secado</a>
+    </li>
+    <li>
+      <a href="calafate.html">Calafate</a>
+    </li>
+    <li>
+      <a href="microprop.html">Micropropagación</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="publications.html">Publicaciones</a>
+</li>
+<li>
+  <a href="bibliografia.html">Bibliografía</a>
+</li>
+<li>
+  <a href="about.html">Sobre el sitio</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/ipovilonis/ubajay.github.io">
+    <span class=" favicon.ico"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Ensayo 8</h1>
+
+</div>
+
+
+<div id="respiración" class="section level2">
+<h2>Respiración</h2>
+<p>Tabla resumen</p>
+<pre><code>## # A tibble: 4 × 4
+##   Día       n Mean_resp sd_resp
+##   &lt;fct&gt; &lt;int&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1 1         3     28.0     6.01
+## 2 5         3      8.58    4.12
+## 3 7         3     23.8     4.94
+## 4 10        2     23.0     1.64</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-3-1.png" width="2304" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = respiracion ~ Día, data = data_resp)</code></pre>
+<p>Análisis de regresión</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: respiracion
+##           Df   Sum Sq   Mean Sq F value    Pr(&gt;F)   
+## Día        3 641.7145 213.90482 9.49642 0.0072991 **
+## Residuals  7 157.6735  22.52478                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Día      emmean         SE df    lower.CL   upper.CL
+##  1   28.04937915 2.74012036  7 21.57002409 34.5287342
+##  5    8.57807341 2.74012036  7  2.09871836 15.0574285
+##  7   23.77439655 2.74012036  7 17.29504149 30.2537516
+##  10  22.99332935 3.35594836  7 15.05777247 30.9288862
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast         estimate         SE df t.ratio p.value
+##  Día1 - Día5   19.47130573 3.87511538  7   5.025  0.0064
+##  Día1 - Día7    4.27498260 3.87511538  7   1.103  0.6991
+##  Día1 - Día10   5.05604980 4.33251070  7   1.167  0.6640
+##  Día5 - Día7  -15.19632313 3.87511538  7  -3.922  0.0231
+##  Día5 - Día10 -14.41525594 4.33251070  7  -3.327  0.0489
+##  Día7 - Día10   0.78106719 4.33251070  7   0.180  0.9977
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="firmeza" class="section level2">
+<h2>Firmeza</h2>
+<p>Tabla resumen</p>
+<pre><code>## # A tibble: 4 × 4
+##   Día       n Mean_firmeza sd_firmeza
+##   &lt;fct&gt; &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 1        22         1.41      0.540
+## 2 5        22         1.05      0.505
+## 3 7        22         1.13      0.412
+## 4 10       22         1.13      0.322</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Firmeza ~ Día, data = data_fisico)</code></pre>
+<p>Análisis de la varianza</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Firmeza
+##           Df    Sum Sq   Mean Sq F value  Pr(&gt;F)  
+## Día        3  1.623182 0.5410606 2.63932 0.05477 .
+## Residuals 84 17.220000 0.2050000                  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean           SE df    lower.CL   upper.CL
+##  1   1.40909091 0.0965307299 84 1.217128966 1.60105285
+##  5   1.05454545 0.0965307299 84 0.862583512 1.24650740
+##  7   1.12727273 0.0965307299 84 0.935310785 1.31923467
+##  10  1.12727273 0.0965307299 84 0.935310785 1.31923467
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast         estimate          SE df t.ratio p.value
+##  Día1 - Día5   0.354545455 0.136515067 84   2.597  0.0531
+##  Día1 - Día7   0.281818182 0.136515067 84   2.064  0.1733
+##  Día1 - Día10  0.281818182 0.136515067 84   2.064  0.1733
+##  Día5 - Día7  -0.072727273 0.136515067 84  -0.533  0.9509
+##  Día5 - Día10 -0.072727273 0.136515067 84  -0.533  0.9509
+##  Día7 - Día10  0.000000000 0.136515067 84   0.000  1.0000
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="colorimetría" class="section level2">
+<h2>Colorimetría</h2>
+<div id="l" class="section level3">
+<h3>L*</h3>
+<p>Tabla resumen</p>
+<pre><code>## # A tibble: 4 × 4
+##   Día       n Mean_L_color sd_L_color
+##   &lt;fct&gt; &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 1        24         60.6       4.50
+## 2 5        24         56.1       7.55
+## 3 7        24         54.0       6.44
+## 4 10       24         53.4       4.76</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-19-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = L_color ~ Día, data = data_fisico)</code></pre>
+<p>Análisis de la varianza</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: L_color
+##           Df   Sum Sq   Mean Sq F value Pr(&gt;F)    
+## Día        3  770.173 256.72446 7.26176  2e-04 ***
+## Residuals 92 3252.471  35.35294                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   60.5962500 1.21368828 92 58.1857603 63.0067397
+##  5   56.1079167 1.21368828 92 53.6974270 58.5184063
+##  7   53.9733333 1.21368828 92 51.5628437 56.3838230
+##  10  53.3833333 1.21368828 92 50.9728437 55.7938230
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast       estimate         SE df t.ratio p.value
+##  Día1 - Día5  4.48833333 1.71641442 92   2.615  0.0502
+##  Día1 - Día7  6.62291667 1.71641442 92   3.859  0.0012
+##  Día1 - Día10 7.21291667 1.71641442 92   4.202  0.0004
+##  Día5 - Día7  2.13458333 1.71641442 92   1.244  0.6009
+##  Día5 - Día10 2.72458333 1.71641442 92   1.587  0.3908
+##  Día7 - Día10 0.59000000 1.71641442 92   0.344  0.9859
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-24-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="a" class="section level3">
+<h3>a*</h3>
+<p>Tabla resumen</p>
+<pre><code>## # A tibble: 4 × 4
+##   Día       n Mean_a_color sd_a_color
+##   &lt;fct&gt; &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 1        24         3.70       3.35
+## 2 5        24        11.6        4.84
+## 3 7        24        12.4        6.55
+## 4 10       24        14.6        3.72</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-26-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = a_color ~ Día, data = data_fisico)</code></pre>
+<p>Análisis de la varianza</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: a_color
+##           Df   Sum Sq  Mean Sq F value     Pr(&gt;F)    
+## Día        3 1636.957 545.6524 23.8719 1.6295e-11 ***
+## Residuals 92 2102.892  22.8575                       
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean          SE df    lower.CL    upper.CL
+##  1    3.7012500 0.975908103 92  1.76301227  5.63948773
+##  5   11.6129167 0.975908103 92  9.67467894 13.55115440
+##  7   12.4304167 0.975908103 92 10.49217894 14.36865440
+##  10  14.6295833 0.975908103 92 12.69134560 16.56782106
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast         estimate         SE df t.ratio p.value
+##  Día1 - Día5   -7.91166667 1.38014247 92  -5.732  &lt;.0001
+##  Día1 - Día7   -8.72916667 1.38014247 92  -6.325  &lt;.0001
+##  Día1 - Día10 -10.92833333 1.38014247 92  -7.918  &lt;.0001
+##  Día5 - Día7   -0.81750000 1.38014247 92  -0.592  0.9342
+##  Día5 - Día10  -3.01666667 1.38014247 92  -2.186  0.1349
+##  Día7 - Día10  -2.19916667 1.38014247 92  -1.593  0.3874
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="b" class="section level3">
+<h3>b*</h3>
+<p>Tabla resumen</p>
+<pre><code>## # A tibble: 4 × 4
+##   Día       n Mean_b_color sd_b_color
+##   &lt;fct&gt; &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 1        24         51.3       5.15
+## 2 5        24         48.2       9.89
+## 3 7        24         47.0      10.0 
+## 4 10       24         46.7       8.22</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-33-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = b_color ~ Día, data = data_fisico)</code></pre>
+<p>Análisis de la varianza</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: b_color
+##           Df   Sum Sq   Mean Sq F value  Pr(&gt;F)
+## Día        3  310.393 103.46441 1.41579 0.24321
+## Residuals 92 6723.249  73.07879</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   51.2754167 1.74497842 92 47.8097389 54.7410944
+##  5   48.1841667 1.74497842 92 44.7184889 51.6498444
+##  7   47.0458333 1.74497842 92 43.5801556 50.5115111
+##  10  46.7208333 1.74497842 92 43.2551556 50.1865111
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast       estimate         SE df t.ratio p.value
+##  Día1 - Día5  3.09125000 2.46777216 92   1.253  0.5952
+##  Día1 - Día7  4.22958333 2.46777216 92   1.714  0.3224
+##  Día1 - Día10 4.55458333 2.46777216 92   1.846  0.2589
+##  Día5 - Día7  1.13833333 2.46777216 92   0.461  0.9672
+##  Día5 - Día10 1.46333333 2.46777216 92   0.593  0.9340
+##  Día7 - Día10 0.32500000 2.46777216 92   0.132  0.9992
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-38-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="actividad-antioxidante" class="section level2">
+<h2>Actividad antioxidante</h2>
+<p>Tabla resumen</p>
+<pre><code>## # A tibble: 9 × 5
+## # Groups:   Día [3]
+##   Día   Conc      n Mean_aao sd_aao
+##   &lt;fct&gt; &lt;fct&gt; &lt;int&gt;    &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1     0.125     3    24.2    6.13
+## 2 1     0.25      3    34.3   16.3 
+## 3 1     0.5       3    59.5   24.4 
+## 4 7     0.125     3    11.9    2.79
+## 5 7     0.25      3    20.3    5.38
+## 6 7     0.5       3    40.8    7.04
+## 7 10    0.125     3     8.96   4.13
+## 8 10    0.25      3    10.5    3.13
+## 9 10    0.5       3    23.4    9.78</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-41-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## Formula:          aao/100 ~ Día + (1 | Conc)
+## Data: data_aao
+##         AIC         BIC      logLik    df.resid 
+## -39.0170353 -32.5378509  24.5085176          22 
+## Random-effects (co)variances:
+## 
+## Conditional model:
+##  Groups Name        Std.Dev.
+##  Conc   (Intercept) 0.574172
+## 
+## Number of obs: 27 / Conditional model: Conc, 3
+## 
+## Dispersion parameter for beta family (): 20.1 
+## 
+## Fixed Effects:
+## 
+## Conditional model:
+## (Intercept)         Día7        Día10  
+##   -0.415926    -0.754044    -1.398129</code></pre>
+<p>Anova</p>
+<pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
+## 
+## Response: aao/100
+##        Chisq Df Pr(&gt;Chisq)    
+## Día 31.69151  2  1.313e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Comparaciones a posteriori</p>
+<pre><code>## $emmeans
+##  Día    response           SE  df    asymp.LCL   asymp.UCL
+##  1   0.397492120 0.0872856667 Inf 0.2441136607 0.574052759
+##  7   0.236860543 0.0674563129 Inf 0.1299499428 0.392089611
+##  10  0.140148761 0.0470612192 Inf 0.0704712457 0.259486931
+## 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the logit scale 
+## 
+## $contrasts
+##  contrast     odds.ratio          SE  df  asymp.LCL  asymp.UCL
+##  Día1 / Día7  2.12557768 0.483032271 Inf 1.24787668 3.62061455
+##  Día1 / Día10 4.04762110 1.026182205 Inf 2.23432102 7.33253480
+##  Día7 / Día10 1.90424520 0.496890077 Inf 1.03305971 3.51010668
+## 
+## Confidence level used: 0.95 
+## Conf-level adjustment: tukey method for comparing a family of 3 estimates 
+## Intervals are back-transformed from the log odds ratio scale</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-46-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-47-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fenoles" class="section level2">
+<h2>Fenoles</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_fenoles sd_fenoles
+##   &lt;fct&gt; &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 1         3         90.7      11.1 
+## 2 7         3         72.3       5.28
+## 3 10        3         70.4      14.9</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-50-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Fenoles ~ Día, data = data)</code></pre>
+<p>Análisis de regresión</p>
+<pre><code>## 
+## Call:
+## lm(formula = Fenoles ~ Día, data = data)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -10.92750  -6.48029  -5.03722   4.68472  19.97650 
+## 
+## Coefficients:
+##              Estimate Std. Error  t value   Pr(&gt;|t|)    
+## (Intercept)  98.08296    9.89698  9.91039 2.2701e-05 ***
+## Día         -10.14090    4.58141 -2.21349   0.062475 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.2221 on 7 degrees of freedom
+## Multiple R-squared:  0.411741,   Adjusted R-squared:  0.327704 
+## F-statistic: 4.89953 on 1 and 7 DF,  p-value: 0.0624748</code></pre>
+<p>Por cada día transcurrido los frutos pierden en promedio -2.37 mg eq.
+Tán/100g PF (p=0.041)</p>
+<p>Análisis de la varianza</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Fenoles
+##           Df   Sum Sq  Mean Sq F value  Pr(&gt;F)
+## Día        2 750.9037 375.4518 3.01295 0.12419
+## Residuals  6 747.6763 124.6127</code></pre>
+</div>
+<div id="correlación-aao-y-fenoles" class="section level2">
+<h2>Correlación AAO y fenoles</h2>
+<pre><code>## 
+## Call:
+## lm(formula = aao ~ Fenoles, data = data3)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -18.43221  -6.84751  -3.26580   5.22256  19.83215 
+## 
+## Coefficients:
+##               Estimate Std. Error  t value Pr(&gt;|t|)  
+## (Intercept) -51.914696  27.561215 -1.88361 0.101625  
+## Fenoles       1.197367   0.349478  3.42616 0.011043 *
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 13.5288 on 7 degrees of freedom
+## Multiple R-squared:  0.626439,   Adjusted R-squared:  0.573073 
+## F-statistic: 11.7386 on 1 and 7 DF,  p-value: 0.0110426</code></pre>
+<pre><code>## [1] 0.791479043</code></pre>
+<p>Hay evidencia para aceptar que beta1 difiere de cero (r = 0.791,
+valor p = 0.011 )
+<img src="Ensayo8_files/figure-html/unnamed-chunk-60-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="carotenoides" class="section level2">
+<h2>Carotenoides</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_Carotenoides sd_Carotenoides
+##   &lt;fct&gt; &lt;int&gt;             &lt;dbl&gt;           &lt;dbl&gt;
+## 1 1         6              205.            29.5
+## 2 7         6              298.            38.8
+## 3 10        6              193.            39.2</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-63-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Carotenoides ~ Día, data = data)</code></pre>
+<p>ANOVA</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Carotenoides
+##           Df   Sum Sq  Mean Sq  F value     Pr(&gt;F)    
+## Día        2 39212.49 19606.25 15.02084 0.00026217 ***
+## Residuals 15 19579.05  1305.27                        
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Comparaciones a posteriori</p>
+<pre><code>## $emmeans
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   204.807038 14.7494052 15 173.369425 236.244651
+##  7   297.599839 14.7494052 15 266.162226 329.037452
+##  10  193.365346 14.7494052 15 161.927733 224.802959
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast        estimate         SE df t.ratio p.value
+##  Día1 - Día7  -92.7928014 20.8588088 15  -4.449  0.0013
+##  Día1 - Día10  11.4416916 20.8588088 15   0.549  0.8488
+##  Día7 - Día10 104.2344930 20.8588088 15   4.997  0.0004
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-68-1.png" width="95%" style="display: block; margin: auto;" />
+A los 7 días se encontró un aumento significativo en la concentración de
+carotenoides (p=0.009 )</p>
+</div>
+<div id="clorofila-a" class="section level2">
+<h2>Clorofila a</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_Clorofila_a sd_Clorofila_a
+##   &lt;fct&gt; &lt;int&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+## 1 1         6            31.4           10.1 
+## 2 7         6            24.8            9.70
+## 3 10        6             9.91           3.97</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-70-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Clorofila_a ~ Día, data = data)</code></pre>
+<p>ANOVA</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Clorofila_a
+##           Df   Sum Sq  Mean Sq  F value   Pr(&gt;F)   
+## Día        2 1458.328 729.1642 10.35879 0.001493 **
+## Residuals 15 1055.863  70.3908                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Comparaciones a posteriori</p>
+<pre><code>## $emmeans
+##  Día      emmean         SE df    lower.CL   upper.CL
+##  1   31.43384184 3.42517268 15 24.13325909 38.7344246
+##  7   24.81013984 3.42517268 15 17.50955710 32.1107226
+##  10   9.90998881 3.42517268 15  2.60940606 17.2105715
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast        estimate         SE df t.ratio p.value
+##  Día1 - Día7   6.62370199 4.84392565 15   1.367  0.3820
+##  Día1 - Día10 21.52385303 4.84392565 15   4.443  0.0013
+##  Día7 - Día10 14.90015103 4.84392565 15   3.076  0.0198
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-75-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="clorofila-b" class="section level2">
+<h2>Clorofila b</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_Clorofila_b sd_Clorofila_b
+##   &lt;fct&gt; &lt;int&gt;            &lt;dbl&gt;          &lt;dbl&gt;
+## 1 1         6             53.9          17.4 
+## 2 7         6             42.7          16.5 
+## 3 10        6             16.9           6.48</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-77-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Clorofila_b ~ Día, data = data)</code></pre>
+<p>ANOVA</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Clorofila_b
+##           Df   Sum Sq   Mean Sq  F value    Pr(&gt;F)   
+## Día        2 4318.776 2159.3880 10.47373 0.0014229 **
+## Residuals 15 3092.579  206.1719                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Comparaciones a posteriori</p>
+<pre><code>## $emmeans
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   53.8937172 5.86190972 15 41.3993524 66.3880821
+##  7   42.7286606 5.86190972 15 30.2342958 55.2230254
+##  10  16.9073652 5.86190972 15  4.4130003 29.4017300
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast       estimate         SE df t.ratio p.value
+##  Día1 - Día7  11.1650566 8.28999223 15   1.347  0.3924
+##  Día1 - Día10 36.9863521 8.28999223 15   4.462  0.0012
+##  Día7 - Día10 25.8212955 8.28999223 15   3.115  0.0183
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-82-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="correlación-aao-y-carotenoides" class="section level2">
+<h2>Correlación AAO y Carotenoides</h2>
+<pre><code>## 
+## Call:
+## lm(formula = aao ~ Carotenoides, data = data3)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -25.03109  -7.13940  -0.67292   6.78714  45.98840 
+## 
+## Coefficients:
+##                 Estimate  Std. Error  t value Pr(&gt;|t|)
+## (Intercept)  41.54099304 24.12451892  1.72194  0.12875
+## Carotenoides -0.00134971  0.10363344 -0.01302  0.98997
+## 
+## Residual standard error: 22.1347 on 7 degrees of freedom
+## Multiple R-squared:  2.4231e-05, Adjusted R-squared:  -0.142829 
+## F-statistic: 0.000169621 on 1 and 7 DF,  p-value: 0.989972</code></pre>
+<pre><code>## [1] -0.00492250412</code></pre>
+<p>No existe evidencia para aceptar que beta1 difiere de cero (r =
+-0.004, valor p = 0.990)
+<img src="Ensayo8_files/figure-html/unnamed-chunk-86-1.png" width="95%" style="display: block; margin: auto;" />
+No existe evidencia para aceptar que beta1 difiere de cero (r = 0.082,
+valor p = 0.8330)</p>
+</div>
+<div id="acidez-total-titulable" class="section level2">
+<h2>Acidez total titulable</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_Acidez sd_Acidez
+##   &lt;fct&gt; &lt;int&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+## 1 1         3        2.07     0.125
+## 2 7         3        1.70     0.132
+## 3 10        3        1.58     0.157</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-90-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Acidez ~ Día, data = data)</code></pre>
+<p>Análisis de regresión</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Acidez
+##           Df    Sum Sq    Mean Sq  F value   Pr(&gt;F)  
+## Día        2 0.3860343 0.19301717 10.01283 0.012253 *
+## Residuals  6 0.1156619 0.01927699                    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean           SE df   lower.CL   upper.CL
+##  1   2.06506667 0.0801602346  6 1.86892164 2.26121170
+##  7   1.70240000 0.0801602346  6 1.50625497 1.89854503
+##  10  1.57653333 0.0801602346  6 1.38038831 1.77267836
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast        estimate          SE df t.ratio p.value
+##  Día1 - Día7  0.362666667 0.113363691  6   3.199  0.0426
+##  Día1 - Día10 0.488533333 0.113363691  6   4.309  0.0119
+##  Día7 - Día10 0.125866667 0.113363691  6   1.110  0.5428
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-95-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ph-inicial" class="section level2">
+<h2>pH inicial</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_pH_inicial sd_pH_inicial
+##   &lt;fct&gt; &lt;int&gt;           &lt;dbl&gt;         &lt;dbl&gt;
+## 1 1         3            3.30        0.0252
+## 2 7         3            3.40        0.0404
+## 3 10        3            3.40        0.0289</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-97-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = pH_inicial ~ Día, data = data)</code></pre>
+<p>Análisis de regresión</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: pH_inicial
+##           Df     Sum Sq     Mean Sq F value   Pr(&gt;F)  
+## Día        2 0.01875556 0.009377778 9.07527 0.015335 *
+## Residuals  6 0.00620000 0.001033333                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean           SE df   lower.CL   upper.CL
+##  1   3.30333333 0.0185592145  6 3.25792057 3.34874610
+##  7   3.40333333 0.0185592145  6 3.35792057 3.44874610
+##  10  3.39666667 0.0185592145  6 3.35125390 3.44207943
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast          estimate           SE df t.ratio p.value
+##  Día1 - Día7  -0.1000000000 0.0262466929  6  -3.810  0.0207
+##  Día1 - Día10 -0.0933333333 0.0262466929  6  -3.556  0.0278
+##  Día7 - Día10  0.0066666667 0.0262466929  6   0.254  0.9653
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-102-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ratio" class="section level2">
+<h2>Ratio</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_Ratio sd_Ratio
+##   &lt;fct&gt; &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;
+## 1 1         3       4.54   0.511 
+## 2 7         3       4.55   0.207 
+## 3 10        3       4.27   0.0671</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-104-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Ratio ~ Día, data = data)</code></pre>
+<p>Análisis de regresión</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Ratio
+##           Df    Sum Sq    Mean Sq F value  Pr(&gt;F)
+## Día        2 0.1537034 0.07685168 0.74647 0.51345
+## Residuals  6 0.6177209 0.10295348</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   4.54013599 0.18525071  6 4.08684383 4.99342815
+##  7   4.54799800 0.18525071  6 4.09470584 5.00129016
+##  10  4.26692926 0.18525071  6 3.81363711 4.72022142
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast          estimate          SE df t.ratio p.value
+##  Día1 - Día7  -0.0078620094 0.261984067  6  -0.030  0.9995
+##  Día1 - Día10  0.2732067291 0.261984067  6   1.043  0.5796
+##  Día7 - Día10  0.2810687385 0.261984067  6   1.073  0.5631
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-109-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="sólidos-solubles" class="section level2">
+<h2>Sólidos solubles</h2>
+<pre><code>## # A tibble: 3 × 4
+##   Día       n Mean_Solidos sd_Solidos
+##   &lt;fct&gt; &lt;int&gt;        &lt;dbl&gt;      &lt;dbl&gt;
+## 1 1         3         9.33      0.467
+## 2 7         3         7.73      0.533
+## 3 10        3         6.73      0.769</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-112-1.png" width="95%" style="display: block; margin: auto;" /></p>
+<p>Modelo</p>
+<pre><code>## lm(formula = Solidos ~ Día, data = data)</code></pre>
+<p>Análisis de regresión</p>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: Solidos
+##           Df    Sum Sq  Mean Sq  F value    Pr(&gt;F)   
+## Día        2 10.320000 5.160000 14.15854 0.0053447 **
+## Residuals  6  2.186667 0.364444                      
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Día     emmean          SE df   lower.CL    upper.CL
+##  1   9.33333333 0.348541936  6 8.48048194 10.18618473
+##  7   7.73333333 0.348541936  6 6.88048194  8.58618473
+##  10  6.73333333 0.348541936  6 5.88048194  7.58618473
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast     estimate          SE df t.ratio p.value
+##  Día1 - Día7       1.6 0.492912734  6   3.246  0.0402
+##  Día1 - Día10      2.6 0.492912734  6   5.275  0.0045
+##  Día7 - Día10      1.0 0.492912734  6   2.029  0.1861
+## 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-117-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="pca" class="section level2">
+<h2>PCA</h2>
+<pre><code>## Importance of components:
+##                            PC1     PC2         PC3
+## Standard deviation     3.67288 1.58428 1.25159e-16
+## Proportion of Variance 0.84313 0.15687 0.00000e+00
+## Cumulative Proportion  0.84313 1.00000 1.00000e+00</code></pre>
+<pre><code>##          ATT      a_color    aao_0.125  Respiración      Sólidos    aao_0.250      Fenoles    aao_0.500      Firmeza      L_color           pH 
+##  7.411169601  7.388160265  7.361916605  7.303337686  7.297065882  7.233395040  7.180074782  7.004301421  6.901237838  6.797339783  6.654867809 
+##      b_color        Clo_a        Clo_b        Ratio Carotenoides 
+##  6.059575082  5.854988486  5.815861177  3.554293436  0.182415107</code></pre>
+<pre><code>##   Carotenoides          Ratio          Clo_b          Clo_a        b_color             pH        L_color        Firmeza      aao_0.500        Fenoles 
+## 38.86130285860 20.73854935266  8.58335551129  8.37305890154  7.27347223582  4.07396670546  3.30822600997  2.74980762899  2.19587425864  1.25114939718 
+##      aao_0.250        Sólidos    Respiración      aao_0.125        a_color            ATT 
+##  0.96457028824  0.62236014098  0.58865122427  0.27380851874  0.13275734827  0.00908961935</code></pre>
+<p>Biplot
+<img src="Ensayo8_files/figure-html/unnamed-chunk-123-1.png" width="95%" style="display: block; margin: auto;" /></p>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4,h5",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = false;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
