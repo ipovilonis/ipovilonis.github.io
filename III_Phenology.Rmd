@@ -1,4 +1,163 @@
 ---
 title: "Phenology"
 ---
- 
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Load library
+library(readxl)
+
+#Create object "db_met_mor" which contains climate data
+db_fen_mor <- read_excel("database.xlsx", sheet = "III_fenologia")
+
+db_fen_mor$year<-as.factor(db_fen_mor$year)
+db_fen_mor$date<-as.Date(db_fen_mor$date, format="%d/%m")
+db_fen_mor$fen<-as.factor(db_fen_mor$fen)
+
+db_fen_mor2<-subset(db_fen_mor, db_fen_mor$var >= 0.1)
+
+library(ggplot2)
+# f1<-ggplot(data=db_fen_mor2, aes(x=date, y=var, group = fen, color=fen, shape=fen)) +
+#   geom_line(size=1.5,)+
+#   scale_color_manual(values=c("yellow", "green2","orange"))+
+#   geom_point(size=4, shape=20) +
+#   labs(y="%", x="")+
+#   theme(panel.grid.major.x = element_blank())+
+#   facet_grid(year~.)+
+#   theme_classic()+
+#   theme(text = element_text(size=20))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = c(0.10, 0.90))+
+#   scale_x_date(date_breaks = "1 week", date_labels =  "%d %b")+
+#   geom_hline(aes(yintercept=0), color="black")+
+#   geom_hline(aes(yintercept=10), color="black")+
+#   geom_hline(aes(yintercept=20), color="black")+
+#   geom_hline(aes(yintercept=30), color="black")+
+#   geom_hline(aes(yintercept=40), color="black")+
+#   geom_hline(aes(yintercept=50), color="black")
+# 
+# f1
+
+```
+
+Curva de seguimiento fenológico
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar librerías necesarias
+library(readxl)
+library(ggplot2)
+library(viridis)
+
+# Leer datos
+db_fen_mor <- read_excel("database.xlsx", sheet = "III_fenologia")
+
+# Preprocesar datos
+db_fen_mor$year <- as.factor(db_fen_mor$year)
+db_fen_mor$date <- as.Date(db_fen_mor$date, format="%d/%m")
+db_fen_mor$fen <- as.factor(db_fen_mor$fen)
+db_fen_mor2 <- subset(db_fen_mor, db_fen_mor$var >= 0.1)
+
+# Crear gráfico mejorado
+gg_fenologia <- ggplot(data=db_fen_mor2, aes(x=date, y=var, group=fen, color=fen)) +
+  geom_line(size=1.4) +
+  geom_point(size=4, aes(shape=fen), fill="white") +
+  scale_color_viridis_d(option="D", end=0.8) + # Usar paleta viridis
+  scale_shape_manual(values=c(21, 22, 24)) +  # Formas de puntos distintas
+  labs(
+    y="Porcentaje (%)",
+    x="Fecha",
+    title="",
+    subtitle=""
+  ) +
+  theme_minimal(base_size = 30) +  # Tema profesional
+  theme(
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    legend.title = element_blank(),
+    legend.position = c(0.90, 0.50),  # Ajustar posición de la leyenda
+    legend.background = element_rect(fill="white", color="black", size=0.2),
+    legend.text = element_text(size=30),
+    strip.text = element_text(size=30, face="bold"),  # Texto en facetas
+    plot.title = element_text(face="bold", size=16, hjust=0.5),
+    panel.spacing = unit(1, "lines")
+  ) +
+    theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+    theme(panel.grid.major.x = element_blank()) +
+    theme(text = element_text(size = 30, color = 'black')) +
+    theme(axis.text = element_text(color = 'black')) +
+  facet_grid(year~.) +
+  scale_x_date(
+    date_breaks = "1 week", 
+    date_labels = "%d %b",
+    expand = expansion(mult=c(0, 0))
+  ) +
+  scale_y_continuous(
+    breaks=seq(0, 50, 10), 
+    limits=c(0, 50),
+    expand = expansion(mult=c(0.1, 0.1))
+  ) +
+  geom_hline(yintercept=seq(10, 50, 10), linetype="dashed", color="gray40", size=0.5) +
+  geom_hline(yintercept=0, color="black", size=0.8)
+
+# Mostrar gráfico
+print(gg_fenologia)
+
+# ggsave("gg_fenologia", plot = gg_fenologia, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+```
+
+Ensayo de germinación
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# germinación de polen
+
+polen<-c("Germinated", "No Germinated", "Aborted")
+germ<-c(132,440,118)
+porc<-c(19.1304348,	63.7681159,	17.1014493)
+datag<-data.frame(polen,germ,porc)
+str(datag)
+datag$polen<-as.factor(polen)
+datag <- as.data.frame(datag)
+
+g1<-ggplot(data=datag, aes(x=polen, y=germ, fill=polen, color=polen)) +
+  geom_bar(stat="identity", position="dodge", width=0.75)+
+  scale_color_manual(values=c("yellow", "green2","orange"))+
+  scale_fill_manual(values = (c("yellow", "green2","orange")))+
+  labs(y="Germination (n° pollen grains)", x="")+
+  theme(panel.grid.major.x = element_blank())+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.position = "none")+
+  geom_hline(aes(yintercept=0), color="black")+
+  geom_hline(aes(yintercept=100), color="black")+
+  geom_hline(aes(yintercept=200), color="black")+
+  geom_hline(aes(yintercept=300), color="black")+
+  geom_hline(aes(yintercept=400), color="black")+
+  geom_hline(aes(yintercept=500), color="black")
+
+
+g2<-ggplot(data=datag, aes(x=polen, y=porc, fill=polen, color=polen)) +
+  geom_bar(stat="identity", position="dodge", width=0.75)+
+  scale_color_manual(values=c("yellow", "green2","orange"))+
+  scale_fill_manual(values = (c("yellow", "green2","orange")))+
+  labs(y="Germination (%)", x="")+
+  theme(panel.grid.major.x = element_blank())+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.position = "none")+
+  geom_hline(aes(yintercept=0), color="black")+
+  geom_hline(aes(yintercept=20), color="black")+
+  geom_hline(aes(yintercept=40), color="black")+
+  geom_hline(aes(yintercept=60), color="black")+
+  geom_hline(aes(yintercept=80), color="black")+
+  geom_hline(aes(yintercept=100), color="black")
+
+
+library(ggpubr)
+gg_polengerm <- ggarrange(g1, g2)
+gg_polengerm
+```
+

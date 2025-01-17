@@ -108,7 +108,91 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+polin<-read_excel("database.xlsx", sheet = "III polin")
+
+polin$Tratamiento <- as.factor(polin$TRA)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(glmmTMB)  # Para modelos cero-inflados
+
+# Ajustar un modelo de regresión logística cero-inflado
+# model <- glmmTMB(PROP ~ Tratamiento, data = polin, weights = TOTAL,  family = binomial())
+model <- glm(PROP ~ Tratamiento, data = polin, weights = TOTAL,  family = "quasibinomial")
+
+#Supuestos
+RP <- resid(model, type = "pearson") #"Residuos de pearson
+ajust<-fitted(model) #predichos en escala de Y
+
+#Grafico de residuos vs predichos
+plot(ajust, RP,xlab="predichos", ylab= "Residuos de pearson", main="Gráfico de RP vs PRED", cex.main=.8)
+#Distancia de Cook
+plot(model, which = c(4)) 
+
+#Sobre o subdispersion?
+sum(RP^2) / (model$df.res)
+
+# Si bien hay subdispersión (aumento de la probabilidad de error tipo II) es más dificil de encontrar diferencias, todo se vuelve menos significativo y a pesar de esto se encuentran las diferencias. Es evidente que en los 3 tratamientos en los que no se evidenció ningun fruto no habrá significancia más alla de sobre o sub dispersión de los datos.
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+summary(model)
+
+# Anova del modelo
+library(car)
+
+Anova(model)
+
+drop1(model, test = "Chi")
+drop1(model, test = "LRT")
+
+library(emmeans)
+emmeans(model, pairwise ~ Tratamiento, type ="response")
+
+```
+Plot 1
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Grafico del modelo ajustado
+library(ggplot2)
+gg_polin <- ggplot(polin, aes(Tratamiento, PROP,colour = Tratamiento )) +
+  geom_point()+ geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) + labs(x = "Tratamiento de polinización") + labs(y = "Cuajado") 
+gg_polin
+
+```
+
+Plot 2
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# 
+library(sjPlot)
+plot_polin <- plot_model(model, show.values = TRUE)+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "none")+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))
+plot_polin
+
+```
 
 ## Conclusion
 
-Only treatments **open pollination [OP]** (5.6%) and **artificial cross-pollinated [CPA]** (20.0%) presented fruit set. Therefore the species is self-incompatible.
+Only treatments **open pollination [OP]** (5.56%) and **artificial cross-pollinated [CPA]** (21.28%) presented fruit set. Therefore the species is self-incompatible.

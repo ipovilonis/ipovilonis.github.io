@@ -1,0 +1,190 @@
+---
+title: "Federación - Moreno"
+---
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Load library
+library(readxl)
+
+#Create object "db_fed_mor" which contains climate db_fed_mor
+db_fed_mor <- read_excel("database.xlsx", sheet = "III_federacion")
+
+db_fed_mor$site<-as.factor(db_fed_mor$site)
+db_fed_mor$month<-as.factor(db_fed_mor$month)
+
+db_fed_mor$month<-factor(db_fed_mor$month, levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),  labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
+
+db_fed_mor <- as.data.frame(db_fed_mor)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+
+Gc1<-ggplot(data=db_fed_mor, aes(x=month, y=med, group = site, color=site, fill=site)) +
+  geom_line()+
+  scale_color_viridis_d(option="D", end=0.8)+
+  geom_point(size=4, shape=20) +
+  labs(y="Temperatura media (°C)", x="")+
+  theme_classic()+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "none")+
+  theme(text = element_text(size=15))+
+  geom_hline(aes(yintercept=10), color="black")+
+  geom_hline(aes(yintercept=15), color="black")+
+  geom_hline(aes(yintercept=20), color="black")+
+  geom_hline(aes(yintercept=25), color="black")+
+  geom_hline(aes(yintercept=30), color="black")+
+  theme(axis.text = element_text( color='black'))
+Gc2<-ggplot(data=db_fed_mor, aes(x=month, y=min, group = site, color=site, fill=site)) +
+  geom_line()+
+  scale_color_viridis_d(option="D", end=0.8)+
+  geom_point(size=4, shape=20) +
+  labs(y="Temperatura minima (°C)", x="")+
+  theme_classic()+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "none")+
+  theme(text = element_text(size=15))+
+  geom_hline(aes(yintercept=5), color="black")+
+  geom_hline(aes(yintercept=10), color="black")+
+  geom_hline(aes(yintercept=15), color="black")+
+  geom_hline(aes(yintercept=20), color="black")+
+  geom_hline(aes(yintercept=25), color="black")+
+  theme(axis.text = element_text( color='black'))
+Gc3<-ggplot(data=db_fed_mor, aes(x=month, y=max, group = site, color=site, fill=site)) +
+  geom_line()+
+  scale_color_viridis_d(option="D", end=0.8)+
+  geom_point(size=4, shape=20) +
+  labs(y="Temperatura máxima (°C)", x="")+
+  theme_classic()+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "none")+
+  theme(text = element_text(size=15))+
+  geom_hline(aes(yintercept=10), color="black")+
+  geom_hline(aes(yintercept=15), color="black")+
+  geom_hline(aes(yintercept=20), color="black")+
+  geom_hline(aes(yintercept=25), color="black")+
+  geom_hline(aes(yintercept=30), color="black")+
+  theme(axis.text = element_text( color='black'))
+Gc4<-ggplot(data=db_fed_mor, aes(x=month, y=rain, fill=site)) +
+  geom_bar(stat="identity", position="dodge", width=0.75) +
+  labs(y="Precipitaciones (mm)", x="")+
+  theme_classic()+
+  scale_fill_viridis_d(option="D", end=0.8)+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "none")+
+  theme(text = element_text(size=15))+
+  geom_hline(aes(yintercept=50), color="black")+
+  geom_hline(aes(yintercept=100), color="black")+
+  geom_hline(aes(yintercept=150), color="black")+
+  geom_hline(aes(yintercept=200), color="black")+
+  theme(axis.text = element_text( color='black'))
+Gc5<-ggplot(data=db_fed_mor, aes(x=month, y=hum, group = site, color=site, fill=site)) +
+  geom_line()+
+  scale_color_viridis_d(option="D", end=0.8)+
+  geom_point(size=4, shape=20) +
+  labs(y="Humedad relativa (%)", x="")+
+  theme_classic()+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "none")+
+  theme(text = element_text(size=15))+
+  geom_hline(aes(yintercept=60), color="black")+
+  geom_hline(aes(yintercept=70), color="black")+
+  geom_hline(aes(yintercept=80), color="black")+
+  geom_hline(aes(yintercept=90), color="black")+
+  geom_hline(aes(yintercept=100), color="black")+
+  theme(axis.text = element_text( color='black'))
+Gc6<-ggplot(data=db_fed_mor, aes(x=month, y=sun, group = site, color=site, fill=site)) +
+  geom_line()+
+  scale_color_viridis_d(option="D", end=0.8)+
+  geom_point(size=4, shape=20) +
+  labs(y="Horas de sol", x="")+
+  theme_classic()+
+  theme(panel.grid.major.x = element_blank())+
+  theme(legend.position = "none")+
+  theme(text = element_text(size=15))+
+  geom_hline(aes(yintercept=6), color="black")+
+  geom_hline(aes(yintercept=8), color="black")+
+  geom_hline(aes(yintercept=10), color="black")+
+  geom_hline(aes(yintercept=12), color="black")+
+  theme(axis.text = element_text( color='black'))
+library(ggpubr)
+gg_federación <- ggarrange(Gc1, Gc4, Gc2, Gc5, Gc3, Gc6, ncol = 2, nrow = 3)
+
+ggsave("gg_federación", plot = gg_federación, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```

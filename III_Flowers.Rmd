@@ -4,7 +4,7 @@ title: "Predicción del incio y plena floración"
 
 ## Método del Coeficiente de Regresión
 
-Cálculo de la temperatura base óptima utilizando el Método del Coeficiente de Regresión [*(Yang et al., 1995)*](https://doi.org/10.1016/0168-1923(94)02185-M)
+[*(Yang et al., 1995)*](https://doi.org/10.1016/0168-1923(94)02185-M)
 
 ### Ecuación para el Coeficiente de Regresión
 
@@ -20,20 +20,6 @@ Donde:
 - \(T_i\) es la temperatura promedio para cada observación.
 - \(n\) es el número total de observaciones.
 
-### Ecuación para la Temperatura Base
-
-La temperatura base (\(T_b\)) se calcula usando la ecuación:
-
-\[
-T_b = \frac{\sum_{i=1}^{n} T_i \sum_{i=1}^{n} d_i T_i - n \sum_{i=1}^{n} d_i T_i^2}{\sum_{i=1}^{n} d_i \sum_{i=1}^{n} T_i - n \sum_{i=1}^{n} d_i T_i}
-\]
-
-Donde:
-
-- \(d_i\) es el número de días de cada observación.
-- \(n\) es el número total de observaciones.
-
-
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -46,195 +32,290 @@ db_met_mor <- read_excel("database.xlsx", sheet = "II_M_inta")
 db_met_mor<-db_met_mor[,-c(9:29)]
 
 db_met_mor$year<-as.factor(db_met_mor$year)
-db_met_mor$date<-as.POSIXct(db_met_mor$date,format="%m-%d-%Y")
+db_met_mor$date<-as.POSIXct(db_met_mor$date,format="%Y-%m-%d")
 
 db_met_mor$temp_abr<-as.numeric(db_met_mor$temp_abr)
 # db_met_mor$month<-factor(db_met_mor$month, levels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
 
-library(dplyr)
-db_st_moreno <- db_met_mor %>%
-  dplyr::filter(year %in% c(2018,2019,2020) & month %in% 8:11) 
+db_met_mor$tem_abr_max <- as.numeric(db_met_mor$tem_abr_max)
+db_met_mor$temp_abr_min <- as.numeric(db_met_mor$temp_abr_min)
 
+library(dplyr)
+# Filtrar los datos para fechas entre el 1 de junio y el 12 de noviembre
+db_st_moreno <- db_met_mor %>%
+  dplyr::filter(
+    year %in% c(2018, 2019, 2020) & 
+    as.Date(date) >= as.Date(paste0(year, "-06-01"), format = "%Y-%m-%d") & 
+    as.Date(date) <= as.Date(paste0(year, "-11-15"), format = "%Y-%m-%d")
+  )
+
+# Convertir columnas a numéricas (si es necesario)
 db_st_moreno$tem_abr_max <- as.numeric(db_st_moreno$tem_abr_max)
 db_st_moreno$temp_abr_min <- as.numeric(db_st_moreno$temp_abr_min)
 
-db_st_moreno$temp_mean <- (db_st_moreno$tem_abr_max + db_st_moreno$temp_abr_min)/2
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Crear columnas para los umbrales de temperatura
+# Calcular la temperatura promedio
 db_st_moreno <- db_st_moreno %>%
-  mutate(
-    DD_2C = ifelse(temp_mean > 2, temp_mean - 2, 0),
-    DD_4C = ifelse(temp_mean > 4, temp_mean - 4, 0),
-    DD_6C = ifelse(temp_mean > 6, temp_mean - 6, 0),
-    DD_8C = ifelse(temp_mean > 8, temp_mean - 8, 0),
-    DD_10C = ifelse(temp_mean > 10, temp_mean - 10, 0),
-    DD_12C = ifelse(temp_mean > 12, temp_mean - 12, 0)
-  )
+  dplyr::mutate(temp_mean = (tem_abr_max + temp_abr_min) / 2)
 
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(tidyr)
-# Calcular la suma acumulativa de los grados-día
-db_st_moreno <- db_st_moreno %>%
-  group_by(year) %>%
-  mutate(
-    DD_2C_cum = cumsum(DD_2C),
-    DD_4C_cum = cumsum(DD_4C),
-    DD_6C_cum = cumsum(DD_6C),
-    DD_8C_cum = cumsum(DD_8C),
-    DD_10C_cum = cumsum(DD_10C),
-    DD_12C_cum = cumsum(DD_12C)
-  ) %>%
-  ungroup()
-
-# Reorganizar los datos para ggplot
-db_st_moreno_long <- db_st_moreno %>%
-  pivot_longer(cols = starts_with("DD_"),
-               names_to = "Umbral",
-               values_to = "Grados_Día_Acumulados") %>%
-  mutate(Umbral = case_when(
-    Umbral == "DD_2C_cum" ~ "2°C",
-    Umbral == "DD_4C_cum" ~ "4°C",
-    Umbral == "DD_6C_cum" ~ "6°C",
-    Umbral == "DD_8C_cum" ~ "8°C",
-    Umbral == "DD_10C_cum" ~ "10°C",
-    Umbral == "DD_12C_cum" ~ "12°C",
-  ))
-
-# Quitar filas con NA en la columna 'Umbral'
-db_st_moreno_long <- db_st_moreno_long %>%
-  filter(!is.na(Umbral))
-
-# Columna 'date' sea de tipo Date
-db_st_moreno_long$date <- as.Date(db_st_moreno_long$date)
-db_st_moreno_long$date_complete <- as.Date(db_st_moreno_long$date_complete)
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
+# Crear una lista para almacenar los data frames
+list_data_frames <- list()
+
+# Definir el rango general de fechas (todos los años)
+start_date <- as.Date("2018-06-01")
+end_date <- as.Date("2020-11-15")
+
+# Generar data frames para cada rango de fechas, iterando por días
+for (i in 0:163) { # Ajustar el rango según los días a iterar
+  # Calcular el desplazamiento en días
+  offset <- i
+  
+  # Ajustar las fechas de inicio para todos los años y convertirlas a POSIXct
+  current_start_dates <- as.POSIXct(as.Date(c("2018-06-01", "2019-06-01", "2020-06-01")) + offset, tz = "UTC")
+  current_end_date <- as.POSIXct(end_date, tz = "UTC")
+  
+  # Filtrar los datos para el rango actual (todos los años)
+  filtered_data <- db_st_moreno %>%
+    dplyr::filter((year == 2018 & date >= current_start_dates[1] & date <= current_end_date) |
+           (year == 2019 & date >= current_start_dates[2] & date <= current_end_date) |
+           (year == 2020 & date >= current_start_dates[3] & date <= current_end_date))
+  
+  # Asignar el data frame a la lista
+  list_name <- paste0("df_", i + 1)
+  list_data_frames[[list_name]] <- filtered_data
+}
+
+# Aplicar las transformaciones en cada data frame de la lista
+list_data_frames_2 <- lapply(list_data_frames, function(df) {
+  # Asegurarte de que el data frame no esté vacío
+  if (nrow(df) > 0) {
+    # Crear columnas para los umbrales de temperatura
+    df <- df %>%
+      dplyr::mutate(
+        DD_2C = ifelse(temp_mean > 2, temp_mean - 2, 0),
+        DD_4C = ifelse(temp_mean > 4, temp_mean - 4, 0),
+        DD_6C = ifelse(temp_mean > 6, temp_mean - 6, 0),
+        DD_8C = ifelse(temp_mean > 8, temp_mean - 8, 0),
+        DD_10C = ifelse(temp_mean > 10, temp_mean - 10, 0),
+        DD_12C = ifelse(temp_mean > 12, temp_mean - 12, 0)
+      )
+    
+    # Calcular la suma acumulativa de los grados-día
+    df <- df %>%
+      dplyr::group_by(year) %>%
+      dplyr::mutate(
+        DD_2C_cum = cumsum(DD_2C),
+        DD_4C_cum = cumsum(DD_4C),
+        DD_6C_cum = cumsum(DD_6C),
+        DD_8C_cum = cumsum(DD_8C),
+        DD_10C_cum = cumsum(DD_10C),
+        DD_12C_cum = cumsum(DD_12C)
+      ) %>%
+      ungroup()
+  }
+  return(df) # Retornar el data frame modificado
+})
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(tidyr)
+# Reorganizar los datos en cada data frame de la lista
+list_data_frames_long <- lapply(list_data_frames_2, function(df) {
+  # Verificar si el data frame no está vacío
+  if (nrow(df) > 0) {
+    # Reorganizar los datos a formato largo
+    df_long <- df %>%
+      pivot_longer(
+        cols = starts_with("DD_"),
+        names_to = "Umbral",
+        values_to = "Grados_Día_Acumulados"
+      ) %>%
+      # Reemplazar los nombres de los umbrales y eliminar los no deseados
+      mutate(Umbral = case_when(
+        Umbral == "DD_2C_cum" ~ "2°C",
+        Umbral == "DD_4C_cum" ~ "4°C",
+        Umbral == "DD_6C_cum" ~ "6°C",
+        Umbral == "DD_8C_cum" ~ "8°C",
+        Umbral == "DD_10C_cum" ~ "10°C",
+        Umbral == "DD_12C_cum" ~ "12°C",
+        TRUE ~ NA_character_  # Asignar NA a valores no deseados
+      )) %>%
+      # Filtrar filas con NA en la columna 'Umbral'
+      filter(!is.na(Umbral))
+    
+    # Asegurar que las columnas de fecha sean del tipo Date
+    df_long <- df_long %>%
+      mutate(
+        date = as.Date(date),
+        date_complete = as.Date(date_complete)
+      )
+    
+    return(df_long) # Retornar el data frame reorganizado
+  } else {
+    return(df) # Si está vacío, devolver sin cambios
+  }
+})
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 library(dplyr)
-library(ggpubr)
-library(ggrepel)
+library(ggplot2)
 
-# Crear un dataframe para la leyenda de anotaciones
-annotate_legend <- data.frame(
-  label = c("Inicio de floración", "Plena floración"),
-  color = c("#FFDF00", "#59EF8C")
-)
-
-# Crear el dataframe para las fechas de "Inicio de Floración"
+# Crear las fechas de eventos fenológicos
 flowering_dates_pf <- data.frame(
   year = c(2018, 2019, 2020),
   date = as.Date(c("2018-11-06", "2019-11-15", "2020-11-11")),
-  event = "Inicio de floración"
-)
-
-# Crear el dataframe para las fechas de "Plena Floración"
-flowering_dates_if <- data.frame(
-  year = c(2018, 2019, 2020),
-  date = as.Date(c("2018-10-23", "2019-11-05", "2020-11-04")),
   event = "Plena floración"
 )
 
-# Asegúrate de que la columna 'date' en los dataframes sea de tipo Date
-flowering_dates_if$date <- as.Date(flowering_dates_if$date)
-flowering_dates_pf$date <- as.Date(flowering_dates_pf$date)
+flowering_dates_if <- data.frame(
+  year = c(2018, 2019, 2020),
+  date = as.Date(c("2018-10-23", "2019-11-05", "2020-11-04")),
+  event = "Inicio de floración"
+)
 
-
-library(dplyr)
-library(ggplot2)
-library(stringr)
-
-# Función para ajustar modelos de regresión y calcular R² y RMSE
+# Función para ajustar modelos y calcular R² y RMSE (CON CORRECCIONES)
 fit_models <- function(data, event_dates, base_temps) {
-  results <- data.frame(BaseTemp = numeric(), R2 = numeric(), RMSE = numeric())
+  results <- data.frame(BaseTemp = numeric(), R2 = numeric(), RMSE = numeric(), Event = character(), stringsAsFactors = FALSE) # Inicializar con columna Event
   
   for (base in base_temps) {
-    # Filtrar los datos para el umbral actual
+    # Filtrar datos para el umbral actual
     gdd_data <- data %>% dplyr::filter(Umbral_num == base)
     
     # Extraer las fechas y los GDD para el modelo
-    model_data <- gdd_data %>% 
+    model_data <- gdd_data %>%
       dplyr::filter(date %in% event_dates) %>%
       dplyr::select(date, Grados_Día_Acumulados)
     
-    # Ajustar el modelo de regresión lineal
-    model <- lm(Grados_Día_Acumulados ~ date, data = model_data)
-    
-    # Calcular R² y RMSE
-    r2 <- summary(model)$r.squared
-    rmse <- sqrt(mean(model$residuals^2))
-    
-    results <- rbind(results, data.frame(BaseTemp = base, R2 = r2, RMSE = rmse))
+    if (nrow(model_data) > 1) { # Verificar que haya datos suficientes para el modelo
+      # Ajustar modelo de regresión lineal
+      model <- lm(Grados_Día_Acumulados ~ date, data = model_data)
+      
+      # Calcular R² y RMSE
+      r2 <- summary(model)$r.squared
+      rmse <- sqrt(mean(model$residuals^2))
+      
+      # Añadir fila SOLO si hay resultados del modelo
+      results <- rbind(results, data.frame(BaseTemp = base, R2 = r2, RMSE = rmse, Event = ifelse(event_dates == flowering_dates_if$date[1], "Inicio de floración", "Plena floración")))
+    }
   }
-  
   return(results)
 }
 
-# Convertir Umbral a numérico
-db_st_moreno_long <- db_st_moreno_long %>%
-  dplyr::mutate(Umbral_num = as.numeric(gsub("°C", "", Umbral)))
+# ... (Código posterior sin cambios hasta la llamada a lapply)
 
-# Definir los umbrales (temperaturas base) únicos
-base_temps <- unique(db_st_moreno_long$Umbral_num)
+# Aplicar la función a cada data frame en la lista (CON CORRECCIONES)
+results_list <- lapply(list_data_frames_long, function(df) {
+  if (nrow(df) > 0) {
+    # Convertir Umbral a numérico
+    df <- df %>% mutate(Umbral_num = as.numeric(gsub("°C", "", Umbral)))
+    
+    # Obtener los umbrales únicos
+    base_temps <- unique(df$Umbral_num)
 
-# Ajustar modelos de regresión para los eventos fenológicos (Inicio de floración)
-results_if <- fit_models(db_st_moreno_long, flowering_dates_if$date, base_temps)
+    # Inicializar data frame para los resultados de este df
+    all_results <- data.frame()
 
-# Ajustar modelos de regresión para los eventos fenológicos (Plena floración)
-results_pf <- fit_models(db_st_moreno_long, flowering_dates_pf$date, base_temps)
+    # Calcular resultados para "Inicio de floración"
+    results_if <- fit_models(df, flowering_dates_if$date, base_temps)
+    all_results <- rbind(all_results, results_if)
+    
+    # Calcular resultados para "Plena floración"
+    results_pf <- fit_models(df, flowering_dates_pf$date, base_temps)
+    all_results <- rbind(all_results, results_pf)
+    
+    return(all_results)
+  } else {
+    return(data.frame()) # Retornar un data frame vacío si no hay datos
+  }
+})
 
-# Mostrar resultados
-print(results_if)
-print(results_pf)
+# Verificar los resultados
+# results_list
 
-
-```
-Temperatura base óptima para inicio de floración
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Seleccionar la temperatura base óptima para Inicio de floración
-optimal_base_temp_if <- results_if[which.max(results_if$R2), "BaseTemp"]
-print(optimal_base_temp_if)
-
-# Visualizar los resultados para Inicio de floración
-# ggplot(results_if, aes(x = BaseTemp)) +
-#   geom_line(aes(y = R2), color = "blue") +
-#   # geom_line(aes(y = RMSE), color = "red") +
-#   labs(title = "Temperatura Base Óptima para Inicio de Floración",
-#        x = "Temperatura Base (°C)",
-#        y = "Valor de Ajuste (R2 en azul, RMSE en rojo)") +
-#   theme_minimal()
 
 ```
 
-Temperatura base óptima para plena floración
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Seleccionar la temperatura base óptima para Plena floración
-optimal_base_temp_pf <- results_pf[which.max(results_pf$R2), "BaseTemp"]
-print(optimal_base_temp_pf)
+# Crear un data frame único combinando todos los data frames de la lista
+results_df <- data.frame() # Inicializar un data frame vacío
 
-# Visualizar los resultados para Plena floración
-# ggplot(results_pf, aes(x = BaseTemp)) +
-#   geom_line(aes(y = R2), color = "blue") +
-#   # geom_line(aes(y = RMSE), color = "red") +
-#   labs(title = "Temperatura Base Óptima para Plena Floración",
-#        x = "Temperatura Base (°C)",
-#        y = "Valor de Ajuste (R2 en azul, RMSE en rojo)") +
-#   theme_minimal()
+for (i in seq_along(results_list)) {
+  df <- results_list[[i]] # Obtener el data frame actual de la lista
+  
+  if (nrow(df) > 0) { # Verificar si el data frame no está vacío
+    df$DataFrameName <- names(results_list)[i] # Añadir la columna con el nombre
+    results_df <- rbind(results_df, df) # Combinar con el data frame principal
+  }
+}
 
+# Una forma más eficiente con dplyr y purrr
+library(dplyr)
+library(purrr)
+
+results_df_purrr <- imap_dfr(results_list, ~{
+  if (nrow(.x) > 0) {
+    .x$DataFrameName <- .y
+    return(.x)
+  } else {
+    return(data.frame())
+  }
+})
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Filtrar las filas donde R2 es MENOR que 1
+results_df_purrr_filtrado <- results_df_purrr %>%
+  dplyr::filter(R2 < 1)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+library(purrr)
+
+# Encontrar el mejor modelo para cada evento (R2 máximo)
+mejores_modelos <- results_df_purrr_filtrado %>%
+  group_by(Event) %>% # Agrupar por Evento para obtener el mejor modelo por cada uno
+  slice_max(R2, n = 5) %>% # Seleccionar la fila con el R2 más alto dentro de cada grupo
+  ungroup() # Desagrupar para evitar problemas posteriores
+
+# Mostrar los mejores modelos
+print(mejores_modelos)
+
+# menor RMSE.
+
+mejores_modelos_rmse<- results_df_purrr_filtrado %>%
+  group_by(Event) %>%
+  slice_min(RMSE, n=1) %>%
+  ungroup()
+
+print(mejores_modelos_rmse)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+df_63 <- as.data.frame(list_data_frames_long$df_63)
 
 ```
 
@@ -249,7 +330,7 @@ library(ggrepel)
 # Crear un dataframe para la leyenda de anotaciones
 annotate_legend <- data.frame(
   label = c("Inicio de floración", "Plena floración"),
-  color = c("#FFDF00", "#59EF8C")
+  color = c("#FFFF11", "#FF0011")
 )
 
 # Crear el dataframe para las fechas de "Inicio de Floración"
@@ -276,7 +357,7 @@ capitalize_months <- function(x) {
 }
 
 # Crear una paleta de colores con gradiente del azul al rojo
-gradiente_azul_a_rojo <- colorRampPalette(c("blue", "red"))(6)
+gradiente_azul_a_rojo <- viridis::viridis(6, option = "D", end = 0.8)
 
 # Asignar nombres a los colores
 colores_umbral <- c("2°C" = gradiente_azul_a_rojo[1], 
@@ -293,7 +374,7 @@ Gráfico con predicciones y datos puntuales para cada año
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Filtrar datos para el año 2018 y crear el gráfico
-gg_temp_base_2018 <- ggplot(filter(db_st_moreno_long, year == "2018"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
+gg_temp_base_2018 <- ggplot(filter(df_63, year == "2018"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
   geom_line(size=1.2) + 
   labs(title = "2018",
        x = "",
@@ -307,22 +388,22 @@ gg_temp_base_2018 <- ggplot(filter(db_st_moreno_long, year == "2018"), aes(x = d
   scale_x_date(date_breaks = "1 month", labels = capitalize_months) + 
   scale_color_manual(values = colores_umbral) +
   geom_vline(data = filter(flowering_dates_if, year == 2018), aes(xintercept = as.numeric(date)), 
-             color = "#FFDF00", linetype = "solid", size = 1) +
-  geom_text(data = filter(flowering_dates_if, year == 2018), aes(x = date, y = max(db_st_moreno_long$Grados_Día_Acumulados, na.rm = TRUE), label = "Inicio de floración"), 
-            color = "#FFDF00", vjust = 1, hjust = 1, size=6) +
+             color = "#FFFF11", linetype = "solid", size = 1) +
+  geom_text(data = filter(flowering_dates_if, year == 2018), aes(x = date, y = max(df_63$Grados_Día_Acumulados, na.rm = TRUE), label = "Inicio de floración"), 
+            color = "black", vjust = 1, hjust = 1, size=6) +
   geom_vline(data = filter(flowering_dates_pf, year == 2018), aes(xintercept = as.numeric(date)), 
-             color = "#59EF8C", linetype = "solid", size = 1) +
-  geom_text(data = filter(flowering_dates_pf, year == 2018), aes(x = date, y = max(db_st_moreno_long$Grados_Día_Acumulados, na.rm = TRUE), label = "Plena floración"), 
-            color = "#59EF8C", vjust = 2.5, hjust = 1, size=6)+
-  geom_hline(yintercept = 789.40, color = "#FFDF00", linetype = "solid", size = 1)+
-  geom_hline(yintercept = 1341.36, color = "#59EF8C", linetype = "solid", size = 1) #+
+             color = "#FF0011", linetype = "solid", size = 1) +
+  geom_text(data = filter(flowering_dates_pf, year == 2018), aes(x = date, y = max(df_63$Grados_Día_Acumulados, na.rm = TRUE), label = "Plena floración"), 
+            color = "black", vjust = 2.5, hjust = 1, size=6)+
+  geom_hline(yintercept = 303.5667, color = "#FFFF11", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 380.2, color = "#FF0011", linetype = "solid", size = 1) #+
   # geom_text_repel(data = filter(flowering_dates_if, year == 2018), aes(x = date, y = 0, label = "Inicio de floración"), 
-  #           color = "#FFDF00", size=6, nudge_y = 100) +
+  #           color = "#FFFF11", size=6, nudge_y = 100) +
   # geom_text_repel(data = filter(flowering_dates_pf, year == 2018), aes(x = date, y = 0, label = "Plena floración"), 
-  #           color = "#59EF8C", size=6, nudge_y = 100)
+  #           color = "#FF0011", size=6, nudge_y = 100)
 
 # Filtrar datos para el año 2019 y crear el gráfico
-gg_temp_base_2019 <- ggplot(filter(db_st_moreno_long, year == "2019"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
+gg_temp_base_2019 <- ggplot(filter(df_63, year == "2019"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
   geom_line(size=1.2) + 
   labs(title = "2019",
        x = "",
@@ -336,18 +417,18 @@ gg_temp_base_2019 <- ggplot(filter(db_st_moreno_long, year == "2019"), aes(x = d
   scale_x_date(date_breaks = "1 month", labels = capitalize_months) + 
   scale_color_manual(values = colores_umbral) +
   geom_vline(data = filter(flowering_dates_if, year == 2019), aes(xintercept = as.numeric(date)), 
-             color = "#FFDF00", linetype = "solid", size = 1) +
-  # geom_text(data = filter(flowering_dates_if, year == 2019), aes(x = date, y = max(db_st_moreno_long$Grados_Día_Acumulados, na.rm = TRUE), label = "Inicio de floración"), 
-  #           color = "#FFDF00", vjust = 1, size=6) +
+             color = "#FFFF11", linetype = "solid", size = 1) +
+  # geom_text(data = filter(flowering_dates_if, year == 2019), aes(x = date, y = max(df_63$Grados_Día_Acumulados, na.rm = TRUE), label = "Inicio de floración"), 
+  #           color = "#FFFF11", vjust = 1, size=6) +
   geom_vline(data = filter(flowering_dates_pf, year == 2019), aes(xintercept = as.numeric(date)), 
-             color = "#59EF8C", linetype = "solid", size = 1) +
-  # geom_text(data = filter(flowering_dates_pf, year == 2019), aes(x = date, y = max(db_st_moreno_long$Grados_Día_Acumulados, na.rm = TRUE), label = "Plena floración"), 
-  #           color = "#59EF8C", vjust = 3, size=6)+
-  geom_hline(yintercept = 789.40, color = "#FFDF00", linetype = "solid", size = 1)+
-  geom_hline(yintercept = 1341.36, color = "#59EF8C", linetype = "solid", size = 1)
+             color = "#FF0011", linetype = "solid", size = 1) +
+  # geom_text(data = filter(flowering_dates_pf, year == 2019), aes(x = date, y = max(df_63$Grados_Día_Acumulados, na.rm = TRUE), label = "Plena floración"), 
+  #           color = "#FF0011", vjust = 3, size=6)+
+  geom_hline(yintercept = 303.5667, color = "#FFFF11", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 380.2, color = "#FF0011", linetype = "solid", size = 1)
 
 # Filtrar datos para el año 2020 y crear el gráfico
-gg_temp_base_2020 <- ggplot(filter(db_st_moreno_long, year == "2020"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
+gg_temp_base_2020 <- ggplot(filter(df_63, year == "2020"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
   geom_line(size=1.2) + 
   labs(title = "2020",
        x = "",
@@ -361,17 +442,17 @@ gg_temp_base_2020 <- ggplot(filter(db_st_moreno_long, year == "2020"), aes(x = d
   scale_x_date(date_breaks = "1 month", labels = capitalize_months) + 
   scale_color_manual(values = colores_umbral) +
   geom_vline(data = filter(flowering_dates_if, year == 2020), aes(xintercept = as.numeric(date)), 
-             color = "#FFDF00", linetype = "solid", size = 1) +
-  # geom_text(data = filter(flowering_dates_if, year == 2020), aes(x = date, y = max(db_st_moreno_long$Grados_Día_Acumulados, na.rm = TRUE), label = "Inicio de floración"), 
-  #           color = "#FFDF00", vjust = 1, size=6) +
+             color = "#FFFF11", linetype = "solid", size = 1) +
+  # geom_text(data = filter(flowering_dates_if, year == 2020), aes(x = date, y = max(df_63$Grados_Día_Acumulados, na.rm = TRUE), label = "Inicio de floración"), 
+  #           color = "#FFFF11", vjust = 1, size=6) +
   geom_vline(data = filter(flowering_dates_pf, year == 2020), aes(xintercept = as.numeric(date)), 
-             color = "#59EF8C", linetype = "solid", size = 1) +
-  # geom_text(data = filter(flowering_dates_pf, year == 2020), aes(x = date, y = max(db_st_moreno_long$Grados_Día_Acumulados, na.rm = TRUE), label = "Plena floración"),
-  #           color = "#59EF8C", vjust = 3, size=6)
-  geom_hline(yintercept = 789.40, color = "#FFDF00", linetype = "solid", size = 1)+
-  geom_hline(yintercept = 1341.36, color = "#59EF8C", linetype = "solid", size = 1)
+             color = "#FF0011", linetype = "solid", size = 1) +
+  # geom_text(data = filter(flowering_dates_pf, year == 2020), aes(x = date, y = max(df_63$Grados_Día_Acumulados, na.rm = TRUE), label = "Plena floración"),
+  #           color = "#FF0011", vjust = 3, size=6)
+  geom_hline(yintercept = 303.5667, color = "#FFFF11", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 380.2, color = "#FF0011", linetype = "solid", size = 1)
   
-
+library(stringr)
 # Combinar los gráficos en una sola imagen con leyenda común
 combined_plot <- ggarrange(gg_temp_base_2018, gg_temp_base_2019, gg_temp_base_2020,
                            ncol = 3, nrow = 1,
@@ -382,13 +463,125 @@ print(combined_plot)
 
 ```
 
-* Inicio de floración (10%) con 789.40 grados-día acumulados y Temperatura base de 6°C a partir del 1 de agosto
+Resultado:
 
-* Plena floración (%máx) con 1341.36 grados-día acumulados y Temperatura base de 2°C a partir del 1 de agosto
+* Inicio de floración (10%) con 303,5 grados-día acumulados y Temperatura base de 12°C a partir del 2 de agosto.
+
+* Plena floración (%máx) con 380,2 grados-día acumulados y Temperatura base de 12°C a partir del 2 de agosto.
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+# Filtrar datos para el año 2018 y umbral de 12°C
+gg_temp_base_2018 <- ggplot(filter(df_63, year == "2018" & Umbral == "12°C"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
+  geom_line(size=1.2) + 
+  labs(title = "2018",
+       x = "",
+       y = "Grados-Día Acumulados",
+       color = "Temperatura Base") +
+  theme_classic() +
+  theme(text = element_text(size = 32, color = 'black'),
+        axis.text = element_text(color = 'black'),
+        legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 65, hjust = 1, color='black')) +
+  scale_x_date(date_breaks = "1 month", labels = capitalize_months) + 
+  scale_color_manual(values = colores_umbral["12°C"]) + # Asegúrate de usar el color para "12°C"
+  geom_vline(data = filter(flowering_dates_if, year == 2018), aes(xintercept = as.numeric(date)), 
+             color = "#FFFF11", linetype = "solid", size = 1) +
+  geom_text(data = filter(flowering_dates_if, year == 2018), aes(x = date, y = 330, label = "Inicio de floración"), 
+            color = "black", vjust = 1, hjust = 1, size=6) +
+  geom_vline(data = filter(flowering_dates_pf, year == 2018), aes(xintercept = as.numeric(date)), 
+             color = "#FF0011", linetype = "solid", size = 1) +
+  geom_text(data = filter(flowering_dates_pf, year == 2018), aes(x = date, y = 430, label = "Plena floración"), 
+            color = "black", vjust = 2.5, hjust = 1, size=6)+
+  geom_hline(yintercept = 303.5667, color = "#FFFF11", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 380.2, color = "#FF0011", linetype = "solid", size = 1)
+
+# Filtrar datos para el año 2019 y umbral de 12°C
+gg_temp_base_2019 <- ggplot(filter(df_63, year == "2019" & Umbral == "12°C"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
+  geom_line(size=1.2) + 
+  labs(title = "2019",
+       x = "",
+       y = "",
+       color = "Temperatura Base") +
+  theme_classic() +
+  theme(text = element_text(size = 32, color = 'black'),
+        axis.text = element_text(color = 'black'),
+        legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 65, hjust = 1, color='black')) +
+  scale_x_date(date_breaks = "1 month", labels = capitalize_months) + 
+  scale_color_manual(values = colores_umbral["12°C"]) + 
+  geom_vline(data = filter(flowering_dates_if, year == 2019), aes(xintercept = as.numeric(date)), 
+             color = "#FFFF11", linetype = "solid", size = 1) +
+  geom_vline(data = filter(flowering_dates_pf, year == 2019), aes(xintercept = as.numeric(date)), 
+             color = "#FF0011", linetype = "solid", size = 1) +
+  geom_hline(yintercept = 303.5667, color = "#FFFF11", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 380.2, color = "#FF0011", linetype = "solid", size = 1)
+
+# Filtrar datos para el año 2020 y umbral de 12°C
+gg_temp_base_2020 <- ggplot(filter(df_63, year == "2020" & Umbral == "12°C"), aes(x = date, y = Grados_Día_Acumulados, color = Umbral)) + 
+  geom_line(size=1.2) + 
+  labs(title = "2020",
+       x = "",
+       y = "",
+       color = "Temperatura Base") +
+  theme_classic() +
+  theme(text = element_text(size = 32, color = 'black'),
+        axis.text = element_text(color = 'black'),
+        legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 65, hjust = 1, color='black')) +
+  scale_x_date(date_breaks = "1 month", labels = capitalize_months) + 
+  scale_color_manual(values = colores_umbral["12°C"]) + 
+  geom_vline(data = filter(flowering_dates_if, year == 2020), aes(xintercept = as.numeric(date)), 
+             color = "#FFFF11", linetype = "solid", size = 1) +
+  geom_vline(data = filter(flowering_dates_pf, year == 2020), aes(xintercept = as.numeric(date)), 
+             color = "#FF0011", linetype = "solid", size = 1) +
+  geom_hline(yintercept = 303.5667, color = "#FFFF11", linetype = "solid", size = 1)+
+  geom_hline(yintercept = 380.2, color = "#FF0011", linetype = "solid", size = 1)
+
+# Combinar los gráficos
+combined_plot2 <- ggarrange(gg_temp_base_2018, gg_temp_base_2019, gg_temp_base_2020,
+                           ncol = 3, nrow = 1,
+                           common.legend = TRUE, legend = "bottom")
+
+combined_plot2
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear la columna de mes-día
+df_63$mes_dia <- format(df_63$date, "%m-%d")
+
+# Seleccionar sólo las fechas de "Umbral" 12°C
+df_12C <- df_63 %>% 
+  filter(Umbral == "12°C")
+
+# Crear una base de datos unificada para graficar
+df_grafico <- df_12C %>% 
+  mutate(fecha_normalizada = as.Date(mes_dia, format = "%m-%d")) %>% # Crear una columna normalizada
+  select(year, fecha_normalizada, Grados_Día_Acumulados) # Seleccionar columnas clave
+
+
+palette <- c("#1F78B4","#B88DB4",  "#B2DF8A")
+
+# gg_phen_years <- ggplot(df_grafico, aes(x = fecha_normalizada, y = Grados_Día_Acumulados, color = factor(year), group = year)) +
+#   geom_line(size = 1.2) +
+#   labs(
+#     title = "Grados-Día Acumulados por Año (Tb 12°C a partir del 2 de agosto)",
+#     x = "Fecha",
+#     y = "°C-Día Acumulados",
+#     color = "Año"
+#   ) +
+#   scale_x_date(date_labels = "%b-%d", date_breaks = "1 month") + # Formato mes-día en el eje X
+#   scale_color_manual(values = palette)
+#   theme_classic() +
+#   theme(
+#     text = element_text(size = 14),
+#     axis.text.x = element_text(angle = 45, hjust = 1),
+#     legend.position = "bottom"
+#   )
 
 
 ```
@@ -396,6 +589,161 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+# Serie 2013-2024
+
+#Load library
+library(readxl)
+db_serie_mor <- read_excel("database.xlsx", sheet = "II_M_completa")
+
+db_serie_mor<-db_serie_mor[,-c(2:4)]
+
+db_serie_mor$Date<-as.POSIXct(db_serie_mor$Date,format="%Y-%m-%d")
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+# Filtrar las fechas en el rango 2 de agosto al 15 de noviembre
+db_serie_mor_filtrada <- db_serie_mor %>%
+  dplyr::filter(format(Date, "%m-%d") >= "08-02" & format(Date, "%m-%d") <= "11-15")
+
+# Promediar la temperatura diaria ignorando el año
+db_serie_promedio <- db_serie_mor_filtrada %>%
+  dplyr::mutate(Mes_Dia = format(Date, "%m-%d")) %>% # Crear columna con mes y día
+  dplyr::group_by(Mes_Dia) %>%                      # Agrupar por mes y día
+  dplyr::summarise(Temperatura_Promedio = mean(Temperatura_Media, na.rm = TRUE)) %>% # Calcular promedio
+  dplyr::arrange(Mes_Dia)                          # Ordenar por fecha
+
+# Calcular GDA restando la Tb de 12°C y acumulando
+db_serie <- db_serie_promedio %>%
+  dplyr::mutate(
+    GD = pmax(0, Temperatura_Promedio - 12),  # Restar Tb y asegurar valores no negativos
+    GDA = cumsum(GD)                          # Calcular grados días acumulados
+  )
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+db_serie <- db_serie %>%
+  dplyr::mutate(
+    # Convertir 'Mes_Dia' a fecha si es necesario
+    fecha_normalizada = as.Date(Mes_Dia, format = "%m-%d") %>% 
+      format("%m-%d") %>% 
+      as.Date(format = "%m-%d", origin = "2013-08-02")
+  ) %>%
+  dplyr::mutate(year = "Típico")  # Añadir la etiqueta 'Típico'
+
+```
+
+Fechas de incio y plena floración
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Filtrar para obtener solo el año "Típico"
+db_serie_promedio_tipico <- db_serie %>%
+  filter(year == "Típico")
+
+# Buscar las fechas donde los grados-día acumulados alcanzan 303.5 y 380.2
+fecha_inicio_floracion <- db_serie_promedio_tipico %>%
+  filter(GDA >= 303.5) %>%
+  slice(1) %>%
+  pull(Mes_Dia)
+
+fecha_plena_floracion <- db_serie_promedio_tipico %>%
+  filter(GDA >= 380.2) %>%
+  slice(1) %>%
+  pull(Mes_Dia)
+
+fecha_inicio_floracion <- as.Date("2025-11-04")  # Reemplaza con tu fecha de inicio de floración
+fecha_plena_floracion <- as.Date("2025-11-13")   # Reemplaza con tu fecha de plena floración
+
+# Ver las fechas de intersección
+fecha_inicio_floracion
+fecha_plena_floracion
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+db_4years <- db_serie_promedio_tipico[,-c(1:3)]
+db_4years$Grados_Día_Acumulados <- db_4years$GDA
+db_4years <- db_4years[,-c(1)]
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+df_grafico_completo <- df_grafico %>%
+  dplyr::bind_rows(db_4years)
+
+df_grafico_completo$year <- as.factor(df_grafico_completo$year)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+palette <- c("#1F78B4","#B88DB4", "#B2DF8A", "black")
+
+gg_phen_years_simple <- ggplot(df_grafico_completo, aes(x = fecha_normalizada, y = Grados_Día_Acumulados, color = factor(year), group = year)) +
+  geom_line(size = 1.5) +
+  scale_x_date(
+    limits = as.Date(c("2025-08-01", "2025-11-20")),  # Cambiado hasta el 20 de noviembre
+    date_labels = "%b-%d", 
+    date_breaks = "1 month"
+  ) +
+  scale_color_manual(values = palette) +
+  theme_classic() +
+  labs(
+    # title = "Grados-Día Acumulados por Año (Tb 12°C a partir del 2 de agosto)",
+    y = "°C/Día Acumulados",
+    x = ""
+  )+
+  theme(legend.position = "bottom")+
+  theme(text = element_text(size=15))+
+  geom_hline(aes(yintercept=100), color="grey40")+
+  geom_hline(aes(yintercept=200), color="grey40")+
+  geom_hline(aes(yintercept=300), color="grey40")+
+  geom_hline(aes(yintercept=400), color="grey40")+
+  geom_hline(aes(yintercept=500), color="grey40")+
+    theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+    theme(panel.grid.major.x = element_blank()) +
+    theme(text = element_text(size = 35, color = 'black')) +
+    theme(axis.text = element_text(color = 'black')) +
+    theme(legend.title = element_blank())
+
+gg_phen_years <- gg_phen_years_simple +
+  geom_vline(xintercept = as.Date(fecha_inicio_floracion), linetype = "dashed", color = "green4", size = 1.5) +
+  geom_vline(xintercept = as.Date(fecha_plena_floracion), linetype = "dashed", color = "#FF0011", size = 1.5) +
+  annotate("text", x = as.Date(fecha_inicio_floracion), y = max(df_grafico_completo$Grados_Día_Acumulados), 
+           label = "", color = "green4", vjust = -0.5) +
+  annotate("text", x = as.Date(fecha_plena_floracion), y = max(df_grafico_completo$Grados_Día_Acumulados), 
+           label = "", color = "#FF0011", vjust = -0.5) +
+  geom_hline(yintercept = 303.5, linetype = "dashed", color = "green4", size = 1.5) +
+  geom_hline(yintercept = 380.2, linetype = "dashed", color = "#FF0011", size = 1.5) +
+  # Ajuste para marcas de fecha cada 10 días aproximadamente
+  scale_x_date(
+    breaks = as.Date(c("2025-08-02", "2025-11-04", "2025-11-13", seq(as.Date("2025-08-02"), as.Date("2025-11-20"), by="10 days"))),
+    labels = format(c(as.Date("2025-08-02"), as.Date("2025-11-04"), as.Date("2025-11-13"), seq(as.Date("2025-08-02"), as.Date("2025-11-20"), by="10 days")), "%d-%m")
+  )
+
+# Mostrar el gráfico
+gg_phen_years
+
+# ggsave("gg_phen_years", plot = gg_phen_years, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
 ```
+
+

@@ -11,12 +11,13 @@ library(readxl)
 #Create object "db_met_mor" which contains climate data
 db_met_mor <- read_excel("database.xlsx", sheet = "II_M_inta")
 #Delete unnecessary columns
-db_met_mor<-db_met_mor[,-c(12:28)]
+db_met_mor<-db_met_mor[,-c(13:28)]
 
 db_met_mor$year<-as.factor(db_met_mor$year)
 db_met_mor$date<-as.POSIXct(db_met_mor$date,format="%m-%d-%Y")
 
 db_met_mor$temp_abr<-as.numeric(db_met_mor$temp_abr)
+db_met_mor$temp_abr_min<-as.numeric(db_met_mor$temp_abr_min)
 db_met_mor$pp_pluv<-as.numeric(db_met_mor$pp_pluv)
 # db_met_mor$month<-factor(db_met_mor$month, levels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
 
@@ -35,12 +36,19 @@ table_met_temp <- db_met_mor %>%
                    Mean=mean(temp_abr),
                    sd=sd(temp_abr))
 
+table_met_temp_min <- db_met_mor %>%
+  dplyr::group_by(year, month) %>%
+  dplyr::summarise(n=n(),
+                   Mean_min=mean(temp_abr_min),
+                   sd_min=sd(temp_abr_min))
+
 table_met_pp_pluv <- db_met_mor %>%
   dplyr::group_by(year, month) %>%
   dplyr::summarise(Mean_pp=sum(pp_pluv),
                    sd_pp=sd(pp_pluv))
 
-datos_unidos2 <- merge(table_met_temp, table_met_pp_pluv, by = c("month", "year"))
+datos_unidos1 <- merge(table_met_temp, table_met_temp_min, by = c("month", "year"))
+datos_unidos2 <- merge(datos_unidos1, table_met_pp_pluv, by = c("month", "year"))
 
 datos_unidos <- datos_unidos2 %>%
   filter(year %in% c(2018, 2019, 2020))
@@ -50,11 +58,116 @@ datos_unidos <- datos_unidos2 %>%
 #   dplyr::summarise(Mean_temp=mean(Mean),
 #                    Mean_pp=mean(Mean_pp))
 
+```
 
-palette <- c("#1F78B4","#F1CDE8",  "#B2DF8A")
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+# Obtener las medias para los meses significativos
+
+medias_abril <- datos_unidos %>% 
+  filter(month == 4) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean))
+
+medias_junio <- datos_unidos %>% 
+  filter(month == 6) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean))
+
+medias_septiembre <- datos_unidos %>% 
+  filter(month == 9) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean))
+
+palette <- c("#1F78B4","#B88DB4",  "#B2DF8A")
 library(ggplot2)
-gg_month_mor_temp<-ggplot(datos_unidos, aes(x = month, y = Mean, color = year, fill = year, width = 1)) +
-    geom_point(size = 2) +
+
+gg_month_mor_temp <- ggplot(datos_unidos, aes(x = month, y = Mean, color = year, fill = year, width = 1)) +
+    geom_point(size = 4) +
+    stat_summary(fun = "mean", size = 1.5, geom = "line") +
+    scale_color_manual(values = palette) +
+    scale_fill_manual(values = palette) +
+    labs(y = "Temperatura (°C)", x = "") +
+    theme_classic() +
+    theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+    theme(panel.grid.major.x = element_blank()) +
+    theme(text = element_text(size = 35, color = 'black')) +
+    theme(axis.text = element_text(color = 'black')) +
+    theme(legend.position = "bottom") +
+    theme(legend.title = element_blank()) +
+    scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+                                                 "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
+    geom_hline(yintercept = 16.98, color = "#993427", linetype = "dotted", size = 1.8) +
+    geom_hline(yintercept = 17.9, color = "#1F78B4", linetype = "dashed", size = 1.5) +
+    geom_hline(yintercept = 17.5, color = "#B88DB4", linetype = "dashed", size = 1.5) +
+    geom_hline(yintercept = 17.4, color = "#B2DF8A", linetype = "dashed", size = 1.5) +
+    
+    # Añadir letras de significancia para cada año en abril
+    annotate("text", x = 4, y = medias_abril$Mean + c(0, 0, -2), label = c("a", "b", "b"), 
+             color = palette, size = 8, vjust = -1) +
+    # Añadir letras de significancia para cada año en junio
+    annotate("text", x = 6, y = medias_junio$Mean, label = c("b", "a", "a"), 
+             color = palette, size = 8, vjust = -1) +
+    # Añadir letras de significancia para cada año en septiembre
+    annotate("text", x = 9, y = medias_septiembre$Mean + c(0, 0, -2), 
+             color = palette, label = c("a", "b", "b"), size = 8, vjust = -1)
+
+gg_month_mor_temp
+
+# # Guardar el gráfico como .TIFF con alta resolución
+# ggsave("gg_month_mor_temp", plot = gg_month_mor_temp, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+# c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Create object "db_met_mor" which contains climate data
+db_hel_mor <- read_excel("database.xlsx", sheet = "II_M_heladas")
+db_hel_mor$year <- as.factor(db_hel_mor$year)
+
+# Calcular la media anual de la temperatura para los años especificados
+medias_anuales_min <- datos_unidos %>%
+  filter(year %in% c("2018", "2019", "2020")) %>%
+  group_by(year) %>%
+  summarise(Mean_Anual = mean(Mean_min))
+
+# Obtener las medias para los meses significativos
+
+medias_marzo <- datos_unidos %>% 
+  filter(month == 3) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean_min))
+
+medias_abril <- datos_unidos %>% 
+  filter(month == 4) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean_min))
+
+medias_mayo <- datos_unidos %>% 
+  filter(month == 5) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean_min))
+
+medias_junio <- datos_unidos %>% 
+  filter(month == 6) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean_min))
+
+medias_septiembre <- datos_unidos %>% 
+  filter(month == 9) %>% 
+  group_by(year) %>% 
+  summarise(Mean = mean(Mean_min))
+
+palette <- c("#1F78B4","#B88DB4",  "#B2DF8A")
+library(ggplot2)
+gg_month_mor_temp_min_0<-ggplot(datos_unidos, aes(x = month, y = Mean_min, color = year, fill = year, width = 1)) +
+    geom_point(size = 4) +
     stat_summary(fun = "mean", size = 1.5, geom = "line") +
     scale_color_manual(values = palette) +
     scale_fill_manual(values = palette) +
@@ -69,18 +182,107 @@ gg_month_mor_temp<-ggplot(datos_unidos, aes(x = month, y = Mean, color = year, f
     theme(legend.title=element_blank())+
     scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
                                                  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
-    geom_hline(yintercept = 17.00000000, color = "#993427", linetype = "dotted", size = 1.8)+
-   geom_hline(yintercept = 17.9      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
-   geom_hline(yintercept = 17.5     , color = "#F1CDE8", linetype = "dashed", size = 1.5) +
-   geom_hline(yintercept = 17.4  , color = "#B2DF8A", linetype = "dashed", size = 1.5)
+    geom_hline(yintercept = 12.708, color = "#993427", linetype = "dotted", size = 1.8)+
+    geom_hline(yintercept = 12.5      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
+    geom_hline(yintercept = 11.9     , color = "#B88DB4", linetype = "dashed", size = 1.5) +
+    geom_hline(yintercept = 11.4  , color = "#B2DF8A", linetype = "dashed", size = 1.5)  +
+    
+    # Añadir letras de significancia para cada año en marzo
+    annotate("text", x = 3, y = medias_marzo$Mean + c(-1.8, 0, 0), label = c("b", "b", "a"), 
+             color = palette, size = 8, vjust = -1) +
+    # Añadir letras de significancia para cada año en abril
+    annotate("text", x = 4, y = medias_abril$Mean + c(0, 0.5, -1.8), label = c("a", "b", "b"), 
+             color = palette, size = 8, vjust = -1) +
+    # Añadir letras de significancia para cada año en mayo
+    annotate("text", x = 5, y = medias_mayo$Mean + c(0, 0, -1.8), label = c("a", "ab", "b"), 
+             color = palette, size = 8, vjust = -1) +
+    # Añadir letras de significancia para cada año en junio
+    annotate("text", x = 6, y = medias_junio$Mean, label = c("b", "a", "a"), 
+             color = palette, size = 8, vjust = -1) +
+    # Añadir letras de significancia para cada año en septiembre
+    annotate("text", x = 9, y = medias_septiembre$Mean + c(0.5, 0, -2), label = c("a", "b", "b"), 
+             color = palette, size = 8, vjust = -1)
+
+heladas_junio <- db_hel_mor %>%
+  filter(month == 6) %>%
+  group_by(year) %>%
+  summarise(Heladas = max(Heladas, na.rm = TRUE))
+
+heladas_julio <- db_hel_mor %>%
+  filter(month == 7) %>%
+  group_by(year) %>%
+  summarise(Heladas = max(Heladas, na.rm = TRUE))
+
+heladas_septiembre <- db_hel_mor %>%
+  filter(month == 9) %>%
+  group_by(year) %>%
+  summarise(Heladas = max(Heladas, na.rm = TRUE))
+
+# Ajustar la posición x para que coincida con las barras esquivadas
+dodge_width <- 0.8  # El mismo valor que usas en position_dodge para las barras
+
+# Calcular la posición x para cada año dentro de cada mes
+x_positions <- c(6, 7, 9)  # Meses en los que quieres añadir letras
+years <- levels(db_hel_mor$year)  # Asegúrate de que db_hel_mor$year es un factor
+x_dodge <- seq(-dodge_width/3, dodge_width/3, length.out = length(years))
+
+# Crear una función para generar las posiciones x correctas
+get_x_positions <- function(month) {
+  rep(month + x_dodge, each = 1)
+}
+
+# Definir las etiquetas y colores por año y mes
+labels <- list(
+  c("a", "b", "b"),  # Junio
+  c("c", "b", "a"),  # Julio
+  c("b", "a", "a")   # Septiembre
+)
+
+# Añadir las anotaciones considerando las posiciones esquivadas
+gg_month_mor_temp_min <- gg_month_mor_temp_min_0 +
+  # ... (tu código previo para las barras y otras configuraciones)
+
+  geom_bar(data = db_hel_mor, 
+           aes(x = month, y = Heladas, fill = year), 
+           stat = "identity", 
+           alpha = 0.5,  
+           position = position_dodge(width = 0.8),  
+           width = 0.7) +  
+
+  scale_y_continuous(
+    name = "Temperatura (°C)", 
+    sec.axis = sec_axis(~ ., name = "Días con heladas"),
+    limits = c(0, 21),  
+    expand = c(0, 0)
+  ) +
+  
+  # Añadir letras de significancia para cada año en las barras de heladas
+  annotate("text", 
+           x = c(get_x_positions(6), get_x_positions(7), get_x_positions(9)),
+           y = c(heladas_junio$Heladas, heladas_julio$Heladas, heladas_septiembre$Heladas) + 0.5,
+           label = unlist(labels),
+           color = "black",  # Cambia el color a negro para todas las letras
+           size = 8, 
+           vjust = 0)
+
+gg_month_mor_temp_min
+
+# ggsave("gg_month_mor_temp_min", plot = gg_month_mor_temp_min, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+```
+
+Gráfico de precipitaciones mensuales acumuladas
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gg_month_mor_pp<-ggplot(datos_unidos, aes(x = month, y = Mean_pp, color = year, fill = year, width = 0.8)) +
     stat_summary(aes(y = Mean_pp), fun = "mean", size = .2, geom = "bar", position = position_dodge(0.8), color = "blue") +
-    geom_errorbar(aes(ymin = Mean_pp - sd_pp, ymax = Mean_pp + sd_pp), width = .1, position = position_dodge(0.8)) +
+    geom_errorbar(aes(ymin = Mean_pp - sd_pp, ymax = Mean_pp + sd_pp), width = .4, position = position_dodge(0.8), color = "black") +
     scale_color_manual(values = palette) +
     scale_fill_manual(values = palette) +
     # facet_grid(year ~ .) +
-    labs(y = "Precipitación (mm)", x = "") +
+    labs(y = "Precipitaciones (mm)", x = "") +
     theme_classic() +
     theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
     theme(panel.grid.major.x = element_blank()) +
@@ -90,22 +292,13 @@ gg_month_mor_pp<-ggplot(datos_unidos, aes(x = month, y = Mean_pp, color = year, 
     theme(legend.title=element_blank())+
     scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
                                                  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
-    geom_hline(yintercept = 84, color = "#293487", linetype = 3, size = 1.8)+
+    geom_hline(yintercept = 84, color = "#993427", linetype = 3, size = 1.8)+
    geom_hline(yintercept = 98.5      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
-   geom_hline(yintercept = 84.5     , color = "#F1CDE8", linetype = "dashed", size = 1.5) +
+   geom_hline(yintercept = 84.5     , color = "#B88DB4", linetype = "dashed", size = 1.5) +
    geom_hline(yintercept = 57.3  , color = "#B2DF8A", linetype = "dashed", size = 1.5)
 
-gg_month_mor_temp
-
-# c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
-
-```
-
-Gráfico de precipitaciones mensuales acumuladas
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
 gg_month_mor_pp
+
+# ggsave("gg_month_mor_pp", plot = gg_month_mor_pp, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
 
 ```
