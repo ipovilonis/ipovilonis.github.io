@@ -1,0 +1,302 @@
+---
+title: "Mapas"
+---
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(ggspatial)
+library(sf)
+library(ggrepel)
+
+# Definir sitios
+sitesF <- data.frame(
+  longitude = c(-57.32380556, -57.559975, -57.55924167, -53.22223611, 
+                -51.02413611, -51.17566944, -50.49995556, -47.87459167, 
+                -57.33012222, -57.38705556, -57.28436389, -51.23702222, 
+                -58.00041111, -60.64041667, -60.46427778, -55.77413333),
+  latitude = c(-27.43112222, -30.20741944, -30.20741111, -22.75081111, 
+               -30.345475, -30.05204167, -30.2645, -21.97491111, 
+               -25.3601, -25.30545, -25.26682222, -30.006, -31.72500833, 
+               -32.10544444, -32.22255556, -26.610025)
+)
+
+sitesH <- data.frame(
+  longitude = c(-58.67536389, -55.89356667, -58.56223056, -56.19965556, 
+                -57.97617222, -57.88438611, -51.13976944, -50.43706389, 
+                -57.51916944, -60.72901944),
+  latitude = c(-34.60971111, -27.3648, -27.30954167, -34.85889722, 
+               -31.37681944, -31.38495556, -30.06987222, -22.65454444, 
+               -25.35392222, -31.66916389)
+)
+
+# Definir referencias
+UbCites <- data.frame(
+  cite = as.character(1:26),
+  lat = c(-34.60971111, -27.43112222, -27.3648, -30.20741944, -30.20741111, 
+          -27.30954167, -34.85889722, -31.37681944, -31.38495556, 
+          -22.75081111, -30.345475, -30.05204167, -30.2645, -30.06987222, 
+          -21.97491111, -22.65454444, -25.3601, -25.30545, -25.35392222, 
+          -25.26682222, -31.66916389, -30.006, -31.72500833, -32.10544444, 
+          -32.22255556, -26.610025),
+  lng = c(-58.67536389, -57.32380556, -55.89356667, -57.559975, 
+          -57.55924167, -58.56223056, -56.19965556, -57.97617222, 
+          -57.88438611, -53.22223611, -51.02413611, -51.17566944, 
+          -50.49995556, -51.13976944, -47.87459167, -50.43706389, 
+          -57.33012222, -57.38705556, -57.51916944, -57.28436389, 
+          -60.72901944, -51.23702222, -58.00041111, -60.64041667, 
+          -60.46427778, -55.77413333)
+)
+
+# Crear un vector que combina las etiquetas
+cite_labels <- c(as.character(1:nrow(sitesF)), LETTERS[1:nrow(sitesH)])
+
+# Crear las referencias combinadas para "F" y "H"
+UbCites <- data.frame(
+  cite = cite_labels,
+  lat = c(sitesH$latitude, sitesF$latitude),
+  lng = c(sitesH$longitude, sitesF$longitude)
+)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(ggrepel)
+library(cowplot)  # Para combinar los mapas
+library(grid)     # Para trabajar con grobs y crear el recuadro
+
+# Mapa principal
+map <- ggplot(data = world) +
+  geom_sf() +
+  annotation_scale(
+    location = "br", # Abajo a la derecha
+    width_hint = 0.2, # Ajusta el tamaño relativo de la escala
+    pad_x = unit(2, "cm"), # Ajusta la distancia horizontal desde el borde derecho
+    pad_y = unit(1, "cm")  # Ajusta la distancia vertical desde el borde inferior
+  ) +
+  annotation_north_arrow(
+    location = "br", # Abajo a la derecha
+    which_north = "true", 
+    pad_x = unit(0.5, "cm"), # Ajusta la distancia horizontal desde el borde derecho
+    pad_y = unit(0.5, "cm"),   # Ajusta la distancia vertical desde el borde inferior
+    style = north_arrow_fancy_orienteering
+  ) +
+  geom_point(data = sitesF, aes(x = longitude, y = latitude), 
+             size = 5, shape = 21, fill = "green", color = "black", stroke = 1) +
+  geom_point(data = sitesH, aes(x = longitude, y = latitude), 
+             size = 5, shape = 22, fill = "yellow", color = "black", stroke = 1) +
+  geom_text_repel(data = UbCites, aes(x = lng, y = lat, label = cite), 
+                  size = 6, # Reducir el tamaño de las etiquetas
+                  color = "black", 
+                  fontface = "bold",
+                  box.padding = 0.3,  # Ajusta el espacio alrededor de las etiquetas
+                  point.padding = 0.5, # Ajusta el espacio desde el punto a la etiqueta
+                  segment.color = 'black', # Color de la línea que conecta la etiqueta con el punto
+                  max.overlaps = 10) +  # Limita el número de solapamientos
+  coord_sf(xlim = c(-62, -45), ylim = c(-36, -21), expand = FALSE) +
+  theme_minimal() +
+  labs(
+    title = "",
+    x = "Longitud",
+    y = "Latitud"
+  ) +
+  theme(
+    panel.grid.major.y = element_line(linewidth = 0.05, color = 'black'), # Reemplazamos size por linewidth
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 30, color = 'black'),
+    axis.text = element_text(color = 'black'),
+    plot.margin = margin(2, 2, 2, 2, "cm") # Ampliar los márgenes para mayor espacio
+  )
+map
+# ggsave("map", plot = map, device = "tiff", width = 16, height = 16, units = "in", dpi = 300)
+
+```
+Mapa con los sitios de recolección de las muestras de H. edulis. Los círculos verdes representan muestras recolectadas de poblaciones silvestres y los cuadrados amarillos muestran material de herbarios o poblaciones no silvestres.
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# library(ggplot2)
+# library(ggpattern)
+# library(grid)  # Para trabajar con grobs y crear el recuadro
+# 
+# # Mapa de Sudamérica
+# minimap <- ggplot(data = world) +
+#   geom_sf(fill = "gray", color = "black") +
+#   coord_sf(xlim = c(-85, -35), ylim = c(-60, 15), expand = FALSE) +
+#   theme_void() +  # Elimina ejes y otras características
+#   theme(legend.position = "none") # No mostrar leyenda
+# 
+# # Crear el recuadro con líneas diagonales azules y transparencia
+# highlight_box <- minimap +
+#   geom_rect_pattern(
+#     aes(xmin = -62, xmax = -45, ymin = -36, ymax = -21), 
+#     pattern = "stripe",   # Patrón de líneas diagonales
+#     pattern_density = 0.1,  # Densidad de las líneas
+#     fill = NA,            # Sin relleno sólido
+#     pattern_fill = "blue", # Color del patrón
+#     pattern_alpha = 0.4,  # Transparencia del patrón
+#     pattern_angle = 45    # Ángulo de las líneas diagonales
+#   ) +
+#   coord_sf(xlim = c(-85, -35), ylim = c(-60, 15), expand = FALSE) +
+#   theme_void() +
+#   theme(legend.position = "none") # Elimina leyenda innecesaria
+# 
+# # Combina ambos gráficos
+# final_map <- ggdraw() +
+#   draw_plot(minimap) +  # Dibuja el minimapa
+#   draw_plot(highlight_box)  # Dibuja el recuadro con líneas diagonales
+# 
+# # Muestra el mapa final
+# final_map
+# 
+# ggsave("final_map", plot = final_map, device = "tiff", width = 4, height = 4, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# # Cargar librerías necesarias
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggspatial)
+library(patchwork)
+
+# # Cargar datos del mundo
+# world <- ne_countries(scale = "medium", returnclass = "sf")
+# 
+# # # Mapa del mundo
+# mapa_mundo <- ggplot(data = world) +
+#   geom_sf(fill = "lightgrey", color = "black") +  # Color de los continentes
+#   theme_minimal(base_size = 15) +  # Tema más serio
+#   theme(panel.background = element_rect(fill = "lightblue"),  # Color de fondo para los océanos
+#         plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),  # Título centrado y negrita
+#         axis.text = element_text(size = 14, color = "black"),  # Aumentar tamaño y color del texto de los ejes
+#         axis.title = element_text(size = 16, color = "black")) +  # Aumentar tamaño y color del título de los ejes
+#   coord_sf() +
+#   labs(title = "Mapa Mundial", x = "Longitude", y = "Latitude") +  # Cambiar los títulos a inglés
+#   annotation_scale(location = "bl") +  # Añadir escala
+#   annotation_north_arrow(location = "tl",
+#                          which_north = "true",
+#                          style = north_arrow_fancy_orienteering())  # Añadir indicador del norte
+# #
+# # Mapa de Sudamérica
+mapa_sudamerica <- ggplot(data = world) +
+  geom_sf(fill = "lightgrey", color = "black") +  # Color de los continentes
+  theme_minimal(base_size = 15) +  # Tema más serio
+  theme(panel.background = element_rect(fill = "lightblue"),  # Color de fondo para los océanos
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+        axis.text = element_text(size = 16, color = "black"),  # Aumentar tamaño y color del texto de los ejes
+        axis.title = element_text(size = 22, color = "black")) +  # Aumentar tamaño y color del título de los ejes
+  coord_sf(xlim = c(-80, -35), ylim = c(-55, 15)) +
+  labs(title = "Sudamérica", x = "Longitud", y = "Latitud") +  # Cambiar los títulos a inglés
+  annotation_scale(location = "br") +  # Añadir escala
+  annotation_north_arrow(location = "tr",
+                         which_north = "true",
+                         style = north_arrow_fancy_orienteering())  # Añadir indicador del norte
+#
+# # Datos de sitios
+sitios <- data.frame(
+  name = c("Concordia", "NP El Palmar", "Gualeguaychú"),
+  lat = c(-31.28590, -31.86395, -33.06490),
+  lon = c(-57.96305, -58.20998, -58.26965),
+  color = c("coral2", "burlywood3", "palegreen4")  # Colores específicos
+)
+
+# # Crear un objeto espacial
+sitios_sf <- st_as_sf(sitios, coords = c("lon", "lat"), crs = 4326)
+
+# # Mapa de poblaciones
+mapa_poblaciones <- ggplot(data = world) +
+  geom_sf(fill = "lightgrey", color = "black") +  # Color de los continentes
+  geom_sf(data = sitios_sf, aes(color = color), size = 6) +  # Usar colores desde el dataframe
+  scale_color_identity() +  # Usar colores definidos en el dataframe
+  theme_minimal(base_size = 15) +  # Tema más serio
+  theme(panel.background = element_rect(fill = "lightblue"),  # Color de fondo para los océanos
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+        axis.text = element_text(size = 16, color = "black"),  # Aumentar tamaño y color del texto de los ejes
+        axis.title = element_text(size = 22, color = "black")) +  # Aumentar tamaño y color del título de los ejes
+  coord_sf(xlim = c(-59, -57), ylim = c(-34, -31)) +
+  labs(title = "Sitios de estudio", x = "Longitud", y = "Latitud") +  # Cambiar los títulos a inglés
+  geom_text(data = sitios, aes(x = lon, y = lat, label = name),
+            nudge_y = 0.2, size = 8, color = "black") +
+  annotation_scale(location = "br") +  # Añadir escala
+  annotation_north_arrow(location = "tr",
+                         which_north = "true",
+                         style = north_arrow_fancy_orienteering())  # Añadir indicador del norte
+
+
+# # Combinar mapas usando patchwork
+# mapas_combinados <- mapa_mundo + mapa_sudamerica + mapa_poblaciones +
+#   plot_layout(ncol = 1) + # Ajusta el número de columnas
+#   plot_annotation(title = "Análisis Espacial de Poblaciones",
+#                   theme = theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold")))
+# 
+# print(mapas_combinados)
+
+
+
+```
+En la costa occidental del río Uruguay se eligieron al azar los tres sitios de estudio para este trabajo de Tesis: en las cercanías de la ciudad de Concordia, en el Parque Nacional (PN) El Palmar y en una reserva en Gualeguaychú.
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# # Cerrar todos los dispositivos gráficos abiertos
+# dev.off()
+# 
+# # Guardar el gráfico como PNG con alta resolución
+# ggsave("mapa_mundo.tiff", plot = mapa_mundo, device = "tiff", width = 10, height = 18, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# # Guardar el gráfico como PNG con alta resolución
+# ggsave("mapa_sudamerica.tiff", plot = mapa_sudamerica, device = "tiff", width = 8, height = 8, units = "in", dpi = 300)
+
+```
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# # Guardar el gráfico como PNG con alta resolución
+# ggsave("mapa_poblaciones.tiff", plot = mapa_poblaciones, device = "tiff", width = 8, height = 8, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```

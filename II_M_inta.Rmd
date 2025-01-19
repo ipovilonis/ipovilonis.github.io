@@ -124,11 +124,15 @@ gg_month_mor_temp
 
 ```
 
+Gráfico de temperaturas mínimas y heladas
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 #Create object "db_met_mor" which contains climate data
-db_hel_mor <- read_excel("database.xlsx", sheet = "II_M_heladas")
+db_hel_mor_i <- read_excel("database.xlsx", sheet = "II_M_heladas")
+
+db_hel_mor <- db_hel_mor_i %>% filter(!is.na(Heladas))
+
 db_hel_mor$year <- as.factor(db_hel_mor$year)
 
 # Calcular la media anual de la temperatura para los años especificados
@@ -188,19 +192,19 @@ gg_month_mor_temp_min_0<-ggplot(datos_unidos, aes(x = month, y = Mean_min, color
     geom_hline(yintercept = 11.4  , color = "#B2DF8A", linetype = "dashed", size = 1.5)  +
     
     # Añadir letras de significancia para cada año en marzo
-    annotate("text", x = 3, y = medias_marzo$Mean + c(-1.8, 0, 0), label = c("b", "b", "a"), 
+    annotate("text", x = 3, y = medias_marzo$Mean + c(-2.8, -1, 2), label = c("b", "b", "a"), 
              color = palette, size = 8, vjust = -1) +
     # Añadir letras de significancia para cada año en abril
-    annotate("text", x = 4, y = medias_abril$Mean + c(0, 0.5, -1.8), label = c("a", "b", "b"), 
+    annotate("text", x = 4, y = medias_abril$Mean + c(3.4, -1.2, -3.4), label = c("a", "b", "b"), 
              color = palette, size = 8, vjust = -1) +
     # Añadir letras de significancia para cada año en mayo
-    annotate("text", x = 5, y = medias_mayo$Mean + c(0, 0, -1.8), label = c("a", "ab", "b"), 
+    annotate("text", x = 5, y = medias_mayo$Mean + c(2.4,-0.5, -2.8), label = c("a", "ab", "b"), 
              color = palette, size = 8, vjust = -1) +
     # Añadir letras de significancia para cada año en junio
-    annotate("text", x = 6, y = medias_junio$Mean, label = c("b", "a", "a"), 
+    annotate("text", x = 6, y = medias_junio$Mean + c(-3.7,2.2, -0.2), label = c("b", "a", "a"), 
              color = palette, size = 8, vjust = -1) +
     # Añadir letras de significancia para cada año en septiembre
-    annotate("text", x = 9, y = medias_septiembre$Mean + c(0.5, 0, -2), label = c("a", "b", "b"), 
+    annotate("text", x = 9, y = medias_septiembre$Mean + c(3.4, -1, -3.4), label = c("a", "b", "b"), 
              color = palette, size = 8, vjust = -1)
 
 heladas_junio <- db_hel_mor %>%
@@ -238,31 +242,34 @@ labels <- list(
   c("b", "a", "a")   # Septiembre
 )
 
-# Añadir las anotaciones considerando las posiciones esquivadas
-gg_month_mor_temp_min <- gg_month_mor_temp_min_0 +
-  # ... (tu código previo para las barras y otras configuraciones)
+list_x <- list(c(get_x_positions(6), get_x_positions(7), get_x_positions(9)))
+list_y <- list(c((heladas_junio$Heladas) + c(0, -3, -2),
+                 (heladas_julio$Heladas) + c(-7, -5, 0),
+                 (heladas_septiembre$Heladas) + c(-1, 0, 0)) + 0.5)
 
-  geom_bar(data = db_hel_mor, 
-           aes(x = month, y = Heladas, fill = year), 
-           stat = "identity", 
-           alpha = 0.5,  
-           position = position_dodge(width = 0.8),  
-           width = 0.7) +  
+# # Añadir las anotaciones considerando las posiciones esquivadas
+gg_month_mor_temp_min <- gg_month_mor_temp_min_0 +
+  geom_bar(data = db_hel_mor,
+           aes(x = month, y = Heladas, fill = year),
+           stat = "identity",
+           alpha = 0.5,
+           position = position_dodge(width = 0.8),
+           width = 0.7) +
 
   scale_y_continuous(
-    name = "Temperatura (°C)", 
+    name = "Temperatura (°C)",
     sec.axis = sec_axis(~ ., name = "Días con heladas"),
-    limits = c(0, 21),  
+    limits = c(0, 21),
     expand = c(0, 0)
   ) +
-  
+
   # Añadir letras de significancia para cada año en las barras de heladas
-  annotate("text", 
-           x = c(get_x_positions(6), get_x_positions(7), get_x_positions(9)),
-           y = c(heladas_junio$Heladas, heladas_julio$Heladas, heladas_septiembre$Heladas) + 0.5,
+  annotate("text",
+           x = unlist(list_x),
+           y = unlist(list_y),
            label = unlist(labels),
            color = "black",  # Cambia el color a negro para todas las letras
-           size = 8, 
+           size = 8,
            vjust = 0)
 
 gg_month_mor_temp_min

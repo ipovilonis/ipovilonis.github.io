@@ -11,7 +11,7 @@
 
 
 
-<title>Predicción del incio y plena floración</title>
+<title>Predicción del incio y plena floración en Moreno</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -258,6 +258,9 @@ $(document).ready(function () {
       <a href="II_Phenotypes.html">Fenotipos</a>
     </li>
     <li>
+      <a href="II_maps1.html">Mapas</a>
+    </li>
+    <li>
       <a href="II_ER_Climate.html">Clima</a>
     </li>
     <li class="divider"></li>
@@ -469,34 +472,32 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Predicción del incio y plena floración</h1>
+<h1 class="title toc-ignore">Predicción del incio y plena floración en
+Moreno</h1>
 
 </div>
 
 
-<div id="método-del-coeficiente-de-regresión" class="section level2">
-<h2>Método del Coeficiente de Regresión</h2>
-<p><a href="https://doi.org/10.1016/0168-1923(94)02185-M"><em>(Yang et
-al., 1995)</em></a></p>
-<div id="ecuación-para-el-coeficiente-de-regresión"
-class="section level3">
-<h3>Ecuación para el Coeficiente de Regresión</h3>
-<p>El coeficiente de regresión <span class="math inline">\(b\)</span> se
-calcula usando la fórmula:</p>
+<div id="fórmula-de-grados-día" class="section level2">
+<h2>Fórmula de Grados-Día</h2>
+<p>La fórmula para calcular los grados-día (<span
+class="math inline">\(GD\)</span>) acumulados se define como:</p>
 <p><span class="math display">\[
-b = \frac{n \sum_{i=1}^{n} GDD_i T_i - \sum_{i=1}^{n} T_i \sum_{i=1}^{n}
-GDD_i}{n \sum_{i=1}^{n} T_i^2 - \left(\sum_{i=1}^{n} T_i\right)^2}
+GD = \sum \left( \frac{T_{\text{max}} + T_{\text{min}}}{2} \right) - T_b
 \]</span></p>
-<p>Donde:</p>
+<div id="donde" class="section level3">
+<h3>Donde:</h3>
 <ul>
-<li><span class="math inline">\(GDD_i\)</span> es el total de Grados-Día
-Acumulados para cada observación.</li>
-<li><span class="math inline">\(T_i\)</span> es la temperatura promedio
-para cada observación.</li>
-<li><span class="math inline">\(n\)</span> es el número total de
-observaciones.</li>
+<li><span class="math inline">\(GD\)</span>: Grados-día acumulados.</li>
+<li><span class="math inline">\(T_{\text{max}}\)</span>: Temperatura
+máxima diaria.</li>
+<li><span class="math inline">\(T_{\text{min}}\)</span>: Temperatura
+mínima diaria.</li>
+<li><span class="math inline">\(T_b\)</span>: Temperatura base.</li>
+<li><span class="math inline">\(\sum\)</span>: Suma acumulativa para un
+rango de tiempo dado.</li>
 </ul>
-<pre><code>## # A tibble: 11 × 5
+<pre><code>## # A tibble: 200 × 5
 ##    BaseTemp    R2  RMSE Event               DataFrameName
 ##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;        
 ##  1       12 0.873 10.4  Inicio de floración df_15        
@@ -504,12 +505,12 @@ observaciones.</li>
 ##  3       12 0.835 12.1  Inicio de floración df_14        
 ##  4       12 0.833 10.8  Inicio de floración df_17        
 ##  5       12 0.816  5.86 Inicio de floración df_63        
-##  6       12 0.873 10.4  Plena floración     df_15        
-##  7       12 0.873 10.4  Plena floración     df_15        
-##  8       12 0.873 10.4  Plena floración     df_16        
-##  9       12 0.873 10.4  Plena floración     df_16        
-## 10       12 0.835 12.1  Plena floración     df_14        
-## 11       12 0.835 12.1  Plena floración     df_14</code></pre>
+##  6        6 0.815 17.8  Inicio de floración df_63        
+##  7       12 0.809 14.8  Inicio de floración df_135       
+##  8        6 0.803 19.8  Inicio de floración df_62        
+##  9        4 0.801 23.3  Inicio de floración df_63        
+## 10       10 0.796 20.4  Inicio de floración df_135       
+## # ℹ 190 more rows</code></pre>
 <pre><code>## # A tibble: 3 × 5
 ##   BaseTemp    R2  RMSE Event               DataFrameName
 ##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;        
@@ -526,11 +527,11 @@ Temperatura base de 12°C a partir del 2 de agosto.</p></li>
 Temperatura base de 12°C a partir del 2 de agosto.</p></li>
 </ul>
 <p><img src="III_Flowers_files/figure-html/unnamed-chunk-11-1.png" width="1536" style="display: block; margin: auto;" /></p>
-<pre><code>## Error in select(., year, fecha_normalizada, Grados_Día_Acumulados): los argumentos no fueron usados (year, fecha_normalizada, Grados_Día_Acumulados)</code></pre>
 <p>Fechas de incio y plena floración</p>
 <pre><code>## [1] &quot;2025-11-04&quot;</code></pre>
 <pre><code>## [1] &quot;2025-11-13&quot;</code></pre>
-<p><img src="III_Flowers_files/figure-html/unnamed-chunk-19-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>Determinación de fechas de inicio y plena floración
+<img src="III_Flowers_files/figure-html/unnamed-chunk-19-1.png" width="1536" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 

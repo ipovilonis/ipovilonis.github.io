@@ -1,24 +1,22 @@
 ---
-title: "Predicción del incio y plena floración"
+title: "Predicción del incio y plena floración en Moreno"
 ---
 
-## Método del Coeficiente de Regresión
+## Fórmula de Grados-Día
 
-[*(Yang et al., 1995)*](https://doi.org/10.1016/0168-1923(94)02185-M)
-
-### Ecuación para el Coeficiente de Regresión
-
-El coeficiente de regresión \(b\) se calcula usando la fórmula:
+La fórmula para calcular los grados-día (\(GD\)) acumulados se define como:
 
 \[
-b = \frac{n \sum_{i=1}^{n} GDD_i T_i - \sum_{i=1}^{n} T_i \sum_{i=1}^{n} GDD_i}{n \sum_{i=1}^{n} T_i^2 - \left(\sum_{i=1}^{n} T_i\right)^2}
+GD = \sum \left( \frac{T_{\text{max}} + T_{\text{min}}}{2} \right) - T_b
 \]
 
-Donde:
+### Donde:
 
-- \(GDD_i\) es el total de Grados-Día Acumulados para cada observación.
-- \(T_i\) es la temperatura promedio para cada observación.
-- \(n\) es el número total de observaciones.
+- \(GD\): Grados-día acumulados.
+- \(T_{\text{max}}\): Temperatura máxima diaria.
+- \(T_{\text{min}}\): Temperatura mínima diaria.
+- \(T_b\): Temperatura base.
+- \(\sum\): Suma acumulativa para un rango de tiempo dado.
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -295,7 +293,7 @@ library(purrr)
 # Encontrar el mejor modelo para cada evento (R2 máximo)
 mejores_modelos <- results_df_purrr_filtrado %>%
   group_by(Event) %>% # Agrupar por Evento para obtener el mejor modelo por cada uno
-  slice_max(R2, n = 5) %>% # Seleccionar la fila con el R2 más alto dentro de cada grupo
+  slice_max(R2, n = 100) %>% # Seleccionar la fila con el R2 más alto dentro de cada grupo
   ungroup() # Desagrupar para evitar problemas posteriores
 
 # Mostrar los mejores modelos
@@ -556,12 +554,12 @@ df_63$mes_dia <- format(df_63$date, "%m-%d")
 
 # Seleccionar sólo las fechas de "Umbral" 12°C
 df_12C <- df_63 %>% 
-  filter(Umbral == "12°C")
+  dplyr::filter(Umbral == "12°C")
 
 # Crear una base de datos unificada para graficar
 df_grafico <- df_12C %>% 
-  mutate(fecha_normalizada = as.Date(mes_dia, format = "%m-%d")) %>% # Crear una columna normalizada
-  select(year, fecha_normalizada, Grados_Día_Acumulados) # Seleccionar columnas clave
+   dplyr::mutate(fecha_normalizada = as.Date(mes_dia, format = "%m-%d")) %>% # Crear una columna normalizada
+   dplyr::select(year, fecha_normalizada, Grados_Día_Acumulados) # Seleccionar columnas clave
 
 
 palette <- c("#1F78B4","#B88DB4",  "#B2DF8A")
@@ -645,18 +643,18 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Filtrar para obtener solo el año "Típico"
 db_serie_promedio_tipico <- db_serie %>%
-  filter(year == "Típico")
+  dplyr::filter(year == "Típico")
 
 # Buscar las fechas donde los grados-día acumulados alcanzan 303.5 y 380.2
 fecha_inicio_floracion <- db_serie_promedio_tipico %>%
-  filter(GDA >= 303.5) %>%
-  slice(1) %>%
-  pull(Mes_Dia)
+  dplyr::filter(GDA >= 303.5) %>%
+  dplyr::slice(1) %>%
+  dplyr::pull(Mes_Dia)
 
 fecha_plena_floracion <- db_serie_promedio_tipico %>%
-  filter(GDA >= 380.2) %>%
-  slice(1) %>%
-  pull(Mes_Dia)
+  dplyr::filter(GDA >= 380.2) %>%
+  dplyr::slice(1) %>%
+  dplyr::pull(Mes_Dia)
 
 fecha_inicio_floracion <- as.Date("2025-11-04")  # Reemplaza con tu fecha de inicio de floración
 fecha_plena_floracion <- as.Date("2025-11-13")   # Reemplaza con tu fecha de plena floración
@@ -686,56 +684,39 @@ df_grafico_completo$year <- as.factor(df_grafico_completo$year)
 
 ```
 
+Determinación de fechas de inicio y plena floración
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-palette <- c("#1F78B4","#B88DB4", "#B2DF8A", "black")
+library(ggplot2)
+
+palette <- c("#1F78B4", "#B88DB4", "#B2DF8A", "black")
 
 gg_phen_years_simple <- ggplot(df_grafico_completo, aes(x = fecha_normalizada, y = Grados_Día_Acumulados, color = factor(year), group = year)) +
-  geom_line(size = 1.5) +
-  scale_x_date(
-    limits = as.Date(c("2025-08-01", "2025-11-20")),  # Cambiado hasta el 20 de noviembre
-    date_labels = "%b-%d", 
-    date_breaks = "1 month"
-  ) +
+  geom_line(size = 1.2) +
   scale_color_manual(values = palette) +
   theme_classic() +
-  labs(
-    # title = "Grados-Día Acumulados por Año (Tb 12°C a partir del 2 de agosto)",
-    y = "°C/Día Acumulados",
-    x = ""
-  )+
-  theme(legend.position = "bottom")+
-  theme(text = element_text(size=15))+
-  geom_hline(aes(yintercept=100), color="grey40")+
-  geom_hline(aes(yintercept=200), color="grey40")+
-  geom_hline(aes(yintercept=300), color="grey40")+
-  geom_hline(aes(yintercept=400), color="grey40")+
-  geom_hline(aes(yintercept=500), color="grey40")+
-    theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-    theme(panel.grid.major.x = element_blank()) +
-    theme(text = element_text(size = 35, color = 'black')) +
-    theme(axis.text = element_text(color = 'black')) +
-    theme(legend.title = element_blank())
+  labs(y = "°C/Día Acumulados", x = "") +
+  theme(legend.position = "bottom",
+        text = element_text(size = 30, color = "black"),
+        panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+        panel.grid.major.x = element_blank(),
+        axis.text = element_text(color = 'black'),
+        legend.title = element_blank()) +
+  geom_hline(yintercept = c(100, 200, 300, 400, 500), color = "grey40") # Corrected: yintercept outside aes()
 
 gg_phen_years <- gg_phen_years_simple +
-  geom_vline(xintercept = as.Date(fecha_inicio_floracion), linetype = "dashed", color = "green4", size = 1.5) +
-  geom_vline(xintercept = as.Date(fecha_plena_floracion), linetype = "dashed", color = "#FF0011", size = 1.5) +
-  annotate("text", x = as.Date(fecha_inicio_floracion), y = max(df_grafico_completo$Grados_Día_Acumulados), 
-           label = "", color = "green4", vjust = -0.5) +
-  annotate("text", x = as.Date(fecha_plena_floracion), y = max(df_grafico_completo$Grados_Día_Acumulados), 
-           label = "", color = "#FF0011", vjust = -0.5) +
-  geom_hline(yintercept = 303.5, linetype = "dashed", color = "green4", size = 1.5) +
-  geom_hline(yintercept = 380.2, linetype = "dashed", color = "#FF0011", size = 1.5) +
-  # Ajuste para marcas de fecha cada 10 días aproximadamente
+  geom_vline(aes(xintercept = as.Date(fecha_inicio_floracion), linetype = "Inicio Floración"), color = "grey20", size = 1) +
+  geom_vline(aes(xintercept = as.Date(fecha_plena_floracion), linetype = "Plena Floración"), color = "grey20", size = 1) +
+  geom_hline(yintercept = c(303.5), linetype = "dotted", color = "grey20", size = 1) +
+  geom_hline(yintercept = c(380.2), linetype ="dashed", color = "grey20", size = 1) +
+  scale_linetype_manual(name = "Fenología", values = c("Inicio Floración" = "dotted", "Plena Floración" = "dashed")) +
   scale_x_date(
-    breaks = as.Date(c("2025-08-02", "2025-11-04", "2025-11-13", seq(as.Date("2025-08-02"), as.Date("2025-11-20"), by="10 days"))),
-    labels = format(c(as.Date("2025-08-02"), as.Date("2025-11-04"), as.Date("2025-11-13"), seq(as.Date("2025-08-02"), as.Date("2025-11-20"), by="10 days")), "%d-%m")
+    breaks = seq(as.Date("2025-07-28"), as.Date("2025-11-16"), by = "9 days"),
+    labels = format(seq(as.Date("2025-07-28"), as.Date("2025-11-16"), by = "9 days"), "%d-%m")
   )
 
-# Mostrar el gráfico
 gg_phen_years
-
 # ggsave("gg_phen_years", plot = gg_phen_years, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
 
 ```

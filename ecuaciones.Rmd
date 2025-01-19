@@ -1,0 +1,61 @@
+---
+title: "Documento con Ecuaciones y Leyendas"
+---
+
+
+## Fórmula de Grados-Día
+
+La fórmula para calcular los grados-día (\(GD\)) acumulados se define como:
+
+\[
+GD = \sum \left( \frac{T_{\text{max}} + T_{\text{min}}}{2} \right) - T_b
+\]
+
+### Donde:
+
+- \(GD\): Grados-día acumulados.
+- \(T_{\text{max}}\): Temperatura máxima diaria.
+- \(T_{\text{min}}\): Temperatura mínima diaria.
+- \(T_b\): Temperatura base.
+- \(\sum\): Suma acumulativa para un rango de tiempo dado.
+
+---
+
+## Actividad secuestradora de radicales DPPH
+
+La actividad secuestradora de radicales 1,1-difenil-2-picrilhidrazil (DPPH) se calculó aplicando la siguiente ecuación:
+
+\[
+\text{Inh \%} = \left[ \frac{A_{\text{blanco}} - A_{\text{muestra}}}{A_{\text{blanco}}} \right] \times 100 \quad \text{(Ecuación 4.1)}
+\]
+
+### Donde:
+
+- \(A_{\text{blanco}}\): Es la absorbancia de todos los reactivos sin el extracto del fruto.
+- \(A_{\text{muestra}}\): Es la absorbancia de todos los reactivos con la inclusión del extracto del fruto.
+
+## Modelo con distribución normal
+
+La ecuación del modelo con distribución normal se expresa como:
+
+\[
+E[Y_{ijkl}] = \mu + \alpha_i + \beta_j + (\gamma_k (\beta_j)) + \epsilon_{ijkl}
+\]
+
+### Donde:
+
+- \(E[Y_{ijkl}]\): Es la esperanza de la variable respuesta.
+- \(\mu\): Es la media general.
+- \(\alpha_i\): Es el efecto del nivel \(i\) del factor año.
+- \(\beta_j\): Es el efecto del nivel \(j\) del factor población.
+- \(\gamma_k (\beta_j)\): Es el efecto del nivel \(k\) del factor anidado individuo dentro de población.
+- \(\epsilon_{ijkl}\): Son los errores aleatorios.
+
+---
+
+```{r, echo=FALSE, error=TRUE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# rmarkdown::render("ecuaciones.Rmd", output_format = "word_document")
+
+```

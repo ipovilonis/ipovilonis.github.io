@@ -167,8 +167,17 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Grafico del modelo ajustado
 library(ggplot2)
-gg_polin <- ggplot(polin, aes(Tratamiento, PROP,colour = Tratamiento )) +
-  geom_point()+ geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) + labs(x = "Tratamiento de polinización") + labs(y = "Cuajado") 
+gg_polin <- ggplot(polin, aes(Tratamiento, PROP,color = Tratamiento )) +
+  geom_point(size=8)+ geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) + labs(x = "Tratamiento de polinización") + labs(y = "Cuajado")+
+  theme_classic()+
+  theme(text = element_text(size=20))+
+  theme(legend.title=element_blank())+
+  theme(legend.position = "bottom")+
+  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+  theme(panel.grid.major.x = element_blank())+
+  theme(text = element_text(size=20, color='black'))+
+  theme(axis.text = element_text(color='black'))+
+  scale_color_viridis_d(option="D", end=0.8)
 gg_polin
 
 ```
@@ -179,17 +188,17 @@ Plot 2
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # 
-library(sjPlot)
-plot_polin <- plot_model(model, show.values = TRUE)+
-  theme_classic()+
-  theme(text = element_text(size=20))+
-  theme(legend.title=element_blank())+
-  theme(legend.position = "none")+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=20, color='black'))+
-  theme(axis.text = element_text(color='black'))
-plot_polin
+# library(sjPlot)
+# plot_polin <- plot_model(model, show.values = TRUE)+
+#   theme_classic()+
+#   theme(text = element_text(size=20))+
+#   theme(legend.title=element_blank())+
+#   theme(legend.position = "none")+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=20, color='black'))+
+#   theme(axis.text = element_text(color='black'))
+# plot_polin
 
 ```
 
