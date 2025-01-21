@@ -569,35 +569,35 @@ div.tocify {
 ## 2 5         3      8.58    4.12
 ## 3 7         3     23.8     4.94
 ## 4 10        2     23.0     1.64</code></pre>
-<p><img src="Ensayo8_files/figure-html/unnamed-chunk-3-1.png" width="2304" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo8_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
 <pre><code>## lm(formula = respiracion ~ Día, data = data_resp)</code></pre>
 <p>Análisis de regresión</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: respiracion
-##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
-## Día        3 641.71 213.905  9.4964 0.007299 **
-## Residuals  7 157.67  22.525                    
+##           Df   Sum Sq   Mean Sq F value    Pr(&gt;F)   
+## Día        3 641.7145 213.90482 9.49642 0.0072991 **
+## Residuals  7 157.6735  22.52478                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  Día    emmean       SE df  lower.CL upper.CL
-##  1   28.049379 2.740120  7 21.570024 34.52873
-##  5    8.578073 2.740120  7  2.098718 15.05743
-##  7   23.774397 2.740120  7 17.295041 30.25375
-##  10  22.993329 3.355948  7 15.057772 30.92889
+##  Día      emmean         SE df    lower.CL   upper.CL
+##  1   28.04937915 2.74012036  7 21.57002409 34.5287342
+##  5    8.57807341 2.74012036  7  2.09871836 15.0574285
+##  7   23.77439655 2.74012036  7 17.29504149 30.2537516
+##  10  22.99332935 3.35594836  7 15.05777247 30.9288862
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast       estimate       SE df t.ratio p.value
-##  Día1 - Día5   19.471306 3.875115  7   5.025  0.0064
-##  Día1 - Día7    4.274983 3.875115  7   1.103  0.6991
-##  Día1 - Día10   5.056050 4.332511  7   1.167  0.6640
-##  Día5 - Día7  -15.196323 3.875115  7  -3.922  0.0231
-##  Día5 - Día10 -14.415256 4.332511  7  -3.327  0.0489
-##  Día7 - Día10   0.781067 4.332511  7   0.180  0.9977
+##  contrast         estimate         SE df t.ratio p.value
+##  Día1 - Día5   19.47130573 3.87511538  7   5.025  0.0064
+##  Día1 - Día7    4.27498260 3.87511538  7   1.103  0.6991
+##  Día1 - Día10   5.05604980 4.33251070  7   1.167  0.6640
+##  Día5 - Día7  -15.19632313 3.87511538  7  -3.922  0.0231
+##  Día5 - Día10 -14.41525594 4.33251070  7  -3.327  0.0489
+##  Día7 - Día10   0.78106719 4.33251070  7   0.180  0.9977
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -619,28 +619,28 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Firmeza
-##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
-## Día        3  1.6232 0.54106  2.6393 0.05477 .
-## Residuals 84 17.2200 0.20500                  
+##           Df    Sum Sq   Mean Sq F value  Pr(&gt;F)  
+## Día        3  1.623182 0.5410606 2.63932 0.05477 .
+## Residuals 84 17.220000 0.2050000                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean         SE df  lower.CL upper.CL
-##  1   1.409091 0.09653073 84 1.2171290 1.601053
-##  5   1.054545 0.09653073 84 0.8625835 1.246507
-##  7   1.127273 0.09653073 84 0.9353108 1.319235
-##  10  1.127273 0.09653073 84 0.9353108 1.319235
+##  Día     emmean           SE df    lower.CL   upper.CL
+##  1   1.40909091 0.0965307299 84 1.217128966 1.60105285
+##  5   1.05454545 0.0965307299 84 0.862583512 1.24650740
+##  7   1.12727273 0.0965307299 84 0.935310785 1.31923467
+##  10  1.12727273 0.0965307299 84 0.935310785 1.31923467
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast       estimate        SE df t.ratio p.value
-##  Día1 - Día5   0.3545455 0.1365151 84   2.597  0.0531
-##  Día1 - Día7   0.2818182 0.1365151 84   2.064  0.1733
-##  Día1 - Día10  0.2818182 0.1365151 84   2.064  0.1733
-##  Día5 - Día7  -0.0727273 0.1365151 84  -0.533  0.9509
-##  Día5 - Día10 -0.0727273 0.1365151 84  -0.533  0.9509
-##  Día7 - Día10  0.0000000 0.1365151 84   0.000  1.0000
+##  contrast         estimate          SE df t.ratio p.value
+##  Día1 - Día5   0.354545455 0.136515067 84   2.597  0.0531
+##  Día1 - Día7   0.281818182 0.136515067 84   2.064  0.1733
+##  Día1 - Día10  0.281818182 0.136515067 84   2.064  0.1733
+##  Día5 - Día7  -0.072727273 0.136515067 84  -0.533  0.9509
+##  Día5 - Día10 -0.072727273 0.136515067 84  -0.533  0.9509
+##  Día7 - Día10  0.000000000 0.136515067 84   0.000  1.0000
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-16-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -664,28 +664,28 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: L_color
-##           Df Sum Sq Mean Sq F value Pr(&gt;F)    
-## Día        3  770.2 256.724  7.2618  2e-04 ***
-## Residuals 92 3252.5  35.353                   
+##           Df   Sum Sq   Mean Sq F value Pr(&gt;F)    
+## Día        3  770.173 256.72446 7.26176 0.0002 ***
+## Residuals 92 3252.471  35.35294                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean       SE df lower.CL upper.CL
-##  1   60.59625 1.213688 92 58.18576 63.00674
-##  5   56.10792 1.213688 92 53.69743 58.51841
-##  7   53.97333 1.213688 92 51.56284 56.38382
-##  10  53.38333 1.213688 92 50.97284 55.79382
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   60.5962500 1.21368828 92 58.1857603 63.0067397
+##  5   56.1079167 1.21368828 92 53.6974270 58.5184063
+##  7   53.9733333 1.21368828 92 51.5628437 56.3838230
+##  10  53.3833333 1.21368828 92 50.9728437 55.7938230
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate       SE df t.ratio p.value
-##  Día1 - Día5  4.488333 1.716414 92   2.615  0.0502
-##  Día1 - Día7  6.622917 1.716414 92   3.859  0.0012
-##  Día1 - Día10 7.212917 1.716414 92   4.202  0.0004
-##  Día5 - Día7  2.134583 1.716414 92   1.244  0.6009
-##  Día5 - Día10 2.724583 1.716414 92   1.587  0.3908
-##  Día7 - Día10 0.590000 1.716414 92   0.344  0.9859
+##  contrast       estimate         SE df t.ratio p.value
+##  Día1 - Día5  4.48833333 1.71641442 92   2.615  0.0502
+##  Día1 - Día7  6.62291667 1.71641442 92   3.859  0.0012
+##  Día1 - Día10 7.21291667 1.71641442 92   4.202  0.0004
+##  Día5 - Día7  2.13458333 1.71641442 92   1.244  0.6009
+##  Día5 - Día10 2.72458333 1.71641442 92   1.587  0.3908
+##  Día7 - Día10 0.59000000 1.71641442 92   0.344  0.9859
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-24-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -707,28 +707,28 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: a_color
-##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-## Día        3 1637.0  545.65  23.872 1.629e-11 ***
-## Residuals 92 2102.9   22.86                      
+##           Df   Sum Sq  Mean Sq F value            Pr(&gt;F)    
+## Día        3 1636.957 545.6524 23.8719 0.000000000016295 ***
+## Residuals 92 2102.892  22.8575                              
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean        SE df  lower.CL  upper.CL
-##  1    3.70125 0.9759081 92  1.763012  5.639488
-##  5   11.61292 0.9759081 92  9.674679 13.551154
-##  7   12.43042 0.9759081 92 10.492179 14.368654
-##  10  14.62958 0.9759081 92 12.691346 16.567821
+##  Día     emmean          SE df    lower.CL    upper.CL
+##  1    3.7012500 0.975908103 92  1.76301227  5.63948773
+##  5   11.6129167 0.975908103 92  9.67467894 13.55115440
+##  7   12.4304167 0.975908103 92 10.49217894 14.36865440
+##  10  14.6295833 0.975908103 92 12.69134560 16.56782106
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast       estimate       SE df t.ratio p.value
-##  Día1 - Día5   -7.911667 1.380143 92  -5.732  &lt;.0001
-##  Día1 - Día7   -8.729167 1.380143 92  -6.325  &lt;.0001
-##  Día1 - Día10 -10.928333 1.380143 92  -7.918  &lt;.0001
-##  Día5 - Día7   -0.817500 1.380143 92  -0.592  0.9342
-##  Día5 - Día10  -3.016667 1.380143 92  -2.186  0.1349
-##  Día7 - Día10  -2.199167 1.380143 92  -1.593  0.3874
+##  contrast         estimate         SE df t.ratio p.value
+##  Día1 - Día5   -7.91166667 1.38014247 92  -5.732  &lt;.0001
+##  Día1 - Día7   -8.72916667 1.38014247 92  -6.325  &lt;.0001
+##  Día1 - Día10 -10.92833333 1.38014247 92  -7.918  &lt;.0001
+##  Día5 - Día7   -0.81750000 1.38014247 92  -0.592  0.9342
+##  Día5 - Día10  -3.01666667 1.38014247 92  -2.186  0.1349
+##  Día7 - Día10  -2.19916667 1.38014247 92  -1.593  0.3874
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-31-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -750,26 +750,26 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: b_color
-##           Df Sum Sq Mean Sq F value Pr(&gt;F)
-## Día        3  310.4 103.464  1.4158 0.2432
-## Residuals 92 6723.2  73.079</code></pre>
+##           Df   Sum Sq   Mean Sq F value  Pr(&gt;F)
+## Día        3  310.393 103.46441 1.41579 0.24321
+## Residuals 92 6723.249  73.07879</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean       SE df lower.CL upper.CL
-##  1   51.27542 1.744978 92 47.80974 54.74109
-##  5   48.18417 1.744978 92 44.71849 51.64984
-##  7   47.04583 1.744978 92 43.58016 50.51151
-##  10  46.72083 1.744978 92 43.25516 50.18651
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   51.2754167 1.74497842 92 47.8097389 54.7410944
+##  5   48.1841667 1.74497842 92 44.7184889 51.6498444
+##  7   47.0458333 1.74497842 92 43.5801556 50.5115111
+##  10  46.7208333 1.74497842 92 43.2551556 50.1865111
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate       SE df t.ratio p.value
-##  Día1 - Día5  3.091250 2.467772 92   1.253  0.5952
-##  Día1 - Día7  4.229583 2.467772 92   1.714  0.3224
-##  Día1 - Día10 4.554583 2.467772 92   1.846  0.2589
-##  Día5 - Día7  1.138333 2.467772 92   0.461  0.9672
-##  Día5 - Día10 1.463333 2.467772 92   0.593  0.9340
-##  Día7 - Día10 0.325000 2.467772 92   0.132  0.9992
+##  contrast       estimate         SE df t.ratio p.value
+##  Día1 - Día5  3.09125000 2.46777216 92   1.253  0.5952
+##  Día1 - Día7  4.22958333 2.46777216 92   1.714  0.3224
+##  Día1 - Día10 4.55458333 2.46777216 92   1.846  0.2589
+##  Día5 - Día7  1.13833333 2.46777216 92   0.461  0.9672
+##  Día5 - Día10 1.46333333 2.46777216 92   0.593  0.9340
+##  Día7 - Día10 0.32500000 2.46777216 92   0.132  0.9992
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-38-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -795,13 +795,13 @@ div.tocify {
 <p>Modelo</p>
 <pre><code>## Formula:          aao/100 ~ Día + (1 | Conc)
 ## Data: data_aao
-##       AIC       BIC    logLik  df.resid 
-## -39.01704 -32.53785  24.50852        22 
+##         AIC         BIC      logLik    df.resid 
+## -39.0170353 -32.5378509  24.5085176          22 
 ## Random-effects (co)variances:
 ## 
 ## Conditional model:
 ##  Groups Name        Std.Dev.
-##  Conc   (Intercept) 0.5742  
+##  Conc   (Intercept) 0.574172
 ## 
 ## Number of obs: 27 / Conditional model: Conc, 3
 ## 
@@ -811,30 +811,30 @@ div.tocify {
 ## 
 ## Conditional model:
 ## (Intercept)         Día7        Día10  
-##     -0.4159      -0.7540      -1.3981</code></pre>
+##   -0.415926    -0.754044    -1.398129</code></pre>
 <p>Anova</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: aao/100
-##      Chisq Df Pr(&gt;Chisq)    
-## Día 31.692  2  1.313e-07 ***
+##        Chisq Df   Pr(&gt;Chisq)    
+## Día 31.69151  2 0.0000001313 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Día  response         SE  df  asymp.LCL asymp.UCL
-##  1   0.3974921 0.08728567 Inf 0.24411366 0.5740528
-##  7   0.2368605 0.06745631 Inf 0.12994994 0.3920896
-##  10  0.1401488 0.04706122 Inf 0.07047125 0.2594869
+##  Día    response           SE  df    asymp.LCL   asymp.UCL
+##  1   0.397492120 0.0872856667 Inf 0.2441136607 0.574052759
+##  7   0.236860543 0.0674563129 Inf 0.1299499428 0.392089611
+##  10  0.140148761 0.0470612192 Inf 0.0704712457 0.259486931
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale 
 ## 
 ## $contrasts
-##  contrast     odds.ratio        SE  df asymp.LCL asymp.UCL
-##  Día1 / Día7    2.125578 0.4830323 Inf  1.247877  3.620615
-##  Día1 / Día10   4.047621 1.0261822 Inf  2.234321  7.332535
-##  Día7 / Día10   1.904245 0.4968901 Inf  1.033060  3.510107
+##  contrast     odds.ratio          SE  df  asymp.LCL  asymp.UCL
+##  Día1 / Día7  2.12557768 0.483032271 Inf 1.24787668 3.62061455
+##  Día1 / Día10 4.04762110 1.026182205 Inf 2.23432102 7.33253480
+##  Día7 / Día10 1.90424520 0.496890077 Inf 1.03305971 3.51010668
 ## 
 ## Confidence level used: 0.95 
 ## Conf-level adjustment: tukey method for comparing a family of 3 estimates 
@@ -859,28 +859,28 @@ div.tocify {
 ## lm(formula = Fenoles ~ Día, data = data)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -10.928  -6.480  -5.037   4.685  19.977 
+##       Min        1Q    Median        3Q       Max 
+## -10.92750  -6.48029  -5.03722   4.68472  19.97650 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   98.083      9.897   9.910 2.27e-05 ***
-## Día          -10.141      4.581  -2.213   0.0625 .  
+##              Estimate Std. Error  t value    Pr(&gt;|t|)    
+## (Intercept)  98.08296    9.89698  9.91039 0.000022701 ***
+## Día         -10.14090    4.58141 -2.21349    0.062475 .  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 11.22 on 7 degrees of freedom
-## Multiple R-squared:  0.4117, Adjusted R-squared:  0.3277 
-## F-statistic:   4.9 on 1 and 7 DF,  p-value: 0.06247</code></pre>
+## Residual standard error: 11.2221 on 7 degrees of freedom
+## Multiple R-squared:  0.411741,   Adjusted R-squared:  0.327704 
+## F-statistic: 4.89953 on 1 and 7 DF,  p-value: 0.0624748</code></pre>
 <p>Por cada día transcurrido los frutos pierden en promedio -2.37 mg eq.
 Tán/100g PF (p=0.041)</p>
 <p>Análisis de la varianza</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Fenoles
-##           Df Sum Sq Mean Sq F value Pr(&gt;F)
-## Día        2 750.90  375.45  3.0129 0.1242
-## Residuals  6 747.68  124.61</code></pre>
+##           Df   Sum Sq  Mean Sq F value  Pr(&gt;F)
+## Día        2 750.9037 375.4518 3.01295 0.12419
+## Residuals  6 747.6763 124.6127</code></pre>
 </div>
 <div id="correlación-aao-y-fenoles" class="section level2">
 <h2>Correlación AAO y fenoles</h2>
@@ -889,20 +889,20 @@ Tán/100g PF (p=0.041)</p>
 ## lm(formula = aao ~ Fenoles, data = data3)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -18.432  -6.848  -3.266   5.223  19.832 
+##       Min        1Q    Median        3Q       Max 
+## -18.43221  -6.84751  -3.26580   5.22256  19.83215 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(&gt;|t|)  
-## (Intercept) -51.9147    27.5612  -1.884    0.102  
-## Fenoles       1.1974     0.3495   3.426    0.011 *
+##               Estimate Std. Error  t value Pr(&gt;|t|)  
+## (Intercept) -51.914696  27.561215 -1.88361 0.101625  
+## Fenoles       1.197367   0.349478  3.42616 0.011043 *
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 13.53 on 7 degrees of freedom
-## Multiple R-squared:  0.6264, Adjusted R-squared:  0.5731 
-## F-statistic: 11.74 on 1 and 7 DF,  p-value: 0.01104</code></pre>
-<pre><code>## [1] 0.791479</code></pre>
+## Residual standard error: 13.5288 on 7 degrees of freedom
+## Multiple R-squared:  0.626439,   Adjusted R-squared:  0.573073 
+## F-statistic: 11.7386 on 1 and 7 DF,  p-value: 0.0110426</code></pre>
+<pre><code>## [1] 0.791479043</code></pre>
 <p>Hay evidencia para aceptar que beta1 difiere de cero (r = 0.791,
 valor p = 0.011 )
 <img src="Ensayo8_files/figure-html/unnamed-chunk-60-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -922,25 +922,25 @@ valor p = 0.011 )
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Carotenoides
-##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-## Día        2  39212 19606.2  15.021 0.0002622 ***
-## Residuals 15  19579  1305.3                      
+##           Df   Sum Sq  Mean Sq  F value     Pr(&gt;F)    
+## Día        2 39212.49 19606.25 15.02084 0.00026217 ***
+## Residuals 15 19579.05  1305.27                        
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Día   emmean      SE df lower.CL upper.CL
-##  1   204.8070 14.7494 15 173.3694 236.2447
-##  7   297.5998 14.7494 15 266.1622 329.0375
-##  10  193.3654 14.7494 15 161.9277 224.8030
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   204.807038 14.7494052 15 173.369425 236.244651
+##  7   297.599839 14.7494052 15 266.162226 329.037452
+##  10  193.365346 14.7494052 15 161.927733 224.802959
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast      estimate       SE df t.ratio p.value
-##  Día1 - Día7  -92.79280 20.85881 15  -4.449  0.0013
-##  Día1 - Día10  11.44169 20.85881 15   0.549  0.8488
-##  Día7 - Día10 104.23449 20.85881 15   4.997  0.0004
+##  contrast        estimate         SE df t.ratio p.value
+##  Día1 - Día7  -92.7928014 20.8588088 15  -4.449  0.0013
+##  Día1 - Día10  11.4416916 20.8588088 15   0.549  0.8488
+##  Día7 - Día10 104.2344930 20.8588088 15   4.997  0.0004
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-68-1.png" width="95%" style="display: block; margin: auto;" />
@@ -962,25 +962,25 @@ carotenoides (p=0.009 )</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Clorofila_a
-##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
-## Día        2 1458.3  729.16  10.359 0.001493 **
-## Residuals 15 1055.9   70.39                    
+##           Df   Sum Sq  Mean Sq  F value   Pr(&gt;F)   
+## Día        2 1458.328 729.1642 10.35879 0.001493 **
+## Residuals 15 1055.863  70.3908                     
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Día    emmean       SE df  lower.CL upper.CL
-##  1   31.433842 3.425173 15 24.133259 38.73442
-##  7   24.810140 3.425173 15 17.509557 32.11072
-##  10   9.909989 3.425173 15  2.609406 17.21057
+##  Día      emmean         SE df    lower.CL   upper.CL
+##  1   31.43384184 3.42517268 15 24.13325909 38.7344246
+##  7   24.81013984 3.42517268 15 17.50955710 32.1107226
+##  10   9.90998881 3.42517268 15  2.60940606 17.2105715
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast      estimate       SE df t.ratio p.value
-##  Día1 - Día7   6.623702 4.843926 15   1.367  0.3820
-##  Día1 - Día10 21.523853 4.843926 15   4.443  0.0013
-##  Día7 - Día10 14.900151 4.843926 15   3.076  0.0198
+##  contrast        estimate         SE df t.ratio p.value
+##  Día1 - Día7   6.62370199 4.84392565 15   1.367  0.3820
+##  Día1 - Día10 21.52385303 4.84392565 15   4.443  0.0013
+##  Día7 - Día10 14.90015103 4.84392565 15   3.076  0.0198
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-75-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -1000,25 +1000,25 @@ carotenoides (p=0.009 )</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Clorofila_b
-##           Df Sum Sq Mean Sq F value   Pr(&gt;F)   
-## Día        2 4318.8 2159.39  10.474 0.001423 **
-## Residuals 15 3092.6  206.17                    
+##           Df   Sum Sq   Mean Sq  F value    Pr(&gt;F)   
+## Día        2 4318.776 2159.3880 10.47373 0.0014229 **
+## Residuals 15 3092.579  206.1719                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  Día   emmean      SE df lower.CL upper.CL
-##  1   53.89372 5.86191 15 41.39935 66.38808
-##  7   42.72866 5.86191 15 30.23430 55.22303
-##  10  16.90737 5.86191 15  4.41300 29.40173
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   53.8937172 5.86190972 15 41.3993524 66.3880821
+##  7   42.7286606 5.86190972 15 30.2342958 55.2230254
+##  10  16.9073652 5.86190972 15  4.4130003 29.4017300
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate       SE df t.ratio p.value
-##  Día1 - Día7  11.16506 8.289992 15   1.347  0.3924
-##  Día1 - Día10 36.98635 8.289992 15   4.462  0.0012
-##  Día7 - Día10 25.82130 8.289992 15   3.115  0.0183
+##  contrast       estimate         SE df t.ratio p.value
+##  Día1 - Día7  11.1650566 8.28999223 15   1.347  0.3924
+##  Día1 - Día10 36.9863521 8.28999223 15   4.462  0.0012
+##  Día7 - Día10 25.8212955 8.28999223 15   3.115  0.0183
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-82-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -1030,18 +1030,18 @@ carotenoides (p=0.009 )</p>
 ## lm(formula = aao ~ Carotenoides, data = data3)
 ## 
 ## Residuals:
-##     Min      1Q  Median      3Q     Max 
-## -25.031  -7.139  -0.673   6.787  45.988 
+##       Min        1Q    Median        3Q       Max 
+## -25.03109  -7.13940  -0.67292   6.78714  45.98840 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(&gt;|t|)
-## (Intercept)  41.54099   24.12452   1.722    0.129
-## Carotenoides -0.00135    0.10363  -0.013    0.990
+##                 Estimate  Std. Error  t value Pr(&gt;|t|)
+## (Intercept)  41.54099304 24.12451892  1.72194  0.12875
+## Carotenoides -0.00134971  0.10363344 -0.01302  0.98997
 ## 
-## Residual standard error: 22.13 on 7 degrees of freedom
-## Multiple R-squared:  2.423e-05,  Adjusted R-squared:  -0.1428 
-## F-statistic: 0.0001696 on 1 and 7 DF,  p-value: 0.99</code></pre>
-<pre><code>## [1] -0.004922504</code></pre>
+## Residual standard error: 22.1347 on 7 degrees of freedom
+## Multiple R-squared:  2.4231e-05, Adjusted R-squared:  -0.142829 
+## F-statistic: 0.000169621 on 1 and 7 DF,  p-value: 0.989972</code></pre>
+<pre><code>## [1] -0.00492250412</code></pre>
 <p>No existe evidencia para aceptar que beta1 difiere de cero (r =
 -0.004, valor p = 0.990)
 <img src="Ensayo8_files/figure-html/unnamed-chunk-86-1.png" width="95%" style="display: block; margin: auto;" />
@@ -1063,24 +1063,24 @@ valor p = 0.8330)</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Acidez
-##           Df  Sum Sq  Mean Sq F value  Pr(&gt;F)  
-## Día        2 0.38603 0.193017  10.013 0.01225 *
-## Residuals  6 0.11566 0.019277                  
+##           Df    Sum Sq    Mean Sq  F value   Pr(&gt;F)  
+## Día        2 0.3860343 0.19301717 10.01283 0.012253 *
+## Residuals  6 0.1156619 0.01927699                    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean         SE df lower.CL upper.CL
-##  1   2.065067 0.08016023  6 1.868922 2.261212
-##  7   1.702400 0.08016023  6 1.506255 1.898545
-##  10  1.576533 0.08016023  6 1.380388 1.772678
+##  Día     emmean           SE df   lower.CL   upper.CL
+##  1   2.06506667 0.0801602346  6 1.86892164 2.26121170
+##  7   1.70240000 0.0801602346  6 1.50625497 1.89854503
+##  10  1.57653333 0.0801602346  6 1.38038831 1.77267836
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast      estimate        SE df t.ratio p.value
-##  Día1 - Día7  0.3626667 0.1133637  6   3.199  0.0426
-##  Día1 - Día10 0.4885333 0.1133637  6   4.309  0.0119
-##  Día7 - Día10 0.1258667 0.1133637  6   1.110  0.5428
+##  contrast        estimate          SE df t.ratio p.value
+##  Día1 - Día7  0.362666667 0.113363691  6   3.199  0.0426
+##  Día1 - Día10 0.488533333 0.113363691  6   4.309  0.0119
+##  Día7 - Día10 0.125866667 0.113363691  6   1.110  0.5428
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-95-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -1100,24 +1100,24 @@ valor p = 0.8330)</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: pH_inicial
-##           Df   Sum Sq   Mean Sq F value  Pr(&gt;F)  
-## Día        2 0.018756 0.0093778  9.0753 0.01533 *
-## Residuals  6 0.006200 0.0010333                  
+##           Df     Sum Sq     Mean Sq F value   Pr(&gt;F)  
+## Día        2 0.01875556 0.009377778 9.07527 0.015335 *
+## Residuals  6 0.00620000 0.001033333                   
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean         SE df lower.CL upper.CL
-##  1   3.303333 0.01855922  6 3.257921 3.348746
-##  7   3.403333 0.01855922  6 3.357921 3.448746
-##  10  3.396667 0.01855922  6 3.351254 3.442079
+##  Día     emmean           SE df   lower.CL   upper.CL
+##  1   3.30333333 0.0185592145  6 3.25792057 3.34874610
+##  7   3.40333333 0.0185592145  6 3.35792057 3.44874610
+##  10  3.39666667 0.0185592145  6 3.35125390 3.44207943
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast        estimate         SE df t.ratio p.value
-##  Día1 - Día7  -0.10000000 0.02624669  6  -3.810  0.0207
-##  Día1 - Día10 -0.09333333 0.02624669  6  -3.556  0.0278
-##  Día7 - Día10  0.00666667 0.02624669  6   0.254  0.9653
+##  contrast          estimate           SE df t.ratio p.value
+##  Día1 - Día7  -0.1000000000 0.0262466929  6  -3.810  0.0207
+##  Día1 - Día10 -0.0933333333 0.0262466929  6  -3.556  0.0278
+##  Día7 - Día10  0.0066666667 0.0262466929  6   0.254  0.9653
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-102-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -1137,22 +1137,22 @@ valor p = 0.8330)</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Ratio
-##           Df  Sum Sq  Mean Sq F value Pr(&gt;F)
-## Día        2 0.15370 0.076852  0.7465 0.5134
-## Residuals  6 0.61772 0.102953</code></pre>
+##           Df    Sum Sq    Mean Sq F value  Pr(&gt;F)
+## Día        2 0.1537034 0.07685168 0.74647 0.51345
+## Residuals  6 0.6177209 0.10295348</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean        SE df lower.CL upper.CL
-##  1   4.540136 0.1852507  6 4.086844 4.993428
-##  7   4.547998 0.1852507  6 4.094706 5.001290
-##  10  4.266929 0.1852507  6 3.813637 4.720221
+##  Día     emmean         SE df   lower.CL   upper.CL
+##  1   4.54013599 0.18525071  6 4.08684383 4.99342815
+##  7   4.54799800 0.18525071  6 4.09470584 5.00129016
+##  10  4.26692926 0.18525071  6 3.81363711 4.72022142
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast        estimate        SE df t.ratio p.value
-##  Día1 - Día7  -0.00786201 0.2619841  6  -0.030  0.9995
-##  Día1 - Día10  0.27320673 0.2619841  6   1.043  0.5796
-##  Día7 - Día10  0.28106874 0.2619841  6   1.073  0.5631
+##  contrast          estimate          SE df t.ratio p.value
+##  Día1 - Día7  -0.0078620094 0.261984067  6  -0.030  0.9995
+##  Día1 - Día10  0.2732067291 0.261984067  6   1.043  0.5796
+##  Día7 - Día10  0.2810687385 0.261984067  6   1.073  0.5631
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-109-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -1172,24 +1172,24 @@ valor p = 0.8330)</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Solidos
-##           Df  Sum Sq Mean Sq F value   Pr(&gt;F)   
-## Día        2 10.3200  5.1600  14.159 0.005345 **
-## Residuals  6  2.1867  0.3644                    
+##           Df    Sum Sq  Mean Sq  F value    Pr(&gt;F)   
+## Día        2 10.320000 5.160000 14.15854 0.0053447 **
+## Residuals  6  2.186667 0.364444                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  Día   emmean        SE df lower.CL  upper.CL
-##  1   9.333333 0.3485419  6 8.480482 10.186185
-##  7   7.733333 0.3485419  6 6.880482  8.586185
-##  10  6.733333 0.3485419  6 5.880482  7.586185
+##  Día     emmean          SE df   lower.CL    upper.CL
+##  1   9.33333333 0.348541936  6 8.48048194 10.18618473
+##  7   7.73333333 0.348541936  6 6.88048194  8.58618473
+##  10  6.73333333 0.348541936  6 5.88048194  7.58618473
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate        SE df t.ratio p.value
-##  Día1 - Día7       1.6 0.4929127  6   3.246  0.0402
-##  Día1 - Día10      2.6 0.4929127  6   5.275  0.0045
-##  Día7 - Día10      1.0 0.4929127  6   2.029  0.1861
+##  contrast     estimate          SE df t.ratio p.value
+##  Día1 - Día7       1.6 0.492912734  6   3.246  0.0402
+##  Día1 - Día10      2.6 0.492912734  6   5.275  0.0045
+##  Día7 - Día10      1.0 0.492912734  6   2.029  0.1861
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="Ensayo8_files/figure-html/unnamed-chunk-117-1.png" width="95%" style="display: block; margin: auto;" /></p>
@@ -1197,18 +1197,16 @@ valor p = 0.8330)</p>
 <div id="pca" class="section level2">
 <h2>PCA</h2>
 <pre><code>## Importance of components:
-##                           PC1    PC2       PC3
-## Standard deviation     3.6729 1.5843 1.252e-16
-## Proportion of Variance 0.8431 0.1569 0.000e+00
-## Cumulative Proportion  0.8431 1.0000 1.000e+00</code></pre>
-<pre><code>##          ATT      a_color    aao_0.125  Respiración      Sólidos    aao_0.250      Fenoles    aao_0.500      Firmeza      L_color           pH      b_color        Clo_a        Clo_b 
-##    7.4111696    7.3881603    7.3619166    7.3033377    7.2970659    7.2333950    7.1800748    7.0043014    6.9012378    6.7973398    6.6548678    6.0595751    5.8549885    5.8158612 
-##        Ratio Carotenoides 
-##    3.5542934    0.1824151</code></pre>
-<pre><code>## Carotenoides        Ratio        Clo_b        Clo_a      b_color           pH      L_color      Firmeza    aao_0.500      Fenoles    aao_0.250      Sólidos  Respiración    aao_0.125 
-## 38.861302859 20.738549353  8.583355511  8.373058902  7.273472236  4.073966705  3.308226010  2.749807629  2.195874259  1.251149397  0.964570288  0.622360141  0.588651224  0.273808519 
-##      a_color          ATT 
-##  0.132757348  0.009089619</code></pre>
+##                            PC1     PC2                     PC3
+## Standard deviation     3.67288 1.58428 0.000000000000000125159
+## Proportion of Variance 0.84313 0.15687 0.000000000000000000000
+## Cumulative Proportion  0.84313 1.00000 1.000000000000000000000</code></pre>
+<pre><code>##          ATT      a_color    aao_0.125  Respiración      Sólidos    aao_0.250      Fenoles    aao_0.500      Firmeza      L_color           pH      b_color        Clo_a        Clo_b        Ratio Carotenoides 
+##  7.411169601  7.388160265  7.361916605  7.303337686  7.297065882  7.233395040  7.180074782  7.004301421  6.901237838  6.797339783  6.654867809  6.059575082  5.854988486  5.815861177  3.554293436  0.182415107</code></pre>
+<pre><code>##   Carotenoides          Ratio          Clo_b          Clo_a        b_color             pH        L_color        Firmeza      aao_0.500        Fenoles      aao_0.250        Sólidos    Respiración      aao_0.125 
+## 38.86130285860 20.73854935266  8.58335551129  8.37305890154  7.27347223582  4.07396670546  3.30822600997  2.74980762899  2.19587425864  1.25114939718  0.96457028824  0.62236014098  0.58865122427  0.27380851874 
+##        a_color            ATT 
+##  0.13275734827  0.00908961935</code></pre>
 <p>Biplot
 <img src="Ensayo8_files/figure-html/unnamed-chunk-123-1.png" width="95%" style="display: block; margin: auto;" /></p>
 </div>

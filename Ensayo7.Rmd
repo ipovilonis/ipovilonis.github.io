@@ -1263,10 +1263,10 @@ At 7 and 10 days there were significant differences between temperatures.
 
 ### Summary table
 ```{r,fig.align='center',echo=FALSE}
-library(png)
-library(grid)
-img <- readPNG("pesocolor.png")
- grid.raster(img)
+# library(png)
+# library(grid)
+# img <- readPNG("pesocolor.png")
+#  grid.raster(img)
 ```
 
 ## Compression
@@ -1310,7 +1310,7 @@ f1
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data<-dataco
-data$DIA<-factor(data$DIA,levels=c("0","7", "14"))
+data$DIA<-factor(data$DIA,levels=c("0", "7", "14"))
 data$TEMP<-factor(data$TEMP,levels=c("5", "9"))
 
 ```
@@ -1677,10 +1677,10 @@ A difference was only found in the main effect for day factor.
 
 ### Summary table
 ```{r,fig.align='center', echo=FALSE}
-library(png)
-library(grid)
-img <- readPNG("compre.png")
- grid.raster(img)
+# library(png)
+# library(grid)
+# img <- readPNG("compre.png")
+#  grid.raster(img)
 ```
 
 ## Puncture
@@ -2263,10 +2263,10 @@ No significant differences were found.
 
 ### Summary table
 ```{r,fig.align='center',echo=FALSE}
-library(png)
-library(grid)
-img <- readPNG("acidez.png")
- grid.raster(img)
+# library(png)
+# library(grid)
+# img <- readPNG("acidez.png")
+#  grid.raster(img)
 ```
 
 ## General graphs

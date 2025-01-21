@@ -1,0 +1,122 @@
+---
+title: "Datos meteorológicos 2019, 2021 y 2022 - Entre Ríos"
+---
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+#Load library
+library(readxl)
+
+#Create object "datamet" which contains climate data
+datamet <- read_excel("database.xlsx", sheet = "II_ER_SMN")
+#Delete unnecessary columns
+datamet<-datamet[,-c(11:28)]
+#
+datamet$site<-as.factor(datamet$site)
+datamet$year<-as.factor(datamet$year)
+datamet$date_long<-as.POSIXct(datamet$date_long,format="%m-%d-%Y")
+datamet$site<-factor(datamet$site,levels=c("concordia", "palmar","gualeguaychu"))
+datamet$site<-factor(datamet$site,labels=c("Concordia", "PN El Palmar","Gualeguaychú"))
+
+library(dplyr)
+table_datamet_wind <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(mean_wind = mean(wind))
+table_datamet_wind
+table_datamet_hr <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(mean_hr = mean(hr))
+table_datamet_hr
+table_datamet_wind <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(mean_hr = mean(wind))
+table_datamet_wind
+table_datamet_prec <- datamet %>%
+  dplyr::group_by(year, site) %>%
+  dplyr::summarise(total_prec = sum(prec))
+table_datamet_prec
+
+```
+
+Gráfico de winderaturas
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Rmisc)
+estadmet_wind <- summarySE(datamet, measurevar="wind", groupvars=c("site","year", "month"))
+
+table_wind_concordia <- estadmet_wind %>%
+  dplyr::filter(site == "Concordia")
+table_wind_palmar <- estadmet_wind %>%
+  dplyr::filter(site == "PN El Palmar")
+table_wind_gualeguaychu <- estadmet_wind %>%
+  dplyr::filter(site == "Gualeguaychú")
+
+library(ggplot2)
+wind_month_concordia <- ggplot(table_wind_concordia, aes(x = month, y = wind, color = year, group = year)) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_wind, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 21.7 , color = "maroon4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 22.0 , color = "dodgerblue4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8 , color = "deeppink", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values=c("maroon4","dodgerblue4","deeppink"))+
+  facet_grid(site ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(10, 32))
+
+wind_month_palmar <- ggplot(table_wind_palmar, aes(x = month, y = wind, color = year, group = year)) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_wind, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 21.5 , color = "maroon4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 22.2 , color = "dodgerblue4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8 , color = "deeppink", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values=c("maroon4","dodgerblue4","deeppink"))+
+  facet_grid(site ~ .) +
+  labs(y = "winderatura (°C)", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  guides(color = FALSE) +
+  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_y_continuous(limits = c(10, 32))
+
+wind_month_gualeguaychu <- ggplot(table_wind_gualeguaychu, aes(x = month, y = wind, color = year, group = year)) +
+  geom_line(method = "gam", se = FALSE, size = 2) +
+  # geom_smooth(aes(y = Mean_wind, color = site), linetype = 4, size = 1)+
+  geom_hline(yintercept = 20.8 , color = "maroon4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 21.4 , color = "dodgerblue4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 19.9 , color = "deeppink", linetype = "dashed", size = 1.5)+
+  scale_color_manual(values=c("maroon4","dodgerblue4","deeppink"))+
+  facet_grid(site ~ .) +
+  labs(y = "", x = "") +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  theme(panel.grid.major.x = element_blank()) +
+  theme(text = element_text(size = 35, color = 'black')) +
+  theme(axis.text = element_text(color = 'black')) +
+  theme(legend.title = element_blank()) +
+  theme(legend.position = "bottom") +
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+  scale_y_continuous(limits = c(10, 32))
+
+library(ggpubr)
+wind_month_years <- ggarrange(wind_month_concordia, wind_month_palmar, wind_month_gualeguaychu, common.legend = TRUE, legend = "bottom", nrow = 3)
+
+```
+
+
