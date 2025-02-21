@@ -495,6 +495,9 @@ div.tocify {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li>
+      <a href="V_correlations.html">Correlaciones</a>
+    </li>
     <li class="divider"></li>
   </ul>
 </li>
@@ -559,15 +562,19 @@ div.tocify {
 </div>
 
 
+<pre><code>## Warning: Unknown or uninitialised column: `n`.</code></pre>
 <pre><code>## Error in `$&lt;-`:
-## ! Assigned data `as.factor(fisico$n)` must be compatible with existing data.
+## ! Assigned data `as.factor(fisico$n)` must be compatible with existing
+##   data.
 ## ✖ Existing data has 1166 rows.
 ## ✖ Assigned data has 0 rows.
 ## ℹ Only vectors of size 1 are recycled.
 ## Caused by error in `vectbl_recycle_rhs_rows()`:
 ## ! Can&#39;t recycle input of size 0 to size 1166.</code></pre>
+<pre><code>## Warning: Unknown or uninitialised column: `pss`.</code></pre>
 <pre><code>## Error in `$&lt;-`:
-## ! Assigned data `as.numeric(fisico$pss)` must be compatible with existing data.
+## ! Assigned data `as.numeric(fisico$pss)` must be compatible with
+##   existing data.
 ## ✖ Existing data has 1166 rows.
 ## ✖ Assigned data has 0 rows.
 ## ℹ Only vectors of size 1 are recycled.
@@ -576,31 +583,31 @@ div.tocify {
 <div id="ecuatorial-diameter" class="section level1">
 <h1>Ecuatorial Diameter</h1>
 <pre><code>##   year         site   N         de         sd          se          ci
-## 1 2019    Concordia 160 28.1704250 7.22305316 0.571032491 1.127787008
+## 1 2019    Concordia 160 28.2954250 7.06791404 0.558767667 1.103564026
 ## 2 2019 Gualeguaychú  94 23.7126596 7.63025193 0.787000395 1.562826813
 ## 3 2021    Concordia 178 21.4304888 7.52013639 0.563658053 1.112355044
 ## 4 2021 Gualeguaychú 164 30.6985976 6.00663109 0.469039087 0.926176129
 ## 5 2022    Concordia 121 25.0782645 6.59498088 0.599543716 1.187054833
 ## 6 2022 Gualeguaychú 114 24.9037719 5.78174246 0.541509795 1.072828570</code></pre>
-<p><img src="V_Diameter_files/figure-html/unnamed-chunk-2-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p><img src="V_Diameter_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /><img src="V_Diameter_files/figure-html/unnamed-chunk-4-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Diameter_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Diameter_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /><img src="V_Diameter_files/figure-html/unnamed-chunk-4-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9967684, p-value = 0.0908138</code></pre>
+## W = 0.9961971, p-value = 0.0412979</code></pre>
 <pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
-##       Sum Sq  Mean Sq NumDF    DenDF F value   Pr(&gt;F)  
-## year 349.785 174.8925     2 810.7429 4.35678 0.013121 *
+##        Sum Sq  Mean Sq NumDF    DenDF F value    Pr(&gt;F)   
+## year 390.4494 195.2247     2 810.3693 4.94228 0.0073549 **
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-<pre><code>## [1] 67.1117079</code></pre>
-<pre><code>## [1] 30.1433782</code></pre>
-<pre><code>## [1] 2.74491384</code></pre>
+<pre><code>## [1] 66.4695169</code></pre>
+<pre><code>## [1] 30.9106716</code></pre>
+<pre><code>## [1] 2.61981151</code></pre>
 <pre><code>## # Intraclass Correlation Coefficient
 ## 
-##     Adjusted ICC: 0.329
-##   Unadjusted ICC: 0.326</code></pre>
+##     Adjusted ICC: 0.335
+##   Unadjusted ICC: 0.332</code></pre>
 </div>
 
 

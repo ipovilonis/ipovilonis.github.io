@@ -413,6 +413,9 @@ $(document).ready(function () {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li>
+      <a href="V_correlations.html">Correlaciones</a>
+    </li>
     <li class="divider"></li>
   </ul>
 </li>
@@ -558,343 +561,343 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 </div>
 <div id="argentinian-forest" class="section level1">
 <h1>Argentinian forest</h1>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="indicadores-de-biodiversidad" class="section level1">
 <h1>Indicadores de biodiversidad</h1>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <div id="anova-bio-index" class="section level2">
 <h2>ANOVA BIO INDEX</h2>
 <div id="richness" class="section level4">
 <h4>Richness</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-9-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9535334, p-value = 0.108117</code></pre>
+## W = 0.95353, p-value = 0.1081</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Richness
-##           Df    Sum Sq   Mean Sq F value   Pr(&gt;F)  
-## site       2  25.81593 12.907967 4.14597 0.023966 *
-## Residuals 36 112.08150  3.113375                   
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## site       2  25.816 12.9080   4.146 0.02397 *
+## Residuals 36 112.082  3.1134                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site             emmean          SE df   lower.CL   upper.CL
-##  Concordia    5.41666667 0.509360306 36 4.38363609 6.44969725
-##  NP El Palmar 4.28571429 0.471576009 36 3.32931381 5.24211476
-##  Gualeguaychu 6.23076923 0.489377552 36 5.23826555 7.22327291
+##  site           emmean        SE df lower.CL upper.CL
+##  Concordia    5.416667 0.5093603 36 4.383636 6.449697
+##  NP El Palmar 4.285714 0.4715760 36 3.329314 5.242115
+##  Gualeguaychu 6.230769 0.4893776 36 5.238266 7.223273
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                        estimate          SE df t.ratio p.value
-##  Concordia - NP El Palmar     1.130952381 0.694141090 36   1.629  0.2466
-##  Concordia - Gualeguaychu    -0.814102564 0.706355654 36  -1.153  0.4888
-##  NP El Palmar - Gualeguaychu -1.945054945 0.679613361 36  -2.862  0.0187
+##  contrast                      estimate        SE df t.ratio p.value
+##  Concordia - NP El Palmar     1.1309524 0.6941411 36   1.629  0.2466
+##  Concordia - Gualeguaychu    -0.8141026 0.7063557 36  -1.153  0.4888
+##  NP El Palmar - Gualeguaychu -1.9450549 0.6796134 36  -2.862  0.0187
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="abundance" class="section level4">
 <h4>Abundance</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-13-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-13-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9890325, p-value = 0.963843</code></pre>
+## W = 0.98903, p-value = 0.9638</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Abundance
-##           Df    Sum Sq   Mean Sq F value    Pr(&gt;F)   
-## site       2  393.8462 196.92308 6.09175 0.0052635 **
-## Residuals 36 1163.7436  32.32621                     
+##           Df  Sum Sq Mean Sq F value   Pr(&gt;F)   
+## site       2  393.85 196.923  6.0917 0.005264 **
+## Residuals 36 1163.74  32.326                    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-1" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site             emmean         SE df   lower.CL   upper.CL
-##  Concordia    15.3333333 1.64129550 36 12.0046318 18.6620349
-##  NP El Palmar 10.0000000 1.51954436 36  6.9182212 13.0817788
-##  Gualeguaychu 17.3846154 1.57690570 36 14.1865024 20.5827284
+##  site           emmean       SE df  lower.CL upper.CL
+##  Concordia    15.33333 1.641296 36 12.004632 18.66203
+##  NP El Palmar 10.00000 1.519544 36  6.918221 13.08178
+##  Gualeguaychu 17.38462 1.576906 36 14.186502 20.58273
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                       estimate         SE df t.ratio p.value
-##  Concordia - NP El Palmar     5.33333333 2.23670873 36   2.384  0.0571
-##  Concordia - Gualeguaychu    -2.05128205 2.27606733 36  -0.901  0.6430
-##  NP El Palmar - Gualeguaychu -7.38461538 2.18989650 36  -3.372  0.0050
+##  contrast                     estimate       SE df t.ratio p.value
+##  Concordia - NP El Palmar     5.333333 2.236709 36   2.384  0.0571
+##  Concordia - Gualeguaychu    -2.051282 2.276067 36  -0.901  0.6430
+##  NP El Palmar - Gualeguaychu -7.384615 2.189897 36  -3.372  0.0050
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="dominance_d" class="section level4">
 <h4>Dominance_D</h4>
-<pre><code>##                 df         AIC
-## mbi_Dominance_D  4 -60.8089128
-## m1               4 -45.6183206
-## m2               4 -30.9233836</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-18-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<pre><code>##                 df       AIC
+## mbi_Dominance_D  4 -60.80891
+## m1               4 -45.61832
+## m2               4 -30.92338</code></pre>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-18-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9248564, p-value = 0.0123331</code></pre>
+## W = 0.92486, p-value = 0.01233</code></pre>
 <pre><code>## Analysis of Deviance Table (Type II tests)
 ## 
 ## Response: Dominance_D
 ##      LR Chisq Df Pr(&gt;Chisq)  
-## site 8.934784  2   0.011477 *
+## site   8.9348  2    0.01148 *
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-2" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site            response           SE df    lower.CL    upper.CL
-##  Concordia    0.284933333 0.0342232869 36 0.229120870 0.376693632
-##  NP El Palmar 0.361635714 0.0402139090 36 0.295086567 0.466942533
-##  Gualeguaychu 0.223523077 0.0257940661 36 0.181131505 0.291819884
+##  site          response         SE df  lower.CL  upper.CL
+##  Concordia    0.2849333 0.03422329 36 0.2291209 0.3766936
+##  NP El Palmar 0.3616357 0.04021391 36 0.2950866 0.4669425
+##  Gualeguaychu 0.2235231 0.02579407 36 0.1811315 0.2918199
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the inverse scale 
 ## 
 ## $contrasts
-##  contrast                        estimate          SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.744379274 0.521770346 36   1.427  0.3382
-##  Concordia - Gualeguaychu    -0.964218111 0.666502451 36  -1.447  0.3283
-##  NP El Palmar - Gualeguaychu -1.708597386 0.600902442 36  -2.843  0.0195
+##  contrast                      estimate        SE df t.ratio p.value
+##  Concordia - NP El Palmar     0.7443793 0.5217703 36   1.427  0.3382
+##  Concordia - Gualeguaychu    -0.9642181 0.6665025 36  -1.447  0.3283
+##  NP El Palmar - Gualeguaychu -1.7085974 0.6009024 36  -2.843  0.0195
 ## 
 ## Note: contrasts are still on the inverse scale 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="simpson_1d" class="section level4">
 <h4>Simpson_1D</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>##                df           AIC
-## mbi_Simpson_1D  4 -237.83822465
-## m1              4    1.69639104
-## m2              4  -30.92338360</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-22-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>##                df         AIC
+## mbi_Simpson_1D  4 -237.838225
+## m1              4    1.696391
+## m2              4  -30.923384</code></pre>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-22-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.8458366, p-value = 0.000104094</code></pre>
+## W = 0.84584, p-value = 0.0001041</code></pre>
 <pre><code>## Analysis of Deviance Table (Type II tests)
 ## 
 ## Response: 1/log(SD100)
 ##      LR Chisq Df Pr(&gt;Chisq)  
-## site 5.232317  2   0.073083 .
+## site   5.2323  2    0.07308 .
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-3" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site             emmean           SE df   lower.CL   upper.CL
-##  Concordia    4.24499121 0.0528972633 35 4.13760406 4.35237836
-##  NP El Palmar 4.17836513 0.0500244443 35 4.07681011 4.27992015
-##  Gualeguaychu 4.34260970 0.0519910125 35 4.23706233 4.44815707
+##  site           emmean         SE df lower.CL upper.CL
+##  Concordia    4.244991 0.05289726 35 4.137604 4.352378
+##  NP El Palmar 4.178365 0.05002444 35 4.076810 4.279920
+##  Gualeguaychu 4.342610 0.05199101 35 4.237062 4.448157
 ## 
 ## Results are given on the inverse (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                         estimate           SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.0666260776 0.0728049826 35   0.915  0.6345
-##  Concordia - Gualeguaychu    -0.0976184906 0.0741699795 35  -1.316  0.3959
-##  NP El Palmar - Gualeguaychu -0.1642445681 0.0721492232 35  -2.276  0.0725
+##  contrast                       estimate         SE df t.ratio p.value
+##  Concordia - NP El Palmar     0.06662608 0.07280498 35   0.915  0.6345
+##  Concordia - Gualeguaychu    -0.09761849 0.07416998 35  -1.316  0.3959
+##  NP El Palmar - Gualeguaychu -0.16424457 0.07214922 35  -2.276  0.0725
 ## 
 ## Note: contrasts are still on the inverse scale 
 ## Results are given on the log (not the response) scale. 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-24-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-24-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="shannon_h" class="section level4">
 <h4>Shannon_H</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-26-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-26-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.8978884, p-value = 0.00192033</code></pre>
+## W = 0.89789, p-value = 0.00192</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: sqrt(Shannon_H)
-##           Df    Sum Sq    Mean Sq F value  Pr(&gt;F)  
-## site       2 0.2506375 0.12531874 4.09653 0.02495 *
-## Residuals 36 1.1012916 0.03059143                  
+##           Df  Sum Sq  Mean Sq F value  Pr(&gt;F)  
+## site       2 0.25064 0.125319  4.0965 0.02495 *
+## Residuals 36 1.10129 0.030591                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-4" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site             emmean           SE df    lower.CL   upper.CL
-##  Concordia    1.19763421 0.0504904551 36 1.095234823 1.30003360
-##  NP El Palmar 1.08887999 0.0467450782 36 0.994076579 1.18368341
-##  Gualeguaychu 1.28085431 0.0485096602 36 1.182472162 1.37923646
+##  site           emmean         SE df  lower.CL upper.CL
+##  Concordia    1.197634 0.05049046 36 1.0952348 1.300034
+##  NP El Palmar 1.088880 0.04674508 36 0.9940766 1.183683
+##  Gualeguaychu 1.280854 0.04850966 36 1.1824722 1.379236
 ## 
 ## Results are given on the sqrt (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                         estimate           SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.1087542204 0.0688068920 36   1.581  0.2669
-##  Concordia - Gualeguaychu    -0.0832201003 0.0700176634 36  -1.189  0.4675
-##  NP El Palmar - Gualeguaychu -0.1919743206 0.0673668276 36  -2.850  0.0192
+##  contrast                      estimate         SE df t.ratio p.value
+##  Concordia - NP El Palmar     0.1087542 0.06880689 36   1.581  0.2669
+##  Concordia - Gualeguaychu    -0.0832201 0.07001766 36  -1.189  0.4675
+##  NP El Palmar - Gualeguaychu -0.1919743 0.06736683 36  -2.850  0.0192
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="evenness_ehs" class="section level4">
 <h4>Evenness_eHS</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-30-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-30-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-30-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9775206, p-value = 0.613773</code></pre>
+## W = 0.97752, p-value = 0.6138</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Evenness_eHS
-##           Df     Sum Sq     Mean Sq F value  Pr(&gt;F)
-## site       2 0.00989197 0.004945984  0.9706 0.38855
-## Residuals 36 0.18344803 0.005095779</code></pre>
+##           Df   Sum Sq   Mean Sq F value Pr(&gt;F)
+## site       2 0.009892 0.0049460  0.9706 0.3885
+## Residuals 36 0.183448 0.0050958</code></pre>
 <div id="tukey-test-5" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site              emmean           SE df    lower.CL    upper.CL
-##  Concordia    0.850366667 0.0206069944 36 0.808573745 0.892159588
-##  NP El Palmar 0.858542857 0.0190783696 36 0.819850130 0.897235584
-##  Gualeguaychu 0.887807692 0.0197985598 36 0.847654352 0.927961033
+##  site            emmean         SE df  lower.CL  upper.CL
+##  Concordia    0.8503667 0.02060699 36 0.8085737 0.8921596
+##  NP El Palmar 0.8585429 0.01907837 36 0.8198501 0.8972356
+##  Gualeguaychu 0.8878077 0.01979856 36 0.8476544 0.9279610
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                         estimate           SE df t.ratio p.value
-##  Concordia - NP El Palmar    -0.0081761905 0.0280825997 36  -0.291  0.9544
-##  Concordia - Gualeguaychu    -0.0374410256 0.0285767596 36  -1.310  0.3988
-##  NP El Palmar - Gualeguaychu -0.0292648352 0.0274948569 36  -1.064  0.5420
+##  contrast                       estimate         SE df t.ratio p.value
+##  Concordia - NP El Palmar    -0.00817619 0.02808260 36  -0.291  0.9544
+##  Concordia - Gualeguaychu    -0.03744103 0.02857676 36  -1.310  0.3988
+##  NP El Palmar - Gualeguaychu -0.02926484 0.02749486 36  -1.064  0.5420
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="margalef" class="section level4">
 <h4>Margalef</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-34-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-34-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-34-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9612506, p-value = 0.196281</code></pre>
+## W = 0.96125, p-value = 0.1963</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Margalef
-##           Df   Sum Sq   Mean Sq F value  Pr(&gt;F)
-## site       2 1.024532 0.5122660 1.85867 0.17053
-## Residuals 36 9.921894 0.2756082</code></pre>
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## site       2 1.0245 0.51227  1.8587 0.1705
+## Residuals 36 9.9219 0.27561</code></pre>
 <div id="tukey-test-6" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site             emmean          SE df   lower.CL   upper.CL
-##  Concordia    1.61331667 0.151549815 36 1.30595939 1.92067394
-##  NP El Palmar 1.45600000 0.140307865 36 1.17144246 1.74055754
-##  Gualeguaychu 1.84446154 0.145604353 36 1.54916222 2.13976085
+##  site           emmean        SE df lower.CL upper.CL
+##  Concordia    1.613317 0.1515498 36 1.305959 1.920674
+##  NP El Palmar 1.456000 0.1403079 36 1.171442 1.740557
+##  Gualeguaychu 1.844461 0.1456043 36 1.549162 2.139761
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                        estimate          SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.157316667 0.206527585 36   0.762  0.7286
-##  Concordia - Gualeguaychu    -0.231144872 0.210161781 36  -1.100  0.5204
-##  NP El Palmar - Gualeguaychu -0.388461538 0.202205155 36  -1.921  0.1474
+##  contrast                      estimate        SE df t.ratio p.value
+##  Concordia - NP El Palmar     0.1573167 0.2065276 36   0.762  0.7286
+##  Concordia - Gualeguaychu    -0.2311449 0.2101618 36  -1.100  0.5204
+##  NP El Palmar - Gualeguaychu -0.3884615 0.2022052 36  -1.921  0.1474
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="equitatibilidad" class="section level4">
 <h4>Equitatibilidad</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-38-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-38-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-38-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9679584, p-value = 0.339773</code></pre>
+## W = 0.96796, p-value = 0.3398</code></pre>
 <pre><code>## Denom. DF: 35 
-##             numDF     F-value p-value
-## (Intercept)     1 20790.84936  &lt;.0001
-## site            2     3.00534  0.0624</code></pre>
+##             numDF   F-value p-value
+## (Intercept)     1 20790.849  &lt;.0001
+## site            2     3.005  0.0624</code></pre>
 <div id="tukey-test-7" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site              emmean            SE df    lower.CL    upper.CL
-##  Concordia    0.897291667 0.01210326390 11 0.870653129 0.923930204
-##  NP El Palmar 0.898876923 0.02044785361 12 0.854324734 0.943429112
-##  Gualeguaychu 0.929953846 0.00804311864 12 0.912429271 0.947478422
+##  site            emmean          SE df  lower.CL  upper.CL
+##  Concordia    0.8972917 0.012103264 11 0.8706531 0.9239302
+##  NP El Palmar 0.8988769 0.020447854 12 0.8543247 0.9434291
+##  Gualeguaychu 0.9299538 0.008043119 12 0.9124293 0.9474784
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                         estimate           SE    df t.ratio p.value
-##  Concordia - NP El Palmar    -0.0015852564 0.0237613913 19.30  -0.067  0.9975
-##  Concordia - Gualeguaychu    -0.0326621795 0.0145320595 19.40  -2.248  0.0881
-##  NP El Palmar - Gualeguaychu -0.0310769231 0.0219728577 15.63  -1.414  0.3578
+##  contrast                       estimate         SE    df t.ratio p.value
+##  Concordia - NP El Palmar    -0.00158526 0.02376139 19.30  -0.067  0.9975
+##  Concordia - Gualeguaychu    -0.03266218 0.01453206 19.40  -2.248  0.0881
+##  NP El Palmar - Gualeguaychu -0.03107692 0.02197286 15.63  -1.414  0.3578
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-40-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-40-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="anthropic_ia" class="section level4">
 <h4>anthropic_Ia</h4>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-42-1.png" width="70%" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-42-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-42-1.png" width="960" style="display: block; margin: auto;" /><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-42-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9608411, p-value = 0.190224</code></pre>
+## W = 0.96084, p-value = 0.1902</code></pre>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: anthropic_Ia
-##           Df    Sum Sq    Mean Sq F value   Pr(&gt;F)  
-## site       2 0.1493748 0.07468741 3.46242 0.042139 *
-## Residuals 36 0.7765513 0.02157087                   
+##           Df  Sum Sq  Mean Sq F value  Pr(&gt;F)  
+## site       2 0.14937 0.074687  3.4624 0.04214 *
+## Residuals 36 0.77655 0.021571                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-8" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site              emmean           SE df    lower.CL    upper.CL
-##  Concordia    0.855125661 0.0423977872 36 0.769138964 0.941112359
-##  NP El Palmar 0.782369615 0.0392527236 36 0.702761401 0.861977828
-##  Gualeguaychu 0.700671551 0.0407344763 36 0.618058204 0.783284898
+##  site            emmean         SE df  lower.CL  upper.CL
+##  Concordia    0.8551257 0.04239779 36 0.7691390 0.9411124
+##  NP El Palmar 0.7823696 0.03925272 36 0.7027614 0.8619778
+##  Gualeguaychu 0.7006716 0.04073448 36 0.6180582 0.7832849
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                        estimate           SE df t.ratio p.value
-##  Concordia - NP El Palmar    0.0727560469 0.0577784446 36   1.259  0.4270
-##  Concordia - Gualeguaychu    0.1544541107 0.0587951522 36   2.627  0.0329
-##  NP El Palmar - Gualeguaychu 0.0816980638 0.0565691954 36   1.444  0.3295
+##  contrast                      estimate         SE df t.ratio p.value
+##  Concordia - NP El Palmar    0.07275605 0.05777844 36   1.259  0.4270
+##  Concordia - Gualeguaychu    0.15445411 0.05879515 36   2.627  0.0329
+##  NP El Palmar - Gualeguaychu 0.08169806 0.05656920 36   1.444  0.3295
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-44-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>
@@ -906,19 +909,19 @@ H = -\sum_{i=1}^{n} p_i \log_{2}(p_i)
 </div>
 <div id="número-de-especies-por-sitio" class="section level2">
 <h2>Número de especies por sitio</h2>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-48-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-48-1.png" width="960" style="display: block; margin: auto;" />
 Las barras representan el error estándar.</p>
 </div>
 <div id="exponente-del-índice-de-shannon-por-sitio"
 class="section level2">
 <h2>Exponente del índice de Shannon por sitio</h2>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" />
 Las barras representan el error estándar.</p>
 </div>
 </div>
 <div id="clasificación" class="section level1">
 <h1>Clasificación</h1>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-54-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Agrupamiento jerárquico de los censos a través de la distancia de
 Bray y método de Ward.</p>
 </div>
@@ -980,7 +983,7 @@ id="agrupamiento-jerárquico-de-los-censos-a-través-de-la-distancia-de-bray-cur
 class="section level3">
 <h3>Agrupamiento jerárquico de los censos a través de la distancia de
 Bray-Curtis y método de Ward.</h3>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-62-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-62-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Los agrupamientos en tres grupos principales incluyen
 mayoritariamente a censos de las mismas poblaciones. En rojo se
 observan</p>
@@ -997,11 +1000,11 @@ observan</p>
 ## 
 ## Class means and counts:
 ## 
-##       1       2       3      
-## delta  8.7178  8.7178  8.7178
-## n     12      14      13     
+##       1     2     3    
+## delta 8.718 8.718 8.718
+## n     12    14    13   
 ## 
-## Chance corrected within-group agreement A:       0 
+## Chance corrected within-group agreement A:     0 
 ## Based on observed delta 8.718 and expected delta 8.718 
 ## 
 ## Significance of delta: 1 
@@ -1029,8 +1032,8 @@ respectivamente. Si el investigador está interesado en ordenar las UE de
 acuerdo a otra medida de similitud, entonces puede utilizar el análisis
 de coordenadas principales (PCoA).”</em></p>
 <p>Realizado a partir de la matriz de similitudes por Bray-Curtis.</p>
-<pre><code>## [1] 14.8840163</code></pre>
-<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-65-1.png" width="70%" style="display: block; margin: auto;" />
+<pre><code>## [1] 14.88402</code></pre>
+<p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-65-1.png" width="960" style="display: block; margin: auto;" />
 Se observa un ordenamiento muy marcado de las poblaciones en
 concordancia con los resultados anteriores. Los dos ejes principales
 explican un 27.19% de la variación total de los datos.</p>
@@ -1107,10 +1110,10 @@ acompañantes.</p>
 </div>
 <div id="observado-vs-esperado" class="section level1">
 <h1>Observado vs esperado</h1>
-<pre><code>## [1] 0.314285714</code></pre>
-<pre><code>## [1] 0.342857143</code></pre>
-<pre><code>## [1] 0.333333333</code></pre>
-<pre><code>## [1] 0.314285714</code></pre>
+<pre><code>## [1] 0.3142857</code></pre>
+<pre><code>## [1] 0.3428571</code></pre>
+<pre><code>## [1] 0.3333333</code></pre>
+<pre><code>## [1] 0.3142857</code></pre>
 <pre><code>## [1] 75</code></pre>
 <pre><code>## [1] 71</code></pre>
 <pre><code>## [1] 60</code></pre>

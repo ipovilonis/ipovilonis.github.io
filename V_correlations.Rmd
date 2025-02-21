@@ -1,0 +1,458 @@
+---
+title: "Correlaciones"
+output:
+ html_document:
+   toc: true
+   toc_depth: 5
+   toc_float:
+     collapsed: false
+     smooth_scroll: true
+---
+
+# Correlaciones de todas las variables
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+datosff <- read_excel("database.xlsx", sheet="V repvars")
+
+datosff$year<-as.factor(datosff$year)
+datosff$site<-factor(datosff$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+datosff$phenotype<-as.factor(datosff$phenotype)
+datosff$id<-as.factor(datosff$id)
+datosff$polen_type<-as.factor(datosff$polen_type)
+
+datosramas <- read_excel("database.xlsx", sheet="V branches")
+
+datosramas$year <- as.factor(datosramas$year)
+datosramas$site <- factor(datosramas$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+datosramas$phenotype <- as.factor(datosramas$phenotype)
+datosramas$branch <- as.factor(datosramas$branch)
+datosramas$NFR_NFL <- datosramas$NFR/datosramas$NFL
+
+datosfisico <- read_excel("database.xlsx", sheet="V fisico")
+
+datosfisico$year <- as.factor(datosfisico$year)
+datosfisico$site <- factor(datosfisico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+datosfisico$phenotype <- as.factor(datosfisico$phenotype)
+datosfisico$id <- as.factor(datosfisico$id)
+datosfisico$mad <- as.factor(datosfisico$mad)
+# Primero, filtramos las filas donde PSS no es NA ni cero
+datosfisico_filtrado <- datosfisico[!is.na(datosfisico$PSS) & datosfisico$PSS != 0, ]
+datosfisico_filtrado$PSS_PSF <- datosfisico_filtrado$PSS / datosfisico_filtrado$PSF
+datosfisico <- datosfisico_filtrado
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas y gráficos resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("PSFL", "DMAP", "DMIP", "NO", "NS", "NS_NO")
+
+# Inicializa listas para almacenar las tablas y gráficos
+tablas_list_multivar <- list()
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), datosff %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("NFL_cm", "NFR_NFL")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), datosramas %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("PSS", "PSF", "PSS_PSF")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), datosfisico %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(purrr)
+tabla_combinada <- reduce(tablas_list_multivar, full_join, by = c("year", "site", "phenotype"))
+
+library(dplyr)
+tabla_combinada_ordenada <- tabla_combinada %>%
+  arrange(year, site, phenotype)
+
+# Usando dplyr y stringr para crear la nueva columna
+library(dplyr)
+library(stringr)
+
+# Crear la nueva columna 'year*site' concatenando los valores de 'year' y 'site'
+tabla_combinada_ordenada <- tabla_combinada_ordenada %>%
+  mutate(`year.site` = str_c(site, year, sep = "."))
+
+tabla_combinada_ordenada$year.site <- as.factor(tabla_combinada_ordenada$year.site)
+
+tabla_combinada2 <- tabla_combinada_ordenada[,-c(12,13,15)]
+
+# Nombres de las variables
+nombres_variables <- c("year", "site", "phenotype", "PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "NFL/cm", "NFR/NFL", "PSS/PSF")
+colnames(tabla_combinada2) <- nombres_variables
+
+```
+
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+frutos_fisico <- read_excel("database.xlsx", sheet="V fisico")
+
+frutos_fisico$year<-as.factor(frutos_fisico$year)
+frutos_fisico$site<-factor(frutos_fisico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+frutos_fisico$phenotype<-as.factor(frutos_fisico$phenotype)
+frutos_fisico$id<-as.factor(frutos_fisico$id)
+frutos_fisico$dedp <- frutos_fisico$de/frutos_fisico$dp
+
+frutos_color <- read_excel("database.xlsx", sheet="V color")
+
+frutos_color$year <- as.factor(frutos_color$year)
+frutos_color$site <- factor(frutos_color$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+frutos_color$phenotype <- as.factor(frutos_color$phenotype)
+frutos_color$mad <- as.factor(frutos_color$mad)
+
+frutos_quimico <- read_excel("database.xlsx", sheet="V varqui")
+
+frutos_quimico$year <- as.factor(frutos_quimico$year)
+frutos_quimico$site <- factor(frutos_quimico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+frutos_quimico$phenotype <- as.factor(frutos_quimico$phenotype)
+frutos_quimico$id <- as.factor(frutos_quimico$id)
+frutos_quimico$CTC_CL <- frutos_quimico$caro/(frutos_quimico$cloa+frutos_quimico$clob)
+# Crear la variable aao como la media de aao25, aao50, aao100, y aao250
+frutos_quimico$aao <- rowMeans(frutos_quimico[, c("aao25", "aao50", "aao100", "aao250")], na.rm = TRUE)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas y gráficos resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("pff", "de", "dp", "pen", "PSF", "PSS","dedp")
+
+# Inicializa listas para almacenar las tablas y gráficos
+tablas_list_multivar_frutos <- list()
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_fisico %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar_frutos[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("color_L", "color_a", "color_b")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_color %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar_frutos[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Tablas resumen
+library(dplyr)
+# Crea un vector con las variables respuesta
+# Crear un vector con los nombres específicos de las variables
+variables_respuesta <- c("fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "aao50", "aao100", "aao250", "CTC_CL")
+
+# Crea un bucle para recorrer cada variable respuesta
+for (variable in variables_respuesta) {
+
+  # Crea la tabla resumen
+  assign(paste0("Tabla_", variable), frutos_quimico %>%
+    dplyr::filter(!is.na(get(variable))) %>% # Filtra los datos sin NA para la variable actual
+    dplyr::group_by(year, site, phenotype) %>%
+    dplyr::summarise(!!sym(variable) := mean(!!sym(variable))
+              )
+  )
+  
+  # Agrega la tabla a la lista
+  tablas_list_multivar_frutos[[variable]] <- get(paste0("Tabla_", variable))
+  
+}
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(purrr)
+tabla_combinada_frutos <- reduce(tablas_list_multivar_frutos, full_join, by = c("year", "site", "phenotype"))
+
+tabla_combinada_frutos$indmad[is.na(tabla_combinada_frutos$indmad)] <- 0
+
+library(dplyr)
+
+tabla_combinada_frutos <- tabla_combinada_frutos %>%
+  dplyr::mutate(indmad = case_when(
+    year == "2019" & site == "Concordia" & phenotype == "190" & indmad == 0 ~ 0.444,
+    TRUE ~ indmad
+  ))
+
+tabla_combinada_frutos <- tabla_combinada_frutos %>%
+  dplyr::mutate(indmad = case_when(
+    year == "2021" & site == "Concordia" & phenotype == "190"  & indmad == 0 ~ 0.222,
+    TRUE ~ indmad
+  ))
+
+tabla_combinada_frutos <- tabla_combinada_frutos %>%
+  dplyr::mutate(indmad = case_when(
+    year == "2021" & site == "PN El Palmar" & phenotype == "281"  & indmad == 0 ~ 0.333,
+    TRUE ~ indmad
+  ))
+
+library(dplyr)
+tabla_combinada_frutos_ordenada <- tabla_combinada_frutos %>%
+  dplyr::arrange(year, site, phenotype)
+
+# Usando dplyr y stringr para crear la nueva columna
+library(dplyr)
+library(stringr)
+
+# Crear la nueva columna 'year*site' concatenando los valores de 'year' y 'site'
+tabla_combinada_frutos_ordenada <- tabla_combinada_frutos_ordenada %>%
+  mutate(`year.site` = str_c(site, year, sep = "."))
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+tabla_combinada_frutos2 <- tabla_combinada_frutos_ordenada[,-c(23:25,27)]
+
+# Nombres de las variables
+nombres_variables <- c("year", "site", "phenotype","pff", "de", "dp", "pen", "PSF", "PSS", "dedp","color_L", "color_a", "color_b","fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "CTC/CL")
+colnames(tabla_combinada_frutos2) <- nombres_variables
+
+```
+
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Combinar las tablas
+tabla_combinada_final <- left_join(tabla_combinada2, tabla_combinada_frutos2, by = c("year", "site", "phenotype"))
+
+```
+# Correlaciones
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(Hmisc)
+library(ggcorrplot)
+library(corrplot)
+
+datos <- tabla_combinada_final
+datos <- na.omit(datos)
+# Nombres de las variables
+nombres_variables <- c("year","site","phenotype","PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "NFL/cm", "NFR/NFL", "PSS/PSF","PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "SS/ATT", "SS", "DPPH25", "CTC/CL")
+colnames(datos) <- nombres_variables
+
+datos <- datos[,-c(1:3)]
+
+nombres_variables <- c("PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "NFL/cm", "NFR/NFL", "PSS/PSF", "PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b", "PT", "CLa", "CLb", "CTC", "IM", "ATT", "SS/ATT", "SS", "DPPH25", "CTC/CL")
+datos <- datos[, nombres_variables]
+
+# Calculamos la correlación de Spearman y los p-valores
+resultado_corr <- rcorr(as.matrix(datos), type = "spearman")
+
+# Calcula la matriz de correlación
+matriz_corr <- cor(datos, use = "pairwise.complete.obs") 
+
+matriz_corr
+```
+
+# p valores
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# p valores
+p_valores <- cor.mtest(datos, conf.level = 0.95)$p
+p_valores
+
+```
+
+# Heatmap de Correlaciones con valores de r y p
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+library(reshape2)
+
+# Convertir las matrices a dataframes largos
+df_corr <- melt(matriz_corr, varnames = c("Var1", "Var2"), value.name = "r")
+df_p <- melt(p_valores, varnames = c("Var1", "Var2"), value.name = "p")
+
+# Unir los dataframes por las variables Var1 y Var2
+df_combined <- merge(df_corr, df_p, by = c("Var1", "Var2"))
+
+# Filtrar para mantener solo la mitad superior de la matriz
+df_combined_upper <- df_combined %>%
+  filter(as.numeric(factor(Var1, levels = nombres_variables)) < as.numeric(factor(Var2, levels = nombres_variables)))
+
+library(dplyr)
+# Función para convertir p-valores en asteriscos
+significance_stars <- function(p) {
+  case_when(
+    p < 0.001 ~ "***",
+    p < 0.01 ~ "**",
+    p < 0.05 ~ "*",
+    TRUE ~ ""
+  )
+}
+
+# Filtrar para mantener solo la mitad inferior de la matriz
+df_combined_lower <- df_combined %>%
+  filter(as.numeric(factor(Var1, levels = nombres_variables)) > as.numeric(factor(Var2, levels = nombres_variables)))
+
+# Aplicar la función a los p-valores y crear una nueva columna en df_combined_lower
+df_combined_lower$stars <- significance_stars(df_combined_lower$p)
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=24}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Crear el heatmap con elipses en la mitad inferior y valores de r en la superior
+cor_full <- ggplot() +
+  # Capa para la mitad inferior con elipses
+  geom_point(data = df_combined_lower, aes(x = Var1, y = Var2, fill = r, size = abs(r)), shape = 21, colour = "black") +
+  # Capa para los asteriscos en la mitad inferior
+  geom_text(data = df_combined_lower, aes(x = Var1, y = Var2, label = stars), size = 5, vjust = 0.6) +
+  # Capa para la mitad superior con valores de r
+  geom_text(data = df_combined_upper, aes(x = Var1, y = Var2, label = round(r, 2)), size = 4, vjust = 0.5) +
+  scale_fill_gradient2(low = "red", mid = "white", high = "blue", midpoint = 0, 
+                       limits = c(-1, 1), name = "Correlación (r)") +
+  scale_size_continuous(range = c(2, 10), guide = "none") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 12, colour = "black"),
+        axis.text.y = element_text(size = 12, colour = "black"),
+        axis.title = element_blank(),
+        plot.title = element_text(hjust = 0.5),
+        legend.position = "bottom",
+        legend.key.width = unit(6, "cm"),
+        legend.key.height = unit(0.5, "cm")) +
+  ggtitle("") +
+  coord_fixed()
+
+# Mostrar el gráfico
+print(cor_full)
+
+```
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# ggsave("cor_full.tiff", plot = cor_full, device = "tiff", width = 15, height = 15, units = "in", dpi = 300)
+
+```
+

@@ -413,6 +413,9 @@ $(document).ready(function () {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li>
+      <a href="V_correlations.html">Correlaciones</a>
+    </li>
     <li class="divider"></li>
   </ul>
 </li>
@@ -477,16 +480,20 @@ $(document).ready(function () {
 </div>
 
 
+<pre><code>## Warning: NAs introducidos por coerción</code></pre>
 <div id="descriptive-table" class="section level2">
 <h2>Descriptive table</h2>
 <pre><code>## # A tibble: 3 × 19
 ## # Groups:   year [3]
-##   year  site  length_mean node_mean NFL_mean NFR_mean FR_mean PFF_mean PSF_mean NH_mean PSH_mean NFL_NFR_mean NFL_cm_mean `NFL/node_mean` `NFR/cm_mean` `NFR/Nudo_mean` `NH/NFR_mean` `PSH/NFR_mean`
-##   &lt;fct&gt; &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;         &lt;dbl&gt;          &lt;dbl&gt;
-## 1 2019  &lt;NA&gt;         7.82      3.83     12.1    0.225   0.169   NaN      NaN     NaN     NaN             2.23        1.70            3.44        0.0257          0.0634        NaN           NaN    
-## 2 2021  &lt;NA&gt;         8.33      3.50     15.2    0.165   0.115     6.89     1.33    6.59    0.585         2.02        2.13            4.31        0.0284          0.0514          6.76          0.410
-## 3 2022  &lt;NA&gt;         6.83      3.05     10.5    0.264   0.195     6.66     1.33    9.63    0.642         2.91        1.86            3.57        0.0489          0.0912          7.90          0.485
-## # ℹ 1 more variable: `PSH/PSFR_mean` &lt;dbl&gt;</code></pre>
+##   year  site  length_mean node_mean NFL_mean NFR_mean FR_mean PFF_mean
+##   &lt;fct&gt; &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1 2019  &lt;NA&gt;         7.82      3.83     12.1    0.225   0.169   NaN   
+## 2 2021  &lt;NA&gt;         8.33      3.50     15.2    0.165   0.115     6.89
+## 3 2022  &lt;NA&gt;         6.83      3.05     10.5    0.264   0.195     6.66
+## # ℹ 11 more variables: PSF_mean &lt;dbl&gt;, NH_mean &lt;dbl&gt;, PSH_mean &lt;dbl&gt;,
+## #   NFR_NFL_mean &lt;dbl&gt;, NFL_cm_mean &lt;dbl&gt;, `NFL/node_mean` &lt;dbl&gt;,
+## #   `NFR/cm_mean` &lt;dbl&gt;, `NFR/Nudo_mean` &lt;dbl&gt;, `NH/NFR_mean` &lt;dbl&gt;,
+## #   `PSH/NFR_mean` &lt;dbl&gt;, `PSH/PSFR_mean` &lt;dbl&gt;</code></pre>
 </div>
 
 

@@ -413,6 +413,9 @@ $(document).ready(function () {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li>
+      <a href="V_correlations.html">Correlaciones</a>
+    </li>
     <li class="divider"></li>
   </ul>
 </li>
@@ -477,12 +480,6 @@ $(document).ready(function () {
 </div>
 
 
-<div class="figure">
-<img src="IMG_chem.jpg" alt="A caption" width="100%" />
-<p class="caption">
-A caption
-</p>
-</div>
 <div id="actividad-anti-oxidante-aao-2019" class="section level1">
 <h1>ACTIVIDAD ANTI OXIDANTE (aao %) 2019</h1>
 <pre><code>##            site phenotype N   aao25           sd           se          ci
@@ -524,8 +521,9 @@ A caption
 ## 36 Gualeguaychú       337 4 92.6950  1.665582981  0.832791491  2.65031420
 ## 37 Gualeguaychú       362 4 65.5625 11.065578385  5.532789193 17.60780452
 ## 38 Gualeguaychú       363 4 21.4700  5.373775830  2.686887915  8.55087652</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-2-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: aao25 ~ 1 + (1 | site/phenotype)
 ##    Data: datavqaao25
 ## 
@@ -596,8 +594,9 @@ A caption
 ## 36 Gualeguaychú       337 4 2352.13500  419.9393696 209.9696848  668.2172477
 ## 37 Gualeguaychú       362 4  997.44250  315.6255056 157.8127528  502.2306120
 ## 38 Gualeguaychú       363 4  602.18250  154.2221120  77.1110560  245.4017952</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: log(fen) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqfen
 ## 
@@ -629,47 +628,87 @@ A caption
 </div>
 <div id="clorofila-a-2019" class="section level1">
 <h1>CLOROFILA A 2019</h1>
-<pre><code>##            site phenotype N         cloa           sd          se           ci
-## 1     Concordia       154 4  3.080616503  1.058442418 0.529221209  1.684218082
-## 2     Concordia       156 4  5.116260377  4.111036453 2.055518226  6.541576385
-## 3     Concordia       161 4 13.425833606 11.171240724 5.585620362 17.775936883
-## 4     Concordia       171 4  0.931389788  0.649072406 0.324536203  1.032819041
-## 5     Concordia       174 4 10.891940208  6.868357786 3.434178893 10.929089930
-## 6     Concordia       175 4  6.938977856  4.816085507 2.408042753  7.663466763
-## 7     Concordia       178 4  5.097085037  3.030377023 1.515188511  4.822006080
-## 8     Concordia       185 4  5.795486280  4.526292477 2.263146239  7.202341386
-## 9     Concordia       193 4  2.352702133  1.831686312 0.915843156  2.914621668
-## 10    Concordia       197 4  5.654763063  4.946033386 2.473016693  7.870242837
-## 11    Concordia       198 4  1.443887107  1.360087273 0.680043636  2.164202358
-## 12    Concordia       199 4  3.688553647  1.969550205 0.984775102  3.133993886
-## 13    Concordia       208 4 10.525661287  3.176545664 1.588272832  5.054593005
-## 14 PN El Palmar       260 4  5.451570992  2.199734163 1.099867082  3.500267930
-## 15 PN El Palmar       261 4  3.718048645  0.676161713 0.338080857  1.075924173
-## 16 PN El Palmar       262 4 12.418068558  4.039430357 2.019715179  6.427635108
-## 17 PN El Palmar       268 4  7.122042134  3.186008110 1.593004055  5.069649868
-## 18 PN El Palmar       271 4  4.378591157  1.738189011 0.869094506  2.765846599
-## 19 PN El Palmar       272 4  3.548505210  3.873564230 1.936782115  6.163705086
-## 20 PN El Palmar       274 4  4.770546743  5.720893492 2.860446746  9.103218179
-## 21 PN El Palmar       276 4  3.058417316  1.614408404 0.807204202  2.568884030
-## 22 PN El Palmar       280 4  3.070466855  1.205330692 0.602665346  1.917950103
-## 23 PN El Palmar       281 4  2.305460491  0.430428690 0.215214345  0.684908096
-## 24 PN El Palmar       284 4  1.943653397  0.460172145 0.230086072  0.732236571
-## 25 PN El Palmar       285 4  3.110224291  0.905947818 0.452973909  1.441565142
-## 26 PN El Palmar       286 4  3.604403695  1.889076602 0.944538301  3.005942427
-## 27 PN El Palmar       287 4  6.940889720  2.677161705 1.338580852  4.259961688
-## 28 PN El Palmar       288 4 12.976761635  1.444889508 0.722444754  2.299141638
-## 29 PN El Palmar       289 4  0.692833983  0.500292396 0.250146198  0.796076843
-## 30 Gualeguaychú       305 4  4.920918717  4.223554201 2.111777100  6.720617231
-## 31 Gualeguaychú       306 4 47.622219220  6.169828507 3.084914253  9.817573968
-## 32 Gualeguaychú       321 4 10.184130786  4.203379225 2.101689612  6.688514342
-## 33 Gualeguaychú       324 4 17.361255163  1.279960720 0.639980360  2.036703132
-## 34 Gualeguaychú       325 4 24.256844022  2.080994321 1.040497160  3.311326344
-## 35 Gualeguaychú       331 4 27.097671022  2.130018985 1.065009492  3.389335524
-## 36 Gualeguaychú       337 4 15.101017255  1.824122998 0.912061499  2.902586747
-## 37 Gualeguaychú       362 4 17.266227083  2.626261337 1.313130668  4.178967844
-## 38 Gualeguaychú       363 4  9.157945520  2.361614529 1.180807264  3.757855716</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<pre><code>##            site phenotype N         cloa           sd          se
+## 1     Concordia       154 4  3.080616503  1.058442418 0.529221209
+## 2     Concordia       156 4  5.116260377  4.111036453 2.055518226
+## 3     Concordia       161 4 13.425833606 11.171240724 5.585620362
+## 4     Concordia       171 4  0.931389788  0.649072406 0.324536203
+## 5     Concordia       174 4 10.891940208  6.868357786 3.434178893
+## 6     Concordia       175 4  6.938977856  4.816085507 2.408042753
+## 7     Concordia       178 4  5.097085037  3.030377023 1.515188511
+## 8     Concordia       185 4  5.795486280  4.526292477 2.263146239
+## 9     Concordia       193 4  2.352702133  1.831686312 0.915843156
+## 10    Concordia       197 4  5.654763063  4.946033386 2.473016693
+## 11    Concordia       198 4  1.443887107  1.360087273 0.680043636
+## 12    Concordia       199 4  3.688553647  1.969550205 0.984775102
+## 13    Concordia       208 4 10.525661287  3.176545664 1.588272832
+## 14 PN El Palmar       260 4  5.451570992  2.199734163 1.099867082
+## 15 PN El Palmar       261 4  3.718048645  0.676161713 0.338080857
+## 16 PN El Palmar       262 4 12.418068558  4.039430357 2.019715179
+## 17 PN El Palmar       268 4  7.122042134  3.186008110 1.593004055
+## 18 PN El Palmar       271 4  4.378591157  1.738189011 0.869094506
+## 19 PN El Palmar       272 4  3.548505210  3.873564230 1.936782115
+## 20 PN El Palmar       274 4  4.770546743  5.720893492 2.860446746
+## 21 PN El Palmar       276 4  3.058417316  1.614408404 0.807204202
+## 22 PN El Palmar       280 4  3.070466855  1.205330692 0.602665346
+## 23 PN El Palmar       281 4  2.305460491  0.430428690 0.215214345
+## 24 PN El Palmar       284 4  1.943653397  0.460172145 0.230086072
+## 25 PN El Palmar       285 4  3.110224291  0.905947818 0.452973909
+## 26 PN El Palmar       286 4  3.604403695  1.889076602 0.944538301
+## 27 PN El Palmar       287 4  6.940889720  2.677161705 1.338580852
+## 28 PN El Palmar       288 4 12.976761635  1.444889508 0.722444754
+## 29 PN El Palmar       289 4  0.692833983  0.500292396 0.250146198
+## 30 Gualeguaychú       305 4  4.920918717  4.223554201 2.111777100
+## 31 Gualeguaychú       306 4 47.622219220  6.169828507 3.084914253
+## 32 Gualeguaychú       321 4 10.184130786  4.203379225 2.101689612
+## 33 Gualeguaychú       324 4 17.361255163  1.279960720 0.639980360
+## 34 Gualeguaychú       325 4 24.256844022  2.080994321 1.040497160
+## 35 Gualeguaychú       331 4 27.097671022  2.130018985 1.065009492
+## 36 Gualeguaychú       337 4 15.101017255  1.824122998 0.912061499
+## 37 Gualeguaychú       362 4 17.266227083  2.626261337 1.313130668
+## 38 Gualeguaychú       363 4  9.157945520  2.361614529 1.180807264
+##              ci
+## 1   1.684218082
+## 2   6.541576385
+## 3  17.775936883
+## 4   1.032819041
+## 5  10.929089930
+## 6   7.663466763
+## 7   4.822006080
+## 8   7.202341386
+## 9   2.914621668
+## 10  7.870242837
+## 11  2.164202358
+## 12  3.133993886
+## 13  5.054593005
+## 14  3.500267930
+## 15  1.075924173
+## 16  6.427635108
+## 17  5.069649868
+## 18  2.765846599
+## 19  6.163705086
+## 20  9.103218179
+## 21  2.568884030
+## 22  1.917950103
+## 23  0.684908096
+## 24  0.732236571
+## 25  1.441565142
+## 26  3.005942427
+## 27  4.259961688
+## 28  2.299141638
+## 29  0.796076843
+## 30  6.720617231
+## 31  9.817573968
+## 32  6.688514342
+## 33  2.036703132
+## 34  3.311326344
+## 35  3.389335524
+## 36  2.902586747
+## 37  4.178967844
+## 38  3.757855716</code></pre>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: sqrt(cloa) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqcloa
 ## 
@@ -740,8 +779,9 @@ A caption
 ## 36 Gualeguaychú       337 4 25.69272197  3.119260242 1.559630121  4.96343912
 ## 37 Gualeguaychú       362 4 29.47880695  4.466107783 2.233053891  7.10657411
 ## 38 Gualeguaychú       363 4 15.50105955  4.019627932 2.009813966  6.39612503</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-17-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-17-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: sqrt(clob) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqclob
 ## 
@@ -812,8 +852,9 @@ A caption
 ## 36 Gualeguaychú       337 4  8.40377544 1.193665262 0.596832631 1.899387801
 ## 37 Gualeguaychú       362 4 12.59116007 2.356782981 1.178391491 3.750167646
 ## 38 Gualeguaychú       363 4 11.46771281 0.548829185 0.274414593 0.873309707</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-22-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: caro ~ 1 + (1 | site/phenotype)
 ##    Data: datavqcaro
 ## 
@@ -883,8 +924,9 @@ A caption
 ## 36 Gualeguaychú       337 0        NaN           NA           NA         NaN
 ## 37 Gualeguaychú       362 0        NaN           NA           NA         NaN
 ## 38 Gualeguaychú       363 1 0.90880000           NA           NA         NaN</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-27-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-27-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: log(att) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqatt
 ## 
@@ -959,8 +1001,9 @@ A caption
 ## 36 Gualeguaychú       337 0         NaN           NA           NA         NaN
 ## 37 Gualeguaychú       362 0         NaN           NA           NA         NaN
 ## 38 Gualeguaychú       363 1  8.72946009           NA           NA         NaN</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: log(ratio) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqratio
 ## 
@@ -1031,8 +1074,9 @@ A caption
 ## 36 Gualeguaychú       337 0         NaN          NA          NA          NaN
 ## 37 Gualeguaychú       362 0         NaN          NA          NA          NaN
 ## 38 Gualeguaychú       363 1  7.93333333          NA          NA          NaN</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-41-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: (brix) ~ 1 + (1 | site/phenotype)
 ##    Data: datavqbrix
 ## 
@@ -1086,7 +1130,7 @@ poblaciones para 2019 y 2021</h3>
 ## 7 2022    Concordia  0        NaN         NA         NA        NaN
 ## 8 2022 PN El Palmar  0        NaN         NA         NA        NaN
 ## 9 2022 Gualeguaychú  0        NaN         NA         NA        NaN</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-49-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-49-1.png" width="960" style="display: block; margin: auto;" />
 *With standar desviation</p>
 </div>
 <div id="individuos-de-concordia-en-ambos-años." class="section level3">
@@ -1134,7 +1178,7 @@ poblaciones para 2019 y 2021</h3>
 ## 40 2022       221 4 1400.558440  205.3671766 102.6835883  326.7850061
 ## 41 2022       222 3  420.847002   96.8692291  55.9274755  240.6365050
 ## 42 2022       223 4  827.679927  241.5954977 120.7977488  384.4323495</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-50-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="individuos-del-pn-el-palmar-en-ambos-años."
 class="section level3">
@@ -1174,7 +1218,7 @@ class="section level3">
 ## 32 2021       289 4  665.245000  96.59163301  48.29581650 153.6988428
 ## 33 2021       290 4  229.535000  19.93194839   9.96597420  31.7161778
 ## 34 2022       284 4  951.470947 278.15388808 139.07694404 442.6049067</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-51-1.png" width="960" style="display: block; margin: auto;" />
 ### Individuos de Gualeguaychú en ambos años.</p>
 <pre><code>##    year phenotype N         fen            sd           se            ci
 ## 1  2019       305 4  229.745000   41.04016691  20.52008345   65.30406378
@@ -1212,7 +1256,7 @@ class="section level3">
 ## 33 2022       348 4  337.611874   42.37053471  21.18526735   67.42097581
 ## 34 2022       357 2 1368.708263   76.87330466  54.35763502  690.67923952
 ## 35 2022       362 4  918.134429  215.19227191 107.59613595  342.41892533</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-52-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tabla-descriptiva" class="section level3">
 <h3>Tabla descriptiva</h3>
@@ -1235,7 +1279,8 @@ class="section level3">
 </ul>
 <div id="resumen-del-modelo" class="section level3">
 <h3>Resumen del modelo</h3>
-<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [&#39;lmerModLmerTest&#39;]
+<pre><code>## Linear mixed model fit by REML. t-tests use Satterthwaite&#39;s method [
+## lmerModLmerTest]
 ## Formula: log(fen) ~ 1 + (1 | site/phenotype) + (1 | year)
 ##    Data: datavqfen
 ## 
@@ -1261,7 +1306,7 @@ class="section level3">
 </div>
 <div id="supuestos-del-modelo" class="section level3">
 <h3>Supuestos del modelo</h3>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-59-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-59-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>Test de normalidad para muestras biológicas (frutos)</p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
@@ -1277,10 +1322,15 @@ class="section level3">
 </div>
 <div id="conclusiones" class="section level3">
 <h3>Conclusiones</h3>
-<pre><code>## We fitted a constant (intercept-only) linear mixed model (estimated using REML and nloptwrap optimizer) to predict fen (formula: log(fen) ~ 1). The model included phenotype as random effects (formula: list(~1
-## | phenotype:site, ~1 | site, ~1 | year)). The model&#39;s intercept is at 6.36 (95% CI [5.97, 6.76], t(425) = 31.39, p &lt; .001).
+<pre><code>## We fitted a constant (intercept-only) linear mixed model (estimated using
+## REML and nloptwrap optimizer) to predict fen (formula: log(fen) ~ 1). The
+## model included phenotype as random effects (formula: list(~1 |
+## phenotype:site, ~1 | site, ~1 | year)). The model&#39;s intercept is at 6.36 (95%
+## CI [5.97, 6.76], t(425) = 31.39, p &lt; .001).
 ## 
-## Standardized parameters were obtained by fitting the model on a standardized version of the dataset. 95% Confidence Intervals (CIs) and p-values were computed using a Wald t-distribution approximation.</code></pre>
+## Standardized parameters were obtained by fitting the model on a standardized
+## version of the dataset. 95% Confidence Intervals (CIs) and p-values were
+## computed using a Wald t-distribution approximation.</code></pre>
 <p>El test de Wald (p=0.0594) arroja que no hay diferencias estadísticas
 significativas entre años.</p>
 </div>
@@ -1428,12 +1478,12 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 ## 7 2022    Concordia 29 1.413149425 0.679020625 0.1260909645 0.258285632
 ## 8 2022 PN El Palmar  1 1.728000000          NA           NA         NaN
 ## 9 2022 Gualeguaychú 15 0.352284444 0.235002519 0.0606773894 0.130140057</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-69-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-69-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>##           site  N         ac          sd          se          ci
 ## 1    Concordia 19 2.55315789 0.751413872 0.172386165 0.362169893
 ## 2 PN El Palmar 26 2.07692308 1.080113954 0.211827774 0.436267467
 ## 3 Gualeguaychú 21 2.03809524 0.774903988 0.169097913 0.352732066</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-70-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-70-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: ac
@@ -1547,7 +1597,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 ## 99        392 2021 1  8.00000000           NA           NA          NaN
 ## 100       395 2021 1 11.00000000           NA           NA          NaN
 ## 101       396 2021 1 11.00000000           NA           NA          NaN</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-73-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-73-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>##    phenotype  N        brix           sd          se           ci
 ## 1        154  5  9.77333333 2.1146841109 0.945715485  2.625727128
 ## 2        156  8  6.12500000 1.6417238327 0.580437027  1.372515472
@@ -1598,7 +1648,7 @@ Marginal R<sup>2</sup> / Conditional R<sup>2</sup>
 ## 47       392  1  8.00000000           NA          NA          NaN
 ## 48       395  1 11.00000000           NA          NA          NaN
 ## 49       396  1 11.00000000           NA          NA          NaN</code></pre>
-<p><img src="V_Chemical_files/figure-html/unnamed-chunk-75-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Chemical_files/figure-html/unnamed-chunk-75-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

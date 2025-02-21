@@ -31,9 +31,10 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(dplyr)
 tabla_microprop <- microprop %>%
   dplyr::group_by(hormona, explanto) %>%
-  dplyr::summarise(n=n(),
+  dplyr::summarise(n = n(),
                    Mean_supervivencia = mean(supervivencia),
-                   sd_supervivencia = sd(supervivencia))
+                   sd_supervivencia = sd(supervivencia),
+                   SEM_supervivencia = sd_supervivencia / sqrt(n))
 tabla_microprop
 
 ```
@@ -45,7 +46,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(ggplot2)
 gg_microprop <- ggplot(tabla_microprop, aes(x=explanto, y=Mean_supervivencia , fill=hormona, width=.4)) +
   stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
-  geom_errorbar(aes(ymin=Mean_supervivencia -sd_supervivencia, ymax=Mean_supervivencia +sd_supervivencia),
+  geom_errorbar(aes(ymin=Mean_supervivencia -SEM_supervivencia, ymax=Mean_supervivencia +SEM_supervivencia),
                 width=.1, position=position_dodge(.6), size=1)+
   scale_fill_manual(values=c("#FF8","#FF9955","#FF2220"))+
   labs(y="Supervivencia", x="")+
@@ -214,6 +215,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 tabla_microprop_3 <- merge(tabla_microprop, as.data.frame(emmeans_results_1), by = c("explanto", "hormona"))
 
+tabla_microprop_3$explanto <- factor(tabla_microprop_3$explanto, levels = c("hoja", "segmento"), labels = c("Hoja", "Segmento"))
+
 # Supongamos que tienes un marco de datos con las letras asociado
 # Asegúrate de que el marco tenga las columnas `explanto`, `hormona`, y `letras`
 # Por ejemplo:
@@ -222,11 +225,11 @@ tabla_microprop_3$letras <- c("a", "a", "a", "a", "a", "a")  # Letras de prueba
 # Crear el gráfico con las letras
 gg_microprop <- ggplot(tabla_microprop_3, aes(x = explanto, y = prob, fill = hormona, width = 0.4)) +
   stat_summary(fun = "mean", size = 1, geom = "bar", position = position_dodge(0.6), color = "black") +
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), 
+  geom_errorbar(aes(ymin = Mean_supervivencia -SEM_supervivencia, ymax = Mean_supervivencia +SEM_supervivencia), 
                 width = 0.1, position = position_dodge(0.6), size = 1) +
  geom_text(aes(label = letras, y = prob + 0.1),  
             position = position_dodge2(width = 0.6, padding = 0.1),  # Mueve ligeramente a la derecha
-            hjust = -0.2, size = 5, color = "black", fontface = "bold") +
+            hjust = -0.2, size = 8, color = "black", fontface = "bold") +
   scale_fill_manual(values = c("#FF8", "#FF9955", "#FF2220")) +
   labs(y = "Supervivencia", x = "") +
   theme_classic() +
@@ -266,7 +269,8 @@ tabla_microprop_antioxidante <- microprop %>%
   dplyr::group_by(antioxidante, explanto) %>%
   dplyr::summarise(n=n(),
                    Mean_supervivencia = mean(supervivencia),
-                   sd_supervivencia = sd(supervivencia))
+                   sd_supervivencia = sd(supervivencia),
+                   SEM_supervivencia = sd_supervivencia / sqrt(n))
 tabla_microprop_antioxidante
 
 ```
@@ -279,7 +283,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 gg_microprop_ao <- ggplot(tabla_microprop_antioxidante, aes(x=explanto, y=Mean_supervivencia , fill=antioxidante, width=.4)) +
   stat_summary(fun = "mean", size = 1, geom = "bar", position=position_dodge(0.6), color="black") +
-  geom_errorbar(aes(ymin=Mean_supervivencia -sd_supervivencia, ymax=Mean_supervivencia +sd_supervivencia),
+  geom_errorbar(aes(ymin=Mean_supervivencia -SEM_supervivencia, ymax=Mean_supervivencia +SEM_supervivencia),
                 width=.1, position=position_dodge(.6), size=1)+
   scale_fill_manual(values=c("#AF8","#AB2255"))+
   labs(y="Supervivencia", x="")+
@@ -401,11 +405,11 @@ tabla_microprop_4$antioxidante <- factor(tabla_microprop_4$antioxidante, levels 
 # Crear el gráfico con las letras
 gg_microprop_ao <- ggplot(tabla_microprop_4, aes(x = explanto, y = prob, fill = antioxidante, width = 0.4)) +
   stat_summary(fun = "mean", size = 1, geom = "bar", position = position_dodge(0.6), color = "black") +
-  geom_errorbar(aes(ymin = asymp.LCL, ymax = asymp.UCL), 
+  geom_errorbar(aes(ymin = Mean_supervivencia -SEM_supervivencia, ymax = Mean_supervivencia +SEM_supervivencia), 
                 width = 0.1, position = position_dodge(0.6), size = 1) +
  geom_text(aes(label = letras, y = prob + 0.1),  
             position = position_dodge2(width = 0.6, padding = 0.1),  # Mueve ligeramente a la derecha
-            hjust = -0.2, size = 5, color = "black", fontface = "bold") +
+            hjust = -0.2, size = 8, color = "black", fontface = "bold") +
   scale_fill_manual(values = c("#AF8","#AB2255")) +
   labs(y = "Supervivencia", x = "") +
   theme_classic() +

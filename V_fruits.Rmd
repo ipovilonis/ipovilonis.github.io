@@ -13,34 +13,32 @@ output:
 
 ## Componentes de varianza
 
-## Tabla 6.2. ICC para caracteres físicos de frutos
-
 A continuación se muestran los intervalos de correlación intraclase (ICC) o repetibilidad expresada en proporción de la varianza total explicada por cada nivel de agrupamiento (Año, Población, Individuo) para caracteres físicos de frutos de individuos de *Hexachlamys edulis* muestreados en Entre Ríos, Argentina en noviembre de los años 2019, 2021 y 2022.
 
 Los asteriscos indican diferencias estadísticas significativas (* < 0,05; ** < 0,01; *** < 0,001).
 
 ```{r tabla-icc-fisicos, echo=FALSE}
 
-library(knitr)
-
-# Crear tabla de datos con asteriscos como parte de los valores
-tabla_fisicos <- data.frame(
-  Nivel = c("Año", "Población", "Población/individuo", "Residual"),
-  PFF = c("0.6", "5.8*", "26.1***", "67.5"),
-  DPF = c("0.8**", "9.6**", "35.1***", "54.7"),
-  DMAF = c("0.6", "7.7*", "25.8***", "65.9"),
-  DMAF_DPF = c("4.3***", "1.0", "42.1***", "52.5"),
-  L = c("0.6", "18.7***", "16.9***", "63.8"),
-  a = c("13.6***", "14.9***", "21.6***", "49.9"),
-  b = c("0.1", "14.7***", "21.3***", "63.9"),
-  IM = c("9.4***", "40.6***", "32.0***", "18.1"),
-  PEN = c("7.7***", "25.7***", "14.7***", "59.1")
-)
-
-# Mostrar tabla con kable
-kable(tabla_fisicos, caption = "ICC para caracteres físicos de frutos de *Hexachlamys edulis*", 
-      format = "html", digits = 2, align = "c", 
-      col.names = c("Nivel", "PFF", "DPF", "DMAF", "DMAF/DPF", "*L*", "*a*", "*b*", "IM", "PEN"))
+# library(knitr)
+# 
+# # Crear tabla de datos con asteriscos como parte de los valores
+# tabla_fisicos <- data.frame(
+#   Nivel = c("Año", "Población", "Población/individuo", "Residual"),
+#   PFF = c("0.6", "5.8*", "26.1***", "67.5"),
+#   DPF = c("0.8**", "9.6**", "35.1***", "54.7"),
+#   DMAF = c("0.6", "7.7*", "25.8***", "65.9"),
+#   DMAF_DPF = c("4.3***", "1.0", "42.1***", "52.5"),
+#   L = c("0.6", "18.7***", "16.9***", "63.8"),
+#   a = c("13.6***", "14.9***", "21.6***", "49.9"),
+#   b = c("0.1", "14.7***", "21.3***", "63.9"),
+#   IM = c("9.4***", "40.6***", "32.0***", "18.1"),
+#   PEN = c("7.7***", "25.7***", "14.7***", "59.1")
+# )
+# 
+# # Mostrar tabla con kable
+# kable(tabla_fisicos, caption = "ICC para caracteres físicos de frutos de *Hexachlamys edulis*", 
+#       format = "html", digits = 2, align = "c", 
+#       col.names = c("Nivel", "PFF", "DPF", "DMAF", "DMAF/DPF", "*L*", "*a*", "*b*", "IM", "PEN"))
 
 
 ```
@@ -48,25 +46,25 @@ kable(tabla_fisicos, caption = "ICC para caracteres físicos de frutos de *Hexac
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(knitr)
-
-# Crear tabla de datos con asteriscos como parte de los valores
-tabla_quimicos <- data.frame(
-  Nivel = c("Año", "Población", "Población/individuo", "Residual"),
-  CLa = c("7.4***", "32.2***", "29.3***", "31.1"),
-  CLb = c("7.5***", "32.1***", "29.3***", "31.2"),
-  CTC = c("10.6***", "0.001", "36.8***", "52.6"),
-  ATT = c("35.7***", "8.6*", "15.3***", "40.4"),
-  TA = c("7.0***", "9.1", "32.7***", "51.2"),
-  ATT_TA = c("35.6***", "18.2***", "17.7***", "28.5"),
-  DPPH = c("4.9***", "13.4**", "39.2***", "42.6"),
-  PT = c("4.3***", "14.1**", "41.6***", "40.0")
-)
-
-# Mostrar tabla con kable
-kable(tabla_quimicos, caption = "ICC para caracteres químicos de frutos de *Hexachlamys edulis*", 
-      format = "html", digits = 2, align = "c", 
-      col.names = c("Nivel", "CLa", "CLb", "CTC", "ATT", "TA", "ATT/TA", "DPPH", "PT"))
+# library(knitr)
+# 
+# # Crear tabla de datos con asteriscos como parte de los valores
+# tabla_quimicos <- data.frame(
+#   Nivel = c("Año", "Población", "Población/individuo", "Residual"),
+#   CLa = c("7.4***", "32.2***", "29.3***", "31.1"),
+#   CLb = c("7.5***", "32.1***", "29.3***", "31.2"),
+#   CTC = c("10.6***", "0.001", "36.8***", "52.6"),
+#   ATT = c("35.7***", "8.6*", "15.3***", "40.4"),
+#   TA = c("7.0***", "9.1", "32.7***", "51.2"),
+#   ATT_TA = c("35.6***", "18.2***", "17.7***", "28.5"),
+#   DPPH = c("4.9***", "13.4**", "39.2***", "42.6"),
+#   PT = c("4.3***", "14.1**", "41.6***", "40.0")
+# )
+# 
+# # Mostrar tabla con kable
+# kable(tabla_quimicos, caption = "ICC para caracteres químicos de frutos de *Hexachlamys edulis*", 
+#       format = "html", digits = 2, align = "c", 
+#       col.names = c("Nivel", "CLa", "CLb", "CTC", "ATT", "TA", "ATT/TA", "DPPH", "PT"))
 
 
 ```
@@ -81,7 +79,6 @@ frutos_fisico$year<-as.factor(frutos_fisico$year)
 frutos_fisico$site<-factor(frutos_fisico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
 frutos_fisico$phenotype<-as.factor(frutos_fisico$phenotype)
 frutos_fisico$id<-as.factor(frutos_fisico$id)
-
 frutos_fisico$dedp <- frutos_fisico$de/frutos_fisico$dp
 
 frutos_color <- read_excel("database.xlsx", sheet="V color")
@@ -97,8 +94,44 @@ frutos_quimico$year <- as.factor(frutos_quimico$year)
 frutos_quimico$site <- factor(frutos_quimico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
 frutos_quimico$phenotype <- as.factor(frutos_quimico$phenotype)
 frutos_quimico$id <- as.factor(frutos_quimico$id)
-
 frutos_quimico$CTC_CL <- frutos_quimico$caro/(frutos_quimico$cloa+frutos_quimico$clob)
+# Crear la variable aao como la media de aao25, aao50, aao100, y aao250
+frutos_quimico$aao <- rowMeans(frutos_quimico[, c("aao25", "aao50", "aao100", "aao250")], na.rm = TRUE)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Media y CV%
+# Primero, cargamos las librerías necesarias si no están ya cargadas
+library(dplyr)
+frutos_quimico_mean <- frutos_quimico[,-c(1:4)]
+frutos_color_mean <- frutos_color[,-c(1:6,10:16)]
+frutos_fisico_mean <- frutos_fisico[,-c(1:4,9)]
+
+# Calculamos la media y el CV% de cada variable numérica
+resultados <- frutos_quimico_mean %>%
+  dplyr::summarise(dplyr::across(dplyr::where(is.numeric), list(
+    mean = ~mean(., na.rm = TRUE),
+    CV = ~sd(., na.rm = TRUE) / mean(., na.rm = TRUE) * 100
+  )))
+
+resultados2 <- frutos_color_mean %>%
+  dplyr::summarise(dplyr::across(dplyr::where(is.numeric), list(
+    mean = ~mean(., na.rm = TRUE),
+    CV = ~sd(., na.rm = TRUE) / mean(., na.rm = TRUE) * 100
+  )))
+
+resultados3 <- frutos_fisico_mean %>%
+  dplyr::summarise(dplyr::across(dplyr::where(is.numeric), list(
+    mean = ~mean(., na.rm = TRUE),
+    CV = ~sd(., na.rm = TRUE) / mean(., na.rm = TRUE) * 100
+  )))
+
+print(resultados)
+print(resultados2)
+print(resultados3)
 
 ```
 
@@ -241,6 +274,13 @@ for (variable in variables_respuesta) {
 
 ```
 
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+frutos_color$color_a <- frutos_color$color_a+21.1601
+
+```
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -328,15 +368,209 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
-
-rpt_pff<-rptGaussian(pff ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_fisico, nboot=3, npermut=3)
-rpt_pff
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_pff<-rptGaussian(pff ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_fisico, nboot=3, npermut=3)
+# rpt_pff
 
 ```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Función para obtener mínimos y máximos de cada variable en un dataframe
+get_min_max <- function(data) {
+  # Asegúrate de que solo se consideren las variables numéricas
+  numeric_vars <- sapply(data, is.numeric)
+  
+  # Aplicar funciones min y max solo a las variables numéricas
+  results <- data.frame(
+    variable = names(data)[numeric_vars],
+    min = sapply(data[numeric_vars], min, na.rm = TRUE),
+    max = sapply(data[numeric_vars], max, na.rm = TRUE)
+  )
+  
+  return(results)
+}
+
+# Obtener los mínimos y máximos para cada dataframe
+min_max_ff <- get_min_max(datosff)
+min_max_ramas <- get_min_max(datosramas)
+min_max_fisico <- get_min_max(frutos_fisico)
+min_max_color <- get_min_max(frutos_color)
+min_max_quimico <- get_min_max(frutos_quimico)
+
+# Imprimir resultados
+print("Datosff:")
+print(min_max_ff)
+print("Datosramas:")
+print(min_max_ramas)
+print("Frutos_fisico:")
+print(min_max_fisico)
+print("Frutos_color:")
+print(min_max_color)
+print("Frutos_quimico:")
+print(min_max_quimico)
+
+```
+
+## Peso Fresco del Fruto
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_PFF <- tryCatch({
+  glmer(pff ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_PFF)) {
+  stop("No se pudo ajustar el modelo completo para PFF.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_PFF)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_PFF_year <- tryCatch({
+  glmer(pff ~ 1 + (1|site) + (1|phenotype), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_PFF_site <- tryCatch({
+  glmer(pff ~ 1 + (1|year) + (1|phenotype), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_PFF_phenotype <- tryCatch({
+  glmer(pff ~ 1 + (1|year) + (1|site), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_PFF, gamma_PFF_year)
+p_site <- calculate_LRT_p_value(gamma_PFF, gamma_PFF_site)
+p_phenotype <- calculate_LRT_p_value(gamma_PFF, gamma_PFF_phenotype)
+
+# Crear un data frame con los resultados
+results_PFF <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_PFF)
+
+```
+
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+
+
 
 ## DPF
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
@@ -433,13 +667,144 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+frutos_color$color_a <- frutos_color$color_a+21.17
 
-rpt_a<-rptGaussian(color_a ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_color, nboot=3, npermut=3)
-rpt_a
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_a<-rptGaussian(color_a ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_color, nboot=3, npermut=3)
+# rpt_a
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_color_a <- tryCatch({
+  glmer(color_a ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = frutos_color, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_color_a)) {
+  stop("No se pudo ajustar el modelo completo para color_a.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_color_a)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_color_a_year <- tryCatch({
+  glmer(color_a ~ 1 + (1|site) + (1|phenotype), 
+        data = frutos_color, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_color_a_site <- tryCatch({
+  glmer(color_a ~ 1 + (1|year) + (1|phenotype), 
+        data = frutos_color, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_color_a_phenotype <- tryCatch({
+  glmer(color_a ~ 1 + (1|year) + (1|site), 
+        data = frutos_color, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_color_a, gamma_color_a_year)
+p_site <- calculate_LRT_p_value(gamma_color_a, gamma_color_a_site)
+p_phenotype <- calculate_LRT_p_value(gamma_color_a, gamma_color_a_phenotype)
+
+# Crear un data frame con los resultados
+results_color_a <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_color_a)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Obtener las varianzas de los efectos aleatorios en escala logarítmica
+var_phenotype_log <- as.numeric(VarCorr(gamma_color_a)$phenotype[1])^2
+var_site_log <- as.numeric(VarCorr(gamma_color_a)$site[1])^2
+var_year_log <- as.numeric(VarCorr(gamma_color_a)$year[1])^2
+var_residual_log <- sigma(gamma_color_a)^2
+
+# Convertir a la escala de la variable respuesta
+var_phenotype_response <- exp(var_phenotype_log) * (exp(var_phenotype_log) - 1)
+var_site_response <- exp(var_site_log) * (exp(var_site_log) - 1)
+var_year_response <- exp(var_year_log) * (exp(var_year_log) - 1)
+var_residual_response <- exp(var_residual_log) * (exp(var_residual_log) - 1)
+
+total_var <- sum(var_year_response, var_site_response, var_phenotype_response, var_residual_response, na.rm = TRUE)
+r_year <- (var_year_response / total_var) * 100
+r_site <- (var_site_response / total_var) * 100
+r_phenotype <- (var_phenotype_response / total_var) * 100
+r_residual <- (var_residual_response / total_var) * 100
 
 ```
 
@@ -471,17 +836,121 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 graficos_list$indmad
 
 ```
-Resumen
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_indmad<-rptGaussian(indmad ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_quimico, nboot=3, npermut=3)
+# rpt_indmad
 
-rpt_indmad<-rptGaussian(indmad ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_quimico, nboot=3, npermut=3)
-rpt_indmad
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Ajustar inmad para eliminar ceros y unos
+frutos_quimico$adjusted_indmad <- pmin(pmax(frutos_quimico$indmad, 0.001), 0.999)
+
+library(glmmTMB)
+
+# Ajustar el modelo completo con distribución Beta
+beta_indmad <- tryCatch({
+  glmmTMB(adjusted_indmad ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+          data = frutos_quimico, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(beta_indmad)) {
+  stop("No se pudo ajustar el modelo completo para adjusted_indmad.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(beta_indmad)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(beta_indmad)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+beta_indmad_year <- tryCatch({
+  glmmTMB(adjusted_indmad ~ 1 + (1|site) + (1|phenotype), 
+          data = frutos_quimico, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+beta_indmad_site <- tryCatch({
+  glmmTMB(adjusted_indmad ~ 1 + (1|year) + (1|phenotype), 
+          data = frutos_quimico, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+beta_indmad_phenotype <- tryCatch({
+  glmmTMB(adjusted_indmad ~ 1 + (1|year) + (1|site), 
+          data = frutos_quimico, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(beta_indmad, beta_indmad_year)
+p_site <- calculate_LRT_p_value(beta_indmad, beta_indmad_site)
+p_phenotype <- calculate_LRT_p_value(beta_indmad, beta_indmad_phenotype)
+
+# Crear un data frame con los resultados
+results_indmad <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_indmad)
 
 ```
 
@@ -517,13 +986,118 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_cloa<-rptGaussian(cloa ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_quimico, nboot=3, npermut=3)
+# rpt_cloa
 
-rpt_cloa<-rptGaussian(cloa ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_quimico, nboot=3, npermut=3)
-rpt_cloa
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_cloa <- tryCatch({
+  glmer(cloa ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_cloa)) {
+  stop("No se pudo ajustar el modelo completo para cloa.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_cloa)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_cloa_year <- tryCatch({
+  glmer(cloa ~ 1 + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_cloa_site <- tryCatch({
+  glmer(cloa ~ 1 + (1|year) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_cloa_phenotype <- tryCatch({
+  glmer(cloa ~ 1 + (1|year) + (1|site), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_cloa, gamma_cloa_year)
+p_site <- calculate_LRT_p_value(gamma_cloa, gamma_cloa_site)
+p_phenotype <- calculate_LRT_p_value(gamma_cloa, gamma_cloa_phenotype)
+
+# Crear un data frame con los resultados
+results_cloa <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_cloa)
 
 ```
 
@@ -538,13 +1112,118 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_CLb<-rptGaussian(clob ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_quimico, nboot=3, npermut=3)
+# rpt_CLb
 
-rpt_CLb<-rptGaussian(clob ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_quimico, nboot=3, npermut=3)
-rpt_CLb
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_clob <- tryCatch({
+  glmer(clob ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_clob)) {
+  stop("No se pudo ajustar el modelo completo para clob.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_clob)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_clob_year <- tryCatch({
+  glmer(clob ~ 1 + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_clob_site <- tryCatch({
+  glmer(clob ~ 1 + (1|year) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_clob_phenotype <- tryCatch({
+  glmer(clob ~ 1 + (1|year) + (1|site), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_clob, gamma_clob_year)
+p_site <- calculate_LRT_p_value(gamma_clob, gamma_clob_site)
+p_phenotype <- calculate_LRT_p_value(gamma_clob, gamma_clob_phenotype)
+
+# Crear un data frame con los resultados
+results_clob <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_clob)
 
 ```
 
@@ -559,13 +1238,118 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_CTC<-rptGaussian(caro ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_quimico, nboot=3, npermut=3)
+# rpt_CTC
 
-rpt_CTC<-rptGaussian(caro ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_quimico, nboot=3, npermut=3)
-rpt_CTC
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_caro <- tryCatch({
+  glmer(caro ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_caro)) {
+  stop("No se pudo ajustar el modelo completo para caro.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_caro)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_caro_year <- tryCatch({
+  glmer(caro ~ 1 + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_caro_site <- tryCatch({
+  glmer(caro ~ 1 + (1|year) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_caro_phenotype <- tryCatch({
+  glmer(caro ~ 1 + (1|year) + (1|site), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_caro, gamma_caro_year)
+p_site <- calculate_LRT_p_value(gamma_caro, gamma_caro_site)
+p_phenotype <- calculate_LRT_p_value(gamma_caro, gamma_caro_phenotype)
+
+# Crear un data frame con los resultados
+results_caro <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_caro)
 
 ```
 
@@ -590,7 +1374,7 @@ rpt_ATT
 
 ```
 
-## TA
+## SS
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -611,7 +1395,7 @@ rpt_TA
 
 ```
 
-## TA/ATT
+## SS/ATT
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -629,6 +1413,241 @@ rpt_ATT_TA<-rptGaussian(ratio ~ (1|year) + (1|site) + (1|phenotype),
                     grname=c("year", "site", "phenotype", "Residual"),
                     data=frutos_quimico, nboot=3, npermut=3)
 rpt_ATT_TA
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+frutos_quimico_clean_ratio <- frutos_quimico[!is.na(frutos_quimico$ratio), ]
+
+frutos_quimico_clean_ratio$ratio <- frutos_quimico_clean_ratio$ratio/100
+
+gaussian_ratio <- lmer(ratio ~ 1 + (1|year) + (1|site) + (1|phenotype),
+        data = frutos_quimico)
+
+# library(lme4)
+# 
+# gamma_ratio <- glmer(ratio ~ 1 + (1|year) + (1|site) + (1|phenotype),
+#         data = frutos_quimico,
+#         family = Gamma(link = "log"),
+#         control = glmerControl(optimizer = "bobyqa"))
+# 
+# library(glmmTMB)
+# 
+# beta_ratio <- glmmTMB(ratio ~ 1 + (1|year) + (1|site) + (1|phenotype),
+#           data = frutos_quimico_clean_ratio,
+#           family = beta_family(link = "logit"))
+# 
+# AIC(gamma_ratio, beta_ratio)
+
+# > AIC(gamma_ratio, gaussian_ratio)
+#                df      AIC
+# gamma_ratio     5  917.664
+# gaussian_ratio  5 1240.815
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+# 
+# Ajustar el modelo completo con distribución Gamma
+gamma_ratio <- tryCatch({
+  glmer(ratio ~ 1 + (1|year) + (1|site) + (1|phenotype),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_ratio)) {
+  stop("No se pudo ajustar el modelo completo para ratio.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_ratio)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_ratio_year <- tryCatch({
+  glmer(ratio ~ 1 + (1|site) + (1|phenotype),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_ratio_site <- tryCatch({
+  glmer(ratio ~ 1 + (1|year) + (1|phenotype),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_ratio_phenotype <- tryCatch({
+  glmer(ratio ~ 1 + (1|year) + (1|site),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_ratio, gamma_ratio_year)
+p_site <- calculate_LRT_p_value(gamma_ratio, gamma_ratio_site)
+p_phenotype <- calculate_LRT_p_value(gamma_ratio, gamma_ratio_phenotype)
+
+# Crear un data frame con los resultados
+results_ratio <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_ratio)
+
+# library(glmmTMB)
+# 
+# # Ajustar el modelo completo con distribución Beta
+# beta_ratio <- tryCatch({
+#   glmmTMB(ratio ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+#           data = frutos_quimico_clean_ratio, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo completo: ", e$message)
+#   return(NULL)
+# })
+# 
+# if (is.null(beta_ratio)) {
+#   stop("No se pudo ajustar el modelo completo para ratio.")
+# }
+# 
+# # Extraer varianzas
+# var_comps <- VarCorr(beta_ratio)
+# var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+# var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+# var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+# var_residual <- tryCatch(sigma(beta_ratio)^2, error = function(e) NA)
+# 
+# total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+# r_year <- (var_year / total_var) * 100
+# r_site <- (var_site / total_var) * 100
+# r_phenotype <- (var_phenotype / total_var) * 100
+# r_residual <- (var_residual / total_var) * 100
+# 
+# # Ajustar modelos reducidos
+# beta_ratio_year <- tryCatch({
+#   glmmTMB(ratio ~ 1 + (1|site) + (1|phenotype), 
+#           data = frutos_quimico_clean_ratio, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo reducido para year: ", e$message)
+#   return(NULL)
+# })
+# 
+# beta_ratio_site <- tryCatch({
+#   glmmTMB(ratio ~ 1 + (1|year) + (1|phenotype), 
+#           data = frutos_quimico_clean_ratio, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo reducido para site: ", e$message)
+#   return(NULL)
+# })
+# 
+# beta_ratio_phenotype <- tryCatch({
+#   glmmTMB(ratio ~ 1 + (1|year) + (1|site), 
+#           data = frutos_quimico_clean_ratio, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+#   return(NULL)
+# })
+# 
+# # Función para calcular p-valor mediante LRT, ajustada según rptR
+# calculate_LRT_p_value <- function(full_model, reduced_model) {
+#   if (is.null(full_model) || is.null(reduced_model)) return(NA)
+#   
+#   logLik_full <- logLik(full_model)
+#   logLik_reduced <- logLik(reduced_model)
+#   
+#   # Diferencia de log-verosimilitud multiplicada por 2
+#   LR_D <- -2 * (logLik_reduced - logLik_full)
+#   
+#   # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+#   df <- 1  # Asumiendo que quitamos un solo término aleatorio
+#   
+#   # P-valor usando chi-cuadrado
+#   p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+#   
+#   # Corrección para prueba unilateral cuando solo se elimina un parámetro
+#   if (df == 1 && LR_D > 0) {
+#     p_value <- p_value / 2
+#   }
+#   
+#   return(p_value)
+# }
+# 
+# # Calcular p-valores
+# p_year <- calculate_LRT_p_value(beta_ratio, beta_ratio_year)
+# p_site <- calculate_LRT_p_value(beta_ratio, beta_ratio_site)
+# p_phenotype <- calculate_LRT_p_value(beta_ratio, beta_ratio_phenotype)
+# 
+# # Crear un data frame con los resultados
+# results_ratio <- data.frame(
+#   Component = c("Year", "Site", "Phenotype", "Residual"),
+#   r = c(r_year, r_site, r_phenotype, r_residual),
+#   p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+# )
+# 
+# # Mostrar la tabla
+# print(results_ratio)
+
 ```
 
 ## DPPH
@@ -642,13 +1661,362 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_aao25<-rptGaussian(aao25 ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_quimico, nboot=3, npermut=3)
+# rpt_aao25
 
-rpt_aao25<-rptGaussian(aao25 ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_quimico, nboot=3, npermut=3)
-rpt_aao25
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+frutos_quimico_clean_aao <- frutos_quimico[!is.na(frutos_quimico$aao), ]
+
+# Dividir por 100
+
+frutos_quimico_clean_aao$aao <- frutos_quimico_clean_aao$aao/100
+
+# Ajustar aao para eliminar ceros y unos
+# frutos_quimico$aao <- pmin(pmax(frutos_quimico$aao, 0.001), 0.999)
+
+library(glmmTMB)
+
+# Ajustar el modelo completo con distribución Beta
+beta_aao <- tryCatch({
+  glmmTMB(aao ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+          data = frutos_quimico_clean_aao, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(beta_aao)) {
+  stop("No se pudo ajustar el modelo completo para aao.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(beta_aao)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(beta_aao)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+beta_aao_year <- tryCatch({
+  glmmTMB(aao ~ 1 + (1|site) + (1|phenotype), 
+          data = frutos_quimico_clean_aao, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+beta_aao_site <- tryCatch({
+  glmmTMB(aao ~ 1 + (1|year) + (1|phenotype), 
+          data = frutos_quimico_clean_aao, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+beta_aao_phenotype <- tryCatch({
+  glmmTMB(aao ~ 1 + (1|year) + (1|site), 
+          data = frutos_quimico_clean_aao, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(beta_aao, beta_aao_year)
+p_site <- calculate_LRT_p_value(beta_aao, beta_aao_site)
+p_phenotype <- calculate_LRT_p_value(beta_aao, beta_aao_phenotype)
+
+# Crear un data frame con los resultados
+results_aao <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_aao)
+
+# library(glmmTMB)
+# 
+# # Ajustar el modelo
+# modelo <- glmmTMB(aao ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+#                   data = frutos_quimico_clean_aao, 
+#                   family = beta_family(link = "logit"))
+# 
+# # Extraer los efectos fijos (en escala logit)
+# parametros_logit <- fixef(modelo)$cond
+# print(parametros_logit)
+# 
+# # Extraer los componentes de varianza
+# var_corr <- VarCorr(modelo)
+# print(var_corr)
+# 
+# # Extraer el parámetro de dispersión (phi)
+# phi <- sigma(modelo)
+# print(phi)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+frutos_quimico_clean_aao25 <- frutos_quimico[!is.na(frutos_quimico$aao25), ]
+
+# Dividir por 100
+
+frutos_quimico_clean_aao25$aao25 <- frutos_quimico_clean_aao25$aao25/100
+
+# Ajustar aao25 para eliminar ceros y unos
+# frutos_quimico$aao25 <- pmin(pmax(frutos_quimico$aao25, 0.001), 0.999)
+
+library(glmmTMB)
+
+# Ajustar el modelo completo con distribución Beta
+beta_aao25 <- tryCatch({
+  glmmTMB(aao25 ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+          data = frutos_quimico_clean_aao25, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(beta_aao25)) {
+  stop("No se pudo ajustar el modelo completo para aao25.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(beta_aao25)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(beta_aao25)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+beta_aao25_year <- tryCatch({
+  glmmTMB(aao25 ~ 1 + (1|site) + (1|phenotype), 
+          data = frutos_quimico_clean_aao25, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+beta_aao25_site <- tryCatch({
+  glmmTMB(aao25 ~ 1 + (1|year) + (1|phenotype), 
+          data = frutos_quimico_clean_aao25, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+beta_aao25_phenotype <- tryCatch({
+  glmmTMB(aao25 ~ 1 + (1|year) + (1|site), 
+          data = frutos_quimico_clean_aao25, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(beta_aao25, beta_aao25_year)
+p_site <- calculate_LRT_p_value(beta_aao25, beta_aao25_site)
+p_phenotype <- calculate_LRT_p_value(beta_aao25, beta_aao25_phenotype)
+
+# Crear un data frame con los resultados
+results_aao25 <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_aao25)
+
+```
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+frutos_quimico_clean_aao100 <- frutos_quimico[!is.na(frutos_quimico$aao100), ]
+
+# Dividir por 100
+
+frutos_quimico_clean_aao100$aao100 <- frutos_quimico_clean_aao100$aao100/100
+
+# Ajustar aao100 para eliminar ceros y unos
+# frutos_quimico$aao100 <- pmin(pmax(frutos_quimico$aao100, 0.001), 0.999)
+
+library(glmmTMB)
+
+# Ajustar el modelo completo con distribución Beta
+beta_aao100 <- tryCatch({
+  glmmTMB(aao100 ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+          data = frutos_quimico_clean_aao100, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(beta_aao100)) {
+  stop("No se pudo ajustar el modelo completo para aao100.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(beta_aao100)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(beta_aao100)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+beta_aao100_year <- tryCatch({
+  glmmTMB(aao100 ~ 1 + (1|site) + (1|phenotype), 
+          data = frutos_quimico_clean_aao100, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+beta_aao100_site <- tryCatch({
+  glmmTMB(aao100 ~ 1 + (1|year) + (1|phenotype), 
+          data = frutos_quimico_clean_aao100, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+beta_aao100_phenotype <- tryCatch({
+  glmmTMB(aao100 ~ 1 + (1|year) + (1|site), 
+          data = frutos_quimico_clean_aao100, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(beta_aao100, beta_aao100_year)
+p_site <- calculate_LRT_p_value(beta_aao100, beta_aao100_site)
+p_phenotype <- calculate_LRT_p_value(beta_aao100, beta_aao100_phenotype)
+
+# Crear un data frame con los resultados
+results_aao100 <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_aao100)
+
 ```
 
 ## PT
@@ -669,6 +2037,114 @@ rpt_PT<-rptGaussian(fen ~ (1|year) + (1|site) + (1|phenotype),
                     grname=c("year", "site", "phenotype", "Residual"),
                     data=frutos_quimico, nboot=3, npermut=3)
 rpt_PT
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_fen <- tryCatch({
+  glmer(fen ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_fen)) {
+  stop("No se pudo ajustar el modelo completo para fen.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_fen)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_fen_year <- tryCatch({
+  glmer(fen ~ 1 + (1|site) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_fen_site <- tryCatch({
+  glmer(fen ~ 1 + (1|year) + (1|phenotype), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_fen_phenotype <- tryCatch({
+  glmer(fen ~ 1 + (1|year) + (1|site), 
+        data = frutos_quimico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_fen, gamma_fen_year)
+p_site <- calculate_LRT_p_value(gamma_fen, gamma_fen_site)
+p_phenotype <- calculate_LRT_p_value(gamma_fen, gamma_fen_phenotype)
+
+# Crear un data frame con los resultados
+results_fen <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_fen)
+
+
+
 ```
 
 ## CTC/CL
@@ -682,13 +2158,261 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_CTC_CL<-rptGaussian(CTC_CL ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=frutos_quimico, nboot=3, npermut=3)
+# rpt_CTC_CL
 
-rpt_CTC_CL<-rptGaussian(CTC_CL ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=frutos_quimico, nboot=3, npermut=3)
-rpt_CTC_CL
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# frutos_quimico_clean_CTC_CL <- frutos_quimico[!is.na(frutos_quimico$CTC_CL), ]
+# 
+# frutos_quimico_clean_CTC_CL$CTC_CL <- frutos_quimico_clean_CTC_CL$CTC_CL/100
+# 
+# # library(lme4)
+# # 
+# # gamma_CTC_CL <- glmer(CTC_CL ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+# #         data = frutos_quimico, 
+# #         family = Gamma(link = "log"),
+# #         control = glmerControl(optimizer = "bobyqa"))
+# 
+# # library(glmmTMB)
+# # 
+# # beta_CTC_CL <- glmmTMB(CTC_CL ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+# #           data = frutos_quimico_clean_CTC_CL, 
+# #           family = beta_family(link = "logit"))
+# 
+# # AIC(gamma_CTC_CL, beta_CTC_CL)
+# 
+# library(glmmTMB)
+# 
+# # Ajustar el modelo completo con distribución Beta
+# beta_CTC_CL <- tryCatch({
+#   glmmTMB(CTC_CL ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+#           data = frutos_quimico_clean_CTC_CL, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo completo: ", e$message)
+#   return(NULL)
+# })
+# 
+# if (is.null(beta_CTC_CL)) {
+#   stop("No se pudo ajustar el modelo completo para CTC_CL.")
+# }
+# 
+# # Extraer varianzas
+# var_comps <- VarCorr(beta_CTC_CL)
+# var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+# var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+# var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+# var_residual <- tryCatch(sigma(beta_CTC_CL)^2, error = function(e) NA)
+# 
+# total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+# r_year <- (var_year / total_var) * 100
+# r_site <- (var_site / total_var) * 100
+# r_phenotype <- (var_phenotype / total_var) * 100
+# r_residual <- (var_residual / total_var) * 100
+# 
+# # Ajustar modelos reducidos
+# beta_CTC_CL_year <- tryCatch({
+#   glmmTMB(CTC_CL ~ 1 + (1|site) + (1|phenotype), 
+#           data = frutos_quimico_clean_CTC_CL, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo reducido para year: ", e$message)
+#   return(NULL)
+# })
+# 
+# beta_CTC_CL_site <- tryCatch({
+#   glmmTMB(CTC_CL ~ 1 + (1|year) + (1|phenotype), 
+#           data = frutos_quimico_clean_CTC_CL, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo reducido para site: ", e$message)
+#   return(NULL)
+# })
+# 
+# beta_CTC_CL_phenotype <- tryCatch({
+#   glmmTMB(CTC_CL ~ 1 + (1|year) + (1|site), 
+#           data = frutos_quimico_clean_CTC_CL, 
+#           family = beta_family(link = "logit"))
+# }, error = function(e) {
+#   warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+#   return(NULL)
+# })
+# 
+# # Función para calcular p-valor mediante LRT, ajustada según rptR
+# calculate_LRT_p_value <- function(full_model, reduced_model) {
+#   if (is.null(full_model) || is.null(reduced_model)) return(NA)
+#   
+#   logLik_full <- logLik(full_model)
+#   logLik_reduced <- logLik(reduced_model)
+#   
+#   # Diferencia de log-verosimilitud multiplicada por 2
+#   LR_D <- -2 * (logLik_reduced - logLik_full)
+#   
+#   # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+#   df <- 1  # Asumiendo que quitamos un solo término aleatorio
+#   
+#   # P-valor usando chi-cuadrado
+#   p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+#   
+#   # Corrección para prueba unilateral cuando solo se elimina un parámetro
+#   if (df == 1 && LR_D > 0) {
+#     p_value <- p_value / 2
+#   }
+#   
+#   return(p_value)
+# }
+# 
+# # Calcular p-valores
+# p_year <- calculate_LRT_p_value(beta_CTC_CL, beta_CTC_CL_year)
+# p_site <- calculate_LRT_p_value(beta_CTC_CL, beta_CTC_CL_site)
+# p_phenotype <- calculate_LRT_p_value(beta_CTC_CL, beta_CTC_CL_phenotype)
+# 
+# # Crear un data frame con los resultados
+# results_CTC_CL <- data.frame(
+#   Component = c("Year", "Site", "Phenotype", "Residual"),
+#   r = c(r_year, r_site, r_phenotype, r_residual),
+#   p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+# )
+# 
+# # Mostrar la tabla
+# print(results_CTC_CL)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_CTC_CL <- tryCatch({
+  glmer(CTC_CL ~ 1 + (1|year) + (1|site) + (1|phenotype),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_CTC_CL)) {
+  stop("No se pudo ajustar el modelo completo para CTC_CL.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_CTC_CL)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_CTC_CL_year <- tryCatch({
+  glmer(CTC_CL ~ 1 + (1|site) + (1|phenotype),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_CTC_CL_site <- tryCatch({
+  glmer(CTC_CL ~ 1 + (1|year) + (1|phenotype),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_CTC_CL_phenotype <- tryCatch({
+  glmer(CTC_CL ~ 1 + (1|year) + (1|site),
+        data = frutos_quimico,
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_CTC_CL, gamma_CTC_CL_year)
+p_site <- calculate_LRT_p_value(gamma_CTC_CL, gamma_CTC_CL_site)
+p_phenotype <- calculate_LRT_p_value(gamma_CTC_CL, gamma_CTC_CL_phenotype)
+
+# Crear un data frame con los resultados
+results_CTC_CL <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_CTC_CL)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+intercept <- -3.7058  # Tu valor de intercepto
+mu <- 1 / (1 + exp(-intercept))
+print(mu)
+
+random_effects <- ranef(beta_CTC_CL)
+
+for (group in names(random_effects)) {
+  if (nrow(random_effects[[group]]) > 0) {
+    for (i in 1:nrow(random_effects[[group]])) {
+      mu <- 1 / (1 + exp(-(intercept + random_effects[[group]][i,1])))
+      print(paste(group, " - ", rownames(random_effects[[group]])[i], ":", mu))
+    }
+  } else {
+    print(paste("No hay efectos aleatorios estimados para el grupo:", group))
+  }
+}
+
 ```
 
 # Análisis multivariado
@@ -720,6 +2444,13 @@ for (variable in variables_respuesta) {
   tablas_list_multivar[[variable]] <- get(paste0("Tabla_", variable))
   
 }
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+frutos_color$color_a <- frutos_color$color_a-21.1601
 
 ```
 
@@ -824,21 +2555,21 @@ tabla_combinada_ordenada$year.site <- as.factor(tabla_combinada_ordenada$year.si
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tabla_combinada2 <- tabla_combinada_ordenada[,-c(1:3, 23:25, 27)]
+tabla_combinada21 <- tabla_combinada_ordenada[,-c(1:3, 23:25, 27)]
 
 # Nombres de las variables
 nombres_variables <- c("pff", "de", "dp", "pen", "PSF", "PSS", "dedp","color_L", "color_a", "color_b","fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "CTC/CL")
-colnames(tabla_combinada2) <- nombres_variables
+colnames(tabla_combinada21) <- nombres_variables
 
 library(missMDA)
 library(doParallel)
 
 # Estimar el número óptimo de componentes
-# ncp_optimo <- estim_ncpPCA(tabla_combinada2, ncp.max = 17)$ncp
+# ncp_optimo <- estim_ncpPCA(tabla_combinada21, ncp.max = 17)$ncp
 
 # Imputar valores faltantes usando PCA factorial
 # Probar con el método regularizado
-data_imputed <- imputePCA(tabla_combinada2, ncp = 19, method = "Regularized")
+data_imputed <- imputePCA(tabla_combinada21, ncp = 19, method = "Regularized")
 
 tabla_pca <- (data_imputed$fittedX)
 
@@ -857,7 +2588,7 @@ tabla_pca_estandarizada$year.site <- tabla_combinada_ordenada$year.site
 tabla_cca_means <- tabla_pca_estandarizada
 
 # Revisar la matriz de correlación antes y después de la imputación
-# cor(tabla_combinada2, use = "complete.obs")
+# cor(tabla_combinada21, use = "complete.obs")
 # cor(data_imputed$fittedX)
 
 ```
@@ -868,7 +2599,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 tabla_pca <- tabla_cca_means[,-c(24)]
 
 # Nombres de las variables
-nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "TA/ATT", "TA", "DPPH25","CTC/CL","year","site","phenotype")
+nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "SS/ATT", "SS", "DPPH25","CTC/CL","year","site","phenotype")
 colnames(tabla_pca) <- nombres_variables
 
 library(FactoMineR)
@@ -956,6 +2687,10 @@ pca_var_dim1
 # Ordenar las variables por contribución para Dim.2 (PC2)
 pca_var_dim2 <- pca_var$contrib[, 2] %>% sort(decreasing = TRUE)
 pca_var_dim2
+
+# Ordenar las variables por contribución para Dim.2 (PC2)
+pca_var_dim3 <- pca_var$contrib[, 3] %>% sort(decreasing = TRUE)
+pca_var_dim3
 
 ```
 
@@ -1097,7 +2832,7 @@ gg_pca_fruits <- fviz_pca_biplot(pca_result,
                                 pointshape = 21,              # Forma de los puntos
                                 pointsize = 6,                # Tamaño de los puntos
                                 geom.var = c("point", "text"), # Puntos y texto para las variables
-                                labelsize = 10,               # Tamaño del texto
+                                labelsize = 8,               # Tamaño del texto
                                 fill.ind = tabla_pca$year, # Colorear los individuos por año
                                 col.ind = "black",            # Color del borde de los puntos
                                 repel = TRUE,                 # Evitar superposición de etiquetas
@@ -1117,7 +2852,7 @@ gg_pca_fruits <- fviz_pca_biplot(pca_result,
   # Personalizar el tema del gráfico
     theme_classic() +
   theme(legend.position = "bottom",
-        text = element_text(size = 32, color = 'black'),
+        text = element_text(size = 24, color = 'black'),
         axis.text = element_text(color = 'black')) +
   # Añadir un título o marcador en el gráfico
   geom_text(aes(x = Inf, y = Inf, label = ""), 
@@ -1132,7 +2867,7 @@ print(gg_pca_fruits)
 # dev.off()
 # 
 # Guardar el gráfico como PNG con alta resolución
-# ggsave("gg_pca_fruits.tiff", plot = gg_pca_fruits, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
+# ggsave("gg_pca_fruits.tiff", plot = gg_pca_fruits, device = "tiff", width = 15, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1150,7 +2885,7 @@ gg_pca_fruits_site <- fviz_pca_biplot(pca_result,
                                 pointshape = 21,              # Forma de los puntos
                                 pointsize = 6,                # Tamaño de los puntos
                                 geom.var = c("point", "text"), # Puntos y texto para las variables
-                                labelsize = 10,               # Tamaño del texto
+                                labelsize = 8,               # Tamaño del texto
                                 fill.ind = tabla_pca$site, # Colorear los individuos por año
                                 col.ind = "black",            # Color del borde de los puntos
                                 repel = TRUE,                 # Evitar superposición de etiquetas
@@ -1170,7 +2905,7 @@ gg_pca_fruits_site <- fviz_pca_biplot(pca_result,
   # Personalizar el tema del gráfico
     theme_classic() +
   theme(legend.position = "bottom",
-        text = element_text(size = 32, color = 'black'),
+        text = element_text(size = 24, color = 'black'),
         axis.text = element_text(color = 'black')) +
   # Añadir un título o marcador en el gráfico
   geom_text(aes(x = Inf, y = Inf, label = ""), 
@@ -1185,7 +2920,7 @@ print(gg_pca_fruits_site)
 # dev.off()
 # 
 # # Guardar el gráfico como PNG con alta resolución
-# ggsave("gg_pca_fruits_site.tiff", plot = gg_pca_fruits_site, device = "tiff", width = 10, height = 8, units = "in", dpi = 300)
+# ggsave("gg_pca_fruits_site.tiff", plot = gg_pca_fruits_site, device = "tiff", width = 15, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1231,26 +2966,27 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-## Heatmap
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
 
-library(Hmisc)
-library(ggcorrplot)
-library(corrplot)
+## Heatmap
 
-datos <- tabla_combinada2
-datos <- na.omit(datos)
-# Nombres de las variables
-nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "TA/ATT", "TA", "DPPH25", "CTC/CL","year","site","phenotype")
-colnames(datos) <- nombres_variables[-c(23:26)]
-
-# Calculamos la correlación de Spearman y los p-valores
-resultado_corr <- rcorr(as.matrix(datos), type = "spearman")
-
-# Calcula la matriz de correlación
-matriz_corr <- cor(datos, use = "pairwise.complete.obs") # Asegúrate de que 'datos' tiene el formato correcto
-p_valores <- cor.mtest(datos, conf.level = 0.95)$p  # Esto también debe coincidir con 'datos'
+# library(Hmisc)
+# library(ggcorrplot)
+# library(corrplot)
+# 
+# datos <- tabla_combinada21
+# datos <- na.omit(datos)
+# # Nombres de las variables
+# nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "TA/ATT", "TA", "DPPH25", "CTC/CL","year","site","phenotype")
+# colnames(datos) <- nombres_variables[-c(23:26)]
+# 
+# # Calculamos la correlación de Spearman y los p-valores
+# resultado_corr <- rcorr(as.matrix(datos), type = "spearman")
+# 
+# # Calcula la matriz de correlación
+# matriz_corr <- cor(datos, use = "pairwise.complete.obs") # Asegúrate de que 'datos' tiene el formato correcto
+# p_valores <- cor.mtest(datos, conf.level = 0.95)$p  # Esto también debe coincidir con 'datos'
 
 ```
 
@@ -1291,14 +3027,14 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width=
 # # Abre un dispositivo TIFF
 # tiff("heatmap_frutos.tiff", units = "cm", width = 32, height = 24, res = 300)
 # 
-corrplot(matriz_corr,
-         method = "ellipse",      # Mostrar elipses en la parte superior
-         type = "upper",          # Solo parte superior
-         addCoef.col = "black",   # Añadir valores numéricos de correlación
-         order = "AOE",           # Ordenar por ángulo
-         tl.col = "black",        # Color de las etiquetas
-         tl.pos = "d",            # Etiquetas en diagonal
-         tl.srt = 90)             # Inclinación de las etiquetas a 45 grados
+# corrplot(matriz_corr,
+#          method = "ellipse",      # Mostrar elipses en la parte superior
+#          type = "upper",          # Solo parte superior
+#          addCoef.col = "black",   # Añadir valores numéricos de correlación
+#          order = "AOE",           # Ordenar por ángulo
+#          tl.col = "black",        # Color de las etiquetas
+#          tl.pos = "d",            # Etiquetas en diagonal
+#          tl.srt = 90)             # Inclinación de las etiquetas a 45 grados
 # 
 # # Cerrar el dispositivo de gráficos
 # dev.off()
@@ -1310,36 +3046,36 @@ corrplot(matriz_corr,
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-tabla_combinada2 <- tabla_combinada_ordenada[,-c(1:3,27)]
+tabla_combinada21 <- tabla_combinada_ordenada[,-c(1:3,27)]
 
 # Nombres de las variables
 nombres_variables <- c("pff", "de", "dp", "pen", "PSF", "PSS", "dedp", "color_L", "color_a", "color_b","fen", "cloa", "clob", "caro", "indmad", "att", "ratio", "brix", "aao25", "aao50", "aao100", "aao250","CTC_CL")
-colnames(tabla_combinada2) <- nombres_variables
+colnames(tabla_combinada21) <- nombres_variables
 
 # Nombres de las variables
-colnames(tabla_combinada2) <- nombres_variables
+colnames(tabla_combinada21) <- nombres_variables
 
-tabla_combinada2$year <- tabla_combinada_ordenada$year
-tabla_combinada2$site <- tabla_combinada_ordenada$site
-tabla_combinada2$phenotype <- tabla_combinada_ordenada$phenotype
-tabla_combinada2$year.site <- tabla_combinada_ordenada$year.site
+tabla_combinada21$year <- tabla_combinada_ordenada$year
+tabla_combinada21$site <- tabla_combinada_ordenada$site
+tabla_combinada21$phenotype <- tabla_combinada_ordenada$phenotype
+tabla_combinada21$year.site <- tabla_combinada_ordenada$year.site
 
 # Filtrar filas donde indmad es mayor o igual a 0.25
 library(dplyr)
-tabla_combinada2_filtrada <- tabla_combinada_ordenada %>%
+tabla_combinada21_filtrada <- tabla_combinada_ordenada %>%
   dplyr::filter(indmad >= 0.25)
 
 # Agrupar por phenotype y resumir con la media de cada columna
-tabla_combinada2_resumida <- tabla_combinada2_filtrada %>%
+tabla_combinada21_resumida <- tabla_combinada21_filtrada %>%
   dplyr::group_by(site, phenotype) %>%
   dplyr::summarise(across(everything(), mean, na.rm = TRUE)) 
 
-tabla_combinada2_filtrada_pca <- tabla_combinada2_resumida[,-c(1:3,17,23:25,27)]
+tabla_combinada21_filtrada_pca <- tabla_combinada21_resumida[,-c(1:3,17,23:25,27)]
 
 library(missMDA)
 library(doParallel)
 # Imputar valores faltantes usando PCA factorial
-data_imputed <- imputePCA(tabla_combinada2_filtrada_pca, ncp = 18)
+data_imputed <- imputePCA(tabla_combinada21_filtrada_pca, ncp = 18)
 
 tabla_pca <- (data_imputed$fittedX)
 
@@ -1358,13 +3094,13 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 tabla_pca <- tabla_cca_means
 
 # Nombres de las variables
-nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "ATT", "TA/ATT", "TA", "DPPH25", "CTC/CL")
+nombres_variables <- c("PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "ATT", "SS/ATT", "SS", "DPPH25", "CTC/CL")
 colnames(tabla_pca) <- nombres_variables
 
 tabla_pca<-as.data.frame(tabla_pca)
 
-tabla_pca$site <- tabla_combinada2_resumida$site
-tabla_pca$phenotype <- tabla_combinada2_resumida$phenotype
+tabla_pca$site <- tabla_combinada21_resumida$site
+tabla_pca$phenotype <- tabla_combinada21_resumida$phenotype
 
 
 library(FactoMineR)
@@ -1404,7 +3140,7 @@ pca_var <- get_pca_var(pca_result)
 
 ```
 
-Contribuciones de las variables para CP2
+Contribuciones de las variables
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1415,6 +3151,10 @@ pca_var_dim1
 # Ordenar las variables por contribución para Dim.2 (PC2)
 pca_var_dim2 <- pca_var$contrib[, 2] %>% sort(decreasing = TRUE)
 pca_var_dim2
+
+# Ordenar las variables por contribución para Dim.2 (PC2)
+pca_var_dim3 <- pca_var$contrib[, 3] %>% sort(decreasing = TRUE)
+pca_var_dim3
 
 ```
 
@@ -1498,53 +3238,55 @@ gg_bar_agr
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Cargar el paquete ggrepel para evitar la superposición de las etiquetas
-library(ggrepel)
-library(ggplot2)
-library(factoextra)
 
+# Crear un marco de datos con las coordenadas y etiquetas
+data_labels <- data.frame(
+  x = pca_result$x[, 1],         # Coordenadas PC1
+  y = pca_result$x[, 2],         # Coordenadas PC2
+  label = tabla_pca$phenotype    # Etiquetas
+)
+
+# Verificar que las longitudes coincidan
+stopifnot(nrow(data_labels) == length(tabla_pca$phenotype))  # Esto lanza un error si no coinciden
+
+# Generar el gráfico
 gg_pca_fruits_site_sel <- fviz_pca_biplot(pca_result, 
                                 geom.ind = "point",           # Puntos para los individuos
                                 pointshape = 21,              # Forma de los puntos
                                 pointsize = 6,                # Tamaño de los puntos
                                 geom.var = c("point", "text"), # Puntos y texto para las variables
-                                labelsize = 10,               # Tamaño del texto
-                                fill.ind = tabla_pca$site,    # Colorear los individuos por año
+                                labelsize = 8,               # Tamaño del texto
+                                fill.ind = tabla_pca$site,    # Colorear los individuos por sitio
                                 col.ind = "black",            # Color del borde de los puntos
                                 repel = TRUE,                 # Evitar superposición de etiquetas
                                 addEllipses = FALSE,          # No agregar elipses
                                 label = "var",                # Etiquetar las variables
-                                col.var = "black",            # Color de las variables basado en cos2
+                                col.var = "black",            # Color de las variables
                                 arrows = TRUE) + 
-  # Colorear los puntos por year
+  # Colorear los puntos por sitio
   scale_fill_manual(values = c("coral1", "burlywood2", "palegreen4"),
                     name = NULL) +
-  
   # Añadir título y etiquetas de ejes
   labs(title = "", 
        x = "Componente Principal 1 (28,6 %)",
        y = "Componente Principal 2 (22,5 %)") +
-  
   # Personalizar el tema del gráfico
-    theme_classic() +
+  theme_classic() +
   theme(legend.position = "bottom",
-        text = element_text(size = 32, color = 'black'),
+        text = element_text(size = 24, color = 'black'),
         axis.text = element_text(color = 'black')) +
   # Añadir las etiquetas de 'phenotype' a cada punto
-  geom_text_repel(aes(x = pca_result$ind$coord[,1], 
-                      y = pca_result$ind$coord[,2], 
-                      label = tabla_pca$phenotype),
+  geom_text_repel(data = data_labels, 
+                  aes(x = x, y = y, label = label),
                   size = 6, color = "black") +
   # Limitar los ejes para que los vectores sean visibles
-  coord_cartesian(xlim = c(-5, 8), ylim = c(-6, 7.2))
+  coord_cartesian(xlim = c(-5, 6.5), ylim = c(-7.5, 6))
 
+# Mostrar el gráfico
 gg_pca_fruits_site_sel
-
-# # Cerrar todos los dispositivos gráficos abiertos
-# dev.off()
  
 # # Guardar el gráfico como PNG con alta resolución
-# ggsave("gg_pca_fruits_site_sel.tiff", plot = gg_pca_fruits_site_sel, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+# ggsave("gg_pca_fruits_site_sel.tiff", plot = gg_pca_fruits_site_sel, device = "tiff", width = 15, height = 10, units = "in", dpi = 300)
 
 ```
 

@@ -9,6 +9,8 @@ output:
      smooth_scroll: true
 ---
 
+# Listas
+
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -36,7 +38,32 @@ datosfisico$site <- factor(datosfisico$site, levels = c("Concordia", "PN El Palm
 datosfisico$phenotype <- as.factor(datosfisico$phenotype)
 datosfisico$id <- as.factor(datosfisico$id)
 datosfisico$mad <- as.factor(datosfisico$mad)
-datosfisico$PSS_PSF <- datosfisico$PSS/datosfisico$PSF
+# Primero, filtramos las filas donde PSS no es NA ni cero
+datosfisico_filtrado <- datosfisico[!is.na(datosfisico$PSS) & datosfisico$PSS != 0, ]
+datosfisico_filtrado$PSS_PSF <- datosfisico_filtrado$PSS / datosfisico_filtrado$PSF
+datosfisico <- datosfisico_filtrado
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Media y CV%
+# Primero, cargamos las librerías necesarias si no están ya cargadas
+library(dplyr)
+datosff_mean <- datosff[,-c(1:4,6)]
+datosramas_mean <- datosramas[,-c(1:4)]
+datosfisico_mean <- datosfisico[,-c(1:4,9)]
+
+# Calculamos la media y el CV% de cada variable numérica
+resultados <- datosff_mean %>%
+  dplyr::summarise(dplyr::across(dplyr::where(is.numeric), list(
+    mean = ~mean(., na.rm = TRUE),
+    CV = ~sd(., na.rm = TRUE) / mean(., na.rm = TRUE) * 100
+  )))
+
+# Muestra el resultado
+print(resultados)
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -242,7 +269,7 @@ for (variable in variables_respuesta) {
 
 ```
 
-# Estimación de coeficientes de correlación intraclase (CCI)
+# Estimación de componentes de varianza
 
 ## Peso seco de botones florales en fases C/D (PSFL)
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -276,13 +303,174 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_DMAP<-rptGaussian(DMAP ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=datosff, nboot=3, npermut=3)
+# summary(rpt_DMAP)
 
-rpt_DMAP<-rptGaussian(DMAP ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=datosff, nboot=3, npermut=3)
-summary(rpt_DMAP)
+# library(rptR)
+# library(pbapply)
+# datosff$DMAP <- as.integer(datosff$DMAP)
+# rpt_DMAP<-rptPoisson(DMAP ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual", "Overdispersion"),
+#                     data=datosff,
+#                     link = c("log"), nboot=3, npermut=3)
+# summary(rpt_DMAP)
+
+# library(lme4)
+# 
+# Gaussian_DMAP <- lmer(DMAP ~ (1|year) + (1|site/phenotype), 
+#                data = datosff,
+#               )
+# 
+# residuals_Gaussian <- residuals(Gaussian_DMAP)
+# library(car)
+# # Gráfico Q-Q para chequear normalidad
+# qqPlot(residuals_Gaussian, main = "Q-Q Plot de Residuos")
+# 
+# # Prueba de Shapiro-Wilk para normalidad (aunque menos recomendada para grandes muestras)
+# shapiro.test(residuals_Gaussian)
+# 
+# # Gráfico de residuos vs valores ajustados para chequear homogeneidad de varianzas
+# plot(fitted(Gaussian_DMAP), residuals_Gaussian, 
+#      xlab = "Valores Ajustados", ylab = "Residuos", 
+#      main = "Residuos vs Valores Ajustados")
+# abline(h = 0, col = "red")
+
+# library(lme4)
+datosff$DMAP <- as.integer(datosff$DMAP)
+# Poisson_DMAP <- glmer(DMAP ~ (1|year) + (1|site/phenotype), 
+#                data = datosff,
+#                family = poisson(link = "log"))
+# 
+# #Residuos 
+# names(Poisson_DMAP)
+# rd<-resid(Poisson_DMAP) # residuos devianza
+# rp<-resid(Poisson_DMAP, type="pearson") #residuos de Pearson
+# ajust<-fitted(Poisson_DMAP) #predichos en escala de Y
+# 
+# #Grafico de residuos vs predichos
+# plot(ajust, rp,xlab="predichos", ylab= "Residuos de pearson", main="Gráfico de RP vs PRED")
+# abline(0,0)
+# plot(cooks.distance(Poisson_DMAP), type="h", xlab="Id", ylab= "Distancia de Cook", main="Gráfico de Distancia de Cook")
+# 
+# # Dispersión
+# residuals_pearson <- residuals(Poisson_DMAP, type = "pearson")
+# df_residual <- df.residual(Poisson_DMAP)
+# 
+# dispersion <- sum(residuals_pearson^2) / df_residual # HAY SUBDISPERSIÓN
+
+library(glmmTMB)
+# Ajuste del modelo completo con distribución compois
+CMP_DMAP <- glmmTMB(DMAP ~ (1|year) + (1|site/phenotype), 
+                    data = datosff, 
+                    family = compois())
+
+# # Dispersión
+# residuals_pearson <- residuals(CMP_DMAP, type = "pearson")
+# df_residual <- df.residual(CMP_DMAP)
+
+# dispersion <- sum(residuals_pearson^2) / df_residual
+
+# # Encuentra el índice del valor absoluto máximo de los residuos
+# outlier_index <- which.max(abs(residuals_CMP))
+# 
+# # Muestra los detalles del outlier
+# cat("Índice del outlier:", outlier_index, "\n")
+# cat("Valor ajustado del outlier:", ajust[outlier_index], "\n")
+# cat("Residuo de deviance del outlier:", rp[outlier_index], "\n")
+# cat("Datos originales del outlier:\n")
+# print(datosff[outlier_index, ])
+
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Extraer varianzas
+var_comps <- VarCorr(CMP_DMAP)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site_phenotype <- tryCatch(as.numeric(var_comps$cond$`phenotype:site`[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(CMP_DMAP)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site_phenotype, var_site, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site_phenotype <- (var_site_phenotype / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+CMP_DMAP_year <- tryCatch({
+  glmmTMB(DMAP ~ (1|site/phenotype), 
+          data = datosff, 
+          family = compois())
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+CMP_DMAP_site <- tryCatch({
+  glmmTMB(DMAP ~ (1|year) + (1|phenotype), 
+          data = datosff, 
+          family = compois())
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+CMP_DMAP_phenotype <- tryCatch({
+  glmmTMB(DMAP ~ (1|year) + (1|site), 
+          data = datosff, 
+          family = compois())
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, adaptada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(CMP_DMAP, CMP_DMAP_year)
+p_site <- calculate_LRT_p_value(CMP_DMAP, CMP_DMAP_site)
+p_phenotype <- calculate_LRT_p_value(CMP_DMAP, CMP_DMAP_phenotype)
+
+# Crear un data frame con los resultados
+results_DMAP <- data.frame(
+  Component = c("Year", "Site:Phenotype", "Site", "Residual"),
+  r = c(r_year, r_site_phenotype, r_site, r_residual),
+  p_value = c(p_year, p_phenotype, p_site, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_DMAP)
 
 ```
 
@@ -297,13 +485,169 @@ Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(rptR)
-library(pbapply)
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_DMIP<-rptGaussian(DMIP ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=datosff, nboot=3, npermut=3)
+# summary(rpt_DMIP)
 
-rpt_DMIP<-rptGaussian(DMIP ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=datosff, nboot=3, npermut=3)
-summary(rpt_DMIP)
+# library(rptR)
+# library(pbapply)
+datosff$DMIP <- as.integer(datosff$DMIP)
+# rpt_DMIP<-rptPoisson(DMIP ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual", "Overdispersion"),
+#                     data=datosff,
+#                     link = c("log"), nboot=3, npermut=3)
+# summary(rpt_DMIP)
+
+# library(lme4)
+# 
+# Gaussian_DMIP <- lmer(DMIP ~ (1|year) + (1|site/phenotype), 
+#                data = datosff,
+#               )
+# 
+# residuals_Gaussian <- residuals(Gaussian_DMIP)
+# library(car)
+# # Gráfico Q-Q para chequear normalidad
+# qqPlot(residuals_Gaussian, main = "Q-Q Plot de Residuos")
+# 
+# # Prueba de Shapiro-Wilk para normalidad (aunque menos recomendada para grandes muestras)
+# shapiro.test(residuals_Gaussian)
+# 
+# # Gráfico de residuos vs valores ajustados para chequear homogeneidad de varianzas
+# plot(fitted(Gaussian_DMIP), residuals_Gaussian, 
+#      xlab = "Valores Ajustados", ylab = "Residuos", 
+#      main = "Residuos vs Valores Ajustados")
+# abline(h = 0, col = "red")
+
+# library(lme4)
+# datosff$DMIP <- as.integer(datosff$DMIP)
+# Poisson_DMIP <- glmer(DMIP ~ (1|year) + (1|site/phenotype), 
+#                data = datosff,
+#                family = poisson(link = "log"))
+# 
+# #Residuos 
+# names(Poisson_DMIP)
+# rd<-resid(Poisson_DMIP) # residuos devianza
+# rp<-resid(Poisson_DMIP, type="pearson") #residuos de Pearson
+# ajust<-fitted(Poisson_DMIP) #predichos en escala de Y
+# 
+# #Grafico de residuos vs predichos
+# plot(ajust, rp,xlab="predichos", ylab= "Residuos de pearson", main="Gráfico de RP vs PRED")
+# abline(0,0)
+# plot(cooks.distance(Poisson_DMIP), type="h", xlab="Id", ylab= "Distancia de Cook", main="Gráfico de Distancia de Cook")
+# 
+# # Dispersión
+# residuals_pearson <- residuals(Poisson_DMIP, type = "pearson")
+# df_residual <- df.residual(Poisson_DMIP)
+# 
+# dispersion <- sum(residuals_pearson^2) / df_residual # HAY SUBDISPERSIÓN
+
+library(glmmTMB)
+# Ajuste del modelo completo con distribución compois
+CMP_DMIP <- glmmTMB(DMIP ~ (1|year) + (1|site/phenotype), 
+                    data = datosff, 
+                    family = compois())
+
+# Dispersión
+residuals_pearson <- residuals(CMP_DMIP, type = "pearson")
+df_residual <- df.residual(CMP_DMIP)
+
+dispersion <- sum(residuals_pearson^2) / df_residual
+
+# # Encuentra el índice del valor absoluto máximo de los residuos
+# outlier_index <- which.max(abs(residuals_CMP))
+# 
+# # Muestra los detalles del outlier
+# cat("Índice del outlier:", outlier_index, "\n")
+# cat("Valor ajustado del outlier:", ajust[outlier_index], "\n")
+# cat("Residuo de deviance del outlier:", rp[outlier_index], "\n")
+# cat("Datos originales del outlier:\n")
+# print(datosff[outlier_index, ])
+
+
+
+# Extraer varianzas
+var_comps <- VarCorr(CMP_DMIP)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site_phenotype <- tryCatch(as.numeric(var_comps$cond$`phenotype:site`[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(CMP_DMIP)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site_phenotype, var_site, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site_phenotype <- (var_site_phenotype / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+CMP_DMIP_year <- tryCatch({
+  glmmTMB(DMIP ~ (1|site/phenotype), 
+          data = datosff, 
+          family = compois())
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+CMP_DMIP_site <- tryCatch({
+  glmmTMB(DMIP ~ (1|year) + (1|phenotype), 
+          data = datosff, 
+          family = compois())
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+CMP_DMIP_phenotype <- tryCatch({
+  glmmTMB(DMIP ~ (1|year) + (1|site), 
+          data = datosff, 
+          family = compois())
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, adaptada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(CMP_DMIP, CMP_DMIP_year)
+p_site <- calculate_LRT_p_value(CMP_DMIP, CMP_DMIP_site)
+p_phenotype <- calculate_LRT_p_value(CMP_DMIP, CMP_DMIP_phenotype)
+
+# Crear un data frame con los resultados
+results_DMIP <- data.frame(
+  Component = c("Year", "Site:Phenotype", "Site", "Residual"),
+  r = c(r_year, r_site_phenotype, r_site, r_residual),
+  p_value = c(p_year, p_phenotype, p_site, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_DMIP)
 
 ```
 
@@ -363,16 +707,122 @@ graficos_list$NS_NO
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datosff_clean <- datosff[!is.na(datosff$NS_NO), ]
-datosff_clean$NS_NO_log <- log(datosff_clean$NS_NO+1)
+datosff_clean_NS_NO <- datosff[!is.na(datosff$NS_NO), ]
+# datosff_clean_NS_NO$NS_NO_log <- log(datosff_clean$NS_NO+1)
+# 
+# library(rptR)
+# library(pbapply)
+# 
+# rpt_NSNO_<-rptGaussian((NS_NO) ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=datosff_clean_NS_NO, nboot=3, npermut=3)
+# summary(rpt_NSNO_log)
 
-library(rptR)
-library(pbapply)
+```
 
-rpt_NSNO_log<-rptGaussian((NS_NO_log) ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=datosff_clean, nboot=3, npermut=3)
-summary(rpt_NSNO_log)
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+datosff_clean_NS_NO <- datosff[!is.na(datosff$NS_NO), ]
+# Ajustar NS/NO para eliminar ceros y unos
+datosff_clean_NS_NO$adjusted_NS_NO <- pmin(pmax(datosff_clean_NS_NO$NS_NO, 0.001), 0.999)
+
+library(glmmTMB)
+
+# Ajustar el modelo completo con distribución Beta
+beta_adjusted_NS_NO <- tryCatch({
+  glmmTMB(adjusted_NS_NO ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+          data = datosff_clean_NS_NO, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(beta_adjusted_NS_NO)) {
+  stop("No se pudo ajustar el modelo completo para adjusted_NS_NO.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(beta_adjusted_NS_NO)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(beta_adjusted_NS_NO)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+beta_adjusted_NS_NO_year <- tryCatch({
+  glmmTMB(adjusted_NS_NO ~ 1 + (1|site) + (1|phenotype), 
+          data = datosff_clean_NS_NO, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+beta_adjusted_NS_NO_site <- tryCatch({
+  glmmTMB(adjusted_NS_NO ~ 1 + (1|year) + (1|phenotype), 
+          data = datosff_clean_NS_NO, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+beta_adjusted_NS_NO_phenotype <- tryCatch({
+  glmmTMB(adjusted_NS_NO ~ 1 + (1|year) + (1|site), 
+          data = datosff_clean_NS_NO, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(beta_adjusted_NS_NO, beta_adjusted_NS_NO_year)
+p_site <- calculate_LRT_p_value(beta_adjusted_NS_NO, beta_adjusted_NS_NO_site)
+p_phenotype <- calculate_LRT_p_value(beta_adjusted_NS_NO, beta_adjusted_NS_NO_phenotype)
+
+# Crear un data frame con los resultados
+results_adjusted_NS_NO <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_adjusted_NS_NO)
+
 ```
 
 ## NFL/cm
@@ -380,13 +830,14 @@ summary(rpt_NSNO_log)
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-graficos_list$NFR_NFL
+graficos_list$NFL_cm
 
 ```
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+datosramas$NFL_cm <- datosramas$NFL_cm+0.001
 datosramas_clean <- datosramas[!is.na(datosramas$NFL_cm), ]
 datosramas_clean$NFL_cm_log <- log(datosramas_clean$NFL_cm+1)
 
@@ -397,6 +848,113 @@ rpt_NFL_cm_log<-rptGaussian(NFL_cm_log ~ (1|year) + (1|site) + (1|phenotype),
                     grname=c("year", "site", "phenotype", "Residual"),
                     data=datosramas_clean, nboot=3, npermut=3)
 summary(rpt_NFL_cm_log)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+datosramas$NFL_cm <- datosramas$NFL_cm + 0.001
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_NFL_cm <- tryCatch({
+  glmer(NFL_cm ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = datosramas, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_NFL_cm)) {
+  stop("No se pudo ajustar el modelo completo para NFL_cm.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_NFL_cm)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_NFL_cm_year <- tryCatch({
+  glmer(NFL_cm ~ 1 + (1|site) + (1|phenotype), 
+        data = datosramas, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_NFL_cm_site <- tryCatch({
+  glmer(NFL_cm ~ 1 + (1|year) + (1|phenotype), 
+        data = datosramas, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_NFL_cm_phenotype <- tryCatch({
+  glmer(NFL_cm ~ 1 + (1|year) + (1|site), 
+        data = datosramas, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_NFL_cm, gamma_NFL_cm_year)
+p_site <- calculate_LRT_p_value(gamma_NFL_cm, gamma_NFL_cm_site)
+p_phenotype <- calculate_LRT_p_value(gamma_NFL_cm, gamma_NFL_cm_phenotype)
+
+# Crear un data frame con los resultados
+results_NFL_cm <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_NFL_cm)
 
 ```
 
@@ -413,16 +971,144 @@ graficos_list$NFR_NFL
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
 
 datosramas_clean <- datosramas[!is.na(datosramas$NFR_NFL), ]
-datosramas_clean$NFR_NFL_log <- log(datosramas_clean$NFR_NFL+1)
+# Añadir una pequeña constante para evitar ceros exactos
+epsilon <- 1e-6  # Puedes ajustar este valor según sea necesario
 
-library(rptR)
-library(pbapply)
-rpt_NFR_NFL_log<-rptGaussian((NFR_NFL_log) ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=datosramas_clean, nboot=3, npermut=3)
-summary(rpt_NFR_NFL_log)
+datosramas_clean$NFR_NFL_transformed <- ifelse(datosramas_clean$NFR_NFL == 1, 1 - epsilon,
+                                                ifelse(datosramas_clean$NFR_NFL == 0, epsilon,
+                                                       datosramas_clean$NFR_NFL))
+       
+# library(rptR)
+# library(pbapply)
+# rpt_NFR_NFL_log<-rptGaussian((NFR_NFL_log) ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=datosramas_clean, nboot=3, npermut=3)
+# summary(rpt_NFR_NFL_log)
+
+library(glmmTMB)
+
+# Modelo que incluye una parte para los ceros y otra para la distribución beta
+model_NFR_NFL <- glmmTMB(NFR_NFL_transformed ~ 1 + (1|year) + (1|site) + (1|phenotype),
+                     data = datosramas_clean,
+                     family = beta_family(link = "logit"))
 
 ```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(glmmTMB)
+
+# Ajustar el modelo completo con distribución Beta
+beta_NFR_NFL <- tryCatch({
+  glmmTMB(NFR_NFL_transformed ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+          data = datosramas_clean, 
+          family = beta_family(link = "logit"),
+          control = glmmTMBControl(optCtrl = list(iter.max=1e3, eval.max=1e3)))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo con control de optimización: ", e$message)
+  return(NULL)
+})
+
+if (is.null(beta_NFR_NFL)) {
+  stop("No se pudo ajustar el modelo completo para NFR_NFL.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(beta_NFR_NFL)
+var_year <- tryCatch(as.numeric(var_comps$cond$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$cond$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$cond$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(sigma(beta_NFR_NFL)^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+beta_NFR_NFL_year <- tryCatch({
+  glmmTMB(NFR_NFL_transformed ~ 1 + (1|site) + (1|phenotype), 
+          data = datosramas_clean, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+beta_NFR_NFL_site <- tryCatch({
+  glmmTMB(NFR_NFL_transformed ~ 1 + (1|year) + (1|phenotype), 
+          data = datosramas_clean, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+beta_NFR_NFL_phenotype <- tryCatch({
+  glmmTMB(NFR_NFL_transformed ~ 1 + (1|year) + (1|site), 
+          data = datosramas_clean, 
+          family = beta_family(link = "logit"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Verificar que las log-verosimilitudes no sean NA
+  if (is.na(logLik_full) || is.na(logLik_reduced)) {
+    warning("Log-likelihood is NA for one or both models.")
+    return(NA)
+  }
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # Verificación adicional para evitar NA en la condición
+  if (is.na(LR_D) || is.na(df)) {
+    warning("LR_D or df is NA, cannot compute p-value.")
+    return(NA)
+  }
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(beta_NFR_NFL, beta_NFR_NFL_year)
+p_site <- calculate_LRT_p_value(beta_NFR_NFL, beta_NFR_NFL_site)
+p_phenotype <- calculate_LRT_p_value(beta_NFR_NFL, beta_NFR_NFL_phenotype)
+
+# Crear un data frame con los resultados
+results_NFR_NFL <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_NFR_NFL)
+
+```
+
+
 
 ## Peso seco fruto
 
@@ -437,14 +1123,122 @@ graficos_list$PSF
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
 
 datosfisico_clean <- datosfisico[!is.na(datosfisico$PSF), ]
-datosfisico_clean$PSF_log <- log(datosfisico_clean$PSF)+3
+# datosfisico_clean$PSF_log <- log(datosfisico_clean$PSF)+3
 
-library(rptR)
-library(pbapply)
-rpt_PSF_log<-rptGaussian((PSF_log) ~ (1|year) + (1|site) + (1|phenotype),
-                    grname=c("year", "site", "phenotype", "Residual"),
-                    data=datosfisico_clean, nboot=3, npermut=3)
-summary(rpt_PSF_log)
+# library(rptR)
+# library(pbapply)
+# rpt_PSF_log<-rptGaussian((PSF_log) ~ (1|year) + (1|site) + (1|phenotype),
+#                     grname=c("year", "site", "phenotype", "Residual"),
+#                     data=datosfisico_clean, nboot=3, npermut=3) #, ratio =FALSE
+# summary(rpt_PSF_log)
+
+# Mtest <- lmer((PSF_log) ~ (1|year) + (1|site) + (1|site/phenotype),
+# data=datosfisico_clean)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_PSF <- tryCatch({
+  glmer(PSF ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_PSF)) {
+  stop("No se pudo ajustar el modelo completo para PSF.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_PSF)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_PSF_year <- tryCatch({
+  glmer(PSF ~ 1 + (1|site) + (1|phenotype), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_PSF_site <- tryCatch({
+  glmer(PSF ~ 1 + (1|year) + (1|phenotype), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_PSF_phenotype <- tryCatch({
+  glmer(PSF ~ 1 + (1|year) + (1|site), 
+        data = frutos_fisico, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_PSF, gamma_PSF_year)
+p_site <- calculate_LRT_p_value(gamma_PSF, gamma_PSF_site)
+p_phenotype <- calculate_LRT_p_value(gamma_PSF, gamma_PSF_phenotype)
+
+# Crear un data frame con los resultados
+results_PSF <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_PSF)
 
 ```
 
@@ -473,6 +1267,111 @@ summary(rpt_PSS_log)
 
 ```
 
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+library(lme4)
+
+# Ajustar el modelo completo con distribución Gamma
+gamma_PSS <- tryCatch({
+  glmer(PSS ~ 1 + (1|year) + (1|site) + (1|phenotype), 
+        data = datosfisico_clean, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo completo: ", e$message)
+  return(NULL)
+})
+
+if (is.null(gamma_PSS)) {
+  stop("No se pudo ajustar el modelo completo para PSS.")
+}
+
+# Extraer varianzas
+var_comps <- VarCorr(gamma_PSS)
+var_year <- tryCatch(as.numeric(var_comps$year[1]), error = function(e) NA)
+var_site <- tryCatch(as.numeric(var_comps$site[1]), error = function(e) NA)
+var_phenotype <- tryCatch(as.numeric(var_comps$phenotype[1]), error = function(e) NA)
+var_residual <- tryCatch(attr(var_comps, "sc")^2, error = function(e) NA)
+
+total_var <- sum(var_year, var_site, var_phenotype, var_residual, na.rm = TRUE)
+r_year <- (var_year / total_var) * 100
+r_site <- (var_site / total_var) * 100
+r_phenotype <- (var_phenotype / total_var) * 100
+r_residual <- (var_residual / total_var) * 100
+
+# Ajustar modelos reducidos
+gamma_PSS_year <- tryCatch({
+  glmer(PSS ~ 1 + (1|site) + (1|phenotype), 
+        data = datosfisico_clean, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para year: ", e$message)
+  return(NULL)
+})
+
+gamma_PSS_site <- tryCatch({
+  glmer(PSS ~ 1 + (1|year) + (1|phenotype), 
+        data = datosfisico_clean, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para site: ", e$message)
+  return(NULL)
+})
+
+gamma_PSS_phenotype <- tryCatch({
+  glmer(PSS ~ 1 + (1|year) + (1|site), 
+        data = datosfisico_clean, 
+        family = Gamma(link = "log"),
+        control = glmerControl(optimizer = "bobyqa"))
+}, error = function(e) {
+  warning("Error ajustando el modelo reducido para phenotype: ", e$message)
+  return(NULL)
+})
+
+# Función para calcular p-valor mediante LRT, ajustada según rptR
+calculate_LRT_p_value <- function(full_model, reduced_model) {
+  if (is.null(full_model) || is.null(reduced_model)) return(NA)
+  
+  logLik_full <- logLik(full_model)
+  logLik_reduced <- logLik(reduced_model)
+  
+  # Diferencia de log-verosimilitud multiplicada por 2
+  LR_D <- -2 * (logLik_reduced - logLik_full)
+  
+  # Grados de libertad (esto puede variar dependiendo del número de términos aleatorios removidos)
+  df <- 1  # Asumiendo que quitamos un solo término aleatorio
+  
+  # P-valor usando chi-cuadrado
+  p_value <- pchisq(LR_D, df, lower.tail = FALSE)
+  
+  # Corrección para prueba unilateral cuando solo se elimina un parámetro
+  if (df == 1 && LR_D > 0) {
+    p_value <- p_value / 2
+  }
+  
+  return(p_value)
+}
+
+# Calcular p-valores
+p_year <- calculate_LRT_p_value(gamma_PSS, gamma_PSS_year)
+p_site <- calculate_LRT_p_value(gamma_PSS, gamma_PSS_site)
+p_phenotype <- calculate_LRT_p_value(gamma_PSS, gamma_PSS_phenotype)
+
+# Crear un data frame con los resultados
+results_PSS <- data.frame(
+  Component = c("Year", "Site", "Phenotype", "Residual"),
+  r = c(r_year, r_site, r_phenotype, r_residual),
+  p_value = c(p_year, p_site, p_phenotype, NA)  # No hay p-value para el residual en este contexto
+)
+
+# Mostrar la tabla
+print(results_PSS)
+
+```
+
 ## peso seco de semilla/peso seco de fruto
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -493,6 +1392,203 @@ rpt_PSS_PSF<-rptGaussian((PSS_PSF) ~ (1|year) + (1|site) + (1|phenotype),
                     grname=c("year", "site", "phenotype", "Residual"),
                     data=datosfisico_clean, nboot=3, npermut=3)
 summary(rpt_PSS_PSF)
+# 
+# Gaussian_PSS_PSF <- lmer(PSS_PSF ~ (1|year) + (1|site/phenotype),
+#                data = datosfisico_clean,
+#               )
+# 
+# residuals_Gaussian <- residuals(Gaussian_PSS_PSF)
+# library(car)
+# # Gráfico Q-Q para chequear normalidad
+# qqPlot(residuals_Gaussian, main = "Q-Q Plot de Residuos")
+# 
+# # Prueba de Shapiro-Wilk para normalidad (aunque menos recomendada para grandes muestras)
+# shapiro.test(residuals_Gaussian)
+# 
+# # Gráfico de residuos vs valores ajustados para chequear homogeneidad de varianzas
+# plot(fitted(Gaussian_PSS_PSF), residuals_Gaussian,
+#      xlab = "Valores Ajustados", ylab = "Residuos",
+#      main = "Residuos vs Valores Ajustados")
+# abline(h = 0, col = "red")
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+
+library(lme4)
+library(ggplot2)
+library(dplyr)
+
+# Ajuste del modelo con lmer (NO es BETA)
+lmer_PSS_PSF <- lmer(PSS_PSF ~ 1 + (1|year) + (1|site) + (1|phenotype), data = datosfisico_clean)
+
+# Extraer efectos aleatorios
+random_effects <- ranef(lmer_PSS_PSF)
+
+# Para 'year'
+year_effects <- random_effects$year %>% 
+                as.data.frame() %>% 
+                dplyr::mutate(grp = rownames(.),
+                       estimate = `(Intercept)`,
+                       sd = as.data.frame(VarCorr(lmer_PSS_PSF))$sdcor[which(names(VarCorr(lmer_PSS_PSF)) == "year")])
+
+ggplot(data = year_effects, aes(x = grp, y = estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = estimate - sd, ymax = estimate + sd), width = 0.2) +
+  labs(title = "Efectos Aleatorios por Año", x = "Año", y = "Efecto Aleatorio") +
+  theme_minimal()
+
+# Para 'site'
+site_effects <- random_effects$site %>% 
+                as.data.frame() %>% 
+                dplyr::mutate(grp = rownames(.),
+                       estimate = `(Intercept)`,
+                       sd = as.data.frame(VarCorr(lmer_PSS_PSF))$sdcor[which(names(VarCorr(lmer_PSS_PSF)) == "site")])
+
+ggplot(data = site_effects, aes(x = grp, y = estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = estimate - sd, ymax = estimate + sd), width = 0.2) +
+  labs(title = "Efectos Aleatorios por Sitio", x = "Sitio", y = "Efecto Aleatorio") +
+  theme_minimal()
+
+# Para 'phenotype'
+phenotype_effects <- random_effects$phenotype %>% 
+                     as.data.frame() %>% 
+                     dplyr::mutate(grp = rownames(.),
+                            estimate = `(Intercept)`,
+                            sd = as.data.frame(VarCorr(lmer_PSS_PSF))$sdcor[which(names(VarCorr(lmer_PSS_PSF)) == "phenotype")])
+
+phenotype_effects_ordenado <- phenotype_effects[order(phenotype_effects$estimate, decreasing = TRUE), ]
+
+# Convertir 'grp' a factor, manteniendo el orden del data frame ordenado
+phenotype_effects_ordenado$grp <- factor(phenotype_effects_ordenado$grp, levels = phenotype_effects_ordenado$grp)
+
+# Ahora el gráfico reflejará el orden
+ggplot(data = phenotype_effects_ordenado, aes(x = grp, y = estimate)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = estimate - sd, ymax = estimate + sd), width = 0.2) +
+  labs(title = "Efectos Aleatorios por Fenotipo", x = "Fenotipo", y = "Efecto Aleatorio") +
+  theme_minimal()
+
+```
+
+
+# Cálculo de (\( R^2 \)) y (\( \eta_0 \))
+
+Cruz, C. D., Regazzi, A. J., & Carneiro, P. C. S. (2004). Modelos biométricos aplicados ao melhoramento genético. Viçosa: Universidade Federal de Viçosa.
+
+Metodología para determinar el número óptimo de mediciones y el coeficiente de determinación (\( R^2 \))
+
+Esta sección describe cómo determinar el número mínimo de mediciones necesarias (\( \eta_0 \)) para alcanzar un nivel deseado de precisión y cómo calcular el coeficiente de determinación (\( R^2 \)) para un número dado de mediciones.
+
+## Fórmulas matemáticas
+
+### Coeficiente de determinación (\( R^2 \))
+
+El coeficiente de determinación mide qué tan bien el valor fenotípico promedio estimado a partir de \( n \) mediciones predice el valor verdadero del genotipo. Se calcula como:
+
+\[
+R^2 = \frac{n \cdot r}{1 + (n - 1) \cdot r}
+\]
+
+Donde:
+- \( R^2 \): Coeficiente de determinación para \( n \) mediciones.
+- \( n \): Número de mediciones realizadas.
+- \( r \): Coeficiente de repetibilidad individual, que representa la proporción de la varianza total explicada por las diferencias permanentes entre individuos.
+
+### Número mínimo de mediciones necesarias (\( \eta_0 \))
+
+El número mínimo de mediciones necesarias para alcanzar un coeficiente de determinación deseado (\( R^2_{\text{target}} \)) se calcula como:
+
+\[
+\eta_0 = \frac{R^2_{\text{target}} \cdot (1 - r)}{(1 - R^2_{\text{target}}) \cdot r}
+\]
+
+Donde:
+- \( \eta_0 \): Número mínimo de mediciones necesarias.
+- \( R^2_{\text{target}} \): Nivel de precisión deseado (por ejemplo, 0.95 para un 95% de determinación).
+- \( r \): Coeficiente de repetibilidad individual.
+
+## Interpretación
+
+1. **Coeficiente de determinación (\( R^2 \)):**
+   - Si el valor de \( R^2 \) es bajo, las mediciones realizadas no predicen de manera confiable el valor verdadero del genotipo.
+   - Un \( R^2 \) alto (por ejemplo, \( > 0.95 \)) indica una alta precisión en la estimación del valor fenotípico promedio.
+
+2. **Número mínimo de mediciones (\( \eta_0 \)):**
+   - Este cálculo indica cuántas mediciones repetidas se requieren para alcanzar el nivel de precisión deseado (\( R^2_{\text{target}} \)).
+   - Si el coeficiente de repetibilidad (\( r \)) es bajo, \( \eta_0 \) será alto, lo que significa que se necesitarán más mediciones para compensar la baja precisión.
+   
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+# # Parámetros
+# r <- 0.257   # Coeficiente de repetibilidad individual
+# R2_target <- 0.80  # Coeficiente de determinación deseado
+# m <- 1:50  # Rango de mediciones (1 a 50)
+# 
+# # Fórmula para calcular el número mínimo de mediciones necesarias (η₀)
+# eta0 <- (R2_target * (1 - r)) / ((1 - R2_target) * r)
+# cat("Número mínimo de mediciones necesarias (η₀):", ceiling(eta0), "\n")
+# 
+# # Fórmula para calcular R² en función del número de mediciones (m)
+# R2 <- function(m, r) {
+#   (m * r) / (1 + (m - 1) * r)
+# }
+# 
+# # Calcular R² para cada m
+# R2_values <- sapply(m, R2, r = r)
+# 
+# # Resultados: mostrar R² por m
+# data.frame(m = m, R2 = R2_values)
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+
+# Nombres de las variables
+variables <- c(
+  "PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "PSF", "PSS", "PSS/PSF", "NFR/NFL",
+  "NFL/cm", "PFF", "DPF", "DMAF", "DMAF/DPF", "L", "a", "b", "IM", "PEN", "CLa",
+  "CLb", "CTC", "CTC/CL", "ATT", "TA", "ATT/TA", "DPPH", "PT"
+)
+
+repetibilidad <- c(
+  25.7, 2.4, 2.6, 12.5, 0.001, 2.3, 20.5, 20.6, 34.1, 0.001, 15.7, 
+  19.4, 35.1, 25.8, 42.1, 16.9, 21.6, 21.3, 1.6, 14.7, 24.5, 24.4, 
+  24.9, 27.5, 15.3, 32.7, 30.0, 2.2, 34.0
+) / 100  # Convertir a proporción (porcentaje a decimal)
+
+# Crear un data frame
+df_repetibilidad <- data.frame(Variable = variables, Repetibilidad = repetibilidad)
+
+# Valores de R2_target a calcular
+R2_targets <- c(0.80, 0.90, 0.95, 0.99)
+
+# Función para calcular η₀ (número mínimo de mediciones necesarias)
+calculate_eta0 <- function(R2_target, r) {
+  (R2_target * (1 - r)) / ((1 - R2_target) * r)
+}
+
+# Calcular η₀ para cada variable y R2_target
+results <- do.call(rbind, lapply(1:nrow(df_repetibilidad), function(i) {
+  r <- df_repetibilidad$Repetibilidad[i]
+  eta0_values <- sapply(R2_targets, calculate_eta0, r = r)
+  data.frame(
+    Variable = df_repetibilidad$Variable[i],
+    R2_80 = ceiling(eta0_values[1]),
+    R2_90 = ceiling(eta0_values[2]),
+    R2_95 = ceiling(eta0_values[3]),
+    R2_99 = ceiling(eta0_values[4])
+  )
+}))
+
+# Mostrar resultados
+print(results)
 
 ```
 
@@ -640,7 +1736,7 @@ tabla_cca_means <- tabla_pca_estandarizada
 
 ```
 
-# Análisis de PCA con variables suplementarias
+# Análisis de PCA
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -665,21 +1761,21 @@ library(lubridate)
 # Filtrar las filas desde el 1 de junio (mes 6, día 1) al 1 de noviembre (mes 11, día 1)
 datamet_filtered <- datamet %>%
   filter((month(date_long) == 5 & day(date_long) >= 1) |  
-         (month(date_long) == 6) | 
-         (month(date_long) == 7) |                       
-         (month(date_long) == 8) |                       
-         (month(date_long) == 9) |                       
-         (month(date_long) == 10) |                      
+         (month(date_long) == 6) |
+         (month(date_long) == 7) |
+         (month(date_long) == 8) |
+         (month(date_long) == 9) |
+         (month(date_long) == 10) |
          (month(date_long) == 11 & day(date_long) <= 1)) 
 
 var_mets <- c("temp", "hr", "wind", "prec")
 
-datamet <- datamet_filtered %>%
+datamet_means <- datamet_filtered %>%
   dplyr::group_by(year, site) %>%
   dplyr::summarise(across(all_of(var_mets), mean, na.rm = TRUE))
 
-colnames(datamet)[colnames(datamet) == "wind"] <- "vv"
-colnames(datamet)[colnames(datamet) == "prec"] <- "pp"
+colnames(datamet_means)[colnames(datamet_means) == "wind"] <- "vv"
+colnames(datamet_means)[colnames(datamet_means) == "prec"] <- "pp"
 
 
 ```
@@ -695,7 +1791,7 @@ variables_respuesta <- tabla_cca_means %>%
   scale()  # Escalar las variables numéricas
 
 # Calcular las medias de las variables suplementarias agrupadas por year y site
-variables_suplementarias <- datamet %>%
+variables_suplementarias <- datamet_means %>%
   dplyr::group_by(year, site) %>%
   dplyr::summarise(across(c(temp, pp, hr, vv), mean, na.rm = TRUE)) 
 
@@ -723,22 +1819,22 @@ pca_result <- PCA(tabla_merged,
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Visualización de los individuos (fenotipos)
-fviz_pca_ind(pca_result, 
-             # geom.ind = "point", 
-             col.ind = tabla_cca_means$phenotype, # Colorear por fenotipo
-             addEllipses = FALSE, ellipse.level = 0.95,
-             pointsize = 4,
-             label = "none") +
-  labs(title = "PCA - Fenotipos")+
-    theme(legend.position = 'none')+
-  coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
-
-# Visualización de las variables activas y suplementarias
-fviz_pca_var(pca_result, 
-             col.var = "black", 
-             repel = TRUE) + 
-  labs(title = "PCA - Variables Activas y Suplementarias")
+# # Visualización de los individuos (fenotipos)
+# fviz_pca_ind(pca_result, 
+#              # geom.ind = "point", 
+#              col.ind = tabla_cca_means$phenotype, # Colorear por fenotipo
+#              addEllipses = FALSE, ellipse.level = 0.95,
+#              pointsize = 4,
+#              label = "none") +
+#   labs(title = "PCA - Fenotipos")+
+#     theme(legend.position = 'none')+
+#   coord_cartesian(xlim = c(-7, 7), ylim = c(-6, 6))
+# 
+# # Visualización de las variables activas y suplementarias
+# fviz_pca_var(pca_result, 
+#              col.var = "black", 
+#              repel = TRUE) + 
+#   labs(title = "PCA - Variables Activas y Suplementarias")
 
 
 ```
@@ -845,18 +1941,22 @@ loadings <- as.data.frame(pca_result$var$coord)
 
 # Seleccionar solo las cargas para PC1 y PC2
 loadings <- loadings %>%
-  dplyr::select(Dim.1, Dim.2, Dim.3)
+  dplyr::select(Dim.1, Dim.2) #, Dim.3
 
 # Calcular la proporción de contribución para cada parámetro en cada componente
 loadings <- loadings %>%
   dplyr::mutate(Variable = rownames(loadings),
          PC1 = abs(Dim.1) / sum(abs(Dim.1)),
-         PC2 = abs(Dim.2) / sum(abs(Dim.2)),
-         PC3 = abs(Dim.3) / sum(abs(Dim.3)))
+         PC2 = abs(Dim.2) / sum(abs(Dim.2))#,
+         # PC3 = abs(Dim.3) / sum(abs(Dim.3))
+         )
+
+colnames(loadings)[colnames(loadings) == "PC1"] <- "CP1"
+colnames(loadings)[colnames(loadings) == "PC2"] <- "CP2"
 
 # Convertir los datos a formato largo (long format)
 loadings_long <- loadings %>%
-  pivot_longer(cols = starts_with("PC"),
+  pivot_longer(cols = starts_with("CP"),
                names_to = "Component",
                values_to = "Contribution")
 
@@ -872,16 +1972,18 @@ gg_bar_agr <- ggplot(loadings_long, aes(x = Component, y = Contribution * 100, f
   scale_fill_brewer(palette = "Paired") +
   labs(title = "",
        x = "Componente principal",
-       y = "Cargas (loadings)") +
+       y = "Contribución de cada variable") +
   theme_classic() +
   theme(text = element_text(size = 32, color = 'black'),
         legend.position = "right",
         legend.title = element_blank()) +
   theme(axis.text = element_text(color = 'black')) +
   scale_y_continuous(labels = scales::percent_format(scale = 1)) +
+  scale_x_discrete(labels = c(1,2)) +
   geom_text(aes(x = 3.5, y = 95, label = ""), size = 16, hjust = 0.5, vjust = 0.5) 
 
 gg_bar_agr
+# ggsave("gg_bar_agr", plot = gg_bar_agr, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
 
 ```
 
@@ -914,7 +2016,7 @@ biplot_sites_repro <- fviz_pca_biplot(pca_result,
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4"),
                      name = NULL) +
   theme_classic() +
-  labs(title = "", x = "PC1 (31,8 %)", y = "PC2 (17,5 %)") +
+  labs(title = "", x = "PC1 (30,2 %)", y = "PC2 (18,0 %)") +
   theme(legend.position = "bottom",
         text = element_text(size = 26, color = 'black'),
         axis.text = element_text(color = 'black')) +
@@ -923,7 +2025,7 @@ biplot_sites_repro <- fviz_pca_biplot(pca_result,
   coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
   
 # Mostrar el gráfico
-print(biplot_sites_repro)
+# print(biplot_sites_repro)
 
 ```
 
@@ -948,7 +2050,7 @@ biplot_years_repro <- fviz_pca_biplot(pca_result,
   scale_color_manual(values = c("2019" = "#f7db20", "2021" = "#07c22c", "2022" = "#522DAD"),
                      name = NULL) +
   theme_classic() +
-  labs(title = "", x = "PC1 (31,8 %)", y = "PC2 (17,5 %)") +
+  labs(title = "", x = "PC1 (30,2 %)", y = "PC2 (18,0 %)") +
   theme(legend.position = "bottom",
         text = element_text(size = 26, color = 'black'),
         axis.text = element_text(color = 'black')) +
@@ -956,7 +2058,7 @@ biplot_years_repro <- fviz_pca_biplot(pca_result,
             hjust = 1.2, vjust = 1.2, size = 13, color = "black", fontface = "bold")+
   coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
 
-biplot_years_repro
+# biplot_years_repro
 
 ```
 
@@ -992,7 +2094,7 @@ biplot_year.site_repro <- fviz_pca_biplot(pca_result,
   scale_color_manual(values = c("coral1", "red", "orange", "palegreen4", "green","yellowgreen","burlywood2","burlywood4","yellow"),
                      name = NULL) +
   theme_classic() +
-  labs(title = "", x = "PC1 (31,8 %)", y = "PC2 (17,5 %)") +
+  labs(title = "", x = "PC1 (30,2 %)", y = "PC2 (18,0 %)") +
   theme(legend.position = "bottom",
         text = element_text(size = 26, color = 'black'),
         axis.text = element_text(color = 'black')) +
@@ -1003,10 +2105,9 @@ biplot_year.site_repro <- fviz_pca_biplot(pca_result,
 # Mostrar el gráfico
 print(biplot_year.site_repro)
 
-
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Cargar el paquete ggrepel para evitar la superposición de las etiquetas
@@ -1020,42 +2121,38 @@ gg_pca_repro <- fviz_pca_biplot(pca_result,
                                 pointshape = 21,              # Forma de los puntos
                                 pointsize = 6,                # Tamaño de los puntos
                                 geom.var = c("point", "text"), # Puntos y texto para las variables
-                                labelsize = 10,               # Tamaño del texto
+                                labelsize = 8,               # Tamaño del texto
                                 fill.ind = tabla_merged$year, # Colorear los individuos por año
                                 col.ind = "black",            # Color del borde de los puntos
                                 repel = TRUE,                 # Evitar superposición de etiquetas
                                 addEllipses = FALSE,          # No agregar elipses
                                 label = "var",                # Etiquetar las variables
-                                col.var = "black", # Color de las variables basado en cos2
+                                col.var = "black",            # Color de las variables basado en cos2
                                 arrows = TRUE) + 
+
   # Colorear los puntos por year
   scale_fill_manual(values = c("2019" = "#f7db20", "2021" = "#07c22c", "2022" = "#522DAD"),
-                    name = NULL) +
+                    name = "Año") +
   
   # Añadir título y etiquetas de ejes
   labs(title = "", 
-       x = "Componente Principal 1 (31,8 %)", 
-       y = "Componente Principal 2 (17,5 %)") +
+       x = "Componente Principal 1 (30,2 %)", 
+       y = "Componente Principal 2 (18,0 %)") +
   
   # Personalizar el tema del gráfico
-    theme_classic() +
+  theme_classic() +
   theme(legend.position = "bottom",
-        text = element_text(size = 32, color = 'black'),
+        text = element_text(size = 24, color = 'black'),
         axis.text = element_text(color = 'black')) +
-  # Añadir un título o marcador en el gráfico
-  geom_text(aes(x = Inf, y = Inf, label = ""), 
-            hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
+  
   # Limitar los ejes para que los vectores sean visibles
-  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-4, 4))
 
-# Mostrar el gráfico
+# Muestra el gráfico
 print(gg_pca_repro)
 
-# Cerrar todos los dispositivos gráficos abiertos
-dev.off()
-
 # Guardar el gráfico como PNG con alta resolución
-ggsave("mi_grafico_pca.tiff", plot = gg_pca_repro, device = "tiff", width = 10, height = 10, units = "in", dpi = 300)
+# ggsave("gg_pca_repro.tiff", plot = gg_pca_repro, device = "tiff", width = 15, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1068,12 +2165,12 @@ library(ggplot2)
 library(factoextra)
 
 # Crear el gráfico de PCA
-mi_grafico_pca_year <- fviz_pca_biplot(pca_result, 
+mi_grafico_pca_sites <- fviz_pca_biplot(pca_result, 
                                 geom.ind = "point",           # Puntos para los individuos
                                 pointshape = 21,              # Forma de los puntos
                                 pointsize = 6,                # Tamaño de los puntos
                                 geom.var = c("point", "text"), # Puntos y texto para las variables
-                                labelsize = 10,               # Tamaño del texto
+                                labelsize = 8,               # Tamaño del texto
                                 fill.ind = tabla_merged$site, # Colorear los individuos por año
                                 col.ind = "black",            # Color del borde de los puntos
                                 repel = TRUE,                 # Evitar superposición de etiquetas
@@ -1087,28 +2184,25 @@ mi_grafico_pca_year <- fviz_pca_biplot(pca_result,
   
   # Añadir título y etiquetas de ejes
   labs(title = "", 
-       x = "Componente Principal 1 (31,8 %)", 
-       y = "Componente Principal 2 (17,5 %)") +
+       x = "Componente Principal 1 (30,2 %)", 
+       y = "Componente Principal 2 (18,0 %)") +
   
   # Personalizar el tema del gráfico
-    theme_classic() +
+  theme_classic() +
   theme(legend.position = "bottom",
-        text = element_text(size = 32, color = 'black'),
+        text = element_text(size = 24, color = 'black'),
         axis.text = element_text(color = 'black')) +
   # Añadir un título o marcador en el gráfico
   geom_text(aes(x = Inf, y = Inf, label = ""), 
             hjust = 1.2, vjust = 1.2, size = 12, color = "black", fontface = "bold") +
   # Limitar los ejes para que los vectores sean visibles
-  coord_cartesian(xlim = c(-5, 5), ylim = c(-5, 5))
+  coord_cartesian(xlim = c(-5, 5), ylim = c(-4, 4))
 
 # Mostrar el gráfico
-print(mi_grafico_pca_year)
-
-# Cerrar todos los dispositivos gráficos abiertos
-dev.off()
+print(mi_grafico_pca_sites)
 
 # Guardar el gráfico como PNG con alta resolución
-ggsave("mi_grafico_pca_year.tiff", plot = mi_grafico_pca_year, device = "tiff", width = 10, height = 10, units = "in", dpi = 300)
+# ggsave("mi_grafico_pca_sites.tiff", plot = mi_grafico_pca_sites, device = "tiff", width = 15, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1118,12 +2212,11 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Para renderizar a pdf
 # rmarkdown::render("ER_flores.Rmd", output_format = "pdf_document")
 
-tiff("gg_pca_repro.tiff", units="cm", width=16, height=10, res=300)
-dev.off()
+# tiff("gg_pca_repro.tiff", units="cm", width=16, height=10, res=300)
+# dev.off()
 ```
 
 # Heatmap
-
 ## Correlaciones
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
@@ -1145,40 +2238,40 @@ p_valores <- cor.mtest(datos, conf.level = 0.95)$p  # Esto también debe coincid
 
 ```
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=24}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='95%')
 
 # Paquetes necesarios
-library(corrplot)
+# library(corrplot)
 
 # Matriz de correlación (matriz_corr) y matriz de p-valores (p_valores) ya creadas
 
 # Graficar la matriz de correlación, destacando los valores significativos con asteriscos
-heatmap <- corrplot(matriz_corr, 
-         method = "ellipse",      # Estilo de las formas, como en el gráfico
-         type = "lower",          # Mostrar solo la mitad inferior de la matriz
-         p.mat = p_valores,       # Matriz de p-valores para mostrar significancia
-         sig.level = c(0.001, 0.01, 0.05),  # Niveles de significancia
-         insig = "label_sig",     # Mostrar los asteriscos en los valores significativos
-         pch.cex = 1.5,           # Tamaño de los asteriscos
-         pch.col = "red",         # Color de los asteriscos
-         addCoef.col = "black",   # Añadir valores numéricos (correlaciones)
-         diag = FALSE,            # No mostrar la diagonal con las correlaciones 1.00
-         tl.col = "black",        # Color de las etiquetas
-         tl.srt = 45,             # Rotar las etiquetas para mejorar la legibilidad
-         tl.pos = "b",            # Posicionar etiquetas en la diagonal
-         tl.cex = 1.1,            # Tamaño de las etiquetas
-         tl.font = 2,             # Negrita en las etiquetas
-         number.cex = 0.9,        # Tamaño de los valores numéricos de correlación
-         number.font = 1,         # Fuente normal para los valores de correlación
-         cl.cex = 1.0,            # Tamaño de la barra de colores
-         cl.pos = "b",            # Mostrar la barra de colores en la parte inferior
-         mar = c(0, 0, 0, 0))     # Márgenes ajustados para que no se superpongan
+# heatmap <- corrplot(matriz_corr, 
+#          method = "ellipse",      # Estilo de las formas, como en el gráfico
+#          type = "lower",          # Mostrar solo la mitad inferior de la matriz
+#          p.mat = p_valores,       # Matriz de p-valores para mostrar significancia
+#          sig.level = c(0.001, 0.01, 0.05),  # Niveles de significancia
+#          insig = "label_sig",     # Mostrar los asteriscos en los valores significativos
+#          pch.cex = 1.5,           # Tamaño de los asteriscos
+#          pch.col = "red",         # Color de los asteriscos
+#          addCoef.col = "black",   # Añadir valores numéricos (correlaciones)
+#          diag = FALSE,            # No mostrar la diagonal con las correlaciones 1.00
+#          tl.col = "black",        # Color de las etiquetas
+#          tl.srt = 45,             # Rotar las etiquetas para mejorar la legibilidad
+#          tl.pos = "b",            # Posicionar etiquetas en la diagonal
+#          tl.cex = 1.1,            # Tamaño de las etiquetas
+#          tl.font = 2,             # Negrita en las etiquetas
+#          number.cex = 0.9,        # Tamaño de los valores numéricos de correlación
+#          number.font = 1,         # Fuente normal para los valores de correlación
+#          cl.cex = 1.0,            # Tamaño de la barra de colores
+#          cl.pos = "b",            # Mostrar la barra de colores en la parte inferior
+#          mar = c(0, 0, 0, 0))     # Márgenes ajustados para que no se superpongan
 
 ```
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=10}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 corrplot(matriz_corr, 
           method = "ellipse",     # Mostrar elipses en la parte superior
@@ -1191,28 +2284,25 @@ corrplot(matriz_corr,
 
 ```
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=10}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# Abre un dispositivo TIFF
-tiff("corrplot.tiff", units = "cm", width = 32, height = 24, res = 300)
-
-# Genera el gráfico
-corrplot(matriz_corr, 
-         method = "ellipse",     # Mostrar elipses en la parte superior
-         type = "upper",         # Solo parte superior
-         addCoef.col = "black",  # Añadir valores numéricos de correlación
-         tl.pos = "d",           # Ocultar etiquetas en márgenes
-         order = "AOE",          # No mostrar la diagonal de 1.0
-         tl.col = "black")       
-
-# Cierra el dispositivo gráfico
-dev.off()
-
+# # Abre un dispositivo TIFF
+# tiff("corrplot.tiff", units = "cm", width = 32, height = 24, res = 300)
+# 
+# # Genera el gráfico
+# corrplot(matriz_corr, 
+#          method = "ellipse",     # Mostrar elipses en la parte superior
+#          type = "upper",         # Solo parte superior
+#          addCoef.col = "black",  # Añadir valores numéricos de correlación
+#          tl.pos = "d",           # Ocultar etiquetas en márgenes
+#          order = "AOE",          # No mostrar la diagonal de 1.0
+#          tl.col = "black")       
+# 
+# # Cierra el dispositivo gráfico
+# dev.off()
 
 ```
-
-
 
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
@@ -1247,7 +2337,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1276,7 +2365,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # cor_value_ovusem
 
 ```
-
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -1408,4 +2496,30 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='75%')
 
+# # Cálculo del número de muestras necesarias
+# 
+# # Parámetros
+# r <- 0.456   # Coeficiente de repetibilidad población/individuo
+# target_rm <- 0.8  # Precisión deseada
+# m <- 5:30  # Rango de evaluaciones posibles
+# 
+# # Función para calcular r_m
+# r_m <- function(m, r) {
+#   (m * r) / (1 + (m - 1) * r)
+# }
+# 
+# # Calcular r_m para cada m
+# rm_values <- r_m(m, r)
+# 
+# # Mostrar resultados
+# data.frame(m = m, r_m = rm_values)
+# 
+# # Identificar el mínimo m necesario
+# min_m <- min(m[rm_values >= target_rm])
+# cat("Número mínimo de evaluaciones necesarias:", min_m, "\n")
+
+
+```

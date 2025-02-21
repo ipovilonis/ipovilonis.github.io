@@ -1195,7 +1195,8 @@ library(ggplot2)
 gg_bar_irr <- ggplot(response_data_irr, aes(x = Season, y = response, fill = Fertilization)) +
   stat_summary(fun = "mean", size = 1, geom = "bar", position = position_dodge(0.6), color = "black", width = 0.6) +
   # geom_errorbar(aes(ymin = response - SE, ymax = response + SE), width = 0.2, position = position_dodge(0.6), color = 'black', size = 1) +
-  geom_text(aes(label = sig_letters, y = response  + 0.08), # Ajusta la posición vertical (+ SE)
+  # Adjust the y position to place the letters above the error bars
+  geom_text(aes(label = sig_letters, y = response + SE),
             position = position_dodge(0.6), vjust = -0.5, size = 8) +
   facet_grid(. ~ Light) +
   scale_fill_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
@@ -1216,6 +1217,31 @@ gg_bar_irr <- ggplot(response_data_irr, aes(x = Season, y = response, fill = Fer
 
 gg_bar_irr
 
+# ggsave("gg_bar_irr", plot = gg_bar_irr, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+# con barras
+# ggplot(response_data_irr, aes(x = Season, y = response, fill = Fertilization)) +
+  # stat_summary(fun = "mean", size = 1, geom = "bar", position = position_dodge(0.6), color = "black", width = 0.6) +
+  # geom_errorbar(aes(ymin = response - SE, ymax = response + SE), width = 0.2, position = position_dodge(0.6), color = 'black', size = 1) +
+  # # Adjust the y position to place the letters above the error bars
+  # geom_text(aes(label = sig_letters, y = response + SE + 0.05), # Add a small offset above the error bar
+  #           position = position_dodge(0.6), vjust = -0.5, size = 8) +
+  # facet_grid(. ~ Light) +
+  # scale_fill_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
+  # labs(
+  #   title = "Light intensity",
+  #   x = "Growing season",
+  #   y = "NPR [µmol CO2 m-2 s-1]",
+  #   fill = "Fertilization"
+  # ) +
+  # theme_classic() +
+  # theme(plot.title = element_text(size = 32, hjust = 0.5, vjust = 1.5)) +
+  # theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+  # theme(panel.grid.major.x = element_blank()) +
+  # theme(text = element_text(size = 32, color = 'black')) +
+  # theme(axis.text = element_text(color = 'black')) +
+  # theme(legend.position = "bottom") +
+  # scale_y_continuous(limits = c(0, 2.5), breaks = seq(0, 2.5, 0.5))
 
 ```
 
