@@ -498,14 +498,16 @@ $(document).ready(function () {
 <h3>Tabla resumen</h3>
 <pre><code>## # A tibble: 6 × 6
 ## # Groups:   hormona [3]
-##   hormona explanto     n Mean_supervivencia sd_supervivencia SEM_supervivencia
-##   &lt;fct&gt;   &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
-## 1 0.5     hoja        16              0.438            0.512             0.128
-## 2 0.5     segmento     9              0.444            0.527             0.176
-## 3 4       hoja         6              0.667            0.516             0.211
-## 4 4       segmento     4              0.75             0.5               0.25 
-## 5 10      hoja         6              0.667            0.516             0.211
-## 6 10      segmento     6              0.667            0.516             0.211</code></pre>
+##   hormona explanto     n Mean_supervivencia
+##   &lt;fct&gt;   &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;
+## 1 0.5     hoja        16              0.438
+## 2 0.5     segmento     9              0.444
+## 3 4       hoja         6              0.667
+## 4 4       segmento     4              0.75 
+## 5 10      hoja         6              0.667
+## 6 10      segmento     6              0.667
+## # ℹ 2 more variables: sd_supervivencia &lt;dbl&gt;,
+## #   SEM_supervivencia &lt;dbl&gt;</code></pre>
 </div>
 <div id="gráfico-de-barras" class="section level3">
 <h3>Gráfico de barras</h3>
@@ -596,13 +598,20 @@ significativamente la supervivencia de los explantos.</p>
 </div>
 <div id="emmeans" class="section level3">
 <h3>Emmeans</h3>
-<pre><code>##  explanto hormona        prob          SE  df    asymp.LCL   asymp.UCL
-##  hoja     0.5     0.437500000 0.496078371 Inf 0.0147416009 0.975863596
-##  segmento 0.5     0.444444444 0.496903995 Inf 0.0152547059 0.976367309
-##  hoja     4       0.666666667 0.471404521 Inf 0.0303374767 0.992239045
-##  segmento 4       0.750000000 0.433012678 Inf 0.0314399716 0.996406236
-##  hoja     10      0.666666667 0.471404521 Inf 0.0303374767 0.992239045
-##  segmento 10      0.666666667 0.471404521 Inf 0.0303374767 0.992239045
+<pre><code>##  explanto hormona        prob          SE  df
+##  hoja     0.5     0.437500000 0.496078371 Inf
+##  segmento 0.5     0.444444444 0.496903995 Inf
+##  hoja     4       0.666666667 0.471404521 Inf
+##  segmento 4       0.750000000 0.433012678 Inf
+##  hoja     10      0.666666667 0.471404521 Inf
+##  segmento 10      0.666666667 0.471404521 Inf
+##     asymp.LCL   asymp.UCL
+##  0.0147416009 0.975863596
+##  0.0152547059 0.976367309
+##  0.0303374767 0.992239045
+##  0.0314399716 0.996406236
+##  0.0303374767 0.992239045
+##  0.0303374767 0.992239045
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale</code></pre>
@@ -615,13 +624,14 @@ significativamente la supervivencia de los explantos.</p>
 <h3>Tabla resumen</h3>
 <pre><code>## # A tibble: 4 × 6
 ## # Groups:   antioxidante [2]
-##   antioxidante explanto     n Mean_supervivencia sd_supervivencia
-##   &lt;fct&gt;        &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;            &lt;dbl&gt;
-## 1 citrico      hoja         8               0.5             0.535
-## 2 citrico      segmento     4               0.5             0.577
-## 3 pvpp         hoja        20               0.55            0.510
-## 4 pvpp         segmento    15               0.6             0.507
-## # ℹ 1 more variable: SEM_supervivencia &lt;dbl&gt;</code></pre>
+##   antioxidante explanto     n Mean_supervivencia
+##   &lt;fct&gt;        &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;
+## 1 citrico      hoja         8               0.5 
+## 2 citrico      segmento     4               0.5 
+## 3 pvpp         hoja        20               0.55
+## 4 pvpp         segmento    15               0.6 
+## # ℹ 2 more variables: sd_supervivencia &lt;dbl&gt;,
+## #   SEM_supervivencia &lt;dbl&gt;</code></pre>
 </div>
 <div id="gráfico-de-barras-1" class="section level3">
 <h3>Gráfico de barras</h3>
@@ -690,11 +700,16 @@ los explantos, según los datos disponibles.</p>
 </div>
 <div id="emmeans-1" class="section level3">
 <h3>Emmeans</h3>
-<pre><code>##  explanto antioxidante prob          SE  df    asymp.LCL   asymp.UCL
-##  hoja     citrico      0.50 0.500000000 Inf 0.0194564587 0.980543541
-##  segmento citrico      0.50 0.500000000 Inf 0.0194564587 0.980543541
-##  hoja     pvpp         0.55 0.497493718 Inf 0.0232254968 0.984332057
-##  segmento pvpp         0.60 0.489897872 Inf 0.0267191019 0.987945913
+<pre><code>##  explanto antioxidante prob          SE  df
+##  hoja     citrico      0.50 0.500000000 Inf
+##  segmento citrico      0.50 0.500000000 Inf
+##  hoja     pvpp         0.55 0.497493718 Inf
+##  segmento pvpp         0.60 0.489897872 Inf
+##     asymp.LCL   asymp.UCL
+##  0.0194564587 0.980543541
+##  0.0194564587 0.980543541
+##  0.0232254968 0.984332057
+##  0.0267191019 0.987945913
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale</code></pre>

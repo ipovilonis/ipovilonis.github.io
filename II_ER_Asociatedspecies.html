@@ -583,7 +583,8 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ## site       2  25.816 12.9080   4.146 0.02397 *
 ## Residuals 36 112.082  3.1134                  
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
@@ -595,10 +596,14 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                      estimate        SE df t.ratio p.value
-##  Concordia - NP El Palmar     1.1309524 0.6941411 36   1.629  0.2466
-##  Concordia - Gualeguaychu    -0.8141026 0.7063557 36  -1.153  0.4888
-##  NP El Palmar - Gualeguaychu -1.9450549 0.6796134 36  -2.862  0.0187
+##  contrast                      estimate        SE df
+##  Concordia - NP El Palmar     1.1309524 0.6941411 36
+##  Concordia - Gualeguaychu    -0.8141026 0.7063557 36
+##  NP El Palmar - Gualeguaychu -1.9450549 0.6796134 36
+##  t.ratio p.value
+##    1.629  0.2466
+##   -1.153  0.4888
+##   -2.862  0.0187
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -619,7 +624,8 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ## site       2  393.85 196.923  6.0917 0.005264 **
 ## Residuals 36 1163.74  32.326                    
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-1" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
@@ -631,10 +637,14 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                     estimate       SE df t.ratio p.value
-##  Concordia - NP El Palmar     5.333333 2.236709 36   2.384  0.0571
-##  Concordia - Gualeguaychu    -2.051282 2.276067 36  -0.901  0.6430
-##  NP El Palmar - Gualeguaychu -7.384615 2.189897 36  -3.372  0.0050
+##  contrast                     estimate       SE df
+##  Concordia - NP El Palmar     5.333333 2.236709 36
+##  Concordia - Gualeguaychu    -2.051282 2.276067 36
+##  NP El Palmar - Gualeguaychu -7.384615 2.189897 36
+##  t.ratio p.value
+##    2.384  0.0571
+##   -0.901  0.6430
+##   -3.372  0.0050
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -658,23 +668,32 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ##      LR Chisq Df Pr(&gt;Chisq)  
 ## site   8.9348  2    0.01148 *
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-2" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site          response         SE df  lower.CL  upper.CL
-##  Concordia    0.2849333 0.03422329 36 0.2291209 0.3766936
-##  NP El Palmar 0.3616357 0.04021391 36 0.2950866 0.4669425
-##  Gualeguaychu 0.2235231 0.02579407 36 0.1811315 0.2918199
+##  site          response         SE df  lower.CL
+##  Concordia    0.2849333 0.03422329 36 0.2291209
+##  NP El Palmar 0.3616357 0.04021391 36 0.2950866
+##  Gualeguaychu 0.2235231 0.02579407 36 0.1811315
+##   upper.CL
+##  0.3766936
+##  0.4669425
+##  0.2918199
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the inverse scale 
 ## 
 ## $contrasts
-##  contrast                      estimate        SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.7443793 0.5217703 36   1.427  0.3382
-##  Concordia - Gualeguaychu    -0.9642181 0.6665025 36  -1.447  0.3283
-##  NP El Palmar - Gualeguaychu -1.7085974 0.6009024 36  -2.843  0.0195
+##  contrast                      estimate        SE df
+##  Concordia - NP El Palmar     0.7443793 0.5217703 36
+##  Concordia - Gualeguaychu    -0.9642181 0.6665025 36
+##  NP El Palmar - Gualeguaychu -1.7085974 0.6009024 36
+##  t.ratio p.value
+##    1.427  0.3382
+##   -1.447  0.3283
+##   -2.843  0.0195
 ## 
 ## Note: contrasts are still on the inverse scale 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
@@ -700,23 +719,32 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ##      LR Chisq Df Pr(&gt;Chisq)  
 ## site   5.2323  2    0.07308 .
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-3" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site           emmean         SE df lower.CL upper.CL
-##  Concordia    4.244991 0.05289726 35 4.137604 4.352378
-##  NP El Palmar 4.178365 0.05002444 35 4.076810 4.279920
-##  Gualeguaychu 4.342610 0.05199101 35 4.237062 4.448157
+##  site           emmean         SE df lower.CL
+##  Concordia    4.244991 0.05289726 35 4.137604
+##  NP El Palmar 4.178365 0.05002444 35 4.076810
+##  Gualeguaychu 4.342610 0.05199101 35 4.237062
+##  upper.CL
+##  4.352378
+##  4.279920
+##  4.448157
 ## 
 ## Results are given on the inverse (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                       estimate         SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.06662608 0.07280498 35   0.915  0.6345
-##  Concordia - Gualeguaychu    -0.09761849 0.07416998 35  -1.316  0.3959
-##  NP El Palmar - Gualeguaychu -0.16424457 0.07214922 35  -2.276  0.0725
+##  contrast                       estimate         SE
+##  Concordia - NP El Palmar     0.06662608 0.07280498
+##  Concordia - Gualeguaychu    -0.09761849 0.07416998
+##  NP El Palmar - Gualeguaychu -0.16424457 0.07214922
+##  df t.ratio p.value
+##  35   0.915  0.6345
+##  35  -1.316  0.3959
+##  35  -2.276  0.0725
 ## 
 ## Note: contrasts are still on the inverse scale 
 ## Results are given on the log (not the response) scale. 
@@ -739,23 +767,32 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ## site       2 0.25064 0.125319  4.0965 0.02495 *
 ## Residuals 36 1.10129 0.030591                  
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-4" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site           emmean         SE df  lower.CL upper.CL
-##  Concordia    1.197634 0.05049046 36 1.0952348 1.300034
-##  NP El Palmar 1.088880 0.04674508 36 0.9940766 1.183683
-##  Gualeguaychu 1.280854 0.04850966 36 1.1824722 1.379236
+##  site           emmean         SE df  lower.CL
+##  Concordia    1.197634 0.05049046 36 1.0952348
+##  NP El Palmar 1.088880 0.04674508 36 0.9940766
+##  Gualeguaychu 1.280854 0.04850966 36 1.1824722
+##  upper.CL
+##  1.300034
+##  1.183683
+##  1.379236
 ## 
 ## Results are given on the sqrt (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                      estimate         SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.1087542 0.06880689 36   1.581  0.2669
-##  Concordia - Gualeguaychu    -0.0832201 0.07001766 36  -1.189  0.4675
-##  NP El Palmar - Gualeguaychu -0.1919743 0.06736683 36  -2.850  0.0192
+##  contrast                      estimate         SE df
+##  Concordia - NP El Palmar     0.1087542 0.06880689 36
+##  Concordia - Gualeguaychu    -0.0832201 0.07001766 36
+##  NP El Palmar - Gualeguaychu -0.1919743 0.06736683 36
+##  t.ratio p.value
+##    1.581  0.2669
+##   -1.189  0.4675
+##   -2.850  0.0192
 ## 
 ## Note: contrasts are still on the sqrt scale 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
@@ -779,18 +816,26 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 <div id="tukey-test-5" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site            emmean         SE df  lower.CL  upper.CL
-##  Concordia    0.8503667 0.02060699 36 0.8085737 0.8921596
-##  NP El Palmar 0.8585429 0.01907837 36 0.8198501 0.8972356
-##  Gualeguaychu 0.8878077 0.01979856 36 0.8476544 0.9279610
+##  site            emmean         SE df  lower.CL
+##  Concordia    0.8503667 0.02060699 36 0.8085737
+##  NP El Palmar 0.8585429 0.01907837 36 0.8198501
+##  Gualeguaychu 0.8878077 0.01979856 36 0.8476544
+##   upper.CL
+##  0.8921596
+##  0.8972356
+##  0.9279610
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                       estimate         SE df t.ratio p.value
-##  Concordia - NP El Palmar    -0.00817619 0.02808260 36  -0.291  0.9544
-##  Concordia - Gualeguaychu    -0.03744103 0.02857676 36  -1.310  0.3988
-##  NP El Palmar - Gualeguaychu -0.02926484 0.02749486 36  -1.064  0.5420
+##  contrast                       estimate         SE
+##  Concordia - NP El Palmar    -0.00817619 0.02808260
+##  Concordia - Gualeguaychu    -0.03744103 0.02857676
+##  NP El Palmar - Gualeguaychu -0.02926484 0.02749486
+##  df t.ratio p.value
+##  36  -0.291  0.9544
+##  36  -1.310  0.3988
+##  36  -1.064  0.5420
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -821,10 +866,14 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                      estimate        SE df t.ratio p.value
-##  Concordia - NP El Palmar     0.1573167 0.2065276 36   0.762  0.7286
-##  Concordia - Gualeguaychu    -0.2311449 0.2101618 36  -1.100  0.5204
-##  NP El Palmar - Gualeguaychu -0.3884615 0.2022052 36  -1.921  0.1474
+##  contrast                      estimate        SE df
+##  Concordia - NP El Palmar     0.1573167 0.2065276 36
+##  Concordia - Gualeguaychu    -0.2311449 0.2101618 36
+##  NP El Palmar - Gualeguaychu -0.3884615 0.2022052 36
+##  t.ratio p.value
+##    0.762  0.7286
+##   -1.100  0.5204
+##   -1.921  0.1474
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-36-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -845,19 +894,27 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 <div id="tukey-test-7" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site            emmean          SE df  lower.CL  upper.CL
-##  Concordia    0.8972917 0.012103264 11 0.8706531 0.9239302
-##  NP El Palmar 0.8988769 0.020447854 12 0.8543247 0.9434291
-##  Gualeguaychu 0.9299538 0.008043119 12 0.9124293 0.9474784
+##  site            emmean          SE df  lower.CL
+##  Concordia    0.8972917 0.012103264 11 0.8706531
+##  NP El Palmar 0.8988769 0.020447854 12 0.8543247
+##  Gualeguaychu 0.9299538 0.008043119 12 0.9124293
+##   upper.CL
+##  0.9239302
+##  0.9434291
+##  0.9474784
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                       estimate         SE    df t.ratio p.value
-##  Concordia - NP El Palmar    -0.00158526 0.02376139 19.30  -0.067  0.9975
-##  Concordia - Gualeguaychu    -0.03266218 0.01453206 19.40  -2.248  0.0881
-##  NP El Palmar - Gualeguaychu -0.03107692 0.02197286 15.63  -1.414  0.3578
+##  contrast                       estimate         SE
+##  Concordia - NP El Palmar    -0.00158526 0.02376139
+##  Concordia - Gualeguaychu    -0.03266218 0.01453206
+##  NP El Palmar - Gualeguaychu -0.03107692 0.02197286
+##     df t.ratio p.value
+##  19.30  -0.067  0.9975
+##  19.40  -2.248  0.0881
+##  15.63  -1.414  0.3578
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
@@ -879,22 +936,31 @@ familias con 70 especies de riqueza y 613 ejemplares de abundancia.</p>
 ## site       2 0.14937 0.074687  3.4624 0.04214 *
 ## Residuals 36 0.77655 0.021571                  
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <div id="tukey-test-8" class="section level5">
 <h5>Tukey test</h5>
 <pre><code>## $emmeans
-##  site            emmean         SE df  lower.CL  upper.CL
-##  Concordia    0.8551257 0.04239779 36 0.7691390 0.9411124
-##  NP El Palmar 0.7823696 0.03925272 36 0.7027614 0.8619778
-##  Gualeguaychu 0.7006716 0.04073448 36 0.6180582 0.7832849
+##  site            emmean         SE df  lower.CL
+##  Concordia    0.8551257 0.04239779 36 0.7691390
+##  NP El Palmar 0.7823696 0.03925272 36 0.7027614
+##  Gualeguaychu 0.7006716 0.04073448 36 0.6180582
+##   upper.CL
+##  0.9411124
+##  0.8619778
+##  0.7832849
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                      estimate         SE df t.ratio p.value
-##  Concordia - NP El Palmar    0.07275605 0.05777844 36   1.259  0.4270
-##  Concordia - Gualeguaychu    0.15445411 0.05879515 36   2.627  0.0329
-##  NP El Palmar - Gualeguaychu 0.08169806 0.05656920 36   1.444  0.3295
+##  contrast                      estimate         SE df
+##  Concordia - NP El Palmar    0.07275605 0.05777844 36
+##  Concordia - Gualeguaychu    0.15445411 0.05879515 36
+##  NP El Palmar - Gualeguaychu 0.08169806 0.05656920 36
+##  t.ratio p.value
+##    1.259  0.4270
+##    2.627  0.0329
+##    1.444  0.3295
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="II_ER_Asociatedspecies_files/figure-html/unnamed-chunk-44-1.png" width="960" style="display: block; margin: auto;" /></p>

@@ -1021,11 +1021,15 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: CONF
-##           Df    Sum Sq  Mean Sq  F value      Pr(&gt;F)    
-## MAD        3 15.552292 5.184097 38.78377 0.000041056 ***
-## Residuals  8  1.069333 0.133667                         
+##           Df    Sum Sq  Mean Sq  F value      Pr(&gt;F)
+## MAD        3 15.552292 5.184097 38.78377 0.000041056
+## Residuals  8  1.069333 0.133667                     
+##              
+## MAD       ***
+## Residuals    
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
 ##  MAD     emmean          SE df   lower.CL   upper.CL
@@ -1068,11 +1072,15 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: CONF
-##           Df    Sum Sq  Mean Sq F value     Pr(&gt;F)    
-## MAD        3 18.255292 6.085097 22.9482 0.00027676 ***
-## Residuals  8  2.121333 0.265167                       
+##           Df    Sum Sq  Mean Sq F value     Pr(&gt;F)
+## MAD        3 18.255292 6.085097 22.9482 0.00027676
+## Residuals  8  2.121333 0.265167                   
+##              
+## MAD       ***
+## Residuals    
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
 ##  MAD     emmean          SE df   lower.CL   upper.CL
@@ -1167,7 +1175,8 @@ div.tocify {
 ## MAD        3 380.5920 126.86401 14.89503 0.0012262 **
 ## Residuals  8  68.1376   8.51721                      
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
 ##  MAD     emmean         SE df   lower.CL   upper.CL
@@ -1214,7 +1223,8 @@ div.tocify {
 ## MAD        3 289.4805 96.49351 6.51122 0.015359 *
 ## Residuals  8 118.5566 14.81957                   
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
 ##  MAD     emmean         SE df   lower.CL   upper.CL
@@ -1272,23 +1282,35 @@ div.tocify {
 ## MAD             3    7.333655   0.011</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  MAD      emmean           SE df    lower.CL    upper.CL
-##  I   0.337176961 0.0612796986  2 0.073464638 0.600889283
-##  MM  0.357918606 0.0088466283  2 0.319856982 0.395980230
-##  M   0.714046517 0.0855053896  2 0.346364784 1.081728249
-##  SM  0.716549022 0.1640158754  2 0.010983030 1.422115015
+##  MAD      emmean           SE df    lower.CL
+##  I   0.337176961 0.0612796986  2 0.073464638
+##  MM  0.357918606 0.0088466283  2 0.319856982
+##  M   0.714046517 0.0855053896  2 0.346364784
+##  SM  0.716549022 0.1640158754  2 0.010983030
+##     upper.CL
+##  0.600889283
+##  0.395980230
+##  1.081728249
+##  1.422115015
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate           SE   df t.ratio p.value
-##  I - MM   -0.020741645 0.0619149763 2.08  -0.335  0.9839
-##  I - M    -0.376869556 0.1051968303 3.63  -3.583  0.0844
-##  I - SM   -0.379372062 0.1750897165 2.55  -2.167  0.3302
-##  MM - M   -0.356127911 0.0859618199 2.04  -4.143  0.1263
-##  MM - SM  -0.358630417 0.1642542852 2.01  -2.183  0.3607
-##  M - SM   -0.002502506 0.1849658861 3.01  -0.014  1.0000
+##  contrast     estimate           SE   df t.ratio
+##  I - MM   -0.020741645 0.0619149763 2.08  -0.335
+##  I - M    -0.376869556 0.1051968303 3.63  -3.583
+##  I - SM   -0.379372062 0.1750897165 2.55  -2.167
+##  MM - M   -0.356127911 0.0859618199 2.04  -4.143
+##  MM - SM  -0.358630417 0.1642542852 2.01  -2.183
+##  M - SM   -0.002502506 0.1849658861 3.01  -0.014
+##  p.value
+##   0.9839
+##   0.0844
+##   0.3302
+##   0.1263
+##   0.3607
+##   1.0000
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1311,7 +1333,8 @@ div.tocify {
 ## MAD        3 712.0535 237.35116 5.83595 0.020596 *
 ## Residuals  8 325.3642  40.67053                   
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
 ##  MAD     emmean        SE df   lower.CL   upper.CL

@@ -255,7 +255,7 @@ summary(pca_result)
 ```
 
 Heatmap
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=15, fig.height=15}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 
@@ -368,7 +368,7 @@ print(heatmap)
 ```
 
 Scree plot para ver la varianza explicada por cada Principal component
-```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(factoextra)
@@ -1197,7 +1197,7 @@ gg_bar_irr <- ggplot(response_data_irr, aes(x = Season, y = response, fill = Fer
   # geom_errorbar(aes(ymin = response - SE, ymax = response + SE), width = 0.2, position = position_dodge(0.6), color = 'black', size = 1) +
   # Adjust the y position to place the letters above the error bars
   geom_text(aes(label = sig_letters, y = response + SE),
-            position = position_dodge(0.6), vjust = -0.5, size = 8) +
+            position = position_dodge(0.6), vjust = -0.3, size = 8) +
   facet_grid(. ~ Light) +
   scale_fill_manual(values = c("0" = "#E31A1C", "1" = "#FDBF6F", "2" = "#B2DF8A")) +
   labs(
@@ -1486,6 +1486,5 @@ gg_irradiance <- ggplot(tabla_calafate2, aes(x = Irradiance, y = Mean, color = F
             angle = 90, vjust = -0.5, hjust = 1, size=6)
 
 gg_irradiance
-
 
 ```

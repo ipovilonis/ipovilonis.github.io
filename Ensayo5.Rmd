@@ -17,6 +17,172 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 ensayo5 <- read_excel("database.xlsx", sheet = "Ensayo 5")
 
-print(ensayo5)
+ensayo5$respiracion <- ensayo5$Respiración
+ensayo5$Estado <- factor(ensayo5$Estado, levels = c("I", "MM1", "MM2", "M", "SM"))
+
 
 ```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+model_resp5 <- lm(respiracion ~ Estado, data = ensayo5)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# 1. Gráfico de Residuos vs Predichos
+residuos <- residuals(model_resp5)       # Residuos del modelo
+predichos <- fitted(model_resp5)         # Valores predichos
+
+grafico_res_pred <- ggplot(data = NULL, aes(x = predichos, y = residuos)) +
+  geom_point(size = 2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuos vs Predichos",
+       x = "Valores Predichos",
+       y = "Residuos") +
+  theme_classic() +
+  theme(text = element_text(size = 12))
+
+print(grafico_res_pred)
+
+# 2. QQ-plot
+grafico_qq <- ggplot(data = data.frame(residuos), aes(sample = residuos)) +
+  stat_qq() +
+  stat_qq_line(color = "red", linetype = "dashed") +
+  labs(title = "QQ-Plot de Residuos",
+       x = "Cuantiles Teóricos",
+       y = "Cuantiles de Residuos") +
+  theme_classic() +
+  theme(text = element_text(size = 12))
+
+print(grafico_qq)
+
+# 3. Prueba de Levene (homogeneidad de varianzas)
+levene_test <- leveneTest(respiracion ~ Estado, data = ensayo5)
+print(levene_test)
+
+# 4. Prueba de Shapiro-Wilk (normalidad de residuos)
+shapiro_test <- shapiro.test(residuos)
+print(shapiro_test)
+
+# 5. Identificación de outliers (opcional, ver recomendaciones abajo)
+# Calcular residuos estandarizados
+residuos_std <- rstandard(model_resp5)
+
+# Mostrar observaciones con residuos estandarizados > 2 o < -2 (posibles outliers)
+outliers <- which(abs(residuos_std) > 2)
+if(length(outliers) > 0) {
+  print("Posibles outliers (índices de las observaciones):")
+  print(outliers)
+  print("Detalles de las observaciones:")
+  print(ensayo5[outliers, ])
+} else {
+  print("No se detectaron outliers con |residuos estandarizados| > 2")
+}
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(model_resp5)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+comp_resp5<-emmeans(model_resp5, pairwise ~ Estado)
+comp_resp5
+plot(comp_resp5, comparisons = TRUE)+ 
+  labs(x = expression("mg CO"[2]*"/Kg.h") , y ="" )
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Obtener las medias predichas y errores estándar para cada nivel de Estado
+niveles_estado <- unique(ensayo5$Estado)
+predicciones <- predict(model_resp5, newdata = data.frame(Estado = niveles_estado), 
+                        se.fit = TRUE, interval = "confidence")
+
+# Crear una tabla con los resultados
+tabla_predichas <- data.frame(
+  Estado = niveles_estado,
+  Media_Predicha = predicciones$fit[, "fit"],  # Media predicha
+  Error_Estandar = predicciones$se.fit,        # Error estándar del modelo
+  n = tapply(ensayo5$respiracion, ensayo5$Estado, length)  # Número de observaciones por grupo
+)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar librería necesaria
+library(ggplot2)
+
+# Ajustar el modelo
+model_resp5 <- lm(respiracion ~ Estado, data = ensayo5)
+
+# Obtener las medias predichas y errores estándar para cada nivel de Estado
+niveles_estado <- unique(ensayo5$Estado)
+predicciones <- predict(model_resp5, newdata = data.frame(Estado = niveles_estado), 
+                        se.fit = TRUE)
+
+# Crear una tabla con los resultados
+tabla_predichas <- data.frame(
+  Estado = niveles_estado,
+  Media_Predicha = predicciones$fit,  # Media predicha
+  Error_Estandar = predicciones$se.fit,  # Error estándar del modelo
+  n = tapply(ensayo5$respiracion, ensayo5$Estado, length)  # Número de observaciones por grupo
+)
+
+# Crear el gráfico con las medias predichas y errores estándar del modelo
+grafico_resp <- ggplot(tabla_predichas, aes(x = Estado, y = Media_Predicha, fill = Estado)) +
+  geom_bar(stat = "identity", width = 0.3, color = "black") +
+  # Barras de error con el error estándar estimado por el modelo
+  geom_errorbar(aes(ymin = Media_Predicha - Error_Estandar,
+                    ymax = Media_Predicha + Error_Estandar),
+                width = 0.1) +
+  labs(
+    title = "",
+    x = "",
+    y = expression("mg " ~ CO[2] ~ "/ Kg.h")
+  ) +
+  theme_classic() +
+  scale_fill_manual(values = c("palegreen4", "green4", "yellowgreen", "gold", "gold4")) +
+  theme(legend.title = element_blank(),
+        legend.background = element_rect(fill = "white"),
+        legend.position = "none",
+        text = element_text(size = 35, color = 'black'),
+        axis.text = element_text(color = 'black'),
+        panel.grid.major.y = element_line(color = 'black'))+
+  scale_y_continuous(breaks = seq(0,300, 50), limits = c(0, 300))+
+  # Letras de significancia (I y MM1 = "b", resto = "a")
+  annotate("text", x = 1, y = tabla_predichas$Media_Predicha[1] + 
+           tabla_predichas$Error_Estandar[1] + 10, label = "b", size = 8) +  # I
+  annotate("text", x = 2, y = tabla_predichas$Media_Predicha[2] + 
+           tabla_predichas$Error_Estandar[2] + 10, label = "b", size = 8) +  # MM1
+  annotate("text", x = 3, y = tabla_predichas$Media_Predicha[3] + 
+           tabla_predichas$Error_Estandar[3] + 10, label = "a", size = 8) +  # MM2
+  annotate("text", x = 4, y = tabla_predichas$Media_Predicha[4] + 
+           tabla_predichas$Error_Estandar[4] + 10, label = "a", size = 8) +  # M
+  annotate("text", x = 5, y = tabla_predichas$Media_Predicha[5] + 
+           tabla_predichas$Error_Estandar[5] + 10, label = "a", size = 8)    # SM
+
+# Mostrar el gráfico
+print(grafico_resp)
+
+# Opcional: Mostrar la tabla para verificar
+print(tabla_predichas)
+
+# ggsave("grafico_resp.tiff", plot = grafico_resp, device = "tiff", width = 15, height = 8, units = "in", dpi = 300)
+
+```
+

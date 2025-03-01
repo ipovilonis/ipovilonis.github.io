@@ -9,6 +9,10 @@ output:
      smooth_scroll: true
 ---
 
+
+
+# 5 and 9 °C storage conditions
+
 This essay shows the postharvest behavior of the fruits at temperatures of 5 and 9 °C for different physical and chemical variables.
 
 # Introduction
@@ -2267,6 +2271,115 @@ No significant differences were found.
 # library(grid)
 # img <- readPNG("acidez.png")
 #  grid.raster(img)
+```
+
+# SSATT
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+fisico59<-read_excel("database.xlsx", sheet = "VI PosCord")
+quimico59<-read_excel("database.xlsx", sheet = "VI Datac")
+quimico59$SSATT <- quimico59$SS/quimico59$Ac
+fisico59$DIA<-as.factor(fisico59$DIA)
+fisico59$TEMP<-as.factor(fisico59$TEMP)
+quimico59$DIA<-as.factor(quimico59$DIA)
+quimico59$TEMP<-as.factor(quimico59$TEMP)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+table_SSATT <- quimico59 %>%
+  dplyr::group_by(DIA, TEMP) %>%
+  dplyr::summarise(mean = mean(SSATT),
+                   sd = sd(SSATT))
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+model_SSATT <- lm(SSATT ~ TEMP*DIA, data = quimico59)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# 1. Gráfico de Residuos vs Predichos
+residuos <- residuals(model_SSATT)       # Residuos del modelo
+predichos <- fitted(model_SSATT)         # Valores predichos
+library(ggplot2)
+grafico_res_pred <- ggplot(data = NULL, aes(x = predichos, y = residuos)) +
+  geom_point(size = 2) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = "red") +
+  labs(title = "Residuos vs Predichos",
+       x = "Valores Predichos",
+       y = "Residuos") +
+  theme_classic() +
+  theme(text = element_text(size = 12))
+
+print(grafico_res_pred)
+
+# 2. QQ-plot
+grafico_qq <- ggplot(data = data.frame(residuos), aes(sample = residuos)) +
+  stat_qq() +
+  stat_qq_line(color = "red", linetype = "dashed") +
+  labs(title = "QQ-Plot de Residuos",
+       x = "Cuantiles Teóricos",
+       y = "Cuantiles de Residuos") +
+  theme_classic() +
+  theme(text = element_text(size = 12))
+
+print(grafico_qq)
+library(car)
+# 3. Prueba de Levene (homogeneidad de varianzas)
+levene_test <- leveneTest(SSATT ~ TEMP, data = quimico59)
+print(levene_test)
+levene_test <- leveneTest(SSATT ~ DIA, data = quimico59)
+print(levene_test)
+
+# 4. Prueba de Shapiro-Wilk (normalidad de residuos)
+shapiro_test <- shapiro.test(residuos)
+print(shapiro_test)
+
+# 5. Identificación de outliers (opcional, ver recomendaciones abajo)
+# Calcular residuos estandarizados
+residuos_std <- rstandard(model_SSATT)
+
+# Mostrar observaciones con residuos estandarizados > 2 o < -2 (posibles outliers)
+outliers <- which(abs(residuos_std) > 2)
+if(length(outliers) > 0) {
+  print("Posibles outliers (índices de las observaciones):")
+  print(outliers)
+  print("Detalles de las observaciones:")
+  print(quimico59[outliers, ])
+} else {
+  print("No se detectaron outliers con |residuos estandarizados| > 2")
+}
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+anova(model_SSATT)
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(emmeans)
+comp_resp5<-emmeans(model_SSATT, pairwise ~ TEMP*DIA)
+comp_resp5
+plot(comp_resp5, comparisons = TRUE)+ 
+  labs(x = "SS/ATT" , y ="" )
+
 ```
 
 ## General graphs

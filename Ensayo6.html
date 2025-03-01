@@ -562,20 +562,150 @@ div.tocify {
 </div>
 
 
-<pre><code>## # A tibble: 36 × 3
-##      Día Tratamiento Respiración
-##    &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
-##  1     1 Control           33.9 
-##  2     1 Control           28.4 
-##  3     1 Control           21.9 
-##  4     1 Etileno            6.91
-##  5     1 Etileno           12.7 
-##  6     1 Etileno           20.7 
-##  7     1 1MCP              25.6 
-##  8     1 1MCP              23.4 
-##  9     1 1MCP              25.0 
-## 10     3 Control           28.0 
+<pre><code>## # A tibble: 36 × 5
+##    `Día` Tratamiento `Respiración` dia   respiracion
+##    &lt;dbl&gt; &lt;fct&gt;               &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;
+##  1     1 Control             33.9  1           33.9 
+##  2     1 Control             28.4  1           28.4 
+##  3     1 Control             21.9  1           21.9 
+##  4     1 Etileno              6.91 1            6.91
+##  5     1 Etileno             12.7  1           12.7 
+##  6     1 Etileno             20.7  1           20.7 
+##  7     1 1MCP                25.6  1           25.6 
+##  8     1 1MCP                23.4  1           23.4 
+##  9     1 1MCP                25.0  1           25.0 
+## 10     3 Control             28.0  3           28.0 
 ## # ℹ 26 more rows</code></pre>
+<p><img src="Ensayo6_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo6_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo6_files/figure-html/unnamed-chunk-4-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  3  1.4354 0.2507
+##       32</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuos
+## W = 0.96231, p-value = 0.2531</code></pre>
+<pre><code>## Analysis of Deviance Table (Type II tests)
+## 
+## Response: log(respiracion)
+##                 Df    Chisq Pr(&gt;Chisq)    
+## Tratamiento      2   42.966  4.677e-10 ***
+## dia              3 1076.301  &lt; 2.2e-16 ***
+## Tratamiento:dia  6   57.391  1.522e-10 ***
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+## dia = 1:
+##  Tratamiento   emmean         SE    df lower.CL
+##  Control     3.318069 0.19797449  9.00 2.870250
+##  Etileno     2.501257 0.19797449  9.00 2.053438
+##  1MCP        3.204997 0.19797449  9.00 2.757178
+##  upper.CL
+##  3.765887
+##  2.949076
+##  3.652816
+## 
+## dia = 2:
+##  Tratamiento   emmean         SE    df lower.CL
+##  Control     3.215969 0.13691896 16.21 2.926013
+##  Etileno     3.235144 0.13691896 16.21 2.945189
+##  1MCP        2.936730 0.13691896 16.21 2.646774
+##  upper.CL
+##  3.505925
+##  3.525100
+##  3.226686
+## 
+## dia = 3:
+##  Tratamiento   emmean         SE    df lower.CL
+##  Control     3.372958 0.08412164 16.20 3.194811
+##  Etileno     2.357409 0.08412164 16.20 2.179262
+##  1MCP        3.111649 0.08412164 16.20 2.933502
+##  upper.CL
+##  3.551105
+##  2.535556
+##  3.289795
+## 
+## dia = 4:
+##  Tratamiento   emmean         SE    df lower.CL
+##  Control     5.222699 0.08719861 16.21 5.038037
+##  Etileno     5.148330 0.08719861 16.21 4.963668
+##  1MCP        4.875460 0.08719861 16.21 4.690798
+##  upper.CL
+##  5.407361
+##  5.332992
+##  5.060122
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the log (not the response) scale. 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+## dia = 1:
+##  contrast            estimate        SE    df t.ratio
+##  Control - Etileno  0.8168116 0.2799782  9.00   2.917
+##  Control - 1MCP     0.1130718 0.2799782  9.00   0.404
+##  Etileno - 1MCP    -0.7037397 0.2799782  9.00  -2.514
+##  p.value
+##   0.0411
+##   0.9148
+##   0.0771
+## 
+## dia = 2:
+##  contrast            estimate        SE    df t.ratio
+##  Control - Etileno -0.0191754 0.1936327 16.21  -0.099
+##  Control - 1MCP     0.2792387 0.1936327 16.21   1.442
+##  Etileno - 1MCP     0.2984142 0.1936327 16.21   1.541
+##  p.value
+##   0.9946
+##   0.3436
+##   0.2986
+## 
+## dia = 3:
+##  contrast            estimate        SE    df t.ratio
+##  Control - Etileno  1.0155487 0.1189660 16.20   8.536
+##  Control - 1MCP     0.2613092 0.1189660 16.20   2.197
+##  Etileno - 1MCP    -0.7542395 0.1189660 16.20  -6.340
+##  p.value
+##   &lt;.0001
+##   0.1019
+##   &lt;.0001
+## 
+## dia = 4:
+##  contrast            estimate        SE    df t.ratio
+##  Control - Etileno  0.0743688 0.1233175 16.21   0.603
+##  Control - 1MCP     0.3472388 0.1233175 16.21   2.816
+##  Etileno - 1MCP     0.2728701 0.1233175 16.21   2.213
+##  p.value
+##   0.8204
+##   0.0313
+##   0.0989
+## 
+## Degrees-of-freedom method: satterthwaite 
+## Results are given on the log (not the response) scale. 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
+<p><img src="Ensayo6_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## # A tibble: 12 × 5
+## # Groups:   Tratamiento [3]
+##    Tratamiento dia   mean_respiracion.x
+##    &lt;fct&gt;       &lt;fct&gt;              &lt;dbl&gt;
+##  1 Control     1                   28.0
+##  2 Control     3                   25.0
+##  3 Control     5                   29.3
+##  4 Control     7                  186. 
+##  5 Etileno     1                   13.4
+##  6 Etileno     3                   25.9
+##  7 Etileno     5                   10.7
+##  8 Etileno     7                  174. 
+##  9 1MCP        1                   24.7
+## 10 1MCP        3                   19.4
+## 11 1MCP        5                   22.7
+## 12 1MCP        7                  132. 
+## # ℹ 2 more variables: mean_respiracion.y &lt;dbl&gt;,
+## #   sd_model_response &lt;dbl&gt;</code></pre>
+<p><img src="Ensayo6_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
 
 
 

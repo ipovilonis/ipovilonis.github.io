@@ -579,18 +579,6 @@ A caption
 </div>
 <div id="atributos-físicos-de-calidad" class="section level1">
 <h1>Atributos físicos de calidad</h1>
-<pre><code>## New names:
-## • `` -&gt; `...13`
-## • `` -&gt; `...14`
-## • `` -&gt; `...15`
-## • `` -&gt; `...16`
-## • `` -&gt; `...17`
-## • `` -&gt; `...18`
-## • `` -&gt; `...19`
-## • `` -&gt; `...20`
-## • `` -&gt; `...21`
-## • `` -&gt; `...22`
-## • `` -&gt; `...23`</code></pre>
 <div id="peso-fresco-del-fruto-pff" class="section level2">
 <h2>Peso fresco del fruto (PFF)</h2>
 <p>Tabla descriptiva</p>
@@ -641,26 +629,39 @@ A caption
 ##         LR Chisq Df   Pr(&gt;Chisq)    
 ## madurez 28.50623  3 0.0000028436 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      response         SE df   lower.CL   upper.CL
-##  Inmaduro      19.4659 2.11208160 36 15.6209465 24.2572537
-##  Medio Maduro  40.1207 4.35316077 36 32.1959586 49.9960442
-##  Maduro        39.5526 4.29152101 36 31.7400711 49.2881116
-##  SobreMaduro   39.4895 4.28467455 36 31.6894348 49.2094801
+##  madurez      response         SE df   lower.CL
+##  Inmaduro      19.4659 2.11208160 36 15.6209465
+##  Medio Maduro  40.1207 4.35316077 36 32.1959586
+##  Maduro        39.5526 4.29152101 36 31.7400711
+##  SobreMaduro   39.4895 4.28467455 36 31.6894348
+##    upper.CL
+##  24.2572537
+##  49.9960442
+##  49.2881116
+##  49.2094801
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast                         ratio           SE df null t.ratio p.value
-##  Inmaduro / Medio Maduro    0.485183459 0.0744487122 36    1  -4.713  0.0002
-##  Inmaduro / Maduro          0.492152223 0.0755180303 36    1  -4.620  0.0003
-##  Inmaduro / SobreMaduro     0.492938629 0.0756387001 36    1  -4.610  0.0003
-##  Medio Maduro / Maduro      1.014363152 0.1556484025 36    1   0.093  0.9997
-##  Medio Maduro / SobreMaduro 1.015983996 0.1558971120 36    1   0.103  0.9996
-##  Maduro / SobreMaduro       1.001597893 0.1536896443 36    1   0.010  1.0000
+##  contrast                         ratio           SE
+##  Inmaduro / Medio Maduro    0.485183459 0.0744487122
+##  Inmaduro / Maduro          0.492152223 0.0755180303
+##  Inmaduro / SobreMaduro     0.492938629 0.0756387001
+##  Medio Maduro / Maduro      1.014363152 0.1556484025
+##  Medio Maduro / SobreMaduro 1.015983996 0.1558971120
+##  Maduro / SobreMaduro       1.001597893 0.1536896443
+##  df null t.ratio p.value
+##  36    1  -4.713  0.0002
+##  36    1  -4.620  0.0003
+##  36    1  -4.610  0.0003
+##  36    1   0.093  0.9997
+##  36    1   0.103  0.9996
+##  36    1   0.010  1.0000
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale</code></pre>
@@ -716,26 +717,39 @@ A caption
 ##         LR Chisq Df Pr(&gt;Chisq)  
 ## madurez 8.918979  3   0.030388 *
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      response          SE df   lower.CL   upper.CL
-##  Inmaduro       4.1405 0.594949418 36 3.09379734 5.54132619
-##  Medio Maduro   6.6225 0.951588581 36 4.94835718 8.86304376
-##  Maduro         4.9979 0.718149425 36 3.73444988 6.68880430
-##  SobreMaduro    7.0983 1.019956395 36 5.30387675 9.49981783
+##  madurez      response          SE df   lower.CL
+##  Inmaduro       4.1405 0.594949418 36 3.09379734
+##  Medio Maduro   6.6225 0.951588581 36 4.94835718
+##  Maduro         4.9979 0.718149425 36 3.73444988
+##  SobreMaduro    7.0983 1.019956395 36 5.30387675
+##    upper.CL
+##  5.54132619
+##  8.86304376
+##  6.68880430
+##  9.49981783
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast                         ratio          SE df null t.ratio p.value
-##  Inmaduro / Medio Maduro    0.625217063 0.127049534 36    1  -2.311  0.1143
-##  Inmaduro / Maduro          0.828447948 0.168347813 36    1  -0.926  0.7911
-##  Inmaduro / SobreMaduro     0.583308680 0.118533386 36    1  -2.653  0.0548
-##  Medio Maduro / Maduro      1.325056523 0.269262986 36    1   1.385  0.5166
-##  Medio Maduro / SobreMaduro 0.932969866 0.189587574 36    1  -0.341  0.9861
-##  Maduro / SobreMaduro       0.704098165 0.143078858 36    1  -1.726  0.3252
+##  contrast                         ratio          SE
+##  Inmaduro / Medio Maduro    0.625217063 0.127049534
+##  Inmaduro / Maduro          0.828447948 0.168347813
+##  Inmaduro / SobreMaduro     0.583308680 0.118533386
+##  Medio Maduro / Maduro      1.325056523 0.269262986
+##  Medio Maduro / SobreMaduro 0.932969866 0.189587574
+##  Maduro / SobreMaduro       0.704098165 0.143078858
+##  df null t.ratio p.value
+##  36    1  -2.311  0.1143
+##  36    1  -0.926  0.7911
+##  36    1  -2.653  0.0548
+##  36    1   1.385  0.5166
+##  36    1  -0.341  0.9861
+##  36    1  -1.726  0.3252
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale</code></pre>
@@ -791,26 +805,39 @@ A caption
 ##            Chisq Df     Pr(&gt;Chisq)    
 ## madurez 41.47984  3 0.000000005173 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez         response            SE  df   asymp.LCL   asymp.UCL
-##  Inmaduro     0.792806655 0.00996729467 Inf 0.772590972 0.811663332
-##  Medio Maduro 0.836579892 0.00908025816 Inf 0.817994850 0.853606801
-##  Maduro       0.875318049 0.00809562161 Inf 0.858566332 0.890339077
-##  SobreMaduro  0.821864090 0.00940177499 Inf 0.802685299 0.839551348
+##  madurez         response            SE  df
+##  Inmaduro     0.792806655 0.00996729467 Inf
+##  Medio Maduro 0.836579892 0.00908025816 Inf
+##  Maduro       0.875318049 0.00809562161 Inf
+##  SobreMaduro  0.821864090 0.00940177499 Inf
+##    asymp.LCL   asymp.UCL
+##  0.772590972 0.811663332
+##  0.817994850 0.853606801
+##  0.858566332 0.890339077
+##  0.802685299 0.839551348
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale 
 ## 
 ## $contrasts
-##  contrast                    odds.ratio           SE  df null z.ratio p.value
-##  Inmaduro / Medio Maduro    0.747462752 0.0671755426 Inf    1  -3.239  0.0066
-##  Inmaduro / Maduro          0.545041022 0.0521693166 Inf    1  -6.341  &lt;.0001
-##  Inmaduro / SobreMaduro     0.829359755 0.0732059991 Inf    1  -2.120  0.1468
-##  Medio Maduro / Maduro      0.729188205 0.0724889503 Inf    1  -3.177  0.0081
-##  Medio Maduro / SobreMaduro 1.109566668 0.1023883508 Inf    1   1.127  0.6730
-##  Maduro / SobreMaduro       1.521646483 0.1490781251 Inf    1   4.285  0.0001
+##  contrast                    odds.ratio           SE
+##  Inmaduro / Medio Maduro    0.747462752 0.0671755426
+##  Inmaduro / Maduro          0.545041022 0.0521693166
+##  Inmaduro / SobreMaduro     0.829359755 0.0732059991
+##  Medio Maduro / Maduro      0.729188205 0.0724889503
+##  Medio Maduro / SobreMaduro 1.109566668 0.1023883508
+##  Maduro / SobreMaduro       1.521646483 0.1490781251
+##   df null z.ratio p.value
+##  Inf    1  -3.239  0.0066
+##  Inf    1  -6.341  &lt;.0001
+##  Inf    1  -2.120  0.1468
+##  Inf    1  -3.177  0.0081
+##  Inf    1   1.127  0.6730
+##  Inf    1   4.285  0.0001
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log odds ratio scale</code></pre>
@@ -866,26 +893,39 @@ A caption
 ##         LR Chisq Df    Pr(&gt;Chisq)    
 ## madurez 34.78728  3 0.00000013511 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      response         SE df   lower.CL   upper.CL
-##  Inmaduro       31.406 1.40895546 36 28.6746468 34.3975234
-##  Medio Maduro   41.432 1.85874809 36 37.8286941 45.3785325
-##  Maduro         42.369 1.90078437 36 38.6842040 46.4047848
-##  SobreMaduro    44.414 1.99252842 36 40.5513521 48.6445777
+##  madurez      response         SE df   lower.CL
+##  Inmaduro       31.406 1.40895546 36 28.6746468
+##  Medio Maduro   41.432 1.85874809 36 37.8286941
+##  Maduro         42.369 1.90078437 36 38.6842040
+##  SobreMaduro    44.414 1.99252842 36 40.5513521
+##    upper.CL
+##  34.3975234
+##  45.3785325
+##  46.4047848
+##  48.6445777
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast                         ratio           SE df null t.ratio p.value
-##  Inmaduro / Medio Maduro    0.758013130 0.0480923903 36    1  -4.367  0.0006
-##  Inmaduro / Maduro          0.741249498 0.0470288163 36    1  -4.719  0.0002
-##  Inmaduro / SobreMaduro     0.707119377 0.0448634196 36    1  -5.462  &lt;.0001
-##  Medio Maduro / Maduro      0.977884774 0.0620422186 36    1  -0.352  0.9847
-##  Medio Maduro / SobreMaduro 0.932859008 0.0591855442 36    1  -1.095  0.6945
-##  Maduro / SobreMaduro       0.953955960 0.0605240471 36    1  -0.743  0.8790
+##  contrast                         ratio           SE
+##  Inmaduro / Medio Maduro    0.758013130 0.0480923903
+##  Inmaduro / Maduro          0.741249498 0.0470288163
+##  Inmaduro / SobreMaduro     0.707119377 0.0448634196
+##  Medio Maduro / Maduro      0.977884774 0.0620422186
+##  Medio Maduro / SobreMaduro 0.932859008 0.0591855442
+##  Maduro / SobreMaduro       0.953955960 0.0605240471
+##  df null t.ratio p.value
+##  36    1  -4.367  0.0006
+##  36    1  -4.719  0.0002
+##  36    1  -5.462  &lt;.0001
+##  36    1  -0.352  0.9847
+##  36    1  -1.095  0.6945
+##  36    1  -0.743  0.8790
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale</code></pre>
@@ -941,26 +981,39 @@ A caption
 ##         LR Chisq Df       Pr(&gt;Chisq)    
 ## madurez 47.97809  3 0.00000000021525 ***
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      response         SE df   lower.CL   upper.CL
-##  Inmaduro       34.306 1.42440373 36 31.5354624 37.3199423
-##  Medio Maduro   47.610 1.97679303 36 43.7650371 51.7927608
-##  Maduro         48.469 2.01245918 36 44.5546647 52.7272280
-##  SobreMaduro    48.732 2.02337908 36 44.7964249 53.0133337
+##  madurez      response         SE df   lower.CL
+##  Inmaduro       34.306 1.42440373 36 31.5354624
+##  Medio Maduro   47.610 1.97679303 36 43.7650371
+##  Maduro         48.469 2.01245918 36 44.5546647
+##  SobreMaduro    48.732 2.02337908 36 44.7964249
+##    upper.CL
+##  37.3199423
+##  51.7927608
+##  52.7272280
+##  53.0133337
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast                         ratio           SE df null t.ratio p.value
-##  Inmaduro / Medio Maduro    0.720562907 0.0423106717 36    1  -5.581  &lt;.0001
-##  Inmaduro / Maduro          0.707792610 0.0415608137 36    1  -5.886  &lt;.0001
-##  Inmaduro / SobreMaduro     0.703972749 0.0413365156 36    1  -5.978  &lt;.0001
-##  Medio Maduro / Maduro      0.982277332 0.0576782586 36    1  -0.305  0.9900
-##  Medio Maduro / SobreMaduro 0.976976114 0.0573669769 36    1  -0.397  0.9785
-##  Maduro / SobreMaduro       0.994603136 0.0584020164 36    1  -0.092  0.9997
+##  contrast                         ratio           SE
+##  Inmaduro / Medio Maduro    0.720562907 0.0423106717
+##  Inmaduro / Maduro          0.707792610 0.0415608137
+##  Inmaduro / SobreMaduro     0.703972749 0.0413365156
+##  Medio Maduro / Maduro      0.982277332 0.0576782586
+##  Medio Maduro / SobreMaduro 0.976976114 0.0573669769
+##  Maduro / SobreMaduro       0.994603136 0.0584020164
+##  df null t.ratio p.value
+##  36    1  -5.581  &lt;.0001
+##  36    1  -5.886  &lt;.0001
+##  36    1  -5.978  &lt;.0001
+##  36    1  -0.305  0.9900
+##  36    1  -0.397  0.9785
+##  36    1  -0.092  0.9997
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale</code></pre>
@@ -1016,26 +1069,39 @@ A caption
 ##         LR Chisq Df Pr(&gt;Chisq)  
 ## madurez 7.087171  3   0.069171 .
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      response         SE df   lower.CL   upper.CL
-##  Inmaduro       36.293 2.20469823 36 32.0861299 41.0514403
-##  Medio Maduro   43.792 2.66024150 36 38.7158902 49.5336477
-##  Maduro         38.611 2.34551025 36 34.1354411 43.6733575
-##  SobreMaduro    35.731 2.17055830 36 31.5892737 40.4157555
+##  madurez      response         SE df   lower.CL
+##  Inmaduro       36.293 2.20469823 36 32.0861299
+##  Medio Maduro   43.792 2.66024150 36 38.7158902
+##  Maduro         38.611 2.34551025 36 34.1354411
+##  SobreMaduro    35.731 2.17055830 36 31.5892737
+##    upper.CL
+##  41.0514403
+##  49.5336477
+##  43.6733575
+##  40.4157555
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast                         ratio           SE df null t.ratio p.value
-##  Inmaduro / Medio Maduro    0.828758677 0.0711982585 36    1  -2.186  0.1464
-##  Inmaduro / Maduro          0.939965295 0.0807519654 36    1  -0.721  0.8882
-##  Inmaduro / SobreMaduro     1.015728639 0.0872607578 36    1   0.182  0.9978
-##  Medio Maduro / Maduro      1.134184559 0.0974372488 36    1   1.466  0.4682
-##  Medio Maduro / SobreMaduro 1.225602418 0.1052909130 36    1   2.368  0.1018
-##  Maduro / SobreMaduro       1.080602278 0.0928340209 36    1   0.902  0.8037
+##  contrast                         ratio           SE
+##  Inmaduro / Medio Maduro    0.828758677 0.0711982585
+##  Inmaduro / Maduro          0.939965295 0.0807519654
+##  Inmaduro / SobreMaduro     1.015728639 0.0872607578
+##  Medio Maduro / Maduro      1.134184559 0.0974372488
+##  Medio Maduro / SobreMaduro 1.225602418 0.1052909130
+##  Maduro / SobreMaduro       1.080602278 0.0928340209
+##  df null t.ratio p.value
+##  36    1  -2.186  0.1464
+##  36    1  -0.721  0.8882
+##  36    1   0.182  0.9978
+##  36    1   1.466  0.4682
+##  36    1   2.368  0.1018
+##  36    1   0.902  0.8037
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale</code></pre>
@@ -1091,26 +1157,39 @@ A caption
 ##         LR Chisq Df Pr(&gt;Chisq)  
 ## madurez 7.654797  3   0.053712 .
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      response          SE df   lower.CL   upper.CL
-##  Inmaduro      2.19380 0.329518549 36 1.61770169 2.97505929
-##  Medio Maduro  3.54620 0.532655064 36 2.61495748 4.80907797
-##  Maduro        3.00080 0.450733550 36 2.21278112 4.06944932
-##  SobreMaduro   3.81729 0.573373991 36 2.81485846 5.17670894
+##  madurez      response          SE df   lower.CL
+##  Inmaduro      2.19380 0.329518549 36 1.61770169
+##  Medio Maduro  3.54620 0.532655064 36 2.61495748
+##  Maduro        3.00080 0.450733550 36 2.21278112
+##  SobreMaduro   3.81729 0.573373991 36 2.81485846
+##    upper.CL
+##  2.97505929
+##  4.80907797
+##  4.06944932
+##  5.17670894
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast                         ratio          SE df null t.ratio p.value
-##  Inmaduro / Medio Maduro    0.618634031 0.131410976 36    1  -2.261  0.1265
-##  Inmaduro / Maduro          0.731071715 0.155295122 36    1  -1.475  0.4629
-##  Inmaduro / SobreMaduro     0.574700901 0.122078648 36    1  -2.608  0.0607
-##  Medio Maduro / Maduro      1.181751533 0.251029064 36    1   0.786  0.8602
-##  Medio Maduro / SobreMaduro 0.928983651 0.197335810 36    1  -0.347  0.9854
-##  Maduro / SobreMaduro       0.786107422 0.166985872 36    1  -1.133  0.6719
+##  contrast                         ratio          SE
+##  Inmaduro / Medio Maduro    0.618634031 0.131410976
+##  Inmaduro / Maduro          0.731071715 0.155295122
+##  Inmaduro / SobreMaduro     0.574700901 0.122078648
+##  Medio Maduro / Maduro      1.181751533 0.251029064
+##  Medio Maduro / SobreMaduro 0.928983651 0.197335810
+##  Maduro / SobreMaduro       0.786107422 0.166985872
+##  df null t.ratio p.value
+##  36    1  -2.261  0.1265
+##  36    1  -1.475  0.4629
+##  36    1  -2.608  0.0607
+##  36    1   0.786  0.8602
+##  36    1  -0.347  0.9854
+##  36    1  -1.133  0.6719
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale</code></pre>
@@ -1167,23 +1246,35 @@ A caption
 ## madurez 1.899152  3     0.5936</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez         response           SE df    lower.CL    upper.CL
-##  Inmaduro     0.545600000 0.0544698813 36 0.445595546 0.668048329
-##  Medio Maduro 0.531100000 0.0530222763 36 0.433753289 0.650294112
-##  Maduro       0.634700000 0.0633651643 36 0.518364174 0.777144931
-##  SobreMaduro  0.561730662 0.0560802832 36 0.458769578 0.687799175
+##  madurez         response           SE df    lower.CL
+##  Inmaduro     0.545600000 0.0544698813 36 0.445595546
+##  Medio Maduro 0.531100000 0.0530222763 36 0.433753289
+##  Maduro       0.634700000 0.0633651643 36 0.518364174
+##  SobreMaduro  0.561730662 0.0560802832 36 0.458769578
+##     upper.CL
+##  0.668048329
+##  0.650294112
+##  0.777144931
+##  0.687799175
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the log scale 
 ## 
 ## $contrasts
-##  contrast                         ratio          SE df null t.ratio p.value
-##  Inmaduro / Medio Maduro    1.027301826 0.145042449 36    1   0.191  0.9975
-##  Inmaduro / Maduro          0.859618718 0.121367646 36    1  -1.071  0.7089
-##  Inmaduro / SobreMaduro     0.971283992 0.137133416 36    1  -0.206  0.9968
-##  Medio Maduro / Maduro      0.836773279 0.118142149 36    1  -1.262  0.5923
-##  Medio Maduro / SobreMaduro 0.945470909 0.133488925 36    1  -0.397  0.9784
-##  Maduro / SobreMaduro       1.129900934 0.159528188 36    1   0.865  0.8227
+##  contrast                         ratio          SE
+##  Inmaduro / Medio Maduro    1.027301826 0.145042449
+##  Inmaduro / Maduro          0.859618718 0.121367646
+##  Inmaduro / SobreMaduro     0.971283992 0.137133416
+##  Medio Maduro / Maduro      0.836773279 0.118142149
+##  Medio Maduro / SobreMaduro 0.945470909 0.133488925
+##  Maduro / SobreMaduro       1.129900934 0.159528188
+##  df null t.ratio p.value
+##  36    1   0.191  0.9975
+##  36    1  -1.071  0.7089
+##  36    1  -0.206  0.9968
+##  36    1  -1.262  0.5923
+##  36    1  -0.397  0.9784
+##  36    1   0.865  0.8227
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale</code></pre>
@@ -1240,29 +1331,45 @@ A caption
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: color_L
-##           Df   Sum Sq   Mean Sq  F value     Pr(&gt;F)    
-## madurez    3 64.02302 21.341008 23.79695 0.00002438 ***
-## Residuals 12 10.76155  0.896796                        
+##           Df   Sum Sq   Mean Sq  F value     Pr(&gt;F)
+## madurez    3 64.02302 21.341008 23.79695 0.00002438
+## Residuals 12 10.76155  0.896796                    
+##              
+## madurez   ***
+## Residuals    
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez       emmean          SE df   lower.CL   upper.CL
-##  Inmaduro     68.6750 0.473496524 12 67.6433397 69.7066603
-##  Medio Maduro 67.3650 0.473496524 12 66.3333397 68.3966603
-##  Maduro       72.2825 0.473496524 12 71.2508397 73.3141603
-##  SobreMaduro  71.4525 0.473496524 12 70.4208397 72.4841603
+##  madurez       emmean          SE df   lower.CL
+##  Inmaduro     68.6750 0.473496524 12 67.6433397
+##  Medio Maduro 67.3650 0.473496524 12 66.3333397
+##  Maduro       72.2825 0.473496524 12 71.2508397
+##  SobreMaduro  71.4525 0.473496524 12 70.4208397
+##    upper.CL
+##  69.7066603
+##  68.3966603
+##  73.3141603
+##  72.4841603
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                   estimate          SE df t.ratio p.value
-##  Inmaduro - Medio Maduro      1.3100 0.669625206 12   1.956  0.2569
-##  Inmaduro - Maduro           -3.6075 0.669625206 12  -5.387  0.0008
-##  Inmaduro - SobreMaduro      -2.7775 0.669625206 12  -4.148  0.0064
-##  Medio Maduro - Maduro       -4.9175 0.669625206 12  -7.344  &lt;.0001
-##  Medio Maduro - SobreMaduro  -4.0875 0.669625206 12  -6.104  0.0003
-##  Maduro - SobreMaduro         0.8300 0.669625206 12   1.239  0.6153
+##  contrast                   estimate          SE df
+##  Inmaduro - Medio Maduro      1.3100 0.669625206 12
+##  Inmaduro - Maduro           -3.6075 0.669625206 12
+##  Inmaduro - SobreMaduro      -2.7775 0.669625206 12
+##  Medio Maduro - Maduro       -4.9175 0.669625206 12
+##  Medio Maduro - SobreMaduro  -4.0875 0.669625206 12
+##  Maduro - SobreMaduro         0.8300 0.669625206 12
+##  t.ratio p.value
+##    1.956  0.2569
+##   -5.387  0.0008
+##   -4.148  0.0064
+##   -7.344  &lt;.0001
+##   -6.104  0.0003
+##    1.239  0.6153
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-68-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -1325,23 +1432,35 @@ A caption
 ## madurez         3  17.2283413  0.0001</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      emmean          SE df    lower.CL   upper.CL
-##  Inmaduro     1.2600 0.155777629  9 0.907606521 1.61239348
-##  Medio Maduro 3.8175 0.533859739  9 2.609825368 5.02517463
-##  Maduro       5.6775 1.436078981  9 2.428863648 8.92613635
-##  SobreMaduro  4.3225 0.581698308  9 3.006607006 5.63839299
+##  madurez      emmean          SE df    lower.CL
+##  Inmaduro     1.2600 0.155777629  9 0.907606521
+##  Medio Maduro 3.8175 0.533859739  9 2.609825368
+##  Maduro       5.6775 1.436078981  9 2.428863648
+##  SobreMaduro  4.3225 0.581698308  9 3.006607006
+##    upper.CL
+##  1.61239348
+##  5.02517463
+##  8.92613635
+##  5.63839299
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                   estimate          SE df t.ratio p.value
-##  Inmaduro - Medio Maduro     -2.5575 0.556123089  9  -4.599  0.0058
-##  Inmaduro - Maduro           -4.4175 1.444503205  9  -3.058  0.0550
-##  Inmaduro - SobreMaduro      -3.0625 0.602195642  9  -5.086  0.0030
-##  Medio Maduro - Maduro       -1.8600 1.532099559  9  -1.214  0.6339
-##  Medio Maduro - SobreMaduro  -0.5050 0.789543629  9  -0.640  0.9165
-##  Maduro - SobreMaduro         1.3550 1.549417878  9   0.875  0.8179
+##  contrast                   estimate          SE df
+##  Inmaduro - Medio Maduro     -2.5575 0.556123089  9
+##  Inmaduro - Maduro           -4.4175 1.444503205  9
+##  Inmaduro - SobreMaduro      -3.0625 0.602195642  9
+##  Medio Maduro - Maduro       -1.8600 1.532099559  9
+##  Medio Maduro - SobreMaduro  -0.5050 0.789543629  9
+##  Maduro - SobreMaduro         1.3550 1.549417878  9
+##  t.ratio p.value
+##   -4.599  0.0058
+##   -3.058  0.0550
+##   -5.086  0.0030
+##   -1.214  0.6339
+##   -0.640  0.9165
+##    0.875  0.8179
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -1402,25 +1521,38 @@ A caption
 ## madurez    3 128.7416 42.91387 3.81069 0.039566 *
 ## Residuals 12 135.1372 11.26143                   
 ## ---
-## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Comparaciones a posteriori</p>
 <pre><code>## $emmeans
-##  madurez      emmean         SE df   lower.CL    upper.CL
-##  Inmaduro       6.80 1.67790296 12 3.14416351 10.45583649
-##  Medio Maduro   4.68 1.67790296 12 1.02416351  8.33583649
-##  Maduro        12.33 1.67790296 12 8.67416351 15.98583649
-##  SobreMaduro    6.79 1.67790296 12 3.13416351 10.44583649
+##  madurez      emmean         SE df   lower.CL
+##  Inmaduro       6.80 1.67790296 12 3.14416351
+##  Medio Maduro   4.68 1.67790296 12 1.02416351
+##  Maduro        12.33 1.67790296 12 8.67416351
+##  SobreMaduro    6.79 1.67790296 12 3.13416351
+##     upper.CL
+##  10.45583649
+##   8.33583649
+##  15.98583649
+##  10.44583649
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                   estimate         SE df t.ratio p.value
-##  Inmaduro - Medio Maduro        2.12 2.37291312 12   0.893  0.8084
-##  Inmaduro - Maduro             -5.53 2.37291312 12  -2.330  0.1453
-##  Inmaduro - SobreMaduro         0.01 2.37291312 12   0.004  1.0000
-##  Medio Maduro - Maduro         -7.65 2.37291312 12  -3.224  0.0321
-##  Medio Maduro - SobreMaduro    -2.11 2.37291312 12  -0.889  0.8105
-##  Maduro - SobreMaduro           5.54 2.37291312 12   2.335  0.1444
+##  contrast                   estimate         SE df
+##  Inmaduro - Medio Maduro        2.12 2.37291312 12
+##  Inmaduro - Maduro             -5.53 2.37291312 12
+##  Inmaduro - SobreMaduro         0.01 2.37291312 12
+##  Medio Maduro - Maduro         -7.65 2.37291312 12
+##  Medio Maduro - SobreMaduro    -2.11 2.37291312 12
+##  Maduro - SobreMaduro           5.54 2.37291312 12
+##  t.ratio p.value
+##    0.893  0.8084
+##   -2.330  0.1453
+##    0.004  1.0000
+##   -3.224  0.0321
+##   -0.889  0.8105
+##    2.335  0.1444
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
 <p><img src="madPhysical_files/figure-html/unnamed-chunk-80-1.png" width="960" style="display: block; margin: auto;" /></p>

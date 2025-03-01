@@ -562,24 +562,58 @@ div.tocify {
 </div>
 
 
-<pre><code>## # A tibble: 15 × 2
-##    Estado Respiración
-##    &lt;chr&gt;        &lt;dbl&gt;
-##  1 I             137.
-##  2 I             126.
-##  3 I             149.
-##  4 MM1           191.
-##  5 MM1           145.
-##  6 MM1           185.
-##  7 MM2           222.
-##  8 MM2           240.
-##  9 MM2           228.
-## 10 M             224.
-## 11 M             223.
-## 12 M             268.
-## 13 SM            261.
-## 14 SM            254.
-## 15 SM            279.</code></pre>
+<p><img src="Ensayo5_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo5_files/figure-html/unnamed-chunk-3-2.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
+##       Df F value Pr(&gt;F)
+## group  4  0.2391 0.9098
+##       10</code></pre>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  residuos
+## W = 0.97457, p-value = 0.919</code></pre>
+<pre><code>## [1] &quot;No se detectaron outliers con |residuos estandarizados| &gt; 2&quot;</code></pre>
+<pre><code>## Analysis of Variance Table
+## 
+## Response: respiracion
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Estado     4  32261  8065.4  23.865 4.236e-05 ***
+## Residuals 10   3380   338.0                      
+## ---
+## Signif. codes:  
+## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<pre><code>## $emmeans
+##  Estado   emmean       SE df lower.CL upper.CL
+##  I      137.3975 10.61376 10 113.7486 161.0464
+##  MM1    173.7049 10.61376 10 150.0559 197.3538
+##  MM2    229.7609 10.61376 10 206.1120 253.4099
+##  M      238.1577 10.61376 10 214.5088 261.8066
+##  SM     264.6804 10.61376 10 241.0315 288.3294
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast    estimate       SE df t.ratio p.value
+##  I - MM1    -36.30735 15.01013 10  -2.419  0.1872
+##  I - MM2    -92.36341 15.01013 10  -6.153  0.0008
+##  I - M     -100.76018 15.01013 10  -6.713  0.0004
+##  I - SM    -127.28292 15.01013 10  -8.480  0.0001
+##  MM1 - MM2  -56.05606 15.01013 10  -3.735  0.0251
+##  MM1 - M    -64.45283 15.01013 10  -4.294  0.0107
+##  MM1 - SM   -90.97557 15.01013 10  -6.061  0.0009
+##  MM2 - M     -8.39677 15.01013 10  -0.559  0.9782
+##  MM2 - SM   -34.91951 15.01013 10  -2.326  0.2135
+##  M - SM     -26.52274 15.01013 10  -1.767  0.4404
+## 
+## P value adjustment: tukey method for comparing a family of 5 estimates</code></pre>
+<p><img src="Ensayo5_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo5_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre><code>##   Estado Media_Predicha Error_Estandar n
+## 1      I       137.3975       10.61376 3
+## 2    MM1       173.7049       10.61376 3
+## 3    MM2       229.7609       10.61376 3
+## 4      M       238.1577       10.61376 3
+## 5     SM       264.6804       10.61376 3</code></pre>
 
 
 

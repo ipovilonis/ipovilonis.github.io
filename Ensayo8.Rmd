@@ -9,6 +9,8 @@ output:
      smooth_scroll: true
 ---
 
+# Conservación a 1°C
+
 ## Respiración
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4}
@@ -1953,7 +1955,7 @@ almacenamiento <- read_excel("database.xlsx", sheet = "UNLP4_PCA")
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-almacenamiento2 <- almacenamiento[,-c(1)]
+almacenamiento2 <- almacenamiento[,-c(1,7,8)]
 
 # estandarizar
 
@@ -1977,7 +1979,7 @@ library(ggrepel)
 
 # Seleccionar las columnas específicas del dataframe
 datos_filtrados <- datos_estandarizados %>%
-  dplyr::select(Firmeza, L_color, a_color, b_color, aao_0.125, aao_0.250, aao_0.500, Fenoles, Carotenoides, Clo_a, Clo_b, pH, ATT, Sólidos, Respiración, Ratio)
+  dplyr::select(Firmeza, L_color, a_color, b_color, aao_0.125, Fenoles, Carotenoides, Clo_a, Clo_b, pH, ATT, Sólidos, Respiración, Ratio)
   
 # dplyr::select(TFS, FNP, FFWP, CO2)
 # 
@@ -2043,33 +2045,37 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # "#E31A1C", "#FDBF6F", "#FF7F00", "#CAB2D6", "#6A3D9A",
 # "#FFFF00", "#B15928")
 
-# Suponiendo que quieres cambiar "Firmeza" por "Dureza" y "L_color" por "Color_L"
-
+rownames(pca_result$rotation)[1] <- "PEN"
 rownames(pca_result$rotation)[2] <- "L*"
 rownames(pca_result$rotation)[3] <- "a*"
 rownames(pca_result$rotation)[4] <- "b*"
-rownames(pca_result$rotation)[5] <- "DPPH125"
-rownames(pca_result$rotation)[6] <- "DPPH250"
-rownames(pca_result$rotation)[7] <- "DPPH500"
-rownames(pca_result$rotation)[10] <- "Clorofila a"
-rownames(pca_result$rotation)[11] <- "Clorofila b"
-rownames(pca_result$rotation)[13] <- "Acidez total titulable"
-rownames(pca_result$rotation)[14] <- "Sólidos solubles"
-rownames(pca_result$rotation)[16] <- "Sólidos solubles/Acidez"
+rownames(pca_result$rotation)[5] <- "DPPH25"
+rownames(pca_result$rotation)[6] <- "PT"
+rownames(pca_result$rotation)[7] <- "CTC"
+rownames(pca_result$rotation)[8] <- "CLa"
+rownames(pca_result$rotation)[9] <- "CLb"
+rownames(pca_result$rotation)[10] <- "pH"
+rownames(pca_result$rotation)[11] <- "ATT"
+rownames(pca_result$rotation)[12] <- "SS"
+rownames(pca_result$rotation)[14] <- "SS/ATT"
 
 # Recalcular el biplot
 biplot_modificado <- fviz_pca_biplot(pca_result,
                                      # ... Resto de tu código
                                      )
 
-biplot_almacenamiento <- fviz_pca_biplot(pca_result,
-                                     axes = c(1, 2),
-                                     repel = TRUE,
-                                     col.var = "black",
-                                     geom.ind = "point",
-                                     label = "var",
-                                     addEllipses = FALSE,
-                                     labelsize = 12) +
+biplot_almacenamiento <- fviz_pca_biplot(pca_result, 
+                                geom.ind = "point",           # Puntos para los individuos
+                                pointshape = 21,              # Forma de los puntos
+                                pointsize = 6,                # Tamaño de los puntos
+                                geom.var = c("point", "text"), # Puntos y texto para las variables
+                                labelsize = 8,               # Tamaño del texto
+                                col.ind = "black",            # Color del borde de los puntos
+                                repel = TRUE,                 # Evitar superposición de etiquetas
+                                addEllipses = FALSE,          # No agregar elipses
+                                label = "var",                # Etiquetar las variables
+                                col.var = "black",            # Color de las variables
+                                arrows = TRUE) +
   geom_point(data = pca_scores,
              aes(x = PC1, y = PC2, color = Día), size = 12) +
   scale_color_manual(values = c("#FF8","orange","brown4")) +
@@ -2087,9 +2093,7 @@ biplot_almacenamiento <- fviz_pca_biplot(pca_result,
              span = 0.85)
 biplot_almacenamiento
 
-ggsave("biplot_almacenamiento.tiff", plot = biplot_almacenamiento, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
-
-# rmarkdown::render("VI_UNLP_1.Rmd", output_format = "pdf_document")
+# ggsave("biplot_almacenamiento.tiff", plot = biplot_almacenamiento, device = "tiff", width = 15, height = 8, units = "in", dpi = 300)
 
 ```
 

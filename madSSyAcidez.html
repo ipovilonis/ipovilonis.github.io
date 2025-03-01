@@ -629,11 +629,16 @@ div.tocify {
 ## madurez         3   2068.4667  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez      emmean           SE df    lower.CL    upper.CL
-##  I        7.56666667 0.0372677996  8  7.48072697  7.65260637
-##  MM       6.00000000 0.0372677996  8  5.91406030  6.08593970
-##  M        8.16666667 0.0372677996  8  8.08072697  8.25260637
-##  SM      10.10000000 0.0372677996  8 10.01406030 10.18593970
+##  madurez      emmean           SE df    lower.CL
+##  I        7.56666667 0.0372677996  8  7.48072697
+##  MM       6.00000000 0.0372677996  8  5.91406030
+##  M        8.16666667 0.0372677996  8  8.08072697
+##  SM      10.10000000 0.0372677996  8 10.01406030
+##     upper.CL
+##   7.65260637
+##   6.08593970
+##   8.25260637
+##  10.18593970
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
@@ -699,8 +704,10 @@ div.tocify {
 ##   Log-restricted-likelihood: -1.35360686
 ## 
 ## Coefficients:
-##   (Intercept)     madurezMM      madurezM     madurezSM 
-##  3.4100000000 -0.2400000000 -1.0766666667 -0.0566666667 
+##   (Intercept)     madurezMM      madurezM 
+##  3.4100000000 -0.2400000000 -1.0766666667 
+##     madurezSM 
+## -0.0566666667 
 ## 
 ## Degrees of freedom: 12 total; 8 residual
 ## Residual standard error: 0.217753683</code></pre>
@@ -718,11 +725,16 @@ div.tocify {
 ## madurez         3   15.785823   0.001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez     emmean          SE df   lower.CL   upper.CL
-##  I       3.41000000 0.125720148  8 3.12008882 3.69991118
-##  MM      3.17000000 0.125720148  8 2.88008882 3.45991118
-##  M       2.33333333 0.125720148  8 2.04342215 2.62324451
-##  SM      3.35333333 0.125720148  8 3.06342215 3.64324451
+##  madurez     emmean          SE df   lower.CL
+##  I       3.41000000 0.125720148  8 3.12008882
+##  MM      3.17000000 0.125720148  8 2.88008882
+##  M       2.33333333 0.125720148  8 2.04342215
+##  SM      3.35333333 0.125720148  8 3.06342215
+##    upper.CL
+##  3.69991118
+##  3.45991118
+##  2.62324451
+##  3.64324451
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
@@ -788,8 +800,10 @@ div.tocify {
 ##   Log-restricted-likelihood: 3.82915896
 ## 
 ## Coefficients:
-##   (Intercept)     madurezMM      madurezM     madurezSM 
-##  1.7792000000 -0.1728000000  0.0490666667 -0.3946666667 
+##   (Intercept)     madurezMM      madurezM 
+##  1.7792000000 -0.1728000000  0.0490666667 
+##     madurezSM 
+## -0.3946666667 
 ## 
 ## Degrees of freedom: 12 total; 8 residual
 ## Residual standard error: 0.113922547</code></pre>
@@ -807,23 +821,35 @@ div.tocify {
 ## madurez         3    9.311241  0.0055</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez     emmean           SE df   lower.CL   upper.CL
-##  I       1.77920000 0.0657732131  8 1.62752670 1.93087330
-##  MM      1.60640000 0.0657732131  8 1.45472670 1.75807330
-##  M       1.82826667 0.0657732131  8 1.67659337 1.97993997
-##  SM      1.38453333 0.0657732131  8 1.23286003 1.53620664
+##  madurez     emmean           SE df   lower.CL
+##  I       1.77920000 0.0657732131  8 1.62752670
+##  MM      1.60640000 0.0657732131  8 1.45472670
+##  M       1.82826667 0.0657732131  8 1.67659337
+##  SM      1.38453333 0.0657732131  8 1.23286003
+##    upper.CL
+##  1.93087330
+##  1.75807330
+##  1.97993997
+##  1.53620664
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast     estimate           SE df t.ratio p.value
-##  I - MM    0.172800000 0.0930173699  8   1.858  0.3163
-##  I - M    -0.049066667 0.0930173699  8  -0.528  0.9500
-##  I - SM    0.394666667 0.0930173699  8   4.243  0.0121
-##  MM - M   -0.221866667 0.0930173699  8  -2.385  0.1576
-##  MM - SM   0.221866667 0.0930173699  8   2.385  0.1576
-##  M - SM    0.443733333 0.0930173699  8   4.770  0.0061
+##  contrast     estimate           SE df t.ratio
+##  I - MM    0.172800000 0.0930173699  8   1.858
+##  I - M    -0.049066667 0.0930173699  8  -0.528
+##  I - SM    0.394666667 0.0930173699  8   4.243
+##  MM - M   -0.221866667 0.0930173699  8  -2.385
+##  MM - SM   0.221866667 0.0930173699  8   2.385
+##  M - SM    0.443733333 0.0930173699  8   4.770
+##  p.value
+##   0.3163
+##   0.9500
+##   0.0121
+##   0.1576
+##   0.1576
+##   0.0061
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
@@ -896,11 +922,16 @@ div.tocify {
 ## madurez         3   77.298621  &lt;.0001</code></pre>
 <p>Test de Tukey</p>
 <pre><code>## $emmeans
-##  madurez     emmean          SE df   lower.CL   upper.CL
-##  I       4.25559907 0.182616058  8 3.83448569 4.67671246
-##  MM      3.73580385 0.182616058  8 3.31469047 4.15691724
-##  M       4.50076690 0.182616058  8 4.07965352 4.92188029
-##  SM      7.31117249 0.182616058  8 6.89005910 7.73228587
+##  madurez     emmean          SE df   lower.CL
+##  I       4.25559907 0.182616058  8 3.83448569
+##  MM      3.73580385 0.182616058  8 3.31469047
+##  M       4.50076690 0.182616058  8 4.07965352
+##  SM      7.31117249 0.182616058  8 6.89005910
+##    upper.CL
+##  4.67671246
+##  4.15691724
+##  4.92188029
+##  7.73228587
 ## 
 ## Degrees-of-freedom method: df.error 
 ## Confidence level used: 0.95 

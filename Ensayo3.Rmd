@@ -12,25 +12,6 @@ output:
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# output:
-#  html_document:
-#    toc: true
-#    toc_depth: 5
-#    toc_float:
-#      collapsed: false
-#      smooth_scroll: true
-#   pdf_document:
-#     latex_engine: xelatex
-# header-includes:
-#   - \usepackage{amsmath}
-
-
-```
-
-
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
 #Carga de datos
 library(readxl)
 data_color <- read_excel("database.xlsx", sheet = "VI climateric_color")
@@ -105,8 +86,6 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 data_color_G<- data_color[,-c(1:2,4:8,10:14)]
 
-data_color_G$treat<-factor(data_color_G$treat, levels = c("control", "etileno", "1MCP"))
-
 ```
 
 ## Descriptive table for principal color component
@@ -122,6 +101,8 @@ table_color_G<- data_color_G %>%
     max = max(color_G),
     sd = sd(color_G)
   )
+
+table_color_G$treat <- factor(table_color_G$treat, levels = c("control", "etileno", "1MCP"), labels = c("Control", "Etileno", "1-MCP"))
 
 # library(Rmisc)
 # table_color_G <- summarySE(data_color_G, measurevar="color_G", groupvars=c("treat"), na.rm = TRUE)
@@ -146,21 +127,20 @@ library(ggplot2)
 
 colores<-c("yellow","orange","#285114")
 gcolor_G<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
-  stat_summary(fun = "mean", size = 0.05, geom = "bar", position=position_dodge(1)) +
+  stat_summary(fun = "mean", size = 0.05, geom = "bar", position=position_dodge(1), width = .3) +
   geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd),
-                width=.2, position=position_dodge(1))+
-  labs(x="", y="Componente Principal de Color")+
+                width=.1, position=position_dodge(1))+
+  labs(x="", y="Descriptor colorimétrico")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   scale_fill_manual(values = colores) +
   theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
+  theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=40, color='black'))+
+  theme(text = element_text(size=20, color='black'))+
   theme(axis.text = element_text(color='black'))+
-  scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))+
-  scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))
+  scale_y_continuous(breaks = seq(0,140, 20), limits = c(0, 140))
 
 gcolor_G
 
@@ -282,31 +262,38 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # Agregar los desvíos estándar calculados a la tabla resumen
 table_color_G <- table_color_G %>% mutate(sd_model = sd_model)
 
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 library(ggplot2)
 
 colores<-c("yellow","orange","#285114")
 gcolor_G2<-ggplot(data=table_color_G, aes(x=treat, y=mean, fill=treat))+
-  stat_summary(fun = "mean", size = 0.05, geom = "bar", position=position_dodge(1)) +
+  stat_summary(fun = "mean", size = 0.05, geom = "bar", position=position_dodge(1), width = .3) +
   geom_errorbar(aes(ymin=mean-sd_model, ymax=mean+sd_model),
-                width=.2, position=position_dodge(1))+
-  labs(x="", y="Componente Principal de Color")+
+                width=.1, position=position_dodge(1))+
+  labs(x="", y="Descriptor colorimétrico")+
   theme_classic()+
   theme(plot.title = element_text(hjust = 0.5, size = rel(0.5))) +
   scale_fill_manual(values = colores) +
   theme(legend.title=element_blank())+
-  theme(legend.position='bottom')+
+  theme(legend.position='none')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
   theme(text = element_text(size=40, color='black'))+
   theme(axis.text = element_text(color='black'))+
-  # scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))+
-  # scale_y_continuous(breaks = seq(0,90, 30), limits = c(-3, 3))+
-  # Agregando anotaciones de letras de significancia
-  annotate("text", x = 1, y = table_color_G$mean[1] + table_color_G$sd_model[1] + 12, label = "a", size = 16) +
-  annotate("text", x = 2, y = table_color_G$mean[2] + table_color_G$sd_model[2] + 12, label = "a", size = 16) +
-  annotate("text", x = 3, y = table_color_G$mean[3] + table_color_G$sd_model[3] + 12, label = "b", size = 16)
+  scale_y_continuous(breaks = seq(0,140, 20), limits = c(0, 140))+
+  annotate("text", x = 1, y = table_color_G$mean[1] + table_color_G$sd_model[1] + 5, label = "a", size = 8) +
+  annotate("text", x = 2, y = table_color_G$mean[2] + table_color_G$sd_model[2] + 5, label = "a", size = 8) +
+  annotate("text", x = 3, y = table_color_G$mean[3] + table_color_G$sd_model[3] + 5, label = "b", size = 8)
 
 gcolor_G2
+
+# ggsave("gcolor_G2.tiff", plot = gcolor_G2, device = "tiff", width = 15, height = 8, units = "in", dpi = 300)
 
 ```
 

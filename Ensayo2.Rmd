@@ -10,15 +10,13 @@ output:
 ---
 
 Tiempo
-(horas)		CO2 (mg/Kg)
+(horas)		CO2 (mg/Kg.h)
 
 24		128,2±36,7a
 48		115,7±40,1a
 120		172,6±18,5a
 ANOVA 	F	p-valor
 Tiempo	1,6	<0,332
-
-
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -30,6 +28,10 @@ datares$site<-as.factor(datares$site)
 datares$time<-as.numeric(datares$time)
 datares$respiration<-datares$respiration*1.831 # ml a mg CO2
 
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 resp_barplot<-ggplot(data = datares, aes(x = time, y = respiration, color=site))+
   geom_point(size=8)+
@@ -65,6 +67,7 @@ resp_barplot2<-ggplot(data = datares, aes(x = time, y = respiration, fill=site))
   annotate("text", x = 3.2, y = 92, label = "+ 11%")
 resp_barplot2
 
+resp_barplot2
 
 ```
 
@@ -93,7 +96,6 @@ mcm_clim <- lm(respiration ~ time, data=datares)
 # AIC(mcm_clim, mr_clim, mr_clim2)
 ```
 
-## Diferencias en porcentaje por sitio
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -103,7 +105,6 @@ anova(mcm_clim)
 
 No existen evidencias para rechazar la hipótesis nula.
 
-## Diferencias en porcentaje por sitio
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -116,5 +117,14 @@ san_carlos <- filter(datares, datares$site == "san_carlos")
 
 ```
 
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(emmeans)
+comp_resp6<-emmeans(mcm_clim, pairwise ~ time)
+comp_resp6
+plot(comp_resp6, comparisons = TRUE)+ 
+  labs(x = expression(log("mg CO"[2]*"/Kg.h")) , y ="" )
+
+```
 
