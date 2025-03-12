@@ -35,6 +35,8 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="fruto.jpg"/>
 
 <style type="text/css">
@@ -562,9 +564,7 @@ div.tocify {
 </div>
 
 
-<p>Tiempo (horas) CO2 (mg/Kg.h)</p>
-<p>24 128,2±36,7a 48 115,7±40,1a 120 172,6±18,5a ANOVA F p-valor Tiempo
-1,6 &lt;0,332</p>
+<p>Respiración de los frutos MM a las 24, 48 y 120 horas</p>
 <p>No existen evidencias para rechazar la hipótesis nula.</p>
 <pre><code>## $emmeans
 ##  time   emmean       SE df lower.CL upper.CL
@@ -575,17 +575,13 @@ div.tocify {
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast          estimate      SE df t.ratio
-##  time24 - time48   12.50573 33.1543  3   0.377
-##  time24 - time120 -44.44752 33.1543  3  -1.341
-##  time48 - time120 -56.95326 33.1543  3  -1.718
-##  p.value
-##   0.9264
-##   0.4683
-##   0.3335
+##  contrast          estimate      SE df t.ratio p.value
+##  time24 - time48   12.50573 33.1543  3   0.377  0.9264
+##  time24 - time120 -44.44752 33.1543  3  -1.341  0.4683
+##  time48 - time120 -56.95326 33.1543  3  -1.718  0.3335
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="Ensayo2_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo2_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
 
 
 

@@ -9,14 +9,37 @@ output:
      smooth_scroll: true
 ---
 
-Tiempo
-(horas)		CO2 (mg/Kg.h)
+Respiración de los frutos MM a las 24, 48 y 120 horas
 
-24		128,2±36,7a
-48		115,7±40,1a
-120		172,6±18,5a
-ANOVA 	F	p-valor
-Tiempo	1,6	<0,332
+```{r setup, include=FALSE}
+# Configuración inicial
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(kableExtra) # Opcional, para más estilo
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+# Crear el data.frame con los datos
+datos <- data.frame(
+  Tiempo_horas = c("24", "48", "120", "ANOVA", "Tiempo"),
+  CO2_mg_kg_h = c("128,2 ± 36,7<sup>a</sup>", "115,7 ± 40,1<sup>a</sup>", 
+                  "172,6 ± 18,5<sup>a</sup>", "F", "1,6"),
+  p_valor = c("", "", "", "p-valor", "<0,332")
+)
+
+# Renderizar la tabla con kable
+kable(datos, 
+      col.names = c("Tiempo (horas)", "CO2 (mg/Kg·h)", ""), 
+      align = c("l", "c", "c"), 
+      escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = FALSE) %>%
+  pack_rows("ANOVA", 4, 5) # Agrupar la fila de ANOVA
+
+```
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -33,6 +56,7 @@ datares$respiration<-datares$respiration*1.831 # ml a mg CO2
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+library(ggplot2)
 resp_barplot<-ggplot(data = datares, aes(x = time, y = respiration, color=site))+
   geom_point(size=8)+
   theme_classic()+

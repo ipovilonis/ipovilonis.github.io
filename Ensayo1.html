@@ -480,6 +480,7 @@ $(document).ready(function () {
 </div>
 
 
+<p>Respiración acumulada en frutos I y M</p>
 <p><img src="IMG_pos.jpg" width="1508" /></p>
 <p>Immature and mature ubajay fruits were selected and randomly
 distributed in 4 jars, 2 immature and 2 mature, then respiration was
@@ -492,30 +493,28 @@ quantified from accumulated CO2 every 15 minutes for 150 minutes.</p>
 <h2>Descriptive table</h2>
 <pre><code>## # A tibble: 20 × 7
 ## # Groups:   time_min [10]
-##    time_min matu  carbon_ac_n carbon_ac_Mean
-##    &lt;fct&gt;    &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;
-##  1 15       I               2           42.5
-##  2 15       M               2           39.6
-##  3 30       I               2           62.2
-##  4 30       M               2           59.4
-##  5 45       I               2           75.2
-##  6 45       M               2           76.6
-##  7 60       I               2           94.9
-##  8 60       M               2           99.0
-##  9 75       I               2          108. 
-## 10 75       M               2          116. 
-## 11 90       I               2          124. 
-## 12 90       M               2          136. 
-## 13 105      I               2          137. 
-## 14 105      M               2          153. 
-## 15 120      I               2          157. 
-## 16 120      M               2          176. 
-## 17 135      I               2          170. 
-## 18 135      M               2          190. 
-## 19 150      I               2          186. 
-## 20 150      M               2          213. 
-## # ℹ 3 more variables: carbon_ac_sd &lt;dbl&gt;,
-## #   carbon_ac_min &lt;dbl&gt;, carbon_ac_max &lt;dbl&gt;</code></pre>
+##    time_min matu  carbon_ac_n carbon_ac_Mean carbon_ac_sd carbon_ac_min carbon_ac_max
+##    &lt;fct&gt;    &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
+##  1 15       I               2           42.5        4.97           39.0          46.1
+##  2 15       M               2           39.6        1.86           38.3          40.9
+##  3 30       I               2           62.2        5.13           58.5          65.8
+##  4 30       M               2           59.4        2.79           57.4          61.4
+##  5 45       I               2           75.2        5.23           71.5          78.9
+##  6 45       M               2           76.6        0.110          76.6          76.7
+##  7 60       I               2           94.9        5.39           91.1          98.7
+##  8 60       M               2           99.0        4.66           95.7         102. 
+##  9 75       I               2          108.         5.50          104.          112. 
+## 10 75       M               2          116.         1.97          115.          118. 
+## 11 90       I               2          124.        10.3           117.          132. 
+## 12 90       M               2          136.         2.91          134.          138. 
+## 13 105      I               2          137.        10.4           130.          145. 
+## 14 105      M               2          153.         0.221         153.          153. 
+## 15 120      I               2          157.        10.5           150.          164. 
+## 16 120      M               2          176.         4.77          172.          179. 
+## 17 135      I               2          170.        10.6           163.          178. 
+## 18 135      M               2          190.         6.59          185.          194. 
+## 19 150      I               2          186.        15.4           176.          197. 
+## 20 150      M               2          213.         3.02          211.          215.</code></pre>
 </div>
 <div id="correlations-over-time" class="section level2">
 <h2>Correlations over time</h2>
@@ -523,28 +522,17 @@ quantified from accumulated CO2 every 15 minutes for 150 minutes.</p>
 </div>
 <div id="covariance-matrix" class="section level2">
 <h2>Covariance matrix</h2>
-<pre><code>##        15    30    45    60     75     90    105
-## 15  12.28 12.95  7.38  7.79   2.21   7.31   1.73
-## 30  12.95 13.93  7.77  9.75   3.59   9.42   3.25
-## 45   7.38  7.77  9.77 11.46  13.46  23.37  25.37
-## 60   7.79  9.75 11.46 22.55  24.26  38.94  40.66
-## 75   2.21  3.59 13.46 24.26  34.14  52.90  62.77
-## 90   7.31  9.42 23.37 38.94  52.90  83.40  97.35
-## 105  1.73  3.25 25.37 40.66  62.77  97.35 119.47
-## 120  2.14  5.23 27.07 51.74  73.57 112.92 134.76
-## 135  2.50  6.22 27.76 56.09  77.63 118.82 140.36
-## 150  1.66  4.90 38.97 68.14 102.21 157.38 191.45
-##        120    135    150
-## 15    2.14   2.50   1.66
-## 30    5.23   6.22   4.90
-## 45   27.07  27.76  38.97
-## 60   51.74  56.09  68.14
-## 75   73.57  77.63 102.21
-## 90  112.92 118.82 157.38
-## 105 134.76 140.36 191.45
-## 120 159.43 168.68 220.61
-## 135 168.68 179.37 231.42
-## 150 220.61 231.42 309.86</code></pre>
+<pre><code>##        15    30    45    60     75     90    105    120    135    150
+## 15  12.28 12.95  7.38  7.79   2.21   7.31   1.73   2.14   2.50   1.66
+## 30  12.95 13.93  7.77  9.75   3.59   9.42   3.25   5.23   6.22   4.90
+## 45   7.38  7.77  9.77 11.46  13.46  23.37  25.37  27.07  27.76  38.97
+## 60   7.79  9.75 11.46 22.55  24.26  38.94  40.66  51.74  56.09  68.14
+## 75   2.21  3.59 13.46 24.26  34.14  52.90  62.77  73.57  77.63 102.21
+## 90   7.31  9.42 23.37 38.94  52.90  83.40  97.35 112.92 118.82 157.38
+## 105  1.73  3.25 25.37 40.66  62.77  97.35 119.47 134.76 140.36 191.45
+## 120  2.14  5.23 27.07 51.74  73.57 112.92 134.76 159.43 168.68 220.61
+## 135  2.50  6.22 27.76 56.09  77.63 118.82 140.36 168.68 179.37 231.42
+## 150  1.66  4.90 38.97 68.14 102.21 157.38 191.45 220.61 231.42 309.86</code></pre>
 </div>
 <div id="marginal-model-with-first-order-autoregressive-structure"
 class="section level2">
@@ -563,20 +551,16 @@ class="section level2">
 </div>
 <div id="model-coefficients" class="section level2">
 <h2>Model coefficients</h2>
-<pre><code>##       (Intercept)        time_min30        time_min45 
-##     -1088.3098591        19.6250543        32.7084238 
-##        time_min60        time_min75        time_min90 
-##        52.3334782        65.4168477        81.7897236 
-##       time_min105       time_min120       time_min135 
-##        94.8730931       114.4981474       127.5815169 
-##       time_min150             matuM             basal 
-##       143.9543928        24.0203019        43.2170578 
-##  time_min30:matuM  time_min45:matuM  time_min60:matuM 
-##         0.1712202         4.3272497         7.0553453 
-##  time_min75:matuM  time_min90:matuM time_min105:matuM 
-##        11.2113748        14.6347734        18.7908030 
-## time_min120:matuM time_min135:matuM time_min150:matuM 
-##        21.5188986        22.4853372        29.0983267</code></pre>
+<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75 
+##     -1088.3098591        19.6250543        32.7084238        52.3334782        65.4168477 
+##        time_min90       time_min105       time_min120       time_min135       time_min150 
+##        81.7897236        94.8730931       114.4981474       127.5815169       143.9543928 
+##             matuM             basal  time_min30:matuM  time_min45:matuM  time_min60:matuM 
+##        24.0203019        43.2170578         0.1712202         4.3272497         7.0553453 
+##  time_min75:matuM  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM 
+##        11.2113748        14.6347734        18.7908030        21.5188986        22.4853372 
+## time_min150:matuM 
+##        29.0983267</code></pre>
 </div>
 <div id="anova" class="section level2">
 <h2>Anova</h2>

@@ -9,21 +9,21 @@ output:
      smooth_scroll: true
 ---
 
-# Seed number per fruit
+# Seed number per fruit of M & SM fruits
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
-fisico<- read_excel("database.xlsx", sheet="V fisico")
+frutos_fisico <- read_excel("database.xlsx", sheet="V fisico")
 
-fisico$year<-as.factor(fisico$year)
-fisico$phenotype<-as.factor(fisico$phenotype)
-fisico$site<-factor(fisico$site,levels=c("Concordia", "Palmar","Gualeguaychu"))
-fisico$n<-as.factor(fisico$n)
-fisico$pss<-as.numeric(fisico$pss)
-fisico$mad<-factor(fisico$mad,levels=c("I", "MM","M","SM"))
-# data19F<-subset(fisico, year == "2019")
+frutos_fisico$year<-as.factor(frutos_fisico$year)
+frutos_fisico$site<-factor(frutos_fisico$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+frutos_fisico$phenotype<-as.factor(frutos_fisico$phenotype)
+frutos_fisico$id<-as.factor(frutos_fisico$id)
+frutos_fisico$dedp <- frutos_fisico$de/frutos_fisico$dp
+
+fisico <- frutos_fisico
 
 
 ```
@@ -101,7 +101,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-# Dry seed weight
+# Dry seed weight of M & SM fruits
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -137,82 +137,82 @@ gpss
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(lme4)
-library(lmerTest)
-
-mpss<- lmer(sqrt(pss) ~ 1 + (1|site/phenotype)*year, fisicopss)
-```
-
-```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# library(lme4)
+# library(lmerTest)
 # 
-pss_ajuste <- as.data.frame(cbind(
-  "residuos" = residuals(mpss),
-  "predichos" = predict(mpss)))
+# mpss<- lmer(sqrt(pss) ~ 1 + (1|site/phenotype)*year, fisicopss)
+```
 
-pss_ajuste$pss <- fisicopss$pss
-
-library(ggplot2)
-HVpss<-ggplot(pss_ajuste) +
-  aes(predichos, residuos) +
-  geom_hline(yintercept = 0, colour="white", size=2) +
-  geom_point(colour="white")+
-  theme_classic()+
-  labs(y="Residuals", x="Predicted values")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-HVpss
-
-QQpss<-ggplot(pss_ajuste) +
-  aes(sample = residuos) +
-  geom_qq(shape = 1, colour="white") +
-  geom_qq_line(colour="white")+
-  theme_classic()+
-  labs(y="Sample Quantiles", x="Theoretical Quantiles")+
-  theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
-  theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=10, color='white'))+
-  theme(axis.text = element_text(color='white'))+
-  theme(plot.background = element_rect(fill = "gray12"))+
-  theme(panel.background = element_rect(fill = "gray12", color = "white"))
-QQpss
-
-e<-resid(mpss) # residuos de pearson
-# pre<-predict(mpss) #predichos
-# alfai<-ranef(mpss)$REP$'(Intercept)'
-shapiro.test(e)
-
-# OK
+```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# # 
+# pss_ajuste <- as.data.frame(cbind(
+#   "residuos" = residuals(mpss),
+#   "predichos" = predict(mpss)))
+# 
+# pss_ajuste$pss <- fisicopss$pss
+# 
+# library(ggplot2)
+# HVpss<-ggplot(pss_ajuste) +
+#   aes(predichos, residuos) +
+#   geom_hline(yintercept = 0, colour="white", size=2) +
+#   geom_point(colour="white")+
+#   theme_classic()+
+#   labs(y="Residuals", x="Predicted values")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# HVpss
+# 
+# QQpss<-ggplot(pss_ajuste) +
+#   aes(sample = residuos) +
+#   geom_qq(shape = 1, colour="white") +
+#   geom_qq_line(colour="white")+
+#   theme_classic()+
+#   labs(y="Sample Quantiles", x="Theoretical Quantiles")+
+#   theme(legend.position = "bottom", legend.background = element_rect(fill = "gray12"))+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=10, color='white'))+
+#   theme(axis.text = element_text(color='white'))+
+#   theme(plot.background = element_rect(fill = "gray12"))+
+#   theme(panel.background = element_rect(fill = "gray12", color = "white"))
+# QQpss
+# 
+# e<-resid(mpss) # residuos de pearson
+# # pre<-predict(mpss) #predichos
+# # alfai<-ranef(mpss)$REP$'(Intercept)'
+# shapiro.test(e)
+# 
+# # OK
 
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-anova(mpss)
+# anova(mpss)
 ```
 
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 #Calculo manual ICC
-
-FRUppss<-(summary(mpss)$sigma)^2
-phenotypeppss<-as.numeric(VarCorr(mpss)$"phenotype:site")
-siteppss<-as.numeric(VarCorr(mpss)$"site")
-
-ICCfpss<-FRUppss/(FRUppss+phenotypeppss+siteppss)
-ICCapss<-(phenotypeppss)/(FRUppss+phenotypeppss+siteppss)
-ICCrpss<-siteppss/(FRUppss+phenotypeppss+siteppss)
-ICCpss<-performance::icc(mpss)
-
-ICCfpss*100
-ICCapss*100
-ICCrpss*100
-ICCpss
+# 
+# FRUppss<-(summary(mpss)$sigma)^2
+# phenotypeppss<-as.numeric(VarCorr(mpss)$"phenotype:site")
+# siteppss<-as.numeric(VarCorr(mpss)$"site")
+# 
+# ICCfpss<-FRUppss/(FRUppss+phenotypeppss+siteppss)
+# ICCapss<-(phenotypeppss)/(FRUppss+phenotypeppss+siteppss)
+# ICCrpss<-siteppss/(FRUppss+phenotypeppss+siteppss)
+# ICCpss<-performance::icc(mpss)
+# 
+# ICCfpss*100
+# ICCapss*100
+# ICCrpss*100
+# ICCpss
 
 ```

@@ -484,17 +484,14 @@ $(document).ready(function () {
 <h2>Descriptive table</h2>
 <pre><code>## # A tibble: 3 × 19
 ## # Groups:   year [3]
-##   year  site  length_mean node_mean NFL_mean NFR_mean
-##   &lt;fct&gt; &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-## 1 2019  &lt;NA&gt;         7.82      3.83     12.1    0.225
-## 2 2021  &lt;NA&gt;         8.33      3.50     15.2    0.165
-## 3 2022  &lt;NA&gt;         6.83      3.05     10.5    0.264
-## # ℹ 13 more variables: FR_mean &lt;dbl&gt;, PFF_mean &lt;dbl&gt;,
-## #   PSF_mean &lt;dbl&gt;, NH_mean &lt;dbl&gt;, PSH_mean &lt;dbl&gt;,
-## #   NFR_NFL_mean &lt;dbl&gt;, NFL_cm_mean &lt;dbl&gt;,
-## #   `NFL/node_mean` &lt;dbl&gt;, `NFR/cm_mean` &lt;dbl&gt;,
-## #   `NFR/Nudo_mean` &lt;dbl&gt;, `NH/NFR_mean` &lt;dbl&gt;,
-## #   `PSH/NFR_mean` &lt;dbl&gt;, `PSH/PSFR_mean` &lt;dbl&gt;</code></pre>
+##   year  site  length_mean node_mean NFL_mean NFR_mean FR_mean PFF_mean PSF_mean NH_mean PSH_mean
+##   &lt;fct&gt; &lt;fct&gt;       &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1 2019  &lt;NA&gt;         7.82      3.83     12.1    0.225   0.169   NaN      NaN     NaN     NaN    
+## 2 2021  &lt;NA&gt;         8.33      3.50     15.2    0.165   0.115     6.89     1.33    6.59    0.585
+## 3 2022  &lt;NA&gt;         6.83      3.05     10.5    0.264   0.195     6.66     1.33    9.63    0.642
+## # ℹ 8 more variables: NFR_NFL_mean &lt;dbl&gt;, NFL_cm_mean &lt;dbl&gt;, `NFL/node_mean` &lt;dbl&gt;,
+## #   `NFR/cm_mean` &lt;dbl&gt;, `NFR/Nudo_mean` &lt;dbl&gt;, `NH/NFR_mean` &lt;dbl&gt;, `PSH/NFR_mean` &lt;dbl&gt;,
+## #   `PSH/PSFR_mean` &lt;dbl&gt;</code></pre>
 </div>
 
 

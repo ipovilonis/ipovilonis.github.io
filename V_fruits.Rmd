@@ -100,6 +100,59 @@ frutos_quimico$aao <- rowMeans(frutos_quimico[, c("aao25", "aao50", "aao100", "a
 
 ```
 
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(dplyr)
+
+# Tabla con conteos por grupo y total
+tabla_resumen <- frutos_fisico %>%
+  group_by(year, site, phenotype) %>%
+  summarise(n_frutos = n(), .groups = "drop") %>%
+  ungroup() %>%
+  # Agregar fila con total general
+  bind_rows(
+    summarise(., 
+              year = "Total",
+              site = "Total",
+              phenotype = "Total",
+              n_frutos = sum(n_frutos))
+  )
+
+# Para ver la tabla
+print(tabla_resumen)
+
+# Tabla con conteos por grupo y total
+tabla_resumen_q <- frutos_quimico %>%
+  group_by(year, site, phenotype) %>%
+  summarise(n_frutos = n(), .groups = "drop") %>%
+  ungroup() %>%
+  # Agregar fila con total general
+  bind_rows(
+    summarise(., 
+              year = "Total",
+              site = "Total",
+              phenotype = "Total",
+              n_frutos = sum(n_frutos))
+  )
+
+# Para ver la tabla
+print(tabla_resumen_q)
+
+
+
+```
+
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+# Número total de phenotypes únicos
+n_phenotypes <- n_distinct(frutos_fisico$phenotype)
+print(n_phenotypes)  # Debería dar 52 según tu str()
+
+```
+
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 

@@ -347,12 +347,12 @@ library(corrplot)
 datos <- tabla_combinada_final
 datos <- na.omit(datos)
 # Nombres de las variables
-nombres_variables <- c("year","site","phenotype","PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "NFL/cm", "NFR/NFL", "PSS/PSF","PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b","PT", "CLa", "CLb", "CTC", "IM", "ATT", "SS/ATT", "SS", "DPPH25", "CTC/CL")
+nombres_variables <- c("year","site","phenotype","PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "NFL/cm", "NFR/NFL", "PSS/PSF","PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "L*", "a*", "b*","PT", "CLa", "CLb", "CTC", "IM", "ATT", "SS/ATT", "SS", "DPPH25", "CTC/CL")
 colnames(datos) <- nombres_variables
 
 datos <- datos[,-c(1:3)]
 
-nombres_variables <- c("PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "NFL/cm", "NFR/NFL", "PSS/PSF", "PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "*L", "*a", "*b", "PT", "CLa", "CLb", "CTC", "IM", "ATT", "SS/ATT", "SS", "DPPH25", "CTC/CL")
+nombres_variables <- c("PSFL", "DMAP", "DMIP", "NO", "NS", "NS/NO", "NFL/cm", "NFR/NFL", "PSS/PSF", "PFF", "DMAF", "DPF", "PEN", "PSF", "PSS", "DMAF/DPF", "L*", "a*", "b*", "PT", "CLa", "CLb", "CTC", "IM", "ATT", "SS/ATT", "SS", "DPPH25", "CTC/CL")
 datos <- datos[, nombres_variables]
 
 # Calculamos la correlación de Spearman y los p-valores

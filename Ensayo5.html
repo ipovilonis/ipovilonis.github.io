@@ -562,6 +562,33 @@ div.tocify {
 </div>
 
 
+<p>Cuantificación de la tasa respiratoria en 5 estados de madurez</p>
+<div id="modelo" class="section level1">
+<h1>Modelo</h1>
+<pre><code>## 
+## Call:
+## lm(formula = respiracion ~ Estado, data = ensayo5)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -28.869 -10.854  -2.145  11.507  30.016 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   137.40      10.61  12.945 1.43e-07 ***
+## EstadoMM1      36.31      15.01   2.419 0.036132 *  
+## EstadoMM2      92.36      15.01   6.153 0.000108 ***
+## EstadoM       100.76      15.01   6.713 5.28e-05 ***
+## EstadoSM      127.28      15.01   8.480 7.04e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 18.38 on 10 degrees of freedom
+## Multiple R-squared:  0.9052, Adjusted R-squared:  0.8672 
+## F-statistic: 23.87 on 4 and 10 DF,  p-value: 4.236e-05</code></pre>
+</div>
+<div id="supuestos" class="section level1">
+<h1>Supuestos</h1>
 <p><img src="Ensayo5_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo5_files/figure-html/unnamed-chunk-3-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
 ##       Df F value Pr(&gt;F)
@@ -573,6 +600,9 @@ div.tocify {
 ## data:  residuos
 ## W = 0.97457, p-value = 0.919</code></pre>
 <pre><code>## [1] &quot;No se detectaron outliers con |residuos estandarizados| &gt; 2&quot;</code></pre>
+</div>
+<div id="anova" class="section level1">
+<h1>Anova</h1>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: respiracion
@@ -580,8 +610,10 @@ div.tocify {
 ## Estado     4  32261  8065.4  23.865 4.236e-05 ***
 ## Residuals 10   3380   338.0                      
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="tukey" class="section level1">
+<h1>Tukey</h1>
 <pre><code>## $emmeans
 ##  Estado   emmean       SE df lower.CL upper.CL
 ##  I      137.3975 10.61376 10 113.7486 161.0464
@@ -614,6 +646,7 @@ div.tocify {
 ## 3    MM2       229.7609       10.61376 3
 ## 4      M       238.1577       10.61376 3
 ## 5     SM       264.6804       10.61376 3</code></pre>
+</div>
 
 
 

@@ -1237,37 +1237,3 @@ gg_aao_modelos <- ggplot(df, aes(x = x, y = densidad, color = modelo)) +
 gg_aao_modelos
 
 ```
-
-## Clorofila a
-
-## Clorofila b
-
-## Carotenoides
-
-```{r echo=FALSE, warning=FALSE}
-
-library(lme4)
-library(lmerTest) #Test de Wald
-
-# modelo <- lm(Fenoles ~ site, data = database)
-# 
-# modelo2 <- lmer(Fenoles ~ (1|site), data = database)
-
-modelo_Carotenoids <- lmer(Carotenoids ~ (1|site/phenotype/id), database)
-
-# modelo_fenoles2 <- glmer(Fenoles ~ (1|site/phenotype), data = database, family = "gaussian")
-# 
-# modelo_fenoles3 <- glmer(Fenoles ~ (1|site/phenotype), data = database, family = Gamma(link = "identity"))
-# 
-# modelo_fenoles4 <- glmer(Fenoles ~ (1|site/phenotype), data = database, family = Gamma(link = "log"))
-
-```
-
-
-## Acidez Total Titulable
-
-## Solidos Solubles
-
-## ATT/SS
-
-# Análisis multivariado

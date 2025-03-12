@@ -9,7 +9,7 @@ output:
      smooth_scroll: true
 ---
 
-
+Cuantificación de la tasa respiratoria en 5 estados de madurez
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -22,14 +22,16 @@ ensayo5$Estado <- factor(ensayo5$Estado, levels = c("I", "MM1", "MM2", "M", "SM"
 
 
 ```
-
+# Modelo
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 model_resp5 <- lm(respiracion ~ Estado, data = ensayo5)
+summary(model_resp5)
 
 ```
 
+# Supuestos
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -85,6 +87,7 @@ if(length(outliers) > 0) {
 
 ```
 
+# Anova
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -92,6 +95,7 @@ anova(model_resp5)
 
 ```
 
+# Tukey
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 

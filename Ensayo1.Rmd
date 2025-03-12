@@ -3,6 +3,8 @@ title: "Ensayo 1"
 output: pdf_document
 ---
 
+Respiración acumulada en frutos I y M
+
 ```{r pressure, echo=FALSE}
 knitr::include_graphics("IMG_pos.jpg")
 ```
@@ -303,7 +305,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```
 
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, fig.align='center', , fig.asp=0.4, fig.width=10, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ## Predictions
 # nuevos_datos <- data.frame(time_min = c("15", "15", "150", "150"), matu = c("I", "M","I", "M"), basal= c(25.85474,25.85474,25.85474,25.85474))
@@ -324,7 +326,7 @@ df_lineI <- data.frame(x = c(15,150), y = c(29.05593, 173.01033))
 df_lineM <- data.frame(x = c(15,150), y = c(53.07623, 226.12895))
 
 gm_ajust <- ggplot(resp2, aes(x = time_min, y = carbon_ac)) +
-  geom_point(aes(color = factor(matu)), size = 10)+
+  geom_point(aes(color = factor(matu)), size = 8)+
   geom_line(data = df_lineI, aes(x = x, y = y), color="yellowgreen", size= 2, linetype = "dotdash")+
   geom_line(data = df_lineM, aes(x = x, y = y), color="gold", size= 2, linetype = "dotdash")+
   labs(y = "CO2 (ml acumulado/Kg)", x = "Tiempo (min)") +
@@ -335,7 +337,7 @@ gm_ajust <- ggplot(resp2, aes(x = time_min, y = carbon_ac)) +
   theme(legend.position = 'bottom') +
   theme(panel.grid.major.y = element_line(color = 'black')) +
   theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 40, color = 'black')) +
+  theme(text = element_text(size = 20, color = 'black')) +
   theme(axis.text = element_text(color = 'black'))+
   scale_x_continuous(limits = c(0, 150), breaks = seq(0, 150, 15))
 gm_ajust
@@ -732,20 +734,20 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=12, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # 
-library(readxl)
-library(lattice)
-library(plyr)
-library(ggplot2)
-library(Rmisc)
-library(plyr)
-library(tidyr)
-library(GGally)
-library(doBy)
-library(emmeans)
-library(gridExtra)
-library(nlme)
-library(psych)
-library(agricolae)
+# library(readxl)
+# library(lattice)
+# library(plyr)
+# library(ggplot2)
+# library(Rmisc)
+# library(plyr)
+# library(tidyr)
+# library(GGally)
+# library(doBy)
+# library(emmeans)
+# library(gridExtra)
+# library(nlme)
+# library(psych)
+# library(agricolae)
 
 ```
 

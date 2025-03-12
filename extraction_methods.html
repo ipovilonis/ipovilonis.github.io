@@ -517,9 +517,9 @@ manual with glass rod.</p>
 </div>
 <div id="mean-comparison" class="section level2">
 <h2>Mean comparison</h2>
-<pre><code>## Analysis of Variance Table
-##        npar Sum Sq Mean Sq F value
-## method    1 761.95  761.95  0.3482</code></pre>
+<pre><code>## Type III Analysis of Variance Table with Satterthwaite&#39;s method
+##        Sum Sq Mean Sq NumDF DenDF F value Pr(&gt;F)
+## method 761.95  761.95     1    13  0.3482 0.5652</code></pre>
 </div>
 <div id="carotenoids" class="section level1">
 <h1>Carotenoids</h1>
@@ -550,8 +550,7 @@ glass rod.</p>
 ## method     2 2960.7 1480.35  8.8229 0.007564 **
 ## Residuals  9 1510.1  167.79                    
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="tukey" class="section level2">
 <h2>Tukey</h2>
@@ -564,14 +563,10 @@ glass rod.</p>
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast            estimate       SE df t.ratio
-##  potter_A - potter_B  0.82953 9.159292  9   0.091
-##  potter_A - rod      33.72757 9.159292  9   3.682
-##  potter_B - rod      32.89804 9.159292  9   3.592
-##  p.value
-##   0.9955
-##   0.0126
-##   0.0145
+##  contrast            estimate       SE df t.ratio p.value
+##  potter_A - potter_B  0.82953 9.159292  9   0.091  0.9955
+##  potter_A - rod      33.72757 9.159292  9   3.682  0.0126
+##  potter_B - rod      32.89804 9.159292  9   3.592  0.0145
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 <p><img src="extraction_methods_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>

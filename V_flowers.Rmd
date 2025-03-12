@@ -64,6 +64,32 @@ resultados <- datosff_mean %>%
 
 # Muestra el resultado
 print(resultados)
+
+```
+
+Botones florales y ramas analizadas
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(dplyr)
+
+conteos <- datosff %>%
+  summarise(
+    n_NO = sum(!is.na(NO)),
+    n_PSFL = sum(!is.na(PSFL)),
+    n_DMAP = sum(!is.na(DMAP))
+  )
+
+print(conteos)
+
+conteos_r <- datosramas %>%
+  summarise(
+    n_DMAP = sum(!is.na(NFL_cm))
+  )
+
+print(conteos_r)
+
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}

@@ -505,21 +505,15 @@ class="section level1">
 ## lm(formula = PSF ~ pff, data = datospeso)
 ## 
 ## Residuals:
-##        Min         1Q     Median         3Q 
-## -2.7024141 -0.2603021 -0.0758542  0.2168483 
-##        Max 
-##  2.8473181 
+##        Min         1Q     Median         3Q        Max 
+## -2.7024141 -0.2603021 -0.0758542  0.2168483  2.8473181 
 ## 
 ## Coefficients:
-##               Estimate Std. Error  t value
-## (Intercept) 0.17516125 0.03262740  5.36853
-## pff         0.16613606 0.00279221 59.49991
-##                           Pr(&gt;|t|)    
-## (Intercept)         0.000000095757 ***
-## pff         &lt; 0.000000000000000222 ***
+##               Estimate Std. Error  t value               Pr(&gt;|t|)    
+## (Intercept) 0.17516125 0.03262740  5.36853         0.000000095757 ***
+## pff         0.16613606 0.00279221 59.49991 &lt; 0.000000000000000222 ***
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 0.612434 on 1164 degrees of freedom
 ## Multiple R-squared:  0.752564,   Adjusted R-squared:  0.752351 
@@ -544,17 +538,15 @@ class="section level1">
 <pre><code>## Error in eval(expr, envir, enclos): objeto &#39;modelo_psp&#39; no encontrado</code></pre>
 <pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;print&#39;: objeto &#39;predicciones3&#39; no encontrado</code></pre>
 <pre><code>## Error in `$&lt;-`:
-## ! Assigned data `predicciones` must be
-##   compatible with existing data.
+## ! Assigned data `predicciones` must be compatible with existing data.
 ## ✖ Existing data has 235 rows.
 ## ✖ Assigned data has 4 rows.
 ## ℹ Only vectors of size 1 are recycled.
 ## Caused by error in `vectbl_recycle_rhs_rows()`:
 ## ! Can&#39;t recycle input of size 4 to size 235.</code></pre>
 <pre><code>## Error in `$&lt;-`:
-## ! Assigned data
-##   `datospeso3$predichos/datospeso3$pff` must be
-##   compatible with existing data.
+## ! Assigned data `datospeso3$predichos/datospeso3$pff` must be compatible with
+##   existing data.
 ## ✖ Existing data has 235 rows.
 ## ✖ Assigned data has 0 rows.
 ## ℹ Only vectors of size 1 are recycled.

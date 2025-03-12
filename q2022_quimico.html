@@ -584,21 +584,15 @@ div.tocify {
 ## lm(formula = PSF ~ pff, data = datospeso)
 ## 
 ## Residuals:
-##        Min         1Q     Median         3Q 
-## -2.7024141 -0.2603021 -0.0758542  0.2168483 
-##        Max 
-##  2.8473181 
+##        Min         1Q     Median         3Q        Max 
+## -2.7024141 -0.2603021 -0.0758542  0.2168483  2.8473181 
 ## 
 ## Coefficients:
-##               Estimate Std. Error  t value
-## (Intercept) 0.17516125 0.03262740  5.36853
-## pff         0.16613606 0.00279221 59.49991
-##                           Pr(&gt;|t|)    
-## (Intercept)         0.000000095757 ***
-## pff         &lt; 0.000000000000000222 ***
+##               Estimate Std. Error  t value               Pr(&gt;|t|)    
+## (Intercept) 0.17516125 0.03262740  5.36853         0.000000095757 ***
+## pff         0.16613606 0.00279221 59.49991 &lt; 0.000000000000000222 ***
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## Residual standard error: 0.612434 on 1164 degrees of freedom
 ## Multiple R-squared:  0.752564,   Adjusted R-squared:  0.752351 
@@ -941,8 +935,7 @@ div.tocify {
 <p>Supuestos del modelo
 <img src="q2022_quimico_files/figure-html/unnamed-chunk-57-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>Resumen del modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum
-##   likelihood (Laplace Approximation) [glmerMod]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: Gamma  ( identity )
 ## Formula: sqrt(Fenoles) ~ (1 | site/phenotype/id)
 ##    Data: database
@@ -955,27 +948,18 @@ div.tocify {
 ## -1.864527 -0.354259 -0.112751  0.309394  1.394469 
 ## 
 ## Random effects:
-##  Groups              Name        Variance           
-##  id:(phenotype:site) (Intercept) 19.1072977425779129
-##  phenotype:site      (Intercept) 70.0900998589083883
-##  site                (Intercept)  0.0000000000109995
-##  Residual                         0.0209059067996396
-##  Std.Dev.     
-##  4.37118951117
-##  8.37198303026
-##  0.00000331654
-##  0.14458875060
-## Number of obs: 102, groups:  
-## id:(phenotype:site), 40; phenotype:site, 27; site, 2
+##  Groups              Name        Variance            Std.Dev.     
+##  id:(phenotype:site) (Intercept) 19.1072977425779129 4.37118951117
+##  phenotype:site      (Intercept) 70.0900998589083883 8.37198303026
+##  site                (Intercept)  0.0000000000109995 0.00000331654
+##  Residual                         0.0209059067996396 0.14458875060
+## Number of obs: 102, groups:  id:(phenotype:site), 40; phenotype:site, 27; site, 2
 ## 
 ## Fixed effects:
-##             Estimate Std. Error t value
-## (Intercept)  39.3543     4.0729 9.66249
-##                           Pr(&gt;|z|)    
-## (Intercept) &lt; 0.000000000000000222 ***
+##             Estimate Std. Error t value               Pr(&gt;|z|)    
+## (Intercept)  39.3543     4.0729 9.66249 &lt; 0.000000000000000222 ***
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## optimizer (Nelder_Mead) convergence code: 0 (OK)
 ## boundary (singular) fit: see help(&#39;isSingular&#39;)</code></pre>
 <p>Componentes de varianza (%)</p>
@@ -999,27 +983,19 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance         
-##  id:phenotype:site (Intercept) 0.165392783330290
-##  phenotype:site    (Intercept) 1.241254034367889
-##  site              (Intercept) 0.000000000764777
-##  Std.Dev.    
-##  0.4066851157
-##  1.1141158083
-##  0.0000276546
-## Number of obs: 102, groups:  
-## id:phenotype:site, 39; phenotype:site, 27; site, 2
+##  Groups            Name        Variance          Std.Dev.    
+##  id:phenotype:site (Intercept) 0.165392783330290 0.4066851157
+##  phenotype:site    (Intercept) 1.241254034367889 1.1141158083
+##  site              (Intercept) 0.000000000764777 0.0000276546
+## Number of obs: 102, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family (): 15.1 
 ## 
 ## Conditional model:
-##             Estimate Std. Error z value
-## (Intercept) 1.391943   0.238595 5.83391
-##                    Pr(&gt;|z|)    
-## (Intercept) 0.0000000054143 ***
+##             Estimate Std. Error z value        Pr(&gt;|z|)    
+## (Intercept) 1.391943   0.238595 5.83391 0.0000000054143 ***
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Componentes de varianza (%)</p>
 <pre><code>## [1] 1.12200856</code></pre>
 <pre><code>## [1] 33.9163169</code></pre>
@@ -1041,27 +1017,19 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance       
-##  id:phenotype:site (Intercept) 1.0089877650039
-##  phenotype:site    (Intercept) 0.2404205292564
-##  site              (Intercept) 0.0000000017993
-##  Std.Dev.    
-##  1.0044838301
-##  0.4903269616
-##  0.0000424182
-## Number of obs: 101, groups:  
-## id:phenotype:site, 39; phenotype:site, 27; site, 2
+##  Groups            Name        Variance        Std.Dev.    
+##  id:phenotype:site (Intercept) 1.0089877650039 1.0044838301
+##  phenotype:site    (Intercept) 0.2404205292564 0.4903269616
+##  site              (Intercept) 0.0000000017993 0.0000424182
+## Number of obs: 101, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family (): 75.3 
 ## 
 ## Conditional model:
-##             Estimate Std. Error z value
-## (Intercept) 2.189318   0.218761 10.0078
-##                           Pr(&gt;|z|)    
-## (Intercept) &lt; 0.000000000000000222 ***
+##             Estimate Std. Error z value               Pr(&gt;|z|)    
+## (Intercept) 2.189318   0.218761 10.0078 &lt; 0.000000000000000222 ***
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Componentes de varianza (%)</p>
 <pre><code>## [1] 1.12200856</code></pre>
 <pre><code>## [1] 33.9163169</code></pre>
@@ -1083,27 +1051,19 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance          
-##  id:phenotype:site (Intercept) 0.3710858917394892
-##  phenotype:site    (Intercept) 0.0228808769877920
-##  site              (Intercept) 0.0000000000427356
-##  Std.Dev.     
-##  0.60916819659
-##  0.15126426210
-##  0.00000653725
-## Number of obs: 101, groups:  
-## id:phenotype:site, 39; phenotype:site, 27; site, 2
+##  Groups            Name        Variance           Std.Dev.     
+##  id:phenotype:site (Intercept) 0.3710858917394892 0.60916819659
+##  phenotype:site    (Intercept) 0.0228808769877920 0.15126426210
+##  site              (Intercept) 0.0000000000427356 0.00000653725
+## Number of obs: 101, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family (): 94.4 
 ## 
 ## Conditional model:
-##             Estimate Std. Error z value
-## (Intercept) 2.730981   0.118068 23.1306
-##                           Pr(&gt;|z|)    
-## (Intercept) &lt; 0.000000000000000222 ***
+##             Estimate Std. Error z value               Pr(&gt;|z|)    
+## (Intercept) 2.730981   0.118068 23.1306 &lt; 0.000000000000000222 ***
 ## ---
-## Signif. codes:  
-## 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="section-7" class="section level2">
 <h2>.25</h2>
@@ -1120,16 +1080,11 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name       
-##  id:phenotype:site (Intercept)
-##  phenotype:site    (Intercept)
-##  site              (Intercept)
-##  Variance                        Std.Dev.           
-##  0.00000000089092158446413615468 0.00002984830957465
-##  0.01605853518331238488636714123 0.12672227579755813
-##  0.00000000000000000000000437042 0.00000000000209055
-## Number of obs: 101, groups:  
-## id:phenotype:site, 39; phenotype:site, 27; site, 2
+##  Groups            Name        Variance                        Std.Dev.           
+##  id:phenotype:site (Intercept) 0.00000000089092158446413615468 0.00002984830957465
+##  phenotype:site    (Intercept) 0.01605853518331238488636714123 0.12672227579755813
+##  site              (Intercept) 0.00000000000000000000000437042 0.00000000000209055
+## Number of obs: 101, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family ():  378 
 ## 
@@ -1141,27 +1096,6 @@ div.tocify {
 <h2>Modelos de aao</h2>
 <p><img src="q2022_quimico_files/figure-html/unnamed-chunk-77-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
-<div id="clorofila-a-1" class="section level2">
-<h2>Clorofila a</h2>
-</div>
-<div id="clorofila-b-1" class="section level2">
-<h2>Clorofila b</h2>
-</div>
-<div id="carotenoides-1" class="section level2">
-<h2>Carotenoides</h2>
-</div>
-<div id="acidez-total-titulable" class="section level2">
-<h2>Acidez Total Titulable</h2>
-</div>
-<div id="solidos-solubles" class="section level2">
-<h2>Solidos Solubles</h2>
-</div>
-<div id="attss" class="section level2">
-<h2>ATT/SS</h2>
-</div>
-</div>
-<div id="análisis-multivariado" class="section level1">
-<h1>Análisis multivariado</h1>
 </div>
 
 
