@@ -106,11 +106,11 @@ library(dplyr)
 
 # Tabla con conteos por grupo y total
 tabla_resumen <- frutos_fisico %>%
-  group_by(year, site, phenotype) %>%
-  summarise(n_frutos = n(), .groups = "drop") %>%
-  ungroup() %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(n_frutos = n(), .groups = "drop") %>%
+  dplyr::ungroup() %>%
   # Agregar fila con total general
-  bind_rows(
+  dplyr::bind_rows(
     summarise(., 
               year = "Total",
               site = "Total",
@@ -123,11 +123,11 @@ print(tabla_resumen)
 
 # Tabla con conteos por grupo y total
 tabla_resumen_q <- frutos_quimico %>%
-  group_by(year, site, phenotype) %>%
-  summarise(n_frutos = n(), .groups = "drop") %>%
-  ungroup() %>%
+  dplyr::group_by(year, site, phenotype) %>%
+  dplyr::summarise(n_frutos = n(), .groups = "drop") %>%
+  dplyr::ungroup() %>%
   # Agregar fila con total general
-  bind_rows(
+  dplyr::bind_rows(
     summarise(., 
               year = "Total",
               site = "Total",

@@ -512,7 +512,7 @@ div.tocify {
       <a href="Genetics.html">Extracción de ADN</a>
     </li>
     <li>
-      <a href="extraction_methods.html">Extración química</a>
+      <a href="extraction_methods.html">Extracción química</a>
     </li>
     <li>
       <a href="q2022_quimico.html">Variables químicas 2022</a>
@@ -572,13 +572,9 @@ div.tocify {
 ## #   mean_polen_CV &lt;dbl&gt;, NO_mean &lt;dbl&gt;, NO_CV &lt;dbl&gt;, NS_mean &lt;dbl&gt;, NS_CV &lt;dbl&gt;,
 ## #   NS_NO_mean &lt;dbl&gt;, NS_NO_CV &lt;dbl&gt;</code></pre>
 <p>Botones florales y ramas analizadas</p>
-<pre><code>## # A tibble: 1 × 3
-##    n_NO n_PSFL n_DMAP
-##   &lt;int&gt;  &lt;int&gt;  &lt;int&gt;
-## 1  1185   1178   1130</code></pre>
-<pre><code>## # A tibble: 1 × 1
-##   n_DMAP
-##    &lt;int&gt;
+<pre><code>##   n_NO n_PSFL n_DMAP
+## 1 1185   1178   1130</code></pre>
+<pre><code>##   n_DMAP
 ## 1    534</code></pre>
 </div>
 <div id="estimación-de-componentes-de-varianza" class="section level1">
@@ -604,12 +600,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##   0.296  0.244  0.209  0.666    0.667      0
+##   0.296  0.257 0.0504  0.505    0.667      0
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.457  0.505 0.2087  0.666
-## permut      3  0.343  0.296 0.0148  0.710
+## boot        3  0.231  0.122 0.0504  0.505
+## permut      3  0.354  0.296 0.0199  0.737
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -3043.27559
@@ -622,13 +618,13 @@ Resumen</p>
 ## site (3 groups)
 ## 
 ## Repeatability estimation overview: 
-##        R      SE             2.5%   97.5% P_permut  LRT_P
-##  0.00482 0.00355 0.00000000000505 0.00584        1  0.397
+##        R      SE     2.5%  97.5% P_permut  LRT_P
+##  0.00482 0.00803 0.000426 0.0155        1  0.397
 ## 
 ## Bootstrapping and Permutation test: 
-##             N    Mean          Median             2.5%   97.5%
-## boot        3 0.00205 0.0000000000121 0.00000000000505 0.00584
-## permut      3 0.15163 0.0136017971605 0.00525850762911 0.41531
+##             N    Mean  Median     2.5%  97.5%
+## boot        3 0.00745 0.00618 0.000426 0.0155
+## permut      3 0.14948 0.01968 0.005562 0.4037
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -3043.27559
@@ -642,12 +638,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##   0.257 0.0942  0.131  0.305    0.667      0
+##   0.257 0.0848  0.167  0.317    0.667      0
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.208  0.183 0.1311  0.305
-## permut      3  0.338  0.257 0.0198  0.725
+## boot        3  0.257  0.293 0.1673  0.317
+## permut      3  0.335  0.257 0.0128  0.723
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -3043.27559
@@ -661,11 +657,11 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##   0.442  0.147  0.203   0.48       NA     NA
+##   0.442   0.17  0.326   0.64       NA     NA
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.333  0.312  0.203   0.48
+## boot        3  0.504  0.553  0.326   0.64
 ## permut      3     NA     NA     NA     NA
 ## 
 ## Likelihood ratio test: 
@@ -726,18 +722,18 @@ Resumen</p>
 ## Repeatability estimation overview: 
 ##           R     SE    2.5%  97.5% P_permut
 ## Org      NA     NA      NA     NA       NA
-## Link  0.012 0.0141 0.00778 0.0334    0.333
+## Link  0.012 0.0047 0.00282 0.0112    0.333
 ## 
 ## 
 ## Bootstrapping: 
-##           N   Mean Median    2.5%  97.5%
-## Org       3     NA     NA      NA     NA
-## Link      3 0.0186 0.0138 0.00778 0.0334
+##           N    Mean  Median    2.5%  97.5%
+## Org       3      NA      NA      NA     NA
+## Link      3 0.00625 0.00443 0.00282 0.0112
 ## 
 ## Permutation test: 
-##           N    Mean    Median       2.5%  97.5% P_permut
-## Org       3      NA        NA         NA     NA       NA
-## Link      3 0.00401 0.0000484 0.00000242 0.0114    0.333
+##           N   Mean Median   2.5%  97.5% P_permut
+## Org       3     NA     NA     NA     NA       NA
+## Link      3  0.004      0      0 0.0114    0.333
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -2368.97985
@@ -750,20 +746,20 @@ Resumen</p>
 ## site (3 groups)
 ## 
 ## Repeatability estimation overview: 
-##            R      SE     2.5%   97.5% P_permut
-## Org       NA      NA       NA      NA       NA
-## Link 0.00321 0.00488 0.000301 0.00949    0.667
+##            R     SE   2.5%  97.5% P_permut
+## Org       NA     NA     NA     NA       NA
+## Link 0.00321      0      0      0    0.333
 ## 
 ## 
 ## Bootstrapping: 
-##           N    Mean  Median     2.5%   97.5%
-## Org       3      NA      NA       NA      NA
-## Link      3 0.00523 0.00603 0.000301 0.00949
+##           N   Mean Median   2.5%  97.5%
+## Org       3     NA     NA     NA     NA
+## Link      3      0      0      0      0
 ## 
 ## Permutation test: 
-##           N    Mean  Median     2.5%   97.5% P_permut
-## Org       3      NA      NA       NA      NA       NA
-## Link      3 0.00264 0.00321 0.000161 0.00463    0.667
+##           N    Mean Median   2.5%   97.5% P_permut
+## Org       3      NA     NA     NA      NA       NA
+## Link      3 0.00107      0      0 0.00305    0.333
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -2368.97985
@@ -778,18 +774,18 @@ Resumen</p>
 ## Repeatability estimation overview: 
 ##           R     SE   2.5%  97.5% P_permut
 ## Org      NA     NA     NA     NA       NA
-## Link  0.123 0.0189  0.095   0.13    0.333
+## Link  0.123 0.0255 0.0835  0.127    0.333
 ## 
 ## 
 ## Bootstrapping: 
 ##           N   Mean Median   2.5%  97.5%
 ## Org       3     NA     NA     NA     NA
-## Link      3  0.115  0.121  0.095   0.13
+## Link      3  0.111  0.123 0.0835  0.127
 ## 
 ## Permutation test: 
-##           N   Mean  Median      2.5%  97.5% P_permut
-## Org       3     NA      NA        NA     NA       NA
-## Link      3 0.0414 0.00125 0.0000623  0.117    0.333
+##           N   Mean Median    2.5%  97.5% P_permut
+## Org       3     NA     NA      NA     NA       NA
+## Link      3 0.0432 0.0047 0.00204  0.117    0.333
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -2368.97985
@@ -804,13 +800,13 @@ Resumen</p>
 ## Repeatability estimation overview: 
 ##           R     SE   2.5%  97.5% P_permut
 ## Org      NA     NA     NA     NA       NA
-## Link      0 0.0272  0.845  0.891       NA
+## Link      0 0.0278  0.861  0.912       NA
 ## 
 ## 
 ## Bootstrapping: 
 ##           N   Mean Median   2.5%  97.5%
 ## Org       3     NA     NA     NA     NA
-## Link      3  0.861  0.846  0.845  0.891
+## Link      3  0.883  0.874  0.861  0.912
 ## 
 ## Permutation test: 
 ##           N   Mean Median   2.5%  97.5% P_permut
@@ -828,15 +824,15 @@ Resumen</p>
 ## Residual
 ## 
 ## Repeatability estimation overview: 
-##           R     SE    2.5%  97.5% P_permut
-## Org      NA     NA      NA     NA       NA
-## Link  0.862 0.0117 0.00046 0.0226       NA
+##           R     SE     2.5%  97.5% P_permut
+## Org      NA     NA       NA     NA       NA
+## Link  0.862  0.012 0.000222 0.0217       NA
 ## 
 ## 
 ## Bootstrapping: 
-##           N   Mean  Median    2.5%  97.5%
-## Org       3     NA      NA      NA     NA
-## Link      3 0.0108 0.00921 0.00046 0.0226
+##           N    Mean  Median     2.5%  97.5%
+## Org       3      NA      NA       NA     NA
+## Link      3 0.00901 0.00445 0.000222 0.0217
 ## 
 ## Permutation test: 
 ##           N   Mean Median   2.5%  97.5% P_permut
@@ -868,20 +864,20 @@ Resumen</p>
 ## year (3 groups)
 ## 
 ## Repeatability estimation overview: 
-##            R     SE   2.5%  97.5% P_permut
-## Org       NA     NA     NA     NA       NA
-## Link 0.00192      0      0      0    0.667
+##            R       SE   2.5%   97.5% P_permut
+## Org       NA       NA     NA      NA       NA
+## Link 0.00192 0.000225      0 0.00037    0.333
 ## 
 ## 
 ## Bootstrapping: 
-##           N   Mean Median   2.5%  97.5%
-## Org       3     NA     NA     NA     NA
-## Link      3      0      0      0      0
+##           N    Mean Median   2.5%   97.5%
+## Org       3      NA     NA     NA      NA
+## Link      3 0.00013      0      0 0.00037
 ## 
 ## Permutation test: 
-##           N    Mean  Median      2.5%   97.5% P_permut
-## Org       3      NA      NA        NA      NA       NA
-## Link      3 0.00155 0.00192 0.0000962 0.00269    0.667
+##           N     Mean   Median      2.5%   97.5% P_permut
+## Org       3       NA       NA        NA      NA       NA
+## Link      3 0.000813 0.000515 0.0000257 0.00185    0.333
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -1221.10395
@@ -894,20 +890,20 @@ Resumen</p>
 ## site (3 groups)
 ## 
 ## Repeatability estimation overview: 
-##            R     SE   2.5%  97.5% P_permut
-## Org       NA     NA     NA     NA       NA
-## Link 0.00342      0      0      0    0.333
+##            R      SE     2.5%   97.5% P_permut
+## Org       NA      NA       NA      NA       NA
+## Link 0.00342 0.00261 0.000892 0.00549    0.333
 ## 
 ## 
 ## Bootstrapping: 
-##           N   Mean Median   2.5%  97.5%
-## Org       3     NA     NA     NA     NA
-## Link      3      0      0      0      0
+##           N    Mean Median     2.5%   97.5%
+## Org       3      NA     NA       NA      NA
+## Link      3 0.00367 0.0048 0.000892 0.00549
 ## 
 ## Permutation test: 
-##           N    Mean Median   2.5%   97.5% P_permut
-## Org       3      NA     NA     NA      NA       NA
-## Link      3 0.00114      0      0 0.00325    0.333
+##           N    Mean   Median      2.5%   97.5% P_permut
+## Org       3      NA       NA        NA      NA       NA
+## Link      3 0.00139 0.000743 0.0000371 0.00329    0.333
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -1221.10395
@@ -920,20 +916,20 @@ Resumen</p>
 ## phenotype (52 groups)
 ## 
 ## Repeatability estimation overview: 
-##           R      SE   2.5%   97.5% P_permut
-## Org      NA      NA     NA      NA       NA
-## Link      0 0.00275      0 0.00453        1
+##           R     SE   2.5%  97.5% P_permut
+## Org      NA     NA     NA     NA       NA
+## Link      0      0      0      0        1
 ## 
 ## 
 ## Bootstrapping: 
-##           N    Mean Median   2.5%   97.5%
-## Org       3      NA     NA     NA      NA
-## Link      3 0.00159      0      0 0.00453
+##           N   Mean Median   2.5%  97.5%
+## Org       3     NA     NA     NA     NA
+## Link      3      0      0      0      0
 ## 
 ## Permutation test: 
-##           N    Mean Median   2.5%   97.5% P_permut
-## Org       3      NA     NA     NA      NA       NA
-## Link      3 0.00282      0      0 0.00804        1
+##           N    Mean  Median     2.5%  97.5% P_permut
+## Org       3      NA      NA       NA     NA       NA
+## Link      3 0.00573 0.00667 0.000333 0.0103        1
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -1221.10395
@@ -948,13 +944,13 @@ Resumen</p>
 ## Repeatability estimation overview: 
 ##           R      SE   2.5%  97.5% P_permut
 ## Org      NA      NA     NA     NA       NA
-## Link      0 0.00275  0.995      1       NA
+## Link      0 0.00275  0.994  0.999       NA
 ## 
 ## 
 ## Bootstrapping: 
 ##           N   Mean Median   2.5%  97.5%
 ## Org       3     NA     NA     NA     NA
-## Link      3  0.998      1  0.995      1
+## Link      3  0.996  0.995  0.994  0.999
 ## 
 ## Permutation test: 
 ##           N   Mean Median   2.5%  97.5% P_permut
@@ -972,15 +968,15 @@ Resumen</p>
 ## Residual
 ## 
 ## Repeatability estimation overview: 
-##           R     SE    2.5%  97.5% P_permut
-## Org      NA     NA      NA     NA       NA
-## Link  0.995 0.0172 0.00757 0.0389       NA
+##           R      SE                2.5%  97.5% P_permut
+## Org      NA      NA                  NA     NA       NA
+## Link  0.995 0.00834 0.00000000000000862 0.0137       NA
 ## 
 ## 
 ## Bootstrapping: 
-##           N   Mean Median    2.5%  97.5%
-## Org       3     NA     NA      NA     NA
-## Link      3 0.0208  0.015 0.00757 0.0389
+##           N    Mean            Median                2.5%  97.5%
+## Org       3      NA                NA                  NA     NA
+## Link      3 0.00481 0.000000000000159 0.00000000000000862 0.0137
 ## 
 ## Permutation test: 
 ##           N   Mean Median   2.5%  97.5% P_permut
@@ -1022,12 +1018,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R      SE     2.5%  97.5% P_permut  LRT_P
-##  0.0194 0.00953 0.000969 0.0187    0.667  0.003
+##  0.0194 0.00766 0.000149 0.0137    0.667  0.003
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N    Mean  Median     2.5%  97.5%
-## boot        3 0.00881 0.00645 0.000969 0.0187
-## permut      3 0.22631 0.01937 0.000968 0.6275
+## boot        3 0.00557 0.00236 0.000149 0.0137
+## permut      3 0.20122 0.01937 0.000968 0.5560
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -163.040624
@@ -1041,12 +1037,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##    0.12 0.0183 0.0525 0.0836        1  0.003
+##    0.12 0.0373 0.0019 0.0727    0.667  0.003
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.072 0.0812 0.0525 0.0836
-## permut      3  0.298 0.1245 0.1202 0.6221
+## boot        3 0.0375 0.0381 0.0019 0.0727
+## permut      3 0.2786 0.1200 0.0724 0.6197
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -163.040624
@@ -1060,12 +1056,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##    0.26 0.0381  0.291  0.363    0.667      0
+##    0.26 0.0771  0.263  0.405    0.667      0
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.329  0.335 0.2910  0.363
-## permut      3  0.366  0.260 0.0433  0.778
+## boot        3  0.324  0.301  0.263  0.405
+## permut      3  0.364  0.260  0.013  0.804
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -163.040624
@@ -1079,11 +1075,11 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##   0.601 0.0301  0.566  0.621       NA     NA
+##   0.601 0.0402   0.59  0.663       NA     NA
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3   0.59  0.581  0.566  0.621
+## boot        3  0.633  0.646   0.59  0.663
 ## permut      3     NA     NA     NA     NA
 ## 
 ## Likelihood ratio test: 
@@ -1140,12 +1136,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##  0.0284 0.0108 0.0349 0.0554    0.667      0
+##  0.0284 0.0202 0.0042 0.0422    0.667      0
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median    2.5%  97.5%
-## boot        3 0.0448 0.0441 0.03490 0.0554
-## permut      3 0.2427 0.0284 0.00305 0.6646
+## boot        3 0.0217 0.0182 0.00420 0.0422
+## permut      3 0.2494 0.0284 0.00142 0.6852
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -1276.62546
@@ -1158,13 +1154,13 @@ Resumen</p>
 ## site (3 groups)
 ## 
 ## Repeatability estimation overview: 
-##       R     SE    2.5%  97.5% P_permut  LRT_P
-##  0.0144 0.0695 0.00294  0.135    0.667  0.268
+##       R     SE     2.5%  97.5% P_permut  LRT_P
+##  0.0144 0.0106 0.000482 0.0206    0.667  0.268
 ## 
 ## Bootstrapping and Permutation test: 
-##             N   Mean Median     2.5%  97.5%
-## boot        3 0.0658 0.0588 0.002938  0.135
-## permut      3 0.2404 0.0144 0.000721  0.672
+##             N   Mean  Median     2.5%  97.5%
+## boot        3 0.0103 0.00964 0.000482 0.0206
+## permut      3 0.2174 0.01443 0.000721 0.6067
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -1276.62546
@@ -1177,13 +1173,13 @@ Resumen</p>
 ## phenotype (52 groups)
 ## 
 ## Repeatability estimation overview: 
-##       R     SE   2.5%  97.5% P_permut  LRT_P
-##   0.285 0.0143  0.245  0.268    0.667      0
+##       R      SE   2.5%  97.5% P_permut  LRT_P
+##   0.285 0.00492  0.307  0.315    0.667      0
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.260  0.268  0.245  0.268
-## permut      3  0.407  0.285  0.022  0.897
+## boot        3  0.310  0.308 0.3067  0.315
+## permut      3  0.405  0.285 0.0142  0.897
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = -1276.62546
@@ -1197,11 +1193,11 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##   0.673 0.0625  0.563  0.675       NA     NA
+##   0.673 0.0266  0.629  0.675       NA     NA
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3   0.63  0.654  0.563  0.675
+## boot        3  0.658  0.671  0.629  0.675
 ## permut      3     NA     NA     NA     NA
 ## 
 ## Likelihood ratio test: 
@@ -1235,12 +1231,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE    2.5%  97.5% P_permut  LRT_P
-##  0.0162 0.0113 0.00377 0.0236    0.667  0.002
+##  0.0162 0.0134 0.00459 0.0276    0.667  0.002
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean  Median     2.5%  97.5%
-## boot        3 0.0116 0.00675 0.003772 0.0236
-## permut      3 0.2174 0.01618 0.000809 0.6049
+## boot        3 0.0133 0.00671 0.004588 0.0276
+## permut      3 0.2330 0.01618 0.000809 0.6496
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = 586.853571
@@ -1253,13 +1249,13 @@ Resumen</p>
 ## site (3 groups)
 ## 
 ## Repeatability estimation overview: 
-##               R            SE            2.5%         97.5% P_permut  LRT_P
-##  0.000000000809 0.00000000184 0.0000000000323 0.00000000327    0.667      1
+##               R             SE            2.5%         97.5% P_permut  LRT_P
+##  0.000000000809 0.000000000501 0.0000000000712 0.00000000102    0.667      1
 ## 
 ## Bootstrapping and Permutation test: 
-##             N          Mean         Median            2.5%         97.5%
-## boot        3 0.00000000132 0.000000000532 0.0000000000323 0.00000000327
-## permut      3 0.21414206998 0.000000000809 0.0000000000404 0.61030489870
+##             N           Mean         Median            2.5%         97.5%
+## boot        3 0.000000000527 0.000000000484 0.0000000000712 0.00000000102
+## permut      3 0.216230232351 0.000000000809 0.0000000001845 0.61625616133
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = 586.853571
@@ -1273,12 +1269,12 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##    0.34 0.0365  0.268  0.337    0.667      0
+##    0.34  0.047  0.318  0.404    0.667      0
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.301  0.298 0.2685  0.337
-## permut      3  0.441  0.340 0.0186  0.950
+## boot        3  0.355  0.341 0.3180  0.404
+## permut      3  0.434  0.340 0.0207  0.926
 ## 
 ## Likelihood ratio test: 
 ## logLik full model = 586.853571
@@ -1292,11 +1288,11 @@ Resumen</p>
 ## 
 ## Repeatability estimation overview: 
 ##       R     SE   2.5%  97.5% P_permut  LRT_P
-##   0.643 0.0387  0.655  0.727       NA     NA
+##   0.643 0.0465  0.588  0.676       NA     NA
 ## 
 ## Bootstrapping and Permutation test: 
 ##             N   Mean Median   2.5%  97.5%
-## boot        3  0.687  0.678  0.655  0.727
+## boot        3  0.632  0.631  0.588  0.676
 ## permut      3     NA     NA     NA     NA
 ## 
 ## Likelihood ratio test: 

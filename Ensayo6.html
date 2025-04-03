@@ -512,7 +512,7 @@ div.tocify {
       <a href="Genetics.html">Extracción de ADN</a>
     </li>
     <li>
-      <a href="extraction_methods.html">Extración química</a>
+      <a href="extraction_methods.html">Extracción química</a>
     </li>
     <li>
       <a href="q2022_quimico.html">Variables químicas 2022</a>
@@ -579,47 +579,47 @@ div.tocify {
 <p><img src="Ensayo6_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p><img src="Ensayo6_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo6_files/figure-html/unnamed-chunk-4-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value Pr(&gt;F)
-## group  3  1.4354 0.2507
+##       Df F value  Pr(&gt;F)
+## group  3 1.43544 0.25068
 ##       32</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  residuos
-## W = 0.96231, p-value = 0.2531</code></pre>
+## W = 0.9623149, p-value = 0.253137</code></pre>
 <pre><code>## Analysis of Deviance Table (Type II tests)
 ## 
 ## Response: log(respiracion)
-##                 Df    Chisq Pr(&gt;Chisq)    
-## Tratamiento      2   42.966  4.677e-10 ***
-## dia              3 1076.301  &lt; 2.2e-16 ***
-## Tratamiento:dia  6   57.391  1.522e-10 ***
+##                 Df      Chisq             Pr(&gt;Chisq)    
+## Tratamiento      2   42.96639       0.00000000046770 ***
+## dia              3 1076.30049 &lt; 0.000000000000000222 ***
+## Tratamiento:dia  6   57.39135       0.00000000015222 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
 ## dia = 1:
-##  Tratamiento   emmean         SE    df lower.CL upper.CL
-##  Control     3.318069 0.19797449  9.00 2.870250 3.765887
-##  Etileno     2.501257 0.19797449  9.00 2.053438 2.949076
-##  1MCP        3.204997 0.19797449  9.00 2.757178 3.652816
+##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
+##  Control     3.31806864 0.1979744914  9.00 2.87024992 3.76588736
+##  Etileno     2.50125708 0.1979744914  9.00 2.05343837 2.94907580
+##  1MCP        3.20499681 0.1979744914  9.00 2.75717810 3.65281553
 ## 
 ## dia = 2:
-##  Tratamiento   emmean         SE    df lower.CL upper.CL
-##  Control     3.215969 0.13691896 16.21 2.926013 3.505925
-##  Etileno     3.235144 0.13691896 16.21 2.945189 3.525100
-##  1MCP        2.936730 0.13691896 16.21 2.646774 3.226686
+##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
+##  Control     3.21596892 0.1369189634 16.21 2.92601308 3.50592475
+##  Etileno     3.23514435 0.1369189634 16.21 2.94518852 3.52510019
+##  1MCP        2.93673020 0.1369189634 16.21 2.64677436 3.22668603
 ## 
 ## dia = 3:
-##  Tratamiento   emmean         SE    df lower.CL upper.CL
-##  Control     3.372958 0.08412164 16.20 3.194811 3.551105
-##  Etileno     2.357409 0.08412164 16.20 2.179262 2.535556
-##  1MCP        3.111649 0.08412164 16.20 2.933502 3.289795
+##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
+##  Control     3.37295778 0.0841216358 16.20 3.19481092 3.55110465
+##  Etileno     2.35740904 0.0841216358 16.20 2.17926218 2.53555591
+##  1MCP        3.11164856 0.0841216358 16.20 2.93350170 3.28979543
 ## 
 ## dia = 4:
-##  Tratamiento   emmean         SE    df lower.CL upper.CL
-##  Control     5.222699 0.08719861 16.21 5.038037 5.407361
-##  Etileno     5.148330 0.08719861 16.21 4.963668 5.332992
-##  1MCP        4.875460 0.08719861 16.21 4.690798 5.060122
+##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
+##  Control     5.22269888 0.0871986127 16.21 5.03803675 5.40736101
+##  Etileno     5.14833013 0.0871986127 16.21 4.96366799 5.33299226
+##  1MCP        4.87546004 0.0871986127 16.21 4.69079791 5.06012218
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the log (not the response) scale. 
@@ -627,28 +627,28 @@ div.tocify {
 ## 
 ## $contrasts
 ## dia = 1:
-##  contrast            estimate        SE    df t.ratio p.value
-##  Control - Etileno  0.8168116 0.2799782  9.00   2.917  0.0411
-##  Control - 1MCP     0.1130718 0.2799782  9.00   0.404  0.9148
-##  Etileno - 1MCP    -0.7037397 0.2799782  9.00  -2.514  0.0771
+##  contrast              estimate          SE    df t.ratio p.value
+##  Control - Etileno  0.816811558 0.279978211  9.00   2.917  0.0411
+##  Control - 1MCP     0.113071827 0.279978211  9.00   0.404  0.9148
+##  Etileno - 1MCP    -0.703739731 0.279978211  9.00  -2.514  0.0771
 ## 
 ## dia = 2:
-##  contrast            estimate        SE    df t.ratio p.value
-##  Control - Etileno -0.0191754 0.1936327 16.21  -0.099  0.9946
-##  Control - 1MCP     0.2792387 0.1936327 16.21   1.442  0.3436
-##  Etileno - 1MCP     0.2984142 0.1936327 16.21   1.541  0.2986
+##  contrast              estimate          SE    df t.ratio p.value
+##  Control - Etileno -0.019175435 0.193632655 16.21  -0.099  0.9946
+##  Control - 1MCP     0.279238720 0.193632655 16.21   1.442  0.3436
+##  Etileno - 1MCP     0.298414156 0.193632655 16.21   1.541  0.2986
 ## 
 ## dia = 3:
-##  contrast            estimate        SE    df t.ratio p.value
-##  Control - Etileno  1.0155487 0.1189660 16.20   8.536  &lt;.0001
-##  Control - 1MCP     0.2613092 0.1189660 16.20   2.197  0.1019
-##  Etileno - 1MCP    -0.7542395 0.1189660 16.20  -6.340  &lt;.0001
+##  contrast              estimate          SE    df t.ratio p.value
+##  Control - Etileno  1.015548742 0.118965958 16.20   8.536  &lt;.0001
+##  Control - 1MCP     0.261309222 0.118965958 16.20   2.197  0.1019
+##  Etileno - 1MCP    -0.754239519 0.118965958 16.20  -6.340  &lt;.0001
 ## 
 ## dia = 4:
-##  contrast            estimate        SE    df t.ratio p.value
-##  Control - Etileno  0.0743688 0.1233175 16.21   0.603  0.8204
-##  Control - 1MCP     0.3472388 0.1233175 16.21   2.816  0.0313
-##  Etileno - 1MCP     0.2728701 0.1233175 16.21   2.213  0.0989
+##  contrast              estimate          SE    df t.ratio p.value
+##  Control - Etileno  0.074368754 0.123317461 16.21   0.603  0.8204
+##  Control - 1MCP     0.347238839 0.123317461 16.21   2.816  0.0313
+##  Etileno - 1MCP     0.272870085 0.123317461 16.21   2.213  0.0989
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the log (not the response) scale. 
