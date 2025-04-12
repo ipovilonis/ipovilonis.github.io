@@ -674,7 +674,8 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 11.5311  3.39575 
 ##  site                (Intercept) 15.6164  3.95175 
 ##  Residual                        17.0711  4.13172 
-## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  
+## id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -698,7 +699,8 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 27.8611  5.27836 
 ##  site                (Intercept) 33.7434  5.80891 
 ##  Residual                        13.8433  3.72066 
-## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  
+## id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -722,7 +724,8 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 32.3344  5.68633 
 ##  site                (Intercept) 26.1927  5.11788 
 ##  Residual                        44.9486  6.70437 
-## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  
+## id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -737,9 +740,12 @@ difference between MM and SM.</p>
 ## Models:
 ## L23: color_L ~ 1 + (1 | site)
 ## L2: color_L ~ 1 + (1 | site/phenotype/id)
-##     npar       AIC       BIC    logLik  deviance   Chisq Df             Pr(&gt;Chisq)    
-## L23    3 10479.176 10495.132 -5236.588 10473.176                                      
-## L2     5  9967.735  9994.328 -4978.867  9957.735 515.441  2 &lt; 0.000000000000000222 ***
+##     npar       AIC       BIC    logLik  deviance   Chisq Df
+## L23    3 10479.176 10495.132 -5236.588 10473.176           
+## L2     5  9967.735  9994.328 -4978.867  9957.735 515.441  2
+##                 Pr(&gt;Chisq)    
+## L23                           
+## L2  &lt; 0.000000000000000222 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>##     df         AIC
@@ -749,9 +755,12 @@ difference between MM and SM.</p>
 ## Models:
 ## a23: color_a ~ 1 + (1 | site)
 ## a2: color_a ~ 1 + (1 | site/phenotype/id)
-##     npar      AIC      BIC    logLik deviance    Chisq Df             Pr(&gt;Chisq)    
-## a23    3 11169.94 11185.89 -5581.969 11163.94                                       
-## a2     5 10275.19 10301.78 -5132.594 10265.19 898.7496  2 &lt; 0.000000000000000222 ***
+##     npar      AIC      BIC    logLik deviance    Chisq Df             Pr(&gt;Chisq)
+## a23    3 11169.94 11185.89 -5581.969 11163.94                                   
+## a2     5 10275.19 10301.78 -5132.594 10265.19 898.7496  2 &lt; 0.000000000000000222
+##        
+## a23    
+## a2  ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>##     df        AIC

@@ -564,6 +564,8 @@ div.tocify {
 
 <div id="cambios-en-el-peso" class="section level1">
 <h1>Cambios en el peso</h1>
+<pre><code>## New names:
+## • `` -&gt; `...6`</code></pre>
 <p>Tabla descriptiva</p>
 <pre><code>## # A tibble: 14 × 5
 ## # Groups:   Temperatura [2]
@@ -632,28 +634,28 @@ div.tocify {
 <pre><code>## $emmeans
 ## Hora = 1:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60          13.22348584 0.557653114 17.47 12.04935410 14.39761759
-##  80          13.52218082 0.557653114 17.47 12.34804908 14.69631256
+##  60          13.22348584 0.557653114 17.38 12.04891497 14.39805672
+##  80          13.52218082 0.557653114 17.38 12.34760995 14.69675170
 ## 
 ## Hora = 2:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60          11.68381918 0.557653114 17.47 10.50968744 12.85795092
-##  80          10.15718082 0.557653114 17.47  8.98304908 11.33131256
+##  60          11.68381918 0.557653114 17.38 10.50924830 12.85839005
+##  80          10.15718082 0.557653114 17.38  8.98260995 11.33175170
 ## 
 ## Hora = 3:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           9.70915251 0.557653114 17.47  8.53502077 10.88328425
-##  80           6.40251416 0.557653114 17.47  5.22838241  7.57664590
+##  60           9.70915251 0.557653114 17.38  8.53458164 10.88372339
+##  80           6.40251416 0.557653114 17.38  5.22794328  7.57708503
 ## 
 ## Hora = 4:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           7.69048584 0.557653114 17.47  6.51635410  8.86461759
-##  80           3.66818082 0.557653114 17.47  2.49404908  4.84231256
+##  60           7.69048584 0.557653114 17.38  6.51591497  8.86505672
+##  80           3.66818082 0.557653114 17.38  2.49360995  4.84275170
 ## 
 ## Hora = 5:
 ##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           5.90048584 0.557653114 17.47  4.72635410  7.07461759
-##  80           2.86984749 0.557653114 17.47  1.69571575  4.04397923
+##  60           5.90048584 0.557653114 17.38  4.72591497  7.07505672
+##  80           2.86984749 0.557653114 17.38  1.69527661  4.04441836
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Confidence level used: 0.95 
@@ -661,23 +663,23 @@ div.tocify {
 ## $contrasts
 ## Hora = 1:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.69  -0.341  0.7407
+##  Temperatura60 - Temperatura80 -0.29869498 0.877104027 9.79  -0.341  0.7406
 ## 
 ## Hora = 2:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.69   1.741  0.1134
+##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.79   1.741  0.1130
 ## 
 ## Hora = 3:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.69   3.770  0.0039
+##  Temperatura60 - Temperatura80  3.30663836 0.877104027 9.79   3.770  0.0038
 ## 
 ## Hora = 4:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.69   4.586  0.0011
+##  Temperatura60 - Temperatura80  4.02230502 0.877104027 9.79   4.586  0.0011
 ## 
 ## Hora = 5:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.69   3.455  0.0065
+##  Temperatura60 - Temperatura80  3.03063836 0.877104027 9.79   3.455  0.0064
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite</code></pre>
 <p>Gráfico de comparaciones
@@ -838,7 +840,8 @@ div.tocify {
 <h1>Antocianinas</h1>
 <p><img src="dry_test_files/figure-html/unnamed-chunk-46-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace  Approximation)
+##  [glmerMod]
 ##  Family: Gamma  ( log )
 ## Formula: Antocianinas ~ Tratamiento + (1 | Dia)
 ##    Data: datosanto2

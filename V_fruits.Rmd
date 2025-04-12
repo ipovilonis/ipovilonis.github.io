@@ -142,6 +142,7 @@ print(tabla_resumen_q)
 
 ```
 
+Número de fenotipos
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -153,6 +154,7 @@ print(n_phenotypes)  # Debería dar 52 según tu str()
 
 ```
 
+Medias y CV%
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -2599,7 +2601,7 @@ library(stringr)
 
 # Crear la nueva columna 'year*site' concatenando los valores de 'year' y 'site'
 tabla_combinada_ordenada <- tabla_combinada_ordenada %>%
-  mutate(`year.site` = str_c(site, year, sep = "."))
+   dplyr::mutate(`year.site` = str_c(site, year, sep = "."))
 
 tabla_combinada_ordenada$year.site <- as.factor(tabla_combinada_ordenada$year.site)
 
@@ -3094,8 +3096,138 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width=
 
 ```
 
-## Selección de fenotipos superiores
+### Análisis de clusters
 
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# 1. Clustering Jerárquico (HCA) usando los scores del PCA
+# Usaremos los primeros 3 componentes principales
+dist_matrix <- dist(pca_scores[,1:3], method = "euclidean")
+hclust_result <- hclust(dist_matrix, method = "ward.D2")
+
+# Determinar el número óptimo de clusters usando el método del codo
+# library(factoextra)
+# fviz_nbclust(pca_scores[,1:3], hcut, method = "wss") +
+#   labs(title = "Método del codo para número óptimo de clusters")
+
+# Cortar el dendrograma en k clusters (7)
+k_clusters <- 7
+clusters_hca <- cutree(hclust_result, k = k_clusters)
+
+# Agregar los clusters al dataframe de scores
+pca_scores$cluster_hca <- as.factor(clusters_hca)
+
+# 2. Clustering con k-means
+set.seed(123) # Para reproducibilidad
+kmeans_result <- kmeans(pca_scores[,1:3], centers = k_clusters, nstart = 25)
+pca_scores$cluster_kmeans <- as.factor(kmeans_result$cluster)
+
+# Visualización del HCA en 2D (PC1 vs PC2)
+gg_hca <- ggplot(pca_scores, aes(x = PC1, y = PC2, color = cluster_hca)) +
+  geom_point(size = 5) +
+  scale_color_manual(values = c(
+  "#FF0000",  # Rojo puro
+  "#00FF00",  # Verde lima
+  "#0000FF",  # Azul puro
+  "#FFFF00",  # Amarillo puro
+  "#FF00FF",  # Magenta
+  "#00FFFF",  # Cian
+  "#FFA500"   # Naranja
+)) +
+  labs(title = "Clustering Jerárquico (HCA)",
+       x = "Componente Principal 1 (35,7 %)",
+       y = "Componente Principal 2 (18,2 %)") +
+  theme_classic() +
+  theme(legend.position = "bottom",
+        text = element_text(size = 24, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  coord_cartesian(xlim = c(-6, 6), ylim = c(-6, 6))
+
+print(gg_hca)
+
+# Visualización del k-means en 2D (PC1 vs PC2)
+gg_kmeans <- ggplot(pca_scores, aes(x = PC1, y = PC2, color = cluster_kmeans)) +
+  geom_point(size = 5) +
+  scale_color_manual(values = c(
+  "#FF0000",  # Rojo puro
+  "#00FF00",  # Verde lima
+  "#0000FF",  # Azul puro
+  "#FFFF00",  # Amarillo puro
+  "#FF00FF",  # Magenta
+  "#00FFFF",  # Cian
+  "#FFA500"   # Naranja
+)) +
+  labs(title = "Clustering k-means",
+       x = "Componente Principal 1 (35,7 %)",
+       y = "Componente Principal 2 (18,2 %)") +
+  theme_classic() +
+  theme(legend.position = "bottom",
+        text = element_text(size = 24, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  coord_cartesian(xlim = c(-6, 6), ylim = c(-6, 6))
+
+print(gg_kmeans)
+
+# Cargar el paquete
+library(plotly)
+
+# Crear el gráfico base
+p <- plot_ly(data = pca_scores, 
+             x = ~PC1, 
+             y = ~PC2, 
+             z = ~PC3, 
+             type = 'scatter3d', 
+             mode = 'markers',
+             marker = list(size = 10),
+             color = ~cluster_kmeans,
+             colors = c(
+  "#FF0000",  # Rojo puro
+  "#00FF00",  # Verde lima
+  "#0000FF",  # Azul puro
+  "#FFFF00",  # Amarillo puro
+  "#FF00FF",  # Magenta
+  "#00FFFF",  # Cian
+  "#FFA500"   # Naranja
+))
+
+# Aplicar el layout
+p <- layout(p, 
+            scene = list(xaxis = list(title = 'PC1'),
+                         yaxis = list(title = 'PC2'),
+                         zaxis = list(title = 'PC3')),
+            title = "Clusters k-means en 3D",
+            legend = list(title = list(text = "Clusters")))
+
+# Mostrar el gráfico
+print(p)
+
+# Resumen de las características por cluster (usando k-means)
+cluster_summary <- pca_scores %>%
+  dplyr::group_by(cluster_kmeans) %>%
+  dplyr::summarise(across(c(PC1, PC2, PC3), 
+                  list(mean = mean, sd = sd),
+                  .names = "{.col}_{.fn}")) %>%
+  dplyr::left_join(
+    tabla_pca %>% 
+      dplyr::mutate(cluster_kmeans = pca_scores$cluster_kmeans) %>%
+      dplyr::group_by(cluster_kmeans) %>%
+      dplyr::summarise(across(where(is.numeric), mean, na.rm = TRUE)),
+    by = "cluster_kmeans"
+  )
+
+print(cluster_summary)
+
+# Clustering jerárquico
+dist_matrix <- dist(pca_scores[, c("PC1", "PC2", "PC3")], method = "euclidean")
+hclust_result <- hclust(dist_matrix, method = "ward.D2")
+
+# Graficar dendrograma
+plot(hclust_result, main = "Dendrograma de Clustering Jerárquico", xlab = "", sub = "")
+
+```
+
+## Selección de fenotipos superiores
 ```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -3260,7 +3392,7 @@ loadings_long <- loadings %>%
                names_to = "Component",
                values_to = "Contribution")
 
-paleta_22_colores <- c("#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", 
+paleta_21_colores <- c("#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", 
                        "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF", 
                        "#AEC7E8", "#FFBB78", "#98DF8A", "#FF9896", "#C5B0D5", 
                        "#C49C94", "#F7B6D2", "#C7C7C7", "#DBDB8D", "#9EDAE5", 
@@ -3294,13 +3426,15 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # Crear un marco de datos con las coordenadas y etiquetas
 data_labels <- data.frame(
-  x = pca_result$x[, 1],         # Coordenadas PC1
-  y = pca_result$x[, 2],         # Coordenadas PC2
-  label = tabla_pca$phenotype    # Etiquetas
+  x = pca_result$ind$coord[, 1],    # Coordenadas Dim.1 (PC1)
+  y = pca_result$ind$coord[, 2],    # Coordenadas Dim.2 (PC2)
+  label = tabla_pca$phenotype       # Etiquetas
 )
 
 # Verificar que las longitudes coincidan
 stopifnot(nrow(data_labels) == length(tabla_pca$phenotype))  # Esto lanza un error si no coinciden
+
+library(ggrepel)
 
 # Generar el gráfico
 gg_pca_fruits_site_sel <- fviz_pca_biplot(pca_result, 
@@ -3333,7 +3467,7 @@ gg_pca_fruits_site_sel <- fviz_pca_biplot(pca_result,
                   aes(x = x, y = y, label = label),
                   size = 6, color = "black") +
   # Limitar los ejes para que los vectores sean visibles
-  coord_cartesian(xlim = c(-5, 6.5), ylim = c(-7.5, 6))
+  coord_cartesian(xlim = c(-8, 8), ylim = c(-8, 8))
 
 # Mostrar el gráfico
 gg_pca_fruits_site_sel
@@ -3377,3 +3511,212 @@ triplot_frutos <- triplot_frutos1 %>% layout(scene = list(xaxis = list(title = '
 triplot_frutos
 
 ```
+
+### Análisis de clusters
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(factoextra)
+library(ggplot2)
+library(dendextend)
+library(dplyr)
+library(plotly)
+
+# 1. Clustering Jerárquico (HCA)
+dist_matrix <- dist(pca_scores[, c("PC1", "PC2", "PC3")], method = "euclidean")
+hclust_result <- hclust(dist_matrix, method = "ward.D2")
+
+# # Método del codo
+# fviz_nbclust(pca_scores[, c("PC1", "PC2", "PC3")], hcut, method = "wss") +
+#   labs(title = "Método del codo para número óptimo de clusters")
+
+# Dendrograma con fenotipos y colores (solución robusta)
+# Cortar en 7 clusters (cambiamos de 3 a 7)
+k_clusters <- 7
+clusters_hca <- cutree(hclust_result, k = k_clusters)
+pca_scores$cluster_hca <- as.factor(clusters_hca)
+
+# Definir paleta de 7 colores
+paleta_7 <- c(
+  "#FF0000",  # Rojo puro
+  "#00FF00",  # Verde lima
+  "#0000FF",  # Azul puro
+  "#FFFF00",  # Amarillo puro
+  "#FF00FF",  # Magenta
+  "#00FFFF",  # Cian
+  "#FFA500"   # Naranja
+)
+
+# Dendrograma con R base, etiquetas de fenotipos y rectángulos para 7 clusters
+plot(hclust_result, 
+     labels = pca_scores$phenotype, 
+     main = "Dendrograma de Clustering Jerárquico (k = 7)", 
+     xlab = "", 
+     sub = "", 
+     cex = 1.2,         # Tamaño de las etiquetas de fenotipos (aumentado de 0.6 a 1.2)
+     cex.main = 1.5,    # Tamaño del título (1.5 veces el tamaño base)
+     hang = -1)         # Alinea etiquetas en la base
+rect.hclust(hclust_result, k = 7, border = paleta_7)
+
+# 2. Clustering con k-means
+set.seed(123)
+kmeans_result <- kmeans(pca_scores[, c("PC1", "PC2", "PC3")], centers = k_clusters, nstart = 25)
+pca_scores$cluster_kmeans <- as.factor(kmeans_result$cluster)
+
+# # Visualización HCA en 2D
+# gg_hca <- ggplot(pca_scores, aes(x = PC1, y = PC2, color = cluster_hca)) +
+#   geom_point(size = 5) +
+#   scale_color_manual(values = paleta_7) +
+#   labs(title = "Clustering Jerárquico (HCA)",
+#        x = "Componente Principal 1 (35,7 %)",
+#        y = "Componente Principal 2 (18,2 %)") +
+#   theme_classic() +
+#   theme(legend.position = "bottom",
+#         text = element_text(size = 24, color = 'black'),
+#         axis.text = element_text(color = 'black')) +
+#   coord_cartesian(xlim = c(-6, 6), ylim = c(-6, 6))
+# print(gg_hca)
+# 
+# # Visualización k-means en 2D
+# gg_kmeans <- ggplot(pca_scores, aes(x = PC1, y = PC2, color = cluster_kmeans)) +
+#   geom_point(size = 5) +
+#   scale_color_manual(values = paleta_7) +
+#   labs(title = "Clustering k-means",
+#        x = "Componente Principal 1 (35,7 %)",
+#        y = "Componente Principal 2 (18,2 %)") +
+#   theme_classic() +
+#   theme(legend.position = "bottom",
+#         text = element_text(size = 24, color = 'black'),
+#         axis.text = element_text(color = 'black')) +
+#   coord_cartesian(xlim = c(-6, 6), ylim = c(-6, 6))
+# print(gg_kmeans)
+# 
+
+```
+
+PCA discriminado por kluster 7
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(factoextra)
+library(ggplot2)
+library(ggrepel)
+
+# paleta_7 <- c("#FF6B6B", "#00CD99", "#45B7D1", "#96CEB4", "#FFEEAD", "#D4A5A5", "#9B59B6")
+paleta_7 <- c(
+  "#FF0000",  # Rojo puro
+  "#00FFFF",  # Verde lima
+  "#FF00FF",  # Azul puro
+  "#FFFF00",  # Amarillo puro
+  "#0000FF",  # Magenta
+  "#00FF00",  # Cian
+  "#FFA500"   # Naranja
+)
+gg_pca_fruits_cluster_hca <- fviz_pca_biplot(pca_result, 
+                                geom.ind = "point",
+                                pointshape = 21,
+                                pointsize = 6,
+                                geom.var = c("point", "text"),
+                                labelsize = 8,
+                                fill.ind = pca_scores$cluster_hca,
+                                col.ind = "black",
+                                repel = TRUE,
+                                addEllipses = FALSE,
+                                label = "var",
+                                col.var = "black",
+                                arrows = TRUE) + 
+  scale_fill_manual(values = paleta_7, name = "Clusters HCA") +
+  labs(title = "", 
+       x = "Componente Principal 1 (28,6 %)",
+       y = "Componente Principal 2 (22,5 %)") +
+  theme_classic() +
+  theme(legend.position = "bottom",
+        text = element_text(size = 24, color = 'black'),
+        axis.text = element_text(color = 'black')) +
+  geom_text_repel(data = data_labels, 
+                  aes(x = x, y = -y, label = label),
+                  size = 6, color = "black") +
+  coord_cartesian(xlim = c(-5, 6.5), ylim = c(-7.5, 5))
+print(gg_pca_fruits_cluster_hca)
+
+
+```
+
+Ploty 3D
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+paleta_7b <- c(
+  "#FF0000",  # Rojo puro
+  "#00FF00",  # Verde lima
+  "#0000FF",  # Azul puro
+  "#FFFF00",  # Amarillo puro
+  "#FF00FF",  # Magenta
+  "#00FFFF",  # Cian
+  "#FFA500"   # Naranja
+)
+
+# Visualización 3D con plotly
+ploty3D_sf <- plot_ly(data = pca_scores,
+             x = ~PC1,
+             y = ~PC2,
+             z = ~PC3,
+             type = 'scatter3d',
+             mode = 'markers',
+             marker = list(size = 10),
+             color = ~cluster_kmeans,
+             colors = paleta_7b) %>%
+     layout(scene = list(xaxis = list(title = 'PC1'),
+                         yaxis = list(title = 'PC2'),
+                         zaxis = list(title = 'PC3')),
+            title = "Clusters k-means en 3D",
+            legend = list(title = list(text = "Clusters"))
+     )
+            
+ploty3D_sf
+
+
+```
+
+Tabla resumen
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(dplyr)
+
+# Crear tabla de fenotipos por cluster (HCA)
+phenotypes_por_cluster_hca <- pca_scores %>%
+  dplyr::group_by(cluster_hca) %>%
+  dplyr::summarise(Fenotipos = paste(phenotype, collapse = ", ")) %>%
+  dplyr::ungroup()
+
+# Mostrar la tabla
+print(phenotypes_por_cluster_hca)
+```
+
+Resumen de clusters
+
+```{r , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Generar tabla resumen usando cluster_hca
+cluster_summary <- pca_scores %>%
+  dplyr::group_by(cluster_hca) %>%
+  dplyr::summarise(across(c(PC1, PC2, PC3), 
+                   list(mean = mean, sd = sd),
+                   .names = "{.col}_{.fn}")) %>%
+  left_join(
+    tabla_pca %>% 
+      dplyr:::mutate(cluster_hca = pca_scores$cluster_hca) %>%
+      dplyr::group_by(cluster_hca) %>%
+      dplyr::summarise(across(where(is.numeric), mean, na.rm = TRUE)),
+    by = "cluster_hca"
+  )
+
+# Mostrar la tabla
+print(cluster_summary)
+
+```
+

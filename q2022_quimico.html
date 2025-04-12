@@ -935,7 +935,8 @@ div.tocify {
 <p>Supuestos del modelo
 <img src="q2022_quimico_files/figure-html/unnamed-chunk-57-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>Resumen del modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace  Approximation)
+##  [glmerMod]
 ##  Family: Gamma  ( identity )
 ## Formula: sqrt(Fenoles) ~ (1 | site/phenotype/id)
 ##    Data: database
@@ -1080,10 +1081,14 @@ div.tocify {
 ## Random effects:
 ## 
 ## Conditional model:
-##  Groups            Name        Variance                        Std.Dev.           
-##  id:phenotype:site (Intercept) 0.00000000089092158446413615468 0.00002984830957465
-##  phenotype:site    (Intercept) 0.01605853518331238488636714123 0.12672227579755813
-##  site              (Intercept) 0.00000000000000000000000437042 0.00000000000209055
+##  Groups            Name        Variance                       
+##  id:phenotype:site (Intercept) 0.00000000089092158446413615468
+##  phenotype:site    (Intercept) 0.01605853518331238488636714123
+##  site              (Intercept) 0.00000000000000000000000437042
+##  Std.Dev.           
+##  0.00002984830957465
+##  0.12672227579755813
+##  0.00000000000209055
 ## Number of obs: 101, groups:  id:phenotype:site, 39; phenotype:site, 27; site, 2
 ## 
 ## Dispersion parameter for beta family ():  378 

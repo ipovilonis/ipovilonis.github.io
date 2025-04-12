@@ -493,28 +493,29 @@ quantified from accumulated CO2 every 15 minutes for 150 minutes.</p>
 <h2>Descriptive table</h2>
 <pre><code>## # A tibble: 20 × 7
 ## # Groups:   time_min [10]
-##    time_min matu  carbon_ac_n carbon_ac_Mean carbon_ac_sd carbon_ac_min carbon_ac_max
-##    &lt;fct&gt;    &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;
-##  1 15       I               2           42.5        4.97           39.0          46.1
-##  2 15       M               2           39.6        1.86           38.3          40.9
-##  3 30       I               2           62.2        5.13           58.5          65.8
-##  4 30       M               2           59.4        2.79           57.4          61.4
-##  5 45       I               2           75.2        5.23           71.5          78.9
-##  6 45       M               2           76.6        0.110          76.6          76.7
-##  7 60       I               2           94.9        5.39           91.1          98.7
-##  8 60       M               2           99.0        4.66           95.7         102. 
-##  9 75       I               2          108.         5.50          104.          112. 
-## 10 75       M               2          116.         1.97          115.          118. 
-## 11 90       I               2          124.        10.3           117.          132. 
-## 12 90       M               2          136.         2.91          134.          138. 
-## 13 105      I               2          137.        10.4           130.          145. 
-## 14 105      M               2          153.         0.221         153.          153. 
-## 15 120      I               2          157.        10.5           150.          164. 
-## 16 120      M               2          176.         4.77          172.          179. 
-## 17 135      I               2          170.        10.6           163.          178. 
-## 18 135      M               2          190.         6.59          185.          194. 
-## 19 150      I               2          186.        15.4           176.          197. 
-## 20 150      M               2          213.         3.02          211.          215.</code></pre>
+##    time_min matu  carbon_ac_n carbon_ac_Mean carbon_ac_sd carbon_ac_min
+##    &lt;fct&gt;    &lt;fct&gt;       &lt;int&gt;          &lt;dbl&gt;        &lt;dbl&gt;         &lt;dbl&gt;
+##  1 15       I               2           42.5        4.97           39.0
+##  2 15       M               2           39.6        1.86           38.3
+##  3 30       I               2           62.2        5.13           58.5
+##  4 30       M               2           59.4        2.79           57.4
+##  5 45       I               2           75.2        5.23           71.5
+##  6 45       M               2           76.6        0.110          76.6
+##  7 60       I               2           94.9        5.39           91.1
+##  8 60       M               2           99.0        4.66           95.7
+##  9 75       I               2          108.         5.50          104. 
+## 10 75       M               2          116.         1.97          115. 
+## 11 90       I               2          124.        10.3           117. 
+## 12 90       M               2          136.         2.91          134. 
+## 13 105      I               2          137.        10.4           130. 
+## 14 105      M               2          153.         0.221         153. 
+## 15 120      I               2          157.        10.5           150. 
+## 16 120      M               2          176.         4.77          172. 
+## 17 135      I               2          170.        10.6           163. 
+## 18 135      M               2          190.         6.59          185. 
+## 19 150      I               2          186.        15.4           176. 
+## 20 150      M               2          213.         3.02          211. 
+## # ℹ 1 more variable: carbon_ac_max &lt;dbl&gt;</code></pre>
 </div>
 <div id="correlations-over-time" class="section level2">
 <h2>Correlations over time</h2>
@@ -551,14 +552,16 @@ class="section level2">
 </div>
 <div id="model-coefficients" class="section level2">
 <h2>Model coefficients</h2>
-<pre><code>##       (Intercept)        time_min30        time_min45        time_min60        time_min75 
-##   -1088.309859117      19.625054307      32.708423844      52.333478151      65.416847689 
-##        time_min90       time_min105       time_min120       time_min135       time_min150 
-##      81.789723552      94.873093090     114.498147397     127.581516934     143.954392798 
-##             matuM             basal  time_min30:matuM  time_min45:matuM  time_min60:matuM 
-##      24.020301930      43.217057762       0.171220178       4.327249699       7.055345302 
-##  time_min75:matuM  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM 
-##      11.211374823      14.634773444      18.790802965      21.518898568      22.485337162 
+<pre><code>##       (Intercept)        time_min30        time_min45        time_min60 
+##   -1088.309859117      19.625054307      32.708423844      52.333478151 
+##        time_min75        time_min90       time_min105       time_min120 
+##      65.416847689      81.789723552      94.873093090     114.498147397 
+##       time_min135       time_min150             matuM             basal 
+##     127.581516934     143.954392798      24.020301930      43.217057762 
+##  time_min30:matuM  time_min45:matuM  time_min60:matuM  time_min75:matuM 
+##       0.171220178       4.327249699       7.055345302      11.211374823 
+##  time_min90:matuM time_min105:matuM time_min120:matuM time_min135:matuM 
+##      14.634773444      18.790802965      21.518898568      22.485337162 
 ## time_min150:matuM 
 ##      29.098326710</code></pre>
 </div>
