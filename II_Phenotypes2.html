@@ -11,7 +11,7 @@
 
 
 
-<title>Phenotypes</title>
+<title>Fenotipos: caracterización</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -255,7 +255,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="II_Phenotypes.html">Fenotipos</a>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
     </li>
     <li>
       <a href="II_maps1.html">Mapas</a>
@@ -388,20 +388,7 @@ $(document).ready(function () {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="V_Weight.html">Peso</a>
-    </li>
-    <li>
-      <a href="V_Diameter.html">Diámetro</a>
-    </li>
-    <li>
-      <a href="V_Seeds.html">Semillas</a>
-    </li>
-    <li>
       <a href="V_Colorimetry.html">Colorimetría</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="V_phenols.html">Fenoles</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -413,10 +400,10 @@ $(document).ready(function () {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li class="divider"></li>
     <li>
       <a href="V_correlations.html">Correlaciones</a>
     </li>
-    <li class="divider"></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -475,28 +462,42 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Phenotypes</h1>
+<h1 class="title toc-ignore">Fenotipos: caracterización</h1>
 
 </div>
 
 
-<div id="elenco" class="section level2">
-<h2>Elenco</h2>
-<pre><code>## # A tibble: 54 × 10
-##    site  phenotype latitude longitude altitude   dbh base_diameter larger_diameter
-##    &lt;fct&gt; &lt;fct&gt;        &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
-##  1 Conc… 154          -31.3     -58.0     24.4    72            NA             5.5
-##  2 Conc… 156          -31.3     -58.0     16.8    51            99             5.5
-##  3 Conc… 161          -31.3     -58.0     23.8    44           101             4.7
-##  4 Conc… 171          -31.3     -58.0     23.5    39           132             5  
-##  5 Conc… 174          -31.3     -58.0     24.4    98           115             6.2
-##  6 Conc… 175          -31.3     -58.0     38.7    42            56             4.6
-##  7 Conc… 178          -31.3     -58.0     25.0    12            29             3.1
-##  8 Conc… 185          -31.3     -58.0     45.7    30            53             3.4
-##  9 Conc… 190          -31.3     -58.0     17.1    33           128             6  
-## 10 Conc… 193          -31.3     -58.0     26.5    24            68             3.5
-## # ℹ 44 more rows
-## # ℹ 2 more variables: minor_diameter &lt;dbl&gt;, height &lt;dbl&gt;</code></pre>
+<p>Aquí tienes la explicación:</p>
+<div id="explorador-de-fenotipos-de-hexachlamys-edulis"
+class="section level3">
+<h3>🌿 Explorador de Fenotipos de <em>Hexachlamys edulis</em></h3>
+<p>Esta aplicación interactiva te permite explorar las características
+morfológicas, fisicoquímicas y geográficas de distintos fenotipos de
+<em>Hexachlamys edulis</em> (ubajay), una especie frutal nativa del
+noreste argentino.</p>
+<div id="qué-podés-hacer" class="section level4">
+<h4>¿Qué podés hacer?</h4>
+<p>🔍 <strong>Seleccionar un fenotipo</strong> Elegí un número de
+fenotipo del menú desplegable para ver su información detallada.</p>
+<p>📷 <strong>Ver su imagen</strong> Se muestra una fotografía
+representativa del fruto correspondiente.</p>
+<p>📋 <strong>Resumen descriptivo</strong> Abajo de la imagen
+encontrarás los datos principales del árbol y del fruto.</p>
+<p>📌 <strong>Ubicación geográfica</strong> Un mapa interactivo te
+muestra el sitio exacto donde fue identificado el fenotipo.</p>
+<p>📊 <strong>Radar de características</strong> El gráfico tipo “spider
+chart” resume visualmente distintas variables cuantitativas
+normalizadas, facilitando la comparación entre fenotipos.</p>
+<p>ℹ️ <strong>Significado de abreviaturas</strong> Incluye un botón de
+ayuda con las abreviaturas utilizadas y su significado completo.</p>
+<div style="text-align:center;">
+<p><iframe src="https://ipovilonis.shinyapps.io/fenotipos_app/" 
+          width="100%" 
+          height="600px" 
+          style="border: none; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+</iframe></p>
+</div>
+</div>
 </div>
 
 

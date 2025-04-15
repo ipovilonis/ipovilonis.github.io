@@ -337,7 +337,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="II_Phenotypes.html">Fenotipos</a>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
     </li>
     <li>
       <a href="II_maps1.html">Mapas</a>
@@ -470,20 +470,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="V_Weight.html">Peso</a>
-    </li>
-    <li>
-      <a href="V_Diameter.html">Diámetro</a>
-    </li>
-    <li>
-      <a href="V_Seeds.html">Semillas</a>
-    </li>
-    <li>
       <a href="V_Colorimetry.html">Colorimetría</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="V_phenols.html">Fenoles</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -495,10 +482,10 @@ div.tocify {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li class="divider"></li>
     <li>
       <a href="V_correlations.html">Correlaciones</a>
     </li>
-    <li class="divider"></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -616,12 +603,14 @@ div.tocify {
 ## data:  e
 ## W = 0.9558226, p-value = 0.241377</code></pre>
 <p>Coeficientes del modelo</p>
-<pre><code>##         (Intercept)               Hora2               Hora3               Hora4 
-##       -31.996552210        -1.539666667        -3.514333333        -5.533000000 
-##               Hora5       Temperatura80               basal Hora2:Temperatura80 
-##        -7.323000000         0.298694977         2.255026084        -1.825333333 
-## Hora3:Temperatura80 Hora4:Temperatura80 Hora5:Temperatura80 
-##        -3.605333333        -4.321000000        -3.329333333</code></pre>
+<pre><code>##         (Intercept)               Hora2               Hora3 
+##       -31.996552210        -1.539666667        -3.514333333 
+##               Hora4               Hora5       Temperatura80 
+##        -5.533000000        -7.323000000         0.298694977 
+##               basal Hora2:Temperatura80 Hora3:Temperatura80 
+##         2.255026084        -1.825333333        -3.605333333 
+## Hora4:Temperatura80 Hora5:Temperatura80 
+##        -4.321000000        -3.329333333</code></pre>
 <p>Anova</p>
 <pre><code>## Denom. DF: 19 
 ##                  numDF    F-value p-value
@@ -633,29 +622,29 @@ div.tocify {
 <p>Efectos simples</p>
 <pre><code>## $emmeans
 ## Hora = 1:
-##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60          13.22348584 0.557653114 17.38 12.04891497 14.39805672
-##  80          13.52218082 0.557653114 17.38 12.34760995 14.69675170
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60          13.22348584 0.557653114 17.5 12.04951287 14.39745882
+##  80          13.52218082 0.557653114 17.5 12.34820785 14.69615379
 ## 
 ## Hora = 2:
-##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60          11.68381918 0.557653114 17.38 10.50924830 12.85839005
-##  80          10.15718082 0.557653114 17.38  8.98260995 11.33175170
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60          11.68381918 0.557653114 17.5 10.50984621 12.85779215
+##  80          10.15718082 0.557653114 17.5  8.98320785 11.33115379
 ## 
 ## Hora = 3:
-##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           9.70915251 0.557653114 17.38  8.53458164 10.88372339
-##  80           6.40251416 0.557653114 17.38  5.22794328  7.57708503
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60           9.70915251 0.557653114 17.5  8.53517954 10.88312548
+##  80           6.40251416 0.557653114 17.5  5.22854118  7.57648713
 ## 
 ## Hora = 4:
-##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           7.69048584 0.557653114 17.38  6.51591497  8.86505672
-##  80           3.66818082 0.557653114 17.38  2.49360995  4.84275170
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60           7.69048584 0.557653114 17.5  6.51651287  8.86445882
+##  80           3.66818082 0.557653114 17.5  2.49420785  4.84215379
 ## 
 ## Hora = 5:
-##  Temperatura      emmean          SE    df    lower.CL    upper.CL
-##  60           5.90048584 0.557653114 17.38  4.72591497  7.07505672
-##  80           2.86984749 0.557653114 17.38  1.69527661  4.04441836
+##  Temperatura      emmean          SE   df    lower.CL    upper.CL
+##  60           5.90048584 0.557653114 17.5  4.72651287  7.07445882
+##  80           2.86984749 0.557653114 17.5  1.69587452  4.04382046
 ## 
 ## Degrees-of-freedom method: appx-satterthwaite 
 ## Confidence level used: 0.95 
@@ -667,7 +656,7 @@ div.tocify {
 ## 
 ## Hora = 2:
 ##  contrast                         estimate          SE   df t.ratio p.value
-##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.79   1.741  0.1130
+##  Temperatura60 - Temperatura80  1.52663836 0.877104027 9.79   1.741  0.1131
 ## 
 ## Hora = 3:
 ##  contrast                         estimate          SE   df t.ratio p.value
@@ -840,8 +829,8 @@ div.tocify {
 <h1>Antocianinas</h1>
 <p><img src="dry_test_files/figure-html/unnamed-chunk-46-1.png" width="95%" style="display: block; margin: auto;" /></p>
 <p>Modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace  Approximation)
-##  [glmerMod]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
 ##  Family: Gamma  ( log )
 ## Formula: Antocianinas ~ Tratamiento + (1 | Dia)
 ##    Data: datosanto2

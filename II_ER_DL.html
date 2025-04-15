@@ -337,7 +337,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="II_Phenotypes.html">Fenotipos</a>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
     </li>
     <li>
       <a href="II_maps1.html">Mapas</a>
@@ -470,20 +470,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="V_Weight.html">Peso</a>
-    </li>
-    <li>
-      <a href="V_Diameter.html">Diámetro</a>
-    </li>
-    <li>
-      <a href="V_Seeds.html">Semillas</a>
-    </li>
-    <li>
       <a href="V_Colorimetry.html">Colorimetría</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="V_phenols.html">Fenoles</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -495,10 +482,10 @@ div.tocify {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li class="divider"></li>
     <li>
       <a href="V_correlations.html">Correlaciones</a>
     </li>
-    <li class="divider"></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -730,8 +717,8 @@ div.tocify {
 </table>
 <p>Análisis factorial mixto</p>
 <p>Modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace  Approximation)
-##  [glmerMod]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
+##   Approximation) [glmerMod]
 ##  Family: Gamma  ( log )
 ## Formula: temp2 ~ year * site + (1 | hour)
 ##    Data: data_dl
@@ -743,12 +730,16 @@ div.tocify {
 ##  Residual             0.287305
 ## Number of obs: 10916, groups:  hour, 24
 ## Fixed Effects:
-##               (Intercept)                   year2021                   year2022  
-##                3.12786754                -0.00662376                -0.05297823  
-##                sitePalmar           siteGualeguaychu        year2021:sitePalmar  
-##               -0.06283593                -0.12957746                -0.00192673  
-##       year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
-##               -0.01438792                 0.05396480                 0.01119255</code></pre>
+##               (Intercept)                   year2021  
+##                3.12786754                -0.00662376  
+##                  year2022                 sitePalmar  
+##               -0.05297823                -0.06283593  
+##          siteGualeguaychu        year2021:sitePalmar  
+##               -0.12957746                -0.00192673  
+##       year2022:sitePalmar  year2021:siteGualeguaychu  
+##               -0.01438792                 0.05396480  
+## year2022:siteGualeguaychu  
+##                0.01119255</code></pre>
 <p>Gráfico de residuos vs. predichos
 <img src="II_ER_DL_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
@@ -909,12 +900,16 @@ div.tocify {
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##               (Intercept)                   year2021                   year2022  
-##                0.81485003                -0.68959883                -0.74640544  
-##                sitePalmar           siteGualeguaychu        year2021:sitePalmar  
-##               -0.03938260                 0.04535305                 0.45446986  
-##       year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
-##                0.22230662                 0.00106932                 0.13028737</code></pre>
+##               (Intercept)                   year2021  
+##                0.81485003                -0.68959883  
+##                  year2022                 sitePalmar  
+##               -0.74640544                -0.03938260  
+##          siteGualeguaychu        year2021:sitePalmar  
+##                0.04535305                 0.45446986  
+##       year2022:sitePalmar  year2021:siteGualeguaychu  
+##                0.22230662                 0.00106932  
+## year2022:siteGualeguaychu  
+##                0.13028737</code></pre>
 <p>Gráfico de residuos vs. predichos
 <img src="II_ER_DL_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>

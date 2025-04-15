@@ -345,7 +345,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="II_Phenotypes.html">Fenotipos</a>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
     </li>
     <li>
       <a href="II_maps1.html">Mapas</a>
@@ -478,20 +478,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="V_Weight.html">Peso</a>
-    </li>
-    <li>
-      <a href="V_Diameter.html">Diámetro</a>
-    </li>
-    <li>
-      <a href="V_Seeds.html">Semillas</a>
-    </li>
-    <li>
       <a href="V_Colorimetry.html">Colorimetría</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="V_phenols.html">Fenoles</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -503,10 +490,10 @@ div.tocify {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li class="divider"></li>
     <li>
       <a href="V_correlations.html">Correlaciones</a>
     </li>
-    <li class="divider"></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -614,30 +601,28 @@ años 2019, 2021 y 2022.</p>
 <pre><code>## [1] 52</code></pre>
 <p>Medias y CV%</p>
 <pre><code>## # A tibble: 1 × 28
-##   aao_mean aao_CV fen_mean fen_CV cloa_mean cloa_CV clob_mean clob_CV caro_mean
-##      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
-## 1     82.8   15.6     762.   97.4      7.29    111.      12.4    111.      12.8
-## # ℹ 19 more variables: caro_CV &lt;dbl&gt;, indmad_mean &lt;dbl&gt;, indmad_CV &lt;dbl&gt;,
-## #   att_mean &lt;dbl&gt;, att_CV &lt;dbl&gt;, ratio_mean &lt;dbl&gt;, ratio_CV &lt;dbl&gt;,
-## #   brix_mean &lt;dbl&gt;, brix_CV &lt;dbl&gt;, aao25_mean &lt;dbl&gt;, aao25_CV &lt;dbl&gt;,
-## #   aao50_mean &lt;dbl&gt;, aao50_CV &lt;dbl&gt;, aao100_mean &lt;dbl&gt;, aao100_CV &lt;dbl&gt;,
-## #   aao250_mean &lt;dbl&gt;, aao250_CV &lt;dbl&gt;, CTC_CL_mean &lt;dbl&gt;, CTC_CL_CV &lt;dbl&gt;</code></pre>
+##   aao_mean aao_CV fen_mean fen_CV cloa_mean cloa_CV clob_mean clob_CV
+##      &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+## 1     82.8   15.6     762.   97.4      7.29    111.      12.4    111.
+## # ℹ 20 more variables: caro_mean &lt;dbl&gt;, caro_CV &lt;dbl&gt;, indmad_mean &lt;dbl&gt;,
+## #   indmad_CV &lt;dbl&gt;, att_mean &lt;dbl&gt;, att_CV &lt;dbl&gt;, ratio_mean &lt;dbl&gt;,
+## #   ratio_CV &lt;dbl&gt;, brix_mean &lt;dbl&gt;, brix_CV &lt;dbl&gt;, aao25_mean &lt;dbl&gt;,
+## #   aao25_CV &lt;dbl&gt;, aao50_mean &lt;dbl&gt;, aao50_CV &lt;dbl&gt;, aao100_mean &lt;dbl&gt;,
+## #   aao100_CV &lt;dbl&gt;, aao250_mean &lt;dbl&gt;, aao250_CV &lt;dbl&gt;, CTC_CL_mean &lt;dbl&gt;,
+## #   CTC_CL_CV &lt;dbl&gt;</code></pre>
 <pre><code>## # A tibble: 1 × 6
 ##   color_L_mean color_L_CV color_a_mean color_a_CV color_b_mean color_b_CV
 ##          &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;      &lt;dbl&gt;
 ## 1         54.0       15.9         2.78       380.         40.7       30.9</code></pre>
 <pre><code>## # A tibble: 1 × 22
-##   pff_mean pff_CV de_mean de_CV dp_mean dp_CV pen_mean pen_CV PSF_mean PSF_CV
-##      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
-## 1     9.76   65.8    26.9  27.9    26.8  26.4     6.78   74.7     1.80   68.5
-## # ℹ 12 more variables: ns_mean &lt;dbl&gt;, ns_CV &lt;dbl&gt;, PSS_mean &lt;dbl&gt;, PSS_CV &lt;dbl&gt;,
-## #   dan_mean &lt;dbl&gt;, dan_CV &lt;dbl&gt;, pff_todos_mean &lt;dbl&gt;, pff_todos_CV &lt;dbl&gt;,
-## #   PSS_PSF_mean &lt;dbl&gt;, PSS_PSF_CV &lt;dbl&gt;, dedp_mean &lt;dbl&gt;, dedp_CV &lt;dbl&gt;</code></pre>
-</div>
-<div id="pff" class="section level2">
-<h2>PFF</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-10-1.png" width="2304" style="display: block; margin: auto;" />
-Resumen</p>
+##   pff_mean pff_CV de_mean de_CV dp_mean dp_CV pen_mean pen_CV PSF_mean
+##      &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+## 1     9.76   65.8    26.9  27.9    26.8  26.4     6.78   74.7     1.80
+## # ℹ 13 more variables: PSF_CV &lt;dbl&gt;, ns_mean &lt;dbl&gt;, ns_CV &lt;dbl&gt;,
+## #   PSS_mean &lt;dbl&gt;, PSS_CV &lt;dbl&gt;, dan_mean &lt;dbl&gt;, dan_CV &lt;dbl&gt;,
+## #   pff_todos_mean &lt;dbl&gt;, pff_todos_CV &lt;dbl&gt;, PSS_PSF_mean &lt;dbl&gt;,
+## #   PSS_PSF_CV &lt;dbl&gt;, dedp_mean &lt;dbl&gt;, dedp_CV &lt;dbl&gt;</code></pre>
+<p>Resumen</p>
 <pre><code>## [1] &quot;Datosff:&quot;</code></pre>
 <pre><code>##              variable   min         max
 ## PSFL             PSFL  1.12 24.10000000
@@ -711,6 +696,7 @@ Resumen</p>
 </div>
 <div id="peso-fresco-del-fruto" class="section level2">
 <h2>Peso Fresco del Fruto</h2>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-14-1.png" width="2304" style="display: block; margin: auto;" /></p>
 <pre><code>##   Component            r
 ## 1      Year  0.309006748
 ## 2      Site  1.605946310
@@ -724,7 +710,7 @@ Resumen</p>
 </div>
 <div id="dpf" class="section level2">
 <h2>DPF</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-20-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-16-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -736,35 +722,35 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.009
-## SE = 0.009
-## CI = [0.002, 0.018]
+## SE = 0.005
+## CI = [0, 0.009]
 ## P  = 0.000358 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.096
-## SE = 0.094
-## CI = [0.059, 0.23]
+## SE = 0.08
+## CI = [0.001, 0.137]
 ## P  = 0.0265 [LRT]
 ##      1 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.435
-## SE = 0.118
-## CI = [0.341, 0.553]
+## SE = 0.017
+## CI = [0.448, 0.48]
 ## P  = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000142 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.46
-## SE = 0.058
-## CI = [0.369, 0.469]
+## SE = 0.064
+## CI = [0.41, 0.519]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
 <div id="dmaf" class="section level2">
 <h2>DMAF</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-22-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-18-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -777,34 +763,34 @@ Resumen</p>
 ## Repeatability for year
 ## R  = 0.006
 ## SE = 0.003
-## CI = [0.003, 0.008]
+## CI = [0.001, 0.006]
 ## P  = 0.0701 [LRT]
-##      0.667 [Permutation]
+##      1 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.077
-## SE = 0
-## CI = [0, 0]
+## SE = 0.042
+## CI = [0.079, 0.158]
 ## P  = 0.0143 [LRT]
-##      0.667 [Permutation]
+##      1 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.267
-## SE = 0.063
-## CI = [0.236, 0.344]
+## SE = 0.013
+## CI = [0.24, 0.265]
 ## P  = 0.0000000000000000000000000000000000000000000000000000000193 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.651
-## SE = 0.062
-## CI = [0.652, 0.76]
+## SE = 0.048
+## CI = [0.587, 0.675]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
-<div id="dmaf_dpf" class="section level2">
-<h2>DMAF_DPF</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-24-1.png" width="2304" style="display: block; margin: auto;" />
+<div id="dmafdpf" class="section level2">
+<h2>DMAF/DPF</h2>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-20-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -816,35 +802,35 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.045
-## SE = 0.042
-## CI = [0.014, 0.092]
+## SE = 0.025
+## CI = [0.015, 0.058]
 ## P  = 0.0000000000396 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.01
-## SE = 0.031
-## CI = [0, 0.051]
+## SE = 0.014
+## CI = [0, 0.023]
 ## P  = 0.368 [LRT]
-##      0.667 [Permutation]
+##      1 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.432
-## SE = 0.048
-## CI = [0.383, 0.474]
+## SE = 0.053
+## CI = [0.398, 0.492]
 ## P  = 0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000014 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.512
-## SE = 0.035
-## CI = [0.463, 0.525]
+## SE = 0.034
+## CI = [0.486, 0.543]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
 <div id="l" class="section level2">
 <h2>*L</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-26-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-22-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -856,35 +842,35 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.006
-## SE = 0.002
-## CI = [0, 0.003]
+## SE = 0.007
+## CI = [0, 0.011]
 ## P  = 0.0399 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.187
-## SE = 0.073
-## CI = [0.03, 0.153]
+## SE = 0.027
+## CI = [0, 0.044]
 ## P  = 0.00000548 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.169
-## SE = 0.075
-## CI = [0.1, 0.242]
+## SE = 0.027
+## CI = [0.173, 0.217]
 ## P  = 0.00000000000000000000000000000000000000000000000000000063 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.638
-## SE = 0.035
-## CI = [0.716, 0.782]
+## SE = 0.007
+## CI = [0.772, 0.784]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
 <div id="a" class="section level2">
 <h2>*a</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-28-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-24-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>##   Component           r
 ## 1      Year  1.55375164
@@ -899,7 +885,7 @@ Resumen</p>
 </div>
 <div id="b" class="section level2">
 <h2>*b</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-32-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-28-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -911,35 +897,35 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.001
-## SE = 0.001
-## CI = [0, 0.001]
+## SE = 0.002
+## CI = [0, 0.004]
 ## P  = 0.348 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.147
-## SE = 0.055
-## CI = [0.069, 0.166]
+## SE = 0.113
+## CI = [0.013, 0.204]
 ## P  = 0.000184 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.213
-## SE = 0.023
-## CI = [0.185, 0.229]
+## SE = 0.056
+## CI = [0.179, 0.281]
 ## P  = 0.0000000000000000000000000000000000000000000000000000000000000000000000125 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.639
-## SE = 0.039
-## CI = [0.629, 0.703]
+## SE = 0.084
+## CI = [0.551, 0.709]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
 <div id="im" class="section level2">
 <h2>IM</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-34-1.png" width="2304" style="display: block; margin: auto;" /></p>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-30-1.png" width="2304" style="display: block; margin: auto;" /></p>
 <pre><code>##   Component            r
 ## 1      Year  0.425450641
 ## 2      Site  1.411226564
@@ -953,7 +939,7 @@ Resumen</p>
 </div>
 <div id="pen" class="section level2">
 <h2>PEN</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-37-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-33-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -965,35 +951,35 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.077
-## SE = 0.079
-## CI = [0.044, 0.186]
+## SE = 0.07
+## CI = [0.021, 0.144]
 ## P  = 0.00000000000000196 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.257
-## SE = 0.186
-## CI = [0.01, 0.363]
+## SE = 0.142
+## CI = [0.001, 0.247]
 ## P  = 0.0000000449 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.147
-## SE = 0.044
-## CI = [0.112, 0.189]
+## SE = 0.02
+## CI = [0.18, 0.217]
 ## P  = 0.000000000000000000000000000000000000000000000285 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.519
-## SE = 0.071
-## CI = [0.481, 0.615]
+## SE = 0.079
+## CI = [0.528, 0.674]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
 <div id="cla" class="section level2">
 <h2>CLa</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-39-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-35-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>##   Component           r                                        p_value
 ## 1      Year  7.87310779 0.00000000000000009047154886875648743642386318
@@ -1003,7 +989,7 @@ Resumen</p>
 </div>
 <div id="clb" class="section level2">
 <h2>CLb</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-42-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-38-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>##   Component           r                                       p_value
 ## 1      Year  7.96033339 0.0000000000000000860057838713296531844149095
@@ -1013,7 +999,7 @@ Resumen</p>
 </div>
 <div id="ctc" class="section level2">
 <h2>CTC</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-45-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-41-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>##   Component                        r
 ## 1      Year  3.020714634390183839230
@@ -1028,7 +1014,7 @@ Resumen</p>
 </div>
 <div id="att" class="section level2">
 <h2>ATT</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-48-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-44-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -1040,35 +1026,35 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.357
-## SE = 0.114
-## CI = [0.083, 0.274]
+## SE = 0.041
+## CI = [0.293, 0.371]
 ## P  = 0.00000000000000805 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.086
-## SE = 0.016
-## CI = [0, 0.027]
+## SE = 0.03
+## CI = [0.018, 0.073]
 ## P  = 0.0183 [LRT]
-##      1 [Permutation]
+##      0.667 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.153
-## SE = 0.094
-## CI = [0.137, 0.315]
+## SE = 0.051
+## CI = [0.135, 0.231]
 ## P  = 0.000105 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.404
-## SE = 0.203
-## CI = [0.415, 0.776]
+## SE = 0.032
+## CI = [0.404, 0.465]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
 <div id="ss" class="section level2">
 <h2>SS</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-50-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-46-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -1080,35 +1066,35 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.07
-## SE = 0.024
-## CI = [0.014, 0.058]
+## SE = 0.12
+## CI = [0.021, 0.221]
 ## P  = 0.000575 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.091
-## SE = 0.012
-## CI = [0.058, 0.081]
+## SE = 0.148
+## CI = [0.002, 0.258]
 ## P  = 0.0514 [LRT]
-##      1 [Permutation]
+##      0.667 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.327
-## SE = 0.041
-## CI = [0.352, 0.428]
+## SE = 0.035
+## CI = [0.248, 0.312]
 ## P  = 0.00000000000515 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.512
-## SE = 0.035
-## CI = [0.476, 0.537]
+## SE = 0.119
+## CI = [0.447, 0.651]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 </div>
 <div id="ssatt" class="section level2">
 <h2>SS/ATT</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-52-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-48-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -1120,29 +1106,29 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.356
-## SE = 0.106
-## CI = [0.284, 0.48]
+## SE = 0.107
+## CI = [0.098, 0.299]
 ## P  = 0.00000000000000000427 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.182
-## SE = 0.076
-## CI = [0.05, 0.191]
+## SE = 0.099
+## CI = [0.032, 0.221]
 ## P  = 0.000415 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.177
-## SE = 0.034
-## CI = [0.169, 0.234]
+## SE = 0.053
+## CI = [0.205, 0.305]
 ## P  = 0.00000112 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.285
-## SE = 0.141
-## CI = [0.194, 0.431]
+## SE = 0.067
+## CI = [0.369, 0.495]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 <pre><code>##   Component          r                             p_value
@@ -1153,7 +1139,7 @@ Resumen</p>
 </div>
 <div id="dpph" class="section level2">
 <h2>DPPH</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-56-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-52-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>##   Component             r                                          p_value
 ## 1      Year  0.0189130830 0.0000000063003784011922079914477801132477452484
@@ -1173,7 +1159,7 @@ Resumen</p>
 </div>
 <div id="pt" class="section level2">
 <h2>PT</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-61-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-57-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
 <pre><code>## Bootstrap Progress:
 ## Permutation Progress for year :
@@ -1185,29 +1171,29 @@ Resumen</p>
 ## 
 ## Repeatability for year
 ## R  = 0.043
-## SE = 0.046
-## CI = [0.01, 0.094]
+## SE = 0.037
+## CI = [0.033, 0.096]
 ## P  = 0.0000374 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for site
 ## R  = 0.141
-## SE = 0.183
-## CI = [0.007, 0.353]
+## SE = 0.128
+## CI = [0.022, 0.24]
 ## P  = 0.00828 [LRT]
-##      0.667 [Permutation]
+##      1 [Permutation]
 ## 
 ## Repeatability for phenotype
 ## R  = 0.416
-## SE = 0.097
-## CI = [0.318, 0.479]
+## SE = 0.051
+## CI = [0.327, 0.423]
 ## P  = 0.00000000000000000000000000000000000000903 [LRT]
 ##      0.667 [Permutation]
 ## 
 ## Repeatability for Residual
 ## R  = 0.4
-## SE = 0.121
-## CI = [0.291, 0.52]
+## SE = 0.124
+## CI = [0.304, 0.524]
 ## P  = NA [LRT]
 ##      NA [Permutation]</code></pre>
 <pre><code>##   Component           r
@@ -1223,13 +1209,18 @@ Resumen</p>
 </div>
 <div id="ctccl" class="section level2">
 <h2>CTC/CL</h2>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-64-1.png" width="2304" style="display: block; margin: auto;" />
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-60-1.png" width="2304" style="display: block; margin: auto;" />
 Resumen</p>
-<pre><code>##   Component           r                                               p_value
-## 1      Year  4.32330808 0.000000349885641371861686572085348156946338349371217
-## 2      Site 26.07131861 0.000000811448895443692261135459897758437364245764911
-## 3 Phenotype 27.53440526 0.000000000000000000000000000000000000000000269081902
-## 4  Residual 42.07096805                                                    NA</code></pre>
+<pre><code>##   Component           r
+## 1      Year  4.32330808
+## 2      Site 26.07131861
+## 3 Phenotype 27.53440526
+## 4  Residual 42.07096805
+##                                                 p_value
+## 1 0.000000349885641371861686572085348156946338349371217
+## 2 0.000000811448895443692261135459897758437364245764911
+## 3 0.000000000000000000000000000000000000000000269081902
+## 4                                                    NA</code></pre>
 <pre><code>## [1] 0.0239908372</code></pre>
 <pre><code>## Error in eval(expr, envir, enclos): objeto &#39;beta_CTC_CL&#39; no encontrado</code></pre>
 <pre><code>## [1] &quot;phenotype  -  154 : 0.0257070511455268&quot;
@@ -1303,100 +1294,104 @@ Resumen</p>
 ## 
 ## 
 ## Eigenvalues
-##                        Dim.1   Dim.2   Dim.3   Dim.4   Dim.5   Dim.6   Dim.7
-## Variance               7.140   3.631   1.687   1.463   1.324   1.178   0.763
-## % of var.             35.701  18.155   8.434   7.317   6.622   5.890   3.817
-## Cumulative % of var.  35.701  53.855  62.290  69.606  76.228  82.118  85.935
-##                        Dim.8   Dim.9  Dim.10  Dim.11  Dim.12  Dim.13  Dim.14
-## Variance               0.673   0.588   0.395   0.354   0.270   0.197   0.158
-## % of var.              3.365   2.939   1.976   1.772   1.348   0.986   0.789
-## Cumulative % of var.  89.300  92.239  94.215  95.987  97.335  98.321  99.111
-##                       Dim.15  Dim.16  Dim.17  Dim.18  Dim.19  Dim.20
-## Variance               0.062   0.054   0.035   0.021   0.005   0.000
-## % of var.              0.312   0.272   0.175   0.103   0.027   0.000
-## Cumulative % of var.  99.423  99.695  99.870  99.973 100.000 100.000
+##                        Dim.1   Dim.2   Dim.3   Dim.4   Dim.5   Dim.6
+## Variance               7.140   3.631   1.687   1.463   1.324   1.178
+## % of var.             35.701  18.155   8.434   7.317   6.622   5.890
+## Cumulative % of var.  35.701  53.855  62.290  69.606  76.228  82.118
+##                        Dim.7   Dim.8   Dim.9  Dim.10  Dim.11  Dim.12
+## Variance               0.763   0.673   0.588   0.395   0.354   0.270
+## % of var.              3.817   3.365   2.939   1.976   1.772   1.348
+## Cumulative % of var.  85.935  89.300  92.239  94.215  95.987  97.335
+##                       Dim.13  Dim.14  Dim.15  Dim.16  Dim.17  Dim.18
+## Variance               0.197   0.158   0.062   0.054   0.035   0.021
+## % of var.              0.986   0.789   0.312   0.272   0.175   0.103
+## Cumulative % of var.  98.321  99.111  99.423  99.695  99.870  99.973
+##                       Dim.19  Dim.20
+## Variance               0.005   0.000
+## % of var.              0.027   0.000
+## Cumulative % of var. 100.000 100.000
 ## 
 ## Individuals (the 10 first)
-##                  Dist    Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3
-## 1            |  3.075 |  2.042  0.475  0.441 |  0.355  0.028  0.013 | -0.581
-## 2            |  2.586 |  1.553  0.275  0.361 |  0.318  0.023  0.015 | -1.261
-## 3            |  3.237 |  1.483  0.250  0.210 |  1.692  0.641  0.273 | -1.431
-## 4            |  3.901 |  3.205  1.169  0.675 |  0.157  0.006  0.002 |  0.932
-## 5            |  2.548 |  0.622  0.044  0.060 |  0.436  0.043  0.029 | -1.737
-## 6            |  2.813 | -1.823  0.378  0.420 | -1.000  0.224  0.126 | -0.104
-## 7            |  3.032 | -1.383  0.218  0.208 | -1.050  0.247  0.120 |  1.557
-## 8            |  2.417 | -1.478  0.249  0.374 | -0.988  0.219  0.167 | -0.076
-## 9            |  1.550 | -0.770  0.067  0.247 | -0.891  0.178  0.331 | -0.316
-## 10           |  2.347 | -0.096  0.001  0.002 | -1.466  0.481  0.390 |  0.191
-##                 ctr   cos2  
-## 1             0.163  0.036 |
-## 2             0.767  0.238 |
-## 3             0.987  0.195 |
-## 4             0.418  0.057 |
-## 5             1.454  0.465 |
-## 6             0.005  0.001 |
-## 7             1.168  0.264 |
-## 8             0.003  0.001 |
-## 9             0.048  0.042 |
-## 10            0.018  0.007 |
+##                  Dist    Dim.1    ctr   cos2    Dim.2    ctr   cos2  
+## 1            |  3.075 |  2.042  0.475  0.441 |  0.355  0.028  0.013 |
+## 2            |  2.586 |  1.553  0.275  0.361 |  0.318  0.023  0.015 |
+## 3            |  3.237 |  1.483  0.250  0.210 |  1.692  0.641  0.273 |
+## 4            |  3.901 |  3.205  1.169  0.675 |  0.157  0.006  0.002 |
+## 5            |  2.548 |  0.622  0.044  0.060 |  0.436  0.043  0.029 |
+## 6            |  2.813 | -1.823  0.378  0.420 | -1.000  0.224  0.126 |
+## 7            |  3.032 | -1.383  0.218  0.208 | -1.050  0.247  0.120 |
+## 8            |  2.417 | -1.478  0.249  0.374 | -0.988  0.219  0.167 |
+## 9            |  1.550 | -0.770  0.067  0.247 | -0.891  0.178  0.331 |
+## 10           |  2.347 | -0.096  0.001  0.002 | -1.466  0.481  0.390 |
+##               Dim.3    ctr   cos2  
+## 1            -0.581  0.163  0.036 |
+## 2            -1.261  0.767  0.238 |
+## 3            -1.431  0.987  0.195 |
+## 4             0.932  0.418  0.057 |
+## 5            -1.737  1.454  0.465 |
+## 6            -0.104  0.005  0.001 |
+## 7             1.557  1.168  0.264 |
+## 8            -0.076  0.003  0.001 |
+## 9            -0.316  0.048  0.042 |
+## 10            0.191  0.018  0.007 |
 ## 
 ## Variables (the 10 first)
-##                 Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3    ctr   cos2
-## PFF          |  0.772  8.353  0.596 |  0.552  8.402  0.305 |  0.211  2.643  0.045
-## DMAF         |  0.809  9.164  0.654 |  0.492  6.665  0.242 |  0.090  0.482  0.008
-## DPF          |  0.598  5.001  0.357 |  0.595  9.766  0.355 |  0.351  7.304  0.123
-## PEN          | -0.833  9.719  0.694 |  0.307  2.594  0.094 |  0.226  3.041  0.051
-## PSF          |  0.706  6.990  0.499 |  0.584  9.377  0.340 |  0.257  3.904  0.066
-## PSS          |  0.636  5.669  0.405 |  0.562  8.694  0.316 |  0.141  1.178  0.020
-## DMAF/DPF     |  0.508  3.607  0.258 | -0.166  0.760  0.028 | -0.424 10.676  0.180
-## *L           |  0.135  0.255  0.018 | -0.736 14.927  0.542 |  0.244  3.529  0.060
-## *a           |  0.714  7.150  0.510 | -0.275  2.080  0.076 | -0.161  1.532  0.026
-## *b           |  0.349  1.711  0.122 | -0.673 12.475  0.453 |  0.185  2.027  0.034
-##               
-## PFF          |
-## DMAF         |
-## DPF          |
-## PEN          |
-## PSF          |
-## PSS          |
-## DMAF/DPF     |
-## *L           |
-## *a           |
-## *b           |
+##                 Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3    ctr
+## PFF          |  0.772  8.353  0.596 |  0.552  8.402  0.305 |  0.211  2.643
+## DMAF         |  0.809  9.164  0.654 |  0.492  6.665  0.242 |  0.090  0.482
+## DPF          |  0.598  5.001  0.357 |  0.595  9.766  0.355 |  0.351  7.304
+## PEN          | -0.833  9.719  0.694 |  0.307  2.594  0.094 |  0.226  3.041
+## PSF          |  0.706  6.990  0.499 |  0.584  9.377  0.340 |  0.257  3.904
+## PSS          |  0.636  5.669  0.405 |  0.562  8.694  0.316 |  0.141  1.178
+## DMAF/DPF     |  0.508  3.607  0.258 | -0.166  0.760  0.028 | -0.424 10.676
+## *L           |  0.135  0.255  0.018 | -0.736 14.927  0.542 |  0.244  3.529
+## *a           |  0.714  7.150  0.510 | -0.275  2.080  0.076 | -0.161  1.532
+## *b           |  0.349  1.711  0.122 | -0.673 12.475  0.453 |  0.185  2.027
+##                cos2  
+## PFF           0.045 |
+## DMAF          0.008 |
+## DPF           0.123 |
+## PEN           0.051 |
+## PSF           0.066 |
+## PSS           0.020 |
+## DMAF/DPF      0.180 |
+## *L            0.060 |
+## *a            0.026 |
+## *b            0.034 |
 ## 
 ## Supplementary categories (the 10 first)
-##                  Dist    Dim.1   cos2 v.test    Dim.2   cos2 v.test    Dim.3
-## 2019         |  0.755 |  0.049  0.004  0.149 | -0.052  0.005 -0.219 | -0.595
-## 2021         |  1.152 |  0.940  0.666  3.271 | -0.083  0.005 -0.406 |  0.023
-## 2022         |  2.101 | -1.726  0.675 -3.964 |  0.223  0.011  0.718 |  0.842
-## Concordia    |  1.327 | -0.311  0.055 -1.012 | -1.195  0.811 -5.448 |  0.276
-## PN El Palmar |  2.090 |  1.986  0.903  5.178 | -0.166  0.006 -0.608 | -0.369
-## Gualeguaychú |  2.064 | -1.339  0.421 -3.913 |  1.512  0.537  6.197 | -0.001
-## 154          |  2.381 |  0.542  0.052  0.355 | -1.201  0.254 -1.101 |  0.005
-## 156          |  1.990 | -0.300  0.023 -0.196 | -0.910  0.209 -0.834 | -0.982
-## 161          |  2.048 | -0.400  0.038 -0.261 |  0.807  0.155  0.739 | -1.041
-## 171          |  3.937 |  3.113  0.625  2.035 | -1.551  0.155 -1.422 |  0.669
-##                cos2 v.test  
-## 2019          0.620 -3.709 |
-## 2021          0.000  0.165 |
-## 2022          0.160  3.975 |
-## Concordia     0.043  1.847 |
-## PN El Palmar  0.031 -1.981 |
-## Gualeguaychú  0.000 -0.008 |
-## 154           0.000  0.007 |
-## 156           0.244 -1.321 |
-## 161           0.258 -1.400 |
-## 171           0.029  0.900 |</code></pre>
+##                   Dist    Dim.1   cos2 v.test    Dim.2   cos2 v.test  
+## 2019          |  0.755 |  0.049  0.004  0.149 | -0.052  0.005 -0.219 |
+## 2021          |  1.152 |  0.940  0.666  3.271 | -0.083  0.005 -0.406 |
+## 2022          |  2.101 | -1.726  0.675 -3.964 |  0.223  0.011  0.718 |
+## Concordia     |  1.327 | -0.311  0.055 -1.012 | -1.195  0.811 -5.448 |
+## PN El Palmar  |  2.090 |  1.986  0.903  5.178 | -0.166  0.006 -0.608 |
+## Gualeguaychú |  2.064 | -1.339  0.421 -3.913 |  1.512  0.537  6.197 |
+## 154           |  2.381 |  0.542  0.052  0.355 | -1.201  0.254 -1.101 |
+## 156           |  1.990 | -0.300  0.023 -0.196 | -0.910  0.209 -0.834 |
+## 161           |  2.048 | -0.400  0.038 -0.261 |  0.807  0.155  0.739 |
+## 171           |  3.937 |  3.113  0.625  2.035 | -1.551  0.155 -1.422 |
+##                Dim.3   cos2 v.test  
+## 2019          -0.595  0.620 -3.709 |
+## 2021           0.023  0.000  0.165 |
+## 2022           0.842  0.160  3.975 |
+## Concordia      0.276  0.043  1.847 |
+## PN El Palmar  -0.369  0.031 -1.981 |
+## Gualeguaychú -0.001  0.000 -0.008 |
+## 154            0.005  0.000  0.007 |
+## 156           -0.982  0.244 -1.321 |
+## 161           -1.041  0.258 -1.400 |
+## 171            0.669  0.029  0.900 |</code></pre>
 <p>Contribuciones de las variables para CP1</p>
 <p>Contribuciones de las variables para CP2</p>
-<pre><code>##           IM          PEN         DMAF          PFF           *a          PSF 
-## 10.127590143  9.718772942  9.163505856  8.353445239  7.149571875  6.990133853 
-##          PSS          ATT          CLb          CLa       SS/ATT          DPF 
-##  5.668869454  5.470011603  5.427800233  5.393588101  5.351209983  5.001201369 
-##           PT     DMAF/DPF       CTC/CL       DPPH25           *b           SS 
-##  4.601530391  3.607453881  2.939522625  2.268079520  1.710544951  0.676573028 
-##           *L          CTC 
-##  0.255163765  0.125431187</code></pre>
+<pre><code>##           IM          PEN         DMAF          PFF           *a 
+## 10.127590143  9.718772942  9.163505856  8.353445239  7.149571875 
+##          PSF          PSS          ATT          CLb          CLa 
+##  6.990133853  5.668869454  5.470011603  5.427800233  5.393588101 
+##       SS/ATT          DPF           PT     DMAF/DPF       CTC/CL 
+##  5.351209983  5.001201369  4.601530391  3.607453881  2.939522625 
+##       DPPH25           *b           SS           *L          CTC 
+##  2.268079520  1.710544951  0.676573028  0.255163765  0.125431187</code></pre>
 <pre><code>##            *L            *b           DPF           PSF           PSS 
 ## 14.9266723873 12.4745576692  9.7664635454  9.3774030395  8.6940976461 
 ##           PFF          DMAF           CLa           CLb            SS 
@@ -1414,40 +1409,40 @@ Resumen</p>
 ##            *a           PSS          DMAF            IM           ATT 
 ##  1.5321342213  1.1778716867  0.4817919606  0.4294067528  0.0385857938</code></pre>
 <p>Contribución acumulada de cada variable a CP1 y CP2</p>
-<pre><code>##          PFF          PSF         DMAF           *L          DPF          PSS 
-## 16.754965394 16.367536892 15.828850920 15.181836153 14.767664914 14.362967100 
-##           *b           IM          PEN          CLb          CLa           *a 
-## 14.185102620 12.409980830 12.312313793 10.946996130 10.942057330  9.229102476 
-##          ATT       SS/ATT           PT     DMAF/DPF           SS       CTC/CL 
-##  7.537895802  7.259731916  6.835834684  4.367576334  4.013048239  3.846835386 
-##       DPPH25          CTC 
-##  2.698075407  0.151627679</code></pre>
+<pre><code>##          PFF          PSF         DMAF           *L          DPF 
+## 16.754965394 16.367536892 15.828850920 15.181836153 14.767664914 
+##          PSS           *b           IM          PEN          CLb 
+## 14.362967100 14.185102620 12.409980830 12.312313793 10.946996130 
+##          CLa           *a          ATT       SS/ATT           PT 
+## 10.942057330  9.229102476  7.537895802  7.259731916  6.835834684 
+##     DMAF/DPF           SS       CTC/CL       DPPH25          CTC 
+##  4.367576334  4.013048239  3.846835386  2.698075407  0.151627679</code></pre>
 <p>Proporción de contribución de cada variable a PC1, PC2 y PC3
-<img src="V_fruits_files/figure-html/unnamed-chunk-81-1.png" width="2304" style="display: block; margin: auto;" /></p>
+<img src="V_fruits_files/figure-html/unnamed-chunk-77-1.png" width="2304" style="display: block; margin: auto;" /></p>
 <p>Biplots de PCA: CP1 VS CP2</p>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-83-1.png" width="2304" style="display: block; margin: auto;" /></p>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-84-1.png" width="2304" style="display: block; margin: auto;" /></p>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-79-1.png" width="2304" style="display: block; margin: auto;" /></p>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-80-1.png" width="2304" style="display: block; margin: auto;" /></p>
 <p>Triplot:</p>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-d6599fd3fc9738c86864" style="width:2304px;height:921.6px;"></div>
-<script type="application/json" data-for="htmlwidget-d6599fd3fc9738c86864">{"x":{"visdat":{"246053c04546":["function () ","plotlyVisDat"]},"cur_data":"246053c04546","attrs":{"246053c04546":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["coral1","burlywood2","palegreen4"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Sitios"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.0337844466922972,-1.5467796074703777,-1.4765545470696475,-3.1915543012263266,-0.61904981672805803,1.81574321842223,1.3772158453625918,1.4719823241605892,0.76661324838880274,0.095271233342145212,0.004040084736349446,-3.0577511657224372,-3.55092282832759,1.4591467434695304,0.54085713344177933,1.9745858085863157,2.1517933322757927,-3.5899476658858993,1.3418614410899048,3.2660066290054877,3.0805944902752218,1.2905255129910065,0.49300134937061724,3.1585580048196467,-3.2286709001881286,-3.4001641348998115,3.5633113673744652,-1.8341268074575534,-0.64502764443265814,-1.4762128027273029,-0.12792190195513853,0.46976651344423553,0.51921690022500189,-2.520190205997535,-2.0475393078258421,4.9430649368910347,5.6076453035912355,4.3019976807158695,1.867961849098889,-2.5158741696169278,2.4612158558478661,-1.6281135353045237,-0.30298326605603221,5.0813377654189944,-0.21541161013581503,0.0012029249385579477,0.48082698594031353],"y":[-0.35374066043064384,-0.31708067011623142,-1.6854458770017955,-0.1564170143359222,-0.43411292394930651,0.99555180457192238,1.0456883026256438,0.9843628803362614,0.88768614913682531,1.4598628120587755,0.93484196024124822,0.33965679823037825,-1.5399460894974606,1.1504315439691457,1.3760949079157272,1.9082394668677294,0.11678340240883209,2.5405042656804775,1.6926785968186235,1.0964790528101998,1.4893437754386956,1.6798188885969239,3.8813976611907073,1.4499715574954584,1.7724193772251273,1.8352879456702738,2.7069705691676158,2.7930858818579227,3.302252536443834,1.3654618915196959,2.5668804618554644,1.1282925244925206,-0.84192472529151852,2.2512085183344173,1.0946359118302751,2.1988103954361309,0.91685251103002652,0.65558615993021507,0.0326263648802948,0.95394569391333683,1.5683814427118272,1.7103246191106787,0.14355776532611983,1.9016065743098769,2.2911277494688909,2.5932426114513625,0.45563092511743025],"z":[-0.57904868859901282,-1.2560301337451123,-1.4250849546337359,0.92772592085153471,-1.7298252862226444,-0.10324065015435711,1.550206476546969,-0.075372760366486102,-0.31454265715777424,0.19057749081976028,-0.49024713528680797,-0.33811532580361925,-0.082136692968429542,0.24638776116143402,0.29597094291664844,-1.9803532285514358,-0.97746628605729147,0.83439634009667818,0.092568087455328935,-0.60074761254534004,-0.5043223376507493,-0.26672415116579862,0.65346694145593587,-0.52634598051514436,0.080224651942497435,0.48150457098282551,-0.27467294281665661,0.6167513590750312,-1.041555786278205,0.89397489450534762,0.29834364682455139,0.30166512577331117,-0.70715025329624137,0.23819532190082487,1.0125819053458296,3.623383049949283,3.3707358473080418,2.3671251050456963,0.29999138720964208,0.8198409129514832,1.798733783708286,0.067389527978268693,0.0075432710444780504,2.5931757562436411,2.0686898028912242,-0.3208755855687051,0.79067926742707606],"mode":"markers","marker":{"color":"rgba(255,114,86,1)","size":10,"line":{"color":"rgba(255,114,86,1)"}},"type":"scatter3d","name":"Concordia","textfont":{"color":"rgba(255,114,86,1)"},"error_y":{"color":"rgba(255,114,86,1)"},"error_x":{"color":"rgba(255,114,86,1)"},"line":{"color":"rgba(255,114,86,1)"},"frame":null},{"x":[-1.1883181850921061,-0.81886007340010936,1.1778547960828527,-1.1695823043572724,-1.9731446377466872,-2.5460975409898152,-0.77188104868434715,-3.3417036543006011,-0.91190015542580294,0.70311452482855874,-2.9396427063489976,-1.541762800162247,-0.50949986392501045,-1.3254504545521308,-0.43672725955931724,-4.9528301558766881,-2.7440538921968738,-3.4413777143601285,-2.2259277654745229,-1.4927569266219731,-3.2598748339839569,-3.669928431113044,-2.5264070584241427,0.30267788476623408,-4.0966433353140266,-1.3817831031024401,0.90811936917426217,-4.6845096890473688,-3.5077735074735528,-2.0655464509974744,-0.76354288243164037,-5.6560629651921523,-0.069714254581974694,-6.0136618017334325,-0.30601465287255591],"y":[-0.44723487375574039,0.72671260808886173,0.27391594822148185,0.34041000445431957,-0.32748504160631031,0.1479533303435098,0.77711863121248781,-1.2670086609625222,1.7587454029751177,0.694238544946855,-0.66535951251344794,-0.46970058303956014,0.65713872877591251,0.24434633450742835,-1.0960782346335027,-2.2944399963391762,-0.924873131672033,-0.17539354853710826,1.809905027651727,1.4378492001428023,1.9672213034561596,-1.3901919077438203,1.554427419622241,-0.79599424875511415,-0.73025213921208421,2.2905628860871574,1.8099896957022505,-0.81025358506718492,-0.35989115763804724,0.95516928621719477,-0.31256745182755169,1.7515101162936229,0.50538156918468302,-0.26299684689877945,-1.5742411568319878],"z":[-0.6158493868271212,-1.798249445700739,-2.2262259888351732,-1.7743663293065428,-0.74374355148065674,-0.11021202338357788,-0.83781280119381818,-0.85272777965735846,-1.0506103767782098,1.0900534378938675,0.60879150762073764,-0.012323857795111165,-0.93532902202369228,-2.10288357793134,-1.6558749993715352,1.3109880400034692,-0.29679910169145046,0.31690904392111857,-1.2759636894911592,-0.78005570636427901,-2.4040684813337458,0.18708943787364526,-0.90255847611033924,-0.88632788864981227,-0.59904089894877854,-0.95767759619149873,0.89727452486530279,0.45099068785543234,1.7513393713746228,-1.0127060856498049,-1.9771710999583125,0.78827345368007073,0.26443000531793054,4.4891888278093681,0.78145315684945049],"mode":"markers","marker":{"color":"rgba(238,197,145,1)","size":10,"line":{"color":"rgba(238,197,145,1)"}},"type":"scatter3d","name":"PN El Palmar","textfont":{"color":"rgba(238,197,145,1)"},"error_y":{"color":"rgba(238,197,145,1)"},"error_x":{"color":"rgba(238,197,145,1)"},"line":{"color":"rgba(238,197,145,1)"},"frame":null},{"x":[-3.6465371842335634,5.4663056016070648,1.9046913271212049,0.87799952045451957,3.8609656870301556,3.3967707871479216,2.8131929587992999,1.5804799316432552,3.1360700065598226,3.0713400947501759,3.1962602580317432,0.16173787174897197,3.1051981473765866,-1.6684115693998425,-1.9516202240983864,-1.4274048115360591,0.87170240707973778,1.3244615717950468,-3.2193705845695488,-3.0720342256807878,-0.67597033654295313,3.4675742482353025,3.4240555315421819,2.4198607972546213,-3.8949665434034131,1.5813144356657278,-2.8541878671272043,-0.41982610566539008,0.68843607501987147,-2.6433741554908958,0.066250228293392902,5.0761290341879866,2.3358492934536206,2.0522533627120434,3.5373529338596543,3.6609799126549238,2.7433285269341892,1.7695655290374597,4.892292321907286,4.0181887831526328,3.6375461356775558],"y":[-1.9495466890168103,-1.2255094031263811,0.27449825905956643,-2.5435152640377909,-0.53950850443276144,-1.2607724137266521,0.44927354736960795,0.2439369737717946,2.1353277525849164,2.0929617134143776,1.119285161053019,-1.166074367120371,2.2154429910674382,-1.6292091931251271,-4.5330039981953361,-3.201301556107047,-5.4316635262404676,-2.0746753118178214,-1.6190728037237976,-0.44814662531062743,-3.8272632826532127,-1.5777677333831128,1.3046459364265914,-3.9818410045330839,-4.4202307404348007,0.42020374713520364,-0.05022076105265745,-1.555416335558268,-2.5992281066347163,0.12488041962743707,-0.89438713174017381,-5.816572363937639,-2.2901956974661202,-5.321721759301929,-2.8488975260398735,-1.5769605041564447,-4.2962418921993777,-1.6379171265072583,-0.38509756463013473,-1.6595737574707663,0.24352818446672914],"z":[-0.83532319946083144,-2.8758656852555133,-0.20455066878234385,0.67842330488705538,0.11233064919908459,-2.9697906983703568,0.65618440844951387,0.0743248040876376,-0.78830345231170718,-0.90068289121850253,-1.6655409820059053,-0.70036396169801507,-0.87138937543117467,-1.3331350816500462,0.29615661671032423,-0.73670822404078296,0.91592397078212429,0.88891894285697282,0.56312603749657364,1.7869737950916535,-0.70338561135843991,1.2863708418931716,-0.53834690297399124,-0.74861053557964752,2.1034107717462356,-0.089193900538378862,0.6766134612585275,-1.2364040969859786,0.59388565083475819,1.6146192716011238,-1.566775422669497,-2.8379387553469138,1.1774981854497284,0.58039205373171199,1.0640405028843638,0.091357828311117245,1.8971832425014923,1.6449269995308935,1.9483255586546671,1.4684079593306529,-0.57325944203039891],"mode":"markers","marker":{"color":"rgba(84,139,84,1)","size":10,"line":{"color":"rgba(84,139,84,1)"}},"type":"scatter3d","name":"Gualeguaychú","textfont":{"color":"rgba(84,139,84,1)"},"error_y":{"color":"rgba(84,139,84,1)"},"error_x":{"color":"rgba(84,139,84,1)"},"line":{"color":"rgba(84,139,84,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-da22fc5642de2fc16e16" style="width:2304px;height:921.6px;"></div>
+<script type="application/json" data-for="htmlwidget-da22fc5642de2fc16e16">{"x":{"visdat":{"f586a4ef69":["function () ","plotlyVisDat"]},"cur_data":"f586a4ef69","attrs":{"f586a4ef69":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["coral1","burlywood2","palegreen4"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Sitios"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.0337844466922972,-1.5467796074703777,-1.4765545470696475,-3.1915543012263266,-0.61904981672805803,1.81574321842223,1.3772158453625918,1.4719823241605892,0.76661324838880274,0.095271233342145212,0.004040084736349446,-3.0577511657224372,-3.55092282832759,1.4591467434695304,0.54085713344177933,1.9745858085863157,2.1517933322757927,-3.5899476658858993,1.3418614410899048,3.2660066290054877,3.0805944902752218,1.2905255129910065,0.49300134937061724,3.1585580048196467,-3.2286709001881286,-3.4001641348998115,3.5633113673744652,-1.8341268074575534,-0.64502764443265814,-1.4762128027273029,-0.12792190195513853,0.46976651344423553,0.51921690022500189,-2.520190205997535,-2.0475393078258421,4.9430649368910347,5.6076453035912355,4.3019976807158695,1.867961849098889,-2.5158741696169278,2.4612158558478661,-1.6281135353045237,-0.30298326605603221,5.0813377654189944,-0.21541161013581503,0.0012029249385579477,0.48082698594031353],"y":[-0.35374066043064384,-0.31708067011623142,-1.6854458770017955,-0.1564170143359222,-0.43411292394930651,0.99555180457192238,1.0456883026256438,0.9843628803362614,0.88768614913682531,1.4598628120587755,0.93484196024124822,0.33965679823037825,-1.5399460894974606,1.1504315439691457,1.3760949079157272,1.9082394668677294,0.11678340240883209,2.5405042656804775,1.6926785968186235,1.0964790528101998,1.4893437754386956,1.6798188885969239,3.8813976611907073,1.4499715574954584,1.7724193772251273,1.8352879456702738,2.7069705691676158,2.7930858818579227,3.302252536443834,1.3654618915196959,2.5668804618554644,1.1282925244925206,-0.84192472529151852,2.2512085183344173,1.0946359118302751,2.1988103954361309,0.91685251103002652,0.65558615993021507,0.0326263648802948,0.95394569391333683,1.5683814427118272,1.7103246191106787,0.14355776532611983,1.9016065743098769,2.2911277494688909,2.5932426114513625,0.45563092511743025],"z":[-0.57904868859901282,-1.2560301337451123,-1.4250849546337359,0.92772592085153471,-1.7298252862226444,-0.10324065015435711,1.550206476546969,-0.075372760366486102,-0.31454265715777424,0.19057749081976028,-0.49024713528680797,-0.33811532580361925,-0.082136692968429542,0.24638776116143402,0.29597094291664844,-1.9803532285514358,-0.97746628605729147,0.83439634009667818,0.092568087455328935,-0.60074761254534004,-0.5043223376507493,-0.26672415116579862,0.65346694145593587,-0.52634598051514436,0.080224651942497435,0.48150457098282551,-0.27467294281665661,0.6167513590750312,-1.041555786278205,0.89397489450534762,0.29834364682455139,0.30166512577331117,-0.70715025329624137,0.23819532190082487,1.0125819053458296,3.623383049949283,3.3707358473080418,2.3671251050456963,0.29999138720964208,0.8198409129514832,1.798733783708286,0.067389527978268693,0.0075432710444780504,2.5931757562436411,2.0686898028912242,-0.3208755855687051,0.79067926742707606],"mode":"markers","marker":{"color":"rgba(255,114,86,1)","size":10,"line":{"color":"rgba(255,114,86,1)"}},"type":"scatter3d","name":"Concordia","textfont":{"color":"rgba(255,114,86,1)"},"error_y":{"color":"rgba(255,114,86,1)"},"error_x":{"color":"rgba(255,114,86,1)"},"line":{"color":"rgba(255,114,86,1)"},"frame":null},{"x":[-1.1883181850921061,-0.81886007340010936,1.1778547960828527,-1.1695823043572724,-1.9731446377466872,-2.5460975409898152,-0.77188104868434715,-3.3417036543006011,-0.91190015542580294,0.70311452482855874,-2.9396427063489976,-1.541762800162247,-0.50949986392501045,-1.3254504545521308,-0.43672725955931724,-4.9528301558766881,-2.7440538921968738,-3.4413777143601285,-2.2259277654745229,-1.4927569266219731,-3.2598748339839569,-3.669928431113044,-2.5264070584241427,0.30267788476623408,-4.0966433353140266,-1.3817831031024401,0.90811936917426217,-4.6845096890473688,-3.5077735074735528,-2.0655464509974744,-0.76354288243164037,-5.6560629651921523,-0.069714254581974694,-6.0136618017334325,-0.30601465287255591],"y":[-0.44723487375574039,0.72671260808886173,0.27391594822148185,0.34041000445431957,-0.32748504160631031,0.1479533303435098,0.77711863121248781,-1.2670086609625222,1.7587454029751177,0.694238544946855,-0.66535951251344794,-0.46970058303956014,0.65713872877591251,0.24434633450742835,-1.0960782346335027,-2.2944399963391762,-0.924873131672033,-0.17539354853710826,1.809905027651727,1.4378492001428023,1.9672213034561596,-1.3901919077438203,1.554427419622241,-0.79599424875511415,-0.73025213921208421,2.2905628860871574,1.8099896957022505,-0.81025358506718492,-0.35989115763804724,0.95516928621719477,-0.31256745182755169,1.7515101162936229,0.50538156918468302,-0.26299684689877945,-1.5742411568319878],"z":[-0.6158493868271212,-1.798249445700739,-2.2262259888351732,-1.7743663293065428,-0.74374355148065674,-0.11021202338357788,-0.83781280119381818,-0.85272777965735846,-1.0506103767782098,1.0900534378938675,0.60879150762073764,-0.012323857795111165,-0.93532902202369228,-2.10288357793134,-1.6558749993715352,1.3109880400034692,-0.29679910169145046,0.31690904392111857,-1.2759636894911592,-0.78005570636427901,-2.4040684813337458,0.18708943787364526,-0.90255847611033924,-0.88632788864981227,-0.59904089894877854,-0.95767759619149873,0.89727452486530279,0.45099068785543234,1.7513393713746228,-1.0127060856498049,-1.9771710999583125,0.78827345368007073,0.26443000531793054,4.4891888278093681,0.78145315684945049],"mode":"markers","marker":{"color":"rgba(238,197,145,1)","size":10,"line":{"color":"rgba(238,197,145,1)"}},"type":"scatter3d","name":"PN El Palmar","textfont":{"color":"rgba(238,197,145,1)"},"error_y":{"color":"rgba(238,197,145,1)"},"error_x":{"color":"rgba(238,197,145,1)"},"line":{"color":"rgba(238,197,145,1)"},"frame":null},{"x":[-3.6465371842335634,5.4663056016070648,1.9046913271212049,0.87799952045451957,3.8609656870301556,3.3967707871479216,2.8131929587992999,1.5804799316432552,3.1360700065598226,3.0713400947501759,3.1962602580317432,0.16173787174897197,3.1051981473765866,-1.6684115693998425,-1.9516202240983864,-1.4274048115360591,0.87170240707973778,1.3244615717950468,-3.2193705845695488,-3.0720342256807878,-0.67597033654295313,3.4675742482353025,3.4240555315421819,2.4198607972546213,-3.8949665434034131,1.5813144356657278,-2.8541878671272043,-0.41982610566539008,0.68843607501987147,-2.6433741554908958,0.066250228293392902,5.0761290341879866,2.3358492934536206,2.0522533627120434,3.5373529338596543,3.6609799126549238,2.7433285269341892,1.7695655290374597,4.892292321907286,4.0181887831526328,3.6375461356775558],"y":[-1.9495466890168103,-1.2255094031263811,0.27449825905956643,-2.5435152640377909,-0.53950850443276144,-1.2607724137266521,0.44927354736960795,0.2439369737717946,2.1353277525849164,2.0929617134143776,1.119285161053019,-1.166074367120371,2.2154429910674382,-1.6292091931251271,-4.5330039981953361,-3.201301556107047,-5.4316635262404676,-2.0746753118178214,-1.6190728037237976,-0.44814662531062743,-3.8272632826532127,-1.5777677333831128,1.3046459364265914,-3.9818410045330839,-4.4202307404348007,0.42020374713520364,-0.05022076105265745,-1.555416335558268,-2.5992281066347163,0.12488041962743707,-0.89438713174017381,-5.816572363937639,-2.2901956974661202,-5.321721759301929,-2.8488975260398735,-1.5769605041564447,-4.2962418921993777,-1.6379171265072583,-0.38509756463013473,-1.6595737574707663,0.24352818446672914],"z":[-0.83532319946083144,-2.8758656852555133,-0.20455066878234385,0.67842330488705538,0.11233064919908459,-2.9697906983703568,0.65618440844951387,0.0743248040876376,-0.78830345231170718,-0.90068289121850253,-1.6655409820059053,-0.70036396169801507,-0.87138937543117467,-1.3331350816500462,0.29615661671032423,-0.73670822404078296,0.91592397078212429,0.88891894285697282,0.56312603749657364,1.7869737950916535,-0.70338561135843991,1.2863708418931716,-0.53834690297399124,-0.74861053557964752,2.1034107717462356,-0.089193900538378862,0.6766134612585275,-1.2364040969859786,0.59388565083475819,1.6146192716011238,-1.566775422669497,-2.8379387553469138,1.1774981854497284,0.58039205373171199,1.0640405028843638,0.091357828311117245,1.8971832425014923,1.6449269995308935,1.9483255586546671,1.4684079593306529,-0.57325944203039891],"mode":"markers","marker":{"color":"rgba(84,139,84,1)","size":10,"line":{"color":"rgba(84,139,84,1)"}},"type":"scatter3d","name":"Gualeguaychú","textfont":{"color":"rgba(84,139,84,1)"},"error_y":{"color":"rgba(84,139,84,1)"},"error_x":{"color":"rgba(84,139,84,1)"},"line":{"color":"rgba(84,139,84,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <div id="análisis-de-clusters" class="section level3">
 <h3>Análisis de clusters</h3>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-90-1.png" width="100%" style="display: block; margin: auto;" /><img src="V_fruits_files/figure-html/unnamed-chunk-90-2.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-86-1.png" width="100%" style="display: block; margin: auto;" /><img src="V_fruits_files/figure-html/unnamed-chunk-86-2.png" width="100%" style="display: block; margin: auto;" /></p>
 <pre><code>## # A tibble: 7 × 27
-##   cluster_kmeans PC1_mean PC1_sd PC2_mean PC2_sd PC3_mean PC3_sd    PFF    DMAF
-##   &lt;fct&gt;             &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-## 1 1                 3.15   0.895    0.916  1.19    -1.03   0.997 -1.26  -1.54  
-## 2 2                 4.97   0.467    1.06   1.03     2.78   0.700 -1.20  -1.40  
-## 3 3                 2.49   1.33    -3.12   1.55     0.621  1.20   0.205  0.0878
-## 4 4                -2.40   1.13     1.68   0.767   -0.202  0.939  0.125  0.264 
-## 5 5                 0.925  0.768    1.28   0.896    0.377  0.681 -0.607 -0.465 
-## 6 6                -0.830  0.713   -0.752  1.13    -1.02   0.692  0.276  0.498 
-## 7 7                -3.55   0.918   -1.24   1.33     0.759  1.26   1.58   1.36  
-## # ℹ 18 more variables: DPF &lt;dbl&gt;, PEN &lt;dbl&gt;, PSF &lt;dbl&gt;, PSS &lt;dbl&gt;,
-## #   `DMAF/DPF` &lt;dbl&gt;, `*L` &lt;dbl&gt;, `*a` &lt;dbl&gt;, `*b` &lt;dbl&gt;, PT &lt;dbl&gt;, CLa &lt;dbl&gt;,
-## #   CLb &lt;dbl&gt;, CTC &lt;dbl&gt;, IM &lt;dbl&gt;, ATT &lt;dbl&gt;, `SS/ATT` &lt;dbl&gt;, SS &lt;dbl&gt;,
-## #   DPPH25 &lt;dbl&gt;, `CTC/CL` &lt;dbl&gt;</code></pre>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-90-3.png" width="100%" style="display: block; margin: auto;" /></p>
+##   cluster_kmeans PC1_mean PC1_sd PC2_mean PC2_sd PC3_mean PC3_sd    PFF
+##   &lt;fct&gt;             &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1                 3.15   0.895    0.916  1.19    -1.03   0.997 -1.26 
+## 2 2                 4.97   0.467    1.06   1.03     2.78   0.700 -1.20 
+## 3 3                 2.49   1.33    -3.12   1.55     0.621  1.20   0.205
+## 4 4                -2.40   1.13     1.68   0.767   -0.202  0.939  0.125
+## 5 5                 0.925  0.768    1.28   0.896    0.377  0.681 -0.607
+## 6 6                -0.830  0.713   -0.752  1.13    -1.02   0.692  0.276
+## 7 7                -3.55   0.918   -1.24   1.33     0.759  1.26   1.58 
+## # ℹ 19 more variables: DMAF &lt;dbl&gt;, DPF &lt;dbl&gt;, PEN &lt;dbl&gt;, PSF &lt;dbl&gt;,
+## #   PSS &lt;dbl&gt;, `DMAF/DPF` &lt;dbl&gt;, `*L` &lt;dbl&gt;, `*a` &lt;dbl&gt;, `*b` &lt;dbl&gt;,
+## #   PT &lt;dbl&gt;, CLa &lt;dbl&gt;, CLb &lt;dbl&gt;, CTC &lt;dbl&gt;, IM &lt;dbl&gt;, ATT &lt;dbl&gt;,
+## #   `SS/ATT` &lt;dbl&gt;, SS &lt;dbl&gt;, DPPH25 &lt;dbl&gt;, `CTC/CL` &lt;dbl&gt;</code></pre>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-86-3.png" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="selección-de-fenotipos-superiores" class="section level2">
@@ -1459,100 +1454,104 @@ Resumen</p>
 ## 
 ## 
 ## Eigenvalues
-##                        Dim.1   Dim.2   Dim.3   Dim.4   Dim.5   Dim.6   Dim.7
-## Variance               5.431   4.270   2.791   1.696   1.353   1.039   0.768
-## % of var.             28.582  22.473  14.688   8.928   7.121   5.470   4.044
-## Cumulative % of var.  28.582  51.055  65.743  74.671  81.792  87.262  91.306
-##                        Dim.8   Dim.9  Dim.10  Dim.11  Dim.12  Dim.13  Dim.14
-## Variance               0.599   0.412   0.197   0.140   0.121   0.077   0.057
-## % of var.              3.153   2.168   1.035   0.738   0.636   0.403   0.298
-## Cumulative % of var.  94.459  96.627  97.662  98.400  99.036  99.438  99.737
-##                       Dim.15  Dim.16  Dim.17  Dim.18  Dim.19
-## Variance               0.020   0.014   0.011   0.004   0.000
-## % of var.              0.108   0.074   0.058   0.023   0.000
-## Cumulative % of var.  99.844  99.919  99.977 100.000 100.000
+##                        Dim.1   Dim.2   Dim.3   Dim.4   Dim.5   Dim.6
+## Variance               5.431   4.270   2.791   1.696   1.353   1.039
+## % of var.             28.582  22.473  14.688   8.928   7.121   5.470
+## Cumulative % of var.  28.582  51.055  65.743  74.671  81.792  87.262
+##                        Dim.7   Dim.8   Dim.9  Dim.10  Dim.11  Dim.12
+## Variance               0.768   0.599   0.412   0.197   0.140   0.121
+## % of var.              4.044   3.153   2.168   1.035   0.738   0.636
+## Cumulative % of var.  91.306  94.459  96.627  97.662  98.400  99.036
+##                       Dim.13  Dim.14  Dim.15  Dim.16  Dim.17  Dim.18
+## Variance               0.077   0.057   0.020   0.014   0.011   0.004
+## % of var.              0.403   0.298   0.108   0.074   0.058   0.023
+## Cumulative % of var.  99.438  99.737  99.844  99.919  99.977 100.000
+##                       Dim.19
+## Variance               0.000
+## % of var.              0.000
+## Cumulative % of var. 100.000
 ## 
 ## Individuals (the 10 first)
-##                  Dist    Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3
-## 1            |  3.311 | -2.233  2.295  0.455 |  0.104  0.006  0.001 |  1.924
-## 2            |  2.916 | -2.064  1.962  0.501 |  0.549  0.176  0.035 |  0.277
-## 3            |  5.146 |  0.016  0.000  0.000 |  3.296  6.362  0.410 | -1.226
-## 4            |  3.564 |  0.643  0.190  0.033 | -1.987  2.311  0.311 |  1.400
-## 5            |  2.876 | -1.997  1.837  0.482 |  1.283  0.964  0.199 |  0.870
-## 6            |  5.012 | -4.361  8.757  0.757 |  1.053  0.649  0.044 |  0.655
-## 7            |  2.957 | -2.164  2.157  0.536 | -0.463  0.126  0.025 |  0.454
-## 8            |  4.230 | -2.338  2.516  0.305 | -1.105  0.714  0.068 |  1.937
-## 9            |  2.681 | -2.103  2.037  0.615 | -0.130  0.010  0.002 | -0.207
-## 10           |  2.908 |  0.749  0.258  0.066 | -2.278  3.040  0.614 | -0.431
-##                 ctr   cos2  
-## 1             3.316  0.338 |
-## 2             0.069  0.009 |
-## 3             1.347  0.057 |
-## 4             1.755  0.154 |
-## 5             0.679  0.092 |
-## 6             0.385  0.017 |
-## 7             0.185  0.024 |
-## 8             3.362  0.210 |
-## 9             0.038  0.006 |
-## 10            0.167  0.022 |
+##                  Dist    Dim.1    ctr   cos2    Dim.2    ctr   cos2  
+## 1            |  3.311 | -2.233  2.295  0.455 |  0.104  0.006  0.001 |
+## 2            |  2.916 | -2.064  1.962  0.501 |  0.549  0.176  0.035 |
+## 3            |  5.146 |  0.016  0.000  0.000 |  3.296  6.362  0.410 |
+## 4            |  3.564 |  0.643  0.190  0.033 | -1.987  2.311  0.311 |
+## 5            |  2.876 | -1.997  1.837  0.482 |  1.283  0.964  0.199 |
+## 6            |  5.012 | -4.361  8.757  0.757 |  1.053  0.649  0.044 |
+## 7            |  2.957 | -2.164  2.157  0.536 | -0.463  0.126  0.025 |
+## 8            |  4.230 | -2.338  2.516  0.305 | -1.105  0.714  0.068 |
+## 9            |  2.681 | -2.103  2.037  0.615 | -0.130  0.010  0.002 |
+## 10           |  2.908 |  0.749  0.258  0.066 | -2.278  3.040  0.614 |
+##               Dim.3    ctr   cos2  
+## 1             1.924  3.316  0.338 |
+## 2             0.277  0.069  0.009 |
+## 3            -1.226  1.347  0.057 |
+## 4             1.400  1.755  0.154 |
+## 5             0.870  0.679  0.092 |
+## 6             0.655  0.385  0.017 |
+## 7             0.454  0.185  0.024 |
+## 8             1.937  3.362  0.210 |
+## 9            -0.207  0.038  0.006 |
+## 10           -0.431  0.167  0.022 |
 ## 
 ## Variables (the 10 first)
-##                 Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3    ctr   cos2
-## PFF          |  0.904 15.043  0.817 |  0.325  2.471  0.106 |  0.111  0.440  0.012
-## DMAF         |  0.866 13.825  0.751 |  0.367  3.159  0.135 | -0.062  0.137  0.004
-## DPF          |  0.824 12.504  0.679 |  0.059  0.082  0.003 |  0.344  4.246  0.118
-## PEN          | -0.310  1.770  0.096 |  0.640  9.597  0.410 |  0.530 10.073  0.281
-## PSF          |  0.826 12.559  0.682 |  0.423  4.188  0.179 |  0.184  1.207  0.034
-## PSS          |  0.671  8.281  0.450 |  0.584  7.989  0.341 |  0.050  0.089  0.002
-## DMAF/DPF     | -0.170  0.530  0.029 |  0.186  0.812  0.035 | -0.611 13.378  0.373
-## *L           | -0.309  1.756  0.095 | -0.348  2.832  0.121 |  0.716 18.380  0.513
-## *a           |  0.271  1.348  0.073 | -0.571  7.623  0.325 | -0.395  5.583  0.156
-## *b           | -0.314  1.815  0.099 | -0.484  5.492  0.235 |  0.638 14.608  0.408
-##               
-## PFF          |
-## DMAF         |
-## DPF          |
-## PEN          |
-## PSF          |
-## PSS          |
-## DMAF/DPF     |
-## *L           |
-## *a           |
-## *b           |
+##                 Dim.1    ctr   cos2    Dim.2    ctr   cos2    Dim.3    ctr
+## PFF          |  0.904 15.043  0.817 |  0.325  2.471  0.106 |  0.111  0.440
+## DMAF         |  0.866 13.825  0.751 |  0.367  3.159  0.135 | -0.062  0.137
+## DPF          |  0.824 12.504  0.679 |  0.059  0.082  0.003 |  0.344  4.246
+## PEN          | -0.310  1.770  0.096 |  0.640  9.597  0.410 |  0.530 10.073
+## PSF          |  0.826 12.559  0.682 |  0.423  4.188  0.179 |  0.184  1.207
+## PSS          |  0.671  8.281  0.450 |  0.584  7.989  0.341 |  0.050  0.089
+## DMAF/DPF     | -0.170  0.530  0.029 |  0.186  0.812  0.035 | -0.611 13.378
+## *L           | -0.309  1.756  0.095 | -0.348  2.832  0.121 |  0.716 18.380
+## *a           |  0.271  1.348  0.073 | -0.571  7.623  0.325 | -0.395  5.583
+## *b           | -0.314  1.815  0.099 | -0.484  5.492  0.235 |  0.638 14.608
+##                cos2  
+## PFF           0.012 |
+## DMAF          0.004 |
+## DPF           0.118 |
+## PEN           0.281 |
+## PSF           0.034 |
+## PSS           0.002 |
+## DMAF/DPF      0.373 |
+## *L            0.513 |
+## *a            0.156 |
+## *b            0.408 |
 ## 
 ## Supplementary categories (the 10 first)
-##                  Dist    Dim.1   cos2 v.test    Dim.2   cos2 v.test    Dim.3
-## Concordia    |  1.897 | -1.731  0.833 -3.593 | -0.094  0.002 -0.219 |  0.679
-## PN El Palmar |  1.491 |  0.721  0.234  1.747 | -0.973  0.425 -2.659 | -0.788
-## Gualeguaychú |  3.383 |  1.855  0.301  2.290 |  2.702  0.638  3.761 |  0.572
-## 154          |  3.311 | -2.233  0.455 -0.958 |  0.104  0.001  0.050 |  1.924
-## 156          |  2.916 | -2.064  0.501 -0.886 |  0.549  0.035  0.265 |  0.277
-## 161          |  5.146 |  0.016  0.000  0.007 |  3.296  0.410  1.595 | -1.226
-## 171          |  3.564 |  0.643  0.033  0.276 | -1.987  0.311 -0.962 |  1.400
-## 174          |  2.876 | -1.997  0.482 -0.857 |  1.283  0.199  0.621 |  0.870
-## 185          |  5.012 | -4.361  0.757 -1.872 |  1.053  0.044  0.510 |  0.655
-## 190          |  2.957 | -2.164  0.536 -0.929 | -0.463  0.025 -0.224 |  0.454
-##                cos2 v.test  
-## Concordia     0.128  1.966 |
-## PN El Palmar  0.279 -2.665 |
-## Gualeguaychú  0.029  0.985 |
-## 154           0.338  1.152 |
-## 156           0.009  0.166 |
-## 161           0.057 -0.734 |
-## 171           0.154  0.838 |
-## 174           0.092  0.521 |
-## 185           0.017  0.392 |
-## 190           0.024  0.272 |</code></pre>
+##                   Dist    Dim.1   cos2 v.test    Dim.2   cos2 v.test  
+## Concordia     |  1.897 | -1.731  0.833 -3.593 | -0.094  0.002 -0.219 |
+## PN El Palmar  |  1.491 |  0.721  0.234  1.747 | -0.973  0.425 -2.659 |
+## Gualeguaychú |  3.383 |  1.855  0.301  2.290 |  2.702  0.638  3.761 |
+## 154           |  3.311 | -2.233  0.455 -0.958 |  0.104  0.001  0.050 |
+## 156           |  2.916 | -2.064  0.501 -0.886 |  0.549  0.035  0.265 |
+## 161           |  5.146 |  0.016  0.000  0.007 |  3.296  0.410  1.595 |
+## 171           |  3.564 |  0.643  0.033  0.276 | -1.987  0.311 -0.962 |
+## 174           |  2.876 | -1.997  0.482 -0.857 |  1.283  0.199  0.621 |
+## 185           |  5.012 | -4.361  0.757 -1.872 |  1.053  0.044  0.510 |
+## 190           |  2.957 | -2.164  0.536 -0.929 | -0.463  0.025 -0.224 |
+##                Dim.3   cos2 v.test  
+## Concordia      0.679  0.128  1.966 |
+## PN El Palmar  -0.788  0.279 -2.665 |
+## Gualeguaychú  0.572  0.029  0.985 |
+## 154            1.924  0.338  1.152 |
+## 156            0.277  0.009  0.166 |
+## 161           -1.226  0.057 -0.734 |
+## 171            1.400  0.154  0.838 |
+## 174            0.870  0.092  0.521 |
+## 185            0.655  0.017  0.392 |
+## 190            0.454  0.024  0.272 |</code></pre>
 <p>Contribuciones de las variables para CP1</p>
 <p>Contribuciones de las variables</p>
-<pre><code>##          PFF         DMAF          PSF          DPF          PSS       SS/ATT 
-## 15.042689409 13.824955965 12.558648141 12.503588762  8.281477184  7.934434461 
-##           PT          ATT       CTC/CL          CTC           SS           *b 
-##  5.762302591  5.550515000  3.247494765  2.319795952  2.250684069  1.815152461 
-##          PEN           *L           *a          CLb          CLa       DPPH25 
-##  1.769801928  1.755822426  1.347571464  1.254541158  1.216132248  1.034334428 
-##     DMAF/DPF 
-##  0.530057588</code></pre>
+<pre><code>##          PFF         DMAF          PSF          DPF          PSS 
+## 15.042689409 13.824955965 12.558648141 12.503588762  8.281477184 
+##       SS/ATT           PT          ATT       CTC/CL          CTC 
+##  7.934434461  5.762302591  5.550515000  3.247494765  2.319795952 
+##           SS           *b          PEN           *L           *a 
+##  2.250684069  1.815152461  1.769801928  1.755822426  1.347571464 
+##          CLb          CLa       DPPH25     DMAF/DPF 
+##  1.254541158  1.216132248  1.034334428  0.530057588</code></pre>
 <pre><code>##           CTC           CLa           CLb           PEN           PSS 
 ## 13.5931732062 13.1839641358 13.1363646671  9.5967916642  7.9889427370 
 ##            *a        CTC/CL            *b           PSF            SS 
@@ -1579,44 +1578,45 @@ Resumen</p>
 ##    DMAF/DPF 
 ##  1.34226769</code></pre>
 <p>Proporción de contribución de cada variable a PC1, PC2 y PC3
-<img src="V_fruits_files/figure-html/unnamed-chunk-97-1.png" width="100%" style="display: block; margin: auto;" /></p>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-98-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<img src="V_fruits_files/figure-html/unnamed-chunk-93-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-94-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Triplot:</p>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-501c191ad406bbf49928" style="width:100%;height:921.6px;"></div>
-<script type="application/json" data-for="htmlwidget-501c191ad406bbf49928">{"x":{"visdat":{"246038265bda":["function () ","plotlyVisDat"]},"cur_data":"246038265bda","attrs":{"246038265bda":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["coral1","burlywood2","palegreen4"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Sitios"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.20448222276345,-2.038336518750484,0.015355555805472987,0.63484183455970211,-1.9722790324572168,-4.3065998656742268,-2.1372690332480251,-2.3084182504709903,-2.0769140041538838,0.73929093687501712,0.95669740467679176,-3.6466256851110135,-2.3738197580917197,-2.7722920686983326,-2.1450824800579542],"y":[-0.10242575328373398,-0.54166825947078789,-3.2549777343797852,1.9619277801593848,-1.2668427474552344,-1.0399179115401209,0.45761508669813411,1.0906629479633461,0.12803406421560951,2.2498175405155383,0.71921792400201456,-1.4199420519835371,1.4129214396728291,1.4752406111704504,-0.48355745846353426],"z":[1.899612259799764,0.27322201446022265,-1.2106299392315001,1.3820897417500488,0.85954191896932475,0.64704748979794302,0.44854102027025816,1.9130051271767163,-0.20397789893022927,-0.42577101233834447,-0.24011235134554737,0.80907189899138765,1.8189978011332695,0.87261224147312388,1.2104757847659608],"mode":"markers","marker":{"color":"rgba(255,114,86,1)","size":10,"line":{"color":"rgba(255,114,86,1)"}},"type":"scatter3d","name":"Concordia","textfont":{"color":"rgba(255,114,86,1)"},"error_y":{"color":"rgba(255,114,86,1)"},"error_x":{"color":"rgba(255,114,86,1)"},"line":{"color":"rgba(255,114,86,1)"},"frame":null},{"x":[1.4202025525328124,0.83578538891366905,-0.51726723070322034,-2.8498587038760843,0.14455642635179144,1.8155184283100738,0.49815634010280352,-1.4881513870190703,2.0539307095621862,-1.4771645512001108,-2.9010832976534262,2.5158492023093442,1.3174673840718651,-0.67597291012026195,-0.48032281000975829,4.5050622062778549,2.0844665411998684,6.0103450800650453],"y":[-0.66892699917101783,0.40583572474797125,1.9015716701036851,-0.51903460572472981,2.5301083047549215,-0.40827181880461572,1.6714865295909349,0.72762622533792098,0.24752857699859582,2.627314200514919,-0.13623001314711208,0.25115583566083377,0.41462813244090063,0.71621070584658608,-0.20603581325475606,3.3411253069894888,0.45879351620052411,3.9330119784825666],"z":[-0.90186378531668099,-0.94341833744275938,-2.8933240631213479,-1.4822892170705009,-3.6972318407187132,-1.2785263652652961,-0.88200859653728936,-0.3017283783835738,-2.6741886819431833,-1.6867808196624599,3.1948988696295797,0.027784942252154995,0.48266510318613742,-2.1515072924484229,-3.2783456135808446,0.89544221524754075,0.15187021859209951,3.4098226651162498],"mode":"markers","marker":{"color":"rgba(238,197,145,1)","size":10,"line":{"color":"rgba(238,197,145,1)"}},"type":"scatter3d","name":"PN El Palmar","textfont":{"color":"rgba(238,197,145,1)"},"error_y":{"color":"rgba(238,197,145,1)"},"error_x":{"color":"rgba(238,197,145,1)"},"line":{"color":"rgba(238,197,145,1)"},"frame":null},{"x":[0.52227207136107989,2.1816561700514128,2.3831883470324549,1.3075929421209018,4.0653023344973862,0.97961931079599085,1.3847826425857039],"y":[-1.9595607211948831,-7.4633047532356747,-2.0439333609522676,-1.7121396221347664,-4.4065835148405812,-0.62110341307939398,-0.46737754995062253],"z":[-1.7649859630868963,-0.4777668195389207,0.29798694199981446,2.2108460051123218,0.97373947362500857,0.79932827873534262,1.9158549638782423],"mode":"markers","marker":{"color":"rgba(84,139,84,1)","size":10,"line":{"color":"rgba(84,139,84,1)"}},"type":"scatter3d","name":"Gualeguaychú","textfont":{"color":"rgba(84,139,84,1)"},"error_y":{"color":"rgba(84,139,84,1)"},"error_x":{"color":"rgba(84,139,84,1)"},"line":{"color":"rgba(84,139,84,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-1579ab285b5c7c2a26ec" style="width:100%;height:921.6px;"></div>
+<script type="application/json" data-for="htmlwidget-1579ab285b5c7c2a26ec">{"x":{"visdat":{"f58160672b8":["function () ","plotlyVisDat"]},"cur_data":"f58160672b8","attrs":{"f58160672b8":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["coral1","burlywood2","palegreen4"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"PCA: Componentes Principales 1, 2 y 3","legend":{"title":{"text":"Sitios"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[-2.20448222276345,-2.038336518750484,0.015355555805472987,0.63484183455970211,-1.9722790324572168,-4.3065998656742268,-2.1372690332480251,-2.3084182504709903,-2.0769140041538838,0.73929093687501712,0.95669740467679176,-3.6466256851110135,-2.3738197580917197,-2.7722920686983326,-2.1450824800579542],"y":[-0.10242575328373398,-0.54166825947078789,-3.2549777343797852,1.9619277801593848,-1.2668427474552344,-1.0399179115401209,0.45761508669813411,1.0906629479633461,0.12803406421560951,2.2498175405155383,0.71921792400201456,-1.4199420519835371,1.4129214396728291,1.4752406111704504,-0.48355745846353426],"z":[1.899612259799764,0.27322201446022265,-1.2106299392315001,1.3820897417500488,0.85954191896932475,0.64704748979794302,0.44854102027025816,1.9130051271767163,-0.20397789893022927,-0.42577101233834447,-0.24011235134554737,0.80907189899138765,1.8189978011332695,0.87261224147312388,1.2104757847659608],"mode":"markers","marker":{"color":"rgba(255,114,86,1)","size":10,"line":{"color":"rgba(255,114,86,1)"}},"type":"scatter3d","name":"Concordia","textfont":{"color":"rgba(255,114,86,1)"},"error_y":{"color":"rgba(255,114,86,1)"},"error_x":{"color":"rgba(255,114,86,1)"},"line":{"color":"rgba(255,114,86,1)"},"frame":null},{"x":[1.4202025525328124,0.83578538891366905,-0.51726723070322034,-2.8498587038760843,0.14455642635179144,1.8155184283100738,0.49815634010280352,-1.4881513870190703,2.0539307095621862,-1.4771645512001108,-2.9010832976534262,2.5158492023093442,1.3174673840718651,-0.67597291012026195,-0.48032281000975829,4.5050622062778549,2.0844665411998684,6.0103450800650453],"y":[-0.66892699917101783,0.40583572474797125,1.9015716701036851,-0.51903460572472981,2.5301083047549215,-0.40827181880461572,1.6714865295909349,0.72762622533792098,0.24752857699859582,2.627314200514919,-0.13623001314711208,0.25115583566083377,0.41462813244090063,0.71621070584658608,-0.20603581325475606,3.3411253069894888,0.45879351620052411,3.9330119784825666],"z":[-0.90186378531668099,-0.94341833744275938,-2.8933240631213479,-1.4822892170705009,-3.6972318407187132,-1.2785263652652961,-0.88200859653728936,-0.3017283783835738,-2.6741886819431833,-1.6867808196624599,3.1948988696295797,0.027784942252154995,0.48266510318613742,-2.1515072924484229,-3.2783456135808446,0.89544221524754075,0.15187021859209951,3.4098226651162498],"mode":"markers","marker":{"color":"rgba(238,197,145,1)","size":10,"line":{"color":"rgba(238,197,145,1)"}},"type":"scatter3d","name":"PN El Palmar","textfont":{"color":"rgba(238,197,145,1)"},"error_y":{"color":"rgba(238,197,145,1)"},"error_x":{"color":"rgba(238,197,145,1)"},"line":{"color":"rgba(238,197,145,1)"},"frame":null},{"x":[0.52227207136107989,2.1816561700514128,2.3831883470324549,1.3075929421209018,4.0653023344973862,0.97961931079599085,1.3847826425857039],"y":[-1.9595607211948831,-7.4633047532356747,-2.0439333609522676,-1.7121396221347664,-4.4065835148405812,-0.62110341307939398,-0.46737754995062253],"z":[-1.7649859630868963,-0.4777668195389207,0.29798694199981446,2.2108460051123218,0.97373947362500857,0.79932827873534262,1.9158549638782423],"mode":"markers","marker":{"color":"rgba(84,139,84,1)","size":10,"line":{"color":"rgba(84,139,84,1)"}},"type":"scatter3d","name":"Gualeguaychú","textfont":{"color":"rgba(84,139,84,1)"},"error_y":{"color":"rgba(84,139,84,1)"},"error_x":{"color":"rgba(84,139,84,1)"},"line":{"color":"rgba(84,139,84,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <div id="análisis-de-clusters-1" class="section level3">
 <h3>Análisis de clusters</h3>
-<p><img src="V_fruits_files/figure-html/unnamed-chunk-100-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="V_fruits_files/figure-html/unnamed-chunk-96-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>PCA discriminado por kluster 7
-<img src="V_fruits_files/figure-html/unnamed-chunk-101-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<img src="V_fruits_files/figure-html/unnamed-chunk-97-1.png" width="100%" style="display: block; margin: auto;" /></p>
 <p>Ploty 3D</p>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-d385f1dd9e5c90bfa438" style="width:100%;height:921.6px;"></div>
-<script type="application/json" data-for="htmlwidget-d385f1dd9e5c90bfa438">{"x":{"visdat":{"246010c31e42":["function () ","plotlyVisDat"]},"cur_data":"246010c31e42","attrs":{"246010c31e42":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["#FF0000","#00FF00","#0000FF","#FFFF00","#FF00FF","#00FFFF","#FFA500"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"Clusters k-means en 3D","legend":{"title":{"text":"Clusters"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[2.1816561700514128,4.0653023344973862],"y":[-7.4633047532356747,-4.4065835148405812],"z":[-0.4777668195389207,0.97373947362500857],"mode":"markers","marker":{"color":"rgba(255,0,0,1)","size":10,"line":{"color":"rgba(255,0,0,1)"}},"type":"scatter3d","name":"1","textfont":{"color":"rgba(255,0,0,1)"},"error_y":{"color":"rgba(255,0,0,1)"},"error_x":{"color":"rgba(255,0,0,1)"},"line":{"color":"rgba(255,0,0,1)"},"frame":null},{"x":[0.015355555805472987,1.4202025525328124,1.8155184283100738,2.0539307095621862,0.52227207136107989],"y":[-3.2549777343797852,-0.66892699917101783,-0.40827181880461572,0.24752857699859582,-1.9595607211948831],"z":[-1.2106299392315001,-0.90186378531668099,-1.2785263652652961,-2.6741886819431833,-1.7649859630868963],"mode":"markers","marker":{"color":"rgba(0,255,0,1)","size":10,"line":{"color":"rgba(0,255,0,1)"}},"type":"scatter3d","name":"2","textfont":{"color":"rgba(0,255,0,1)"},"error_y":{"color":"rgba(0,255,0,1)"},"error_x":{"color":"rgba(0,255,0,1)"},"line":{"color":"rgba(0,255,0,1)"},"frame":null},{"x":[4.5050622062778549,6.0103450800650453],"y":[3.3411253069894888,3.9330119784825666],"z":[0.89544221524754075,3.4098226651162498],"mode":"markers","marker":{"color":"rgba(0,0,255,1)","size":10,"line":{"color":"rgba(0,0,255,1)"}},"type":"scatter3d","name":"3","textfont":{"color":"rgba(0,0,255,1)"},"error_y":{"color":"rgba(0,0,255,1)"},"error_x":{"color":"rgba(0,0,255,1)"},"line":{"color":"rgba(0,0,255,1)"},"frame":null},{"x":[2.3831883470324549,1.3075929421209018,0.97961931079599085,1.3847826425857039],"y":[-2.0439333609522676,-1.7121396221347664,-0.62110341307939398,-0.46737754995062253],"z":[0.29798694199981446,2.2108460051123218,0.79932827873534262,1.9158549638782423],"mode":"markers","marker":{"color":"rgba(255,255,0,1)","size":10,"line":{"color":"rgba(255,255,0,1)"}},"type":"scatter3d","name":"4","textfont":{"color":"rgba(255,255,0,1)"},"error_y":{"color":"rgba(255,255,0,1)"},"error_x":{"color":"rgba(255,255,0,1)"},"line":{"color":"rgba(255,255,0,1)"},"frame":null},{"x":[0.63484183455970211,0.73929093687501712,0.95669740467679176,0.83578538891366905,0.49815634010280352,2.5158492023093442,1.3174673840718651,2.0844665411998684],"y":[1.9619277801593848,2.2498175405155383,0.71921792400201456,0.40583572474797125,1.6714865295909349,0.25115583566083377,0.41462813244090063,0.45879351620052411],"z":[1.3820897417500488,-0.42577101233834447,-0.24011235134554737,-0.94341833744275938,-0.88200859653728936,0.027784942252154995,0.48266510318613742,0.15187021859209951],"mode":"markers","marker":{"color":"rgba(255,0,255,1)","size":10,"line":{"color":"rgba(255,0,255,1)"}},"type":"scatter3d","name":"5","textfont":{"color":"rgba(255,0,255,1)"},"error_y":{"color":"rgba(255,0,255,1)"},"error_x":{"color":"rgba(255,0,255,1)"},"line":{"color":"rgba(255,0,255,1)"},"frame":null},{"x":[-2.20448222276345,-2.038336518750484,-1.9722790324572168,-4.3065998656742268,-2.1372690332480251,-2.3084182504709903,-2.0769140041538838,-3.6466256851110135,-2.3738197580917197,-2.7722920686983326,-2.1450824800579542,-2.8498587038760843,-1.4881513870190703,-2.9010832976534262],"y":[-0.10242575328373398,-0.54166825947078789,-1.2668427474552344,-1.0399179115401209,0.45761508669813411,1.0906629479633461,0.12803406421560951,-1.4199420519835371,1.4129214396728291,1.4752406111704504,-0.48355745846353426,-0.51903460572472981,0.72762622533792098,-0.13623001314711208],"z":[1.899612259799764,0.27322201446022265,0.85954191896932475,0.64704748979794302,0.44854102027025816,1.9130051271767163,-0.20397789893022927,0.80907189899138765,1.8189978011332695,0.87261224147312388,1.2104757847659608,-1.4822892170705009,-0.3017283783835738,3.1948988696295797],"mode":"markers","marker":{"color":"rgba(0,255,255,1)","size":10,"line":{"color":"rgba(0,255,255,1)"}},"type":"scatter3d","name":"6","textfont":{"color":"rgba(0,255,255,1)"},"error_y":{"color":"rgba(0,255,255,1)"},"error_x":{"color":"rgba(0,255,255,1)"},"line":{"color":"rgba(0,255,255,1)"},"frame":null},{"x":[-0.51726723070322034,0.14455642635179144,-1.4771645512001108,-0.67597291012026195,-0.48032281000975829],"y":[1.9015716701036851,2.5301083047549215,2.627314200514919,0.71621070584658608,-0.20603581325475606],"z":[-2.8933240631213479,-3.6972318407187132,-1.6867808196624599,-2.1515072924484229,-3.2783456135808446],"mode":"markers","marker":{"color":"rgba(255,165,0,1)","size":10,"line":{"color":"rgba(255,165,0,1)"}},"type":"scatter3d","name":"7","textfont":{"color":"rgba(255,165,0,1)"},"error_y":{"color":"rgba(255,165,0,1)"},"error_x":{"color":"rgba(255,165,0,1)"},"line":{"color":"rgba(255,165,0,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-a46a20528b6114d0fe4b" style="width:100%;height:921.6px;"></div>
+<script type="application/json" data-for="htmlwidget-a46a20528b6114d0fe4b">{"x":{"visdat":{"f5862eb7e1c":["function () ","plotlyVisDat"]},"cur_data":"f5862eb7e1c","attrs":{"f5862eb7e1c":{"x":{},"y":{},"z":{},"mode":"markers","marker":{"size":10},"color":{},"colors":["#0000FF","#FFFF00","#00FF00","#FFA500","#FF00FF","#FF0000","#00FFFF"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"PC1"},"yaxis":{"title":"PC2"},"zaxis":{"title":"PC3"}},"title":"Clusters k-means en 3D","legend":{"title":{"text":"Clusters"}},"hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[2.1816561700514128,4.0653023344973862],"y":[-7.4633047532356747,-4.4065835148405812],"z":[-0.4777668195389207,0.97373947362500857],"mode":"markers","marker":{"color":"rgba(0,0,255,1)","size":10,"line":{"color":"rgba(0,0,255,1)"}},"type":"scatter3d","name":"1","textfont":{"color":"rgba(0,0,255,1)"},"error_y":{"color":"rgba(0,0,255,1)"},"error_x":{"color":"rgba(0,0,255,1)"},"line":{"color":"rgba(0,0,255,1)"},"frame":null},{"x":[0.015355555805472987,1.4202025525328124,1.8155184283100738,2.0539307095621862,0.52227207136107989],"y":[-3.2549777343797852,-0.66892699917101783,-0.40827181880461572,0.24752857699859582,-1.9595607211948831],"z":[-1.2106299392315001,-0.90186378531668099,-1.2785263652652961,-2.6741886819431833,-1.7649859630868963],"mode":"markers","marker":{"color":"rgba(255,255,0,1)","size":10,"line":{"color":"rgba(255,255,0,1)"}},"type":"scatter3d","name":"2","textfont":{"color":"rgba(255,255,0,1)"},"error_y":{"color":"rgba(255,255,0,1)"},"error_x":{"color":"rgba(255,255,0,1)"},"line":{"color":"rgba(255,255,0,1)"},"frame":null},{"x":[4.5050622062778549,6.0103450800650453],"y":[3.3411253069894888,3.9330119784825666],"z":[0.89544221524754075,3.4098226651162498],"mode":"markers","marker":{"color":"rgba(0,255,0,1)","size":10,"line":{"color":"rgba(0,255,0,1)"}},"type":"scatter3d","name":"3","textfont":{"color":"rgba(0,255,0,1)"},"error_y":{"color":"rgba(0,255,0,1)"},"error_x":{"color":"rgba(0,255,0,1)"},"line":{"color":"rgba(0,255,0,1)"},"frame":null},{"x":[2.3831883470324549,1.3075929421209018,0.97961931079599085,1.3847826425857039],"y":[-2.0439333609522676,-1.7121396221347664,-0.62110341307939398,-0.46737754995062253],"z":[0.29798694199981446,2.2108460051123218,0.79932827873534262,1.9158549638782423],"mode":"markers","marker":{"color":"rgba(255,165,0,1)","size":10,"line":{"color":"rgba(255,165,0,1)"}},"type":"scatter3d","name":"4","textfont":{"color":"rgba(255,165,0,1)"},"error_y":{"color":"rgba(255,165,0,1)"},"error_x":{"color":"rgba(255,165,0,1)"},"line":{"color":"rgba(255,165,0,1)"},"frame":null},{"x":[0.63484183455970211,0.73929093687501712,0.95669740467679176,0.83578538891366905,0.49815634010280352,2.5158492023093442,1.3174673840718651,2.0844665411998684],"y":[1.9619277801593848,2.2498175405155383,0.71921792400201456,0.40583572474797125,1.6714865295909349,0.25115583566083377,0.41462813244090063,0.45879351620052411],"z":[1.3820897417500488,-0.42577101233834447,-0.24011235134554737,-0.94341833744275938,-0.88200859653728936,0.027784942252154995,0.48266510318613742,0.15187021859209951],"mode":"markers","marker":{"color":"rgba(255,0,255,1)","size":10,"line":{"color":"rgba(255,0,255,1)"}},"type":"scatter3d","name":"5","textfont":{"color":"rgba(255,0,255,1)"},"error_y":{"color":"rgba(255,0,255,1)"},"error_x":{"color":"rgba(255,0,255,1)"},"line":{"color":"rgba(255,0,255,1)"},"frame":null},{"x":[-2.20448222276345,-2.038336518750484,-1.9722790324572168,-4.3065998656742268,-2.1372690332480251,-2.3084182504709903,-2.0769140041538838,-3.6466256851110135,-2.3738197580917197,-2.7722920686983326,-2.1450824800579542,-2.8498587038760843,-1.4881513870190703,-2.9010832976534262],"y":[-0.10242575328373398,-0.54166825947078789,-1.2668427474552344,-1.0399179115401209,0.45761508669813411,1.0906629479633461,0.12803406421560951,-1.4199420519835371,1.4129214396728291,1.4752406111704504,-0.48355745846353426,-0.51903460572472981,0.72762622533792098,-0.13623001314711208],"z":[1.899612259799764,0.27322201446022265,0.85954191896932475,0.64704748979794302,0.44854102027025816,1.9130051271767163,-0.20397789893022927,0.80907189899138765,1.8189978011332695,0.87261224147312388,1.2104757847659608,-1.4822892170705009,-0.3017283783835738,3.1948988696295797],"mode":"markers","marker":{"color":"rgba(255,0,0,1)","size":10,"line":{"color":"rgba(255,0,0,1)"}},"type":"scatter3d","name":"6","textfont":{"color":"rgba(255,0,0,1)"},"error_y":{"color":"rgba(255,0,0,1)"},"error_x":{"color":"rgba(255,0,0,1)"},"line":{"color":"rgba(255,0,0,1)"},"frame":null},{"x":[-0.51726723070322034,0.14455642635179144,-1.4771645512001108,-0.67597291012026195,-0.48032281000975829],"y":[1.9015716701036851,2.5301083047549215,2.627314200514919,0.71621070584658608,-0.20603581325475606],"z":[-2.8933240631213479,-3.6972318407187132,-1.6867808196624599,-2.1515072924484229,-3.2783456135808446],"mode":"markers","marker":{"color":"rgba(0,255,255,1)","size":10,"line":{"color":"rgba(0,255,255,1)"}},"type":"scatter3d","name":"7","textfont":{"color":"rgba(0,255,255,1)"},"error_y":{"color":"rgba(0,255,255,1)"},"error_x":{"color":"rgba(0,255,255,1)"},"line":{"color":"rgba(0,255,255,1)"},"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 <p>Tabla resumen</p>
 <pre><code>## # A tibble: 7 × 2
-##   cluster_hca Fenotipos                                                           
-##   &lt;fct&gt;       &lt;chr&gt;                                                               
-## 1 1           154, 156, 174, 185, 190, 193, 197, 208, 221, 222, 223, 262, 274, 281
-## 2 2           161, 305                                                            
-## 3 3           171, 198, 199, 236, 260, 271, 272, 276, 284, 285, 289, 390          
-## 4 4           261, 268, 280, 286, 287                                             
-## 5 5           288, 290                                                            
-## 6 6           306, 363                                                            
+##   cluster_hca Fenotipos                                                     
+##   &lt;fct&gt;       &lt;chr&gt;                                                         
+## 1 1           154, 156, 174, 185, 190, 193, 197, 208, 221, 222, 223, 262, 2…
+## 2 2           161, 305                                                      
+## 3 3           171, 198, 199, 236, 260, 271, 272, 276, 284, 285, 289, 390    
+## 4 4           261, 268, 280, 286, 287                                       
+## 5 5           288, 290                                                      
+## 6 6           306, 363                                                      
 ## 7 7           331, 337, 396</code></pre>
 <p>Resumen de clusters</p>
 <pre><code>## # A tibble: 7 × 26
-##   cluster_hca PC1_mean PC1_sd PC2_mean PC2_sd PC3_mean PC3_sd    PFF   DMAF    DPF
-##   &lt;fct&gt;          &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-## 1 1             -2.52   0.735  -0.0155  0.946    0.854  1.15  -0.919 -0.993 -0.662
-## 2 2              0.269  0.358  -2.61    0.916   -1.49   0.392  0.473  0.695  0.298
-## 3 3              1.32   0.659   0.557   0.962   -0.375  1.07   0.496  0.637  0.307
-## 4 4             -0.601  0.581   1.51    1.23    -2.74   0.819 -0.720 -0.652 -0.839
-## 5 5              5.26   1.06    3.64    0.419    2.15   1.78   1.36   0.774  2.53 
-## 6 6              3.12   1.33   -5.93    2.16     0.248  1.03   2.17   1.84   1.03 
-## 7 7              1.69   0.600  -1.41    0.831    1.47   1.03   0.839  0.966  0.683
-## # ℹ 16 more variables: PEN &lt;dbl&gt;, PSF &lt;dbl&gt;, PSS &lt;dbl&gt;, `DMAF/DPF` &lt;dbl&gt;,
-## #   `*L` &lt;dbl&gt;, `*a` &lt;dbl&gt;, `*b` &lt;dbl&gt;, PT &lt;dbl&gt;, CLa &lt;dbl&gt;, CLb &lt;dbl&gt;,
-## #   CTC &lt;dbl&gt;, ATT &lt;dbl&gt;, `SS/ATT` &lt;dbl&gt;, SS &lt;dbl&gt;, DPPH25 &lt;dbl&gt;, `CTC/CL` &lt;dbl&gt;</code></pre>
+##   cluster_hca PC1_mean PC1_sd PC2_mean PC2_sd PC3_mean PC3_sd    PFF   DMAF
+##   &lt;fct&gt;          &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 1             -2.52   0.735  -0.0155  0.946    0.854  1.15  -0.919 -0.993
+## 2 2              0.269  0.358  -2.61    0.916   -1.49   0.392  0.473  0.695
+## 3 3              1.32   0.659   0.557   0.962   -0.375  1.07   0.496  0.637
+## 4 4             -0.601  0.581   1.51    1.23    -2.74   0.819 -0.720 -0.652
+## 5 5              5.26   1.06    3.64    0.419    2.15   1.78   1.36   0.774
+## 6 6              3.12   1.33   -5.93    2.16     0.248  1.03   2.17   1.84 
+## 7 7              1.69   0.600  -1.41    0.831    1.47   1.03   0.839  0.966
+## # ℹ 17 more variables: DPF &lt;dbl&gt;, PEN &lt;dbl&gt;, PSF &lt;dbl&gt;, PSS &lt;dbl&gt;,
+## #   `DMAF/DPF` &lt;dbl&gt;, `*L` &lt;dbl&gt;, `*a` &lt;dbl&gt;, `*b` &lt;dbl&gt;, PT &lt;dbl&gt;,
+## #   CLa &lt;dbl&gt;, CLb &lt;dbl&gt;, CTC &lt;dbl&gt;, ATT &lt;dbl&gt;, `SS/ATT` &lt;dbl&gt;, SS &lt;dbl&gt;,
+## #   DPPH25 &lt;dbl&gt;, `CTC/CL` &lt;dbl&gt;</code></pre>
 </div>
 </div>
 </div>

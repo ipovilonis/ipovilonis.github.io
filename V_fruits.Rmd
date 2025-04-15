@@ -154,6 +154,39 @@ print(n_phenotypes)  # Debería dar 52 según tu str()
 
 ```
 
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+library(readxl)
+library(writexl)  # Para exportar a Excel
+
+resumen_fisico <- frutos_fisico %>%
+  dplyr::group_by(phenotype) %>%
+  dplyr::summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE))) %>%
+  dplyr::ungroup()
+
+
+resumen_color <- frutos_color %>%
+  dplyr::group_by(phenotype) %>%
+  dplyr::summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE))) %>%
+  dplyr::ungroup()
+
+
+resumen_quimico <- frutos_quimico %>%
+  dplyr::group_by(phenotype) %>%
+  dplyr::summarise(across(where(is.numeric), ~ mean(.x, na.rm = TRUE))) %>%
+  dplyr::ungroup()
+
+
+tabla_unida <- resumen_fisico %>%
+  dplyr::full_join(resumen_color, by = "phenotype") %>%
+  dplyr::full_join(resumen_quimico, by = "phenotype")
+
+tabla_unida <- tabla_unida[,-c(10,13,14,18:22,33:35)]
+
+```
+
 Medias y CV%
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -167,19 +200,19 @@ frutos_fisico_mean <- frutos_fisico[,-c(1:4,9)]
 
 # Calculamos la media y el CV% de cada variable numérica
 resultados <- frutos_quimico_mean %>%
-  dplyr::summarise(dplyr::across(dplyr::where(is.numeric), list(
+  dplyr::summarise(across(where(is.numeric), list(
     mean = ~mean(., na.rm = TRUE),
     CV = ~sd(., na.rm = TRUE) / mean(., na.rm = TRUE) * 100
   )))
 
 resultados2 <- frutos_color_mean %>%
-  dplyr::summarise(dplyr::across(dplyr::where(is.numeric), list(
+  dplyr::summarise(across(where(is.numeric), list(
     mean = ~mean(., na.rm = TRUE),
     CV = ~sd(., na.rm = TRUE) / mean(., na.rm = TRUE) * 100
   )))
 
 resultados3 <- frutos_fisico_mean %>%
-  dplyr::summarise(dplyr::across(dplyr::where(is.numeric), list(
+  dplyr::summarise(across(where(is.numeric), list(
     mean = ~mean(., na.rm = TRUE),
     CV = ~sd(., na.rm = TRUE) / mean(., na.rm = TRUE) * 100
   )))
@@ -412,13 +445,6 @@ for (variable in variables_respuesta) {
 
 ```
 
-## PFF
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-graficos_list$pff
-
-```
 Resumen
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -481,6 +507,13 @@ print(min_max_quimico)
 ```
 
 ## Peso Fresco del Fruto
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+graficos_list$pff
+
+```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -587,46 +620,6 @@ print(results_PFF)
 
 ```
 
-
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-
-```
-
-
-
-
 ## DPF
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -669,7 +662,7 @@ rpt_de
 
 ```
 
-## DMAF_DPF
+## DMAF/DPF
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -2837,8 +2830,8 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # # Suponiendo que pca_scores tiene las columnas Dim.1, Dim.2, y year.site
 # # Crear un dataframe para los contornos (convex hulls)
 # # hulls <- pca_scores %>%
-# #   group_by(phenotype) %>%
-# #   slice(chull(Dim.1, Dim.2)) # Calcula el contorno convexo
+# #   dplyr::group_by(phenotype) %>%
+# #   dplyr::slice(chull(Dim.1, Dim.2)) # Calcula el contorno convexo
 # 
 # # Crear el gráfico PCA
 # biplot_year.site_frutos <- fviz_pca_biplot(pca_result, 
@@ -3648,13 +3641,13 @@ Ploty 3D
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 paleta_7b <- c(
-  "#FF0000",  # Rojo puro
-  "#00FF00",  # Verde lima
-  "#0000FF",  # Azul puro
-  "#FFFF00",  # Amarillo puro
-  "#FF00FF",  # Magenta
-  "#00FFFF",  # Cian
-  "#FFA500"   # Naranja
+  "#0000FF",  
+  "#FFFF00",  
+  "#00FF00",  
+  "#FFA500",  
+  "#FF00FF",  
+  "#FF0000",  
+  "#00FFFF"   
 )
 
 # Visualización 3D con plotly
@@ -3709,7 +3702,7 @@ cluster_summary <- pca_scores %>%
                    .names = "{.col}_{.fn}")) %>%
   left_join(
     tabla_pca %>% 
-      dplyr:::mutate(cluster_hca = pca_scores$cluster_hca) %>%
+      dplyr::mutate(cluster_hca = pca_scores$cluster_hca) %>%
       dplyr::group_by(cluster_hca) %>%
       dplyr::summarise(across(where(is.numeric), mean, na.rm = TRUE)),
     by = "cluster_hca"

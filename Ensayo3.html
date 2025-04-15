@@ -337,7 +337,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="II_Phenotypes.html">Fenotipos</a>
+      <a href="II_Phenotypes2.html">Fenotipos</a>
     </li>
     <li>
       <a href="II_maps1.html">Mapas</a>
@@ -470,20 +470,7 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="V_Weight.html">Peso</a>
-    </li>
-    <li>
-      <a href="V_Diameter.html">Diámetro</a>
-    </li>
-    <li>
-      <a href="V_Seeds.html">Semillas</a>
-    </li>
-    <li>
       <a href="V_Colorimetry.html">Colorimetría</a>
-    </li>
-    <li class="divider"></li>
-    <li>
-      <a href="V_phenols.html">Fenoles</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -495,10 +482,10 @@ div.tocify {
     <li>
       <a href="V_fruits.html">Frutos</a>
     </li>
+    <li class="divider"></li>
     <li>
       <a href="V_correlations.html">Correlaciones</a>
     </li>
-    <li class="divider"></li>
   </ul>
 </li>
 <li class="dropdown">
@@ -586,24 +573,24 @@ class="section level2">
 <tbody>
 <tr class="odd">
 <td align="left">Control</td>
-<td align="right">106.6632817</td>
-<td align="right">69.2684721</td>
+<td align="right">106.4009137</td>
+<td align="right">65.2194586</td>
 <td align="right">139.935557</td>
-<td align="right">19.9688929</td>
+<td align="right">20.43334719</td>
 </tr>
 <tr class="even">
 <td align="left">Etileno</td>
 <td align="right">113.8394618</td>
 <td align="right">66.9255122</td>
 <td align="right">133.890523</td>
-<td align="right">17.6230148</td>
+<td align="right">17.62301483</td>
 </tr>
 <tr class="odd">
 <td align="left">1-MCP</td>
-<td align="right">87.6784612</td>
-<td align="right">68.3684547</td>
+<td align="right">87.5490829</td>
+<td align="right">68.0718073</td>
 <td align="right">102.209545</td>
-<td align="right">7.9124900</td>
+<td align="right">8.37329822</td>
 </tr>
 </tbody>
 </table>
@@ -626,7 +613,7 @@ maturation</em></p>
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9762391, p-value = 0.0131596</code></pre>
+## W = 0.9731127, p-value = 0.00619031</code></pre>
 </div>
 <div id="anova-comparison-of-means" class="section level2">
 <h2>Anova (comparison of means)</h2>
@@ -643,13 +630,13 @@ maturation</em></p>
 <tr class="odd">
 <td align="left">(Intercept)</td>
 <td align="right">1</td>
-<td align="right">9155.5090342</td>
+<td align="right">8444.9532181</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">treat</td>
 <td align="right">2</td>
-<td align="right">55.3555765</td>
+<td align="right">53.4983069</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -662,9 +649,9 @@ maturation</em></p>
 ##     95% family-wise confidence level
 ## 
 ## $control
-##                         diff        lwr.ci      upr.ci        pval    
-## etileno-control   7.17618003  -0.140449586  14.4928096      0.0554 .  
-## 1MCP-control    -18.98482053 -26.301450141 -11.6681909 0.000000084 ***
+##                         diff          lwr.ci      upr.ci       pval    
+## etileno-control   7.43854804  -0.00153569917  14.8786318     0.0500 .  
+## 1MCP-control    -18.85183085 -26.29191459547 -11.4117471 0.00000016 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -672,10 +659,10 @@ maturation</em></p>
 <div id="tukey-test" class="section level2">
 <h2>Tukey test</h2>
 <pre><code>## $emmeans
-##  treat        emmean         SE    df    lower.CL    upper.CL
-##  control 106.6632817 2.88223287 47.23 100.8657184 112.4608451
-##  etileno 113.8394618 2.54366331 47.25 108.7229977 118.9559258
-##  1MCP     87.6784612 1.14208078 47.00  85.3808899  89.9760326
+##  treat        emmean         SE    df   lower.CL    upper.CL
+##  control 106.4009137 2.94930100 47.15 100.468185 112.3336428
+##  etileno 113.8394618 2.54366317 47.23 108.722923 118.9560001
+##  1MCP     87.5490829 1.20858089 47.00  85.117734  89.9804317
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
@@ -683,9 +670,9 @@ maturation</em></p>
 ## 
 ## $contrasts
 ##  contrast             estimate         SE    df t.ratio p.value
-##  control - etileno -7.17618003 3.84415001 92.58  -1.867  0.1542
-##  control - 1MCP    18.98482053 3.10026044 61.70   6.124  &lt;.0001
-##  etileno - 1MCP    26.16100056 2.78829186 65.54   9.382  &lt;.0001
+##  control - etileno -7.43854804 3.89468853 92.01  -1.910  0.1416
+##  control - 1MCP    18.85183085 3.18732555 62.56   5.915  &lt;.0001
+##  etileno - 1MCP    26.29037890 2.81618361 67.48   9.335  &lt;.0001
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -696,15 +683,15 @@ maturation</em></p>
 <h1>Lab coordinates Correlations</h1>
 <div id="a-vs.-l" class="section level2">
 <h2><em>a</em> vs. <em>L</em></h2>
-<pre><code>## [1] 0.469794077</code></pre>
+<pre><code>## [1] 0.47181695</code></pre>
 </div>
 <div id="a-vs.-b" class="section level2">
 <h2><em>a</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.639884403</code></pre>
+<pre><code>## [1] 0.638935495</code></pre>
 </div>
 <div id="l-vs.-b" class="section level2">
 <h2><em>L</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.78781745</code></pre>
+<pre><code>## [1] 0.806384783</code></pre>
 </div>
 </div>
 <div id="color-correlation" class="section level1">
@@ -726,12 +713,12 @@ class="section level2">
 ## 
 ## Class means and counts:
 ## 
-##       1        2        3        
-## delta 0.133363 0.104724 0.0828469
-## n     48       48       48       
+##       1       2        3        
+## delta 0.13604 0.104724 0.0852776
+## n     48      48       48       
 ## 
-## Chance corrected within-group agreement A: 0.18049 
-## Based on observed delta 0.107 and expected delta 0.1305 
+## Chance corrected within-group agreement A: 0.176869 
+## Based on observed delta 0.1087 and expected delta 0.132 
 ## 
 ## Significance of delta: 0.001 
 ## Permutation: free
