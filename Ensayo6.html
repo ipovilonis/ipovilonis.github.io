@@ -549,64 +549,130 @@ div.tocify {
 </div>
 
 
+<p><strong>Encabezado de la base de datos</strong></p>
 <pre><code>## # A tibble: 36 × 5
-##    `Día` Tratamiento `Respiración` dia   respiracion
-##    &lt;dbl&gt; &lt;fct&gt;               &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;
-##  1     1 Control             33.9  1           33.9 
-##  2     1 Control             28.4  1           28.4 
-##  3     1 Control             21.9  1           21.9 
-##  4     1 Etileno              6.91 1            6.91
-##  5     1 Etileno             12.7  1           12.7 
-##  6     1 Etileno             20.7  1           20.7 
-##  7     1 1MCP                25.6  1           25.6 
-##  8     1 1MCP                23.4  1           23.4 
-##  9     1 1MCP                25.0  1           25.0 
-## 10     3 Control             28.0  3           28.0 
+##      Día Tratamiento Respiración dia   respiracion
+##    &lt;dbl&gt; &lt;fct&gt;             &lt;dbl&gt; &lt;fct&gt;       &lt;dbl&gt;
+##  1     1 Control           33.9  1           33.9 
+##  2     1 Control           28.4  1           28.4 
+##  3     1 Control           21.9  1           21.9 
+##  4     1 Etileno            6.91 1            6.91
+##  5     1 Etileno           12.7  1           12.7 
+##  6     1 Etileno           20.7  1           20.7 
+##  7     1 1MCP              25.6  1           25.6 
+##  8     1 1MCP              23.4  1           23.4 
+##  9     1 1MCP              25.0  1           25.0 
+## 10     3 Control           28.0  3           28.0 
 ## # ℹ 26 more rows</code></pre>
-<p><img src="Ensayo6_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="Ensayo6_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo6_files/figure-html/unnamed-chunk-4-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><strong>Gráfico de perfiles</strong>
+<img src="Ensayo6_files/figure-html/unnamed-chunk-2-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Resumen del modelo</strong></p>
+<pre><code>## Generalized least squares fit by maximum likelihood
+##   Model: log(respiracion) ~ Tratamiento * dia 
+##   Data: ensayo6 
+##        AIC      BIC   logLik
+##   5.702127 31.03843 13.14894
+## 
+## Variance function:
+##  Structure: Different standard deviations per stratum
+##  Formula: ~1 | dia 
+##  Parameter estimates:
+##         1         3         5         7 
+## 1.0000000 0.6915990 0.4249115 0.4404538 
+## 
+## Coefficients:
+##                             Value Std.Error   t-value p-value
+## (Intercept)              3.318069 0.1979745 16.760082  0.0000
+## TratamientoEtileno      -0.816812 0.2799782 -2.917411  0.0075
+## Tratamiento1MCP         -0.113072 0.2799782 -0.403859  0.6899
+## dia3                    -0.102100 0.2407087 -0.424163  0.6752
+## dia5                     0.054889 0.2151054  0.255173  0.8008
+## dia7                     1.904630 0.2163273  8.804392  0.0000
+## TratamientoEtileno:dia3  0.835987 0.3404136  2.455798  0.0217
+## Tratamiento1MCP:dia3    -0.166167 0.3404136 -0.488132  0.6299
+## TratamientoEtileno:dia5 -0.198737 0.3042050 -0.653300  0.5198
+## Tratamiento1MCP:dia5    -0.148237 0.3042050 -0.487294  0.6305
+## TratamientoEtileno:dia7  0.742443 0.3059330  2.426815  0.0231
+## Tratamiento1MCP:dia7    -0.234167 0.3059330 -0.765419  0.4515
+## 
+##  Correlation: 
+##                         (Intr) TrtmnE Tr1MCP dia3   dia5   dia7   TrtE:3
+## TratamientoEtileno      -0.707                                          
+## Tratamiento1MCP         -0.707  0.500                                   
+## dia3                    -0.822  0.582  0.582                            
+## dia5                    -0.920  0.651  0.651  0.757                     
+## dia7                    -0.915  0.647  0.647  0.753  0.842              
+## TratamientoEtileno:dia3  0.582 -0.822 -0.411 -0.707 -0.535 -0.532       
+## Tratamiento1MCP:dia3     0.582 -0.411 -0.822 -0.707 -0.535 -0.532  0.500
+## TratamientoEtileno:dia5  0.651 -0.920 -0.460 -0.535 -0.707 -0.596  0.757
+## Tratamiento1MCP:dia5     0.651 -0.460 -0.920 -0.535 -0.707 -0.596  0.378
+## TratamientoEtileno:dia7  0.647 -0.915 -0.458 -0.532 -0.596 -0.707  0.753
+## Tratamiento1MCP:dia7     0.647 -0.458 -0.915 -0.532 -0.596 -0.707  0.376
+##                         T1MCP:3 TrtE:5 T1MCP:5 TrtE:7
+## TratamientoEtileno                                   
+## Tratamiento1MCP                                      
+## dia3                                                 
+## dia5                                                 
+## dia7                                                 
+## TratamientoEtileno:dia3                              
+## Tratamiento1MCP:dia3                                 
+## TratamientoEtileno:dia5  0.378                       
+## Tratamiento1MCP:dia5     0.757   0.500               
+## TratamientoEtileno:dia7  0.376   0.842  0.421        
+## Tratamiento1MCP:dia7     0.753   0.421  0.842   0.500
+## 
+## Standardized residuals:
+##        Min         Q1        Med         Q3        Max 
+## -2.0282621 -0.7290641 -0.1070095  0.7407201  1.8899306 
+## 
+## Residual standard error: 0.2799782 
+## Degrees of freedom: 36 total; 24 residual</code></pre>
+<p><strong>Supuestos del modelo</strong>
+<img src="Ensayo6_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo6_files/figure-html/unnamed-chunk-4-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value  Pr(&gt;F)
-## group  3 1.43544 0.25068
+##       Df F value Pr(&gt;F)
+## group  3  1.4354 0.2507
 ##       32</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  residuos
-## W = 0.9623149, p-value = 0.253137</code></pre>
+## W = 0.96231, p-value = 0.2531</code></pre>
+<p><strong>Resultado ANOVA</strong></p>
 <pre><code>## Analysis of Deviance Table (Type II tests)
 ## 
 ## Response: log(respiracion)
-##                 Df      Chisq             Pr(&gt;Chisq)    
-## Tratamiento      2   42.96639       0.00000000046770 ***
-## dia              3 1076.30049 &lt; 0.000000000000000222 ***
-## Tratamiento:dia  6   57.39135       0.00000000015222 ***
+##                 Df    Chisq Pr(&gt;Chisq)    
+## Tratamiento      2   42.966  4.677e-10 ***
+## dia              3 1076.301  &lt; 2.2e-16 ***
+## Tratamiento:dia  6   57.391  1.522e-10 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><strong>Comparaciones</strong></p>
 <pre><code>## $emmeans
 ## dia = 1:
-##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
-##  Control     3.31806864 0.1979744914  9.00 2.87024992 3.76588736
-##  Etileno     2.50125708 0.1979744914  9.00 2.05343837 2.94907580
-##  1MCP        3.20499681 0.1979744914  9.00 2.75717810 3.65281553
+##  Tratamiento   emmean         SE    df lower.CL upper.CL
+##  Control     3.318069 0.19797449  9.00 2.870250 3.765887
+##  Etileno     2.501257 0.19797449  9.00 2.053438 2.949076
+##  1MCP        3.204997 0.19797449  9.00 2.757178 3.652816
 ## 
 ## dia = 2:
-##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
-##  Control     3.21596892 0.1369189634 16.21 2.92601308 3.50592475
-##  Etileno     3.23514435 0.1369189634 16.21 2.94518852 3.52510019
-##  1MCP        2.93673020 0.1369189634 16.21 2.64677436 3.22668603
+##  Tratamiento   emmean         SE    df lower.CL upper.CL
+##  Control     3.215969 0.13691896 16.21 2.926013 3.505925
+##  Etileno     3.235144 0.13691896 16.21 2.945189 3.525100
+##  1MCP        2.936730 0.13691896 16.21 2.646774 3.226686
 ## 
 ## dia = 3:
-##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
-##  Control     3.37295778 0.0841216358 16.20 3.19481092 3.55110465
-##  Etileno     2.35740904 0.0841216358 16.20 2.17926218 2.53555591
-##  1MCP        3.11164856 0.0841216358 16.20 2.93350170 3.28979543
+##  Tratamiento   emmean         SE    df lower.CL upper.CL
+##  Control     3.372958 0.08412164 16.20 3.194811 3.551105
+##  Etileno     2.357409 0.08412164 16.20 2.179262 2.535556
+##  1MCP        3.111649 0.08412164 16.20 2.933502 3.289795
 ## 
 ## dia = 4:
-##  Tratamiento     emmean           SE    df   lower.CL   upper.CL
-##  Control     5.22269888 0.0871986127 16.21 5.03803675 5.40736101
-##  Etileno     5.14833013 0.0871986127 16.21 4.96366799 5.33299226
-##  1MCP        4.87546004 0.0871986127 16.21 4.69079791 5.06012218
+##  Tratamiento   emmean         SE    df lower.CL upper.CL
+##  Control     5.222699 0.08719861 16.21 5.038037 5.407361
+##  Etileno     5.148330 0.08719861 16.21 4.963668 5.332992
+##  1MCP        4.875460 0.08719861 16.21 4.690798 5.060122
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the log (not the response) scale. 
@@ -614,33 +680,33 @@ div.tocify {
 ## 
 ## $contrasts
 ## dia = 1:
-##  contrast              estimate          SE    df t.ratio p.value
-##  Control - Etileno  0.816811558 0.279978211  9.00   2.917  0.0411
-##  Control - 1MCP     0.113071827 0.279978211  9.00   0.404  0.9148
-##  Etileno - 1MCP    -0.703739731 0.279978211  9.00  -2.514  0.0771
+##  contrast            estimate        SE    df t.ratio p.value
+##  Control - Etileno  0.8168116 0.2799782  9.00   2.917  0.0411
+##  Control - 1MCP     0.1130718 0.2799782  9.00   0.404  0.9148
+##  Etileno - 1MCP    -0.7037397 0.2799782  9.00  -2.514  0.0771
 ## 
 ## dia = 2:
-##  contrast              estimate          SE    df t.ratio p.value
-##  Control - Etileno -0.019175435 0.193632655 16.21  -0.099  0.9946
-##  Control - 1MCP     0.279238720 0.193632655 16.21   1.442  0.3436
-##  Etileno - 1MCP     0.298414156 0.193632655 16.21   1.541  0.2986
+##  contrast            estimate        SE    df t.ratio p.value
+##  Control - Etileno -0.0191754 0.1936327 16.21  -0.099  0.9946
+##  Control - 1MCP     0.2792387 0.1936327 16.21   1.442  0.3436
+##  Etileno - 1MCP     0.2984142 0.1936327 16.21   1.541  0.2986
 ## 
 ## dia = 3:
-##  contrast              estimate          SE    df t.ratio p.value
-##  Control - Etileno  1.015548742 0.118965958 16.20   8.536  &lt;.0001
-##  Control - 1MCP     0.261309222 0.118965958 16.20   2.197  0.1019
-##  Etileno - 1MCP    -0.754239519 0.118965958 16.20  -6.340  &lt;.0001
+##  contrast            estimate        SE    df t.ratio p.value
+##  Control - Etileno  1.0155487 0.1189660 16.20   8.536  &lt;.0001
+##  Control - 1MCP     0.2613092 0.1189660 16.20   2.197  0.1019
+##  Etileno - 1MCP    -0.7542395 0.1189660 16.20  -6.340  &lt;.0001
 ## 
 ## dia = 4:
-##  contrast              estimate          SE    df t.ratio p.value
-##  Control - Etileno  0.074368754 0.123317461 16.21   0.603  0.8204
-##  Control - 1MCP     0.347238839 0.123317461 16.21   2.816  0.0313
-##  Etileno - 1MCP     0.272870085 0.123317461 16.21   2.213  0.0989
+##  contrast            estimate        SE    df t.ratio p.value
+##  Control - Etileno  0.0743688 0.1233175 16.21   0.603  0.8204
+##  Control - 1MCP     0.3472388 0.1233175 16.21   2.816  0.0313
+##  Etileno - 1MCP     0.2728701 0.1233175 16.21   2.213  0.0989
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the log (not the response) scale. 
 ## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
-<p><img src="Ensayo6_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo6_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## # A tibble: 12 × 5
 ## # Groups:   Tratamiento [3]
 ##    Tratamiento dia   mean_respiracion.x mean_respiracion.y sd_model_response
@@ -657,7 +723,14 @@ div.tocify {
 ## 10 1MCP        3                   19.4               22.5             1.89 
 ## 11 1MCP        5                   22.7               NA              NA    
 ## 12 1MCP        7                  132.                NA              NA</code></pre>
-<p><img src="Ensayo6_files/figure-html/unnamed-chunk-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><strong>Gráfico de barras</strong>
+<img src="Ensayo6_files/figure-html/unnamed-chunk-8-1.png" width="70%" style="display: block; margin: auto;" />
+Tasa de respiración de frutos de H. edulis a los 1, 3 y 5 días desde
+cosecha y conservados a 1 °C y a los 7 días (5 días a 1 °C más 2 días a
+20 °C) tratados con Etileno y 1-MCP. Letras diferentes indican
+diferencias significativas en los efectos simples para cada día según el
+Test de Tukey (p &lt; 0,05). Las barras representan el error estándar de
+la media (n = 3).</p>
 
 
 

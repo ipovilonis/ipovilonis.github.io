@@ -23,7 +23,7 @@ db_met_mor$pp_pluv<-as.numeric(db_met_mor$pp_pluv)
 
 ```
 
-Gráfico de temperaturas medias mensuales
+**Gráfico de temperaturas medias mensuales**
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -123,8 +123,9 @@ gg_month_mor_temp
 # c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 ```
+Líneas continuas indican las temperaturas mensuales medias (°C) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica la temperatura media anual histórica (serie 30 años). Las líneas discontinuas indican la temperatura media para cada año. Letras distintas indican diferencias significativas para los valores de un mismo mes (α = 0,05).
 
-Gráfico de temperaturas mínimas y heladas
+**Gráfico de temperaturas mínimas y heladas**
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -277,9 +278,9 @@ gg_month_mor_temp_min
 # ggsave("gg_month_mor_temp_min", plot = gg_month_mor_temp_min, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
 
 ```
+Líneas continuas indican las temperaturas mensuales mínimas (°C) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica la temperatura mínima anual histórica (serie 30 años). Las líneas discontinuas indican la temperatura mínima para cada año Letras distintas indican diferencias significativas para los valores de un mismo mes. Letras distintas indican diferencias significativas, en color para temperaturas mínimas y letras negras para total de días con helada (α = 0,05).
 
-Gráfico de precipitaciones mensuales acumuladas
-
+**Gráfico de precipitaciones mensuales acumuladas**
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -309,3 +310,4 @@ gg_month_mor_pp
 # ggsave("gg_month_mor_pp", plot = gg_month_mor_pp, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
 
 ```
+Las barras indican las precipitaciones acumuladas mensuales (mm) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica a precipitación media mensual histórica (serie 30 años), coincidente con la media del 2019. Las líneas discontinuas indican la precipitación acumulada mensual media para cada año.

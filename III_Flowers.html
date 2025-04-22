@@ -488,27 +488,27 @@ mínima diaria.</li>
 rango de tiempo dado.</li>
 </ul>
 <pre><code>## # A tibble: 200 × 5
-##    BaseTemp    R2  RMSE Event                      DataFrameName
-##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                      &lt;chr&gt;        
-##  1       12 0.873 10.4  &quot;Inicio de floraci\u00f3n&quot; df_15        
-##  2       12 0.873 10.4  &quot;Inicio de floraci\u00f3n&quot; df_16        
-##  3       12 0.835 12.1  &quot;Inicio de floraci\u00f3n&quot; df_14        
-##  4       12 0.833 10.8  &quot;Inicio de floraci\u00f3n&quot; df_17        
-##  5       12 0.816  5.86 &quot;Inicio de floraci\u00f3n&quot; df_63        
-##  6        6 0.815 17.8  &quot;Inicio de floraci\u00f3n&quot; df_63        
-##  7       12 0.809 14.8  &quot;Inicio de floraci\u00f3n&quot; df_135       
-##  8        6 0.803 19.8  &quot;Inicio de floraci\u00f3n&quot; df_62        
-##  9        4 0.801 23.3  &quot;Inicio de floraci\u00f3n&quot; df_63        
-## 10       10 0.796 20.4  &quot;Inicio de floraci\u00f3n&quot; df_135       
+##    BaseTemp    R2  RMSE Event               DataFrameName
+##       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;        
+##  1       12 0.873 10.4  Inicio de floración df_15        
+##  2       12 0.873 10.4  Inicio de floración df_16        
+##  3       12 0.835 12.1  Inicio de floración df_14        
+##  4       12 0.833 10.8  Inicio de floración df_17        
+##  5       12 0.816  5.86 Inicio de floración df_63        
+##  6        6 0.815 17.8  Inicio de floración df_63        
+##  7       12 0.809 14.8  Inicio de floración df_135       
+##  8        6 0.803 19.8  Inicio de floración df_62        
+##  9        4 0.801 23.3  Inicio de floración df_63        
+## 10       10 0.796 20.4  Inicio de floración df_135       
 ## # ℹ 190 more rows</code></pre>
 <pre><code>## # A tibble: 3 × 5
-##   BaseTemp    R2  RMSE Event                      DataFrameName
-##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                      &lt;chr&gt;        
-## 1       12 0.816  5.86 &quot;Inicio de floraci\u00f3n&quot; df_63        
-## 2       12 0.816  5.86 &quot;Plena floraci\u00f3n&quot;     df_63        
-## 3       12 0.816  5.86 &quot;Plena floraci\u00f3n&quot;     df_63</code></pre>
+##   BaseTemp    R2  RMSE Event               DataFrameName
+##      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;        
+## 1       12 0.816  5.86 Inicio de floración df_63        
+## 2       12 0.816  5.86 Plena floración     df_63        
+## 3       12 0.816  5.86 Plena floración     df_63</code></pre>
 <p>Gráfico con predicciones y datos puntuales para cada año
-<img src="III_Flowers_files/figure-html/unnamed-chunk-10-1.png" width="2304" style="display: block; margin: auto;" /></p>
+<img src="III_Flowers_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Resultado:</p>
 <ul>
 <li><p>Inicio de floración (10%) con 303,5 grados-día acumulados y
@@ -516,12 +516,18 @@ Temperatura base de 12°C a partir del 2 de agosto.</p></li>
 <li><p>Plena floración (%máx) con 380,2 grados-día acumulados y
 Temperatura base de 12°C a partir del 2 de agosto.</p></li>
 </ul>
-<p><img src="III_Flowers_files/figure-html/unnamed-chunk-11-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p><img src="III_Flowers_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <p>Fechas de incio y plena floración</p>
 <pre><code>## [1] &quot;2025-11-04&quot;</code></pre>
 <pre><code>## [1] &quot;2025-11-13&quot;</code></pre>
 <p>Determinación de fechas de inicio y plena floración
-<img src="III_Flowers_files/figure-html/unnamed-chunk-19-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<img src="III_Flowers_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" />
+Suma térmica de °C por día acumulados para los años 2018. 2019, 2020 y
+un año típico estimado por la serie 2013-2024 para la localidad de
+Moreno. Las líneas horizontales indican los GD acumulados predichos por
+cada modelo para alcanzar el evento fenológico. Las líneas verticales
+indican la fecha de los eventos fenológicos para un año típico. Inicio
+de floración 04-11 y plena floración 13-11.</p>
 </div>
 </div>
 

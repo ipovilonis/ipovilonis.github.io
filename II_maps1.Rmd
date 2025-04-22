@@ -88,6 +88,95 @@ library(patchwork)
 
 
 ```
+
+
+```{r, warning = FALSE, message = FALSE, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# # Cargar librerías necesarias
+library(ggplot2)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggspatial)
+library(patchwork)
+
+# # Cargar datos del mundo
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# # Mapa del mundo
+mapa_mundo <- ggplot(data = world) +
+  geom_sf(fill = "lightgrey", color = "black") +  # Color de los continentes
+  theme_minimal(base_size = 15) +  # Tema más serio
+  theme(panel.background = element_rect(fill = "lightblue"),  # Color de fondo para los océanos
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),  # Título centrado y negrita
+        axis.text = element_text(size = 14, color = "black"),  # Aumentar tamaño y color del texto de los ejes
+        axis.title = element_text(size = 16, color = "black")) +  # Aumentar tamaño y color del título de los ejes
+  coord_sf() +
+  labs(title = "Mapa Mundial", x = "Longitude", y = "Latitude") +  # Cambiar los títulos a inglés
+  annotation_scale(location = "bl") +  # Añadir escala
+  annotation_north_arrow(location = "tl",
+                         which_north = "true",
+                         style = north_arrow_fancy_orienteering())  # Añadir indicador del norte
+# #
+# # Mapa de Sudamérica
+mapa_sudamerica <- ggplot(data = world) +
+  geom_sf(fill = "lightgrey", color = "black") +  # Color de los continentes
+  theme_minimal(base_size = 15) +  # Tema más serio
+  theme(panel.background = element_rect(fill = "lightblue"),  # Color de fondo para los océanos
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+        axis.text = element_text(size = 16, color = "black"),  # Aumentar tamaño y color del texto de los ejes
+        axis.title = element_text(size = 22, color = "black")) +  # Aumentar tamaño y color del título de los ejes
+  coord_sf(xlim = c(-80, -35), ylim = c(-55, 15)) +
+  labs(title = "Sudamérica", x = "Longitud", y = "Latitud") +  # Cambiar los títulos a inglés
+  annotation_scale(location = "br") +  # Añadir escala
+  annotation_north_arrow(location = "tr",
+                         which_north = "true",
+                         style = north_arrow_fancy_orienteering())  # Añadir indicador del norte
+#
+# # Datos de sitios
+sitios <- data.frame(
+  name = c("Concordia", "PN El Palmar", "Gualeguaychú"),
+  lat = c(-31.28590, -31.86395, -33.06490),
+  lon = c(-57.96305, -58.20998, -58.26965),
+  color = c("coral2", "burlywood3", "palegreen4")  # Colores específicos
+)
+
+# # Crear un objeto espacial
+sitios_sf <- st_as_sf(sitios, coords = c("lon", "lat"), crs = 4326)
+
+# # Mapa de poblaciones
+mapa_poblaciones <- ggplot(data = world) +
+  geom_sf(fill = "lightgrey", color = "black") +  # Color de los continentes
+  geom_sf(data = sitios_sf, aes(color = color), size = 6) +  # Usar colores desde el dataframe
+  scale_color_identity() +  # Usar colores definidos en el dataframe
+  theme_minimal(base_size = 15) +  # Tema más serio
+  theme(panel.background = element_rect(fill = "lightblue"),  # Color de fondo para los océanos
+        plot.title = element_text(hjust = 0.5, size = 20, face = "bold"),
+        axis.text = element_text(size = 16, color = "black"),  # Aumentar tamaño y color del texto de los ejes
+        axis.title = element_text(size = 22, color = "black")) +  # Aumentar tamaño y color del título de los ejes
+  coord_sf(xlim = c(-59, -57), ylim = c(-34, -31)) +
+  labs(title = "Sitios de estudio", x = "Longitud", y = "Latitud") +  # Cambiar los títulos a inglés
+  geom_text(data = sitios, aes(x = lon, y = lat, label = name),
+            nudge_y = 0.2, size = 8, color = "black") +
+  annotation_scale(location = "br") +  # Añadir escala
+  annotation_north_arrow(location = "tr",
+                         which_north = "true",
+                         style = north_arrow_fancy_orienteering())  # Añadir indicador del norte
+
+mapa_poblaciones
+# # Combinar mapas usando patchwork
+# mapas_combinados <- mapa_mundo + mapa_sudamerica + mapa_poblaciones +
+#   plot_layout(ncol = 1) + # Ajusta el número de columnas
+#   plot_annotation(title = "Análisis Espacial de Poblaciones",
+#                   theme = theme(plot.title = element_text(hjust = 0.5, size = 20, face = "bold")))
+# 
+# print(mapas_combinados)
+
+
+
+
+```
 En la costa occidental del río Uruguay se eligieron al azar los tres sitios de estudio para este trabajo de Tesis: en las cercanías de la ciudad de Concordia, en el Parque Nacional (PN) El Palmar y en una reserva en Gualeguaychú.
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}

@@ -151,179 +151,142 @@ table_temp <- full_join(table_dl_month_temp, estadmet_temp, by = c("site", "year
 
 ## Temperatura
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 library(Rmisc)
 estadmet_temp2 <- summarySE(datamet, measurevar="temp", groupvars=c("site","month","year"))
-estadmet_temp2
+estadmet_temp2[,-c(8)]
 
-table_temp_2019 <- table_temp %>%
-  dplyr::filter(year == 2019)
-table_temp_2021 <- table_temp %>%
-  dplyr::filter(year == 2021)
-table_temp_2022 <- table_temp %>%
-  dplyr::filter(year == 2022)
+table_temp_2019 <- table_temp %>% dplyr::filter(year == 2019)
+table_temp_2021 <- table_temp %>% dplyr::filter(year == 2021)
+table_temp_2022 <- table_temp %>% dplyr::filter(year == 2022)
 
 library(ggplot2)
+# Gráficos por año
 temp_month_2019 <- ggplot(table_temp_2019, aes(x = month, y = temp, color = site, group = site)) +
   geom_line(method = "gam", se = FALSE, size = 2) +
-  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
-  geom_hline(yintercept = 21.7  , color = "coral2", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 21.5 , color = "burlywood3", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 20.8  , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  geom_hline(yintercept = 21.7, color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 21.5, color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8, color = "palegreen4", linetype = "dashed", size = 1.5) +
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
   facet_grid(year ~ .) +
   labs(y = "", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 35, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
+  theme_classic(base_size = 27) +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+        panel.grid.major.x = element_blank(),
+        axis.text = element_text(color = 'black'),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_x_continuous(breaks = 1:12, labels = rep("", 12)) +
   scale_y_continuous(limits = c(10, 32))
 
 temp_month_2021 <- ggplot(table_temp_2021, aes(x = month, y = temp, color = site, group = site)) +
   geom_line(method = "gam", se = FALSE, size = 2) +
-  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
-  geom_hline(yintercept = 22.0 , color = "coral2", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 22.2 , color = "burlywood3", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 21.4 , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  geom_hline(yintercept = 22.0, color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 22.2, color = "burlywood3", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 21.4, color = "palegreen4", linetype = "dashed", size = 1.5) +
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
   facet_grid(year ~ .) +
   labs(y = "Temperatura (°C)", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 35, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
+  theme_classic(base_size = 27) +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+        panel.grid.major.x = element_blank(),
+        axis.text = element_text(color = 'black'),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_x_continuous(breaks = 1:12, labels = rep("", 12)) +
   scale_y_continuous(limits = c(10, 32))
 
 temp_month_2022 <- ggplot(table_temp_2022, aes(x = month, y = temp, color = site, group = site)) +
   geom_line(method = "gam", se = FALSE, size = 2) +
-  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
-  geom_hline(yintercept = 20.8 , color = "coral2", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 20.8 , color = "burlywood3", linetype = "twodash", size = 1.5) +
-  geom_hline(yintercept = 19.9 , color = "palegreen4", linetype = "dashed", size = 1.5)+
+  geom_hline(yintercept = 20.8, color = "coral2", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8, color = "burlywood3", linetype = "twodash", size = 1.5) +
+  geom_hline(yintercept = 19.9, color = "palegreen4", linetype = "dashed", size = 1.5) +
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
   facet_grid(year ~ .) +
   labs(y = "", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 35, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
-  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+  theme_classic(base_size = 27) +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+        panel.grid.major.x = element_blank(),
+        axis.text = element_text(color = 'black'),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
   scale_y_continuous(limits = c(10, 32))
 
 library(ggpubr)
 temp_month <- ggarrange(temp_month_2019, temp_month_2021, temp_month_2022, common.legend = TRUE, legend = "bottom", nrow = 3)
 temp_month
-# ggsave("temp_month.tiff", plot = temp_month, device = "tiff",units="cm", width=32, height=24, dpi = 300)
 
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
-# library(ggplot2)
-# temp_month2<-ggplot(estadmet_temp, aes(x=month, y=temp, color=year, width=1)) +
-#   geom_smooth(method = "gam",se=F,size=1)+
-#   geom_hline(yintercept = 13.8 , color = "#f7db20", linetype = "dashed", size = 1.5) +
-#   geom_hline(yintercept = 13.0 , color = "#07c22c", linetype = "dashed", size = 1.5) +
-#   geom_hline(yintercept = 13.7 , color = "#522DAD", linetype = "dashed", size = 1.5)+
-#   scale_color_manual(values=c("#f7db20","#07c22c","#522DAD"))+
-#   facet_grid(site~.)+
-#   labs(y="°C", x="Month")+
-#   theme_classic()+
-#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-#   theme(panel.grid.major.x = element_blank())+
-#   theme(text = element_text(size=20, color='black'))+
-#   theme(axis.text = element_text(color='black'))+
-#   theme(legend.title=element_blank())+
-#   theme(legend.position = "bottom")+
-#   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
-# temp_month2
-
-table_temp_concordia <- estadmet_temp2 %>%
-  dplyr::filter(site == "Concordia")
-table_temp_palmar <- estadmet_temp2 %>%
-  dplyr::filter(site == "PN El Palmar")
-table_temp_gualeguaychu <- estadmet_temp2 %>%
-  dplyr::filter(site == "Gualeguaychú")
+table_temp_concordia <- estadmet_temp2 %>% dplyr::filter(site == "Concordia")
+table_temp_palmar <- estadmet_temp2 %>% dplyr::filter(site == "PN El Palmar")
+table_temp_gualeguaychu <- estadmet_temp2 %>% dplyr::filter(site == "Gualeguaychú")
 
 library(ggplot2)
 temp_month_concordia <- ggplot(table_temp_concordia, aes(x = month, y = temp, color = year, group = year)) +
   geom_line(method = "gam", se = FALSE, size = 2) +
-  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
-  geom_hline(yintercept = 21.7 , color = "#f7db20", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 22.0 , color = "#07c22c", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 20.8 , color = "#522DAD", linetype = "dashed", size = 1.5)+
-  scale_color_manual(values=c("#f7db20","#07c22c","#522DAD"))+
+  geom_hline(yintercept = 21.7, color = "#f7db20", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 22.0, color = "#07c22c", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8, color = "#522DAD", linetype = "dashed", size = 1.5) +
+  scale_color_manual(values = c("#f7db20", "#07c22c", "#522DAD")) +
   facet_grid(site ~ .) +
   labs(y = "", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 30, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
+  theme_classic(base_size = 27) +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+        panel.grid.major.x = element_blank(),
+        axis.text = element_text(color = 'black'),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_x_continuous(breaks = 1:12, labels = rep("", 12)) +
   scale_y_continuous(limits = c(10, 32))
 
 temp_month_palmar <- ggplot(table_temp_palmar, aes(x = month, y = temp, color = year, group = year)) +
   geom_line(method = "gam", se = FALSE, size = 2) +
-  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
-  geom_hline(yintercept = 21.5 , color = "#f7db20", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 22.2 , color = "#07c22c", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 20.8 , color = "#522DAD", linetype = "dashed", size = 1.5)+
-  scale_color_manual(values=c("#f7db20","#07c22c","#522DAD"))+
+  geom_hline(yintercept = 21.5, color = "#f7db20", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 22.2, color = "#07c22c", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 20.8, color = "#522DAD", linetype = "dashed", size = 1.5) +
+  scale_color_manual(values = c("#f7db20", "#07c22c", "#522DAD")) +
   facet_grid(site ~ .) +
   labs(y = "Temperatura (°C)", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 27, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
+  theme_classic(base_size = 27) +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+        panel.grid.major.x = element_blank(),
+        axis.text = element_text(color = 'black'),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = c("", "", "", "", "", "", "", "", "", "", "", ""))+
+  scale_x_continuous(breaks = 1:12, labels = rep("", 12)) +
   scale_y_continuous(limits = c(10, 32))
 
 temp_month_gualeguaychu <- ggplot(table_temp_gualeguaychu, aes(x = month, y = temp, color = year, group = year)) +
   geom_line(method = "gam", se = FALSE, size = 2) +
-  # geom_smooth(aes(y = Mean_temp, color = site), linetype = 4, size = 1)+
-  geom_hline(yintercept = 20.8 , color = "#f7db20", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 21.4 , color = "#07c22c", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 19.9 , color = "#522DAD", linetype = "dashed", size = 1.5)+
-  scale_color_manual(values=c("#f7db20","#07c22c","#522DAD"))+
+  geom_hline(yintercept = 20.8, color = "#f7db20", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 21.4, color = "#07c22c", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 19.9, color = "#522DAD", linetype = "dashed", size = 1.5) +
+  scale_color_manual(values = c("#f7db20", "#07c22c", "#522DAD")) +
   facet_grid(site ~ .) +
   labs(y = "", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 27, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
-  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+  theme_classic(base_size = 27) +
+  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+        panel.grid.major.x = element_blank(),
+        axis.text = element_text(color = 'black'),
+        legend.title = element_blank(),
+        legend.position = "bottom") +
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
   scale_y_continuous(limits = c(10, 32))
 
 library(ggpubr)
 temp_month_years <- ggarrange(temp_month_concordia, temp_month_palmar, temp_month_gualeguaychu, common.legend = TRUE, legend = "bottom", nrow = 3)
 temp_month_years
-# ggsave("temp_month_years", plot = temp_month_years, device = "tiff",units="cm", width=32, height=24, dpi = 300)
+
 ```
 
 ## Humedad Relativa
@@ -332,12 +295,12 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estadmet_hr <- summarySE(datamet, measurevar="hr", groupvars=c("site","year", "month"))
-estadmet_hr
+estadmet_hr[,-c(8)]
 
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 # library(ggplot2)
 # hr_month<-ggplot(estadmet_hr, aes(x=month, y=hr, color=site, width=1)) +
@@ -433,7 +396,7 @@ hr_month
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 datacor_temp_hr<-data.frame(estadmet_hr$hr, estadmet_temp$temp)
 
@@ -551,12 +514,12 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(Rmisc)
 estadmet_wind <- summarySE(datamet, measurevar="wind", groupvars=c("site","year", "month"))
-estadmet_wind
+estadmet_wind[,-c(8)]
 
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 table_wind_2019 <- estadmet_wind %>%
   dplyr::filter(year == 2019)
@@ -650,7 +613,7 @@ wind_month
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 table_wind_concordia <- estadmet_wind %>%
   dplyr::filter(site == "Concordia")
@@ -735,7 +698,7 @@ print(datamet_prec, n=105)
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 
 table_acum_2019 <- datamet_prec %>%
@@ -810,7 +773,7 @@ acum_month
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 table_prec_concordia <- datamet_prec %>%
   dplyr::filter(site == "Concordia")
@@ -884,60 +847,53 @@ prec_month_y
 ```
 
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 # library(ggplot2)
 # 
-prec_month <- ggplot(estadmet_prec, aes(x = month, y = acum, fill = site, width = .4)) +
-  geom_hline(yintercept = 114, color = "coral4", linetype = 5, size = 0.5) +
-  geom_hline(yintercept = 110, color = "burlywood2", linetype = 5, size = 0.5) +
-  geom_hline(yintercept = 107, color = "palegreen4", linetype = 5, size = 0.5) +
-  stat_summary(fun = "mean", size = .4, geom = "bar", position = position_dodge(0.6), color = "blue") +
-  scale_fill_manual(values = c("coral1", "burlywood2", "palegreen4")) +
-  facet_grid(year ~ .) +
-  labs(y = "Precipitaciones (mm)", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 35, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
-  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
+# prec_month <- ggplot(estadmet_prec, aes(x = month, y = acum, fill = site, width = .4)) +
+#   geom_hline(yintercept = 114, color = "coral4", linetype = 5, size = 0.5) +
+#   geom_hline(yintercept = 110, color = "burlywood2", linetype = 5, size = 0.5) +
+#   geom_hline(yintercept = 107, color = "palegreen4", linetype = 5, size = 0.5) +
+#   stat_summary(fun = "mean", size = .4, geom = "bar", position = position_dodge(0.6), color = "blue") +
+#   scale_fill_manual(values = c("coral1", "burlywood2", "palegreen4")) +
+#   facet_grid(year ~ .) +
+#   labs(y = "Precipitaciones (mm)", x = "") +
+#   theme_classic() +
+#   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+#   theme(panel.grid.major.x = element_blank()) +
+#   theme(text = element_text(size = 35, color = 'black')) +
+#   theme(axis.text = element_text(color = 'black')) +
+#   theme(legend.title = element_blank()) +
+#   theme(legend.position = "bottom") +
+#   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
+# # 
+# # prec_month
+# # ggsave("prec_month.tiff", plot = prec_month, device = "tiff",units="cm", width=32, height=24, dpi = 300)
 # 
-# prec_month
-# ggsave("prec_month.tiff", plot = prec_month, device = "tiff",units="cm", width=32, height=24, dpi = 300)
-
-# library(Rmisc)
-# estadmet_prec_year <- summarySE(pp_table, measurevar="acum", groupvars=c("year"))
-# 
-# library(ggplot2)
-# 
-prec_month_y <- ggplot(pp_table, aes(x = month, y = acum, fill = year, width = .4)) +
-  geom_hline(yintercept = 153.0, color = "#f7db20", linetype = 5, size = 0.5) +
-  geom_hline(yintercept = 82.9, color = "#07c22c", linetype = 5, size = 0.5) +
-  geom_hline(yintercept = 93.4, color = "#522DAD", linetype = 5, size = 0.5) +
-  stat_summary(fun = "mean", size = .4, geom = "bar", position = position_dodge(0.6), color = "blue") +
-  scale_fill_manual(values = c("#f7db20","#07c22c","#522DAD")) +
-  facet_grid(site ~ .) +
-  labs(y = "Precipitaciones (mm)", x = "") +
-  theme_classic() +
-  theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-  theme(panel.grid.major.x = element_blank()) +
-  theme(text = element_text(size = 34, color = 'black')) +
-  theme(axis.text = element_text(color = 'black')) +
-  theme(legend.title = element_blank()) +
-  theme(legend.position = "bottom") +
-  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
+# # library(Rmisc)
+# # estadmet_prec_year <- summarySE(pp_table, measurevar="acum", groupvars=c("year"))
+# # 
+# # library(ggplot2)
+# # 
+# prec_month_y <- ggplot(pp_table, aes(x = month, y = acum, fill = year, width = .4)) +
+#   geom_hline(yintercept = 153.0, color = "#f7db20", linetype = 5, size = 0.5) +
+#   geom_hline(yintercept = 82.9, color = "#07c22c", linetype = 5, size = 0.5) +
+#   geom_hline(yintercept = 93.4, color = "#522DAD", linetype = 5, size = 0.5) +
+#   stat_summary(fun = "mean", size = .4, geom = "bar", position = position_dodge(0.6), color = "blue") +
+#   scale_fill_manual(values = c("#f7db20","#07c22c","#522DAD")) +
+#   facet_grid(site ~ .) +
+#   labs(y = "Precipitaciones (mm)", x = "") +
+#   theme_classic() +
+#   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+#   theme(panel.grid.major.x = element_blank()) +
+#   theme(text = element_text(size = 34, color = 'black')) +
+#   theme(axis.text = element_text(color = 'black')) +
+#   theme(legend.title = element_blank()) +
+#   theme(legend.position = "bottom") +
+#   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))
 # 
 # prec_month_y
 
 ```
 
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=20}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='70%')
-
-
-
-```

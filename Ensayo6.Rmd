@@ -9,6 +9,7 @@ output:
      smooth_scroll: true
 ---
 
+**Encabezado de la base de datos**
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -23,6 +24,7 @@ print(ensayo6)
 
 ```
 
+**Gráfico de perfiles**
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -51,7 +53,7 @@ gg_interac6 <- ggplot(interaction_data, aes(x = dia, y = mean_respiracion, color
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=50, color='black'))+
+  theme(text = element_text(size=27, color='black'))+
   theme(axis.text = element_text(color='black'))+
   # scale_x_continuous(breaks = c(1, 3, 5, 7))+
   scale_y_continuous(breaks = seq(0,210, 40), limits = c(0, 210))
@@ -60,8 +62,10 @@ gg_interac6
 
 ```
 
+**Resumen del modelo**
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+library(nlme)
 
 ensayo6$dia <- as.factor(ensayo6$dia)
 
@@ -128,8 +132,11 @@ gamma_model <- glm(respiracion ~ Tratamiento * dia,
 comp_mod <- AIC(model_resp6_full, model_resp6_ident, model_resp6_ident_ML, model_resp6_varpower_f, model_resp6_varpower, model_resp6_varexp_f, model_resp6_varexp,
     model_resp6_full_log, model_resp6_ident_log, model_resp6_ident_ML_log, model_resp6_varpower_f_log, model_resp6_varpower_log, model_resp6_varexp_f_log, model_resp6_varexp_log, gamma_model)
 
+summary(model_resp6_ident_ML_log)
+
 ```
 
+**Supuestos del modelo**
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -187,6 +194,7 @@ print(shapiro_test)
 
 ```
 
+**Resultado ANOVA**
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -197,6 +205,7 @@ Anova(model_resp6_ident_ML_log)
 
 ```
 
+**Comparaciones**
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -253,6 +262,7 @@ print(interaction_data_with_sd)
 
 ```
 
+**Gráfico de barras**
 ```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -271,7 +281,7 @@ gg_resp_TD <- ggplot(interaction_data_with_sd, aes(x = dia, y = mean_respiracion
   theme(legend.position='bottom')+
   theme(panel.grid.major.y = element_line(color='black'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=40, color='black'))+
+  theme(text = element_text(size=27, color='black'))+
   theme(axis.text = element_text(color='black'))+
   scale_y_continuous(breaks = seq(0,210, 40), limits = c(0, 210))+
   annotate("text", x = 1+0.1, y = interaction_data_with_sd$mean_respiracion.x[1] + interaction_data_with_sd$sd_model_response[1] + 7, label = "a", size = 8) +
@@ -292,3 +302,4 @@ gg_resp_TD
 # ggsave("gg_resp_TD.tiff", plot = gg_resp_TD, device = "tiff", width = 15, height = 8, units = "in", dpi = 300)
 
 ```
+Tasa de respiración de frutos de H. edulis a los 1, 3 y 5 días desde cosecha y conservados a 1 °C y a los 7 días (5 días a 1 °C más 2 días a 20 °C) tratados con Etileno y 1-MCP. Letras diferentes indican diferencias significativas en los efectos simples para cada día según el Test de Tukey (p < 0,05). Las barras representan el error estándar de la media (n = 3).

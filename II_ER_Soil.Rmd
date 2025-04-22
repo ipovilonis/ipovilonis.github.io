@@ -5,7 +5,7 @@ title: "Suelo en Entre Ríos"
 
 # Análisis de laboratorio
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(readxl)
@@ -28,68 +28,9 @@ suelo$Sitio<-factor(suelo$Sitio,levels=c("Concordia", "Palmar","Gualeguaychu","M
 
 ```
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# # Crea un vector con las variables respuesta
-# variables_respuesta_suelo <- c("CE", "H2O_saturacion","pH_agua", "pH_CaCl2","pH_KCl", "MO","CO", "NO","C_N")
-# 
-# # Inicializa una lista para almacenar las tablas y otra lista para los gráficos
-# tablas_ER_suelo <- list()
-# graficos_ER_suelo <- list()
-# 
-# library(dplyr)
-# 
-# for(variable in variables_respuesta_suelo) {
-#   # Crea la tabla resumen
-#   assign(paste0("ER_suelo_", variable), suelo %>%
-#     dplyr::group_by(Sitio) %>%
-#     dplyr::summarise(n = n(),
-#                       Mean = mean(.data[[variable]]),
-#                       sd = sd(.data[[variable]]),
-#                       min = min(.data[[variable]]),
-#                       max = max(.data[[variable]]))
-#   )
-# 
-#   # Agrega la tabla a la lista
-#   tablas_ER_suelo[[variable]] <- get(paste0("ER_suelo_", variable))
-# 
-#   # Crea el gráfico
-#   library(ggplot2)
-# gg_plot <- ggplot(tablas_ER_suelo[[variable]], aes(x = Sitio, y = Mean, fill = Sitio)) +
-#   scale_fill_manual(values = c("coral4","burlywood2","palegreen4","#293487")) +
-#   stat_summary(fun = "mean", size = 1, geom = "bar") +
-#   geom_errorbar(aes(ymin = min, ymax = max), width = 0.5) +
-#   theme_classic() +
-#   theme(legend.title = element_blank()) +
-#   theme(legend.position = "none") +
-#   theme(text = element_text(size = 15, color = 'black')) +
-#   theme(axis.text = element_text(color = 'black')) +
-#   labs(y=paste0("", variable), x="")
-# 
-# assign(paste0("ER_suelo_gg_", variable), gg_plot)
-# 
-#     # Agrega el gráfico a la lista
-# graficos_ER_suelo[[variable]] <- get(paste0("ER_suelo_gg_", variable))
-# 
-# }
-# 
-# library(ggpubr)
-# ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3)
-# ER_gg_soil
-
-```
-
 Gráficos de suelo
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-# library(ggpubr)
-# ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3)
-# ER_gg_soil
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=16}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=24}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(dplyr)
@@ -175,11 +116,16 @@ for (i in seq_along(variables_respuesta_suelo)) {
 
 # Combina todos los gráficos en una sola imagen con una leyenda común
 ER_gg_soil <- ggarrange(plotlist = graficos_ER_suelo, ncol = 3, nrow = 3, common.legend = TRUE, legend = "bottom")
+```
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.5, fig.width=26, fig.height=30}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width='100%')
 
 print(ER_gg_soil)
 
-
 ```
+Resultados de análisis de suelo para los sitios Concordia, PN El Palmar, Gualeguaychú y Moreno para las variables pH potencial, actual e hidrolítico, Conductividad eléctrica (mS/cm), Saturación de agua (%), carbono orgánico (%), nitrógeno orgánico (%) y relación carbono/nitrógeno. Las barras indican el desvío estándar. Letras diferentes en cada columna indican diferencias estadísticas de acuerdo al test de Tukey a p ≤ 0,05.
 
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)

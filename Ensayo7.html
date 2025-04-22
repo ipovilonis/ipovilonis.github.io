@@ -611,46 +611,46 @@ and their characterization as functional food.</p></li>
 <h3>Descriptive statistics</h3>
 <div id="boxplot" class="section level4">
 <h4>Boxplot</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="with-standard-deviation" class="section level4">
 <h4>With standard deviation</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="profile-chart" class="section level4">
 <h4>Profile chart</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-5-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-5-2.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="behavior-by-fruit" class="section level4">
 <h4>Behavior by fruit</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-6-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="inferential-statistics-weight" class="section level3">
 <h3>Inferential statistics WEIGHT</h3>
 <div id="correlation-over-time" class="section level4">
 <h4>Correlation over time</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="selection-of-models-by-aic" class="section level4">
 <h4>Selection of models by AIC</h4>
-<pre><code>##     df         AIC
-## m1p 12  138.314098
-## m2p 13  127.062036
-## m3p 12 -136.991774
-## m4p 13 -136.483887
-## m5p 21 -270.309382
-## m6p 12  138.314098</code></pre>
+<pre><code>##     df       AIC
+## m1p 12  138.3141
+## m2p 13  127.0620
+## m3p 12 -136.9918
+## m4p 13 -136.4839
+## m5p 21 -270.3094
+## m6p 12  138.3141</code></pre>
 <p>The m5p model is the best in terms of AIC</p>
 </div>
 <div id="assumptions" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-10-2.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-10-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-10-2.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-10-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  m5p$residuals
-## W = 0.9865874, p-value = 0.000629931</code></pre>
+## W = 0.98659, p-value = 0.0006299</code></pre>
 </div>
 <div id="marginal-covariance-matrix" class="section level4">
 <h4>Marginal covariance matrix</h4>
@@ -668,11 +668,11 @@ and their characterization as functional food.</p></li>
 <pre><code>## Analysis of Deviance Table (Type III tests)
 ## 
 ## Response: PESO
-##             Df      Chisq           Pr(&gt;Chisq)    
-## (Intercept)  1 1407.93987 &lt; 0.0000000000000002 ***
-## TEMP         1    0.58585              0.44403    
-## DIA          4  726.46878 &lt; 0.0000000000000002 ***
-## TEMP:DIA     4  176.77090 &lt; 0.0000000000000002 ***
+##             Df     Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 1407.9399     &lt;2e-16 ***
+## TEMP         1    0.5858      0.444    
+## DIA          4  726.4688     &lt;2e-16 ***
+## TEMP:DIA     4  176.7709     &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>There is interaction Time * Temperature. Interaction comparisons are
@@ -680,52 +680,52 @@ made and simple effects are analyzed.</p>
 </div>
 <div id="interaction-comparisons" class="section level4">
 <h4>Interaction comparisons</h4>
-<pre><code>##  contrast                      estimate          SE  df t.ratio p.value
-##  TEMP5 DIA0 - TEMP9 DIA0    0.411436595 0.537538799 401   0.765  0.9990
-##  TEMP5 DIA0 - TEMP5 DIA3    0.241909797 0.014462754 401  16.726  &lt;.0001
-##  TEMP5 DIA0 - TEMP9 DIA3    0.749258817 0.537538799 401   1.394  0.9287
-##  TEMP5 DIA0 - TEMP5 DIA7    0.432372127 0.020150196 401  21.457  &lt;.0001
-##  TEMP5 DIA0 - TEMP9 DIA7    0.843858817 0.537538799 401   1.570  0.8619
-##  TEMP5 DIA0 - TEMP5 DIA10   0.696171982 0.029708227 401  23.434  &lt;.0001
-##  TEMP5 DIA0 - TEMP9 DIA10   1.112269354 0.537596150 401   2.069  0.5506
-##  TEMP5 DIA0 - TEMP5 DIA14   0.963240391 0.040068140 401  24.040  &lt;.0001
-##  TEMP5 DIA0 - TEMP9 DIA14   1.334814017 0.537822090 401   2.482  0.2814
-##  TEMP9 DIA0 - TEMP5 DIA3   -0.169526798 0.537558314 401  -0.315  1.0000
-##  TEMP9 DIA0 - TEMP9 DIA3    0.337822222 0.015376691 401  21.970  &lt;.0001
-##  TEMP9 DIA0 - TEMP5 DIA7    0.020935532 0.537565665 401   0.039  1.0000
-##  TEMP9 DIA0 - TEMP9 DIA7    0.432422222 0.021455332 401  20.155  &lt;.0001
-##  TEMP9 DIA0 - TEMP5 DIA10   0.284735387 0.537579593 401   0.530  1.0000
-##  TEMP9 DIA0 - TEMP9 DIA10   0.700832759 0.032801768 401  21.366  &lt;.0001
-##  TEMP9 DIA0 - TEMP5 DIA14   0.551803796 0.537592385 401   1.026  0.9905
-##  TEMP9 DIA0 - TEMP9 DIA14   0.923377422 0.046624562 401  19.805  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA3    0.507349020 0.537558314 401   0.944  0.9949
-##  TEMP5 DIA3 - TEMP5 DIA7    0.190462330 0.008288244 401  22.980  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA7    0.601949020 0.537558314 401   1.120  0.9825
-##  TEMP5 DIA3 - TEMP5 DIA10   0.454262185 0.017363973 401  26.161  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA10   0.870359557 0.537615663 401   1.619  0.8384
-##  TEMP5 DIA3 - TEMP5 DIA14   0.721330594 0.028554157 401  25.262  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA14   1.092904220 0.537841595 401   2.032  0.5769
-##  TEMP9 DIA3 - TEMP5 DIA7   -0.316886691 0.537565665 401  -0.589  0.9999
-##  TEMP9 DIA3 - TEMP9 DIA7    0.094600000 0.008796311 401  10.755  &lt;.0001
-##  TEMP9 DIA3 - TEMP5 DIA10  -0.053086835 0.537579593 401  -0.099  1.0000
-##  TEMP9 DIA3 - TEMP9 DIA10   0.363010537 0.020250061 401  17.926  &lt;.0001
-##  TEMP9 DIA3 - TEMP5 DIA14   0.213981573 0.537592385 401   0.398  1.0000
-##  TEMP9 DIA3 - TEMP9 DIA14   0.585555200 0.035439187 401  16.523  &lt;.0001
-##  TEMP5 DIA7 - TEMP9 DIA7    0.411486691 0.537565665 401   0.765  0.9990
-##  TEMP5 DIA7 - TEMP5 DIA10   0.263799855 0.011698549 401  22.550  &lt;.0001
-##  TEMP5 DIA7 - TEMP9 DIA10   0.679897227 0.537623014 401   1.265  0.9608
-##  TEMP5 DIA7 - TEMP5 DIA14   0.530868264 0.023326413 401  22.758  &lt;.0001
-##  TEMP5 DIA7 - TEMP9 DIA14   0.902441890 0.537848942 401   1.678  0.8074
-##  TEMP9 DIA7 - TEMP5 DIA10  -0.147686835 0.537579593 401  -0.275  1.0000
-##  TEMP9 DIA7 - TEMP9 DIA10   0.268410537 0.014828837 401  18.101  &lt;.0001
-##  TEMP9 DIA7 - TEMP5 DIA14   0.119381573 0.537592385 401   0.222  1.0000
-##  TEMP9 DIA7 - TEMP9 DIA14   0.490955200 0.030615180 401  16.036  &lt;.0001
-##  TEMP5 DIA10 - TEMP9 DIA10  0.416097372 0.537636940 401   0.774  0.9989
-##  TEMP5 DIA10 - TEMP5 DIA14  0.267068409 0.015004288 401  17.799  &lt;.0001
-##  TEMP5 DIA10 - TEMP9 DIA14  0.638642035 0.537862863 401   1.187  0.9740
-##  TEMP9 DIA10 - TEMP5 DIA14 -0.149028963 0.537649730 401  -0.277  1.0000
-##  TEMP9 DIA10 - TEMP9 DIA14  0.222544663 0.020741944 401  10.729  &lt;.0001
-##  TEMP5 DIA14 - TEMP9 DIA14  0.371573626 0.537875648 401   0.691  0.9996
+<pre><code>##  contrast                    estimate        SE  df t.ratio p.value
+##  TEMP5 DIA0 - TEMP9 DIA0    0.4114366 0.5375388 401   0.765  0.9990
+##  TEMP5 DIA0 - TEMP5 DIA3    0.2419098 0.0144628 401  16.726  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA3    0.7492588 0.5375388 401   1.394  0.9287
+##  TEMP5 DIA0 - TEMP5 DIA7    0.4323721 0.0201502 401  21.457  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA7    0.8438588 0.5375388 401   1.570  0.8619
+##  TEMP5 DIA0 - TEMP5 DIA10   0.6961720 0.0297082 401  23.434  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA10   1.1122694 0.5375961 401   2.069  0.5506
+##  TEMP5 DIA0 - TEMP5 DIA14   0.9632404 0.0400681 401  24.040  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA14   1.3348140 0.5378221 401   2.482  0.2814
+##  TEMP9 DIA0 - TEMP5 DIA3   -0.1695268 0.5375583 401  -0.315  1.0000
+##  TEMP9 DIA0 - TEMP9 DIA3    0.3378222 0.0153767 401  21.970  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA7    0.0209355 0.5375657 401   0.039  1.0000
+##  TEMP9 DIA0 - TEMP9 DIA7    0.4324222 0.0214553 401  20.155  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA10   0.2847354 0.5375796 401   0.530  1.0000
+##  TEMP9 DIA0 - TEMP9 DIA10   0.7008328 0.0328018 401  21.366  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA14   0.5518038 0.5375924 401   1.026  0.9905
+##  TEMP9 DIA0 - TEMP9 DIA14   0.9233774 0.0466246 401  19.805  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA3    0.5073490 0.5375583 401   0.944  0.9949
+##  TEMP5 DIA3 - TEMP5 DIA7    0.1904623 0.0082882 401  22.980  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA7    0.6019490 0.5375583 401   1.120  0.9825
+##  TEMP5 DIA3 - TEMP5 DIA10   0.4542622 0.0173640 401  26.161  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA10   0.8703596 0.5376157 401   1.619  0.8384
+##  TEMP5 DIA3 - TEMP5 DIA14   0.7213306 0.0285542 401  25.262  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA14   1.0929042 0.5378416 401   2.032  0.5769
+##  TEMP9 DIA3 - TEMP5 DIA7   -0.3168867 0.5375657 401  -0.589  0.9999
+##  TEMP9 DIA3 - TEMP9 DIA7    0.0946000 0.0087963 401  10.755  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA10  -0.0530868 0.5375796 401  -0.099  1.0000
+##  TEMP9 DIA3 - TEMP9 DIA10   0.3630105 0.0202501 401  17.926  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA14   0.2139816 0.5375924 401   0.398  1.0000
+##  TEMP9 DIA3 - TEMP9 DIA14   0.5855552 0.0354392 401  16.523  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA7    0.4114867 0.5375657 401   0.765  0.9990
+##  TEMP5 DIA7 - TEMP5 DIA10   0.2637999 0.0116985 401  22.550  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA10   0.6798972 0.5376230 401   1.265  0.9608
+##  TEMP5 DIA7 - TEMP5 DIA14   0.5308683 0.0233264 401  22.758  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA14   0.9024419 0.5378489 401   1.678  0.8074
+##  TEMP9 DIA7 - TEMP5 DIA10  -0.1476868 0.5375796 401  -0.275  1.0000
+##  TEMP9 DIA7 - TEMP9 DIA10   0.2684105 0.0148288 401  18.101  &lt;.0001
+##  TEMP9 DIA7 - TEMP5 DIA14   0.1193816 0.5375924 401   0.222  1.0000
+##  TEMP9 DIA7 - TEMP9 DIA14   0.4909552 0.0306152 401  16.036  &lt;.0001
+##  TEMP5 DIA10 - TEMP9 DIA10  0.4160974 0.5376369 401   0.774  0.9989
+##  TEMP5 DIA10 - TEMP5 DIA14  0.2670684 0.0150043 401  17.799  &lt;.0001
+##  TEMP5 DIA10 - TEMP9 DIA14  0.6386420 0.5378629 401   1.187  0.9740
+##  TEMP9 DIA10 - TEMP5 DIA14 -0.1490290 0.5376497 401  -0.277  1.0000
+##  TEMP9 DIA10 - TEMP9 DIA14  0.2225447 0.0207419 401  10.729  &lt;.0001
+##  TEMP5 DIA14 - TEMP9 DIA14  0.3715736 0.5378756 401   0.691  0.9996
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 10 estimates</code></pre>
@@ -734,32 +734,32 @@ made and simple effects are analyzed.</p>
 <div id="plot-with-standard-error-of-the-model-by-treatment."
 class="section level4">
 <h4>Plot with standard error of the model by treatment.</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="simple-effects" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 0.411436595 0.537538799 401   0.765  0.4445
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.4114366 0.5375388 401   0.765  0.4445
 ## 
 ## DIA = 3:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 0.507349020 0.537558314 401   0.944  0.3458
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.5073490 0.5375583 401   0.944  0.3458
 ## 
 ## DIA = 7:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 0.411486691 0.537565665 401   0.765  0.4444
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.4114867 0.5375657 401   0.765  0.4444
 ## 
 ## DIA = 10:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 0.416097372 0.537636940 401   0.774  0.4394
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.4160974 0.5376369 401   0.774  0.4394
 ## 
 ## DIA = 14:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 0.371573626 0.537875648 401   0.691  0.4901
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 0.3715736 0.5378756 401   0.691  0.4901
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusion-weigth" class="section level4">
 <h4>Conclusion Weigth</h4>
@@ -775,46 +775,46 @@ weight loss.</p>
 <h3>Descriptive statistics *L</h3>
 <div id="boxplot-1" class="section level4">
 <h4>Boxplot</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="graph-with-standard-deviation" class="section level4">
 <h4>Graph with standard deviation</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="profile-chart-1" class="section level4">
 <h4>Profile chart</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-21-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-21-2.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="behavior-by-fruit-1" class="section level4">
 <h4>Behavior by fruit</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-22-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="inferential-statistics-l" class="section level3">
 <h3>Inferential statistics *L</h3>
 <div id="correlation-over-time-1" class="section level4">
 <h4>Correlation over time</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-23-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="selection-of-models-by-aic-1" class="section level4">
 <h4>Selection of models by AIC</h4>
-<pre><code>##     df        AIC
-## m1L 12 2510.28222
-## m2L 16 2514.86996
-## m3L 12 2511.89337
-## m4L 16 2512.29958
-## m5L 21 2474.97445
-## m6L 12 2510.28222</code></pre>
+<pre><code>##     df      AIC
+## m1L 12 2510.282
+## m2L 16 2514.870
+## m3L 12 2511.893
+## m4L 16 2512.300
+## m5L 21 2474.974
+## m6L 12 2510.282</code></pre>
 <p>The <em>m5L</em> model is the best in terms of AIC.</p>
 </div>
 <div id="assumptions-1" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-26-2.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-26-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  L_ajuste$residuos
-## W = 0.9893121, p-value = 0.00286622</code></pre>
+## W = 0.98931, p-value = 0.002866</code></pre>
 </div>
 <div id="marginal-covariance-matrix-1" class="section level4">
 <h4>Marginal covariance matrix</h4>
@@ -832,11 +832,11 @@ weight loss.</p>
 <pre><code>## Analysis of Deviance Table (Type III tests)
 ## 
 ## Response: L
-##             Df      Chisq           Pr(&gt;Chisq)    
-## (Intercept)  1 9140.98438 &lt; 0.0000000000000002 ***
-## TEMP         1    0.20961             0.647072    
-## DIA          4   90.33470 &lt; 0.0000000000000002 ***
-## TEMP:DIA     4   17.02436             0.001912 ** 
+##             Df     Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 9140.9844  &lt; 2.2e-16 ***
+## TEMP         1    0.2096   0.647072    
+## DIA          4   90.3347  &lt; 2.2e-16 ***
+## TEMP:DIA     4   17.0244   0.001912 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>There is interaction Time * Temperature. Interaction comparisons are
@@ -844,52 +844,52 @@ made and simple effects are analyzed.</p>
 </div>
 <div id="interaction-comparisons-1" class="section level4">
 <h4>Interaction comparisons</h4>
-<pre><code>##  contrast                     estimate          SE  df t.ratio p.value
-##  TEMP5 DIA0 - TEMP9 DIA0    0.42517960 0.928676589 416   0.458  1.0000
-##  TEMP5 DIA0 - TEMP5 DIA3    1.09562327 0.510143321 416   2.148  0.4949
-##  TEMP5 DIA0 - TEMP9 DIA3   -0.06649305 0.925001633 416  -0.072  1.0000
-##  TEMP5 DIA0 - TEMP5 DIA7   -6.61214980 0.876778646 416  -7.541  &lt;.0001
-##  TEMP5 DIA0 - TEMP9 DIA7   -8.08387528 0.920557456 416  -8.781  &lt;.0001
-##  TEMP5 DIA0 - TEMP5 DIA10  -3.92490350 0.716768604 416  -5.476  &lt;.0001
-##  TEMP5 DIA0 - TEMP9 DIA10  -7.84025408 1.059105336 416  -7.403  &lt;.0001
-##  TEMP5 DIA0 - TEMP5 DIA14  -3.91431831 0.759998203 416  -5.150  &lt;.0001
-##  TEMP5 DIA0 - TEMP9 DIA14  -5.12195663 1.116650392 416  -4.587  0.0003
-##  TEMP9 DIA0 - TEMP5 DIA3    0.67044367 0.924714933 416   0.725  0.9993
-##  TEMP9 DIA0 - TEMP9 DIA3   -0.49167265 0.515693823 416  -0.953  0.9945
-##  TEMP9 DIA0 - TEMP5 DIA7   -7.03732940 0.925105107 416  -7.607  &lt;.0001
-##  TEMP9 DIA0 - TEMP9 DIA7   -8.50905488 0.877583202 416  -9.696  &lt;.0001
-##  TEMP9 DIA0 - TEMP5 DIA10  -4.35008310 0.934225372 416  -4.656  0.0002
-##  TEMP9 DIA0 - TEMP9 DIA10  -8.26543367 0.885358015 416  -9.336  &lt;.0001
-##  TEMP9 DIA0 - TEMP5 DIA14  -4.33949791 0.952860625 416  -4.554  0.0003
-##  TEMP9 DIA0 - TEMP9 DIA14  -5.54713623 0.969235596 416  -5.723  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA3   -1.16211632 0.921024170 416  -1.262  0.9614
-##  TEMP5 DIA3 - TEMP5 DIA7   -7.70777307 0.852133292 416  -9.045  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA7   -9.17949855 0.916560707 416 -10.015  &lt;.0001
-##  TEMP5 DIA3 - TEMP5 DIA10  -5.02052677 0.713020689 416  -7.041  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA10  -8.93587734 1.055633275 416  -8.465  &lt;.0001
-##  TEMP5 DIA3 - TEMP5 DIA14  -5.00994158 0.797230056 416  -6.284  &lt;.0001
-##  TEMP5 DIA3 - TEMP9 DIA14  -6.21757990 1.113357803 416  -5.585  &lt;.0001
-##  TEMP9 DIA3 - TEMP5 DIA7   -6.54565675 0.921415907 416  -7.104  &lt;.0001
-##  TEMP9 DIA3 - TEMP9 DIA7   -8.01738223 0.852837387 416  -9.401  &lt;.0001
-##  TEMP9 DIA3 - TEMP5 DIA10  -3.85841045 0.930572330 416  -4.146  0.0017
-##  TEMP9 DIA3 - TEMP9 DIA10  -7.77376102 0.881978089 416  -8.814  &lt;.0001
-##  TEMP9 DIA3 - TEMP5 DIA14  -3.84782526 0.949279298 416  -4.053  0.0024
-##  TEMP9 DIA3 - TEMP9 DIA14  -5.05546358 1.000580278 416  -5.053  &lt;.0001
-##  TEMP5 DIA7 - TEMP9 DIA7   -1.47172548 0.916954351 416  -1.605  0.8453
-##  TEMP5 DIA7 - TEMP5 DIA10   2.68724630 0.749558592 416   3.585  0.0137
-##  TEMP5 DIA7 - TEMP9 DIA10  -1.22810427 1.055975077 416  -1.163  0.9774
-##  TEMP5 DIA7 - TEMP5 DIA14   2.69783149 0.844204875 416   3.196  0.0479
-##  TEMP5 DIA7 - TEMP9 DIA14   1.49019317 1.113681889 416   1.338  0.9442
-##  TEMP9 DIA7 - TEMP5 DIA10   4.15897178 0.926154884 416   4.491  0.0004
-##  TEMP9 DIA7 - TEMP9 DIA10   0.24362120 0.894576041 416   0.272  1.0000
-##  TEMP9 DIA7 - TEMP5 DIA14   4.16955697 0.944949308 416   4.412  0.0005
-##  TEMP9 DIA7 - TEMP9 DIA14   2.96191864 1.028894300 416   2.879  0.1149
-##  TEMP5 DIA10 - TEMP9 DIA10 -3.91535058 1.063974131 416  -3.680  0.0098
-##  TEMP5 DIA10 - TEMP5 DIA14  0.01058519 0.655258169 416   0.016  1.0000
-##  TEMP5 DIA10 - TEMP9 DIA14 -1.19705314 1.121269342 416  -1.068  0.9875
-##  TEMP9 DIA10 - TEMP5 DIA14  3.92593577 1.080373675 416   3.634  0.0116
-##  TEMP9 DIA10 - TEMP9 DIA14  2.71829744 0.891182784 416   3.050  0.0728
-##  TEMP5 DIA14 - TEMP9 DIA14 -1.20763833 1.136842673 416  -1.062  0.9879
+<pre><code>##  contrast                   estimate        SE  df t.ratio p.value
+##  TEMP5 DIA0 - TEMP9 DIA0    0.425180 0.9286766 416   0.458  1.0000
+##  TEMP5 DIA0 - TEMP5 DIA3    1.095623 0.5101433 416   2.148  0.4949
+##  TEMP5 DIA0 - TEMP9 DIA3   -0.066493 0.9250016 416  -0.072  1.0000
+##  TEMP5 DIA0 - TEMP5 DIA7   -6.612150 0.8767786 416  -7.541  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA7   -8.083875 0.9205575 416  -8.781  &lt;.0001
+##  TEMP5 DIA0 - TEMP5 DIA10  -3.924903 0.7167686 416  -5.476  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA10  -7.840254 1.0591053 416  -7.403  &lt;.0001
+##  TEMP5 DIA0 - TEMP5 DIA14  -3.914318 0.7599982 416  -5.150  &lt;.0001
+##  TEMP5 DIA0 - TEMP9 DIA14  -5.121957 1.1166504 416  -4.587  0.0003
+##  TEMP9 DIA0 - TEMP5 DIA3    0.670444 0.9247149 416   0.725  0.9993
+##  TEMP9 DIA0 - TEMP9 DIA3   -0.491673 0.5156938 416  -0.953  0.9945
+##  TEMP9 DIA0 - TEMP5 DIA7   -7.037329 0.9251051 416  -7.607  &lt;.0001
+##  TEMP9 DIA0 - TEMP9 DIA7   -8.509055 0.8775832 416  -9.696  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA10  -4.350083 0.9342254 416  -4.656  0.0002
+##  TEMP9 DIA0 - TEMP9 DIA10  -8.265434 0.8853580 416  -9.336  &lt;.0001
+##  TEMP9 DIA0 - TEMP5 DIA14  -4.339498 0.9528606 416  -4.554  0.0003
+##  TEMP9 DIA0 - TEMP9 DIA14  -5.547136 0.9692356 416  -5.723  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA3   -1.162116 0.9210242 416  -1.262  0.9614
+##  TEMP5 DIA3 - TEMP5 DIA7   -7.707773 0.8521333 416  -9.045  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA7   -9.179499 0.9165607 416 -10.015  &lt;.0001
+##  TEMP5 DIA3 - TEMP5 DIA10  -5.020527 0.7130207 416  -7.041  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA10  -8.935877 1.0556333 416  -8.465  &lt;.0001
+##  TEMP5 DIA3 - TEMP5 DIA14  -5.009942 0.7972301 416  -6.284  &lt;.0001
+##  TEMP5 DIA3 - TEMP9 DIA14  -6.217580 1.1133578 416  -5.585  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA7   -6.545657 0.9214159 416  -7.104  &lt;.0001
+##  TEMP9 DIA3 - TEMP9 DIA7   -8.017382 0.8528374 416  -9.401  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA10  -3.858410 0.9305723 416  -4.146  0.0017
+##  TEMP9 DIA3 - TEMP9 DIA10  -7.773761 0.8819781 416  -8.814  &lt;.0001
+##  TEMP9 DIA3 - TEMP5 DIA14  -3.847825 0.9492793 416  -4.053  0.0024
+##  TEMP9 DIA3 - TEMP9 DIA14  -5.055464 1.0005803 416  -5.053  &lt;.0001
+##  TEMP5 DIA7 - TEMP9 DIA7   -1.471725 0.9169544 416  -1.605  0.8453
+##  TEMP5 DIA7 - TEMP5 DIA10   2.687246 0.7495586 416   3.585  0.0137
+##  TEMP5 DIA7 - TEMP9 DIA10  -1.228104 1.0559751 416  -1.163  0.9774
+##  TEMP5 DIA7 - TEMP5 DIA14   2.697831 0.8442049 416   3.196  0.0479
+##  TEMP5 DIA7 - TEMP9 DIA14   1.490193 1.1136819 416   1.338  0.9442
+##  TEMP9 DIA7 - TEMP5 DIA10   4.158972 0.9261549 416   4.491  0.0004
+##  TEMP9 DIA7 - TEMP9 DIA10   0.243621 0.8945760 416   0.272  1.0000
+##  TEMP9 DIA7 - TEMP5 DIA14   4.169557 0.9449493 416   4.412  0.0005
+##  TEMP9 DIA7 - TEMP9 DIA14   2.961919 1.0288943 416   2.879  0.1149
+##  TEMP5 DIA10 - TEMP9 DIA10 -3.915351 1.0639741 416  -3.680  0.0098
+##  TEMP5 DIA10 - TEMP5 DIA14  0.010585 0.6552582 416   0.016  1.0000
+##  TEMP5 DIA10 - TEMP9 DIA14 -1.197053 1.1212693 416  -1.068  0.9875
+##  TEMP9 DIA10 - TEMP5 DIA14  3.925936 1.0803737 416   3.634  0.0116
+##  TEMP9 DIA10 - TEMP9 DIA14  2.718297 0.8911828 416   3.050  0.0728
+##  TEMP5 DIA14 - TEMP9 DIA14 -1.207638 1.1368427 416  -1.062  0.9879
 ## 
 ## Degrees-of-freedom method: df.error 
 ## P value adjustment: tukey method for comparing a family of 10 estimates</code></pre>
@@ -897,32 +897,32 @@ made and simple effects are analyzed.</p>
 <div id="graph-with-standard-error-of-the-model-for-each-treatment."
 class="section level4">
 <h4>Graph with standard error of the model for each treatment.</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="simple-effects-1" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9  0.42517960 0.928676589 416   0.458  0.6473
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.425180 0.9286766 416   0.458  0.6473
 ## 
 ## DIA = 3:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -1.16211632 0.921024170 416  -1.262  0.2077
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -1.162116 0.9210242 416  -1.262  0.2077
 ## 
 ## DIA = 7:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -1.47172548 0.916954351 416  -1.605  0.1092
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -1.471725 0.9169544 416  -1.605  0.1092
 ## 
 ## DIA = 10:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -3.91535058 1.063974131 416  -3.680  0.0003
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -3.915351 1.0639741 416  -3.680  0.0003
 ## 
 ## DIA = 14:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -1.20763833 1.136842673 416  -1.062  0.2887
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -1.207638 1.1368427 416  -1.062  0.2887
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-31-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusion-l" class="section level4">
 <h4>Conclusion *L</h4>
@@ -937,45 +937,45 @@ temperatures.</p>
 <h3>Descriptive statistics *a</h3>
 <div id="boxplot-2" class="section level4">
 <h4>Boxplot</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-34-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-34-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="graph-with-standard-deviation-1" class="section level4">
 <h4>Graph with standard deviation</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-35-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="profile-chart-2" class="section level4">
 <h4>Profile chart</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-36-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-36-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-36-2.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="behavior-by-fruit-2" class="section level4">
 <h4>Behavior by fruit</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-37-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-37-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="inferential-statistics-a" class="section level3">
 <h3>Inferential statistics *a</h3>
 <div id="correlation-over-time-2" class="section level4">
 <h4>Correlation over time</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-38-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="selection-of-models-by-aic-2" class="section level4">
 <h4>Selection of models by AIC</h4>
-<pre><code>##     df        AIC
-## m1a 12 2372.18558
-## m2a 16 2358.44584
-## m3a 12 2390.28051
-## m4a 16 2370.49624
-## m5a 21 2249.60472</code></pre>
+<pre><code>##     df      AIC
+## m1a 12 2372.186
+## m2a 16 2358.446
+## m3a 12 2390.281
+## m4a 16 2370.496
+## m5a 21 2249.605</code></pre>
 <p>The model <em>m5a</em> is the best in terms of AIC</p>
 </div>
 <div id="assumptions-2" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-41-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-41-2.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-41-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-41-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-41-2.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-41-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  a_ajuste$residuos
-## W = 0.9891595, p-value = 0.00242111</code></pre>
+## W = 0.98916, p-value = 0.002421</code></pre>
 </div>
 <div id="marginal-covariance-matrix-2" class="section level4">
 <h4>Marginal covariance matrix</h4>
@@ -993,11 +993,11 @@ temperatures.</p>
 <pre><code>## Analysis of Deviance Table (Type III tests)
 ## 
 ## Response: a
-##             Df     Chisq          Pr(&gt;Chisq)    
-## (Intercept)  1 582.21867 &lt;0.0000000000000002 ***
-## TEMP         1   1.18568              0.2762    
-## DIA          4 460.48647 &lt;0.0000000000000002 ***
-## TEMP:DIA     4 106.91642 &lt;0.0000000000000002 ***
+##             Df    Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 582.2187     &lt;2e-16 ***
+## TEMP         1   1.1857     0.2762    
+## DIA          4 460.4865     &lt;2e-16 ***
+## TEMP:DIA     4 106.9164     &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>There is interaction Time * Temperature. Interaction comparisons are
@@ -1006,56 +1006,56 @@ made and simple effects are analyzed.</p>
 <div id="interaction-comparisons-2" class="section level4">
 <h4>Interaction comparisons</h4>
 <pre><code>## DIA = 0:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9  0.82421854 0.756935935 420   1.089  0.2768
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.824219 0.7569359 420   1.089  0.2768
 ## 
 ## DIA = 3:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -0.80382018 0.756933618 420  -1.062  0.2889
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -0.803820 0.7569336 420  -1.062  0.2889
 ## 
 ## DIA = 7:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -4.61796084 0.756911358 420  -6.101  &lt;.0001
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.617961 0.7569114 420  -6.101  &lt;.0001
 ## 
 ## DIA = 10:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -7.76165970 0.872026996 420  -8.901  &lt;.0001
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -7.761660 0.8720270 420  -8.901  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -8.78040559 0.914005889 420  -9.607  &lt;.0001
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -8.780406 0.9140059 420  -9.607  &lt;.0001
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 </div>
 <div id="graph-with-standard-error-of-the-model-for-each-treatment.-1"
 class="section level4">
 <h4>Graph with standard error of the model for each treatment.</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-45-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-45-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="simple-effects-2" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9  0.82421854 0.756935935 420   1.089  0.2768
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.824219 0.7569359 420   1.089  0.2768
 ## 
 ## DIA = 3:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -0.80382018 0.756933618 420  -1.062  0.2889
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -0.803820 0.7569336 420  -1.062  0.2889
 ## 
 ## DIA = 7:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -4.61796084 0.756911358 420  -6.101  &lt;.0001
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.617961 0.7569114 420  -6.101  &lt;.0001
 ## 
 ## DIA = 10:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -7.76165970 0.872026996 420  -8.901  &lt;.0001
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -7.761660 0.8720270 420  -8.901  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast         estimate          SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -8.78040559 0.914005889 420  -9.607  &lt;.0001
+##  contrast       estimate        SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -8.780406 0.9140059 420  -9.607  &lt;.0001
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-46-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-46-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="conclusion-a" class="section level4">
 <h4>Conclusion *a</h4>
@@ -1070,45 +1070,45 @@ temperatures.</p>
 <h3>Descriptive statistics *b</h3>
 <div id="boxplot-3" class="section level4">
 <h4>Boxplot</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-50-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-50-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="graph-with-standard-deviation-2" class="section level4">
 <h4>Graph with standard deviation</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-51-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-51-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="profile-chart-3" class="section level4">
 <h4>Profile chart</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-52-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-52-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-52-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-52-2.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="behavior-by-fruit-3" class="section level4">
 <h4>Behavior by fruit</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-53-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-53-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="inferential-statistics-b" class="section level3">
 <h3>Inferential statistics *b</h3>
 <div id="correlation-over-time-3" class="section level4">
 <h4>Correlation over time</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-54-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-54-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="selection-of-models-by-aic-3" class="section level4">
 <h4>Selection of models by AIC</h4>
-<pre><code>##     df        AIC
-## m1b 12 2736.97179
-## m2b 16 2739.45926
-## m3b 12 2748.09394
-## m4b 16 2749.25164
-## m5b 21 2697.30326</code></pre>
+<pre><code>##     df      AIC
+## m1b 12 2736.972
+## m2b 16 2739.459
+## m3b 12 2748.094
+## m4b 16 2749.252
+## m5b 21 2697.303</code></pre>
 <p>The model <em>m5b</em> is the best in terms of AIC</p>
 </div>
 <div id="assumptions-3" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-57-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-57-2.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-57-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-57-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-57-2.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-57-3.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  b_ajuste$residuos
-## W = 0.9886859, p-value = 0.00175275</code></pre>
+## W = 0.98869, p-value = 0.001753</code></pre>
 </div>
 <div id="marginal-covariance-matrix-3" class="section level4">
 <h4>Marginal covariance matrix</h4>
@@ -1126,11 +1126,11 @@ temperatures.</p>
 <pre><code>## Analysis of Deviance Table (Type III tests)
 ## 
 ## Response: b
-##             Df      Chisq             Pr(&gt;Chisq)    
-## (Intercept)  1 4122.36261 &lt; 0.000000000000000222 ***
-## TEMP         1    0.33010                 0.5656    
-## DIA          4  109.18617 &lt; 0.000000000000000222 ***
-## TEMP:DIA     4   40.52077         0.000000033775 ***
+##             Df     Chisq Pr(&gt;Chisq)    
+## (Intercept)  1 4122.3626  &lt; 2.2e-16 ***
+## TEMP         1    0.3301     0.5656    
+## DIA          4  109.1862  &lt; 2.2e-16 ***
+## TEMP:DIA     4   40.5208  3.378e-08 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>There is interaction Time * Temperature. Interaction comparisons are
@@ -1139,56 +1139,56 @@ made and simple effects are analyzed.</p>
 <div id="interaction-comparisons-3" class="section level4">
 <h4>Interaction comparisons</h4>
 <pre><code>## DIA = 0:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9  0.65411569 1.13849452 420   0.575  0.5659
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.654116 1.138494 420   0.575  0.5659
 ## 
 ## DIA = 3:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9  1.95768053 1.13838683 420   1.720  0.0862
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  1.957681 1.138387 420   1.720  0.0862
 ## 
 ## DIA = 7:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -4.13128864 1.13845628 420  -3.629  0.0003
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.131289 1.138456 420  -3.629  0.0003
 ## 
 ## DIA = 10:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -6.33643450 1.33773213 420  -4.737  &lt;.0001
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -6.336435 1.337732 420  -4.737  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -2.59715247 1.40125776 420  -1.853  0.0645
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -2.597152 1.401258 420  -1.853  0.0645
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
 </div>
 <div id="graph-with-standard-error-of-the-model-for-each-treatment.-2"
 class="section level4">
 <h4>Graph with standard error of the model for each treatment.</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-61-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-61-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="simple-effects-3" class="section level4">
 <h4>Simple effects</h4>
 <pre><code>## DIA = 0:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9  0.65411569 1.13849452 420   0.575  0.5659
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  0.654116 1.138494 420   0.575  0.5659
 ## 
 ## DIA = 3:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9  1.95768053 1.13838683 420   1.720  0.0862
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9  1.957681 1.138387 420   1.720  0.0862
 ## 
 ## DIA = 7:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -4.13128864 1.13845628 420  -3.629  0.0003
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -4.131289 1.138456 420  -3.629  0.0003
 ## 
 ## DIA = 10:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -6.33643450 1.33773213 420  -4.737  &lt;.0001
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -6.336435 1.337732 420  -4.737  &lt;.0001
 ## 
 ## DIA = 14:
-##  contrast         estimate         SE  df t.ratio p.value
-##  TEMP5 - TEMP9 -2.59715247 1.40125776 420  -1.853  0.0645
+##  contrast       estimate       SE  df t.ratio p.value
+##  TEMP5 - TEMP9 -2.597152 1.401258 420  -1.853  0.0645
 ## 
 ## Degrees-of-freedom method: df.error</code></pre>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-62-1.png" width="672" style="display: block; margin: auto;" />
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-62-1.png" width="70%" style="display: block; margin: auto;" />
 #### Conclusion *b At 7 and 10 days there were significant differences
 between temperatures.</p>
 </div>
@@ -1203,42 +1203,42 @@ between temperatures.</p>
 <h3>Force (N)</h3>
 <div id="boxplot-4" class="section level4">
 <h4>Boxplot</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-65-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-65-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="model" class="section level4">
 <h4>Model</h4>
-<pre><code>##      df        AIC
-## m1FU  7 115.673188
-## m2FU 12 100.640911
-## m3FU  8 109.785796
-## m4FU  9 116.079889</code></pre>
+<pre><code>##      df      AIC
+## m1FU  7 115.6732
+## m2FU 12 100.6409
+## m3FU  8 109.7858
+## m4FU  9 116.0799</code></pre>
 </div>
 <div id="assumptions-4" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-69-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-69-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-69-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-69-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9937282, p-value = 0.86126</code></pre>
+## W = 0.99373, p-value = 0.8613</code></pre>
 </div>
 <div id="anova-2" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Denom. DF: 117 
-##             numDF    F-value p-value
-## (Intercept)     1 4702.23296  &lt;.0001
-## DIA             2  211.15545  &lt;.0001
-## TEMP            1    0.47243  0.4932
-## DIA:TEMP        2    0.41106  0.6639</code></pre>
+##             numDF  F-value p-value
+## (Intercept)     1 4702.233  &lt;.0001
+## DIA             2  211.155  &lt;.0001
+## TEMP            1    0.472  0.4932
+## DIA:TEMP        2    0.411  0.6639</code></pre>
 <p>No hay interacción. El factor DIA es significativo.</p>
 </div>
 <div id="efectos-principales" class="section level4">
 <h4>Efectos principales</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-71-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast        estimate           SE  df    lower.CL    upper.CL
-##  DIA0 - DIA7  0.807597683 0.0763980275 112 0.626131343 0.989064023
-##  DIA0 - DIA14 1.184460056 0.0691994075 112 1.020092420 1.348827693
-##  DIA7 - DIA14 0.376862373 0.0753605888 112 0.197860235 0.555864511
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-71-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<pre><code>##  contrast      estimate         SE  df  lower.CL  upper.CL
+##  DIA0 - DIA7  0.8075977 0.07639803 112 0.6261313 0.9890640
+##  DIA0 - DIA14 1.1844601 0.06919941 112 1.0200924 1.3488277
+##  DIA7 - DIA14 0.3768624 0.07536059 112 0.1978602 0.5558645
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Degrees-of-freedom method: df.error 
@@ -1256,42 +1256,42 @@ tiempo.</p>
 <h3>Gradiente (N/mm)</h3>
 <div id="boxplot-5" class="section level4">
 <h4>Boxplot</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-72-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-72-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="model-1" class="section level4">
 <h4>Model</h4>
-<pre><code>##      df         AIC
-## m1GR  7 113.9740080
-## m2GR 12  99.2678005
-## m3GR  8 110.2878575
-## m4GR  9 115.2624250</code></pre>
+<pre><code>##      df      AIC
+## m1GR  7 113.9740
+## m2GR 12  99.2678
+## m3GR  8 110.2879
+## m4GR  9 115.2624</code></pre>
 </div>
 <div id="assumptions-5" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-75-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-75-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-75-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-75-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9868544, p-value = 0.304839</code></pre>
+## W = 0.98685, p-value = 0.3048</code></pre>
 </div>
 <div id="anova-3" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Denom. DF: 113 
-##             numDF    F-value p-value
-## (Intercept)     1 318.103902  &lt;.0001
-## DIA             2 124.810655  &lt;.0001
-## TEMP            1   0.785523  0.3773
-## DIA:TEMP        2   0.186874  0.8298</code></pre>
+##             numDF  F-value p-value
+## (Intercept)     1 318.1039  &lt;.0001
+## DIA             2 124.8107  &lt;.0001
+## TEMP            1   0.7855  0.3773
+## DIA:TEMP        2   0.1869  0.8298</code></pre>
 <p>There is no interaction. The days factor is significant.</p>
 </div>
 <div id="principal-effects" class="section level4">
 <h4>Principal effects</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-77-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast        estimate           SE  df    lower.CL    upper.CL
-##  DIA0 - DIA7  0.579453601 0.0804902622 108 0.388171855 0.770735347
-##  DIA0 - DIA14 0.938484926 0.0728062907 108 0.765463817 1.111506035
-##  DIA7 - DIA14 0.359031325 0.0755130409 108 0.179577737 0.538484912
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-77-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<pre><code>##  contrast      estimate         SE  df  lower.CL  upper.CL
+##  DIA0 - DIA7  0.5794536 0.08049026 108 0.3881719 0.7707353
+##  DIA0 - DIA14 0.9384849 0.07280629 108 0.7654638 1.1115060
+##  DIA7 - DIA14 0.3590313 0.07551304 108 0.1795777 0.5384849
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Degrees-of-freedom method: df.error 
@@ -1308,7 +1308,7 @@ tiempo.</p>
 <h3>Distance F max (mm)</h3>
 <div id="boxplot-6" class="section level4">
 <h4>Boxplot</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-78-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-78-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="model-2" class="section level4">
 <h4>Model</h4>
@@ -1316,24 +1316,24 @@ tiempo.</p>
 ##    aov(formula = DI ~ DIA * TEMP, data = data)
 ## 
 ## Terms:
-##                         DIA        TEMP    DIA:TEMP   Residuals
-## Sum of Squares  10.68698667  0.00020378  0.55651573 11.12620978
-## Deg. of Freedom           2           1           2         113
+##                       DIA      TEMP  DIA:TEMP Residuals
+## Sum of Squares  10.686987  0.000204  0.556516 11.126210
+## Deg. of Freedom         2         1         2       113
 ## 
-## Residual standard error: 0.313786605
+## Residual standard error: 0.3137866
 ## Estimated effects may be unbalanced</code></pre>
 </div>
 <div id="assumptions-6" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-81-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-81-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-81-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-81-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9904326, p-value = 0.579647</code></pre>
+## W = 0.99043, p-value = 0.5796</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##        Df F value  Pr(&gt;F)
-## group   5 1.88715 0.10205
+##        Df F value Pr(&gt;F)
+## group   5  1.8871  0.102
 ##       113</code></pre>
 </div>
 <div id="anova-4" class="section level4">
@@ -1341,22 +1341,22 @@ tiempo.</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: DI
-##            Df    Sum Sq  Mean Sq  F value               Pr(&gt;F)    
-## DIA         2 10.686987 5.343493 54.26958 &lt; 0.0000000000000002 ***
-## TEMP        1  0.000204 0.000204  0.00207             0.963795    
-## DIA:TEMP    2  0.556516 0.278258  2.82604             0.063442 .  
-## Residuals 113 11.126210 0.098462                                  
+##            Df  Sum Sq Mean Sq F value  Pr(&gt;F)    
+## DIA         2 10.6870  5.3435 54.2696 &lt; 2e-16 ***
+## TEMP        1  0.0002  0.0002  0.0021 0.96379    
+## DIA:TEMP    2  0.5565  0.2783  2.8260 0.06344 .  
+## Residuals 113 11.1262  0.0985                    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Non-significant interaction.</p>
 </div>
 <div id="principal-effects-1" class="section level4">
 <h4>Principal effects</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-83-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast        estimate           SE  df     lower.CL    upper.CL
-##  DIA0 - DIA7  0.656551957 0.0743261137 113  0.480027981 0.833075932
-##  DIA0 - DIA14 0.723271222 0.0743268077 113  0.546745598 0.899796845
-##  DIA7 - DIA14 0.066719265 0.0669679771 113 -0.092329190 0.225767720
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-83-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<pre><code>##  contrast      estimate         SE  df   lower.CL  upper.CL
+##  DIA0 - DIA7  0.6565520 0.07432611 113  0.4800280 0.8330759
+##  DIA0 - DIA14 0.7232712 0.07432681 113  0.5467456 0.8997968
+##  DIA7 - DIA14 0.0667193 0.06696798 113 -0.0923292 0.2257677
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Confidence level used: 0.95 
@@ -1373,7 +1373,7 @@ tiempo.</p>
 </div>
 <div id="puncture" class="section level2">
 <h2>Puncture</h2>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-85-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-85-2.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-85-3.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-85-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-85-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-85-2.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-85-3.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-85-4.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="general-graphs" class="section level2">
 <h2>General graphs</h2>
@@ -1382,44 +1382,44 @@ tiempo.</p>
 <h2>Fruit losses</h2>
 <div id="descriptive-statistics-1" class="section level3">
 <h3>Descriptive statistics</h3>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-90-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-90-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-90-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-90-2.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="ph" class="section level2">
 <h2>pH</h2>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-91-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-91-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="model-3" class="section level4">
 <h4>Model</h4>
 <pre><code>## Call:
 ##    aov(formula = pH ~ DIA * TEMP, data = datac)
 ## 
 ## Terms:
-##                          DIA         TEMP     DIA:TEMP    Residuals
-## Sum of Squares  0.1801333333 0.0022222222 0.0016444444 0.0458000000
-## Deg. of Freedom            2            1            2           12
+##                        DIA       TEMP   DIA:TEMP  Residuals
+## Sum of Squares  0.18013333 0.00222222 0.00164444 0.04580000
+## Deg. of Freedom          2          1          2         12
 ## 
-## Residual standard error: 0.0617791766
+## Residual standard error: 0.06177918
 ## Estimated effects may be unbalanced</code></pre>
 </div>
 <div id="assumptions-7" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-94-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-94-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-94-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-94-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9398241, p-value = 0.287784</code></pre>
+## W = 0.93982, p-value = 0.2878</code></pre>
 </div>
 <div id="anova-5" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: pH
-##           Df     Sum Sq    Mean Sq  F value      Pr(&gt;F)    
-## DIA        2 0.18013333 0.09006667 23.59825 0.000069392 ***
-## TEMP       1 0.00222222 0.00222222  0.58224     0.46017    
-## DIA:TEMP   2 0.00164444 0.00082222  0.21543     0.80925    
-## Residuals 12 0.04580000 0.00381667                         
+##           Df   Sum Sq  Mean Sq F value    Pr(&gt;F)    
+## DIA        2 0.180133 0.090067 23.5983 6.939e-05 ***
+## TEMP       1 0.002222 0.002222  0.5822    0.4602    
+## DIA:TEMP   2 0.001644 0.000822  0.2154    0.8092    
+## Residuals 12 0.045800 0.003817                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>There is no evidence of interaction. Significant differences were
@@ -1427,11 +1427,11 @@ only found between days.</p>
 </div>
 <div id="principal-effects-2" class="section level4">
 <h4>Principal effects</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-96-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>##  contrast         estimate           SE df      lower.CL    upper.CL
-##  DIA0 - DIA7  0.1733333333 0.0356682243 12  0.0781753743 0.268491292
-##  DIA0 - DIA14 0.2366666667 0.0356682243 12  0.1415087076 0.331824626
-##  DIA7 - DIA14 0.0633333333 0.0356682243 12 -0.0318246257 0.158491292
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-96-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<pre><code>##  contrast       estimate         SE df    lower.CL  upper.CL
+##  DIA0 - DIA7  0.17333333 0.03566822 12  0.07817537 0.2684913
+##  DIA0 - DIA14 0.23666667 0.03566822 12  0.14150871 0.3318246
+##  DIA7 - DIA14 0.06333333 0.03566822 12 -0.03182463 0.1584913
 ## 
 ## Results are averaged over the levels of: TEMP 
 ## Confidence level used: 0.95 
@@ -1441,77 +1441,77 @@ only found between days.</p>
 </div>
 <div id="soluble-solids" class="section level2">
 <h2>Soluble solids</h2>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-97-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-97-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="model-4" class="section level4">
 <h4>Model</h4>
 <pre><code>## Call:
 ##    aov(formula = SS ~ DIA * TEMP, data = datac)
 ## 
 ## Terms:
-##                        DIA       TEMP   DIA:TEMP  Residuals
-## Sum of Squares  1.83000000 1.02722222 0.81444444 5.41333333
-## Deg. of Freedom          2          1          2         12
+##                      DIA     TEMP DIA:TEMP Residuals
+## Sum of Squares  1.830000 1.027222 0.814444  5.413333
+## Deg. of Freedom        2        1        2        12
 ## 
-## Residual standard error: 0.671648056
+## Residual standard error: 0.6716481
 ## Estimated effects may be unbalanced</code></pre>
 </div>
 <div id="assumptions-8" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-99-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-99-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-99-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-99-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9260424, p-value = 0.165366</code></pre>
+## W = 0.92604, p-value = 0.1654</code></pre>
 </div>
 <div id="anova-6" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: SS
-##           Df   Sum Sq   Mean Sq F value  Pr(&gt;F)
-## DIA        2 1.830000 0.9150000 2.02833 0.17424
-## TEMP       1 1.027222 1.0272222 2.27709 0.15717
-## DIA:TEMP   2 0.814444 0.4072222 0.90271 0.43131
-## Residuals 12 5.413333 0.4511111</code></pre>
+##           Df Sum Sq Mean Sq F value Pr(&gt;F)
+## DIA        2 1.8300 0.91500  2.0283 0.1742
+## TEMP       1 1.0272 1.02722  2.2771 0.1572
+## DIA:TEMP   2 0.8144 0.40722  0.9027 0.4313
+## Residuals 12 5.4133 0.45111</code></pre>
 <p>No significant differences were found.</p>
 </div>
 </div>
 <div id="total-titratable-acidity" class="section level2">
 <h2>Total titratable acidity</h2>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-101-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-101-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="model-5" class="section level4">
 <h4>Model</h4>
 <pre><code>## Call:
 ##    aov(formula = Ac ~ DIA * TEMP, data = datac)
 ## 
 ## Terms:
-##                         DIA        TEMP    DIA:TEMP   Residuals
-## Sum of Squares  0.942535111 0.000227556 0.016839111 1.815893333
-## Deg. of Freedom           2           1           2          12
+##                       DIA      TEMP  DIA:TEMP Residuals
+## Sum of Squares  0.9425351 0.0002276 0.0168391 1.8158933
+## Deg. of Freedom         2         1         2        12
 ## 
-## Residual standard error: 0.389004427
+## Residual standard error: 0.3890044
 ## Estimated effects may be unbalanced</code></pre>
 </div>
 <div id="assumptions-9" class="section level4">
 <h4>Assumptions</h4>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-103-1.png" width="672" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-103-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-103-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-103-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9531995, p-value = 0.477388</code></pre>
+## W = 0.9532, p-value = 0.4774</code></pre>
 </div>
 <div id="anova-7" class="section level4">
 <h4>Anova</h4>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Ac
-##           Df    Sum Sq   Mean Sq F value  Pr(&gt;F)  
-## DIA        2 0.9425351 0.4712676 3.11429 0.08139 .
-## TEMP       1 0.0002276 0.0002276 0.00150 0.96970  
-## DIA:TEMP   2 0.0168391 0.0084196 0.05564 0.94612  
-## Residuals 12 1.8158933 0.1513244                  
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## DIA        2 0.94254 0.47127  3.1143 0.08139 .
+## TEMP       1 0.00023 0.00023  0.0015 0.96970  
+## DIA:TEMP   2 0.01684 0.00842  0.0556 0.94612  
+## Residuals 12 1.81589 0.15132                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>No significant differences were found.</p>
@@ -1523,20 +1523,20 @@ only found between days.</p>
 </div>
 <div id="ssatt" class="section level1">
 <h1>SSATT</h1>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-109-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-109-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-109-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-109-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value  Pr(&gt;F)
-## group  1 0.13111 0.72202
+##       Df F value Pr(&gt;F)
+## group  1  0.1311  0.722
 ##       16</code></pre>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
-##       Df F value  Pr(&gt;F)
-## group  2 0.38898 0.68439
+##       Df F value Pr(&gt;F)
+## group  2   0.389 0.6844
 ##       15</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  residuos
-## W = 0.9637356, p-value = 0.675019</code></pre>
+## W = 0.96374, p-value = 0.675</code></pre>
 <pre><code>## [1] &quot;Posibles outliers (índices de las observaciones):&quot;
 ## 11 
 ## 11 
@@ -1548,47 +1548,49 @@ only found between days.</p>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: SSATT
-##           Df    Sum Sq   Mean Sq F value   Pr(&gt;F)  
-## TEMP       1 0.1005882 0.1005882 0.95176 0.348529  
-## DIA        2 1.4107232 0.7053616 6.67410 0.011257 *
-## TEMP:DIA   2 0.0503675 0.0251837 0.23829 0.791617  
-## Residuals 12 1.2682366 0.1056864                   
+##           Df  Sum Sq Mean Sq F value  Pr(&gt;F)  
+## TEMP       1 0.10059 0.10059  0.9518 0.34853  
+## DIA        2 1.41072 0.70536  6.6741 0.01126 *
+## TEMP:DIA   2 0.05037 0.02518  0.2383 0.79162  
+## Residuals 12 1.26824 0.10569                  
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>## $emmeans
-##  TEMP DIA     emmean          SE df   lower.CL   upper.CL
-##  5    0   3.02139640 0.187693349 12 2.61244772 3.43034507
-##  9    0   3.02139640 0.187693349 12 2.61244772 3.43034507
-##  5    7   2.78751140 0.187693349 12 2.37856272 3.19646008
-##  9    7   2.56819337 0.187693349 12 2.15924469 2.97714204
-##  5    14  2.45026004 0.187693349 12 2.04131136 2.85920872
-##  9    14  2.22105114 0.187693349 12 1.81210246 2.62999982
+##  TEMP DIA   emmean        SE df lower.CL upper.CL
+##  5    0   3.021396 0.1876934 12 2.612448 3.430345
+##  9    0   3.021396 0.1876934 12 2.612448 3.430345
+##  5    7   2.787511 0.1876934 12 2.378563 3.196460
+##  9    7   2.568193 0.1876934 12 2.159245 2.977142
+##  5    14  2.450260 0.1876934 12 2.041311 2.859209
+##  9    14  2.221051 0.1876934 12 1.812102 2.630000
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast                     estimate         SE df t.ratio p.value
-##  TEMP5 DIA0 - TEMP9 DIA0   0.000000000 0.26543848 12   0.000  1.0000
-##  TEMP5 DIA0 - TEMP5 DIA7   0.233884995 0.26543848 12   0.881  0.9441
-##  TEMP5 DIA0 - TEMP9 DIA7   0.453203030 0.26543848 12   1.707  0.5520
-##  TEMP5 DIA0 - TEMP5 DIA14  0.571136358 0.26543848 12   2.152  0.3253
-##  TEMP5 DIA0 - TEMP9 DIA14  0.800345257 0.26543848 12   3.015  0.0883
-##  TEMP9 DIA0 - TEMP5 DIA7   0.233884995 0.26543848 12   0.881  0.9441
-##  TEMP9 DIA0 - TEMP9 DIA7   0.453203030 0.26543848 12   1.707  0.5520
-##  TEMP9 DIA0 - TEMP5 DIA14  0.571136358 0.26543848 12   2.152  0.3253
-##  TEMP9 DIA0 - TEMP9 DIA14  0.800345257 0.26543848 12   3.015  0.0883
-##  TEMP5 DIA7 - TEMP9 DIA7   0.219318034 0.26543848 12   0.826  0.9568
-##  TEMP5 DIA7 - TEMP5 DIA14  0.337251362 0.26543848 12   1.271  0.7948
-##  TEMP5 DIA7 - TEMP9 DIA14  0.566460261 0.26543848 12   2.134  0.3330
-##  TEMP9 DIA7 - TEMP5 DIA14  0.117933328 0.26543848 12   0.444  0.9972
-##  TEMP9 DIA7 - TEMP9 DIA14  0.347142227 0.26543848 12   1.308  0.7759
-##  TEMP5 DIA14 - TEMP9 DIA14 0.229208899 0.26543848 12   0.864  0.9484
+##  contrast                   estimate        SE df t.ratio p.value
+##  TEMP5 DIA0 - TEMP9 DIA0   0.0000000 0.2654385 12   0.000  1.0000
+##  TEMP5 DIA0 - TEMP5 DIA7   0.2338850 0.2654385 12   0.881  0.9441
+##  TEMP5 DIA0 - TEMP9 DIA7   0.4532030 0.2654385 12   1.707  0.5520
+##  TEMP5 DIA0 - TEMP5 DIA14  0.5711364 0.2654385 12   2.152  0.3253
+##  TEMP5 DIA0 - TEMP9 DIA14  0.8003453 0.2654385 12   3.015  0.0883
+##  TEMP9 DIA0 - TEMP5 DIA7   0.2338850 0.2654385 12   0.881  0.9441
+##  TEMP9 DIA0 - TEMP9 DIA7   0.4532030 0.2654385 12   1.707  0.5520
+##  TEMP9 DIA0 - TEMP5 DIA14  0.5711364 0.2654385 12   2.152  0.3253
+##  TEMP9 DIA0 - TEMP9 DIA14  0.8003453 0.2654385 12   3.015  0.0883
+##  TEMP5 DIA7 - TEMP9 DIA7   0.2193180 0.2654385 12   0.826  0.9568
+##  TEMP5 DIA7 - TEMP5 DIA14  0.3372514 0.2654385 12   1.271  0.7948
+##  TEMP5 DIA7 - TEMP9 DIA14  0.5664603 0.2654385 12   2.134  0.3330
+##  TEMP9 DIA7 - TEMP5 DIA14  0.1179333 0.2654385 12   0.444  0.9972
+##  TEMP9 DIA7 - TEMP9 DIA14  0.3471422 0.2654385 12   1.308  0.7759
+##  TEMP5 DIA14 - TEMP9 DIA14 0.2292089 0.2654385 12   0.864  0.9484
 ## 
 ## P value adjustment: tukey method for comparing a family of 6 estimates</code></pre>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-111-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-111-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="general-graphs-1" class="section level2">
 <h2>General graphs</h2>
-<p><img src="Ensayo7_files/figure-html/unnamed-chunk-115-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-115-2.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo7_files/figure-html/unnamed-chunk-115-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-116-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-117-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo7_files/figure-html/unnamed-chunk-118-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 

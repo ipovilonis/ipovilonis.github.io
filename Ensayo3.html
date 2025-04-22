@@ -552,7 +552,7 @@ div.tocify {
 <p>Respuesta colorimétrica en frutos tratados con etileno y 1-MCP</p>
 <div id="principal-component-analysis" class="section level1">
 <h1>Principal component analysis</h1>
-<p><img src="Ensayo3_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-2-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-analysis-for-the-color-component-lab"
 class="section level1">
@@ -573,24 +573,24 @@ class="section level2">
 <tbody>
 <tr class="odd">
 <td align="left">Control</td>
-<td align="right">106.4009137</td>
-<td align="right">65.2194586</td>
-<td align="right">139.935557</td>
-<td align="right">20.43334719</td>
+<td align="right">106.1188</td>
+<td align="right">65.21946</td>
+<td align="right">139.9356</td>
+<td align="right">20.736720</td>
 </tr>
 <tr class="even">
 <td align="left">Etileno</td>
-<td align="right">113.8394618</td>
-<td align="right">66.9255122</td>
-<td align="right">133.890523</td>
-<td align="right">17.62301483</td>
+<td align="right">113.8395</td>
+<td align="right">66.92551</td>
+<td align="right">133.8905</td>
+<td align="right">17.623015</td>
 </tr>
 <tr class="odd">
 <td align="left">1-MCP</td>
-<td align="right">87.5490829</td>
-<td align="right">68.0718073</td>
-<td align="right">102.209545</td>
-<td align="right">8.37329822</td>
+<td align="right">87.4113</td>
+<td align="right">68.07181</td>
+<td align="right">102.2095</td>
+<td align="right">8.610776</td>
 </tr>
 </tbody>
 </table>
@@ -599,7 +599,7 @@ maturation</em></p>
 </div>
 <div id="descriptive-graphic-sd" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
-<p><img src="Ensayo3_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-model" class="section level2">
 <h2>The model</h2>
@@ -608,12 +608,12 @@ maturation</em></p>
 </div>
 <div id="assumptions-check" class="section level2">
 <h2>Assumptions check</h2>
-<p><img src="Ensayo3_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo3_files/figure-html/unnamed-chunk-9-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo3_files/figure-html/unnamed-chunk-9-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  e
-## W = 0.9731127, p-value = 0.00619031</code></pre>
+## W = 0.97415, p-value = 0.007934</code></pre>
 </div>
 <div id="anova-comparison-of-means" class="section level2">
 <h2>Anova (comparison of means)</h2>
@@ -630,13 +630,13 @@ maturation</em></p>
 <tr class="odd">
 <td align="left">(Intercept)</td>
 <td align="right">1</td>
-<td align="right">8444.9532181</td>
+<td align="right">8101.09114</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
 <td align="left">treat</td>
 <td align="right">2</td>
-<td align="right">53.4983069</td>
+<td align="right">52.65223</td>
 <td align="right">0</td>
 </tr>
 </tbody>
@@ -649,9 +649,9 @@ maturation</em></p>
 ##     95% family-wise confidence level
 ## 
 ## $control
-##                         diff          lwr.ci      upr.ci       pval    
-## etileno-control   7.43854804  -0.00153569917  14.8786318     0.0500 .  
-## 1MCP-control    -18.85183085 -26.29191459547 -11.4117471 0.00000016 ***
+##                       diff      lwr.ci    upr.ci    pval    
+## etileno-control   7.720644   0.2039483  15.23734  0.0431 *  
+## 1MCP-control    -18.707520 -26.2242159 -11.19082 2.6e-07 ***
 ## 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
@@ -659,20 +659,20 @@ maturation</em></p>
 <div id="tukey-test" class="section level2">
 <h2>Tukey test</h2>
 <pre><code>## $emmeans
-##  treat        emmean         SE    df   lower.CL    upper.CL
-##  control 106.4009137 2.94930100 47.15 100.468185 112.3336428
-##  etileno 113.8394618 2.54366317 47.23 108.722923 118.9560001
-##  1MCP     87.5490829 1.20858089 47.00  85.117734  89.9804317
+##  treat     emmean       SE    df lower.CL upper.CL
+##  control 106.1188 2.993089 46.97 100.0974 112.1402
+##  etileno 113.8395 2.543663 47.00 108.7223 118.9567
+##  1MCP     87.4113 1.242858 47.00  84.9110  89.9116
 ## 
 ## Degrees-of-freedom method: satterthwaite 
 ## Results are given on the ( (not the response) scale. 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast             estimate         SE    df t.ratio p.value
-##  control - etileno -7.43854804 3.89468853 92.01  -1.910  0.1416
-##  control - 1MCP    18.85183085 3.18732555 62.56   5.915  &lt;.0001
-##  etileno - 1MCP    26.29037890 2.81618361 67.48   9.335  &lt;.0001
+##  contrast           estimate       SE    df t.ratio p.value
+##  control - etileno -7.720644 3.927951 91.61  -1.966  0.1266
+##  control - 1MCP    18.707520 3.240876 62.71   5.772  &lt;.0001
+##  etileno - 1MCP    26.428164 2.831063 68.21   9.335  &lt;.0001
 ## 
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 
@@ -683,24 +683,24 @@ maturation</em></p>
 <h1>Lab coordinates Correlations</h1>
 <div id="a-vs.-l" class="section level2">
 <h2><em>a</em> vs. <em>L</em></h2>
-<pre><code>## [1] 0.47181695</code></pre>
+<pre><code>## [1] 0.5047487</code></pre>
 </div>
 <div id="a-vs.-b" class="section level2">
 <h2><em>a</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.638935495</code></pre>
+<pre><code>## [1] 0.6698272</code></pre>
 </div>
 <div id="l-vs.-b" class="section level2">
 <h2><em>L</em> vs. <em>b</em></h2>
-<pre><code>## [1] 0.806384783</code></pre>
+<pre><code>## [1] 0.8033667</code></pre>
 </div>
 </div>
 <div id="color-correlation" class="section level1">
 <h1>Color correlation</h1>
-<p><img src="Ensayo3_files/figure-html/unnamed-chunk-19-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="discriminant-analysis" class="section level1">
 <h1>Discriminant Analysis</h1>
-<p><img src="Ensayo3_files/figure-html/unnamed-chunk-21-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo3_files/figure-html/unnamed-chunk-21-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <div id="multiple-response-permutation-procedure-mrpp"
 class="section level2">
 <h2>Multiple Response Permutation Procedure (MRPP)</h2>
@@ -713,12 +713,12 @@ class="section level2">
 ## 
 ## Class means and counts:
 ## 
-##       1       2        3        
-## delta 0.13604 0.104724 0.0852776
-## n     48      48       48       
+##       1      2      3     
+## delta 0.1356 0.1047 0.0855
+## n     48     48     48    
 ## 
-## Chance corrected within-group agreement A: 0.176869 
-## Based on observed delta 0.1087 and expected delta 0.132 
+## Chance corrected within-group agreement A: 0.1777 
+## Based on observed delta 0.1086 and expected delta 0.1321 
 ## 
 ## Significance of delta: 0.001 
 ## Permutation: free

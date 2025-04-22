@@ -2371,7 +2371,7 @@ anova(model_SSATT)
 
 ```
 
-```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r  , echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(emmeans)
@@ -2736,11 +2736,29 @@ FG3<-ggarrange(nggPESO,nggFU, ncol = 1,  common.legend = TRUE)
 FG4<-ggarrange(nggL,ngga,nggb, ncol = 1,  common.legend = TRUE)
 FG5<-ggarrange(nggph,nggSS,nggAc, ncol = 1,  common.legend = TRUE)
 
-FG3
-FG4
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 FG5
 
 ```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+FG4
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+FG5
+
+```
+
 
 ```{r this_label}
 # library(knitr)

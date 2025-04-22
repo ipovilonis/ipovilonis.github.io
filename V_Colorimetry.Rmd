@@ -62,7 +62,7 @@ library(ggplot2)
 g1_color_L<-ggplot2::ggplot(table_color_L, aes(x=mad, y=color_L, fill=site, width=0.8)) +
     stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(0.8)) +
     geom_errorbar(aes(ymin=color_L-sd, ymax=color_L+sd),
-                width=.2, position=position_dodge(1))+
+                width=.2, position=position_dodge(0.8))+
     scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
     labs(y="color_L")+
   theme_classic()+
@@ -84,7 +84,7 @@ library(ggplot2)
 g1_color_a<-ggplot2::ggplot(table_color_a, aes(x=mad, y=color_a, fill=site, width=0.8)) +
     stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(0.8)) +
     geom_errorbar(aes(ymin=color_a-sd, ymax=color_a+sd),
-                width=.2, position=position_dodge(1))+
+                width=.2, position=position_dodge(0.8))+
     scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
     labs(y="color_a")+
   theme_classic()+
@@ -106,7 +106,7 @@ library(ggplot2)
 g1_color_b<-ggplot2::ggplot(table_color_b, aes(x=mad, y=color_b, fill=site, width=0.8)) +
     stat_summary(fun = "mean", size = 0.1, geom = "bar", position=position_dodge(0.8)) +
     geom_errorbar(aes(ymin=color_b-sd, ymax=color_b+sd),
-                width=.2, position=position_dodge(1))+
+                width=.2, position=position_dodge(0.8))+
     scale_fill_manual(values=c("coral1","burlywood2","palegreen4"))+
     labs(y="color_b")+
   theme_classic()+

@@ -1,5 +1,5 @@
 ---
-title: "Companion species"
+title: "Especies asociadas"
 ---
 
 
@@ -7,6 +7,46 @@ title: "Companion species"
 # Introducción
 Las superficies de bosques nativos han disminuido en las últimas décadas en la Argentina por el avance de la frontera agrícola y ganadera (Viglizzo y Jobbágy, 2010). Sin embargo, aún se conservan áreas con menor efecto antrópico como ocurre en la selva en galería del río Uruguay en la provincia de Entre Ríos. Estas áreas son fuentes de biodiversidad por el fenómeno de intrusión de vegetación por el cual especies de la Provincia Paranaense se desplazan hacia el sur por los ríos Uruguay y Paraná y se adaptan al microclima ribereño que toma un aspecto selvático (Bertucci et al., 2008). Esta adaptación da origen a una gran variabilidad fenotípica con potenciales servicios ecosistémicos para la humanidad. Este es el caso de Hexachlamys edulis (O. Berg) Kausel & D. Legrand, “ubajay”, especie que ha sido observada en áreas cercanas a cursos de agua y selvas o bosques en galería de los ríos Paraná y Uruguay (Proença, 2006). Esta especie se destaca por su fruto comestible y su potencial como recurso forestal no maderable de importancia para la salud y la nutrición (Vignale y Bisio, 2005).
 En el marco de un estudio de variabilidad fenotípica del ubajay se genera la necesidad de conocer el estado de conservación entre los sitios de muestreo. Para esto, la riqueza y abundancia de las diversas especies registradas es un importante indicador de la biodiversidad y del avance antrópico junto con la cuantificación de especies nativas y exóticas. No obstante, cabe aclarar que se entiende por riqueza a la cantidad de especies diferentes por superficie o punto de muestreo, mientras que la abundancia es el número de individuos por superficie o punto de muestreo (Rodríguez et al., 2005).
+
+# Bosques argentinos
+```{r, echo=FALSE, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(readxl)
+# https://data.worldbank.org/indicator/AG.LND.FRST.K2?end=2020&locations=AR&start=1990&view=chart
+forest_arg <- read_excel("database.xlsx",sheet="II forest")
+forest_arg$year<-as.numeric(forest_arg$year)
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(ggplot2)
+scale = 0.000085
+
+pkpd <- ggplot(forest_arg, aes(x = year, y = area)) +
+  geom_point(aes(color = "Forest area km2")) +
+  geom_point(aes(y = percentage/scale, color = "Forest % of total territory")) +
+  geom_line(aes(color = "Forest area km2")) +
+  geom_line(aes(y = percentage/scale, color = "Forest % of total territory")) +
+  scale_x_continuous(breaks = seq(1990, 2020, 1)) +
+  scale_y_continuous(sec.axis = sec_axis(~.*scale, name="Percentage %")) +
+  labs(x = "year", y = "Forest area km2", color = "") +
+  scale_color_manual(values = c("coral", "gold2"))+
+  theme_classic()+
+theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
+theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+theme(panel.grid.major.x = element_blank())+
+theme(text = element_text(size=14, color='black'))+
+theme(axis.text = element_text(color='black'))+
+theme(panel.border = element_rect(fill = "transparent"))+
+theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
+theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))
+
+print(pkpd)
+
+```
+A pesar de su importancia, la superficie de bosques nativos en Argentina ha sufrido una pérdida de 6.631.000 hectáreas entre los años 1990 y 2020, año en el cual se registraron aproximadamente 27.137.000 hectáreas de bosques nativos, y esto representa el 10,28% de la superficie total del país (World Bank, 2023). Las principales causas de la deforestación se atribuyen a la expansión de la agricultura, la ganadería y la urbanización (Viglizzo & Jobbágy, 2010; Suwardi & Navia, 2023). En particular, este hecho coincide con la tendencia global de una aceleración en la expansión de tierras de cultivo dentro de áreas protegidas entre 2000 y 2019 (Meng et al., 2023). En general, estos avances en las áreas conservadas y la actividad humana resultan en la pérdida de biodiversidad y la introducción de especies exóticas. Identificar los taxones introducidos y comprender cómo las especies nativas se adaptan a los entornos humanos proporciona información valiosa sobre el funcionamiento de los ecosistemas, los patrones de invasión y la resiliencia. A su vez, las plantas exóticas dificultan la recuperación de las comunidades nativas (Tognetti et al., 2010). Esto resalta la importancia de evaluar la calidad ambiental de todas las especies, especialmente las no nativas, para comprender completamente cómo los ecosistemas son impactados por la actividad humana.
 
 # Objetivos
 El presente trabajo tuvo como objetivos:
@@ -55,44 +95,6 @@ library(lme4)
 
 ```
 
-# Argentinian forest
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(readxl)
-# https://data.worldbank.org/indicator/AG.LND.FRST.K2?end=2020&locations=AR&start=1990&view=chart
-forest_arg <- read_excel("database.xlsx",sheet="II forest")
-forest_arg$year<-as.numeric(forest_arg$year)
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-scale = 0.000085
-
-pkpd <- ggplot(forest_arg, aes(x = year, y = area)) +
-  geom_point(aes(color = "Forest area km2")) +
-  geom_point(aes(y = percentage/scale, color = "Forest % of total territory")) +
-  geom_line(aes(color = "Forest area km2")) +
-  geom_line(aes(y = percentage/scale, color = "Forest % of total territory")) +
-  scale_x_continuous(breaks = seq(1990, 2020, 1)) +
-  scale_y_continuous(sec.axis = sec_axis(~.*scale, name="Percentage %")) +
-  labs(x = "year", y = "Forest area km2", color = "") +
-  scale_color_manual(values = c("coral", "gold2"))+
-  theme_classic()+
-theme(legend.position = "bottom", legend.background = element_rect(fill = "white"))+
-theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-theme(panel.grid.major.x = element_blank())+
-theme(text = element_text(size=14, color='black'))+
-theme(axis.text = element_text(color='black'))+
-theme(panel.border = element_rect(fill = "transparent"))+
-theme(axis.text.x = element_text(angle = 45, hjust = 1, color='black'))+
-theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))
-
-print(pkpd)
-
-```
-
 # Indicadores de biodiversidad
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -114,7 +116,7 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
 biod<-read_excel("database.xlsx",sheet="II bio_index2")
@@ -155,7 +157,7 @@ biod<-cbind(biod, letters)
 ```
 
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
@@ -201,7 +203,7 @@ gg_bioindex
 
 ```
 
-## ANOVA BIO INDEX
+## ANOVA de indicadores
 
 ```{r, echo=FALSE, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
@@ -220,7 +222,7 @@ biod3 <- biod3 %>%
 
 ```
 
-#### Richness
+### Richness
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -318,7 +320,7 @@ complot
 # 1.764476
 ```
 
-#### Abundance
+### Abundance
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -414,7 +416,7 @@ complot
 ```
 
 
-#### Dominance_D
+### Dominance_D
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 library(readxl)
@@ -524,7 +526,7 @@ complot<-plot(Comptar, comparisons = TRUE)+
 complot
 ```
 
-#### Simpson_1D
+### Simpson_1D
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -636,7 +638,7 @@ complot<-plot(Comptar, comparisons = TRUE)+
 complot
 ```
 
-#### Shannon_H
+### Shannon_H
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -736,7 +738,7 @@ complot
 ```
 
 
-#### Evenness_eHS
+### Evenness_eHS
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -831,7 +833,7 @@ complot<-plot(Comptar, comparisons = TRUE)+
 complot
 ```
 
-#### Margalef
+### Margalef
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -926,7 +928,7 @@ complot<-plot(Comptar, comparisons = TRUE)+
 complot
 ```
 
-#### Equitatibilidad
+### Equitatibilidad
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1028,7 +1030,7 @@ complot<-plot(Comptar, comparisons = TRUE)+
 complot
 ```
 
-#### anthropic_Ia
+### anthropic_Ia
 ```{r  , echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
@@ -1166,7 +1168,7 @@ estH2 <- summarySE(div, measurevar="expH", groupvars=c("REG"))
 ```
 
 ## Número de especies por sitio
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 grafestN<-ggplot(estN, aes(x=REG, y=N.esp, color=REG, fill=REG)) + 
@@ -1177,7 +1179,7 @@ grafestN<-ggplot(estN, aes(x=REG, y=N.esp, color=REG, fill=REG)) +
   theme(legend.position = "none", legend.background = element_rect(fill = "gray12"))+
   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=14, color='white'))+
+  theme(text = element_text(size=24, color='white'))+
   theme(axis.text = element_text(color='white'))+
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
@@ -1193,7 +1195,7 @@ grafestN
 Las barras representan el error estándar.
  
 
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ## Índice de Shannon por sitio
@@ -1206,7 +1208,7 @@ grafestH<-ggplot(estH, aes(x=REG, y=H, color=REG, fill=REG)) +
   theme(legend.position = "none", legend.background = element_rect(fill = "gray12"))+
   theme(panel.grid.major.y = element_line(size=0.05, color='white'))+
   theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=14, color='white'))+
+  theme(text = element_text(size=24, color='white'))+
   theme(axis.text = element_text(color='white'))+
   theme(plot.background = element_rect(fill = "gray12"))+
   theme(panel.background = element_rect(fill = "gray12", color = "white"))+
@@ -1222,7 +1224,7 @@ grafestH<-ggplot(estH, aes(x=REG, y=H, color=REG, fill=REG)) +
 ```
 
 ## Exponente del índice de Shannon por sitio
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 grafestH2<-ggplot(estH2, aes(x=REG, y=expH, color=REG, fill=REG)) + 
@@ -1249,177 +1251,6 @@ grafestH2
 ```
 Las barras representan el error estándar.
 
-# Clasificación
-
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(readxl)
-datos<-read_excel("database.xlsx",sheet="II asociated")
-datos[is.na(datos)] <-  0
-
-```
-
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-rownames(datos)<-datos$Censo
-datosm<-datos[,-c(1:2)]
-
-# datosm<-as.data.frame(datosm)
-rownames(datosm)<-datos$Censo
-# mat.j<-vegdist(datosm, method = "jaccard", diag = T, binary = F)
-mat.b<-vegdist(datosm, method = "euclidean", diag = T, binary = F)
-
-```
-
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# dim(mat.j)          # revisamos cuantas filas y columnas tiene
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-dendro.ward<-hclust(mat.b,method="ward.D")
-# dendro.complete<-hclust(mat.j,method="complete") 
-# dendro.average<-hclust(mat.j,method="average")
-
-
-
-plot(dendro.ward, hang = -1, cex = 1)
-# plot(dendro.complete)
-# plot(dendro.average)
-
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-library(factoextra)
-dendro<-fviz_dend(x = dendro.ward, cex = 2, lwd = 0.5, k = 3,
-# Manually selected colors
-          k_colors = c("coral4","burlywood3","palegreen4"),
-          rect = TRUE, 
-          rect_border = "black",
-          rect_lty = 5,
-          rect_fill = FALSE)+
-  theme_classic()+
-  labs(title = "", x = "Censuses", y = "Height") +
-  theme(legend.position = "bottom",
-        legend.title = element_blank(),
-        text = element_text(size = 38, color = 'black'),
-        axis.text.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.line.x = element_blank(),
-        axis.title.y = element_text(color = "black"), # Color del título del eje y
-        axis.text.y = element_text(color = "black"), # Color de los números del eje y
-        axis.line.y = element_line(color = "black")) +  # Color del eje y
-  scale_y_continuous(limits = c(-1, 4))
-
-# Circular
-# Circ = fviz_dend(dendro.ward, cex = 0.8, lwd = 0.8, k = 3,
-                 # rect = TRUE,
-                 # k_colors = "jco",
-                 # rect_border = "jco",
-                 # rect_fill = TRUE,
-                 # type = "circular")
-# Circ
-
-
-```
-
-Agrupamiento jerárquico de los censos a través de la distancia de Bray y método de Ward.
-
-# Ordenamiento
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# MULTIDIMENSINAL SCALING - PRINCIPAL COORDINATE ANALYSIS
-mds.ALT <- pco(mat.b, k=38) # k es n-1 censos
-
-# mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
-
-# sum(mds.eig[1:1])
-
-df.mds<-data.frame(mds.ALT$points) #posici?n de cada punto en los ejes. 
-
-df.todo <- cbind(df.mds, datos)
-
-# df.todo$REG<-factor(df.todo$REG,labels = c("Concordia","Palmar","Gualeguaychu"),levels=c("CONCORDIA","PALMAR","GUALEGUAYCHU"), )
-
-library(ggplot2)
-library(ggrepel)
-
-# acoorp<-ggplot(df.todo, aes(-X1, -X2))+
-#   geom_hline(yintercept=0, col="black")+
-#   geom_vline(xintercept=0, col="black")+
-#   geom_point(size=5,aes(col=REG, pch=as.factor(REG)))+
-#   theme_classic()+
-#   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
-#   theme(panel.grid.major.y = element_blank())+
-#   theme(panel.grid.major.x = element_blank())+
-#   theme(text = element_text(size=20, color='black'))+
-#   theme(axis.text = element_text(color='black'))+
-#   # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
-#   theme(legend.direction = "horizontal")+
-#   theme(legend.position = "bottom")+
-#   theme(legend.title = element_blank())+
-#   labs(x = "Principal coordinate 1", y = "Principal coordinate 2",colour = "REG",pch="REG",
-#                     groups = "REG")+
-#   stat_ellipse(aes(x=-X1, y=-X2,color=REG),type = "norm")+
-#   geom_text_repel(
-#     data = df.todo,
-#     aes(label = Censo),
-#     size = 5,
-#     box.padding = unit(0.001, "lines"),
-#     point.padding = unit(1, "lines"))
-
-```
-
-Ordenamiento multidimensional (PCoA) de los censos a partir de la matriz de distancias de Jaccard. Las elipses indican un intérvalo de confianza del 95% para cada población.
-
-¿Hay una considerable diferencia entre la composición florística de Concordia y el Palmar? -> Permanova
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# ggplot(df.todo, aes(-X1, -X2))+
-#   geom_hline(yintercept=0, col="darkgray")+
-#   geom_vline(xintercept=0, col="darkgray")+
-#   geom_point(size=4, aes(col=REG))+
-#   theme_bw() +
-#   scale_color_manual(values = c("red","green","skyblue"))+
-#   geom_text(aes(label = Censo), hjust = 0, nudge_x = .02, size=3)+
-#   # theme(legend.direction = "horizontal") +
-#   theme(legend.position = "bottom")+
-#   labs(x = "MDS 1", y = "MDS 2", ellipse = TRUE)
-
-
-```
-
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-
-
-```
-
-
-# Bibliografía
-BERTUCCI, A.; HARETCHE, F.; OLIVARO, C.; VÁZQUEZ, A. 2008. Prospección química del bosque en galería de río Uruguay. Revista Brasileira de Farmacognosia 18(1):21-25
-
-PROENÇA, C.E.B. 2006. Proposal to Conserve the Name Myrcianthes edulis against Psidium amygdalinum (Myrtaceae). Taxon 55(2):536-537
-
-RODRÍGUEZ, N.; RUÍZ, R.; ARMENTERAS PASCUAL, D.; MENDOZA CIFUENTES, H.; UMAÑA, A.M.; ARANGO, N.; BAPTISTE, E.M.P. 2005. Corredor nororiental de robles: indicadores de estado de la biodiversidad, factores antrópicos asociados y áreas prioritarias de conservación. Instituto de Investigación de Recursos Biológicos Alexander von Humboldt. Serie: Indicadores de Seguimiento y Evaluación de la Política de Biodiversidad. 88 p.
-
-VIGLIZZO, E.F.; JOBBÁGY, E. 2010. Expansión de la Frontera Agropecuaria en Argentina y su Impacto Ecológico-Ambiental. Ediciones INTA. P: 9-16
-
-VIGNALE, B.; BISIO, L. 2005. Selección de frutales nativos en Uruguay. Agrociencia 9(1-2):41- 51
 
 ## Materiales y métodos
 Se seleccionaron 40 ejemplares de ubajay crecidos en forma espontánea en 3 poblaciones de la selva en galería del río Uruguay, dentro de la provincia de Entre Ríos. 
@@ -1484,7 +1315,7 @@ mat.b<-vegdist(datosm, method = "jaccard", diag = T, binary = T)
 Se construye una matríz de similitudes por el método de Bray-Curtis teniendo en cuenta que otorga el doble de peso a las coincidencias y es ampliamente utilizado en estudios ecológicos.
 
 ### Agrupamiento jerárquico de los censos a través de la distancia de Bray-Curtis y método de Ward.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 dendro.wardb<-hclust(mat.b,method="ward.D")
@@ -1571,7 +1402,7 @@ El análisis MRPP de los cambios en la composición de especies mostró diferenc
 La elección de este método se justifica por la siguiente cita textual de Palacio *et al,*. (2020): *"En Biología es común el uso de datos cualitativos o con exceso de dobles ceros (presencia-ausencia, abundancia). En tales casos, la distancia euclideana entre las UE no es apropiada conceptualmente, por lo que el PCA no es adecuado (ver en este capítulo Efecto arco). Tanto el PCA como el CA imponen la distancia que se conserva entre las UE: distancia euclideana y chi-cuadrado, respectivamente. Si el investigador está interesado en ordenar las UE de acuerdo a otra medida de similitud, entonces puede utilizar el análisis de coordenadas principales (PCoA)."*
 
 Realizado a partir de la matriz de similitudes por Bray-Curtis.
-```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(FactoMineR)
@@ -1582,7 +1413,7 @@ library(labdsv)
 mds.ALT <- pco(mat.b, k=3) # k es n-1 censos (como máximo)
 
 mds.eig<-((mds.ALT$eig)/sum(mds.ALT$eig))*100
-sum(mds.eig[1:1])
+# sum(mds.eig[1:1])
 
 df.mds<-data.frame(mds.ALT$points) #posici?n de cada punto en los ejes. 
 
@@ -1638,61 +1469,13 @@ ggPCoA
 
 # ggsave("ggPCoA.tiff", plot = ggPCoA, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
 
-# ggplot(df.todo, aes(-X1, X2))+
-#   geom_hline(yintercept=0, col="black")+
-#   geom_vline(xintercept=0, col="black")+
-#   geom_point(size=8,aes(col=REG, pch=as.factor(REG)))+
-#   theme_classic()+
-#   scale_color_manual(values = c("coral4","burlywood2","palegreen4"))+
-#   scale_shape_manual(values=c(16,15,17))+
-#   theme(panel.grid.major.y = element_blank())+
-#   theme(panel.grid.major.x = element_blank())+
-#   theme(text = element_text(size=30, color='black'))+
-#   theme(axis.text = element_text(color='black'))+
-#   # geom_text(hjust = 0, nudge_x = .01, size=3,aes(label=Censo))+
-#   theme(legend.direction = "horizontal")+
-#   theme(legend.position = "bottom")+
-#   theme(legend.title = element_blank())+
-#   labs(x = "Principal coordinate 1 (25.4%)", y = "Principal coordinate 2 (14.9%)",colour = "REG",pch="REG",
-#                     groups = "REG")+
-#   stat_ellipse(aes(x=-X1, y=X2,color=REG,type = "norm"))+
-#   # geom_polygon(data = data_disc, aes(x = axis_1, y = axis_2, group = site, fill = site), alpha = 0.2) +
-#   # stat_chull(aes(x = axis_1, y = axis_2, group = site), geom = "path", col = "black", fill = NA)+
-#   geom_text_repel(
-#     data = df.todo,
-#     aes(label = Censo),
-#     size = 8,
-#     box.padding = unit(0.0001, "lines"),
-#     point.padding = unit(1, "lines"))+
-#   scale_y_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))+
-#   scale_x_continuous(limits = c(-0.6, 0.6), breaks = seq(-0.6, 0.6, 0.6))
-# dev.off()
-
-
 ```
 Se observa un ordenamiento muy marcado de las poblaciones en concordancia con los resultados anteriores. Los dos ejes principales explican un 27.19% de la variación total de los datos.
 
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
+## Análisis discriminante
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Cerrar todos los dispositivos gráficos abiertos
-# dev.off()
-
-# Guardar el gráfico como PNG con alta resolución
-# ggsave("ggPCoA.tiff", plot = ggPCoA, device = "tiff", width = 12, height = 12, units = "in", dpi = 300)
-
-```
-
-```{r, echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
-
-# sum(mds.eig[1:1])
-# sum(mds.eig[1:2])-sum(mds.eig[1:1])
-
-```
-
-## Base de datos
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE)
 library(readxl)
 data_disc<-read_excel("database.xlsx",sheet="II discriminant")
 
@@ -1705,16 +1488,16 @@ data_disc$site <- factor(data_disc$site,
 data_disc$species<-as.factor(data_disc$species)
 ```
 
-## Análisis discriminante
-
-```{r discriminante, echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 # knitr::include_graphics("discriminante.jpg")
 
 # Se crearon los ejes canónicos en infostat
 
 ```
 
-```{r , echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 library(ggplot2)
 ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
@@ -1747,36 +1530,6 @@ ggdisc<-ggplot(data_disc, aes(axis_1, axis_2))+
 ggdisc
 
 ggsave("ggdisc.tiff", plot = ggdisc, device = "tiff", width = 16, height = 12, units = "in", dpi = 300)
-# library(dplyr)
-# # Calcular los contornos manualmente
-# contour_data <- data_disc %>%
-#   group_by(site) %>%
-#   summarise(axis_1_contour = mean(axis_1),
-#             axis_2_contour = mean(axis_2))
-# 
-# # Obtener los índices de los puntos que forman los contornos
-# contour_points <- contour_data %>%
-#   slice(chull(axis_1_contour, axis_2_contour))
-# 
-# # Agregar los contornos al gráfico
-# ggdisc <- ggdisc +
-#   geom_polygon(data = contour_data, aes(x = axis_1_contour, y = axis_2_contour, group = site),
-#                alpha = 0.2, fill = NA, color = "black") +
-#   geom_path(data = contour_points, aes(x = axis_1_contour, y = axis_2_contour, group = site),
-#             color = "black", size = 1)
-# 
-# ggdisc
-
-```
-
-```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.8, fig.width=24, fig.height=16}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# Cerrar todos los dispositivos gráficos abiertos
-# dev.off()
-
-# Guardar el gráfico como .tiff con alta resolución
-# ggsave("ggdisc.tiff", plot = ggdisc, device = "tiff", width = 10, height = 10, units = "in", dpi = 300)
 
 ```
 
@@ -1795,7 +1548,8 @@ Finalmente, todos los resultados llevan a la conclusión de que las poblaciones 
 
 # Observado vs esperado
 
-```{r , echo=FALSE,fig.align='center', fig.cap="Análisis discriminante", out.width = '100%'}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 esperadocor <- c("Sambucus australis", "Schinus longifolius", "Butia yatay", "Celtis ehrenbergiana", "Vitex megapotamica", "Erythrina crista-galli", "Senegalia bonariensis", "Abutilon grandifolium", "Myrcianthes pungens", "Scutia buxifolia", "Zanthoxylum fagara", "Jodina rhombifolia", "Lycium boerhaviifolium", "Vassobia breviflora", "Celtis chichape", "Ocotea acutifolia", "Salix humboldtiana", "Albizia inundata", "Allophylus edulis", "Bauhinia forficata", "Blepharocalyx salicifolius", "Celtis iguanaea", "Chrysophyllum gonocarpum", "Chrysophyllum marginatum", "Citharexylum montevidense", "Cupania vernalis", "Diospyros inconstans", "Enterolobium contortisiliquum", "Eugenia mansoi", "Eugenia myrcianthes", "Eugenia repanda", "Eugenia uruguayensis", "Ficus luschnathiana", "Gleditsia amorphoides", "Guadua trinii", "Guettarda uruguensis", "Handroanthus heptaphyllus", "Inga vera", "Lonchocarpus nitidus", "Luehea divaricata", "Manihot grahamii", "Maytenus ilicifolia", "Myrceugenia glaucescens", "Myrsine laetevirens", "Myrsine parvula", "Nectandra angustifolia", "Nectandra megapotamica", "Peltophorum dubium", "Phytolacca dioica", "Poecilanthe parviflora", "Pouteria gardneriana", "Pouteria salicifolia", "Ruprechtia laxiflora", "Ruprechtia salicifolia", "Sebastiania brasiliensis", "Gymnanthes schottiana", "Solanum granuloso-leprosum", "Strychnos brasiliensis", "Syagrus romanzoffiana", "Symplocos uniflora", "Tabernaemontana catharinensis", "Terminalia australis", "Trema micrantha", "Vachellia astringens", "Xylosma venosa", "Cereus uruguayanus", "Lithrea brasiliensis", "Eugenia hiemalis", "Plinia rivularis", "Myrsine coriacea", "Urera aurantiaca", "Machaerium paraguariense", "Aloysia virgata", "Schinus molle", "Gymnanthes klotzschiana")
 
@@ -1821,100 +1575,98 @@ comunesgua <- intersect(observadogua, esperadogua)
 porcentajegua <- (length(comunesgua)+1)/length(observadogua)
 
 
+# mean(porcentajecor,
+# porcentajepal,
+# porcentajegua)
+
+```
+Concordia
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 porcentajecor
-porcentajepal
-porcentajegua
-
-mean(porcentajecor,
-porcentajepal,
-porcentajegua)
-
 length(esperadocor)
+
+```
+PN El Palmar
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+porcentajepal
 length(esperadopal)
+
+```
+Gualeguaychú
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+porcentajegua
 length(esperadogua)
 
 ```
 
 
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
 # Especies y familias
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(readxl)
-data_ahv<-read_excel("database.xlsx",sheet="II companion2")
-# datos[is.na(datos)] <-  0
-data_ahv$site<-factor(data_ahv$site, levels=c("concordia","palmar","gualeguaychu"), labels = c("Concordia", "NP El Palmar", "Gualeguaychú"))
 
-data_ahv$census<-as.factor(data_ahv$census)
-data_ahv$species<-as.factor(data_ahv$species)
-data_ahv$family<-as.factor(data_ahv$family)
-
-
-data_ahv_conc<-data_ahv[1:79,]
-data_ahv_pal<-data_ahv[80:152,]
-data_ahv_guale<-data_ahv[153:238,]
-
-```
-
-
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
-# especies dominantes
-library(ggplot2)
-ggdom_total<-ggplot(data_ahv, aes(x=species, y=abundancy, fill=site)) + 
-  geom_bar(stat="identity", size=.4) +
-  labs(y="Abundance", x= "")+
-  facet_grid(.~species)+
-  facet_wrap(~ site, ncol = 3, scales = "free") +
-  scale_fill_manual(values=c("coral4","burlywood2","palegreen4"))+
-  theme_classic()+
-  theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
-  theme(legend.title = element_blank())+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=15, color='black'))+
-  theme(plot.background = element_rect(fill = "white"))+
-  theme(panel.background = element_rect(fill = "white", color = "white"))+
-  theme(panel.border = element_rect(fill = "transparent"))+
-  theme(axis.text.x = element_text(angle = 65, hjust = 1, color='black'))+
-  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
-  scale_y_continuous(breaks = seq(0,40, 2), limits = c(0, 40))
-
-ggdom_total
+# # especies dominantes
+# library(ggplot2)
+# ggdom_total<-ggplot(data_ahv, aes(x=species, y=abundancy, fill=site)) + 
+#   geom_bar(stat="identity", size=.4) +
+#   labs(y="Abundance", x= "")+
+#   facet_grid(.~species)+
+#   facet_wrap(~ site, ncol = 3, scales = "free") +
+#   scale_fill_manual(values=c("coral4","burlywood2","palegreen4"))+
+#   theme_classic()+
+#   theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
+#   theme(legend.title = element_blank())+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=15, color='black'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "white"))+
+#   theme(panel.border = element_rect(fill = "transparent"))+
+#   theme(axis.text.x = element_text(angle = 65, hjust = 1, color='black'))+
+#   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+#   scale_y_continuous(breaks = seq(0,40, 2), limits = c(0, 40))
+# 
+# ggdom_total
 
 # Guardar el gráfico como PNG con alta resolución
 # ggsave("ggdom_total.tiff", plot = ggdom_total, device = "tiff", width = 14, height = 7, units = "in", dpi = 300)
 
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-
-family_conc <- data_ahv_conc %>%
-  dplyr::group_by(family) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-n)
-
-family_conc<-family_conc[1:10,]
-
-family_pal <- data_ahv_pal %>%
-  dplyr::group_by(family) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-n)
-
-family_pal<-family_pal[1:10,]
-
-family_guale <- data_ahv_guale %>%
-  dplyr::group_by(family) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-n)
-
-family_guale<-family_guale[1:10,]
+# library(dplyr)
+# 
+# family_conc <- data_ahv_conc %>%
+#   dplyr::group_by(family) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-n)
+# 
+# family_conc<-family_conc[1:10,]
+# 
+# family_pal <- data_ahv_pal %>%
+#   dplyr::group_by(family) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-n)
+# 
+# family_pal<-family_pal[1:10,]
+# 
+# family_guale <- data_ahv_guale %>%
+#   dplyr::group_by(family) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-n)
+# 
+# family_guale<-family_guale[1:10,]
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 # ggfam_con<-ggplot(family_conc, aes(x=family, y=n)) + 
@@ -1966,217 +1718,218 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-data_family<-rbind(family_conc,family_pal,family_guale)
-data_family$site<-c(rep("Concordia",10),rep("NP El Palmar",10),rep("Gualeguaychú",10))
+# data_family<-rbind(family_conc,family_pal,family_guale)
+# data_family$site<-c(rep("Concordia",10),rep("NP El Palmar",10),rep("Gualeguaychú",10))
 # data_family$site<-factor(data_family$site, levels = c("Concordia","El Palmar","Gualeguaychú"))
 ```
 
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-ggfam_total<-ggplot(data_family, aes(x=family, y=n, fill=site)) + 
-  geom_bar(stat="identity", size=.4) +
-  labs(y="Abundance", x= "")+
-  facet_grid(.~site)+
-  facet_wrap(~ site, ncol = 3, scales = "free") +
-  scale_fill_manual(values=c("coral4","burlywood2","palegreen4"))+
-  theme_classic()+
-  theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
-  theme(legend.title = element_blank())+
-  theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
-  theme(panel.grid.major.x = element_blank())+
-  theme(text = element_text(size=25, color='black'))+
-  theme(plot.background = element_rect(fill = "white"))+
-  theme(panel.background = element_rect(fill = "white", color = "white"))+
-  theme(panel.border = element_rect(fill = "transparent"))+
-  theme(axis.text.x = element_text(angle = 50, hjust = 1, color='black'))+
-  theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
-  scale_y_continuous(breaks = seq(1,16, 2), limits = c(0, 16))
-
-ggfam_total
+# ggfam_total<-ggplot(data_family, aes(x=family, y=n, fill=site)) + 
+#   geom_bar(stat="identity", size=.4) +
+#   labs(y="Abundance", x= "")+
+#   facet_grid(.~site)+
+#   facet_wrap(~ site, ncol = 3, scales = "free") +
+#   scale_fill_manual(values=c("coral4","burlywood2","palegreen4"))+
+#   theme_classic()+
+#   theme(legend.position = "none", legend.background = element_rect(fill = "white"))+
+#   theme(legend.title = element_blank())+
+#   theme(panel.grid.major.y = element_line(size=0.05, color='black'))+
+#   theme(panel.grid.major.x = element_blank())+
+#   theme(text = element_text(size=25, color='black'))+
+#   theme(plot.background = element_rect(fill = "white"))+
+#   theme(panel.background = element_rect(fill = "white", color = "white"))+
+#   theme(panel.border = element_rect(fill = "transparent"))+
+#   theme(axis.text.x = element_text(angle = 50, hjust = 1, color='black'))+
+#   theme(axis.text.y = element_text(angle = 0, hjust = 1, color='black'))+
+#   scale_y_continuous(breaks = seq(1,16, 2), limits = c(0, 16))
+# 
+# ggfam_total
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-
-family_n_conc_nat <- data_ahv_conc %>%
-  dplyr::group_by(family, native, site) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-native, -n)
-
-family_n_conc_exo <- data_ahv_conc %>%
-  dplyr::group_by(family, native, site) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(native, -n)
-
-family_n_conc1<-family_n_conc_nat[1:5,]
-family_n_conc2<-family_n_conc_exo[1:5,]
-
-t1_conc<-rbind(family_n_conc1,family_n_conc2)
-
-family_n_pal_nat <- data_ahv_pal %>%
-  dplyr::group_by(family, native, site) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-native, -n)
-
-family_n_pal_exo <- data_ahv_pal %>%
-  dplyr::group_by(family, native, site) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(native, -n)
-
-family_n_pal1<-family_n_pal_nat[1:5,]
-family_n_pal2<-family_n_pal_exo[1:5,]
-
-t1_pal<-rbind(family_n_pal1,family_n_pal2)
-
-family_n_guale_nat <- data_ahv_guale %>%
-  dplyr::group_by(family, native, site) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-native, -n)
-
-family_n_guale_exo <- data_ahv_guale %>%
-  dplyr::group_by(family, native, site) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(native, -n)
-
-family_n_guale1<-family_n_guale_nat[1:5,]
-family_n_guale2<-family_n_guale_exo[1:5,]
-
-t1_guale<-rbind(family_n_guale1,family_n_guale2)
-
-  
-t1_natexo<-rbind(t1_conc,t1_pal,t1_guale)
-
-t1_natexo<-as.data.frame(t1_natexo)
-t1_natexo$native <- factor(t1_natexo$native, levels = c("1", "0"), labels = c("Nativas", "Exóticas"))
-t1_natexo$site <- factor(t1_natexo$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
-
-```
-
-```{r, echo=FALSE, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(ggplot2)
-library(forcats)
-
-ggfam_total2 <- ggplot(t1_natexo, aes(x = fct_reorder2(family, site, n), y = n, fill = native)) +
-  geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
-  labs(y = "Riqueza", x = "") +
-  facet_grid(. ~ site) +
-  facet_wrap(~site, ncol = 3, scales = "free") +
-  scale_fill_manual(values = c("palegreen4", "coral4")) +
-  theme_classic() +
-  theme(
-    legend.position = "bottom",
-    legend.background = element_rect(fill = "white"),
-    legend.title = element_blank(),
-    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
-    panel.grid.major.x = element_blank(),
-    text = element_text(size = 25, color = 'black'),
-    plot.background = element_rect(fill = "white"),
-    panel.background = element_rect(fill = "white", color = "white"),
-    panel.border = element_rect(fill = "transparent"),
-    axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
-    axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
-  ) +
-  scale_y_continuous(breaks = seq(1, 16, 2), limits = c(0, 16))
-
-ggfam_total2
+# library(dplyr)
+# 
+# family_n_conc_nat <- data_ahv_conc %>%
+#   dplyr::group_by(family, native, site) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-native, -n)
+# 
+# family_n_conc_exo <- data_ahv_conc %>%
+#   dplyr::group_by(family, native, site) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(native, -n)
+# 
+# family_n_conc1<-family_n_conc_nat[1:5,]
+# family_n_conc2<-family_n_conc_exo[1:5,]
+# 
+# t1_conc<-rbind(family_n_conc1,family_n_conc2)
+# 
+# family_n_pal_nat <- data_ahv_pal %>%
+#   dplyr::group_by(family, native, site) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-native, -n)
+# 
+# family_n_pal_exo <- data_ahv_pal %>%
+#   dplyr::group_by(family, native, site) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(native, -n)
+# 
+# family_n_pal1<-family_n_pal_nat[1:5,]
+# family_n_pal2<-family_n_pal_exo[1:5,]
+# 
+# t1_pal<-rbind(family_n_pal1,family_n_pal2)
+# 
+# family_n_guale_nat <- data_ahv_guale %>%
+#   dplyr::group_by(family, native, site) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-native, -n)
+# 
+# family_n_guale_exo <- data_ahv_guale %>%
+#   dplyr::group_by(family, native, site) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(native, -n)
+# 
+# family_n_guale1<-family_n_guale_nat[1:5,]
+# family_n_guale2<-family_n_guale_exo[1:5,]
+# 
+# t1_guale<-rbind(family_n_guale1,family_n_guale2)
+# 
+#   
+# t1_natexo<-rbind(t1_conc,t1_pal,t1_guale)
+# 
+# t1_natexo<-as.data.frame(t1_natexo)
+# t1_natexo$native <- factor(t1_natexo$native, levels = c("1", "0"), labels = c("Nativas", "Exóticas"))
+# t1_natexo$site <- factor(t1_natexo$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
 
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(dplyr)
-
-sp_n_conc_nat <- data_ahv_conc %>%
-  dplyr::group_by(species, native) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-native, -n)
-
-sp_n_conc_exo <- data_ahv_conc %>%
-  dplyr::group_by(species, native) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(native, -n)
-
-sp_conc<-rbind(sp_n_conc_exo[1:5,],sp_n_conc_nat[1:5,])
-
-sp_n_pal_nat <- data_ahv_pal %>%
-  dplyr::group_by(species, native) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-native, -n)
-
-sp_n_pal_exo <- data_ahv_pal %>%
-  dplyr::group_by(species, native) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(native, -n)
-
-sp_pal<-rbind(sp_n_pal_exo[1:5,],sp_n_pal_nat[1:5,])
-
-sp_n_guale_nat <- data_ahv_guale %>%
-  dplyr::group_by(species, native) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(-native, -n)
-
-sp_n_guale_exo <- data_ahv_guale %>%
-  dplyr::group_by(species, native) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(native, -n)
-
-sp_guale<-rbind(sp_n_guale_exo[1:5,],sp_n_guale_nat[1:5,])
-
-sp_ahv<-rbind(sp_conc,sp_pal,sp_guale)
-
-sp_ahv$site<-c(rep("Concordia",10),rep("NP El Palmar",10),rep("Gualeguaychú",10))
-sp_ahv$site<-factor(sp_ahv$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
-sp_ahv<-as.data.frame(sp_ahv)
-# sp_ahv$site <- factor(sp_ahv$site, levels = c("Concordia", "Palmar", "Gualeguaychu"))
-sp_ahv$native <- factor(sp_ahv$native, levels = c("1", "0"), labels = c("Nativas", "Exóticas"))
-sp_ahv$n<-as.numeric(sp_ahv$n)
-
-
+# library(ggplot2)
+# library(forcats)
+# 
+# ggfam_total2 <- ggplot(t1_natexo, aes(x = fct_reorder2(family, site, n), y = n, fill = native)) +
+#   geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
+#   labs(y = "Riqueza", x = "") +
+#   facet_grid(. ~ site) +
+#   facet_wrap(~site, ncol = 3, scales = "free") +
+#   scale_fill_manual(values = c("palegreen4", "coral4")) +
+#   theme_classic() +
+#   theme(
+#     legend.position = "bottom",
+#     legend.background = element_rect(fill = "white"),
+#     legend.title = element_blank(),
+#     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+#     panel.grid.major.x = element_blank(),
+#     text = element_text(size = 25, color = 'black'),
+#     plot.background = element_rect(fill = "white"),
+#     panel.background = element_rect(fill = "white", color = "white"),
+#     panel.border = element_rect(fill = "transparent"),
+#     axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
+#     axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+#   ) +
+#   scale_y_continuous(breaks = seq(1, 16, 2), limits = c(0, 16))
+# 
+# ggfam_total2
 
 ```
 
-```{r, echo=FALSE, include=FALSE}
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-library(ggplot2)
-library(forcats)
 
-ggsp_total <- ggplot(sp_ahv, aes(x = fct_reorder2(species, site, n), y = n, fill = native)) +
-  geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
-  labs(y = "Frecuencia de especies", x = "") +
-  facet_grid(. ~ site) +
-  facet_wrap(~site, ncol = 3, scales = "free") +
-  scale_fill_manual(values = c("palegreen4", "coral4")) +
-  theme_classic() +
-  theme(
-    legend.position = "bottom",
-    legend.background = element_rect(fill = "white"),
-    legend.title = element_blank(),
-    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
-    panel.grid.major.x = element_blank(),
-    text = element_text(size = 25, color = 'black'),
-    plot.background = element_rect(fill = "white"),
-    panel.background = element_rect(fill = "white", color = "white"),
-    panel.border = element_rect(fill = "transparent"),
-    axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
-    axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
-  ) +
-  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 10))
+# library(dplyr)
+# 
+# sp_n_conc_nat <- data_ahv_conc %>%
+#   dplyr::group_by(species, native) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-native, -n)
+# 
+# sp_n_conc_exo <- data_ahv_conc %>%
+#   dplyr::group_by(species, native) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(native, -n)
+# 
+# sp_conc<-rbind(sp_n_conc_exo[1:5,],sp_n_conc_nat[1:5,])
+# 
+# sp_n_pal_nat <- data_ahv_pal %>%
+#   dplyr::group_by(species, native) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-native, -n)
+# 
+# sp_n_pal_exo <- data_ahv_pal %>%
+#   dplyr::group_by(species, native) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(native, -n)
+# 
+# sp_pal<-rbind(sp_n_pal_exo[1:5,],sp_n_pal_nat[1:5,])
+# 
+# sp_n_guale_nat <- data_ahv_guale %>%
+#   dplyr::group_by(species, native) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(-native, -n)
+# 
+# sp_n_guale_exo <- data_ahv_guale %>%
+#   dplyr::group_by(species, native) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(native, -n)
+# 
+# sp_guale<-rbind(sp_n_guale_exo[1:5,],sp_n_guale_nat[1:5,])
+# 
+# sp_ahv<-rbind(sp_conc,sp_pal,sp_guale)
+# 
+# sp_ahv$site<-c(rep("Concordia",10),rep("NP El Palmar",10),rep("Gualeguaychú",10))
+# sp_ahv$site<-factor(sp_ahv$site, levels = c("Concordia", "NP El Palmar", "Gualeguaychú"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+# sp_ahv<-as.data.frame(sp_ahv)
+# # sp_ahv$site <- factor(sp_ahv$site, levels = c("Concordia", "Palmar", "Gualeguaychu"))
+# sp_ahv$native <- factor(sp_ahv$native, levels = c("1", "0"), labels = c("Nativas", "Exóticas"))
+# sp_ahv$n<-as.numeric(sp_ahv$n)
+# 
+# 
 
-ggsp_total
+```
 
-# sp frec total
-sp_n<- data_ahv %>%
-  dplyr::group_by(species, native) %>%
-  dplyr::summarise(n = n()) %>%
-  dplyr::arrange(native, -n)
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# library(ggplot2)
+# library(forcats)
+# 
+# ggsp_total <- ggplot(sp_ahv, aes(x = fct_reorder2(species, site, n), y = n, fill = native)) +
+#   geom_bar(stat = "identity", size = 0.4, position = position_dodge(0.4)) +
+#   labs(y = "Frecuencia de especies", x = "") +
+#   facet_grid(. ~ site) +
+#   facet_wrap(~site, ncol = 3, scales = "free") +
+#   scale_fill_manual(values = c("palegreen4", "coral4")) +
+#   theme_classic() +
+#   theme(
+#     legend.position = "bottom",
+#     legend.background = element_rect(fill = "white"),
+#     legend.title = element_blank(),
+#     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+#     panel.grid.major.x = element_blank(),
+#     text = element_text(size = 25, color = 'black'),
+#     plot.background = element_rect(fill = "white"),
+#     panel.background = element_rect(fill = "white", color = "white"),
+#     panel.border = element_rect(fill = "transparent"),
+#     axis.text.x = element_text(angle = 60, hjust = 1, color = 'black'),
+#     axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+#   ) +
+#   scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 10))
+# 
+# ggsp_total
+# 
+# # sp frec total
+# sp_n<- data_ahv %>%
+#   dplyr::group_by(species, native) %>%
+#   dplyr::summarise(n = n()) %>%
+#   dplyr::arrange(native, -n)
 
 ```

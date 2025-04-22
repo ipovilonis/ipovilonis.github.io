@@ -557,35 +557,35 @@ div.tocify {
 ## lm(formula = respiracion ~ Estado, data = ensayo5)
 ## 
 ## Residuals:
-##       Min        1Q    Median        3Q       Max 
-## -28.86905 -10.85413  -2.14519  11.50740  30.01619 
+##     Min      1Q  Median      3Q     Max 
+## -28.869 -10.854  -2.145  11.507  30.016 
 ## 
 ## Coefficients:
-##             Estimate Std. Error  t value      Pr(&gt;|t|)    
-## (Intercept) 137.3975    10.6138 12.94522 0.00000014276 ***
-## EstadoMM1    36.3073    15.0101  2.41886    0.03613214 *  
-## EstadoMM2    92.3634    15.0101  6.15341    0.00010784 ***
-## EstadoM     100.7602    15.0101  6.71281 0.00005279879 ***
-## EstadoSM    127.2829    15.0101  8.47980 0.00000704452 ***
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   137.40      10.61  12.945 1.43e-07 ***
+## EstadoMM1      36.31      15.01   2.419 0.036132 *  
+## EstadoMM2      92.36      15.01   6.153 0.000108 ***
+## EstadoM       100.76      15.01   6.713 5.28e-05 ***
+## EstadoSM      127.28      15.01   8.480 7.04e-06 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 18.3836 on 10 degrees of freedom
-## Multiple R-squared:  0.905178,   Adjusted R-squared:  0.867249 
-## F-statistic: 23.8652 on 4 and 10 DF,  p-value: 0.0000423595</code></pre>
+## Residual standard error: 18.38 on 10 degrees of freedom
+## Multiple R-squared:  0.9052, Adjusted R-squared:  0.8672 
+## F-statistic: 23.87 on 4 and 10 DF,  p-value: 4.236e-05</code></pre>
 </div>
 <div id="supuestos" class="section level1">
 <h1>Supuestos</h1>
-<p><img src="Ensayo5_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /><img src="Ensayo5_files/figure-html/unnamed-chunk-3-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo5_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /><img src="Ensayo5_files/figure-html/unnamed-chunk-3-2.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>## Levene&#39;s Test for Homogeneity of Variance (center = median)
 ##       Df F value Pr(&gt;F)
-## group  4 0.23912 0.9098
+## group  4  0.2391 0.9098
 ##       10</code></pre>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
 ## data:  residuos
-## W = 0.9745663, p-value = 0.918973</code></pre>
+## W = 0.97457, p-value = 0.919</code></pre>
 <pre><code>## [1] &quot;No se detectaron outliers con |residuos estandarizados| &gt; 2&quot;</code></pre>
 </div>
 <div id="anova" class="section level1">
@@ -593,46 +593,46 @@ div.tocify {
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: respiracion
-##           Df   Sum Sq  Mean Sq  F value      Pr(&gt;F)    
-## Estado     4 32261.47 8065.367 23.86515 0.000042359 ***
-## Residuals 10  3379.56  337.956                         
+##           Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+## Estado     4  32261  8065.4  23.865 4.236e-05 ***
+## Residuals 10   3380   338.0                      
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="tukey" class="section level1">
 <h1>Tukey</h1>
 <pre><code>## $emmeans
-##  Estado     emmean         SE df   lower.CL   upper.CL
-##  I      137.397512 10.6137614 10 113.748578 161.046446
-##  MM1    173.704860 10.6137614 10 150.055926 197.353794
-##  MM2    229.760922 10.6137614 10 206.111988 253.409856
-##  M      238.157693 10.6137614 10 214.508759 261.806627
-##  SM     264.680429 10.6137614 10 241.031495 288.329363
+##  Estado   emmean       SE df lower.CL upper.CL
+##  I      137.3975 10.61376 10 113.7486 161.0464
+##  MM1    173.7049 10.61376 10 150.0559 197.3538
+##  MM2    229.7609 10.61376 10 206.1120 253.4099
+##  M      238.1577 10.61376 10 214.5088 261.8066
+##  SM     264.6804 10.61376 10 241.0315 288.3294
 ## 
 ## Confidence level used: 0.95 
 ## 
 ## $contrasts
-##  contrast      estimate         SE df t.ratio p.value
-##  I - MM1    -36.3073478 15.0101253 10  -2.419  0.1872
-##  I - MM2    -92.3634097 15.0101253 10  -6.153  0.0008
-##  I - M     -100.7601810 15.0101253 10  -6.713  0.0004
-##  I - SM    -127.2829170 15.0101253 10  -8.480  0.0001
-##  MM1 - MM2  -56.0560620 15.0101253 10  -3.735  0.0251
-##  MM1 - M    -64.4528332 15.0101253 10  -4.294  0.0107
-##  MM1 - SM   -90.9755692 15.0101253 10  -6.061  0.0009
-##  MM2 - M     -8.3967712 15.0101253 10  -0.559  0.9782
-##  MM2 - SM   -34.9195072 15.0101253 10  -2.326  0.2135
-##  M - SM     -26.5227360 15.0101253 10  -1.767  0.4404
+##  contrast    estimate       SE df t.ratio p.value
+##  I - MM1    -36.30735 15.01013 10  -2.419  0.1872
+##  I - MM2    -92.36341 15.01013 10  -6.153  0.0008
+##  I - M     -100.76018 15.01013 10  -6.713  0.0004
+##  I - SM    -127.28292 15.01013 10  -8.480  0.0001
+##  MM1 - MM2  -56.05606 15.01013 10  -3.735  0.0251
+##  MM1 - M    -64.45283 15.01013 10  -4.294  0.0107
+##  MM1 - SM   -90.97557 15.01013 10  -6.061  0.0009
+##  MM2 - M     -8.39677 15.01013 10  -0.559  0.9782
+##  MM2 - SM   -34.91951 15.01013 10  -2.326  0.2135
+##  M - SM     -26.52274 15.01013 10  -1.767  0.4404
 ## 
 ## P value adjustment: tukey method for comparing a family of 5 estimates</code></pre>
-<p><img src="Ensayo5_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><img src="Ensayo5_files/figure-html/unnamed-chunk-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo5_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Ensayo5_files/figure-html/unnamed-chunk-7-1.png" width="70%" style="display: block; margin: auto;" /></p>
 <pre><code>##   Estado Media_Predicha Error_Estandar n
-## 1      I     137.397512     10.6137614 3
-## 2    MM1     173.704860     10.6137614 3
-## 3    MM2     229.760922     10.6137614 3
-## 4      M     238.157693     10.6137614 3
-## 5     SM     264.680429     10.6137614 3</code></pre>
+## 1      I       137.3975       10.61376 3
+## 2    MM1       173.7049       10.61376 3
+## 3    MM2       229.7609       10.61376 3
+## 4      M       238.1577       10.61376 3
+## 5     SM       264.6804       10.61376 3</code></pre>
 </div>
 
 
