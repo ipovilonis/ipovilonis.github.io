@@ -30,7 +30,7 @@ pkpd <- ggplot(forest_arg, aes(x = year, y = area)) +
   geom_line(aes(color = "Forest area km2")) +
   geom_line(aes(y = percentage/scale, color = "Forest % of total territory")) +
   scale_x_continuous(breaks = seq(1990, 2020, 1)) +
-  scale_y_continuous(sec.axis = sec_axis(~.*scale, name="Percentage %")) +
+  # scale_y_continuous(sec.axis = sec_axis(~.*scale, name="Percentage %")) +
   labs(x = "year", y = "Forest area km2", color = "") +
   scale_color_manual(values = c("coral", "gold2"))+
   theme_classic()+
@@ -160,15 +160,132 @@ biod<-cbind(biod, letters)
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-library(ggplot2)
-library(ggplot2)
+# library(ggplot2)
+# 
+# gg_bioindex <- ggplot(biod, aes(x = site, y = Mean, color = site, fill = site)) + 
+#   geom_bar(stat = "identity", size = 0.05, color = "black") +
+#   geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.05, color = "black") +
+#   labs(y = "", x = "") +
+#   geom_point(size = 1, color = "black") +
+#   facet_wrap(~ variable, ncol = 4, scales = "free") +
+#   theme_classic() +
+#   theme(
+#     legend.position = "bottom",
+#     legend.background = element_rect(fill = "white"),
+#     legend.title = element_blank(),
+#     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+#     panel.grid.major.x = element_blank(),
+#     text = element_text(size = 25, color = 'black'),
+#     plot.background = element_rect(fill = "white"),
+#     panel.background = element_rect(fill = "white", color = "white"),
+#     panel.border = element_rect(fill = "transparent"),
+#     axis.text.x = element_blank(),
+#     axis.text.y = element_text(angle = 0, hjust = 1, color = 'black')
+#   ) +
+#   scale_color_manual(values = c("coral4", "burlywood2", "palegreen4")) +
+#   scale_fill_manual(values = c("coral4", "burlywood2", "palegreen4")) +
+#   
+#   # Ajustar la posición de las etiquetas Mean debajo de las barras de error
+#   geom_text(aes(label = round(Mean, 2), y = Mean - sd - 0.6 * sd), 
+#             vjust = 0.5, hjust = 0.5, size = 7, color = "black", 
+#             position = position_dodge(width = 0.8)) +
+#   
+#   # Ajustar la posición de las letras debajo de las barras de error
+#   geom_text(aes(label = letters, y = Mean - sd - 0.6 * sd), 
+#             vjust = 1.5, hjust = 0.5, size = 7, color = "black", 
+#             position = position_dodge(width = 0.8))
+# 
+# 
+# gg_bioindex
 
-gg_bioindex <- ggplot(biod, aes(x = site, y = Mean, color = site, fill = site)) + 
-  geom_bar(stat = "identity", size = 0.05, color = "black") +
-  geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.05, color = "black") +
+# ggsave("gg_bioindex.tiff", plot = gg_bioindex, device = "tiff", width = 12, height = 12, units = "in", dpi = 300)
+
+
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+# Asumiendo que 'biod' es tu dataframe
+biod <- structure(list(site = c("Concordia", "Concordia", "Concordia", 
+"Concordia", "Concordia", "Gualeguaychu", "Gualeguaychu", "Gualeguaychu", 
+"Gualeguaychu", "Gualeguaychu", "PN El Palmar", "PN El Palmar", 
+"PN El Palmar", "PN El Palmar", "PN El Palmar", "Concordia", 
+"PN El Palmar", "Gualeguaychu", "Concordia", "PN El Palmar", 
+"Gualeguaychu", "Concordia", "PN El Palmar", "Gualeguaychu"), 
+    variable = c("Dominance", "Equitability", "Shannon", "Evenness", 
+    "Margalef", "Dominance", "Equitability", "Shannon", "Evenness", 
+    "Margalef", "Dominance", "Equitability", "Shannon", "Evenness", 
+    "Margalef", "Richness", "Richness", "Richness", "Abundance", 
+    "Abundance", "Abundance", "Anthropic", "Anthropic", "Anthropic"
+    ), n = c(12L, 12L, 12L, 12L, 12L, 13L, 13L, 13L, 13L, 13L, 
+    14L, 14L, 14L, 14L, 14L, 12L, 14L, 13L, 12L, 14L, 13L, 12L, 
+    14L, 13L), Mean = c(0.28, 0.9, 1.46, 0.85, 1.61, 0.22, 0.93, 
+    1.66, 0.89, 1.85, 0.36, 0.88, 1.23, 0.86, 1.46, 5.4166667, 
+    4.2857143, 6.2307692, 15.3333333, 10, 17.3846154, 0.8551257, 
+    0.7823696, 0.7006716), sd = c(0.12, 0.04, 0.37, 0.06, 0.57, 
+    0.09, 0.03, 0.34, 0.04, 0.42, 0.16, 0.11, 0.41, 0.1, 0.57, 
+    1.7816404, 1.5406578, 1.9644272, 4.7354242, 4.314555, 7.5004273, 
+    0.1447626, 0.1574522, 0.136549), min = c(0.18, 0.83, 0.6, 
+    0.75, 0.51, 0.13, 0.87, 0.95, 0.8, 1.24, 0.18, 0.59, 0.41, 
+    0.71, 0.51, 2, 2, 3, 7, 3, 5, 0.625, 0.5, 0.4), max = c(0.59, 
+    0.96, 1.9, 0.96, 2.34, 0.44, 0.97, 2.09, 0.95, 2.46, 0.76, 
+    0.99, 1.74, 0.99, 2.23, 8, 7, 9, 23, 18, 29, 1, 1, 0.9), 
+    letters = c("ab", "a", "ab", "a", "a", "b", "a", "a", "a", 
+    "a", "a", "a", "b", "a", "a", "ab", "b", "a", "ab", "b", 
+    "a", "a", "ab", "b")), row.names = c(1L, 2L, 3L, 4L, 5L, 
+6L, 7L, 8L, 9L, 10L, 11L, 12L, 13L, 14L, 15L, 16L, 17L, 18L, 
+19L, 20L, 21L, 22L, 23L, 24L), class = "data.frame")
+
+
+# 1. Renombrar los niveles de la columna 'variable' a español
+biod_transformado <- biod %>%
+  mutate(
+    variable = case_when(
+      variable == "Abundance" ~ "Abundancia",
+      variable == "Richness" ~ "Riqueza",
+      variable == "Equitability" ~ "Equitatividad",
+      variable == "Evenness" ~ "Equidad", # Asumo que 'Evenness' se traduce como 'Equidad' en este contexto
+      variable == "Dominance" ~ "Dominancia",
+      variable == "Margalef" ~ "Margalef",
+      variable == "Shannon" ~ "Shannon",
+      variable == "Anthropic" ~ "Antrópico",
+      TRUE ~ variable # Mantiene el valor original si no coincide con ninguno
+    )
+  )
+
+# 2. Ordenar por la columna 'variable' en el orden especificado
+# Primero, definimos el orden deseado
+orden_variables <- c("Abundancia", "Riqueza", "Equitatividad", "Equidad", 
+                     "Dominancia", "Margalef", "Shannon", "Antrópico")
+
+# Luego, transformamos 'variable' a un factor con los niveles en el orden deseado
+# y finalmente ordenamos el dataframe
+biod_transformado <- biod_transformado %>%
+  mutate(variable = factor(variable, levels = orden_variables)) %>%
+  arrange(variable)
+
+biod_transformado$site <- factor(biod_transformado$site, levels = c("Concordia", "PN El Palmar", "Gualeguaychu"), labels = c("Concordia", "PN El Palmar", "Gualeguaychú"))
+
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.5, fig.width=24, fig.height=16}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+ic <- 1.96 * biod_transformado$sd / sqrt(biod_transformado$n)
+
+library(ggplot2)
+gg_22 <- ggplot(biod_transformado, aes(x = site, y = Mean, color = site, fill = site)) +
+  geom_bar(stat = "identity", size = 0.05, color = "black", width = 0.75) +
+  # geom_errorbar(aes(ymin = Mean - sd, ymax = Mean + sd), width = 0.05, color = "black") +
+  geom_errorbar(aes(ymin = Mean - ic, ymax = Mean + ic), width = 0.05, color = "black")+
   labs(y = "", x = "") +
   geom_point(size = 1, color = "black") +
-  facet_wrap(~ variable, ncol = 4, scales = "free") +
+  facet_wrap(~ variable, ncol = 2, scales = "free") + # Cambiado a ncol = 2
   theme_classic() +
   theme(
     legend.position = "bottom",
@@ -176,7 +293,7 @@ gg_bioindex <- ggplot(biod, aes(x = site, y = Mean, color = site, fill = site)) 
     legend.title = element_blank(),
     panel.grid.major.y = element_line(size = 0.05, color = 'black'),
     panel.grid.major.x = element_blank(),
-    text = element_text(size = 25, color = 'black'),
+    text = element_text(size = 30, color = 'black'),
     plot.background = element_rect(fill = "white"),
     panel.background = element_rect(fill = "white", color = "white"),
     panel.border = element_rect(fill = "transparent"),
@@ -185,21 +302,17 @@ gg_bioindex <- ggplot(biod, aes(x = site, y = Mean, color = site, fill = site)) 
   ) +
   scale_color_manual(values = c("coral4", "burlywood2", "palegreen4")) +
   scale_fill_manual(values = c("coral4", "burlywood2", "palegreen4")) +
-  
+
   # Ajustar la posición de las etiquetas Mean debajo de las barras de error
-  geom_text(aes(label = round(Mean, 2), y = Mean - sd - 0.6 * sd), 
-            vjust = 0.5, hjust = 0.5, size = 7, color = "black", 
+  geom_text(aes(label = round(Mean, 2), y = Mean - Mean * 0.4),
+            vjust = 0.5, hjust = 0.5, size = 12, color = "grey20",
             position = position_dodge(width = 0.8)) +
-  
+
   # Ajustar la posición de las letras debajo de las barras de error
-  geom_text(aes(label = letters, y = Mean - sd - 0.6 * sd), 
-            vjust = 1.5, hjust = 0.5, size = 7, color = "black", 
+  geom_text(aes(label = letters, y = Mean - Mean * 0.4),
+            vjust = 1.7, hjust = 0.5, size = 12, color = "grey20",
             position = position_dodge(width = 0.8))
-
-
-gg_bioindex
-
-# ggsave("gg_bioindex.tiff", plot = gg_bioindex, device = "tiff", width = 12, height = 12, units = "in", dpi = 300)
+gg_22
 
 ```
 

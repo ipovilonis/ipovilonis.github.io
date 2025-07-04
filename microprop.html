@@ -445,6 +445,9 @@ $(document).ready(function () {
 <li>
   <a href="about.html">Sobre el sitio</a>
 </li>
+<li>
+  <a href="FrutAr.html">FrutAr</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -485,23 +488,22 @@ $(document).ready(function () {
 <h3>Tabla resumen</h3>
 <pre><code>## # A tibble: 6 × 6
 ## # Groups:   hormona [3]
-##   hormona explanto     n Mean_supervivencia sd_supervivencia
-##   &lt;fct&gt;   &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;            &lt;dbl&gt;
-## 1 0.5     hoja        16              0.438            0.512
-## 2 0.5     segmento     9              0.444            0.527
-## 3 4       hoja         6              0.667            0.516
-## 4 4       segmento     4              0.75             0.5  
-## 5 10      hoja         6              0.667            0.516
-## 6 10      segmento     6              0.667            0.516
-## # ℹ 1 more variable: SEM_supervivencia &lt;dbl&gt;</code></pre>
+##   hormona explanto     n Mean_supervivencia sd_supervivencia SEM_supervivencia
+##   &lt;fct&gt;   &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+## 1 0.5     hoja        16              0.438            0.512             0.128
+## 2 0.5     segmento     9              0.444            0.527             0.176
+## 3 4       hoja         6              0.667            0.516             0.211
+## 4 4       segmento     4              0.75             0.5               0.25 
+## 5 10      hoja         6              0.667            0.516             0.211
+## 6 10      segmento     6              0.667            0.516             0.211</code></pre>
 </div>
 <div id="gráfico-de-barras" class="section level3">
 <h3>Gráfico de barras</h3>
-<p><img src="microprop_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="microprop_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="chekeo-de-linealidad" class="section level3">
 <h3>Chekeo de linealidad</h3>
-<p><img src="microprop_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="microprop_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" />
 No hay linealidad –&gt; comparación de medias</p>
 </div>
 <div id="frecuencias" class="section level3">
@@ -594,7 +596,7 @@ significativamente la supervivencia de los explantos.</p>
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale</code></pre>
-<p><img src="microprop_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="microprop_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="antioxidante" class="section level1">
@@ -603,17 +605,16 @@ significativamente la supervivencia de los explantos.</p>
 <h3>Tabla resumen</h3>
 <pre><code>## # A tibble: 4 × 6
 ## # Groups:   antioxidante [2]
-##   antioxidante explanto     n Mean_supervivencia sd_supervivencia
-##   &lt;fct&gt;        &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;            &lt;dbl&gt;
-## 1 citrico      hoja         8               0.5             0.535
-## 2 citrico      segmento     4               0.5             0.577
-## 3 pvpp         hoja        20               0.55            0.510
-## 4 pvpp         segmento    15               0.6             0.507
-## # ℹ 1 more variable: SEM_supervivencia &lt;dbl&gt;</code></pre>
+##   antioxidante explanto     n Mean_supervivencia sd_supervivencia SEM_supervivencia
+##   &lt;fct&gt;        &lt;fct&gt;    &lt;int&gt;              &lt;dbl&gt;            &lt;dbl&gt;             &lt;dbl&gt;
+## 1 citrico      hoja         8               0.5             0.535             0.189
+## 2 citrico      segmento     4               0.5             0.577             0.289
+## 3 pvpp         hoja        20               0.55            0.510             0.114
+## 4 pvpp         segmento    15               0.6             0.507             0.131</code></pre>
 </div>
 <div id="gráfico-de-barras-1" class="section level3">
 <h3>Gráfico de barras</h3>
-<p><img src="microprop_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="microprop_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="frecuencias-1" class="section level3">
 <h3>Frecuencias</h3>
@@ -686,7 +687,7 @@ los explantos, según los datos disponibles.</p>
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale</code></pre>
-<p><img src="microprop_files/figure-html/unnamed-chunk-18-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="microprop_files/figure-html/unnamed-chunk-18-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 

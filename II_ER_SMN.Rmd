@@ -164,57 +164,60 @@ table_temp_2022 <- table_temp %>% dplyr::filter(year == 2022)
 library(ggplot2)
 # Gráficos por año
 temp_month_2019 <- ggplot(table_temp_2019, aes(x = month, y = temp, color = site, group = site)) +
-  geom_line(method = "gam", se = FALSE, size = 2) +
-  geom_hline(yintercept = 21.7, color = "coral2", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 21.5, color = "burlywood3", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 20.8, color = "palegreen4", linetype = "dashed", size = 1.5) +
+  geom_line(method = "gam", se = FALSE, size = 1) +
+  geom_hline(yintercept = 21.7, color = "coral2", linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 21.5, color = "burlywood3", linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 20.8, color = "palegreen4", linetype = "dashed", size = 1) +
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
   facet_grid(year ~ .) +
   labs(y = "", x = "") +
-  theme_classic(base_size = 27) +
+  theme_classic(base_size = 10) +
   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
         panel.grid.major.x = element_blank(),
         axis.text = element_text(color = 'black'),
         legend.title = element_blank(),
-        legend.position = "bottom") +
+        legend.position = "bottom",
+        text = element_text(size = 18, color = 'black')) +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = rep("", 12)) +
-  scale_y_continuous(limits = c(10, 32))
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
+  scale_y_continuous(limits = c(12, 32))
 
 temp_month_2021 <- ggplot(table_temp_2021, aes(x = month, y = temp, color = site, group = site)) +
-  geom_line(method = "gam", se = FALSE, size = 2) +
-  geom_hline(yintercept = 22.0, color = "coral2", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 22.2, color = "burlywood3", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 21.4, color = "palegreen4", linetype = "dashed", size = 1.5) +
+  geom_line(method = "gam", se = FALSE, size = 1) +
+  geom_hline(yintercept = 22.0, color = "coral2", linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 22.2, color = "burlywood3", linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 21.4, color = "palegreen4", linetype = "dashed", size = 1) +
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
   facet_grid(year ~ .) +
   labs(y = "Temperatura (°C)", x = "") +
-  theme_classic(base_size = 27) +
+  theme_classic(base_size = 10) +
   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
         panel.grid.major.x = element_blank(),
         axis.text = element_text(color = 'black'),
         legend.title = element_blank(),
-        legend.position = "bottom") +
+        legend.position = "bottom",
+        text = element_text(size = 18, color = 'black')) +
   guides(color = FALSE) +
-  scale_x_continuous(breaks = 1:12, labels = rep("", 12)) +
-  scale_y_continuous(limits = c(10, 32))
+  scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
+  scale_y_continuous(limits = c(12, 32))
 
 temp_month_2022 <- ggplot(table_temp_2022, aes(x = month, y = temp, color = site, group = site)) +
-  geom_line(method = "gam", se = FALSE, size = 2) +
-  geom_hline(yintercept = 20.8, color = "coral2", linetype = "dashed", size = 1.5) +
-  geom_hline(yintercept = 20.8, color = "burlywood3", linetype = "twodash", size = 1.5) +
-  geom_hline(yintercept = 19.9, color = "palegreen4", linetype = "dashed", size = 1.5) +
+  geom_line(method = "gam", se = FALSE, size = 1) +
+  geom_hline(yintercept = 20.8, color = "coral2", linetype = "dashed", size = 1) +
+  geom_hline(yintercept = 20.8, color = "burlywood3", linetype = "twodash", size = 1) +
+  geom_hline(yintercept = 19.9, color = "palegreen4", linetype = "dashed", size = 1) +
   scale_color_manual(values = c("coral1", "burlywood2", "palegreen4")) +
   facet_grid(year ~ .) +
   labs(y = "", x = "") +
-  theme_classic(base_size = 27) +
+  theme_classic(base_size = 10) +
   theme(panel.grid.major.y = element_line(size = 0.05, color = 'black'),
         panel.grid.major.x = element_blank(),
         axis.text = element_text(color = 'black'),
         legend.title = element_blank(),
-        legend.position = "bottom") +
+        legend.position = "bottom",
+        text = element_text(size = 18, color = 'black')) +
   scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
-  scale_y_continuous(limits = c(10, 32))
+  scale_y_continuous(limits = c(12, 32))
 
 library(ggpubr)
 temp_month <- ggarrange(temp_month_2019, temp_month_2021, temp_month_2022, common.legend = TRUE, legend = "bottom", nrow = 3)
@@ -897,3 +900,44 @@ knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE, out.width=
 
 ```
 
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Análisis de Gualeguaychú 2023
+
+# library(readxl)
+# #Create object "datamet" which contains climate data
+# datamet_g23 <- read_excel("database.xlsx", sheet = "II_ER_SMN_G2023")
+# datamet_g23$HUM <- as.numeric(datamet_g23$HUM)
+# library(dplyr)
+# 
+# datamet_g23 <- datamet_g23 %>%
+#   dplyr::mutate(
+#     FECHA = sprintf("%08d", FECHA),            # Asegura 8 caracteres con ceros a la izquierda
+#     FECHA = as.Date(FECHA, format = "%d%m%Y")  # Convierte a tipo Date
+#   )
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```

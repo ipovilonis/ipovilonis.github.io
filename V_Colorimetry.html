@@ -445,6 +445,9 @@ $(document).ready(function () {
 <li>
   <a href="about.html">Sobre el sitio</a>
 </li>
+<li>
+  <a href="FrutAr.html">FrutAr</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -542,15 +545,15 @@ $(document).ready(function () {
 <h2>Bar plots</h2>
 <div id="l" class="section level3">
 <h3>L*</h3>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="a" class="section level3">
 <h3>a*</h3>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="b" class="section level3">
 <h3>b*</h3>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-5-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-5-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div
@@ -592,7 +595,7 @@ average.</h2>
 ## 4      SM   54.0489516  17.14774194   44.9854839</code></pre>
 <p>“” Density (frequency) of values found for the 4 maturity states with
 Line of highest frequency.</p>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-11-1.png" width="70%" style="display: block; margin: auto;" />
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-11-1.png" width="960" style="display: block; margin: auto;" />
 Table of most frequent color by maturity.</p>
 <pre><code>##          Lcm          acm        bcm
 ## 1 51.3736943 -8.795013746 38.0081276
@@ -616,7 +619,7 @@ class="section level1">
 ##             numDF    F-value p-value
 ## (Intercept)     1 94763.8592  &lt;.0001
 ## mad             3   211.2890  &lt;.0001</code></pre>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-13-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-13-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="color_a" class="section level2">
 <h2>color_a</h2>
@@ -624,7 +627,7 @@ class="section level1">
 ##             numDF     F-value p-value
 ## (Intercept)     1  390.227363  &lt;.0001
 ## mad             3 1200.684139  &lt;.0001</code></pre>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="color_b" class="section level2">
 <h2>color_b</h2>
@@ -632,7 +635,7 @@ class="section level1">
 ##             numDF     F-value p-value
 ## (Intercept)     1 26212.46217  &lt;.0001
 ## mad             3   322.90171  &lt;.0001</code></pre>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-15-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-15-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="conclusion" class="section level1">
@@ -661,8 +664,7 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 11.5311  3.39575 
 ##  site                (Intercept) 15.6164  3.95175 
 ##  Residual                        17.0711  4.13172 
-## Number of obs: 1508, groups:  
-## id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -686,8 +688,7 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 27.8611  5.27836 
 ##  site                (Intercept) 33.7434  5.80891 
 ##  Residual                        13.8433  3.72066 
-## Number of obs: 1508, groups:  
-## id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -711,8 +712,7 @@ difference between MM and SM.</p>
 ##  phenotype:site      (Intercept) 32.3344  5.68633 
 ##  site                (Intercept) 26.1927  5.11788 
 ##  Residual                        44.9486  6.70437 
-## Number of obs: 1508, groups:  
-## id:(phenotype:site), 995; phenotype:site, 52; site, 3
+## Number of obs: 1508, groups:  id:(phenotype:site), 995; phenotype:site, 52; site, 3
 ## 
 ## Fixed effects:
 ##             Estimate Std. Error t value
@@ -727,12 +727,9 @@ difference between MM and SM.</p>
 ## Models:
 ## L23: color_L ~ 1 + (1 | site)
 ## L2: color_L ~ 1 + (1 | site/phenotype/id)
-##     npar       AIC       BIC    logLik  deviance   Chisq Df
-## L23    3 10479.176 10495.132 -5236.588 10473.176           
-## L2     5  9967.735  9994.328 -4978.867  9957.735 515.441  2
-##                 Pr(&gt;Chisq)    
-## L23                           
-## L2  &lt; 0.000000000000000222 ***
+##     npar       AIC       BIC    logLik  deviance   Chisq Df             Pr(&gt;Chisq)    
+## L23    3 10479.176 10495.132 -5236.588 10473.176                                      
+## L2     5  9967.735  9994.328 -4978.867  9957.735 515.441  2 &lt; 0.000000000000000222 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>##     df         AIC
@@ -742,12 +739,9 @@ difference between MM and SM.</p>
 ## Models:
 ## a23: color_a ~ 1 + (1 | site)
 ## a2: color_a ~ 1 + (1 | site/phenotype/id)
-##     npar      AIC      BIC    logLik deviance    Chisq Df
-## a23    3 11169.94 11185.89 -5581.969 11163.94            
-## a2     5 10275.19 10301.78 -5132.594 10265.19 898.7496  2
-##                 Pr(&gt;Chisq)    
-## a23                           
-## a2  &lt; 0.000000000000000222 ***
+##     npar      AIC      BIC    logLik deviance    Chisq Df             Pr(&gt;Chisq)    
+## a23    3 11169.94 11185.89 -5581.969 11163.94                                       
+## a2     5 10275.19 10301.78 -5132.594 10265.19 898.7496  2 &lt; 0.000000000000000222 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <pre><code>##     df        AIC
@@ -771,7 +765,7 @@ class="section level1">
 </div>
 <div id="principal-component-analysis" class="section level1">
 <h1>Principal component analysis</h1>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="univariate-analysis-for-the-color-component-lab"
 class="section level1">
@@ -830,7 +824,7 @@ maturation</em></p>
 </div>
 <div id="descriptive-graphic-sd" class="section level2">
 <h2>Descriptive graphic (sd)</h2>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="the-model" class="section level2">
 <h2>The model</h2>
@@ -839,7 +833,7 @@ maturation</em></p>
 </div>
 <div id="assumptions-check" class="section level2">
 <h2>Assumptions check</h2>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-26-1.png" width="70%" style="display: block; margin: auto;" /><img src="V_Colorimetry_files/figure-html/unnamed-chunk-26-2.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-26-1.png" width="960" style="display: block; margin: auto;" /><img src="V_Colorimetry_files/figure-html/unnamed-chunk-26-2.png" width="960" style="display: block; margin: auto;" /></p>
 <pre><code>## 
 ##  Shapiro-Wilk normality test
 ## 
@@ -898,18 +892,18 @@ maturation</em></p>
 ## Note: contrasts are still on the ( scale 
 ## Degrees-of-freedom method: satterthwaite 
 ## P value adjustment: tukey method for comparing a family of 4 estimates</code></pre>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-28-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-28-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="color-correlation" class="section level1">
 <h1>Color correlation</h1>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-29-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-30-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-29-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-30-1.png" width="1152" style="display: block; margin: auto;" /></p>
 </div>
 <div id="discriminant-analysis" class="section level1">
 <h1>Discriminant Analysis</h1>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-31-1.png" width="70%" style="display: block; margin: auto;" /></p>
-<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-32-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-31-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="V_Colorimetry_files/figure-html/unnamed-chunk-32-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

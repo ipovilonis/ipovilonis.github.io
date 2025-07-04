@@ -527,6 +527,9 @@ div.tocify {
 <li>
   <a href="about.html">Sobre el sitio</a>
 </li>
+<li>
+  <a href="FrutAr.html">FrutAr</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -647,7 +650,7 @@ div.tocify {
 <div id="temperatura" class="section level1">
 <h1>Temperatura</h1>
 <p>Gráfico de temperaturas
-<img src="II_ER_DL_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<img src="II_ER_DL_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Tabla resumen</p>
 <table>
 <thead>
@@ -717,8 +720,7 @@ div.tocify {
 </table>
 <p>Análisis factorial mixto</p>
 <p>Modelo</p>
-<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace
-##   Approximation) [glmerMod]
+<pre><code>## Generalized linear mixed model fit by maximum likelihood (Laplace Approximation) [&#39;glmerMod&#39;]
 ##  Family: Gamma  ( log )
 ## Formula: temp2 ~ year * site + (1 | hour)
 ##    Data: data_dl
@@ -730,18 +732,14 @@ div.tocify {
 ##  Residual             0.287305
 ## Number of obs: 10916, groups:  hour, 24
 ## Fixed Effects:
-##               (Intercept)                   year2021  
-##                3.12786754                -0.00662376  
-##                  year2022                 sitePalmar  
-##               -0.05297823                -0.06283593  
-##          siteGualeguaychu        year2021:sitePalmar  
-##               -0.12957746                -0.00192673  
-##       year2022:sitePalmar  year2021:siteGualeguaychu  
-##               -0.01438792                 0.05396480  
-## year2022:siteGualeguaychu  
-##                0.01119255</code></pre>
+##               (Intercept)                   year2021                   year2022  
+##                3.12786754                -0.00662376                -0.05297823  
+##                sitePalmar           siteGualeguaychu        year2021:sitePalmar  
+##               -0.06283593                -0.12957746                -0.00192673  
+##       year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
+##               -0.01438792                 0.05396480                 0.01119255</code></pre>
 <p>Gráfico de residuos vs. predichos
-<img src="II_ER_DL_files/figure-html/unnamed-chunk-9-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<img src="II_ER_DL_files/figure-html/unnamed-chunk-9-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
 <pre><code>##   year         site       temp
 ## 1 2019    Concordia 21.7719291
@@ -753,15 +751,15 @@ div.tocify {
 ## 7 2019 Gualeguaychu 20.0496101
 ## 8 2021 Gualeguaychu 21.6778887
 ## 9 2022 Gualeguaychu 19.8537082</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-10-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-10-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Análisis de varianza</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: temp2
-##               Chisq Df Pr(&gt;Chisq)    
-## year       96.32876  2 &lt; 2.22e-16 ***
-## site      238.22684  2 &lt; 2.22e-16 ***
-## year:site  14.72270  4  0.0053123 ** 
+##               Chisq Df             Pr(&gt;Chisq)    
+## year       96.32876  2 &lt; 0.000000000000000222 ***
+## site      238.22684  2 &lt; 0.000000000000000222 ***
+## year:site  14.72270  4              0.0053123 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Efectos simples</p>
@@ -808,12 +806,12 @@ div.tocify {
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log scale</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-12-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-12-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="humedad-relativa" class="section level1">
 <h1>Humedad Relativa</h1>
 <p>Gráfico de humedad relativa
-<img src="II_ER_DL_files/figure-html/unnamed-chunk-14-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<img src="II_ER_DL_files/figure-html/unnamed-chunk-14-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Tabla resumen</p>
 <table>
 <thead>
@@ -900,18 +898,14 @@ div.tocify {
 ## Fixed Effects:
 ## 
 ## Conditional model:
-##               (Intercept)                   year2021  
-##                0.81485003                -0.68959883  
-##                  year2022                 sitePalmar  
-##               -0.74640544                -0.03938260  
-##          siteGualeguaychu        year2021:sitePalmar  
-##                0.04535305                 0.45446986  
-##       year2022:sitePalmar  year2021:siteGualeguaychu  
-##                0.22230662                 0.00106932  
-## year2022:siteGualeguaychu  
-##                0.13028737</code></pre>
+##               (Intercept)                   year2021                   year2022  
+##                0.81485003                -0.68959883                -0.74640544  
+##                sitePalmar           siteGualeguaychu        year2021:sitePalmar  
+##               -0.03938260                 0.04535305                 0.45446986  
+##       year2022:sitePalmar  year2021:siteGualeguaychu  year2022:siteGualeguaychu  
+##                0.22230662                 0.00106932                 0.13028737</code></pre>
 <p>Gráfico de residuos vs. predichos
-<img src="II_ER_DL_files/figure-html/unnamed-chunk-19-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<img src="II_ER_DL_files/figure-html/unnamed-chunk-19-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Gráfico de perfiles</p>
 <pre><code>##   year         site          hr
 ## 1 2019    Concordia 0.676775998
@@ -923,36 +917,36 @@ div.tocify {
 ## 7 2019 Gualeguaychu 0.671780437
 ## 8 2021 Gualeguaychu 0.540137774
 ## 9 2022 Gualeguaychu 0.558833718</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-20-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-20-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>Análisis de varianza</p>
 <pre><code>## Analysis of Deviance Table (Type II Wald chisquare tests)
 ## 
 ## Response: hr
-##               Chisq Df Pr(&gt;Chisq)    
-## year      1500.6434  2 &lt; 2.22e-16 ***
-## site       122.0576  2 &lt; 2.22e-16 ***
-## year:site  174.1807  4 &lt; 2.22e-16 ***
+##               Chisq Df             Pr(&gt;Chisq)    
+## year      1500.6434  2 &lt; 0.000000000000000222 ***
+## site       122.0576  2 &lt; 0.000000000000000222 ***
+## year:site  174.1807  4 &lt; 0.000000000000000222 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>Efectos simples</p>
 <pre><code>## $emmeans
 ## year = 2019:
 ##  site            response           SE  df   asymp.LCL   asymp.UCL
-##  Concordia    0.693142051 0.0254590938 Inf 0.641124513 0.740669628
-##  Palmar       0.684702419 0.0257696099 Inf 0.632164038 0.732907218
-##  Gualeguaychu 0.702703080 0.0249808497 Inf 0.651545126 0.749240971
+##  Concordia    0.693142052 0.0254590938 Inf 0.641124513 0.740669628
+##  Palmar       0.684702420 0.0257696099 Inf 0.632164038 0.732907218
+##  Gualeguaychu 0.702703081 0.0249808497 Inf 0.651545127 0.749240972
 ## 
 ## year = 2021:
 ##  site            response           SE  df   asymp.LCL   asymp.UCL
-##  Concordia    0.531271927 0.0297174415 Inf 0.472865635 0.588833832
-##  Palmar       0.631891148 0.0277862108 Inf 0.575959280 0.684486929
-##  Gualeguaychu 0.542813294 0.0296284524 Inf 0.484423819 0.600049658
+##  Concordia    0.531271928 0.0297174415 Inf 0.472865635 0.588833833
+##  Palmar       0.631891148 0.0277862108 Inf 0.575959281 0.684486929
+##  Gualeguaychu 0.542813295 0.0296284525 Inf 0.484423820 0.600049659
 ## 
 ## year = 2022:
 ##  site            response           SE  df   asymp.LCL   asymp.UCL
-##  Concordia    0.517104469 0.0298146870 Inf 0.458701273 0.575044090
-##  Palmar       0.562513332 0.0293701378 Inf 0.504363511 0.618994534
-##  Gualeguaychu 0.560720087 0.0293882524 Inf 0.502559130 0.617259758
+##  Concordia    0.517104470 0.0298146871 Inf 0.458701274 0.575044091
+##  Palmar       0.562513333 0.0293701379 Inf 0.504363511 0.618994535
+##  Gualeguaychu 0.560720088 0.0293882525 Inf 0.502559130 0.617259759
 ## 
 ## Confidence level used: 0.95 
 ## Intervals are back-transformed from the logit scale 
@@ -960,9 +954,9 @@ div.tocify {
 ## $contrasts
 ## year = 2019:
 ##  contrast                  odds.ratio           SE  df null z.ratio p.value
-##  Concordia / Palmar       1.040168378 0.0315043021 Inf    1   1.300  0.3950
-##  Concordia / Gualeguaychu 0.955660030 0.0296419705 Inf    1  -1.462  0.3093
-##  Palmar / Gualeguaychu    0.918755126 0.0273911879 Inf    1  -2.842  0.0125
+##  Concordia / Palmar       1.040168377 0.0315043020 Inf    1   1.300  0.3950
+##  Concordia / Gualeguaychu 0.955660029 0.0296419705 Inf    1  -1.462  0.3093
+##  Palmar / Gualeguaychu    0.918755127 0.0273911879 Inf    1  -2.842  0.0125
 ## 
 ## year = 2021:
 ##  contrast                  odds.ratio           SE  df null z.ratio p.value
@@ -978,7 +972,7 @@ div.tocify {
 ## 
 ## P value adjustment: tukey method for comparing a family of 3 estimates 
 ## Tests are performed on the log odds ratio scale</code></pre>
-<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-23-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="II_ER_DL_files/figure-html/unnamed-chunk-23-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 
 

@@ -56,18 +56,25 @@ Y0
 ```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=11}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-datas2<-subset(data, YEAR == 2019 | YEAR == 2020)
+datas2<-  data #subset(data, YEAR == 2019 | YEAR == 2020)
 
 levels(datas2$WEEK) <- c("8 al 14 de diciembre", "15 al 21 de diciembre", "22 al 28 de diciembre")
 
 # library(tidyverse)
 library(ggplot2)
-gg_yield_week <- ggplot(data = datas2, aes(x = WEEK, y = P, fill = ACC)) + 
+gg_yield_week <- gg_yield_week <- ggplot(data = datas2, aes(x = WEEK, y = P, fill = ACC)) + 
   geom_bar(stat = "identity", position = "dodge") +
+  geom_text(aes(label = ifelse(is.na(N), "", N)), 
+            position = position_dodge(width = 0.9), 
+            vjust = -0.5, 
+            size = 5, 
+            color = "black") +
+  scale_y_continuous(limits = c(0, 1300), 
+                    breaks = seq(0, 1250, by = 250), 
+                    name = "Peso fresco (g)") +
   labs(
-    y = "Peso fresco (g)", 
     x = "", 
-    fill = "Número de planta" # Título de la leyenda traducido al español
+    fill = "Número de planta"
   ) +
   theme_classic() +
   theme(
@@ -76,14 +83,21 @@ gg_yield_week <- ggplot(data = datas2, aes(x = WEEK, y = P, fill = ACC)) +
     text = element_text(size = 30, color = "black"),
     axis.text = element_text(color = "black"),
     legend.position = "bottom", 
-    legend.text = element_text(size = 15) # Ajusta el tamaño del texto de la leyenda
+    legend.text = element_text(size = 15)
   ) +
-  facet_grid(YEAR ~ .)+
-  scale_fill_viridis_d(option="D", end=0.8)
+  facet_grid(YEAR ~ .) +
+  scale_fill_viridis_d(option = "D", end = 0.8)
 
 gg_yield_week
 
-ggsave("gg_yield_week", plot = gg_yield_week, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+# ggsave("gg_yield_week", plot = gg_yield_week, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=30, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
 
 ```
 
@@ -291,3 +305,179 @@ anova(mY2)
 ```
 
 There is no significant difference between years
+
+# Modelo de rendimiento en función del volummen de copa
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+library(dplyr)
+
+# Sumar N y P por ACC y YEAR
+result <- data %>%
+  dplyr::group_by(YEAR, ACC) %>%
+  dplyr::summarise(
+    total_N = sum(N, na.rm = TRUE),
+    total_P = sum(P, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Mostrar el resultado
+print(result)
+
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data_car <- data.frame(
+  ACC = 1:15,
+  Altura = c(4.02, 3.1, 3.2, 4, 4.7, 3.70, 1.9, 2.9, 4.4, 4.25, 4.4, 6, 3.1, 3.4, 3.3),
+  DAP = c(22, 11.8, 13, 17, 18, 11.5, 1, 6.5, 22.8, 17.5, 12.5, 25, 8.5, 8, 11),
+  DM = c(4, 2.6, 2.9, 2.5, 3, 3.2, 1.2, 2.3, 2.6, 3.5, 3, 2.7, 2.1, 2.5, 2.3),
+  Dm = c(2, 2.3, 2.1, 1.8, 1.7, 2.1, 1.1, 2.2, 2.7, 2.9, 2.4, 1.9, 1.6, 1.8, 1.6)
+)
+
+data_car$ACC <- as.factor(data_car$ACC)
+# data_car$Altura <- data_car$Altura*100
+# data_car$DM <- data_car$DM*100
+# data_car$Dm <- data_car$Dm*100
+data_car$Vol <- (2/3) * 3.14159 * data_car$Altura * ((data_car$DM/2) * (data_car$Dm/2))
+# data_car$DAP <- data_car$DAP/3.14159
+
+```
+
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+library(dplyr)
+
+# Sumar P por planta (ACC) y año (YEAR)
+p_sum_by_acc_year2 <- data %>%
+  dplyr::group_by(ACC, YEAR) %>%
+  dplyr::summarise(
+    P_total = sum(P, na.rm = TRUE),
+    .groups  = "drop"
+  )
+
+p_sum_by_acc_year <- p_sum_by_acc_year2 %>%
+  dplyr::group_by(ACC) %>%
+  dplyr::summarise(
+    P_medio = mean(P_total, na.rm = TRUE),
+    .groups  = "drop"
+  )
+
+
+# 1. Hacer el merge entre la suma de P por planta/año y las covariables
+datos_reg <- p_sum_by_acc_year %>%
+  dplyr::inner_join(data_car,
+                    by = c("ACC"))
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+numeric_vars <- datos_reg[, c("P_medio","Altura", "DAP", "DM", "Dm", "Vol")]
+
+# Calcular la matriz de correlación
+correlation_matrix <- cor(numeric_vars, method = "pearson", use = "complete.obs")
+
+# Mostrar la matriz de correlación
+print(correlation_matrix)
+
+# Opcional: Visualizar la matriz de correlación con corrplot
+# Instalar el paquete corrplot si no está instalado: install.packages("corrplot")
+library(corrplot)
+corrplot(correlation_matrix, method = "circle", type = "upper", 
+         addCoef.col = "black", tl.col = "black", tl.srt = 45)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# 1) Define el modelo global con todas las interacciones de pares:
+modelo_global_int <- lm(
+  P_medio ~ (Altura + DAP + DM + Dm + Vol)^2,
+  data = datos_reg
+)
+
+library(MuMIn)
+options(na.action = "na.fail")
+
+dredge_int2 <- dredge(
+  modelo_global_int,
+  m.lim = c(1, 8),
+  trace = FALSE
+)
+
+head(dredge_int2, 10)
+
+# 5) Extrae el modelo Top‐1 con interacción:
+best_int <- get.models(dredge_int2, 1)[[1]]
+summary(best_int)
+
+
+```
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=20, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+data4 <- datos_reg[,c(1,7)]
+
+library(dplyr)
+
+# Opción 1: partir de p_sum_by_acc_year2 y añadir Vol desde data4
+merged_df <- result %>%
+  dplyr::inner_join(data4, by = "ACC")
+
+merged_df$P_Vol <- merged_df$total_P/(merged_df$Vol)
+
+merged_df$P_Vol <- round(merged_df$P_Vol,0)
+
+# library(tidyverse)
+#Gráfico de rendimiento peso y número de frutos por árbol año
+library(ggplot2)
+gg_yield_year <- ggplot(data = merged_df, aes(x = YEAR, y = total_P , fill = ACC)) + 
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_hline(yintercept = 743.0222, color = "#B2DF8A", linetype = "dashed", size = 1.5) +
+  geom_text(aes(label = ifelse(is.na(total_N), "", total_N )), 
+            position = position_dodge(width = 0.9), 
+            vjust = 1, 
+            size = 7, 
+            color = "red") +
+  geom_text(aes(label = ifelse(is.na(P_Vol), "", P_Vol )), 
+            position = position_dodge(width = 0.9), 
+            vjust = -0.8, 
+            size = 7, 
+            color = "black") +
+  scale_y_continuous(limits = c(0, 2250), 
+                    breaks = seq(0, 2250, by = 250), 
+                    name = "Peso fresco (g)") +
+  labs(
+    x = "", 
+    fill = "Número de planta"
+  ) +
+  theme_classic() +
+  theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(size = 0.05, color = "black"),
+    text = element_text(size = 30, color = "black"),
+    axis.text = element_text(color = "black"),
+    legend.position = "bottom", 
+    legend.text = element_text(size = 15)
+  ) +
+  # facet_grid(. ~ YEAR) +
+  scale_fill_viridis_d(option = "D", end = 0.8)
+
+  # geom_hline(yintercept = 74.88889, color = "black", linetype = "dashed", size = 1.5) +
+  # geom_hline(yintercept = 36.44444, color = "red", linetype = "dashed", size = 1.5) +
+
+gg_yield_year
+
+
+```
+

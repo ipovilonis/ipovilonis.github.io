@@ -23,10 +23,10 @@ db_met_mor$pp_pluv<-as.numeric(db_met_mor$pp_pluv)
 
 ```
 
-**Gráfico de temperaturas medias mensuales**
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
-
+# **Gráfico de temperaturas medias mensuales**
 db_met_mor<-na.omit(db_met_mor)
 
 library(dplyr)
@@ -50,8 +50,8 @@ table_met_pp_pluv <- db_met_mor %>%
 datos_unidos1 <- merge(table_met_temp, table_met_temp_min, by = c("month", "year"))
 datos_unidos2 <- merge(datos_unidos1, table_met_pp_pluv, by = c("month", "year"))
 
-datos_unidos <- datos_unidos2 %>%
-  filter(year %in% c(2018, 2019, 2020))
+datos_unidos_2021 <- datos_unidos2 %>%
+  filter(year %in% c(2021))
 
 # table_met_temp_years <- datos_unidos %>% 
 #   dplyr::group_by(year) %>%
@@ -63,59 +63,402 @@ datos_unidos <- datos_unidos2 %>%
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
+# library(dplyr)
+# 
+# # Obtener las medias para los meses significativos
+# 
+# medias_abril <- datos_unidos %>% 
+#   dplyr::filter(month == 4) %>% 
+#    dplyr::group_by(year) %>% 
+#    dplyr::summarise(Mean = mean(Mean))
+# 
+# medias_junio <- datos_unidos %>% 
+#    dplyr::filter(month == 6) %>% 
+#    dplyr::group_by(year) %>% 
+#    dplyr::summarise(Mean = mean(Mean))
+# 
+# medias_septiembre <- datos_unidos %>% 
+#    dplyr::filter(month == 9) %>% 
+#    dplyr::group_by(year) %>% 
+#    dplyr::summarise(Mean = mean(Mean))
+# 
+# palette <- c("#1F78B4","#B88DB4",  "#B2DF8A") #FF7F00
+# library(ggplot2)
+# 
+# gg_month_mor_temp <- ggplot(datos_unidos, aes(x = month, y = Mean, color = year, fill = year, width = 1)) +
+#     geom_point(size = 4) +
+#     stat_summary(fun = "mean", size = 1.5, geom = "line") +
+#     scale_color_manual(values = palette) +
+#     scale_fill_manual(values = palette) +
+#     labs(y = "Temperatura (°C)", x = "") +
+#     theme_classic() +
+#     theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+#     theme(panel.grid.major.x = element_blank()) +
+#     theme(text = element_text(size = 35, color = 'black')) +
+#     theme(axis.text = element_text(color = 'black')) +
+#     theme(legend.position = "bottom") +
+#     theme(legend.title = element_blank()) +
+#     scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+#                                                  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
+#     geom_hline(yintercept = 16.98, color = "#993427", linetype = "dotted", size = 1.8) +
+#     geom_hline(yintercept = 17.9, color = "#1F78B4", linetype = "dashed", size = 1.5) +
+#     geom_hline(yintercept = 17.5, color = "#B88DB4", linetype = "dashed", size = 1.5) +
+#     geom_hline(yintercept = 17.4, color = "#B2DF8A", linetype = "dashed", size = 1.5) +
+#    # geom_hline(yintercept = 17.4, color = "#FF7F00", linetype = "dashed", size = 1.5) +
+#     # Añadir letras de significancia para cada año en abril
+#     annotate("text", x = 4, y = medias_abril$Mean + c(0, 0, -2), label = c("a", "b", "b"), 
+#              color = palette, size = 8, vjust = -1) +
+#     # Añadir letras de significancia para cada año en junio
+#     annotate("text", x = 6, y = medias_junio$Mean, label = c("b", "a", "a"), 
+#              color = palette, size = 8, vjust = -1) +
+#     # Añadir letras de significancia para cada año en septiembre
+#     annotate("text", x = 9, y = medias_septiembre$Mean + c(0, 0, -2), 
+#              color = palette, label = c("a", "b", "b"), size = 8, vjust = -1)+
+#     # Añadir letras de significancia para cada año en septiembre
+#     annotate("text", x = 9, y = medias_septiembre$Mean + c(0, 0, -2), 
+#              color = palette, label = c("a", "b", "b"), size = 8, vjust = -1)
+# 
+# gg_month_mor_temp
+# 
+# # # Guardar el gráfico como .TIFF con alta resolución
+# # ggsave("gg_month_mor_temp", plot = gg_month_mor_temp, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+# 
+# # c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
+# Líneas continuas indican las temperaturas mensuales medias (°C) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica la temperatura media anual histórica (serie 30 años). Las líneas discontinuas indican la temperatura media para cada año. Letras distintas indican diferencias significativas para los valores de un mismo mes (α = 0,05).
+```
+
+
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# **Gráfico de temperaturas mínimas y heladas**
+#Create object "db_met_mor" which contains climate data
+# db_hel_mor_i <- read_excel("database.xlsx", sheet = "II_M_heladas")
+# 
+# db_hel_mor <- db_hel_mor_i %>% filter(!is.na(Heladas))
+# 
+# db_hel_mor$year <- as.factor(db_hel_mor$year)
+# 
+# library(dplyr)
+# medias_anuales_min <- db_hel_mor %>%
+#   dplyr::filter(year %in% c("2018", "2019", "2020"))
+# 
+# db_hel_mor <- db_hel_mor[-c(13:16),]
+# 
+# # Calcular la media anual de la temperatura para los años especificados
+# medias_anuales_min <- datos_unidos2 %>%
+#   dplyr::filter(year %in% c("2018", "2019", "2020")) %>%
+#   dplyr::group_by(year) %>%
+#   dplyr::summarise(Mean_Anual = mean(Mean_min))
+# 
+# datos_unidos <- datos_unidos2 %>%
+#   dplyr::filter(year %in% c("2018", "2019", "2020"))
+# 
+# # Obtener las medias para los meses significativos
+# 
+# medias_marzo <- datos_unidos %>%
+#   filter(month == 3) %>%
+#   group_by(year) %>%
+#   summarise(Mean = mean(Mean_min))
+# 
+# medias_abril <- datos_unidos %>%
+#   filter(month == 4) %>%
+#   group_by(year) %>%
+#   summarise(Mean = mean(Mean_min))
+# 
+# medias_mayo <- datos_unidos %>%
+#   filter(month == 5) %>%
+#   group_by(year) %>%
+#   summarise(Mean = mean(Mean_min))
+# 
+# medias_junio <- datos_unidos %>%
+#   filter(month == 6) %>%
+#   group_by(year) %>%
+#   summarise(Mean = mean(Mean_min))
+# 
+# medias_septiembre <- datos_unidos %>%
+#   filter(month == 9) %>%
+#   group_by(year) %>%
+#   summarise(Mean = mean(Mean_min))
+# 
+# palette <- c("#1F78B4","#B88DB4",  "#B2DF8A")
+# library(ggplot2)
+# gg_month_mor_temp_min_0<-ggplot(datos_unidos, aes(x = month, y = Mean_min, color = year, fill = year, width = 1)) +
+#     geom_point(size = 4) +
+#     stat_summary(fun = "mean", size = 1.5, geom = "line") +
+#     scale_color_manual(values = palette) +
+#     scale_fill_manual(values = palette) +
+#     # facet_grid(year ~ .) +
+#     labs(y = "Temperatura (°C)", x = "") +
+#     theme_classic() +
+#     theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+#     theme(panel.grid.major.x = element_blank()) +
+#     theme(text = element_text(size = 35, color = 'black')) +
+#     theme(axis.text = element_text(color = 'black')) +
+#     theme(legend.position = "bottom") +
+#     theme(legend.title=element_blank())+
+#     scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+#                                                  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+#     geom_hline(yintercept = 12.708, color = "#993427", linetype = "dotted", size = 1.8)+
+#     geom_hline(yintercept = 12.5      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
+#     geom_hline(yintercept = 11.9     , color = "#B88DB4", linetype = "dashed", size = 1.5) +
+#     geom_hline(yintercept = 11.4  , color = "#B2DF8A", linetype = "dashed", size = 1.5)  +
+# 
+#     # Añadir letras de significancia para cada año en marzo
+#     annotate("text", x = 3, y = medias_marzo$Mean + c(-2.8, -1, 2), label = c("b", "b", "a"),
+#              color = palette, size = 8, vjust = -1) +
+#     # Añadir letras de significancia para cada año en abril
+#     annotate("text", x = 4, y = medias_abril$Mean + c(3.4, -1.2, -3.4), label = c("a", "b", "b"),
+#              color = palette, size = 8, vjust = -1) +
+#     # Añadir letras de significancia para cada año en mayo
+#     annotate("text", x = 5, y = medias_mayo$Mean + c(2.4,-0.5, -2.8), label = c("a", "ab", "b"),
+#              color = palette, size = 8, vjust = -1) +
+#     # Añadir letras de significancia para cada año en junio
+#     annotate("text", x = 6, y = medias_junio$Mean + c(-3.7,2.2, -0.2), label = c("b", "a", "a"),
+#              color = palette, size = 8, vjust = -1) +
+#     # Añadir letras de significancia para cada año en septiembre
+#     annotate("text", x = 9, y = medias_septiembre$Mean + c(3.4, -1, -3.4), label = c("a", "b", "b"),
+#              color = palette, size = 8, vjust = -1)
+# 
+# heladas_junio <- db_hel_mor %>%
+#   filter(month == 6) %>%
+#   group_by(year) %>%
+#   summarise(Heladas = max(Heladas, na.rm = TRUE))
+# 
+# heladas_julio <- db_hel_mor %>%
+#   filter(month == 7) %>%
+#   group_by(year) %>%
+#   summarise(Heladas = max(Heladas, na.rm = TRUE))
+# 
+# heladas_septiembre <- db_hel_mor %>%
+#   filter(month == 9) %>%
+#   group_by(year) %>%
+#   summarise(Heladas = max(Heladas, na.rm = TRUE))
+# 
+# # Ajustar la posición x para que coincida con las barras esquivadas
+# dodge_width <- 0.8  # El mismo valor que usas en position_dodge para las barras
+# 
+# # Calcular la posición x para cada año dentro de cada mes
+# x_positions <- c(6, 7, 9)  # Meses en los que quieres añadir letras
+# years <- levels(db_hel_mor$year)  # Asegúrate de que db_hel_mor$year es un factor
+# x_dodge <- seq(-dodge_width/3, dodge_width/3, length.out = length(years))
+# 
+# # Crear una función para generar las posiciones x correctas
+# get_x_positions <- function(month) {
+#   rep(month + x_dodge, each = 1)
+# }
+# 
+# # Definir las etiquetas y colores por año y mes
+# labels <- list(
+#   c("a", "b", "b"),  # Junio
+#   c("c", "b", "a"),  # Julio
+#   c("b", "a", "a")   # Septiembre
+# )
+# 
+# list_x <- list(c(get_x_positions(6), get_x_positions(7), get_x_positions(9)))
+# list_y <- list(c((heladas_junio$Heladas) + c(0, -3, -2),
+#                  (heladas_julio$Heladas) + c(-7, -5, 0),
+#                  (heladas_septiembre$Heladas) + c(-1, 0, 0)) + 0.5)
+# 
+# # # Añadir las anotaciones considerando las posiciones esquivadas
+# gg_month_mor_temp_min <- gg_month_mor_temp_min_0 +
+#   geom_bar(data = db_hel_mor,
+#            aes(x = month, y = Heladas, fill = year),
+#            stat = "identity",
+#            alpha = 0.5,
+#            position = position_dodge(width = 0.8),
+#            width = 0.7) +
+# 
+#   scale_y_continuous(
+#     name = "Temperatura (°C)",
+#     sec.axis = sec_axis(~ ., name = "Días con heladas"),
+#     limits = c(0, 21),
+#     expand = c(0, 0)
+#   ) +
+# 
+#   # Añadir letras de significancia para cada año en las barras de heladas
+#   annotate("text",
+#            x = unlist(list_x),
+#            y = unlist(list_y),
+#            label = unlist(labels),
+#            color = "black",  # Cambia el color a negro para todas las letras
+#            size = 8,
+#            vjust = 0)
+# 
+# gg_month_mor_temp_min
+# 
+# # ggsave("gg_month_mor_temp_min", plot = gg_month_mor_temp_min, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+# Líneas continuas indican las temperaturas mensuales mínimas (°C) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica la temperatura mínima anual histórica (serie 30 años). Las líneas discontinuas indican la temperatura mínima para cada año Letras distintas indican diferencias significativas para los valores de un mismo mes. Letras distintas indican diferencias significativas, en color para temperaturas mínimas y letras negras para total de días con helada (α = 0,05).
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+# **Gráfico de precipitaciones mensuales acumuladas**
+# gg_month_mor_pp<-ggplot(datos_unidos, aes(x = month, y = Mean_pp, color = year, fill = year, width = 0.8)) +
+#     stat_summary(aes(y = Mean_pp), fun = "mean", size = .2, geom = "bar", position = position_dodge(0.8), color = "blue") +
+#     geom_errorbar(aes(ymin = Mean_pp - sd_pp, ymax = Mean_pp + sd_pp), width = .4, position = position_dodge(0.8), color = "black") +
+#     scale_color_manual(values = palette) +
+#     scale_fill_manual(values = palette) +
+#     # facet_grid(year ~ .) +
+#     labs(y = "Precipitaciones (mm)", x = "") +
+#     theme_classic() +
+#     theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
+#     theme(panel.grid.major.x = element_blank()) +
+#     theme(text = element_text(size = 35, color = 'black')) +
+#     theme(axis.text = element_text(color = 'black')) +
+#     theme(legend.position = "bottom") +
+#     theme(legend.title=element_blank())+
+#     scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+#                                                  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
+#     geom_hline(yintercept = 84, color = "#993427", linetype = 3, size = 1.8)+
+#    geom_hline(yintercept = 98.5      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
+#    geom_hline(yintercept = 84.5     , color = "#B88DB4", linetype = "dashed", size = 1.5) +
+#    geom_hline(yintercept = 57.3  , color = "#B2DF8A", linetype = "dashed", size = 1.5)
+# 
+# gg_month_mor_pp
+# 
+# # ggsave("gg_month_mor_pp", plot = gg_month_mor_pp, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+# Las barras indican las precipitaciones acumuladas mensuales (mm) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica a precipitación media mensual histórica (serie 30 años), coincidente con la media del 2019. Las líneas discontinuas indican la precipitación acumulada mensual media para cada año.
+```
+
+**Temperatura media**
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# Cargar librerías necesarias
 library(dplyr)
+library(broom)
+library(emmeans)
+
+# 1) Preparación de la base de datos
+db_temp <- db_met_mor %>%
+  # Asegurarnos de que year y month son factores adecuados y temp_abr numérico
+  dplyr::mutate(
+    year     = as.factor(as.character(year)),
+    month    = as.integer(month),
+    temp_abr = as.numeric(temp_abr)
+  ) %>%
+  # Filtrar sólo los años de interés
+  dplyr::filter(year %in% c("2018","2019","2020","2021")) %>%
+  # Eliminar posibles NA en temp_abr
+  dplyr::filter(!is.na(temp_abr))
+
+# 2) ANOVA de un factor (year) **por cada mes**
+anova_by_month <- db_temp %>%
+  dplyr::group_by(month) %>%
+  do({
+    fit <- aov(temp_abr ~ year, data = .)
+    broom::tidy(fit) %>%
+      filter(term == "year")       # nos quedamos sólo con el test de 'year'
+  }) %>%
+  dplyr::ungroup() %>%
+  dplyr::select(
+    month,
+    df       = df,                  # grados de libertad del test
+    F_value  = statistic,           # estadístico F
+    p_value  = p.value              # p-value
+  )
+
+
+# 3) Extraer los meses con p < 0.05
+sig_months <- anova_by_month %>%
+   dplyr::filter(p_value < 0.05) %>%
+   dplyr::pull(month)
+
+# 4) Para cada mes significativo, ajustar ANOVA y hacer Tukey con emmeans
+tukey_results <- db_temp %>%
+   dplyr::filter(month %in% sig_months) %>%
+   dplyr::group_by(month) %>%
+  do({
+    fit   <- aov(temp_abr ~ year, data = .)
+    em    <- emmeans(fit, ~ year)
+    conts <- contrast(em, method = "pairwise", adjust = "tukey")
+    broom::tidy(conts)
+  }) %>%
+   dplyr::ungroup()
+
+# 5) Ver resultados
+print(tukey_results)
+
+```
+
+```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+# cargar todos los paquetes
+library(dplyr)
+library(agricolae)
+library(tibble)
+
+group_df <- lapply(sig_months, function(m) {
+  datm <- db_temp %>% filter(month == m)
+  fit  <- aov(temp_abr ~ year, data = datm)
+  hsd  <- HSD.test(fit, "year", group = TRUE)
+  
+  # convertir hsd$groups a data.frame y mover los rownames a columna
+  as.data.frame(hsd$groups) %>%
+    tibble::rownames_to_column(var = "year") %>%  # ahora sí existe
+    dplyr::rename(group = groups) %>%
+    dplyr::select(year, group) %>%
+    dplyr::mutate(month = m)
+}) %>% bind_rows()
 
 # Obtener las medias para los meses significativos
 
-medias_abril <- datos_unidos %>% 
-  filter(month == 4) %>% 
-  group_by(year) %>% 
-  summarise(Mean = mean(Mean))
+label_df <- datos_unidos2 %>%
+  dplyr::filter(month %in% sig_months) %>%
+  dplyr::group_by(month, year) %>%
+  dplyr::summarise(Mean = mean(Mean, na.rm = TRUE), .groups="drop") %>%
+  dplyr::left_join(group_df, by = c("month","year"))
 
-medias_junio <- datos_unidos %>% 
-  filter(month == 6) %>% 
-  group_by(year) %>% 
-  summarise(Mean = mean(Mean))
+palette <- c("#1F78B4","#B88DB4", "#B2DF8A","#FF7F00")
 
-medias_septiembre <- datos_unidos %>% 
-  filter(month == 9) %>% 
-  group_by(year) %>% 
-  summarise(Mean = mean(Mean))
-
-palette <- c("#1F78B4","#B88DB4",  "#B2DF8A")
 library(ggplot2)
 
-gg_month_mor_temp <- ggplot(datos_unidos, aes(x = month, y = Mean, color = year, fill = year, width = 1)) +
-    geom_point(size = 4) +
-    stat_summary(fun = "mean", size = 1.5, geom = "line") +
-    scale_color_manual(values = palette) +
-    scale_fill_manual(values = palette) +
-    labs(y = "Temperatura (°C)", x = "") +
-    theme_classic() +
-    theme(panel.grid.major.y = element_line(size = 0.05, color = 'black')) +
-    theme(panel.grid.major.x = element_blank()) +
-    theme(text = element_text(size = 35, color = 'black')) +
-    theme(axis.text = element_text(color = 'black')) +
-    theme(legend.position = "bottom") +
-    theme(legend.title = element_blank()) +
-    scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
-                                                 "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")) +
-    geom_hline(yintercept = 16.98, color = "#993427", linetype = "dotted", size = 1.8) +
-    geom_hline(yintercept = 17.9, color = "#1F78B4", linetype = "dashed", size = 1.5) +
-    geom_hline(yintercept = 17.5, color = "#B88DB4", linetype = "dashed", size = 1.5) +
-    geom_hline(yintercept = 17.4, color = "#B2DF8A", linetype = "dashed", size = 1.5) +
-    
-    # Añadir letras de significancia para cada año en abril
-    annotate("text", x = 4, y = medias_abril$Mean + c(0, 0, -2), label = c("a", "b", "b"), 
-             color = palette, size = 8, vjust = -1) +
-    # Añadir letras de significancia para cada año en junio
-    annotate("text", x = 6, y = medias_junio$Mean, label = c("b", "a", "a"), 
-             color = palette, size = 8, vjust = -1) +
-    # Añadir letras de significancia para cada año en septiembre
-    annotate("text", x = 9, y = medias_septiembre$Mean + c(0, 0, -2), 
-             color = palette, label = c("a", "b", "b"), size = 8, vjust = -1)
+# 1. Defino el plot base
+gg_month_mor_temp <- ggplot(datos_unidos2, aes(x = month, y = Mean, color = year, fill = year)) +
+  geom_point(size = 4) +
+  stat_summary(fun = "mean", size = 1.5, geom = "line") +
+  scale_color_manual(values = palette) +
+  scale_fill_manual(values = palette) +
+  labs(y = "Temperatura (°C)", x = "") +
+  theme_classic() +
+  theme(
+    panel.grid.major.y = element_line(size = 0.05, color = 'black'),
+    panel.grid.major.x = element_blank(),
+    text = element_text(size = 35, color = 'black'),
+    axis.text = element_text(color = 'black'),
+    legend.position = "bottom",
+    legend.title = element_blank()
+  ) +
+  scale_x_continuous(
+    breaks = 1:12,
+    labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
+               "Jul", "Ago", "Sep", "Oct", "Nov", "Dic")
+  ) +
+  geom_hline(yintercept = 16.98, color = "#993427", linetype = "dotted", size = 1.8) +
+  geom_hline(yintercept = 17.9,  color = "#1F78B4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 17.5,  color = "#B88DB4", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 17.4,  color = "#B2DF8A", linetype = "dashed", size = 1.5) +
+  geom_hline(yintercept = 17.7,  color = "#FF7F00", linetype = "dashed", size = 1.5)
 
-gg_month_mor_temp
+# 2. Luego, añado las letras de significancia
+gg_month_mor_temp <- gg_month_mor_temp +
+  geom_text(
+    data    = label_df,
+    aes(
+      x     = month,
+      y     = Mean + 0.25,    # ajusta este offset si hace falta
+      label = group,
+      color = year
+    ),
+    size  = 8,
+    vjust = -0.5
+  )
+
+# 3. Mostrar el gráfico
+print(gg_month_mor_temp)
 
 # # Guardar el gráfico como .TIFF con alta resolución
 # ggsave("gg_month_mor_temp", plot = gg_month_mor_temp, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
@@ -123,55 +466,123 @@ gg_month_mor_temp
 # c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 ```
-Líneas continuas indican las temperaturas mensuales medias (°C) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica la temperatura media anual histórica (serie 30 años). Las líneas discontinuas indican la temperatura media para cada año. Letras distintas indican diferencias significativas para los valores de un mismo mes (α = 0,05).
 
-**Gráfico de temperaturas mínimas y heladas**
+**Temperatura mínima y días con heladas**
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-#Create object "db_met_mor" which contains climate data
+# Create object "db_met_mor" which contains climate data
 db_hel_mor_i <- read_excel("database.xlsx", sheet = "II_M_heladas")
 
 db_hel_mor <- db_hel_mor_i %>% filter(!is.na(Heladas))
 
 db_hel_mor$year <- as.factor(db_hel_mor$year)
 
+library(dplyr)
+medias_anuales_min <- db_hel_mor #%>%
+  # dplyr::filter(year %in% c("2018", "2019", "2020"))
+
 # Calcular la media anual de la temperatura para los años especificados
-medias_anuales_min <- datos_unidos %>%
-  filter(year %in% c("2018", "2019", "2020")) %>%
-  group_by(year) %>%
-  summarise(Mean_Anual = mean(Mean_min))
+medias_anuales_min <- datos_unidos2 %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(Mean_Anual = mean(Mean_min))
 
 # Obtener las medias para los meses significativos
 
-medias_marzo <- datos_unidos %>% 
-  filter(month == 3) %>% 
-  group_by(year) %>% 
+medias_marzo <- datos_unidos2 %>%
+  dplyr::filter(month == 3) %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(Mean = mean(Mean_min))
+
+medias_abril <- datos_unidos2 %>%
+  filter(month == 4) %>%
+  group_by(year) %>%
   summarise(Mean = mean(Mean_min))
 
-medias_abril <- datos_unidos %>% 
-  filter(month == 4) %>% 
-  group_by(year) %>% 
+medias_mayo <- datos_unidos2 %>%
+  filter(month == 5) %>%
+  group_by(year) %>%
   summarise(Mean = mean(Mean_min))
 
-medias_mayo <- datos_unidos %>% 
-  filter(month == 5) %>% 
-  group_by(year) %>% 
+medias_junio <- datos_unidos2 %>%
+  filter(month == 6) %>%
+  group_by(year) %>%
   summarise(Mean = mean(Mean_min))
 
-medias_junio <- datos_unidos %>% 
-  filter(month == 6) %>% 
-  group_by(year) %>% 
+medias_septiembre <- datos_unidos2 %>%
+  filter(month == 9) %>%
+  group_by(year) %>%
   summarise(Mean = mean(Mean_min))
 
-medias_septiembre <- datos_unidos %>% 
-  filter(month == 9) %>% 
-  group_by(year) %>% 
-  summarise(Mean = mean(Mean_min))
+palette <- c("#1F78B4","#B88DB4", "#B2DF8A","#FF7F00")
 
-palette <- c("#1F78B4","#B88DB4",  "#B2DF8A")
+db_temp <- db_met_mor %>%
+  dplyr::mutate(
+    year         = factor(as.character(year)),
+    month        = factor(month, levels = as.character(1:12)),
+    temp_abr_min = as.numeric(temp_abr_min)
+  ) %>%
+  dplyr::filter(year %in% c("2018","2019","2020","2021"))
+
+# 4) ANOVA de temp_abr_min ~ year por cada mes → meses con p<0.05
+anova_by_month <- db_temp %>%
+  dplyr::group_by(month) %>%
+  do({
+    fit <- aov(temp_abr_min ~ year, data = .)
+    broom::tidy(fit) %>% dplyr::filter(term == "year")
+  }) %>%
+  dplyr::ungroup()
+
+sig_months_temp <- anova_by_month %>%
+  dplyr::filter(p.value < 0.05) %>%
+  dplyr::pull(month)
+
+# 5) Extraer letras HSD de agricolae para esos meses significativos
+get_letters_min <- function(df) {
+  fit <- aov(temp_abr_min ~ year, data = df)
+  hsd <- HSD.test(fit, "year", group = TRUE, console = FALSE)
+  as.data.frame(hsd$groups) %>%
+    tibble::rownames_to_column("year") %>%
+    dplyr::rename(group = groups)
+}
+
+group_df_min <- lapply(sig_months_temp, function(m) {
+  sub <- db_temp %>% filter(month == m)
+  letters <- get_letters_min(sub)
+  tibble::tibble(
+    month = factor(m, levels = as.character(1:12)),
+    year  = factor(letters$year, levels = c("2018","2019","2020","2021")),
+    group = letters$group
+  )
+}) %>% bind_rows()
+
+datos_unidos2$month <- factor(datos_unidos2$month, levels = 1:12)
+
+# 6) Prepara label_df_min uniendo medias con letras
+label_df_min <- datos_unidos2 %>%
+  dplyr::filter(month %in% sig_months_temp) %>%
+  dplyr::group_by(month, year) %>%
+  dplyr::summarise(
+    Mean_min = mean(Mean_min, na.rm = TRUE),
+    .groups  = "drop"
+  ) %>%
+  dplyr::left_join(group_df_min, by = c("month","year"))
+
+datos_unidos2 <- datos_unidos2 %>%
+  # Asegurarnos de que year y month son factores adecuados y temp_abr numérico
+  dplyr::mutate(
+    month    = as.numeric(month),
+  )
+
+label_df_min <- label_df_min %>%
+  # Asegurarnos de que year y month son factores adecuados y temp_abr numérico
+  dplyr::mutate(
+    month    = as.numeric(month),
+  )
+
 library(ggplot2)
-gg_month_mor_temp_min_0<-ggplot(datos_unidos, aes(x = month, y = Mean_min, color = year, fill = year, width = 1)) +
+gg_month_mor_temp_min_0<-ggplot(datos_unidos2, aes(x = month, y = Mean_min, color = year, fill = year)) +
     geom_point(size = 4) +
     stat_summary(fun = "mean", size = 1.5, geom = "line") +
     scale_color_manual(values = palette) +
@@ -191,37 +602,34 @@ gg_month_mor_temp_min_0<-ggplot(datos_unidos, aes(x = month, y = Mean_min, color
     geom_hline(yintercept = 12.5      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
     geom_hline(yintercept = 11.9     , color = "#B88DB4", linetype = "dashed", size = 1.5) +
     geom_hline(yintercept = 11.4  , color = "#B2DF8A", linetype = "dashed", size = 1.5)  +
-    
-    # Añadir letras de significancia para cada año en marzo
-    annotate("text", x = 3, y = medias_marzo$Mean + c(-2.8, -1, 2), label = c("b", "b", "a"), 
-             color = palette, size = 8, vjust = -1) +
-    # Añadir letras de significancia para cada año en abril
-    annotate("text", x = 4, y = medias_abril$Mean + c(3.4, -1.2, -3.4), label = c("a", "b", "b"), 
-             color = palette, size = 8, vjust = -1) +
-    # Añadir letras de significancia para cada año en mayo
-    annotate("text", x = 5, y = medias_mayo$Mean + c(2.4,-0.5, -2.8), label = c("a", "ab", "b"), 
-             color = palette, size = 8, vjust = -1) +
-    # Añadir letras de significancia para cada año en junio
-    annotate("text", x = 6, y = medias_junio$Mean + c(-3.7,2.2, -0.2), label = c("b", "a", "a"), 
-             color = palette, size = 8, vjust = -1) +
-    # Añadir letras de significancia para cada año en septiembre
-    annotate("text", x = 9, y = medias_septiembre$Mean + c(3.4, -1, -3.4), label = c("a", "b", "b"), 
-             color = palette, size = 8, vjust = -1)
+    geom_hline(yintercept = 12.0  , color = "#FF7F00", linetype = "dashed", size = 1.5)  +
+  # b) Letras HSD para temp_min
+  geom_text(
+    data = label_df_min,
+    aes(x = month, y = Mean_min + 0.25, label = group, color = year),
+    size = 6,
+    vjust = -0.5
+  ) 
 
 heladas_junio <- db_hel_mor %>%
-  filter(month == 6) %>%
-  group_by(year) %>%
-  summarise(Heladas = max(Heladas, na.rm = TRUE))
+  dplyr::filter(month == 6) %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(Heladas = max(Heladas, na.rm = TRUE))
 
 heladas_julio <- db_hel_mor %>%
-  filter(month == 7) %>%
-  group_by(year) %>%
-  summarise(Heladas = max(Heladas, na.rm = TRUE))
+  dplyr::filter(month == 7) %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(Heladas = max(Heladas, na.rm = TRUE))
+
+heladas_agosto <- db_hel_mor %>%
+  dplyr::filter(month == 8) %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(Heladas = max(Heladas, na.rm = TRUE))
 
 heladas_septiembre <- db_hel_mor %>%
-  filter(month == 9) %>%
-  group_by(year) %>%
-  summarise(Heladas = max(Heladas, na.rm = TRUE))
+  dplyr::filter(month == 9) %>%
+  dplyr::group_by(year) %>%
+  dplyr::summarise(Heladas = max(Heladas, na.rm = TRUE))
 
 # Ajustar la posición x para que coincida con las barras esquivadas
 dodge_width <- 0.8  # El mismo valor que usas en position_dodge para las barras
@@ -238,15 +646,15 @@ get_x_positions <- function(month) {
 
 # Definir las etiquetas y colores por año y mes
 labels <- list(
-  c("a", "b", "b"),  # Junio
-  c("c", "b", "a"),  # Julio
-  c("b", "a", "a")   # Septiembre
+  c("a", "b", "b","b"),  # Junio
+  c("c", "b", "a","b"),  # Julio
+  c("b", "a", "a","b")   # Septiembre
 )
 
 list_x <- list(c(get_x_positions(6), get_x_positions(7), get_x_positions(9)))
-list_y <- list(c((heladas_junio$Heladas) + c(0, -3, -2),
-                 (heladas_julio$Heladas) + c(-7, -5, 0),
-                 (heladas_septiembre$Heladas) + c(-1, 0, 0)) + 0.5)
+list_y <- list(c((heladas_junio$Heladas) + c(0, -3, -2, 0),
+                 (heladas_julio$Heladas) + c(-7, -5, 0, 0),
+                 (heladas_septiembre$Heladas) + c(-1, 0, 0, 0)) + 0.5)
 
 # # Añadir las anotaciones considerando las posiciones esquivadas
 gg_month_mor_temp_min <- gg_month_mor_temp_min_0 +
@@ -254,37 +662,141 @@ gg_month_mor_temp_min <- gg_month_mor_temp_min_0 +
            aes(x = month, y = Heladas, fill = year),
            stat = "identity",
            alpha = 0.5,
-           position = position_dodge(width = 0.8),
-           width = 0.7) +
-
-  scale_y_continuous(
-    name = "Temperatura (°C)",
-    sec.axis = sec_axis(~ ., name = "Días con heladas"),
-    limits = c(0, 21),
-    expand = c(0, 0)
+           position = position_dodge(width = 0.8)
   ) +
 
-  # Añadir letras de significancia para cada año en las barras de heladas
-  annotate("text",
-           x = unlist(list_x),
-           y = unlist(list_y),
-           label = unlist(labels),
-           color = "black",  # Cambia el color a negro para todas las letras
-           size = 8,
-           vjust = 0)
+scale_y_continuous(
+#     name = "Temperatura (°C)",
+    limits = c(0, max(max(datos_unidos2$Mean_min, na.rm = TRUE), max(db_hel_mor$Heladas, na.rm = TRUE) * 2) * 1.1),
+#     expand = c(0, 0)
+  ) #+
+
+  # # Añadir letras de significancia para cada año en las barras de heladas
+  # annotate("text",
+  #          x = unlist(list_x),
+  #          y = unlist(list_y),
+  #          label = unlist(labels),
+  #          color = "black",  # Cambia el color a negro para todas las letras
+  #          size = 8,
+  #          vjust = 0)
 
 gg_month_mor_temp_min
 
-# ggsave("gg_month_mor_temp_min", plot = gg_month_mor_temp_min, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
 
 ```
-Líneas continuas indican las temperaturas mensuales mínimas (°C) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica la temperatura mínima anual histórica (serie 30 años). Las líneas discontinuas indican la temperatura mínima para cada año Letras distintas indican diferencias significativas para los valores de un mismo mes. Letras distintas indican diferencias significativas, en color para temperaturas mínimas y letras negras para total de días con helada (α = 0,05).
 
 **Gráfico de precipitaciones mensuales acumuladas**
+
 ```{r, echo=FALSE, error=TRUE, fig.align='center', fig.asp=0.4, fig.width=16, fig.height=12}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
 
-gg_month_mor_pp<-ggplot(datos_unidos, aes(x = month, y = Mean_pp, color = year, fill = year, width = 0.8)) +
+library(dplyr)
+library(glmmTMB)
+library(emmeans)
+
+# 1) Preparo datos
+db_prec2 <- db_met_mor %>%
+  dplyr::mutate(
+    year    = factor(as.character(year)),
+    month   = factor(month, levels = 1:12),
+    pp_pluv = as.numeric(pp_pluv)
+  ) %>%
+  dplyr::filter(year %in% c("2018","2019","2020","2021"))
+
+db_prec2_acum <- db_prec2 %>%
+  dplyr::group_by(year, month) %>%
+    dplyr::summarise(acum = sum(pp_pluv))
+
+# 2) Ajusto un modelo Tweedie (ceros + continuo)
+mod_tweedie <- glmmTMB(
+  pp_pluv ~ month * year, 
+  family   = tweedie(link = "log"), 
+  data     = db_prec2
+)
+
+# 3) Extraigo con emmeans las medias ajustadas de pp_pluv por año DADO cada mes
+emm <- emmeans(mod_tweedie, ~ year | month, type = "response")
+
+# 4) Calculo comparaciones por pares (Tukey) para cada mes
+pairs_by_month <- pairs(emm, adjust = "tukey")
+
+# convierte directamente a data.frame el objeto emmGrid
+df_pairs <- as.data.frame(pairs_by_month)
+
+# ahora selecciona las que necesitas
+binom_tests <- df_pairs %>%
+  dplyr::select(month, contrast, p.value) %>%
+  dplyr::arrange(month)
+
+# Resultado: para cada mes (1–12) y cada par de años, el p-value de Tukey
+print(binom_tests)
+
+sig_months <- binom_tests %>% 
+  dplyr::filter(p.value < 0.05) %>%
+  pull(month) %>%
+  unique()
+
+# 1) Prepara la tabla de totales mensuales por año
+monthly_totals <- db_prec2 %>%
+  dplyr::group_by(year, month) %>%
+  dplyr::summarise(
+    total_rain = sum(pp_pluv, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+library(dplyr)
+library(tibble)
+
+# 1) Definir los meses que resultaron significativos
+sig_months <- c(4, 5, 6, 7, 10, 12)
+
+# 2) Crear a mano el esquema de letras según los p-values de binom_tests
+#    Cada bloque de 4 corresponde a los años 2018, 2019, 2020 y 2021, en ese orden.
+group_df_pp <- tibble::tibble(
+  month = rep(sig_months, each = 4),
+  year  = factor(rep(c("2018","2019","2020","2021"), times = length(sig_months)),
+                 levels = c("2018","2019","2020","2021")),
+  group = c(
+    # mes 4:
+    "a","b","ab","ab",
+    # mes 5:
+    "a","ab","b","a",
+    # mes 6:
+    "b","a","ab","b",
+    # mes 7:
+    "ab","a","b","ab",
+    # mes 10:
+    "ab","a","ab","b",
+    # mes 12:
+    "a","ab","b","c"
+  )
+)
+
+# 3) Calcular la precipitación media diaria por mes/año
+monthly_mean <- db_prec2 %>%
+  # 1) filtrar únicamente los meses de interés
+  dplyr::filter(month %in% sig_months) %>%
+  # 2) agrupar por año y mes
+  dplyr::group_by(year, month) %>%
+  # 3) sumar toda la lluvia de ese mes
+  dplyr::summarise(
+    total_pp = sum(pp_pluv, na.rm = TRUE),
+    .groups  = "drop"
+  )
+group_df_pp$month <- as.factor(group_df_pp$month)
+
+# 4) Unir la media a nuestro table de grupos
+group_df_pp <- group_df_pp %>%
+  dplyr::left_join(monthly_mean, by = c("year","month"))
+
+group_df_pp <- group_df_pp %>%
+  dplyr::mutate(
+    month = as.numeric(as.character(month))
+  )
+
+palette <- c("#1F78B4","#B88DB4", "#B2DF8A","#FF7F00")
+
+gg_month_mor_pp_4y2<-ggplot(datos_unidos2, aes(x = month, y = Mean_pp, color = year, fill = year, width = 0.8)) +
     stat_summary(aes(y = Mean_pp), fun = "mean", size = .2, geom = "bar", position = position_dodge(0.8), color = "blue") +
     geom_errorbar(aes(ymin = Mean_pp - sd_pp, ymax = Mean_pp + sd_pp), width = .4, position = position_dodge(0.8), color = "black") +
     scale_color_manual(values = palette) +
@@ -301,13 +813,41 @@ gg_month_mor_pp<-ggplot(datos_unidos, aes(x = month, y = Mean_pp, color = year, 
     scale_x_continuous(breaks = 1:12, labels = c("Ene", "Feb", "Mar", "Abr", "May", "Jun",
                                                  "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"))+
     geom_hline(yintercept = 84, color = "#993427", linetype = 3, size = 1.8)+
-   geom_hline(yintercept = 98.5      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
-   geom_hline(yintercept = 84.5     , color = "#B88DB4", linetype = "dashed", size = 1.5) +
-   geom_hline(yintercept = 57.3  , color = "#B2DF8A", linetype = "dashed", size = 1.5)
+    geom_hline(yintercept = 98.5      , color = "#1F78B4", linetype = "dashed", size = 1.5) +
+    geom_hline(yintercept = 84.5     , color = "#B88DB4", linetype = "dashed", size = 1.5) +
+    geom_hline(yintercept = 57.3  , color = "#B2DF8A", linetype = "dashed", size = 1.5)+
+    geom_hline(yintercept = 62.5     , color = "#FF7F00", linetype = "dashed", size = 1.5)
 
-gg_month_mor_pp
+gg_month_mor_pp_4y <- gg_month_mor_pp_4y2 +
+  geom_text(
+    data = group_df_pp,
+    aes(
+      x     = month + 0.08,                     # mes
+      y     = total_pp + 3,               # pp_pluv + offset para que no tape la barra
+      label = group,                     # letra de agrupamiento
+      color = year                       # color por año
+    ),
+    position = position_dodge(width = 0.8),
+    vjust    = 0,
+    size     = 6
+  )
 
-# ggsave("gg_month_mor_pp", plot = gg_month_mor_pp, device = "tiff", width = 16, height = 8, units = "in", dpi = 300)
+print(gg_month_mor_pp_4y)
+
+
+# ggsave("gg_month_mor_pp_4y", plot = gg_month_mor_pp_4y, device = "tiff", width = 15, height = 9, units = "in", dpi = 300)
 
 ```
-Las barras indican las precipitaciones acumuladas mensuales (mm) para los años 2018 a 2020 en la localidad de Moreno, Buenos Aires, Argentina. La línea roja punteada indica a precipitación media mensual histórica (serie 30 años), coincidente con la media del 2019. Las líneas discontinuas indican la precipitación acumulada mensual media para cada año.
+
+```{r, echo=FALSE, fig.align='center', fig.asp=0.4, fig.width=10, fig.height=8}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, echo = FALSE)
+
+
+
+```
+
+
+
+
+
+
